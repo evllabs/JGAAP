@@ -1,0 +1,27 @@
+To run JGAAP in Windows, click on the jgaap.jar file in the bin directory.
+
+On Unix-based systems, or from the Windows command-line, you can also run:
+
+java -jar jgaap.jar
+
+from the bin directory.
+
+
+JGAAP also has a command line mode.  You can see the command 
+line options by running:
+
+java -jar jgaap.jar help
+
+from the bin directory.  
+
+
+JGAAP also comes with a compile script in the src/ directory.  To compile
+the system, simply:
+
+cd src
+./compile
+
+
+JGAAP can also be run from the src directory with:
+
+./jgaap
