@@ -285,11 +285,8 @@ public class Document extends Parameterizable {
      * the document one by one, in the same order they were added.
      */
     public void processCanonicizers(){
-    	System.out.println("rawtext");
-		System.out.println(Arrays.toString(rawText.toArray()));
     	procText = new ArrayList<Character>();
 		procText.addAll(rawText);
-		System.out.println(Arrays.toString(procText.toArray()));
 		if(jgaapConstants.globalObjects.containsKey("language")){
 			Language language = (Language) jgaapConstants.globalObjects.get("language");
 			if(language.isParseable())
