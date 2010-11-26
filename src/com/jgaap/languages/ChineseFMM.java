@@ -36,4 +36,7 @@ public class ChineseFMM extends Language {
 		return parsedDocument;
 	}
 
+	public boolean showInGUI() {
+		return true;
+	}
 }

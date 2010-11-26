@@ -27,7 +27,7 @@ import java.util.List;
  * @author unknown
  * @since 1.0
  */
-public abstract class Canonicizer extends Parameterizable implements Comparable<Canonicizer> {
+public abstract class Canonicizer extends Parameterizable implements Comparable<Canonicizer>, Displayable {
 	
 	/**
 	 * Simple method to return the display name of this Canonicizer, to be used in the GUI.

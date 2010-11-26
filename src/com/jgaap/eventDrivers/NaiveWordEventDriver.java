@@ -44,15 +44,15 @@ public class NaiveWordEventDriver extends EventDriver {
 
  
     @Override
-    public EventSet createEventSet(Document ds) {
-        EventSet es = new EventSet(ds.getAuthor());
+    public EventSet createEventSet(Document doc) {
+        EventSet es = new EventSet(doc.getAuthor());
         //for (int i = 0; i < ds.documentCount(); i++) {
-            String current = ds.stringify();
+            String current = doc.stringify();
             // \s is shorthand for whitespace, remember the \\ to get the \
-            String[] result = current.split("\\s");
+            String[] result = current.split("\\s+");
             for (int j = 0; j < result.length; j++) {
                 if (result[j].length() > 0) {
-                    es.events.add(new Event(result[j]));
+                    es.addEvent(new Event(result[j]));
                 }
             }
             // mark edges between documents

@@ -53,9 +53,9 @@ public class CharacterTriGramEventDriverTest {
 		tmp.add(new Event("vwx"));
 		tmp.add(new Event("wxy"));
 		tmp.add(new Event("xyz"));
-		expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event("yz "));
-		expectedEventSet.events.add(new Event("z ."));
+		expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event("yz "));
+		expectedEventSet.addEvent(new Event("z ."));
 		
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		

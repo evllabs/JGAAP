@@ -72,7 +72,7 @@ public class V34LetterWordEventDriverTest {
 		tmp.add(new Event("YYYY"));
 
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 }

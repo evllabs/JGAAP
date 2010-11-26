@@ -59,7 +59,7 @@ public class NaiveWordEventDriverTest {
 		tmp.add(new Event("he"));
 		tmp.add(new Event("grumbled."));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 

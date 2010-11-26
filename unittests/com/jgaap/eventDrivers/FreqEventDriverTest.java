@@ -56,7 +56,7 @@ public class FreqEventDriverTest {
 		tmp.add(new Event("5.75"));
 		tmp.add(new Event("7.48"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 //System.out.println("Expected is " + expectedEventSet.toString());
 //System.out.println("Actual is " + sampleEventSet.toString());

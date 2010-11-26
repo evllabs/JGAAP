@@ -25,7 +25,6 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -54,14 +53,13 @@ public class guiMenuBar extends JMenuBar implements ActionListener {
 	private JMenu menuFile;
 	private JMenuItem menuFileExit;
 	private JMenuItem menuFileLoad;
-	private JMenuItem menuFileSaveCorpus;
+	private JMenuItem menuFileSaveKnown;
 	private JMenuItem menuFileSaveUnknown;
 	private JMenuItem menuFileSaveAll;
 	private JMenu menuFileLanguage;
 	private ButtonGroup menuFileLanguageSelection;
 	private JRadioButtonMenuItem[] menuFileLanguageOptions;
 	private Vector<Language> languages;
-	private JCheckBoxMenuItem menuFileAuthorDistance;
 	private JMenu menuDemos;
 	private Vector<JMenuItem> menuItemDemos = new Vector<JMenuItem>();
 	private JMenu menuHelp;
@@ -122,8 +120,8 @@ public class guiMenuBar extends JMenuBar implements ActionListener {
 		// -- Instantiate Menus and MenuItems --
 		// -------------------------------------
 		menuFile = new JMenu("File");
-		menuFileLoad = new JMenuItem("Load");
-		menuFileSaveCorpus = new JMenuItem("Save Corpus");
+		menuFileLoad = new JMenuItem("Load CSV");
+		menuFileSaveKnown = new JMenuItem("Save Known");
 		menuFileSaveAll = new JMenuItem("Save All");
 		menuFileSaveUnknown = new JMenuItem("Save Unknown");
 		menuFileLanguage = new JMenu("Language");
@@ -131,7 +129,6 @@ public class guiMenuBar extends JMenuBar implements ActionListener {
 		languages = new Vector<Language>();
 		languages.addAll(AutoPopulate.getLanguages());
 		menuFileLanguageOptions = new JRadioButtonMenuItem[languages.size()];
-		menuFileAuthorDistance = new JCheckBoxMenuItem("Author Distance");
 		menuFileExit = new JMenuItem("Exit");
 		menuDemos = new JMenu("Demos");
 		for (String demoName : DEMO_NAMES) {
@@ -148,8 +145,8 @@ public class guiMenuBar extends JMenuBar implements ActionListener {
 		// -- File Menu --
 		menuFileLoad.addActionListener(this);
 		menuFile.add(menuFileLoad);
-		menuFileSaveCorpus.addActionListener(this);
-		menuFile.add(menuFileSaveCorpus);
+		menuFileSaveKnown.addActionListener(this);
+		menuFile.add(menuFileSaveKnown);
 		menuFileSaveUnknown.addActionListener(this);
 		menuFile.add(menuFileSaveUnknown);
 		menuFileSaveAll.addActionListener(this);
@@ -167,7 +164,6 @@ public class guiMenuBar extends JMenuBar implements ActionListener {
 			l++;
 		}
 		// -- END Language Sub-Menu --
-		menuFile.add(menuFileAuthorDistance);
 		menuFileExit.addActionListener(this);
 		menuFile.add(menuFileExit);
 		this.add(menuFile); // Add this Menu to the Menu Bar
@@ -194,7 +190,7 @@ public class guiMenuBar extends JMenuBar implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		String command = e.getActionCommand();
-
+		
 		if (src == menuFileExit) {
 			System.exit(0);
 		}
@@ -211,11 +207,6 @@ public class guiMenuBar extends JMenuBar implements ActionListener {
 
 		if (e.getActionCommand().startsWith("demo")) {
 			theGUI.loadDemo(e.getActionCommand().substring(4));
-		}
-
-		if (command.startsWith("Save")) {
-			System.out.println(command + ":");
-			theGUI.saveFiles(command);
 		}
 
 		if (src == menuFileLoad) {
@@ -235,15 +226,14 @@ public class guiMenuBar extends JMenuBar implements ActionListener {
 				System.out.println("User canceled load.");
 			}
 		}
+		if (command.startsWith("Save")) {
+			System.out.println(command + ":");
+			theGUI.saveDocuments(command);
+		}
 	}
 
 	public String getSelectedLanguage() {
 		String selected = this.menuFileLanguageSelection.getSelection().getActionCommand();
 		return selected;
 	}
-	
-	public boolean getAuthorDistance(){
-		return menuFileAuthorDistance.getState();
-	}
-
 }

@@ -52,7 +52,7 @@ public class BlackListEventDriverTest {
 		tmp.add(new Event("water"));
 		tmp.add(new Event("spout."));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 System.out.println(expectedEventSet.toString());
 System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));

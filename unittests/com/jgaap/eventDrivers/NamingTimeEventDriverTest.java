@@ -57,7 +57,7 @@ public class NamingTimeEventDriverTest {
 		tmp.add(new Event("756.00"));
 		tmp.add(new Event("822.64"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 // System.out.println("Expected is " + expectedEventSet.toString());/
 // System.out.println("Actual is " + sampleEventSet.toString());

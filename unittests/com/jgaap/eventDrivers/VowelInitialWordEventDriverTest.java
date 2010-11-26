@@ -53,7 +53,7 @@ public class VowelInitialWordEventDriverTest {
 		tmp.add(new Event("Uniform"));
 		tmp.add(new Event("Yankee"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 }

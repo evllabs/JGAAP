@@ -89,7 +89,7 @@ public class WordSyllablesEventDriverTest {
 		tmp.add(new Event("1"));
 		tmp.add(new Event("2"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 

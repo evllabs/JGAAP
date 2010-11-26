@@ -40,7 +40,7 @@ public class DisLegomenaEventDriverTest {
 	    Vector<Event> tmp = new Vector<Event>();
 	    tmp.add(new Event("The"));
 	    tmp.add(new Event("The"));
-	     expectedSet.events.addAll(tmp);
+	     expectedSet.addEvents(tmp);
 	     
 		    assertTrue(expectedSet.equals(sampleSet));
 		    }

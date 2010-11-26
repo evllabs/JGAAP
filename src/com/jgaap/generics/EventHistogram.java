@@ -29,21 +29,6 @@ import java.util.Hashtable;
  */
 public class EventHistogram {
 
-/*   We shouldn't need these, surely -- PMJ 
-
-	public String displayName(){
-	    return "EventHistogram ";
-	}
-
-	public String tooltipText(){
-	    return " ";
-	}
-
-	public boolean showInGUI(){
-	    return false;
-	}
-*/
-
     /** The Hashtable storing the histogram of interest */
     private Hashtable<Event, Integer> theHist;
     /**

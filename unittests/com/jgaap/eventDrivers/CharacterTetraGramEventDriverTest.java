@@ -53,8 +53,8 @@ public class CharacterTetraGramEventDriverTest {
 		tmp.add(new Event("vwxy"));
 		tmp.add(new Event("wxyz"));
 		tmp.add(new Event("xyz "));
-		expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event("yz ."));
+		expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event("yz ."));
 		
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		

@@ -54,10 +54,10 @@ public class CharacterBiGramEventDriverTest {
 		tmp.add(new Event("wx"));
 		tmp.add(new Event("xy"));
 		tmp.add(new Event("yz"));
-		expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event("z "));
-		//expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event(" ."));
+		expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event("z "));
+		//expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event(" ."));
 // System.out.println(expectedEventSet.toString());
 // System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));

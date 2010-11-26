@@ -224,7 +224,7 @@ public class LDA extends AnalysisDriver {
      * functions.
      */
     public double [] getClassification(double[] data) {
-        int max = 0;
+        //int max = 0;
         double endResults[] = new double[numGroups];
         double[][] newData = new double[1][data.length];
         for (int i = 0; i < data.length; i++) {

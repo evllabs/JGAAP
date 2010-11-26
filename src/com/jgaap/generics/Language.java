@@ -20,7 +20,7 @@ import com.jgaap.jgaapConstants;
  * @author Michael Ryan
  * 
  */
-public abstract class Language implements Comparable<Language> {
+public abstract class Language implements Comparable<Language>, Displayable {
 	private String name = "Generic";
 	private String language = "generic";
 	private String charset = "";
@@ -80,6 +80,14 @@ public abstract class Language implements Comparable<Language> {
 		return name;
 	}
 
+	public String displayName(){
+		return getName();
+	}
+	
+	public String tooltipText(){
+		return "";
+	}
+	
 	public void setParseable(Boolean parseable) {
 		this.parseable = parseable;
 	}

@@ -55,7 +55,7 @@ public class WordBiGramEventDriverTest {
 		tmp.add(new Event("(sure)-(to)"));
 		tmp.add(new Event("(to)-(go.)"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 //System.out.println(expectedEventSet.toString());
 //System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));

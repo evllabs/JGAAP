@@ -39,7 +39,7 @@ public class PCATest {
 		test1.add(new Event("white"));
 		test1.add(new Event("as"));
 		test1.add(new Event("snow."));
-		known1.events.addAll(test1);
+		known1.addEvents(test1);
 		known1.setAuthor("Mary");
 		
 		
@@ -52,7 +52,7 @@ public class PCATest {
 		test2.add(new Event("of"));
 		test2.add(new Event("pickled"));
 		test2.add(new Event("peppers."));
-		known2.events.addAll(test2);
+		known2.addEvents(test2);
 		known2.setAuthor("Peter");
 		
 		Vector<Event> test3 = new Vector<Event>();
@@ -67,7 +67,7 @@ public class PCATest {
 		test3.add(new Event("white"));
 		test3.add(new Event("as"));
 		test3.add(new Event("snow."));
-		unknown.events.addAll(test3);
+		unknown.addEvents(test3);
 		
 		Vector <EventSet> esv = new Vector<EventSet>();
 		esv.add(known1);

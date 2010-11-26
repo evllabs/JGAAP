@@ -79,7 +79,7 @@ public class PartOfSpeechEventDriverTest {
 		    tmp.add(new Event("NN"));
 		    
 
-		     expectedSet.events.addAll(tmp);
+		     expectedSet.addEvents(tmp);
 		     
 		     for(int i=0; i<sampleSet.size(); i++)
 			    {

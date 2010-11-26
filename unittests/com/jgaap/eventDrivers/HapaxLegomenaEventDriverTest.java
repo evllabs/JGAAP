@@ -46,7 +46,7 @@ public class HapaxLegomenaEventDriverTest {
 	    tmp.add(new Event("Lazy"));
 	    tmp.add(new Event("Dog"));
 
-	     expectedSet.events.addAll(tmp);
+	     expectedSet.addEvents(tmp);
 	     
 		    assertTrue(expectedSet.equals(sampleSet));
 		    }

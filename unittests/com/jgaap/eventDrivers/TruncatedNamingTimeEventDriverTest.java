@@ -56,7 +56,7 @@ public class TruncatedNamingTimeEventDriverTest {
 		tmp.add(new Event("75"));
 		tmp.add(new Event("82"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 // System.out.println("Expected is " + expectedEventSet.toString());
 // System.out.println("Actual is " + sampleEventSet.toString());

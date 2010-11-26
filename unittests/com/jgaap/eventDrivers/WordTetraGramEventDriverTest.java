@@ -39,7 +39,7 @@ public class WordTetraGramEventDriverTest {
 		tmp.add(new Event("(Its)-(fleece)-(was)-(white)"));
 		tmp.add(new Event("(fleece)-(was)-(white)-(as)"));
 		tmp.add(new Event("(was)-(white)-(as)-(snow.)"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		
 	}

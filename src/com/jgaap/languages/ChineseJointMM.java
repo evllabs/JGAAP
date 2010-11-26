@@ -36,5 +36,9 @@ public class ChineseJointMM extends Language {
 		}
 		return parsedDocument;
 	}
+	
+	public boolean showInGUI() {
+		return true;
+	}
 
 }

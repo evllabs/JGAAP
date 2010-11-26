@@ -17,6 +17,7 @@
  **/
 package com.jgaap.generics;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -25,22 +26,10 @@ import java.util.Vector;
  *  In JGAAP, an "event" is a token or feature that will be extracted from the 
  *  document as an atomic unit.
  */
-public class EventSet {
-
-	public String displayName(){
-	    return "EventSet";
-	}
-
-	public String tooltipText(){
-	    return " ";
-	}
-
-	public boolean showInGUI(){
-	    return false;
-	}
+public class EventSet implements Iterable<Event> {
 
     /** Events are currently stored as a Vector of Events */
-    public Vector<Event> events      = new Vector<Event>();
+    private Vector<Event> events      = new Vector<Event>();
     /** The author, if any, is stored as a String. May be null. */
     private String       author;
     /** Name of document from which Events were derived. */
@@ -85,6 +74,18 @@ public class EventSet {
      */
     public Event eventAt(int index) {
         return events.get(index);
+    }
+    
+    public void addEvent(Event event){
+    	events.add(event);
+    }
+    
+    public void addEvents(List<Event> events){
+    	this.events.addAll(events);
+    }
+    
+    public boolean removeEvent(Event event){
+    	return events.remove(event);
     }
 
     /** return the Author associated with any EventSet */
@@ -178,4 +179,9 @@ public class EventSet {
 		}
     	return false;
     }
+
+	@Override
+	public Iterator<Event> iterator() {
+		return events.iterator();
+	}
 }

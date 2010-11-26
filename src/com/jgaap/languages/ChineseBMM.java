@@ -7,13 +7,10 @@ import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Language;
 
 import WordSegment.*;
-
 /**
- * 
  * A Chinese representation that uses GB2123 and backwards word matching.
  * 
  * @author Michael Ryan
- *
  */
 public class ChineseBMM extends Language {
 
@@ -34,6 +31,11 @@ public class ChineseBMM extends Language {
 			}
 		}
 		return parsedDocument;
+	}
+
+	@Override
+	public boolean showInGUI() {
+		return true;
 	}
 
 }

@@ -44,7 +44,7 @@ public class HDLegomenaEventDriverTest {
 	    tmp.add(new Event("over"));
 	    tmp.add(new Event("the"));
 	    tmp.add(new Event("candlestick."));
-	    expectedSet.events.addAll(tmp);     
+	    expectedSet.addEvents(tmp);     
 	    assertTrue(expectedSet.equals(sampleSet));
 	    }
 }

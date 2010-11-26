@@ -62,7 +62,7 @@ public class TruncatedEventDriverTest {
 		tmp.add(new Event("he"));
 		tmp.add(new Event("gru"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 //System.out.println("Expected is " +expectedEventSet.events.toString());
 //System.out.println("Actual is " +sampleEventSet.events.toString());

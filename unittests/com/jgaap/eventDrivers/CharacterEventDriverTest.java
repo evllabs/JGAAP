@@ -55,10 +55,10 @@ public class CharacterEventDriverTest {
 		tmp.add(new Event("x"));
 		tmp.add(new Event("y"));
 		tmp.add(new Event("z"));
-		expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event(" "));
-		expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event("."));
+		expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event(" "));
+		expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event("."));
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		
 	}

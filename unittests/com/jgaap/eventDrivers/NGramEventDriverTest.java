@@ -36,7 +36,7 @@ public class NGramEventDriverTest {
 		
 		
 		
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		
 //System.out.println(expectedEventSet.toString());
 //System.out.println(sampleEventSet.toString());

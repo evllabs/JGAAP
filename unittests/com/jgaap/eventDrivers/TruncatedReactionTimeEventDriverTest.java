@@ -56,7 +56,7 @@ public class TruncatedReactionTimeEventDriverTest {
 		tmp.add(new Event("84"));
 		tmp.add(new Event("76"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 // System.out.println("Expected is " + expectedEventSet.toString());
 // System.out.println("Actual is " + sampleEventSet.toString());

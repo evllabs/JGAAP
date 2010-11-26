@@ -18,7 +18,6 @@
 package com.jgaap.classifiers;
 
 import java.util.List;
-import java.util.Vector;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventSet;
@@ -57,8 +56,4 @@ public class NullAnalysis extends AnalysisDriver {
         return "No analysis performed.\n";
     }
 
-    @Override
-    public String analyzeAverage(EventSet u, Vector<EventSet> k) {
-        return analyze(u, k);
-    }
 }

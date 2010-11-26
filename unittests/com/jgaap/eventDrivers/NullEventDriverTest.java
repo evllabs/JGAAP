@@ -43,7 +43,7 @@ public class NullEventDriverTest{
 				   "for me the lexicons full weight\n"+
 				   "if nature gain who can complain\n"+
 			           "tho dr johnson fulminate"));
-	     expectedEventSet.events.addAll(tmp);
+	     expectedEventSet.addEvents(tmp);
 	     assertTrue(expectedEventSet.equals(sampleEventSet));
 
 	     /*null case would be covered by the spaces in the above test*/

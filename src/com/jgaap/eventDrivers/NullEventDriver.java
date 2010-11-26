@@ -46,8 +46,8 @@ public class NullEventDriver extends EventDriver {
     }
 
     @Override
-    public EventSet createEventSet(Document ds) {
-        EventSet es = new EventSet(ds.getAuthor());
+    public EventSet createEventSet(Document doc) {
+        EventSet es = new EventSet(doc.getAuthor());
 
         // again, use logging facilities when they exist
         //System.out.println(ds.getDocument(0).getAuthor());
@@ -57,7 +57,7 @@ public class NullEventDriver extends EventDriver {
 	    // System.out.println("--- Document #" + i + " --- ");
 	    // System.out.println(ds.getDocument(i).stringify());
 
-            es.events.add(new Event(ds.stringify()));
+            es.addEvent(new Event(doc.stringify()));
         //}
 
         return es;

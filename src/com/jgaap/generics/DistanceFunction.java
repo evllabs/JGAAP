@@ -22,7 +22,7 @@ package com.jgaap.generics;
  * variations of nearest-neighbor algorihms.
  * 
  */
-abstract public class DistanceFunction implements Comparable<DistanceFunction>{
+abstract public class DistanceFunction extends Parameterizable implements Comparable<DistanceFunction>, Displayable{
 
 	public abstract String displayName();
 	

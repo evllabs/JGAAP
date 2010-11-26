@@ -163,7 +163,8 @@ public class AutoPopulate {
     }
     
     
-    public static List<Canonicizer> getCanonicizers(){
+    @SuppressWarnings("unchecked")
+	public static List<Canonicizer> getCanonicizers(){
     	List<Canonicizer> canonicizers = new ArrayList<Canonicizer>();
     	if(jgaapConstants.globalObjects.containsKey("canonicizers")){
     		canonicizers.addAll( (List<Canonicizer>) jgaapConstants.globalObjects.get("canonicizers"));
@@ -182,7 +183,8 @@ public class AutoPopulate {
     
     
  // Load the event drivers dynamically
-    public static List<EventDriver> getEventDrivers(){
+    @SuppressWarnings("unchecked")
+	public static List<EventDriver> getEventDrivers(){
 		List<EventDriver> eventDrivers;
     	if(jgaapConstants.globalObjects.containsKey("eventDrivers")){
     		eventDrivers = (List<EventDriver>) jgaapConstants.globalObjects.get("eventDrivers");
@@ -198,7 +200,8 @@ public class AutoPopulate {
     	}
 		return eventDrivers;
     }
-    public static List<DistanceFunction> getDistanceFunctions(){
+    @SuppressWarnings("unchecked")
+	public static List<DistanceFunction> getDistanceFunctions(){
 		// Load the distance functions dynamically
     	List<DistanceFunction> distances;
     	if(jgaapConstants.globalObjects.containsKey("distances")){
@@ -215,7 +218,8 @@ public class AutoPopulate {
     	}
     	return distances;
     }
-    public static List<AnalysisDriver> getAnalysisDrivers(){
+    @SuppressWarnings("unchecked")
+	public static List<AnalysisDriver> getAnalysisDrivers(){
 	// Load the classifiers dynamically
     	List<AnalysisDriver> analysisDrivers;
     	if(jgaapConstants.globalObjects.containsKey("classifiers")){
@@ -232,7 +236,8 @@ public class AutoPopulate {
     	}
 	return analysisDrivers;
     }
-    public static List<Language> getLanguages(){
+    @SuppressWarnings("unchecked")
+	public static List<Language> getLanguages(){
 	// Load the classifiers dynamically
     	List<Language> languages;
     	if(jgaapConstants.globalObjects.containsKey("languages")){
@@ -249,9 +254,6 @@ public class AutoPopulate {
     	}
 	return languages;
     }
-    
-    
-    
     
     /**
      * Main routine for testing. Lists (on the screen) all subclasses of the

@@ -66,7 +66,7 @@ public class CharacterEventDriver extends EventDriver {
 //            Document current = ds.getDocument(i);
             List<Character> cd = document.getProcessedText();
             for (int j = 0; j < cd.size(); j++) {
-                es.events.add(new Event(cd.get(j)));
+                es.addEvent(new Event(cd.get(j)));
             }
 //        }
         return es;

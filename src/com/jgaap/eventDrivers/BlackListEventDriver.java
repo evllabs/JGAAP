@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 
 import com.jgaap.generics.Document;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
@@ -118,10 +119,10 @@ public class BlackListEventDriver extends EventDriver {
             blacklist.clear();
         }
 
-        for (int i = 0; i < es.size(); i++) {
-            String s = (es.eventAt(i)).toString();
+        for (Event event : es) {
+            String s = (event).toString();
             if (!blacklist.contains(s)) {
-                newEs.events.add(es.eventAt(i));
+                newEs.addEvent(event);
             }
         }
         return newEs;

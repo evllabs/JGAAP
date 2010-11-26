@@ -66,7 +66,7 @@ public class WordLengthEventDriverTest {
 		tmp.add(new Event("2"));
 		tmp.add(new Event("7"));
 		tmp.add(new Event("9"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 
 		/* test case 2 -- punctuation */
@@ -84,7 +84,7 @@ public class WordLengthEventDriverTest {
 		tmp.add(new Event("5"));
 		tmp.add(new Event("5"));
 		tmp.add(new Event("5"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 
 		/* test case 3 -- no words */

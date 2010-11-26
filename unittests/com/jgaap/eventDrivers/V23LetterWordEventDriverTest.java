@@ -72,7 +72,9 @@ public class V23LetterWordEventDriverTest {
 		tmp.add(new Event("YYY"));
 
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
+		System.out.println(sampleEventSet.toString());
+		System.out.println(expectedEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 }

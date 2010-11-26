@@ -141,7 +141,7 @@ public class NGramEventDriver extends EventDriver {
                     theEvent += separator;
                 }
             }
-            newEs.events.add(new Event(theEvent));
+            newEs.addEvent(new Event(theEvent));
         }
         return newEs;
     }

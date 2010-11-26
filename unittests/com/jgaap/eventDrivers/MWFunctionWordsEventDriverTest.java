@@ -108,7 +108,7 @@ public class MWFunctionWordsEventDriverTest {
 		tmp.add(new Event("with"));
 		tmp.add(new Event("would"));
 		tmp.add(new Event("your"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 //		System.out.println(expectedEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}

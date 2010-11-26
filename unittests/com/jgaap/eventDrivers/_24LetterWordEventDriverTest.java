@@ -51,7 +51,7 @@ public class _24LetterWordEventDriverTest {
 		tmp.add(new Event("CCC"));
 		tmp.add(new Event("DDDD"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 
 		assertTrue(expectedEventSet.equals(sampleEventSet));

@@ -10,18 +10,14 @@ import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
 import java.util.*;
-import java.lang.Math.*;
 
 
 import static org.math.array.DoubleArray.identity;
-import static org.math.array.DoubleArray.tostring;
-import static org.math.array.DoubleArray.transpose;
 import static org.math.array.DoubleArray.columnVector;
 import static org.math.array.LinearAlgebra.inverse;
 import static org.math.array.LinearAlgebra.minus;
 import static org.math.array.LinearAlgebra.plus;
 import static org.math.array.LinearAlgebra.times;
-import static org.math.array.LinearAlgebra.inverseQR;
 import static org.math.array.StatisticSample.covariance;
 
 /**

@@ -48,7 +48,7 @@ public class _23LetterWordEventDriverTest {
 		tmp.add(new Event("CCC"));
 
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 }

@@ -56,7 +56,7 @@ public class ReactionTimeEventDriverTest {
 		tmp.add(new Event("848.68"));
 		tmp.add(new Event("763.00"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 // System.out.println("Expected is " + expectedEventSet.toString());
 // System.out.println("Actual is " + sampleEventSet.toString());

@@ -221,7 +221,7 @@ public class PorterStemmerEventDriverTest {
 		tmp.add(new Event("accoutr"));
 		tmp.add(new Event("accoutr"));
 		tmp.add(new Event("accru"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 //System.out.println("Expected is " + expectedEventSet.toString());
 //System.out.println("Actual is " + sampleEventSet.toString());

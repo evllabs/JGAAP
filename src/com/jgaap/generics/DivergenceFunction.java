@@ -1,7 +1,5 @@
 package com.jgaap.generics;
 
-import com.jgaap.jgaapConstants;
-
 public abstract class DivergenceFunction extends DistanceFunction {
 
 	
@@ -12,7 +10,7 @@ public abstract class DivergenceFunction extends DistanceFunction {
 		double dist = 0;
 		double first = 0;
 		double second = 0;
-		String divergenceOptionStr = (jgaapConstants.globalParams.getParameter("divergenceOption"));
+		String divergenceOptionStr = getParameter("divergenceOption");
 		int divergenceOption = Integer.parseInt(divergenceOptionStr.equalsIgnoreCase("")? "0":divergenceOptionStr);
 		switch(divergenceOption){
 		case 1:
@@ -31,6 +29,10 @@ public abstract class DivergenceFunction extends DistanceFunction {
 		case 4:
 			dist = divergence(es2, es1);
 			break;
+		case 5:
+			first = divergence(es1,es2);
+			second = divergence(es1, es2);
+			dist = first * second;
 		case 0:
 		default:
 			dist = divergence(es1, es2);

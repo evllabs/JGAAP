@@ -35,8 +35,8 @@ public class LZWDistanceTest {
 		test1.add(new Event("lazy"));
 		test1.add(new Event("dog"));
 		test1.add(new Event("."));
-		es1.events.addAll(test1);
-		es2.events.addAll(test1);
+		es1.addEvents(test1);
+		es2.addEvents(test1);
 
 		  
 		assertTrue(new LZWDistance().divergence(es1,es2) == 5);
@@ -50,7 +50,7 @@ public class LZWDistanceTest {
 		/*Test 2 - Order*/
 
 
-		es2.events.clear();
+		es2 = new EventSet();
 		    test1 = new Vector<Event>();
 		test1.add(new Event("."));
 		test1.add(new Event("dog"));
@@ -62,7 +62,7 @@ public class LZWDistanceTest {
 		test1.add(new Event("brown"));
 		test1.add(new Event("quick"));
 		test1.add(new Event("The"));
-		es1.events.addAll(test1);
+		es1.addEvents(test1);
 		  
 		double distanceOne = new LZWDistance().divergence(es1,es1);
 		double distanceTwo = new  LZWDistance().divergence(es2, es1);
