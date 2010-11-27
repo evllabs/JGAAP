@@ -60,7 +60,8 @@ public class SVM extends AnalysisDriver {
         kernelType = t;
     }
 
-    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
     public String analyze(EventSet unknown, List<EventSet> known) {
 		
 		int i;
