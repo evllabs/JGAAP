@@ -17,8 +17,6 @@
  **/
 package com.jgaap.distances;
 
-import java.util.Enumeration;
-
 import com.jgaap.generics.DivergenceFunction;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
@@ -60,8 +58,6 @@ public class CrossEntropyDivergence extends DivergenceFunction {
         EventHistogram h1 = new EventHistogram();
         EventHistogram h2 = new EventHistogram();
         double distance = 0;
-        Enumeration<Event> EventList;
-        Event theEvent;
 
         for (int i = 0; i < es1.size(); i++) {
             h1.add(es1.eventAt(i));
@@ -71,11 +67,9 @@ public class CrossEntropyDivergence extends DivergenceFunction {
             h2.add(es2.eventAt(i));
         }
 
-        EventList = h1.events();
-        while (EventList.hasMoreElements()) {
-            theEvent = EventList.nextElement();
-            if (h2.getRelativeFrequency(theEvent) > 0 ){ 
-        		distance += -1 * (h1.getRelativeFrequency(theEvent) * Math.log(h2.getRelativeFrequency(theEvent))) ;            		
+       for(Event event : h1) {
+            if (h2.getRelativeFrequency(event) > 0 ){ 
+        		distance += -1 * (h1.getRelativeFrequency(event) * Math.log(h2.getRelativeFrequency(event))) ;            		
             }
         }
         return distance;
