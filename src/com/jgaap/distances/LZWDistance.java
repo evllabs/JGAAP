@@ -33,9 +33,9 @@ import com.jgaap.generics.EventSet;
 
 public class LZWDistance extends DivergenceFunction {
 	public String displayName(){
-	    return "LZW Distance";
+	    return "LZW Distance"+getDivergenceType();
 	}
-
+	
 	public String tooltipText(){
 	    return "Lempel-Ziv-Welch Nearest Neighbor Classifier";
 	}

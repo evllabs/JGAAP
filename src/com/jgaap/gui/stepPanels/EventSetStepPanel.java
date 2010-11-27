@@ -24,7 +24,6 @@ import java.awt.GridLayout;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
 import com.jgaap.backend.AutoPopulate;
@@ -51,7 +50,6 @@ public class EventSetStepPanel extends StepPanel {
      */
 	private static final long serialVersionUID = 1L;
 	// ---- Global Variables ----
-	private JCheckBox commonEventBox;
 	private JRadioButton[] eventifierRadioButtons;
 	private ButtonGroup esButtonGroup;
 	/**
@@ -77,31 +75,18 @@ public class EventSetStepPanel extends StepPanel {
 
 		esButtonGroup = new ButtonGroup(); // Forces single selection across the
 		// different radio buttons
-		int i =0;
+		int i = 0;
 		for (EventDriver event : eventifiers) {
 			eventifierRadioButtons[i] = new JRadioButton(event.displayName());
 			eventifierRadioButtons[i].setActionCommand(event.displayName());
 			eventifierRadioButtons[i].setToolTipText(event.tooltipText());
 			esButtonGroup.add(eventifierRadioButtons[i]);
 			this.add(eventifierRadioButtons[i]);
-			if (i ==0){
+			if (i == 0) {
 				eventifierRadioButtons[i].setSelected(true);
-			}	
+			}
 			i++;
 		}
-
-		commonEventBox = new JCheckBox("Most Common");
-		commonEventBox.setToolTipText("Most frequent events.");
-		this.add(commonEventBox);
-	}
-
-	/**
-	 * Returns the state of the 'Most Common' checkbox.
-	 * 
-	 * @return the boolean state of the 'Most Common' checkbox.
-	 */
-	public boolean getCheckboxSelection() {
-		return commonEventBox.isSelected();
 	}
 
 	/**

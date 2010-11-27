@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import com.jgaap.DivergenceType;
 import com.jgaap.jgaap;
 import com.jgaap.jgaapConstants;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Displayable;
+import com.jgaap.generics.DivergenceType;
 import com.jgaap.generics.NeighborAnalysisDriver;
 
 /**

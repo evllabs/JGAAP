@@ -2,8 +2,22 @@ package com.jgaap.generics;
 
 public abstract class NeighborAnalysisDriver extends AnalysisDriver {
 
-	public abstract void setDistance(DistanceFunction distance);
+	public DistanceFunction distance;
 	
-	public abstract DistanceFunction getDistanceFunction();
+	public void setDistance(DistanceFunction distance){
+		this.distance = distance;
+	}
+	
+	public DistanceFunction getDistanceFunction(){
+		return distance;
+	}
+	
+	public String getDistanceName(){
+		String result ="";
+		if(distance!=null){
+			result = " with metric "+distance.displayName();
+		}
+		return result;
+	}
 
 }

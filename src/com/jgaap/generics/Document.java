@@ -34,12 +34,12 @@ public class Document extends Parameterizable {
 	private String filepath;
 	private String title;
 	private List<Character> rawText;
+	private List<Character> procText;
 	private int size;
 	private DocType docType;
+	private List<Canonicizer> canonicizers;
 	private Map<EventDriver, EventSet> eventSets;
 	private Map<AnalysisDriver, Map<EventDriver, String>> results;
-	private List<Canonicizer> canonicizers;
-	private List<Character> procText;
 
 	/**
 	 * List of possible document types.
@@ -313,11 +313,6 @@ public class Document extends Parameterizable {
 		buffer.append("\n");
 		for (AnalysisDriver analysisDriver : results.keySet()) {
 			String analysis = analysisDriver.displayName();
-			if (analysisDriver instanceof NeighborAnalysisDriver) {
-				analysis += " with metric "
-						+ ((NeighborAnalysisDriver) analysisDriver)
-								.getDistanceFunction().displayName();
-			}
 			Map<EventDriver, String> eventResults = results.get(analysisDriver);
 			for (EventDriver eventDriver : eventResults.keySet()) {
 				buffer.append("Analyzed by " + analysis + " using "

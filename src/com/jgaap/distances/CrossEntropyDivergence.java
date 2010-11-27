@@ -36,7 +36,7 @@ import com.jgaap.generics.EventSet;
  */
 public class CrossEntropyDivergence extends DivergenceFunction {
 	public String displayName(){
-	    return "RN Cross Entropy";
+	    return "RN Cross Entropy"+getDivergenceType();
 	}
 
 	public String tooltipText(){

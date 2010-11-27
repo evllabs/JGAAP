@@ -32,12 +32,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.ProgressMonitor;
 
-import com.jgaap.DivergenceType;
 import com.jgaap.jgaapConstants;
 import com.jgaap.backend.API;
 import com.jgaap.backend.CSVIO;
 import com.jgaap.backend.Utils;
 import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.DivergenceType;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.gui.dnd.IconGlassPane;

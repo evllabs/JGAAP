@@ -35,7 +35,7 @@ import com.jgaap.generics.EventSet;
 
 public class KullbackLeiblerDivergence extends DivergenceFunction {
 	public String displayName(){
-	    return "Kullback Leibler Distance";
+	    return "Kullback Leibler Distance"+getDivergenceType();
 	}
 
 	public String tooltipText(){

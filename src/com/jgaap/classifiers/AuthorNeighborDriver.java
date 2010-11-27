@@ -35,7 +35,7 @@ import com.jgaap.generics.NeighborAnalysisDriver;
 public class AuthorNeighborDriver extends NeighborAnalysisDriver {
 
 	public String displayName() {
-		return "AuthorNeighborDriver ";
+		return "Author Neighbor Driver"+getDistanceName();
 	}
 
 	public String tooltipText() {

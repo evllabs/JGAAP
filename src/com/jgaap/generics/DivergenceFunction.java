@@ -2,7 +2,6 @@ package com.jgaap.generics;
 
 public abstract class DivergenceFunction extends DistanceFunction {
 
-	
 	abstract public String displayName();
 
 	@Override
@@ -11,18 +10,19 @@ public abstract class DivergenceFunction extends DistanceFunction {
 		double first = 0;
 		double second = 0;
 		String divergenceOptionStr = getParameter("divergenceOption");
-		int divergenceOption = Integer.parseInt(divergenceOptionStr.equalsIgnoreCase("")? "0":divergenceOptionStr);
-		switch(divergenceOption){
+		int divergenceOption = Integer.parseInt(divergenceOptionStr
+				.equalsIgnoreCase("") ? "0" : divergenceOptionStr);
+		switch (divergenceOption) {
 		case 1:
-			dist = (divergence(es1,es2)+divergence(es2,es1))/2.0;
+			dist = (divergence(es1, es2) + divergence(es2, es1)) / 2.0;
 			break;
 		case 2:
-			first = divergence(es1,es2);
+			first = divergence(es1, es2);
 			second = divergence(es1, es2);
 			dist = (first > second ? first : second);
 			break;
 		case 3:
-			first = divergence(es1,es2);
+			first = divergence(es1, es2);
 			second = divergence(es1, es2);
 			dist = (first < second ? first : second);
 			break;
@@ -30,7 +30,7 @@ public abstract class DivergenceFunction extends DistanceFunction {
 			dist = divergence(es2, es1);
 			break;
 		case 5:
-			first = divergence(es1,es2);
+			first = divergence(es1, es2);
 			second = divergence(es1, es2);
 			dist = first * second;
 		case 0:
@@ -40,7 +40,30 @@ public abstract class DivergenceFunction extends DistanceFunction {
 		}
 		return dist;
 	}
-	
+
+	public String getDivergenceType() {
+		String result = "";
+		String divergenceString = getParameter("divergenceType");
+		int divergenceType = Integer
+				.parseInt((divergenceString.equals("") ? "0" : divergenceString));
+		switch (divergenceType) {
+		case 1:
+			result += (" (Average)");
+			break;
+		case 2:
+			result += (" (Max) ");
+			break;
+		case 3:
+			result += (" (Min)");
+			break;
+		case 4:
+			result += (" (Reverse)");
+			break;
+		default:
+		}
+		return result;
+	}
+
 	abstract protected double divergence(EventSet es1, EventSet es2);
 
 	@Override

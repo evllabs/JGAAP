@@ -31,7 +31,7 @@ import com.jgaap.generics.NeighborAnalysisDriver;
 public class NearestNeighborDriver extends NeighborAnalysisDriver {
 
 	public String displayName() {
-		return "NearestNeighborDriver ";
+		return "Nearest Neighbor Driver"+getDistanceName();
 	}
 
 	public String tooltipText() {
@@ -42,7 +42,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 		return false;
 	}
 
-	public DistanceFunction Dist;
+	public DistanceFunction distance;
 
 	@Override
 	public String analyze(EventSet unknown, List<EventSet> known) {
@@ -53,7 +53,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 		double[] distArray = new double[known.size()];
 
 		for (int i = 0; i < known.size(); i++) {
-			double current = Dist.distance(unknown, known.get(i));
+			double current = distance.distance(unknown, known.get(i));
 			authorArray[i] = known.get(i).getAuthor();
 			distArray[i] = current;
 			System.out.print(unknown.getDocumentName() + "(Unknown)");
@@ -101,11 +101,11 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	public DistanceFunction getDistanceFunction() {
-		return Dist;
+		return distance;
 	}
 
 	public void setDistance(DistanceFunction Dist) {
-		this.Dist = Dist;
+		this.distance = Dist;
 	}
 
 }

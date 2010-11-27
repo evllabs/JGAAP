@@ -27,10 +27,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
-import com.jgaap.DivergenceType;
 import com.jgaap.backend.AutoPopulate;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.DistanceFunction;
+import com.jgaap.generics.DivergenceType;
 import com.jgaap.gui.generics.StepPanel;
 
 /**

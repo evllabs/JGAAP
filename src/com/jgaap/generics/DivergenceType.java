@@ -18,7 +18,7 @@
 /**
  * 
  */
-package com.jgaap;
+package com.jgaap.generics;
 
 /**
  * This keeps track of which if any of the variances on standard divergence is
