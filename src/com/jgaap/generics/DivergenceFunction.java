@@ -49,16 +49,19 @@ public abstract class DivergenceFunction extends DistanceFunction {
 				.parseInt((divergenceString.equals("") ? "0" : divergenceString));
 		switch (divergenceType) {
 		case 1:
-			result += (" (Average)");
+			result += " (Average)";
 			break;
 		case 2:
-			result += (" (Max) ");
+			result += " (Max)";
 			break;
 		case 3:
-			result += (" (Min)");
+			result += " (Min)";
 			break;
 		case 4:
-			result += (" (Reverse)");
+			result += " (Reverse)";
+			break;
+		case 5:
+			result += " (Cross)";
 			break;
 		default:
 		}
