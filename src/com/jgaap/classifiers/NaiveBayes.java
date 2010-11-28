@@ -20,7 +20,6 @@ package com.jgaap.classifiers;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.Iterator;
-import java.util.Enumeration;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.Event;
@@ -58,7 +57,6 @@ public class NaiveBayes extends AnalysisDriver {
 	// the avg probability - standard deviation of w1 over all documents by A1
 
 	    EventHistogram hKnown = new EventHistogram();   // histogram of known eventset
-	    Enumeration<Event> EventList;
 	    Event theEvent;
 	    
 	    int flag;                      // indicator of author found
