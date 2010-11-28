@@ -128,8 +128,6 @@ public class MahalanobisDistance extends AnalysisDriver{
         // create covariance matrix
         // *****************************************
         
-        covarianceMatrix = new double[vocab.size()][vocab.size()];
-
         covarianceMatrix = covariance(eventMatrix);
         
         //System.out.println(tostring(eventMatrix));

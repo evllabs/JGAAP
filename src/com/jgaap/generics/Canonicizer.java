@@ -65,8 +65,9 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
 	 */
 	@Override
 	public boolean equals( Object o ){
-		if( this.displayName().equalsIgnoreCase( ((Canonicizer)o).displayName() ))
-			return true;
+        if(o instanceof Canonicizer) {
+    		return (this.displayName().equalsIgnoreCase(((Canonicizer)o).displayName()));
+        }
 		return false;
 	}
 	

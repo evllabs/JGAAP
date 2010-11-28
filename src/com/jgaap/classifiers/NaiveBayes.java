@@ -69,9 +69,7 @@ public class NaiveBayes extends AnalysisDriver {
 	    //  double[] posteriorA = new double[authors.length-1]; //posterior probability for each known author
 	    double[] posteriorA = new double[50];
 	    double temp;
-	    double prior;                  // probability of each author
-	    double normalizing;            // normalizing constant
-	    double count=0.0;                  // # of documents in known by author A
+        double count;                  // # of documents in known by author A
 	    double sum;                    // sum of relative frequency of an unknown event in eventset by known author A
 	    double sum2;                   // sum of square relative frequency 
 	    double prob;                   // mu - standard deviation -- probability of event set by author A over all docs by author A
@@ -123,7 +121,7 @@ public class NaiveBayes extends AnalysisDriver {
 		    for (int l=0; l < known.get(i).size(); l++){
 			hKnown.add(known.get(i).eventAt(l));
 		    }
-		    EventList = hKnown.events();
+		    //EventList = hKnown.events();
 		    Iterator<Event> it = vocab.iterator();
 		    for(int b=0; it.hasNext(); b++) {
 			theEvent = it.next();
@@ -146,7 +144,6 @@ public class NaiveBayes extends AnalysisDriver {
 
 	    //for each event
 	    for(int j=0; j<vocab.size(); j++){	
-		prob = 0.0;
 		sum =0;
 		count = 0;
 		sum2 = 0;

@@ -6,9 +6,9 @@ public abstract class DivergenceFunction extends DistanceFunction {
 
 	@Override
 	public double distance(EventSet es1, EventSet es2) {
-		double dist = 0;
-		double first = 0;
-		double second = 0;
+		double dist;
+		double first;
+		double second;
 		String divergenceOptionStr = getParameter("divergenceOption");
 		int divergenceOption = Integer.parseInt(divergenceOptionStr
 				.equalsIgnoreCase("") ? "0" : divergenceOptionStr);
@@ -33,6 +33,7 @@ public abstract class DivergenceFunction extends DistanceFunction {
 			first = divergence(es1, es2);
 			second = divergence(es1, es2);
 			dist = first * second;
+            break;
 		case 0:
 		default:
 			dist = divergence(es1, es2);

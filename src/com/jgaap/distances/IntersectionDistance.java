@@ -58,7 +58,7 @@ public class IntersectionDistance extends DistanceFunction {
 		EventHistogram h2 = new EventHistogram();
 
 		long intersectioncount = 0;
-		long unioncount = 0;
+		long unioncount;
 
 		for (int i = 0; i < es1.size(); i++) {
 			h1.add(es1.eventAt(i));

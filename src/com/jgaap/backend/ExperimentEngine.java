@@ -55,7 +55,10 @@ public class ExperimentEngine {
         }
         File file = new File(jgaapConstants.tmpDir() + canonName + "/" + event + "/"
                 + analysis + "/");
-        file.mkdirs();
+        if(!file.mkdirs()) {
+            System.err.println("Error creating experiment directory");
+            System.exit(1);
+        }
         return (jgaapConstants.tmpDir() + canonName + "/" + event + "/" + analysis + "/"
                 + experimentName + dateFormat.format(date) + number + ".txt");
     }

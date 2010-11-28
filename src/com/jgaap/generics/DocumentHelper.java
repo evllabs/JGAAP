@@ -66,7 +66,7 @@ class DocumentHelper {
 	static private List<Character> loadPDF(InputStream filesInputStream)
 			throws IOException {
 		PDDocument doc;
-		List<Character> rawText = new ArrayList<Character>();
+		List<Character> rawText;
 		doc = PDDocument.load(filesInputStream);
 		PDFTextStripper pdfStripper = new PDFTextStripper();
 		pdfStripper.setSortByPosition(false);
@@ -117,7 +117,7 @@ class DocumentHelper {
 	static private List<Character> loadHTML(InputStream filesInputStream)
 			throws IOException, BadLocationException {
 		System.out.println("HTML Document");
-		List<Character> rawText = new ArrayList<Character>();
+		List<Character> rawText;
 		EditorKit kit = new HTMLEditorKit();
 		javax.swing.text.Document doc = kit.createDefaultDocument();
 		kit.read(filesInputStream, doc, 0);
@@ -177,7 +177,7 @@ class DocumentHelper {
 	}
 
 	static public List<Character> readText(InputStream is) throws IOException {
-		int c = 0;
+		int c;
 		List<Character> rawText = new ArrayList<Character>();
 
 		BufferedReader br;
@@ -206,7 +206,7 @@ class DocumentHelper {
 
 	static public List<Character> readURLText(String filepath)
 			throws IOException, BadLocationException {
-		List<Character> rawText = new ArrayList<Character>();
+		List<Character> rawText;
 		URL input = new URL(filepath);
 		InputStream is = input.openStream();
 		if (filepath.endsWith(".pdf")) {

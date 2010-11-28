@@ -121,11 +121,11 @@ public class AddErrorsTest {
 		
 		double ssy =0.0;
 		double sst = 0.0;
-		double sse = 0.0;
-		double mst = 0.0;
-		double mse = 0.0;
+		double sse;
+		double mst;
+		double mse;
 		double yBar =0.0;
-		double F = 0.0;
+		double F;
 		double [] yBars = new double [26];
 		
 		for (int j =0; j<=25; j++)

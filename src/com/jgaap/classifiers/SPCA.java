@@ -145,7 +145,6 @@ public class SPCA extends AnalysisDriver {
         // *****************************************
         // create covariance matrix
         // *****************************************
-        covarianceMatrix = new double[vocab.size()][vocab.size()];
 
         covarianceMatrix = covariance(eventMatrix);
 
@@ -162,7 +161,6 @@ public class SPCA extends AnalysisDriver {
         // *******************************************************************
         eigenValue = new double[covarianceMatrix[0].length];
         eigenValueDsort = new double[eigenValue.length];
-        eigenVectors = new double[eigenValue.length][eigenValue.length];
         basis = new double[eigenValue.length][eigenValue.length];
         pBasis = new double[eigenValue.length][2];
 
@@ -254,7 +252,7 @@ public class SPCA extends AnalysisDriver {
         // *****************************************
         // project data onto new basis
         // *****************************************
-        finalMatrix = new double[eventMatrix.length][2];
+
 
         finalMatrix = times(eventMatrix, pBasis);
 

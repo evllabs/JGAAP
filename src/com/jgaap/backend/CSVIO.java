@@ -79,7 +79,6 @@ public class CSVIO {
                         row.append('"');
                         row.append(thisEntry);
                         row.append("\",");
-                        quoteFlag = false;
                     } else {
                         row.append(thisEntry);
                         row.append(',');
@@ -107,21 +106,21 @@ public class CSVIO {
     }
     /**
      * parses a csv document and places it in a representation of columns and rows using vectors
-     * @param the csv file
+     * @param file the csv file
      * @return a vector of vectors of strings this gives a representation of infromation in string within the vectors  
      */
     public static Vector<Vector<String>> readCSV(File file) {
-        FileInputStream fis = null;
-        BufferedInputStream bis = null;
-        InputStreamReader isr = null;
-        BufferedReader br = null;
+        FileInputStream fis;
+        BufferedInputStream bis;
+        InputStreamReader isr;
+        BufferedReader br;
         Vector<Vector<String>> rows = new Vector<Vector<String>>();
         try {
             fis = new FileInputStream(file);
             bis = new BufferedInputStream(fis);
             isr = new InputStreamReader(bis);
             br = new BufferedReader(isr);
-            String rowText = new String();
+            String rowText = "";
             while ((rowText = br.readLine()) != null) {
                 Vector<String> column = new Vector<String>();
                 StringBuffer buffer = new StringBuffer();
@@ -220,7 +219,6 @@ public class CSVIO {
                         }
                         rowBuffer.append(thisEntry);
                         rowBuffer.append('"');
-                        quoteFlag = false;
                     } else {
                         if (!first) {
                             rowBuffer.append(',');

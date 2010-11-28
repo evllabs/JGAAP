@@ -26,7 +26,7 @@ public class CrossEntropyDivergenceTest {
 		
 		
 		EventSet known1 = new EventSet();
-		EventSet known2 = new EventSet();
+		EventSet known2;
 		
 		
 		

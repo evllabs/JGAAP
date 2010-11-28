@@ -155,8 +155,6 @@ public class jgaapGUI extends JFrame implements StepListener {
 	 *            the title of the document
 	 * @param filePath
 	 *            the file path to the document
-	 * @param known
-	 *            boolean representing whether the author is known
 	 * @param authorName
 	 *            the name of the document's author
 	 */
@@ -233,7 +231,7 @@ public class jgaapGUI extends JFrame implements StepListener {
 			}
 		}
 		if (stepName.equals("Analyze")) {
-			DivergenceType currentDivergenceMethod = DivergenceType.Standard;
+			DivergenceType currentDivergenceMethod;
 			System.out.println(" ===== ANALYZE =====");
 			currentDivergenceMethod = analyzeStepPanel
 					.getDivergenceTypeSelection();

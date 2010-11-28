@@ -138,7 +138,7 @@ public class jgaapCLI {
 			Vector<Vector<String>> documentMatrix = new Vector<Vector<String>>();
 			Vector<String> canonicizers = new Vector<String>();
 			for (int i = 0; i < args.length; i++) {
-				Vector<String> nextFlag = new Vector<String>();
+				Vector<String> nextFlag;
 				if (args[i] == null) {
 					break;
 				}

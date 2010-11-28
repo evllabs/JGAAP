@@ -56,7 +56,7 @@ public class TrashCan extends JLabel implements CanonicizerLabelUnpackager {
 	 * @see com.jgaap.gui.dnd.CanonicizerLabelUnpackager#unpackageLabel(com.jgaap.gui.dnd.CanonicizerPacket)
 	 */
 	public void unpackageLabel(CanonicizerPacket packet) {
-		packet = null;		
+		; // TODO:  What on earth is the intent of this method?	
 	}
 	
 	/** Returns an ImageIcon, or null if the path was invalid. */

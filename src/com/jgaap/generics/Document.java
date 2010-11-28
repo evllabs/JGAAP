@@ -351,7 +351,7 @@ public class Document extends Parameterizable {
 
 	@Override
 	public String toString() {
-		String t = new String();
+		String t;
 		t = "Title:  " + title + "\n";
 		t += "Path:   " + filepath + "\n";
 		t += "Author: " + author + "\n";
