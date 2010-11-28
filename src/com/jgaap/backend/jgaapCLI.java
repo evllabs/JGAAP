@@ -180,7 +180,7 @@ public class jgaapCLI {
 						saveFilePath = optionBuilder(currentTagSet);
 					} else if (currentArg.equalsIgnoreCase("-ee")) {
 						String loadEngineFilePath = optionBuilder(currentTagSet);
-						experimentEngine.runExperiment(loadEngineFilePath);
+						junkEngine.runExperiment(loadEngineFilePath);
 						System.exit(0);
 					} else if (currentArg.equalsIgnoreCase("-lang")) {
 						language = optionBuilder(currentTagSet);

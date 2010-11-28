@@ -31,7 +31,7 @@ import com.jgaap.jgaapConstants;
  * 
  * @author Mike Ryan
  */
-public class experimentEngine {
+public class junkEngine {
 /**
  * This method generates unique file names and a directory structure to save the results of an experiment run
  * @param canon the canonicizors used
