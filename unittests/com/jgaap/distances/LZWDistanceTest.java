@@ -16,7 +16,7 @@ import com.jgaap.generics.EventSet;
 public class LZWDistanceTest {
 
 	/**
-	 * Test method for {@link com.jgaap.distances.LZWDistance#divergence(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}.
+	 * Test method for {@link com.jgaap.distances.LZWDivergence#divergence(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}.
 	 */
 @Test
 	public void testDistance() {
@@ -39,7 +39,7 @@ public class LZWDistanceTest {
 		es2.addEvents(test1);
 
 		  
-		assertTrue(new LZWDistance().divergence(es1,es2) == 5);
+		assertTrue(new LZWDivergence().divergence(es1,es2) == 5);
 
 
 		/*Note: Adding redundnat data will change the value based on the permutation*/
@@ -64,8 +64,8 @@ public class LZWDistanceTest {
 		test1.add(new Event("The"));
 		es1.addEvents(test1);
 		  
-		double distanceOne = new LZWDistance().divergence(es1,es1);
-		double distanceTwo = new  LZWDistance().divergence(es2, es1);
+		double distanceOne = new LZWDivergence().divergence(es1,es1);
+		double distanceTwo = new  LZWDivergence().divergence(es2, es1);
 
 		assertTrue(distanceOne == 10.0);
 		 assertTrue(distanceTwo == 21.0);    

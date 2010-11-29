@@ -31,9 +31,9 @@ import com.jgaap.generics.EventSet;
  * @version 1.0
  */
 
-public class LZWDistance extends DivergenceFunction {
+public class LZWDivergence extends DivergenceFunction {
 	public String displayName(){
-	    return "LZW Distance"+getDivergenceType();
+	    return "LZW Divergence"+getDivergenceType();
 	}
 	
 	public String tooltipText(){
