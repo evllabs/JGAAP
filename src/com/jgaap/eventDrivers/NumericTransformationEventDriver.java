@@ -37,10 +37,7 @@ import com.jgaap.generics.NumericEventSet;
 
 import com.jgaap.generics.*;
 
-// NOTE:  This is not actually deprecated, but hopefully the generated compiler warnings
-// will get someone's attention who knows how to properly javadoc this class.
-// Please do NOT remove the Deprecated annotation until this class has javadocs.
-@Deprecated
+
 public class NumericTransformationEventDriver extends NumericEventDriver {
 
 	@Override
