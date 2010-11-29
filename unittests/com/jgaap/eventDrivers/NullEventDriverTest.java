@@ -23,6 +23,7 @@ public class NullEventDriverTest{
     /**
      * Test method for {@link com.jgaap.eventDrivers.NullEventDriver#createEventSet(com.jgaap.generics.DocumentSet)}.
      */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testCreateEventSetDocumentSet() {
 	    /*Test One - Text to Text with new line char*/

@@ -158,7 +158,7 @@ public class PorterStemmerEventDriver extends EventDriver {
 	 * can be provided a character at time (by calling add()), or at once by
 	 * calling one of the various stem(something) methods.
 	 */
-
+	@SuppressWarnings("unused")
 	private class Stemmer {
 		private char[] b;
 		private int i, /* offset into b */
