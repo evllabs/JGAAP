@@ -17,9 +17,7 @@
  **/
 package com.jgaap.generics;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Class supporting basic histogram operations on Events. Uses a Hashtable to
@@ -179,8 +177,23 @@ public class EventHistogram implements Iterable<Event> {
 		 */
 	}
 
-	@Override
 	public Iterator<Event> iterator() {
 		return theHist.keySet().iterator();
 	}
+
+    public List<Pair<Event, Integer> > getSortedHistogram() {
+        List list = new LinkedList(theHist.entrySet());
+        Collections.sort(list, new Comparator() {
+            public int compare(Object o1, Object o2) {
+            return ((Comparable)((Map.Entry)(o1)).getValue()).compareTo(((Map.Entry)(o2)).getValue());
+        }
+        });
+
+        List<Pair<Event, Integer> > result = new ArrayList<Pair<Event, Integer> >();
+        for(Iterator it = list.iterator() ; it.hasNext() ; ) {
+            Map.Entry entry = (Map.Entry)it.next();
+            result.add(new Pair(entry.getKey(), entry.getValue(), 2));
+        }
+        return result;
+    }
 }

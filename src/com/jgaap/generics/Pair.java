@@ -96,4 +96,8 @@ public class Pair<First, Second> implements Comparable<Pair<First, Second> > {
             return Integer.MAX_VALUE;
         }
     }
+
+    public String toString() {
+        return "[" + first.toString() + ":" + second.toString() + "]";
+    }
 }
