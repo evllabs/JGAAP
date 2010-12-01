@@ -6,7 +6,7 @@ import java.util.Comparator;
  * A generic pair object (for when two values need to be passed simultaneously)
  * Author: John Noecker Jr.
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class Pair<First, Second> implements Comparable<Pair<First, Second> > {
     private First first;
     private Second second;

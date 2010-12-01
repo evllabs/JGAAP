@@ -187,7 +187,7 @@ public class EventHistogram implements Iterable<Event> {
      * list[size-1] is the most.
      * @return The above-described list of events.
      */
-    @SuppressWarnings("unchecked")    
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public List<Pair<Event, Integer> > getSortedHistogram() {
         List list = new LinkedList(theHist.entrySet());
         Collections.sort(list, new Comparator() {
