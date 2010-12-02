@@ -4,14 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.classifiers.NearestNeighborDriver;
-import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.Canonicizer;
-import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.Document;
+import com.jgaap.generics.*;
 import com.jgaap.generics.Document.DocType;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.Language;
-import com.jgaap.generics.NeighborAnalysisDriver;
 
 public class API {
 
@@ -273,4 +267,8 @@ public class API {
 	public List<Language> getAllLanguages() {
 		return AutoPopulate.getLanguages();
 	}
+
+    public List<EventCuller> getAllEventCullers() {
+        return AutoPopulate.getEventCullers();
+    }
 }

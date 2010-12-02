@@ -23,12 +23,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
+import com.jgaap.generics.*;
 import com.jgaap.jgaapConstants;
-import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.Canonicizer;
-import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.Language;
+
 /**
  * This class dynamically locates subclasses of a given named superclass within
  * a specific directory. You can use it, for example, to find all (e.g.)
@@ -253,6 +250,24 @@ public class AutoPopulate {
 			jgaapConstants.globalObjects.put("languages", languages);
     	}
 	return languages;
+    }
+    @SuppressWarnings("unchecked")
+	public static List<EventCuller> getEventCullers(){
+	// Load the event cullers dynamically
+    	List<EventCuller> cullers;
+    	if(jgaapConstants.globalObjects.containsKey("eventCullers")){
+    		cullers = (List<EventCuller>) jgaapConstants.globalObjects.get("eventCullers");
+    	}else{
+			cullers = new ArrayList<EventCuller>();
+			for (Object tmpA : AutoPopulate.findAll(jgaapConstants.binDir()+"/com/jgaap/eventCullers",
+					"com.jgaap.generics.EventCuller", true)) {
+				EventCuller lang = (EventCuller) tmpA;
+				cullers.add(lang);
+			}
+			Collections.sort(cullers);
+			jgaapConstants.globalObjects.put("eventCullers", cullers);
+    	}
+	return cullers;
     }
     
     /**

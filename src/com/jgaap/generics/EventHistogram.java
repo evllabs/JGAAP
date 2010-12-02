@@ -182,9 +182,9 @@ public class EventHistogram implements Iterable<Event> {
 	}
 
     /**
-     * Return a list of pairs of the form [event, frequency] sorted in ascending order
-     * by the frequency of the event.  Hence, list[0] is the least frequent event, while
-     * list[size-1] is the most.
+     * Return a list of pairs of the form [event, frequency] sorted in descending order
+     * by the frequency of the event.  Hence, list[0] is the most frequent event, while
+     * list[size-1] is the least.
      * @return The above-described list of events.
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -192,7 +192,7 @@ public class EventHistogram implements Iterable<Event> {
         List list = new LinkedList(theHist.entrySet());
         Collections.sort(list, new Comparator() {
             public int compare(Object o1, Object o2) {
-            return ((Comparable)((Map.Entry)(o1)).getValue()).compareTo(((Map.Entry)(o2)).getValue());
+            return -((Comparable)((Map.Entry)(o1)).getValue()).compareTo(((Map.Entry)(o2)).getValue());
         }
         });
 

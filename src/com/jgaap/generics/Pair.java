@@ -101,4 +101,12 @@ public class Pair<First, Second> implements Comparable<Pair<First, Second> > {
     public String toString() {
         return "[" + first.toString() + ":" + second.toString() + "]";
     }
+
+    public First getFirst() {
+        return first;
+    }
+
+    public Second getSecond() {
+        return second;
+    }
 }

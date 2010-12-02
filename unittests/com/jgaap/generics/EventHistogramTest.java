@@ -32,11 +32,11 @@ public class EventHistogramTest {
 
         System.out.println(list.get(0));
 
-        assertTrue(list.get(0).equals(new Pair<Event, Integer>(new Event("I"), 1)));
-        assertTrue(list.get(1).equals(new Pair<Event, Integer>(new Event("N"), 2)));
+        assertTrue(list.get(4).equals(new Pair<Event, Integer>(new Event("I"), 1)));
+        assertTrue(list.get(3).equals(new Pair<Event, Integer>(new Event("N"), 2)));
         assertTrue(list.get(2).equals(new Pair<Event, Integer>(new Event("A"), 3)));
-        assertTrue(list.get(3).equals(new Pair<Event, Integer>(new Event("Z"), 4)));
-        assertTrue(list.get(4).equals(new Pair<Event, Integer>(new Event("B"), 5)));
+        assertTrue(list.get(1).equals(new Pair<Event, Integer>(new Event("Z"), 4)));
+        assertTrue(list.get(0).equals(new Pair<Event, Integer>(new Event("B"), 5)));
 
     }
 }
