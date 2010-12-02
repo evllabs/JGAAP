@@ -13,6 +13,9 @@ import java.util.List;
  * Parameters: minPos (the first event position to be included is minPos)
  *             numEvents (the number of events to include)
  *
+ * If minPos is negative, the function returns numEvents events starting minPos positions
+ * from the least common event (where minPos = -1 indicates the least common event).
+ *
  * Default behavior:  50 most common words
  *
  * TODO: Verify the meaning of "most common"
