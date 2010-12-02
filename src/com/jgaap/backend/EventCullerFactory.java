@@ -13,13 +13,13 @@ public class EventCullerFactory {
 		// Load the classifiers dynamically
 		eventCullers = new HashMap<String, EventCuller>();
 		for(EventCuller eventCuller: AutoPopulate.getEventCullers()){
-			eventCullers.put(eventCuller.displayName().toLowerCase(), eventCuller);
+			eventCullers.put(eventCuller.displayName().toLowerCase().trim(), eventCuller);
 		}
 	}
 
 	public EventCuller getAnalysisDriver(String action) throws Exception{
 		EventCuller eventCuller;
-		action = action.toLowerCase();
+		action = action.toLowerCase().trim();
 		if(eventCullers.containsKey(action)){
 			eventCuller = eventCullers.get(action).getClass().newInstance();
 		}else{

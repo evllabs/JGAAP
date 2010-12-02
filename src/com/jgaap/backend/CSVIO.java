@@ -28,6 +28,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Writer;
+import java.util.List;
 import java.util.Vector;
 
 /*
@@ -109,12 +110,12 @@ public class CSVIO {
      * @param file the csv file
      * @return a vector of vectors of strings this gives a representation of infromation in string within the vectors  
      */
-    public static Vector<Vector<String>> readCSV(File file) {
+    public static List<List<String>> readCSV(File file) {
         FileInputStream fis;
         BufferedInputStream bis;
         InputStreamReader isr;
         BufferedReader br;
-        Vector<Vector<String>> rows = new Vector<Vector<String>>();
+        List<List<String>> rows = new Vector<List<String>>();
         try {
             fis = new FileInputStream(file);
             bis = new BufferedInputStream(fis);
@@ -178,7 +179,7 @@ public class CSVIO {
         return rows;
     }
 
-    public static Vector<Vector<String>> readCSV(String fileName) {
+    public static List<List<String>> readCSV(String fileName) {
         File file = new File(fileName);
         return readCSV(file);
     }

@@ -26,7 +26,6 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -142,8 +141,8 @@ public class jgaapGUI extends JFrame implements StepListener {
 	 * @param newDocuments
 	 *            Vector of Vectors of Strings with document info
 	 */
-	public void addDocumentsToGUI(Vector<Vector<String>> newDocuments) {
-		for (Vector<String> docInfo : newDocuments) {
+	public void addDocumentsToGUI(List<List<String>> newDocuments) {
+		for (List<String> docInfo : newDocuments) {
 			addDocumentToGUI(docInfo);
 		}
 	}
@@ -176,7 +175,7 @@ public class jgaapGUI extends JFrame implements StepListener {
 	 * @param newDocument
 	 *            vector of Strings with document info
 	 */
-	public void addDocumentToGUI(Vector<String> newDocument) {
+	public void addDocumentToGUI(List<String> newDocument) {
 		if ((newDocument.size() < 2)) {
 			return; // If we don't have at least an author and a file, don't add
 			// it

@@ -13,13 +13,13 @@ public class LanguageFactory {
 		// Load the classifiers dynamically
 		languages = new HashMap<String, Language>();
 		for(Language language : AutoPopulate.getLanguages()){
-			languages.put(language.getName().toLowerCase(), language);
+			languages.put(language.getName().toLowerCase().trim(), language);
 		}
 	}
 	
 	public Language getLanguage(String action) throws Exception{
 		Language language;
-		action = action.toLowerCase();
+		action = action.toLowerCase().trim();
 		if(languages.containsKey(action)){
 			language = languages.get(action).getClass().newInstance();
 		}else {

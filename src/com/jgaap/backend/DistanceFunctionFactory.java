@@ -13,13 +13,13 @@ public class DistanceFunctionFactory {
 		// Load the distance functions dynamically
 		distanceFunctions = new HashMap<String, DistanceFunction>();
 		for(DistanceFunction distanceFunction: AutoPopulate.getDistanceFunctions()){
-			distanceFunctions.put(distanceFunction.displayName().toLowerCase(), distanceFunction);
+			distanceFunctions.put(distanceFunction.displayName().toLowerCase().trim(), distanceFunction);
 		}
 	}
 	
 	public DistanceFunction getDistanceFunction(String action) throws Exception{
 		DistanceFunction distanceFunction;
-		action = action.toLowerCase();
+		action = action.toLowerCase().trim();
 		if(distanceFunctions.containsKey(action)){
 			distanceFunction= distanceFunctions.get(action).getClass().newInstance();
 		}else{

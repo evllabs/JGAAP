@@ -135,7 +135,7 @@ public class jgaapCLI {
 			DivergenceType currentDivergenceMethod = DivergenceType.Standard;
 			boolean saveResults = false;
 			Vector<Vector<String>> commandInput = new Vector<Vector<String>>();
-			Vector<Vector<String>> documentMatrix = new Vector<Vector<String>>();
+			List<List<String>> documentMatrix = new Vector<List<String>>();
 			Vector<String> canonicizers = new Vector<String>();
 			for (int i = 0; i < args.length; i++) {
 				Vector<String> nextFlag;
@@ -207,8 +207,8 @@ public class jgaapCLI {
 				commandDriver.setLanguage(language);
 				while (!documentMatrix.isEmpty()) {
 					commandDriver.addDocument(
-							(documentMatrix.elementAt(0).elementAt(1)),
-							documentMatrix.elementAt(0).elementAt(0), null);
+							(documentMatrix.get(0).get(1)),
+							documentMatrix.get(0).get(0), null);
 					documentMatrix.remove(0);
 				}
 				for (String c : canonicizers) {

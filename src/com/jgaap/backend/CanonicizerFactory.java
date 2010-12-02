@@ -13,13 +13,13 @@ public class CanonicizerFactory {
 		// Load the canonicizers dynamically
 		canonicizers = new HashMap<String, Canonicizer>();
 		for(Canonicizer canon : AutoPopulate.getCanonicizers()){
-			canonicizers.put(canon.displayName().toLowerCase(), canon);
+			canonicizers.put(canon.displayName().toLowerCase().trim(), canon);
 		}	
 	}
 	
 	public Canonicizer getCanonicizer(String action) throws Exception{
 		Canonicizer canonicizer;
-		action = action.toLowerCase();
+		action = action.toLowerCase().trim();
 		if(canonicizers.containsKey(action)){
 			canonicizer = canonicizers.get(action).getClass().newInstance();
 		}else{

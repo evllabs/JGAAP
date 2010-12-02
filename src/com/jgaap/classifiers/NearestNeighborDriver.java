@@ -19,7 +19,7 @@ package com.jgaap.classifiers;
 
 import java.util.List;
 
-import com.jgaap.generics.DistanceFunction;
+import com.jgaap.jgaapConstants;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 
@@ -31,7 +31,7 @@ import com.jgaap.generics.NeighborAnalysisDriver;
 public class NearestNeighborDriver extends NeighborAnalysisDriver {
 
 	public String displayName() {
-		return "Nearest Neighbor Driver"+getDistanceName();
+		return "Nearest Neighbor Driver" + getDistanceName();
 	}
 
 	public String tooltipText() {
@@ -41,8 +41,6 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 	public boolean showInGUI() {
 		return false;
 	}
-
-	public DistanceFunction distance;
 
 	@Override
 	public String analyze(EventSet unknown, List<EventSet> known) {
@@ -56,11 +54,13 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 			double current = distance.distance(unknown, known.get(i));
 			authorArray[i] = known.get(i).getAuthor();
 			distArray[i] = current;
-			System.out.print(unknown.getDocumentName() + "(Unknown)");
-			System.out.print(":");
-			System.out.print(known.get(i).getDocumentName() + "("
-					+ known.get(i).getAuthor() + ")\t");
-			System.out.println("Distance is " + current);
+			if (jgaapConstants.JGAAP_DEBUG_VERBOSITY) {
+				System.out.print(unknown.getDocumentName() + "(Unknown)");
+				System.out.print(":");
+				System.out.print(known.get(i).getDocumentName() + "("
+						+ known.get(i).getAuthor() + ")\t");
+				System.out.println("Distance is " + current);
+			}
 			/*
 			 * removed for detailed ranked output
 			 * 
@@ -98,14 +98,6 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 		auth = auth + "\n----------------------------------------\n";
 
 		return auth;// +" "+min_distance;
-	}
-
-	public DistanceFunction getDistanceFunction() {
-		return distance;
-	}
-
-	public void setDistance(DistanceFunction Dist) {
-		this.distance = Dist;
 	}
 
 }

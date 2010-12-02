@@ -30,10 +30,22 @@ public class API {
 		languageFactory = new LanguageFactory();
 	}
 
+	public Document addDocument(String filepath, String author) throws Exception{
+		System.out.println("Adding Document :"+filepath);
+		Document document = new Document(filepath, author);
+		documents.add(document);
+		return document;
+	}
+	
 	public Document addDocument(String filepath, String author, String title)
 			throws Exception {
 		System.out.println("Adding Document :" + filepath);
 		Document document = new Document(filepath, author, title);
+		documents.add(document);
+		return document;
+	}
+	
+	public Document addDocument(Document document){
 		documents.add(document);
 		return document;
 	}
