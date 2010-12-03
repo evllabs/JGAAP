@@ -18,14 +18,16 @@
 package com.jgaap.classifiers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.jgaap.generics.DistanceFunction;
+import com.jgaap.jgaapConstants;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
+import com.jgaap.generics.Pair;
 
 /**
  * Assigns authorship labels by using a nearest-neighbor approach on a given
@@ -35,7 +37,7 @@ import com.jgaap.generics.NeighborAnalysisDriver;
 public class AuthorNeighborDriver extends NeighborAnalysisDriver {
 
 	public String displayName() {
-		return "Author Neighbor Driver"+getDistanceName();
+		return "Author Neighbor Driver" + getDistanceName();
 	}
 
 	public String tooltipText() {
@@ -46,84 +48,47 @@ public class AuthorNeighborDriver extends NeighborAnalysisDriver {
 		return false;
 	}
 
-	public DistanceFunction Dist;
-
 	@Override
-	public String analyze(EventSet unknown, List<EventSet> knowns) {
+	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> knowns) {
 
-		String auth = "";
-		String[] authorArray;
-		double[] distArray;
 		List<String> authors = new ArrayList<String>();
 		List<Double> distances = new ArrayList<Double>();
 		Map<String, List<Double>> authorMap = new HashMap<String, List<Double>>();
+		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
 
 		for (EventSet known : knowns) {
-			double current = Dist.distance(unknown, known);
+			double current = distance.distance(unknown, known);
 			authors.add(known.getAuthor());
 			distances.add(current);
-			System.out.print(unknown.getDocumentName() + "(Unknown)");
-			System.out.print(":");
-			System.out.print(known.getDocumentName() + "(" + known.getAuthor()
-					+ ")\t");
-			System.out.println("Distance is " + current);
+			if (jgaapConstants.JGAAP_DEBUG_VERBOSITY) {
+				System.out.print(unknown.getDocumentName() + "(Unknown)");
+				System.out.print(":");
+				System.out.print(known.getDocumentName() + "("
+						+ known.getAuthor() + ")\t");
+				System.out.println("Distance is " + current);
+			}
 		}
 		for (int i = 0; i < authors.size(); i++) {
-			if(authorMap.containsKey(authors.get(i))){
+			if (authorMap.containsKey(authors.get(i))) {
 				List<Double> distance = authorMap.get(authors.get(i));
 				distance.add(distances.get(i));
-			}else{
+			} else {
 				List<Double> distance = new ArrayList<Double>();
 				distance.add(distances.get(i));
 				authorMap.put(authors.get(i), distance);
 			}
 		}
-		authorArray=new String[authorMap.size()];
-		distArray = new double[authorMap.size()];
-		int k=0;
-		for(Entry<String, List<Double>> entry : authorMap.entrySet()){
+		for (Entry<String, List<Double>> entry : authorMap.entrySet()) {
 			int count = 0;
 			double distance = 0;
-			for(Double current : entry.getValue()){
+			for (Double current : entry.getValue()) {
 				count++;
-				distance+=current;
+				distance += current;
 			}
-			authorArray[k]=entry.getKey();
-			distArray[k]=distance/count;
-			k++;
+			results.add(new Pair<String, Double>(entry.getKey(), distance / count, 2));
 		}
-
-		// sort algorithm here;
-
-		for (int i = 0; i < distArray.length - 1; i++) {
-			for (int j = distArray.length - 1; j > i; j--) {
-				if (distArray[j - 1] > distArray[j]) {
-					double tmp = distArray[j - 1];
-					distArray[j - 1] = distArray[j];
-					distArray[j] = tmp;
-					String tmpA = authorArray[j - 1];
-					authorArray[j - 1] = authorArray[j];
-					authorArray[j] = tmpA;
-				}
-			}
-		}
-
-		for (int i = 1; i <= distArray.length; i++) {
-			auth = auth + "\n" + i + ". " + authorArray[i - 1] + " "
-					+ distArray[i - 1];
-		}
-
-		auth = auth + "\n----------------------------------------\n";
-
-		return auth;// +" "+min_distance;
-	}
-
-	public DistanceFunction getDistanceFunction() {
-		return Dist;
-	}
-
-	public void setDistance(DistanceFunction Dist) {
-		this.Dist = Dist;
+		Collections.sort(results);
+		return results;
 	}
 
 }

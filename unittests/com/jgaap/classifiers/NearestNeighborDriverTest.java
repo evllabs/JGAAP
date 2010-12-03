@@ -7,34 +7,36 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.distances.CosineDistance;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
+import java.util.List;
 import java.util.Vector;
-
 
 /**
  * @author darrenvescovi
- *
+ * 
  */
 public class NearestNeighborDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.generics.NearestNeighborDriver#analyze(com.jgaap.generics.EventSet, List<EventSet>)}.
+	 * Test method for {@link
+	 * com.jgaap.generics.NearestNeighborDriver#analyze(com.jgaap.generics.
+	 * EventSet, List<EventSet>)}.
 	 */
 	@Test
 	public void testAnalyze() {
 		NearestNeighborDriver nearest = new NearestNeighborDriver();
 		CosineDistance cosine = new CosineDistance();
 		nearest.setDistance(cosine);
-		
+
 		EventSet known1 = new EventSet();
 		EventSet known2 = new EventSet();
 		EventSet unknown = new EventSet();
-		
+
 		Vector<Event> test1 = new Vector<Event>();
 		test1.add(new Event("Mary"));
 		test1.add(new Event("had"));
@@ -49,8 +51,7 @@ public class NearestNeighborDriverTest {
 		test1.add(new Event("snow."));
 		known1.addEvents(test1);
 		known1.setAuthor("Mary");
-		
-		
+
 		Vector<Event> test2 = new Vector<Event>();
 		test2.add(new Event("Peter"));
 		test2.add(new Event("piper"));
@@ -62,7 +63,7 @@ public class NearestNeighborDriverTest {
 		test2.add(new Event("peppers."));
 		known2.addEvents(test2);
 		known2.setAuthor("Peter");
-		
+
 		Vector<Event> test3 = new Vector<Event>();
 		test3.add(new Event("Mary"));
 		test3.add(new Event("had"));
@@ -76,25 +77,20 @@ public class NearestNeighborDriverTest {
 		test3.add(new Event("as"));
 		test3.add(new Event("snow."));
 		unknown.addEvents(test3);
-		
-		Vector <EventSet> esv = new Vector<EventSet>();
+
+		Vector<EventSet> esv = new Vector<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
 
 		System.out.println("There once was a lass from Nantucket");
-		
-		String t = nearest.analyze(unknown, esv);
-		String [] tmp = t.split("\\n");
-		//System.out.println(tmp[1]);
-		String [] tmp2 = tmp[1].split("\\s");
-		//System.out.println(tmp2[1]);
-		//System.out.println(t);
-		t=tmp2[1];
-		System.out.println(t);
+
+		List<Pair<String, Double>> t = nearest.analyze(unknown, esv);
+		String r = t.get(0).getFirst();
+
 		String s = "Mary";
-		
-		assertTrue(t.equals(s));
-		
+
+		assertTrue(r.equals(s));
+
 	}
 
 }

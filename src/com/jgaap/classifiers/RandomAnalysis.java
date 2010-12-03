@@ -19,10 +19,12 @@ package com.jgaap.classifiers;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /** 
  * Return a random authorship label from the list of known authors.
@@ -42,9 +44,11 @@ public class RandomAnalysis extends AnalysisDriver {
 	    return false;
 	}
     @Override
-    public String analyze(EventSet unknown, List<EventSet> known) {
+    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
         int numChoices = known.size();
         EventSet s = known.get((int) (Math.random() * numChoices));
-        return s.getAuthor();
+        List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
+        results.add(new Pair<String, Double>(s.getAuthor(), 0.0));
+        return results;
     }
 }

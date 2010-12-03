@@ -5,12 +5,14 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * @author darrenvescovi
@@ -73,10 +75,11 @@ public class SVMTest {
 		esv.add(known1);
 		esv.add(known2);
 		
-		String t = new SVM().analyze(unknown, esv);
+		List<Pair<String,Double>> t = new SVM().analyze(unknown, esv);
+		String r = t.get(0).getFirst();
 		String s = "Mary";
 		
-		assertTrue(t.equals(s));
+		assertTrue(r.equals(s));
 		
 	}
 

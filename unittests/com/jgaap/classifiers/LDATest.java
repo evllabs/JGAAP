@@ -5,12 +5,14 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * @author darrenvescovi
@@ -67,18 +69,12 @@ public class LDATest {
 		esv.add(known1);
 		esv.add(known2);
 		
-		String t = new LDA().analyze(unknown, esv);
-		String [] tmp = t.split("\\n");
-		System.out.println(tmp[1]);
-		String [] tmp2 = tmp[1].split("\\s");
-		System.out.println(tmp2[1]);
-		System.out.println(t);
-		t=tmp2[1];
-		
+		List<Pair<String, Double>> t = new LDA().analyze(unknown, esv);
+		String r = t.get(0).getFirst();
 		
 		String s = "Mary";
 		
-		assertTrue(t.equals(s));
+		assertTrue(r.equals(s));
 	}
 
 }

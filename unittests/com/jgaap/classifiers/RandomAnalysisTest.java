@@ -5,6 +5,7 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 import java.lang.Math;
 
@@ -12,6 +13,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * @author darrenvescovi
@@ -91,8 +93,9 @@ public class RandomAnalysisTest {
 			int j = 0; // hold number of marys
 
 			for (int i = 1; i <= 1000; i = i + 1) {
-				String t = thing.analyze(unknownMary, esv);
-				if (t.equals("Mary")) {
+				List<Pair<String,Double>> t = thing.analyze(unknownMary, esv);
+				String r = t.get(0).getFirst();
+				if (r.equals("Mary")) {
 					j = j + 1;
 				}
 			}

@@ -22,6 +22,7 @@ import static org.math.array.LinearAlgebra.times;
 import static org.math.array.StatisticSample.covariance;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -34,6 +35,7 @@ import com.jgaap.backend.KernelMethodMatrix;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 import com.jgaap.jgaap;
 
 /**
@@ -56,7 +58,7 @@ public class SPCA extends AnalysisDriver {
 	public boolean showInGUI(){
 	    return true;
 	}
-    public String analyze(EventSet unknown, List<EventSet> known) {
+    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 
         TreeSet<Event> vocab = new TreeSet<Event>(); // list of all events
         // (known & unknown)
@@ -308,8 +310,9 @@ public class SPCA extends AnalysisDriver {
 
         }
         
-        return maxAuthor;
-
+        List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
+        results.add(new Pair<String, Double>(maxAuthor, 0.0));
+        return results;
     }
 
 }

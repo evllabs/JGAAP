@@ -5,28 +5,32 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * @author darrenvescovi
- *
+ * 
  */
 public class NaiveBayesTest {
 
 	/**
-	 * Test method for {@link com.jgaap.classifiers.NaiveBayes#analyze(com.jgaap.generics.EventSet, List<EventSet>)}.
+	 * Test method for {@link
+	 * com.jgaap.classifiers.NaiveBayes#analyze(com.jgaap.generics.EventSet,
+	 * List<EventSet>)}.
 	 */
 	@Test
 	public void testAnalyze() {
 		EventSet known1 = new EventSet();
 		EventSet known2 = new EventSet();
 		EventSet unknown = new EventSet();
-		
+
 		known1.addEvent(new Event("Mary"));
 		known1.addEvent(new Event("had"));
 		known1.addEvent(new Event("a"));
@@ -39,8 +43,7 @@ public class NaiveBayesTest {
 		known1.addEvent(new Event("as"));
 		known1.addEvent(new Event("snow."));
 		known1.setAuthor("Mary");
-		
-		
+
 		known2.addEvent(new Event("Peter"));
 		known2.addEvent(new Event("piper"));
 		known2.addEvent(new Event("picked"));
@@ -50,7 +53,7 @@ public class NaiveBayesTest {
 		known2.addEvent(new Event("pickled"));
 		known2.addEvent(new Event("peppers."));
 		known2.setAuthor("Peter");
-		
+
 		unknown.addEvent(new Event("Mary"));
 		unknown.addEvent(new Event("had"));
 		unknown.addEvent(new Event("a"));
@@ -62,21 +65,17 @@ public class NaiveBayesTest {
 		unknown.addEvent(new Event("white"));
 		unknown.addEvent(new Event("as"));
 		unknown.addEvent(new Event("snow."));
-		
-		Vector <EventSet> esv = new Vector<EventSet>();
+
+		Vector<EventSet> esv = new Vector<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
-		
-		String t = new NaiveBayes().analyze(unknown, esv);
-		String [] tmp = t.split("\\n");
-		//System.out.println(tmp[1]);
-		String [] tmp2 = tmp[1].split("\\s");
-		//System.out.println(tmp2[1]);
-		//System.out.println(t);
-		t=tmp2[1];
+
+		List<Pair<String, Double>> t = new NaiveBayes().analyze(unknown, esv);
+		String r = t.get(0).getFirst();
+		System.out.println(r);
 		String s = "Mary";
-		
-		assertTrue(t.equals(s));
+
+		assertTrue(r.equals(s));
 	}
 
 }

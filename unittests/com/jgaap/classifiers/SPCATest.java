@@ -5,12 +5,14 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * @author darrenvescovi
@@ -74,10 +76,11 @@ public class SPCATest {
 		esv.add(known2);
 		SPCA thing = new SPCA();
 		thing.setParameter("printGraph", "false");
-		String t = thing.analyze(unknown, esv);
+		List<Pair<String,Double>> t = thing.analyze(unknown, esv);
+		String r = t.get(0).getFirst();
 		String s = "unknown";
 		
-		assertTrue(t.equals(s));
+		assertTrue(r.equals(s));
 	}
 
 }

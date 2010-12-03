@@ -5,12 +5,14 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * @author darrenvescovi
@@ -42,9 +44,10 @@ public class NullHistAnalysisTest {
 		
 		Vector<EventSet> test = new Vector<EventSet>();
 		test.add(known1);
-		String t = new NullHistAnalysis().analyze(unknown, test);
+		List<Pair<String, Double>> t = new NullHistAnalysis().analyze(unknown, test);
+		String r = t.get(0).getFirst();
 		String s = "No analysis performed.\n";
-		assertTrue(t.equals(s));
+		assertTrue(r.equals(s));
 	}
 
 }

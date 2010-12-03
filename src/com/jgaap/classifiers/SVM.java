@@ -24,6 +24,7 @@ import java.util.*;
 import com.jgaap.backend.KernelMethodMatrix;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
  
 /**
  * SVM classifier rewritten to talk directly to libsvm. 
@@ -62,7 +63,7 @@ public class SVM extends AnalysisDriver {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-    public String analyze(EventSet unknown, List<EventSet> known) {
+    public List<Pair<String,Double>> analyze(EventSet unknown, List<EventSet> known) {
 		
 		int i;
 		
@@ -151,7 +152,9 @@ public class SVM extends AnalysisDriver {
 		int decision = (int)svm.svm_predict(model, x);
 		
 		// whose author we lookup in groupsMap and return.
-        return (String)groupsMap.get(new Integer(decision));
+		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
+		results.add(new Pair((String)groupsMap.get(new Integer(decision)),new Double(decision)));
+        return results;
 	}
 
 }

@@ -17,10 +17,12 @@
  **/
 package com.jgaap.classifiers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * NullAnalysis : no analysis, but prints event sets received
@@ -40,7 +42,7 @@ public class NullAnalysis extends AnalysisDriver {
 	}
 
     @Override
-    public String analyze(EventSet unknown, List<EventSet> known) {
+    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
         int i;
 
         // When we start using a useful logging function, change the
@@ -53,7 +55,9 @@ public class NullAnalysis extends AnalysisDriver {
             System.out.println(known.get(i).toString());
         }
 
-        return "No analysis performed.\n";
+        List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
+        results.add(new Pair<String, Double>("No analysis performed.\n", 0.0));
+        return results;
     }
 
 }

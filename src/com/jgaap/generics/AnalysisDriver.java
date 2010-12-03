@@ -49,7 +49,7 @@ public abstract class AnalysisDriver extends Parameterizable implements Comparab
      *            a vector of EventSets of known authorship
      * @return a String representing the name of the author assigned
      */
-    abstract public String analyze(EventSet unknown, List<EventSet> known);
+    abstract public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known);
 
     public void analyze(Document unknown, List<Document> known){
     	for(EventDriver eventDriver : unknown.getEventSets().keySet()){

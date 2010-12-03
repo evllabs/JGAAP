@@ -17,11 +17,14 @@
  **/
 package com.jgaap.classifiers;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 
 import com.jgaap.jgaapConstants;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
+import com.jgaap.generics.Pair;
 
 /**
  * Assigns authorship labels by using a nearest-neighbor approach on a given
@@ -43,17 +46,12 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	@Override
-	public String analyze(EventSet unknown, List<EventSet> known) {
-		// removed for detailed ranked report
-		// double min_distance = Double.MAX_VALUE;
-		String auth = "";
-		String[] authorArray = new String[known.size()];
-		double[] distArray = new double[known.size()];
+	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
+		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
 
 		for (int i = 0; i < known.size(); i++) {
 			double current = distance.distance(unknown, known.get(i));
-			authorArray[i] = known.get(i).getAuthor();
-			distArray[i] = current;
+			results.add(new Pair<String, Double>(known.get(i).getAuthor(),current,2));
 			if (jgaapConstants.JGAAP_DEBUG_VERBOSITY) {
 				System.out.print(unknown.getDocumentName() + "(Unknown)");
 				System.out.print(":");
@@ -61,43 +59,9 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 						+ known.get(i).getAuthor() + ")\t");
 				System.out.println("Distance is " + current);
 			}
-			/*
-			 * removed for detailed ranked output
-			 * 
-			 * if (current < min_distance) { min_distance = current; auth =
-			 * known.elementAt(i).getAuthor(); }
-			 */
-
 		}
-
-		// sort algorithm here;
-
-		for (int i = 0; i < distArray.length - 1; i++) {
-			for (int j = distArray.length - 1; j > i; j--) {
-				if (distArray[j - 1] > distArray[j]) {
-					double tmp = distArray[j - 1];
-					distArray[j - 1] = distArray[j];
-					distArray[j] = tmp;
-					String tmpA = authorArray[j - 1];
-					authorArray[j - 1] = authorArray[j];
-					authorArray[j] = tmpA;
-				}
-			}
-		}
-
-		/*
-		 * auth="1."+authorArray[0]+" "+distArray[0]+
-		 * " 2."+authorArray[1]+" "+distArray[1]+
-		 * " 3."+authorArray[2]+" "+distArray[1];
-		 */
-		for (int i = 1; i <= distArray.length; i++) {
-			auth = auth + "\n" + i + ". " + authorArray[i - 1] + " "
-					+ distArray[i - 1];
-		}
-
-		auth = auth + "\n----------------------------------------\n";
-
-		return auth;// +" "+min_distance;
+		Collections.sort(results);
+		return results;
 	}
 
 }

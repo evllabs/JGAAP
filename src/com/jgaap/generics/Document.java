@@ -39,7 +39,7 @@ public class Document extends Parameterizable {
 	private DocType docType;
 	private List<Canonicizer> canonicizers;
 	private Map<EventDriver, EventSet> eventSets;
-	private Map<AnalysisDriver, Map<EventDriver, String>> results;
+	private Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> results;
 
 	/**
 	 * List of possible document types.
@@ -54,7 +54,7 @@ public class Document extends Parameterizable {
 		size = 0;
 		canonicizers = new ArrayList<Canonicizer>();
 		eventSets = new HashMap<EventDriver, EventSet>();
-		results = new HashMap<AnalysisDriver, Map<EventDriver, String>>();
+		results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>();
 		rawText = new ArrayList<Character>();
 		procText = new ArrayList<Character>();
 		docType = DocType.GENERIC;
@@ -77,7 +77,7 @@ public class Document extends Parameterizable {
 		this.canonicizers = new ArrayList<Canonicizer>(document.canonicizers);
 		this.docType = document.docType;
 		this.eventSets = new HashMap<EventDriver, EventSet>(document.eventSets);
-		this.results = new HashMap<AnalysisDriver, Map<EventDriver, String>>(
+		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>(
 				document.results);
 		this.filepath = new String(document.filepath);
 		this.procText = new ArrayList<Character>(document.procText);
@@ -115,7 +115,7 @@ public class Document extends Parameterizable {
 		}
 		this.eventSets = new HashMap<EventDriver, EventSet>();
 		this.canonicizers = new ArrayList<Canonicizer>();
-		this.results = new HashMap<AnalysisDriver, Map<EventDriver, String>>();
+		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>();
 	}
 
 	/**
@@ -287,15 +287,15 @@ public class Document extends Parameterizable {
 	}
 
 	public void addResult(AnalysisDriver analysisDriver,
-			EventDriver eventDriver, String result) {
-		Map<EventDriver, String> entry;
+			EventDriver eventDriver, List<Pair<String, Double>> list) {
+		Map<EventDriver, List<Pair<String, Double>>> entry;
 		if (results.containsKey(analysisDriver)) {
 			entry = results.get(analysisDriver);
 		} else {
-			entry = new HashMap<EventDriver, String>();
+			entry = new HashMap<EventDriver, List<Pair<String, Double>>>();
 			results.put(analysisDriver, entry);
 		}
-		entry.put(eventDriver, result);
+		entry.put(eventDriver, list);
 	}
 
 	public String getResult() {
@@ -313,7 +313,7 @@ public class Document extends Parameterizable {
 		buffer.append("\n");
 		for (AnalysisDriver analysisDriver : results.keySet()) {
 			String analysis = analysisDriver.displayName();
-			Map<EventDriver, String> eventResults = results.get(analysisDriver);
+			Map<EventDriver, List<Pair<String, Double>>> eventResults = results.get(analysisDriver);
 			for (EventDriver eventDriver : eventResults.keySet()) {
 				buffer.append("Analyzed by " + analysis + " using "
 						+ eventDriver.displayName() + " as events\n");
