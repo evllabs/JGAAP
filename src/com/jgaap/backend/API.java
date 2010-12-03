@@ -6,7 +6,11 @@ import java.util.List;
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.generics.*;
 import com.jgaap.generics.Document.DocType;
-
+/**
+ * 
+ * @author Michael Ryan
+ * @since 5.0
+ */
 public class API {
 
 	private List<Document> documents;
@@ -82,6 +86,16 @@ public class API {
 		return knownDocuments;
 	}
 
+	public List<Document> getAuthorDocuments(String author){
+		List<Document> authorDocuments = new ArrayList<Document>();
+		for(Document document : documents){
+			if(document.getAuthor().equalsIgnoreCase(author)){
+				authorDocuments.add(document);
+			}
+		}
+		return authorDocuments;
+	}
+	
 	public void addCanonicizer(String action) throws Exception {
 		for (Document document : documents) {
 			addCanonicizer(action, document);
