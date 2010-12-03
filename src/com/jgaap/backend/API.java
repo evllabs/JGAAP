@@ -120,6 +120,12 @@ public class API {
 			}
 		}
 	}
+	
+	public void removeAllCanonicizers(DocType docType){
+		for(Document document : documents){
+			document.clearCanonicizers();
+		}
+	}
 
 	public void removeAllCanonicizers() {
 		for (Document document : documents) {
