@@ -318,6 +318,7 @@ public class API {
 	public void execute() throws InterruptedException {
 		canonicize();
 		eventify();
+        cull();
 		analyze();
 	}
 
