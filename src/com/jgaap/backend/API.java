@@ -16,21 +16,25 @@ public class API {
 	private List<Document> documents;
 	private List<EventDriver> eventDrivers;
 	private List<AnalysisDriver> analysisDrivers;
+    private List<EventCuller> eventCullers;
 
 	private CanonicizerFactory canonicizerFactory;
 	private EventDriverFactory eventDriverFactory;
 	private AnalysisDriverFactory analysisDriverFactory;
 	private DistanceFunctionFactory distanceFunctionFactory;
+    private EventCullerFactory eventCullerFactory;
 	private LanguageFactory languageFactory;
 
 	public API() {
 		documents = new ArrayList<Document>();
 		eventDrivers = new ArrayList<EventDriver>();
 		analysisDrivers = new ArrayList<AnalysisDriver>();
+        eventCullers = new ArrayList<EventCuller>();
 		canonicizerFactory = new CanonicizerFactory();
 		eventDriverFactory = new EventDriverFactory();
 		analysisDriverFactory = new AnalysisDriverFactory();
 		distanceFunctionFactory = new DistanceFunctionFactory();
+        eventCullerFactory = new EventCullerFactory();
 		languageFactory = new LanguageFactory();
 	}
 
@@ -167,6 +171,12 @@ public class API {
 		return eventDriver;
 	}
 
+    public EventCuller addEventCuller(String action) throws Exception {
+        EventCuller eventCuller = eventCullerFactory.getEventCuller(action);
+        eventCullers.add(eventCuller);
+        return eventCuller;
+    }
+
 	public Boolean removeEventDriver(EventDriver eventDriver) {
 		return eventDrivers.remove(eventDriver);
 	}
@@ -254,6 +264,30 @@ public class API {
 			t.join();
 		}
 	}
+
+    private void cull() throws InterruptedException {
+        List<EventSet> eventSets;
+
+        for(EventDriver ed : eventDrivers) {
+            eventSets = new ArrayList<EventSet>();
+            for(final Document document : documents) {
+                if(document.getEventSets().containsKey(ed)) {
+                    eventSets.add(document.getEventSet(ed));
+                }
+            }
+
+            for(EventCuller culler : eventCullers) {
+                eventSets = culler.cull(eventSets);
+            }
+
+            for(final Document document : documents) {
+                if(document.getEventSets().containsKey(ed)) {
+                    document.addEventSet(ed, eventSets.remove(0));
+                }
+            }
+        }
+
+    }
 
 	private void analyze() throws InterruptedException {
 		List<Thread> threads = new ArrayList<Thread>();

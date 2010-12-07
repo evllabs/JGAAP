@@ -17,7 +17,7 @@ public class EventCullerFactory {
 		}
 	}
 
-	public EventCuller getAnalysisDriver(String action) throws Exception{
+	public EventCuller getEventCuller(String action) throws Exception{
 		EventCuller eventCuller;
 		action = action.toLowerCase().trim();
 		if(eventCullers.containsKey(action)){
