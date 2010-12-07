@@ -89,11 +89,25 @@ public class API {
 	public List<Document> getAuthorDocuments(String author){
 		List<Document> authorDocuments = new ArrayList<Document>();
 		for(Document document : documents){
-			if(document.getAuthor().equalsIgnoreCase(author)){
-				authorDocuments.add(document);
+			if(document.getAuthor() != null){
+				if(document.getAuthor().equalsIgnoreCase(author)){
+					authorDocuments.add(document);
+				}
 			}
 		}
 		return authorDocuments;
+	}
+	
+	public List<String> getAuthors(){
+		List<String> authorNames = new ArrayList<String>();
+		for(Document document : documents){
+			if(document.getAuthor() != null){
+				if(!authorNames.contains(document.getAuthor())){
+					authorNames.add(document.getAuthor());
+				}
+			}
+		}
+		return authorNames;
 	}
 	
 	public void addCanonicizer(String action) throws Exception {
