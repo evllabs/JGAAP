@@ -171,12 +171,6 @@ public class API {
 		return eventDriver;
 	}
 
-    public EventCuller addEventCuller(String action) throws Exception {
-        EventCuller eventCuller = eventCullerFactory.getEventCuller(action);
-        eventCullers.add(eventCuller);
-        return eventCuller;
-    }
-
 	public Boolean removeEventDriver(EventDriver eventDriver) {
 		return eventDrivers.remove(eventDriver);
 	}
@@ -191,6 +185,25 @@ public class API {
 	public List<EventDriver> getEventDrivers() {
 		return eventDrivers;
 	}
+	
+
+    public EventCuller addEventCuller(String action) throws Exception {
+        EventCuller eventCuller = eventCullerFactory.getEventCuller(action);
+        eventCullers.add(eventCuller);
+        return eventCuller;
+    }
+    
+    public Boolean removeEventCuller(EventCuller eventCuller){
+    	return eventCullers.remove(eventCuller);
+    }
+    
+    public void removeAllEventCullers(){
+    	eventCullers = new ArrayList<EventCuller>();
+    }
+    
+    public List<EventCuller> getEventCullers(){
+    	return eventCullers;
+    }
 
 	public AnalysisDriver addAnalysisDriver(String action) throws Exception {
 		AnalysisDriver analysisDriver;
