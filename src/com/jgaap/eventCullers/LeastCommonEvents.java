@@ -30,12 +30,12 @@ public class LeastCommonEvents extends EventCuller {
 
     @Override
     public String displayName() {
-        return "Most Common Events";
+        return "Least Common Events";
     }
 
     @Override
     public String tooltipText() {
-        return "Analyze only the N most common events across all documents";
+        return "Analyze only the N least common events across all documents";
     }
 
     @Override
