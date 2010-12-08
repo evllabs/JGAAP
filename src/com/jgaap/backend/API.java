@@ -15,8 +15,8 @@ public class API {
 
 	private List<Document> documents;
 	private List<EventDriver> eventDrivers;
-	private List<AnalysisDriver> analysisDrivers;
     private List<EventCuller> eventCullers;
+	private List<AnalysisDriver> analysisDrivers;
 
 	private CanonicizerFactory canonicizerFactory;
 	private EventDriverFactory eventDriverFactory;
@@ -28,13 +28,13 @@ public class API {
 	public API() {
 		documents = new ArrayList<Document>();
 		eventDrivers = new ArrayList<EventDriver>();
+		eventCullers = new ArrayList<EventCuller>();
 		analysisDrivers = new ArrayList<AnalysisDriver>();
-        eventCullers = new ArrayList<EventCuller>();
 		canonicizerFactory = new CanonicizerFactory();
 		eventDriverFactory = new EventDriverFactory();
+        eventCullerFactory = new EventCullerFactory();
 		analysisDriverFactory = new AnalysisDriverFactory();
 		distanceFunctionFactory = new DistanceFunctionFactory();
-        eventCullerFactory = new EventCullerFactory();
 		languageFactory = new LanguageFactory();
 	}
 
@@ -350,6 +350,10 @@ public class API {
 		return AutoPopulate.getEventDrivers();
 	}
 
+    public List<EventCuller> getAllEventCullers() {
+        return AutoPopulate.getEventCullers();
+    }
+    
 	public List<AnalysisDriver> getAllAnalysisDrivers() {
 		return AutoPopulate.getAnalysisDrivers();
 	}
@@ -362,7 +366,4 @@ public class API {
 		return AutoPopulate.getLanguages();
 	}
 
-    public List<EventCuller> getAllEventCullers() {
-        return AutoPopulate.getEventCullers();
-    }
 }

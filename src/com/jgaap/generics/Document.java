@@ -317,7 +317,11 @@ public class Document extends Parameterizable {
 			for (EventDriver eventDriver : eventResults.keySet()) {
 				buffer.append("Analyzed by " + analysis + " using "
 						+ eventDriver.displayName() + " as events\n");
-				buffer.append(eventResults.get(eventDriver));
+				int count =0;
+				for(Pair<String, Double> result : eventResults.get(eventDriver)){
+					count++;
+					buffer.append(count+". "+result.getFirst()+" "+result.getSecond()+"\n");
+				}
 				buffer.append("\n\n");
 			}
 		}
