@@ -8,6 +8,7 @@ import java.util.Set;
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.generics.*;
 import com.jgaap.generics.Document.DocType;
+
 /**
  * 
  * @author Michael Ryan
@@ -17,12 +18,12 @@ public class API {
 
 	private List<Document> documents;
 	private List<EventDriver> eventDrivers;
-    private List<EventCuller> eventCullers;
+	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 
 	private CanonicizerFactory canonicizerFactory;
 	private EventDriverFactory eventDriverFactory;
-    private EventCullerFactory eventCullerFactory;
+	private EventCullerFactory eventCullerFactory;
 	private AnalysisDriverFactory analysisDriverFactory;
 	private DistanceFunctionFactory distanceFunctionFactory;
 	private LanguageFactory languageFactory;
@@ -34,7 +35,7 @@ public class API {
 		analysisDrivers = new ArrayList<AnalysisDriver>();
 		canonicizerFactory = new CanonicizerFactory();
 		eventDriverFactory = new EventDriverFactory();
-        eventCullerFactory = new EventCullerFactory();
+		eventCullerFactory = new EventCullerFactory();
 		analysisDriverFactory = new AnalysisDriverFactory();
 		distanceFunctionFactory = new DistanceFunctionFactory();
 		languageFactory = new LanguageFactory();
@@ -46,7 +47,7 @@ public class API {
 		documents.add(document);
 		return document;
 	}
-	
+
 	public Document addDocument(String filepath, String author, String title)
 			throws Exception {
 		System.out.println("Adding Document :" + filepath);
@@ -54,8 +55,8 @@ public class API {
 		documents.add(document);
 		return document;
 	}
-	
-	public Document addDocument(Document document){
+
+	public Document addDocument(Document document) {
 		documents.add(document);
 		return document;
 	}
@@ -92,28 +93,28 @@ public class API {
 		return knownDocuments;
 	}
 
-	public List<Document> getAuthorDocuments(String author){
+	public List<Document> getAuthorDocuments(String author) {
 		List<Document> authorDocuments = new ArrayList<Document>();
-		for(Document document : documents){
-			if(document.isAuthorKnown()){
-				if(document.getAuthor().equalsIgnoreCase(author)){
+		for (Document document : documents) {
+			if (document.isAuthorKnown()) {
+				if (document.getAuthor().equalsIgnoreCase(author)) {
 					authorDocuments.add(document);
 				}
 			}
 		}
 		return authorDocuments;
 	}
-	
-	public List<String> getAuthors(){
+
+	public List<String> getAuthors() {
 		Set<String> authors = new HashSet<String>();
-		for(Document document : documents){
-			if(document.isAuthorKnown()){
+		for (Document document : documents) {
+			if (document.isAuthorKnown()) {
 				authors.add(document.getAuthor());
 			}
 		}
 		return new ArrayList<String>(authors);
 	}
-	
+
 	public void addCanonicizer(String action) throws Exception {
 		for (Document document : documents) {
 			addCanonicizer(action, document);
@@ -152,9 +153,9 @@ public class API {
 			}
 		}
 	}
-	
-	public void removeAllCanonicizers(DocType docType){
-		for(Document document : documents){
+
+	public void removeAllCanonicizers(DocType docType) {
+		for (Document document : documents) {
 			document.clearCanonicizers();
 		}
 	}
@@ -185,25 +186,24 @@ public class API {
 	public List<EventDriver> getEventDrivers() {
 		return eventDrivers;
 	}
-	
 
-    public EventCuller addEventCuller(String action) throws Exception {
-        EventCuller eventCuller = eventCullerFactory.getEventCuller(action);
-        eventCullers.add(eventCuller);
-        return eventCuller;
-    }
-    
-    public Boolean removeEventCuller(EventCuller eventCuller){
-    	return eventCullers.remove(eventCuller);
-    }
-    
-    public void removeAllEventCullers(){
-    	eventCullers = new ArrayList<EventCuller>();
-    }
-    
-    public List<EventCuller> getEventCullers(){
-    	return eventCullers;
-    }
+	public EventCuller addEventCuller(String action) throws Exception {
+		EventCuller eventCuller = eventCullerFactory.getEventCuller(action);
+		eventCullers.add(eventCuller);
+		return eventCuller;
+	}
+
+	public Boolean removeEventCuller(EventCuller eventCuller) {
+		return eventCullers.remove(eventCuller);
+	}
+
+	public void removeAllEventCullers() {
+		eventCullers = new ArrayList<EventCuller>();
+	}
+
+	public List<EventCuller> getEventCullers() {
+		return eventCullers;
+	}
 
 	public AnalysisDriver addAnalysisDriver(String action) throws Exception {
 		AnalysisDriver analysisDriver;
@@ -240,6 +240,11 @@ public class API {
 	public Language setLanguage(String action) throws Exception {
 		Language language = languageFactory.getLanguage(action);
 		language.apply();
+		List<Document> tmpDocuments = new ArrayList<Document>(documents); 
+		for(Document document : tmpDocuments){
+			addDocument(document.getFilePath(), document.getAuthor(), document.getTitle());
+			removeDocument(document);
+		}
 		return language;
 	}
 
@@ -278,29 +283,26 @@ public class API {
 		}
 	}
 
-    private void cull() throws InterruptedException {
-        List<EventSet> eventSets;
+	private void cull() throws InterruptedException {
+		List<EventSet> eventSets;
 
-        for(EventDriver eventDriver : eventDrivers) {
-            eventSets = new ArrayList<EventSet>();
-            for(final Document document : documents) {
-                if(document.getEventSets().containsKey(eventDriver)) {
-                    eventSets.add(document.getEventSet(eventDriver));
-                }
-            }
-
-            for(EventCuller culler : eventCullers) {
-                eventSets = culler.cull(eventSets);
-            }
-
-            for(final Document document : documents) {
-                if(document.getEventSets().containsKey(eventDriver)) {
-                    document.addEventSet(eventDriver, eventSets.remove(0));
-                }
-            }
-        }
-
-    }
+		for (EventDriver eventDriver : eventDrivers) {
+			eventSets = new ArrayList<EventSet>();
+			for (final Document document : documents) {
+				if (document.getEventSets().containsKey(eventDriver)) {
+					eventSets.add(document.getEventSet(eventDriver));
+				}
+			}
+			for (EventCuller culler : eventCullers) {
+				eventSets = culler.cull(eventSets);
+			}
+			for (Document document : documents) {
+				if (document.getEventSets().containsKey(eventDriver)) {
+					document.addEventSet(eventDriver, eventSets.remove(0));
+				}
+			}
+		}
+	}
 
 	private void analyze() throws InterruptedException {
 		List<Thread> threads = new ArrayList<Thread>();
@@ -331,7 +333,7 @@ public class API {
 	public void execute() throws InterruptedException {
 		canonicize();
 		eventify();
-        cull();
+		cull();
 		analyze();
 	}
 
@@ -350,10 +352,10 @@ public class API {
 		return AutoPopulate.getEventDrivers();
 	}
 
-    public List<EventCuller> getAllEventCullers() {
-        return AutoPopulate.getEventCullers();
-    }
-    
+	public List<EventCuller> getAllEventCullers() {
+		return AutoPopulate.getEventCullers();
+	}
+
 	public List<AnalysisDriver> getAllAnalysisDrivers() {
 		return AutoPopulate.getAnalysisDrivers();
 	}
