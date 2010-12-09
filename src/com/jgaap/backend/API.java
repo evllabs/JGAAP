@@ -1,7 +1,9 @@
 package com.jgaap.backend;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.generics.*;
@@ -20,9 +22,9 @@ public class API {
 
 	private CanonicizerFactory canonicizerFactory;
 	private EventDriverFactory eventDriverFactory;
+    private EventCullerFactory eventCullerFactory;
 	private AnalysisDriverFactory analysisDriverFactory;
 	private DistanceFunctionFactory distanceFunctionFactory;
-    private EventCullerFactory eventCullerFactory;
 	private LanguageFactory languageFactory;
 
 	public API() {
@@ -93,7 +95,7 @@ public class API {
 	public List<Document> getAuthorDocuments(String author){
 		List<Document> authorDocuments = new ArrayList<Document>();
 		for(Document document : documents){
-			if(document.getAuthor() != null){
+			if(document.isAuthorKnown()){
 				if(document.getAuthor().equalsIgnoreCase(author)){
 					authorDocuments.add(document);
 				}
@@ -103,15 +105,13 @@ public class API {
 	}
 	
 	public List<String> getAuthors(){
-		List<String> authorNames = new ArrayList<String>();
+		Set<String> authors = new HashSet<String>();
 		for(Document document : documents){
-			if(document.getAuthor() != null){
-				if(!authorNames.contains(document.getAuthor())){
-					authorNames.add(document.getAuthor());
-				}
+			if(document.isAuthorKnown()){
+				authors.add(document.getAuthor());
 			}
 		}
-		return authorNames;
+		return new ArrayList<String>(authors);
 	}
 	
 	public void addCanonicizer(String action) throws Exception {
@@ -281,11 +281,11 @@ public class API {
     private void cull() throws InterruptedException {
         List<EventSet> eventSets;
 
-        for(EventDriver ed : eventDrivers) {
+        for(EventDriver eventDriver : eventDrivers) {
             eventSets = new ArrayList<EventSet>();
             for(final Document document : documents) {
-                if(document.getEventSets().containsKey(ed)) {
-                    eventSets.add(document.getEventSet(ed));
+                if(document.getEventSets().containsKey(eventDriver)) {
+                    eventSets.add(document.getEventSet(eventDriver));
                 }
             }
 
@@ -294,8 +294,8 @@ public class API {
             }
 
             for(final Document document : documents) {
-                if(document.getEventSets().containsKey(ed)) {
-                    document.addEventSet(ed, eventSets.remove(0));
+                if(document.getEventSets().containsKey(eventDriver)) {
+                    document.addEventSet(eventDriver, eventSets.remove(0));
                 }
             }
         }
