@@ -41,12 +41,7 @@ public class Document extends Parameterizable {
 	private Map<EventDriver, EventSet> eventSets;
 	private Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> results;
 
-	/**
-	 * List of possible document types.
-	 */
-	public static enum DocType {
-		PDF, URL, DOC, HTML, GENERIC
-	};
+
 
 	public Document() {
 		filepath = "";

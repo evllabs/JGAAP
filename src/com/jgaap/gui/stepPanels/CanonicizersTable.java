@@ -34,7 +34,7 @@ import javax.swing.JTable;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 
-import com.jgaap.generics.Document;
+import com.jgaap.generics.DocType;
 
 /**
  * Extension of the JTable class to allow for the
@@ -157,7 +157,7 @@ public class CanonicizersTable extends JTable {
 			tip = ((CanonicizersTableModel)this.getModel()).getFilePathFrom( rowIndex );
 			break;
 		case 1: //docType column
-			Document.DocType docType = ((CanonicizersTableModel)this.getModel()).getDocTypeFrom( rowIndex );
+			DocType docType = ((CanonicizersTableModel)this.getModel()).getDocTypeFrom( rowIndex );
 		
 			// If you want docType specific tooltips, put them here!
 			if(docType != null){

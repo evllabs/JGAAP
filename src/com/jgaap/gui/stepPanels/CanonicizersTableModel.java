@@ -17,6 +17,7 @@
  **/
 package com.jgaap.gui.stepPanels;
 
+import com.jgaap.generics.DocType;
 import com.jgaap.generics.Document;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -202,7 +203,7 @@ class CanonicizersTableModel extends DocumentsTableModel {
      * @return
      * 		Returns the docType of the document at the given row
      */
-    public Document.DocType getDocTypeFrom( int row ){
+    public DocType getDocTypeFrom( int row ){
     	if( row < 0 || row > data.size() - 1 )
     		return null;
     	

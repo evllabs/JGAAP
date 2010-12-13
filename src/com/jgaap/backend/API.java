@@ -7,7 +7,6 @@ import java.util.Set;
 
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.generics.*;
-import com.jgaap.generics.Document.DocType;
 
 /**
  * 

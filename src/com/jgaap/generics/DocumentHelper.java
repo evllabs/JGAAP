@@ -22,7 +22,6 @@ import org.pdfbox.pdmodel.PDDocument;
 import org.pdfbox.util.PDFTextStripper;
 
 import com.jgaap.jgaapConstants;
-import com.jgaap.generics.Document.DocType;
 
 class DocumentHelper {
 

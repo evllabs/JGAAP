@@ -22,7 +22,7 @@ package com.jgaap.gui.dnd;
 
 import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.Document.DocType;
+import com.jgaap.generics.DocType;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
