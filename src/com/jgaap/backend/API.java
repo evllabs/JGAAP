@@ -96,7 +96,7 @@ public class API {
 		List<Document> authorDocuments = new ArrayList<Document>();
 		for (Document document : documents) {
 			if (document.isAuthorKnown()) {
-				if (document.getAuthor().equalsIgnoreCase(author)) {
+				if (author.equalsIgnoreCase(document.getAuthor())) {
 					authorDocuments.add(document);
 				}
 			}
@@ -283,10 +283,8 @@ public class API {
 	}
 
 	private void cull() throws InterruptedException {
-		List<EventSet> eventSets;
-
 		for (EventDriver eventDriver : eventDrivers) {
-			eventSets = new ArrayList<EventSet>();
+			List<EventSet> eventSets = new ArrayList<EventSet>();
 			for (final Document document : documents) {
 				if (document.getEventSets().containsKey(eventDriver)) {
 					eventSets.add(document.getEventSet(eventDriver));
