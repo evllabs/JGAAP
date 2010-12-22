@@ -25,32 +25,6 @@ ExampleAAACTester
 300010,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 300011,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 300012,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-400000,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadA.csv
-400001,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadB.csv
-400002,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadC.csv
-400003,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadD.csv
-400004,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadE.csv
-400005,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadF.csv
-400006,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadG.csv
-400007,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadH.csv
-400008,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadI.csv
-400009,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadJ.csv
-400010,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadK.csv
-400011,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadL.csv
-400012,Unify Case | Normalize Whitespace,Words,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-500000,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadA.csv
-500001,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadB.csv
-500002,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadC.csv
-500003,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadD.csv
-500004,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadE.csv
-500005,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadF.csv
-500006,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadG.csv
-500007,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadH.csv
-500008,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadI.csv
-500009,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadJ.csv
-500010,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadK.csv
-500011,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadL.csv
-500012,Unify Case | Normalize Whitespace,Characters,Cosine Distance,,../docs/aaac/Demos/loadM.csv
 400000,Unify Case | Normalize Whitespace,Words,Kullback Leibler Distance,,../docs/aaac/Demos/loadA.csv
 400001,Unify Case | Normalize Whitespace,Words,Kullback Leibler Distance,,../docs/aaac/Demos/loadB.csv
 400002,Unify Case | Normalize Whitespace,Words,Kullback Leibler Distance,,../docs/aaac/Demos/loadC.csv
