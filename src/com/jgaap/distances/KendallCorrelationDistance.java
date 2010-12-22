@@ -65,7 +65,7 @@ public class KendallCorrelationDistance extends DistanceFunction {
 		EventHistogram h1 = new EventHistogram();
 		EventHistogram h2 = new EventHistogram();
 
-		Set<Event> s = new HashSet();
+		Set<Event> s = new HashSet<Event>();
 
 		List<Pair<Event,Double>> l1 = new ArrayList<Pair<Event,Double>>();
 		List<Pair<Event,Double>> l2 = new ArrayList<Pair<Event,Double>>();
@@ -94,10 +94,10 @@ public class KendallCorrelationDistance extends DistanceFunction {
 
 		/* make lists of the histograms */
 		for (Event e: h1) {
-			l1.add(new Pair(e,h1.getRelativeFrequency(e),2) );
+			l1.add(new Pair<Event, Double>(e,h1.getRelativeFrequency(e),2) );
 		}
 		for (Event e: h2) {
-			l2.add(new Pair(e,h2.getRelativeFrequency(e),2) );
+			l2.add(new Pair<Event, Double>(e,h2.getRelativeFrequency(e),2) );
 		}
 
 		/* sort the list so the most frequent items are at the top */
