@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.jgaap.jgaapConstants;
-import com.jgaap.gui.jgaapGUI;
 
 /**
  * Code for storing and processing individual documents of any type.
@@ -259,7 +258,6 @@ public class Document extends Parameterizable {
 		}
 		for (Canonicizer canonicizer : canonicizers) {
 			procText = canonicizer.process(procText);
-			jgaapGUI.incProgress();
 		}
 	}
 
