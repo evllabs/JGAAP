@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -44,8 +42,7 @@ public class V23LetterWordEventDriverTest {
 		);
 
 
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new V23LetterWordEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new V23LetterWordEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
@@ -75,7 +72,9 @@ public class V23LetterWordEventDriverTest {
 		tmp.add(new Event("YYY"));
 
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
+		System.out.println(sampleEventSet.toString());
+		System.out.println(expectedEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 }

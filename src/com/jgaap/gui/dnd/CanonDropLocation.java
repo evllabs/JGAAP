@@ -21,7 +21,7 @@ import java.awt.dnd.DropTarget;
 
 import javax.swing.JLabel;
 
-import com.jgaap.generics.Document.DocType;
+import com.jgaap.generics.DocType;
 import com.jgaap.gui.dnd.CanonicizerLabelPanel.ActionGroup;
 
 /**

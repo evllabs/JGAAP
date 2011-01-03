@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
@@ -36,8 +34,7 @@ public class FreqEventDriverTest {
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
 
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new FreqEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new FreqEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
@@ -59,7 +56,7 @@ public class FreqEventDriverTest {
 		tmp.add(new Event("5.75"));
 		tmp.add(new Event("7.48"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 //System.out.println("Expected is " + expectedEventSet.toString());
 //System.out.println("Actual is " + sampleEventSet.toString());

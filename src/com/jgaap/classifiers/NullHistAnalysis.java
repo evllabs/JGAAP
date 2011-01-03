@@ -17,11 +17,13 @@
  **/
 package com.jgaap.classifiers;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * NullAnalysis : no analysis, but prints histogram of event sets received
@@ -40,7 +42,7 @@ public class NullHistAnalysis extends AnalysisDriver {
 	}
 
     @Override
-    public String analyze(EventSet unknown, Vector<EventSet> known) {
+    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
         int i;
 
         EventHistogram h1 = new EventHistogram();
@@ -58,8 +60,8 @@ public class NullHistAnalysis extends AnalysisDriver {
 
         for (i = 0; i < known.size(); i++) {
             h2 = new EventHistogram();
-            for (int j = 0; j < known.elementAt(i).size(); j++) {
-                h2.add(known.elementAt(i).eventAt(j));
+            for (int j = 0; j < known.get(i).size(); j++) {
+                h2.add(known.get(i).eventAt(j));
             }
             // for(Event e : known.elementAt(i))
             // h2.add(e);
@@ -67,11 +69,8 @@ public class NullHistAnalysis extends AnalysisDriver {
             System.out.println(h2);
         }
 
-        return "No analysis performed.\n";
-    }
-
-    @Override
-    public String analyzeAverage(EventSet u, Vector<EventSet> k) {
-        return analyze(u, k);
+        List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
+        results.add(new Pair<String, Double>("No analysis performed.\n", 0.0));
+        return results;
     }
 }

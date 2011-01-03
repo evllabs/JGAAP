@@ -17,10 +17,9 @@
  **/
 package com.jgaap.eventDrivers;
 
-import java.util.Vector;
+import java.util.List;
 
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
@@ -61,15 +60,15 @@ public class CharacterEventDriver extends EventDriver {
      *            document set of interest
      */
     @Override
-    public EventSet createEventSet(DocumentSet ds) {
-        EventSet es = new EventSet(ds.getDocument(0).getAuthor());
-        for (int i = 0; i < ds.documentCount(); i++) {
-            Document current = ds.getDocument(i);
-            Vector<Character> cd = current.getProcessedText();
+    public EventSet createEventSet(Document document) {
+        EventSet es = new EventSet(document.getAuthor());
+//        for (int i = 0; i < ds.documentCount(); i++) {
+//            Document current = ds.getDocument(i);
+            List<Character> cd = document.getProcessedText();
             for (int j = 0; j < cd.size(); j++) {
-                es.events.add(new Event(cd.elementAt(j)));
+                es.addEvent(new Event(cd.get(j)));
             }
-        }
+//        }
         return es;
     }
 

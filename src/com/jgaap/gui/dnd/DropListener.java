@@ -75,7 +75,7 @@ public class DropListener extends DropTargetAdapter {
             	dtde.acceptDrop( dtde.getDropAction() );
                 Transferable transferable = dtde.getTransferable();
 
-                CanonicizerPacket packet = null;
+                CanonicizerPacket packet;
                 try {
                     packet = (CanonicizerPacket) transferable.getTransferData( CanonicizerPacket.getFlavor());
                 } catch (Exception e) {

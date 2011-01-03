@@ -31,11 +31,11 @@ import com.jgaap.generics.EventSet;
  * @version 1.0
  */
 
-public class LZWDistance extends DivergenceFunction {
+public class LZWDivergence extends DivergenceFunction {
 	public String displayName(){
-	    return "LZW Distance";
+	    return "LZW Divergence"+getDivergenceType();
 	}
-
+	
 	public String tooltipText(){
 	    return "Lempel-Ziv-Welch Nearest Neighbor Classifier";
 	}

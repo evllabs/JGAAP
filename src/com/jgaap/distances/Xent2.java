@@ -68,7 +68,7 @@ class XEDictionary {
 
     private void insertAtRoot(Event start, EventSet e, int offset) {
         root.addEventToLevel(start);
-        XEDictionaryNode node = new XEDictionaryNode();
+        XEDictionaryNode node;
         node = root;
         int j = offset;
         while (j < e.size() - 1) {
@@ -80,7 +80,7 @@ class XEDictionary {
     }
 
     private void insertBelowRoot(Event start, EventSet e, int offset) {
-        XEDictionaryNode node = new XEDictionaryNode();
+        XEDictionaryNode node;
         node = root;
         // System.out.println("Event at offset: " + e.eventAt(offset));
         node = node.get(e.eventAt(offset));
@@ -221,7 +221,7 @@ public class Xent2 extends DivergenceFunction {
         }
 
         XEDictionary xed = new XEDictionary();
-        EventSet dictionary = new EventSet();
+        EventSet dictionary;
         dictionary = window(e1, 0, windowSize);
         xed.build(dictionary);
 

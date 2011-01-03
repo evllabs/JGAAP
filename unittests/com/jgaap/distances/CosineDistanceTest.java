@@ -14,12 +14,14 @@ import com.jgaap.generics.EventSet;
 
 /**
  * @author Patrick Juola
- *
+ * 
  */
 public class CosineDistanceTest {
 
 	/**
-	 * Test method for {@link com.jgaap.distances.CosineDistance#distance(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}.
+	 * Test method for
+	 * {@link com.jgaap.distances.CosineDistance#distance(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}
+	 * .
 	 */
 	@Test
 	public void testDistance() {
@@ -36,8 +38,8 @@ public class CosineDistanceTest {
 		test1.add(new Event("lazy"));
 		test1.add(new Event("dog"));
 		test1.add(new Event("."));
-		es1.events.addAll(test1);
-		es2.events.addAll(test1);
+		es1.addEvents(test1);
+		es2.addEvents(test1);
 		double result = new CosineDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 0.0, 0.0000000001));
 
@@ -52,36 +54,33 @@ public class CosineDistanceTest {
 		test2.add(new Event("6"));
 		test2.add(new Event("55"));
 		test2.add(new Event("33"));
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2 = new EventSet();
+		es2.addEvents(test2);
 		result = new CosineDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 1.0, 0.0000000001));
 
+		es1 = new EventSet();
+		es2 = new EventSet();
 		test1=new Vector<Event>();
 		test1.add( new Event("alpha"));
 		test2=new Vector<Event>();
 		test2.add( new Event("alpha"));
 		test2.add( new Event("alpha"));
-		es1.events.clear();
-		es1.events.addAll(test1);
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es1.addEvents(test1);
+		es2.addEvents(test2);
 		result = new CosineDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 0.0, 0.0000000001));
 
+		es1=new EventSet();
+		es2 =new EventSet();
 		test1=new Vector<Event>();
 		test1.add( new Event("alpha"));
 		test2=new Vector<Event>();
 		test2.add( new Event("alpha"));
 		test2.add( new Event("beta"));
-		es1.events.clear();
-		es1.events.addAll(test1);
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es1.addEvents(test1);
+		es2.addEvents(test2);
 		result = new CosineDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 0.29289321881345, 0.0000000001));
 	}
-	
-	
-
 }

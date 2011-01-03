@@ -36,8 +36,8 @@ public class NominalKSDistanceTest {
 		test1.add(new Event("lazy"));
 		test1.add(new Event("dog"));
 		test1.add(new Event("."));
-		es1.events.addAll(test1);
-		es2.events.addAll(test1);
+		es1.addEvents(test1);
+		es2.addEvents(test1);
 		
 		assertTrue(new NominalKSDistance().distance(es1, es2) == 0.00);
 		
@@ -52,8 +52,8 @@ public class NominalKSDistanceTest {
 		test2.add(new Event("10"));
 		test2.add(new Event("2"));
 		test2.add(new Event(".."));
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2 = new EventSet();
+		es2.addEvents(test2);
 		double result = new NominalKSDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 1.00, 0.0000000001));
 	}

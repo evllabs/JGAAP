@@ -29,18 +29,6 @@ package com.jgaap.generics;
  * @since 1.0
  */
 public class Event implements Comparable<Object> {
-	public String displayName(){
-	    return "Event";
-	}
-
-	public String tooltipText(){
-	    return " ";
-	}
-
-	public boolean showInGUI(){
-	    return false;
-	}
-
 
     private String data;
 
@@ -74,7 +62,10 @@ public class Event implements Comparable<Object> {
      **/
     @Override
     public boolean equals(Object o) {
-        return data.equals(((Event) o).data);
+        if(o instanceof Event) {
+            return data.equals(((Event) o).data);
+        }
+        return false;
     }
 
     /** Returns the String representation of this event **/

@@ -17,7 +17,7 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.DocumentSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
@@ -62,7 +62,7 @@ public class NGramEventDriver extends EventDriver {
      * inefficient (high overhead), but it should be easily parsable.
      */
     @Override
-    public EventSet createEventSet(DocumentSet ds) {
+    public EventSet createEventSet(Document ds) {
 
         // Extract local field values based on parameter settings
         String param;
@@ -141,7 +141,7 @@ public class NGramEventDriver extends EventDriver {
                     theEvent += separator;
                 }
             }
-            newEs.events.add(new Event(theEvent));
+            newEs.addEvent(new Event(theEvent));
         }
         return newEs;
     }

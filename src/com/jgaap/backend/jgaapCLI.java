@@ -17,13 +17,16 @@
  **/
 package com.jgaap.backend;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
-import com.jgaap.DivergenceType;
 import com.jgaap.jgaap;
 import com.jgaap.jgaapConstants;
-import com.jgaap.generics.Language;
-import com.jgaap.languages.English;
+import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.Displayable;
+import com.jgaap.generics.DivergenceType;
+import com.jgaap.generics.NeighborAnalysisDriver;
 
 /**
  * Command Line Interface This is version 3 of the command line interface.
@@ -93,38 +96,49 @@ public class jgaapCLI {
 								+ "\n\t\tjava -jar jgaap.jar -c Smash Case -es Words -a cross entropy -l ../docs/aaac/Demos/loadA.csv\n"
 								+ "\nMore information can be found at www.jgaap.com");
 			} else {
-				guiDriver commandDriver = new guiDriver();
 				StringBuffer topic = new StringBuffer();
-				Vector<String> list;
+				List<Displayable> list = new ArrayList<Displayable>();
 				topic.append(args[1]);
 				for (int i = 2; i < args.length; i++) {
 					topic.append(" " + args[i]);
 				}
-				list = commandDriver.argumentList(topic.toString());
-				for (String line : list) {
-					System.out.println(line);
+				String current = topic.toString();
+				if (current.equalsIgnoreCase("c")) {
+					list.addAll(AutoPopulate.getCanonicizers());
+				} else if (current.equalsIgnoreCase("es")) {
+					list.addAll(AutoPopulate.getEventDrivers());
+				} else if (current.equalsIgnoreCase("a")) {
+					list.addAll(AutoPopulate.getAnalysisDrivers());
+				} else if (current.equalsIgnoreCase("d")) {
+					list.addAll(AutoPopulate.getDistanceFunctions());
+				} else if (current.equalsIgnoreCase("lang")){
+					list.addAll(AutoPopulate.getLanguages());
+				}
+				for(Displayable display : list){
+					if(display.showInGUI())
+						System.out.println(display.displayName()+" - "+display.tooltipText());
+				}
+				if(list.isEmpty()){
+					System.out.println("Option "+current+" was not found.");
+					System.out.println("Please use c, es, d, a, or lang");
 				}
 			}
 
 		} else {
 			jgaap.commandline = true;
-			/*
-			 * MVR 9/7/2008
-			 */
-			guiDriver commandDriver = new guiDriver();
+			API commandDriver = new API();
 			String eventSelected = "";
 			String analyzerSelected = "";
+			String distanceSelected = "";
 			String saveFilePath = "";
+			String language = "english";
 			DivergenceType currentDivergenceMethod = DivergenceType.Standard;
-			boolean mostCommonEvents = false;
 			boolean saveResults = false;
-			boolean malformedError = false;
 			Vector<Vector<String>> commandInput = new Vector<Vector<String>>();
-			Vector<Vector<String>> documentMatrix = new Vector<Vector<String>>();
-			Language selectedLanguage = new English();
+			List<List<String>> documentMatrix = new Vector<List<String>>();
 			Vector<String> canonicizers = new Vector<String>();
 			for (int i = 0; i < args.length; i++) {
-				Vector<String> nextFlag = new Vector<String>();
+				Vector<String> nextFlag;
 				if (args[i] == null) {
 					break;
 				}
@@ -142,79 +156,41 @@ public class jgaapCLI {
 				while (!currentTagSet.isEmpty()) {
 					String currentArg = currentTagSet.remove(0);
 					if (currentArg.equalsIgnoreCase("-c")) {
-						String canonSelected = currentTagSet.remove(0);
-						while (!currentTagSet.isEmpty()) {
-							canonSelected = canonSelected + " "
-									+ currentTagSet.remove(0);
-						}
+						String canonSelected = optionBuilder(currentTagSet);
 						canonicizers.add(canonSelected);
-						//commandDriver.canonicizerProcessEngine(canonSelected);
 					} else if (currentArg.equalsIgnoreCase("-es")) {
-						eventSelected = currentTagSet.remove(0);
-						while (!currentTagSet.isEmpty()) {
-							eventSelected = eventSelected + " "
-									+ currentTagSet.remove(0);
-						}
+						eventSelected = optionBuilder(currentTagSet);
 					} else if (currentArg.equalsIgnoreCase("-a")) {
-						analyzerSelected = currentTagSet.remove(0);
-						while (!currentTagSet.isEmpty()) {
-							analyzerSelected = analyzerSelected + " "
-									+ currentTagSet.remove(0);
-						}
-					} else if (currentArg.equalsIgnoreCase("-ec")
-							|| currentArg.equalsIgnoreCase("-avg")) {
+						analyzerSelected = optionBuilder(currentTagSet);
+					} else if (currentArg.equalsIgnoreCase("-d")) {
+						distanceSelected = optionBuilder(currentTagSet);
+					} else if (currentArg.equalsIgnoreCase("-avg")) {
 						currentDivergenceMethod = DivergenceType.Average;
-					} else if (currentArg.equalsIgnoreCase("-mc")) {
-						mostCommonEvents = true;
 					} else if (currentArg.equalsIgnoreCase("-max")) {
 						currentDivergenceMethod = DivergenceType.Max;
 					} else if (currentArg.equalsIgnoreCase("-min")) {
 						currentDivergenceMethod = DivergenceType.Min;
 					} else if (currentArg.equalsIgnoreCase("-rev")) {
 						currentDivergenceMethod = DivergenceType.Reverse;
-					} else if (currentArg.equalsIgnoreCase("-ad")) {
-						commandDriver.setAuthorDistance(true);
 					} else if (currentArg.equalsIgnoreCase("-l")) {
-						String csvFilePath = currentTagSet.remove(0);
-						while (!currentTagSet.isEmpty()) {
-							csvFilePath = csvFilePath + " "
-									+ currentTagSet.remove(0);
-						}
+						String csvFilePath = optionBuilder(currentTagSet);
 						documentMatrix = CSVIO.readCSV(csvFilePath);
 					} else if (currentArg.equalsIgnoreCase("-s")) {
 						saveResults = true;
-						saveFilePath = currentTagSet.remove(0);
-						while (!currentTagSet.isEmpty()) {
-							saveFilePath = saveFilePath + " "
-									+ currentTagSet.remove(0);
-						}
+						saveFilePath = optionBuilder(currentTagSet);
 					} else if (currentArg.equalsIgnoreCase("-ee")) {
-						String loadEngineFilePath = currentTagSet.remove(0);
-						while (!currentTagSet.isEmpty()) {
-							loadEngineFilePath = loadEngineFilePath + " "
-									+ currentTagSet.remove(0);
-						}
-						experimentEngine.runExperiment(loadEngineFilePath);
+						String loadEngineFilePath = optionBuilder(currentTagSet);
+						ExperimentEngine.runExperiment(loadEngineFilePath);
 						System.exit(0);
 					} else if (currentArg.equalsIgnoreCase("-lang")) {
-						String language = currentTagSet.remove(0);
-						while (!currentTagSet.isEmpty()) {
-							language = language + " " + currentTagSet.remove(0);
-						}
-						selectedLanguage = (commandDriver
-								.selectedLanguage(language));
-						selectedLanguage.apply();
+						language = optionBuilder(currentTagSet);
 					} else if (currentArg.equalsIgnoreCase("-ws")) {
-						String wSize = currentTagSet.remove(0);
-						while (!currentTagSet.isEmpty()) {
-							wSize = wSize + " " + currentTagSet.remove(0);
-						}
+						String wSize = optionBuilder(currentTagSet);
 						System.out.println(wSize + " "
 								+ Integer.parseInt(wSize));
 						jgaapConstants.globalParams.setParameter("windowSize",
 								Integer.parseInt(wSize));
 					} else {
-						malformedError = true;
 						System.out.println("The following command"
 								+ (currentTagSet.size() > 1 ? "s" : "") + " "
 								+ (currentTagSet.size() > 1 ? "were" : "was")
@@ -223,68 +199,55 @@ public class jgaapCLI {
 						for (int i = 0; i < currentTagSet.size(); i++) {
 							System.out.println(currentTagSet.remove(0));
 						}
+						System.exit(1);
 					}
-
 				}
 			}
-			if (malformedError) {
-				System.exit(1);
+			try {
+				commandDriver.setLanguage(language);
+				while (!documentMatrix.isEmpty()) {
+					commandDriver.addDocument(
+							(documentMatrix.get(0).get(1)),
+							documentMatrix.get(0).get(0), null);
+					documentMatrix.remove(0);
+				}
+				for (String c : canonicizers) {
+					commandDriver.addCanonicizer(c);
+				}
+				commandDriver.addEventDriver(eventSelected);
+				AnalysisDriver analysisDriver = commandDriver.addAnalysisDriver(analyzerSelected);
+				if (!distanceSelected.equalsIgnoreCase("")){
+					commandDriver.addDistanceFunction(distanceSelected, analysisDriver);
+				}
+				
+				if (analysisDriver instanceof NeighborAnalysisDriver) {
+					((NeighborAnalysisDriver) analysisDriver)
+							.getDistanceFunction().setParameter(
+									"divergenceOption",
+									currentDivergenceMethod.ordinal());
+				}
+				StringBuffer finalResults = new StringBuffer();
+				jgaapConstants.globalParams.setParameter("divergenceOption",
+						currentDivergenceMethod.ordinal());
+				commandDriver.execute();
+				String results = finalResults.toString();
+				System.out.println(results);
+				if(saveResults){
+					Utils.saveFile(saveFilePath, results);
+				}
+			} catch (Exception e) {
+				System.out.println(e);
 			}
-			while (!documentMatrix.isEmpty()) {
-				commandDriver.addDocument((documentMatrix.elementAt(0)
-						.elementAt(1)), documentMatrix.elementAt(0)
-						.elementAt(0));
-				documentMatrix.remove(0);
-			}
-			for(String c : canonicizers){
-				commandDriver.canonicizerProcessEngine(c);
-			}
-			commandDriver.evaluateLanguage(selectedLanguage);
-			commandDriver.canonicize();
-
-			commandDriver.createEventSet(eventSelected, mostCommonEvents);
-			// MVR 9/7/2008 - The following code was adapted from John's to tell
-			// the user
-			// about the results they just received.
-			StringBuffer finalResults = new StringBuffer();
-			finalResults.append("\nCanonicizers: ");
-			finalResults.append(commandDriver.canonicizersUsed() + " ");
-			finalResults.append("\nEvent Set: ");
-			if (mostCommonEvents) {
-				finalResults.append("Most Common ");
-			}
-			finalResults.append(eventSelected);
-			finalResults.append("\nAnalysis Method: ");
-			finalResults.append(analyzerSelected);
-
-			switch (currentDivergenceMethod.ordinal()) {
-			case 1:
-				finalResults.append(" (Average)");
-				break;
-			case 2:
-				finalResults.append(" (Max) ");
-				break;
-			case 3:
-				finalResults.append(" (Min)");
-				break;
-			case 4:
-				finalResults.append(" (Reverse)");
-			default:
-			}
-			jgaapConstants.globalParams.setParameter("divergenceOption", currentDivergenceMethod.ordinal());
-			finalResults.append("\n"+ commandDriver.runStatisticalAnalysis(analyzerSelected));
-			String results = finalResults.toString();
-			System.out.println(results);
-			if (saveResults) {
-				commandDriver.saveResults(saveFilePath, results);
-			}
-
-			/*
-			 * MVR 9/7/2008 The second version of the command line has been
-			 * depricated due to changes in how action events are handled they
-			 * are no longer all one use svn checkout[114] to view depricated
-			 * code
-			 */
 		}
+
+	}
+
+	private static String optionBuilder(List<String> tagSet) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(tagSet.remove(0));
+		for (String s : tagSet) {
+			buffer.append(" " + s);
+		}
+		return buffer.toString();
 	}
 }

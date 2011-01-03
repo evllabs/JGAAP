@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
@@ -29,11 +28,10 @@ public class BlackListEventDriverTest {
 	public void testCreateEventSetDocumentSet() {
 		Document doc = new Document();
 		doc.readStringText("Humpty Dumpty sat on the wall. Humpty Dumpty had a great fall. An itsy bitsy spider ran up the water spout.");
-		DocumentSet docSet = new DocumentSet(doc);
 		EventDriver ed = new BlackListEventDriver();
 		ed.setParameter("filename",
 			jgaapConstants.libDir()+"/articles.txt");
-		EventSet sampleEventSet = ed.createEventSet(docSet);
+		EventSet sampleEventSet = ed.createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("Humpty"));
@@ -54,7 +52,7 @@ public class BlackListEventDriverTest {
 		tmp.add(new Event("water"));
 		tmp.add(new Event("spout."));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 System.out.println(expectedEventSet.toString());
 System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));

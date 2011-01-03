@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -35,9 +33,8 @@ public class HapaxLegomenaEventDriverTest {
 
 	    Document doc = new Document();
 	    doc.readStringText("The Quick Brown Fox Jumped Over The Lazy Dog 3 3 3 4 4 4 4 5 5 5 5 5");
-	    DocumentSet docset = new DocumentSet(doc);
 
-	    EventSet sampleSet = new HapaxLegomenaEventDriver().createEventSet(docset);
+	    EventSet sampleSet = new HapaxLegomenaEventDriver().createEventSet(doc);
 	    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
@@ -49,7 +46,7 @@ public class HapaxLegomenaEventDriverTest {
 	    tmp.add(new Event("Lazy"));
 	    tmp.add(new Event("Dog"));
 
-	     expectedSet.events.addAll(tmp);
+	     expectedSet.addEvents(tmp);
 	     
 		    assertTrue(expectedSet.equals(sampleSet));
 		    }

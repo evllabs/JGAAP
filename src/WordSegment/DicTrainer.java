@@ -48,7 +48,7 @@ public class DicTrainer
 
 	public void SaveDic(String fileName)
 	{
-		ObjectOutputStream objout = null;
+		ObjectOutputStream objout;
 		try
 		{
 			objout = new ObjectOutputStream(new FileOutputStream(new File(fileName)));

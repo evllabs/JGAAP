@@ -27,49 +27,48 @@ import com.jgaap.generics.*;
  */
 public class WordSyllablesEventDriver extends NumericEventDriver {
 
-    @Override
-    public String displayName(){
-    	return "Syllables Per Word";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return "Number of vowel clusters/word (min 1)";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return true;
-    }
+	@Override
+	public String displayName() {
+		return "Syllables Per Word";
+	}
 
-    public EventDriver wordtokenizer = new NaiveWordEventDriver();
+	@Override
+	public String tooltipText() {
+		return "Number of vowel clusters/word (min 1)";
+	}
 
-    /* define vowels for cluster elements */
-    public String      vowellist     = "aeiouyAEIOUY";
+	@Override
+	public boolean showInGUI() {
+		return true;
+	}
 
-    @Override
-    public NumericEventSet createEventSet(DocumentSet ds) {
-        EventSet es = wordtokenizer.createEventSet(ds);
-        NumericEventSet newEs = new NumericEventSet();
-        newEs.setAuthor(es.getAuthor());
-        newEs.setNewEventSetID(es.getAuthor());
+	public EventDriver wordtokenizer = new NaiveWordEventDriver();
 
-        for (int i = 0; i < es.size(); i++) {
-            String s = (es.eventAt(i)).toString();
-            int l = 0;
-            for (int j = 0; j < s.length(); j++) {
-                if ((vowellist.indexOf(s.charAt(j)) != -1)
-                        && ((j == s.length() - 1) || (vowellist.indexOf(s
-                                .charAt(j + 1)) == -1))) {
-                    l++;
-                }
-            }
-            if (l == 0) {
-                l = 1; // handle words like "Dr" by setting to 1
-            }
-            newEs.events.add(new Event(String.valueOf(l)));
-        }
-        return newEs;
-    }
+	/* define vowels for cluster elements */
+	public String vowellist = "aeiouyAEIOUY";
+
+	@Override
+	public NumericEventSet createEventSet(Document ds) {
+		EventSet es = wordtokenizer.createEventSet(ds);
+		NumericEventSet newEs = new NumericEventSet();
+		newEs.setAuthor(es.getAuthor());
+		newEs.setNewEventSetID(es.getAuthor());
+
+		for (int i = 0; i < es.size(); i++) {
+			String s = (es.eventAt(i)).toString();
+			int l = 0;
+			for (int j = 0; j < s.length(); j++) {
+				if ((vowellist.indexOf(s.charAt(j)) != -1)
+						&& ((j == s.length() - 1) || (vowellist.indexOf(s.charAt(j + 1)) == -1))) {
+					l++;
+				}
+			}
+			if (l == 0) {
+				l = 1; // handle words like "Dr" by setting to 1
+			}
+			newEs.addEvent(new Event(String.valueOf(l)));
+		}
+		return newEs;
+	}
 
 }

@@ -48,14 +48,14 @@ public class KullbackLeiblerDivergenceTest {
 		test1.add(new Event("lazy"));
 		test1.add(new Event("dog"));
 		test1.add(new Event("."));
-		es1.events.addAll(test1);
-		es2.events.addAll(test1);
+		es1.addEvents(test1);
+		es2.addEvents(test1);
 		
 		assertTrue(new KullbackLeiblerDivergence().distance(es1, es2) == 0.00);
 		
 	/* test 2 -- different hist, same distribution (still 0.0) */
 		/* use prior data and add another copy */
-		es2.events.addAll(test1);
+		es2.addEvents(test1);
 		assertTrue(new KullbackLeiblerDivergence().distance(es1, es2) == 0.00);
 
 
@@ -68,16 +68,16 @@ public class KullbackLeiblerDivergenceTest {
 		/* es1 gets a 50/50 split between alpha and beta */
 		test1.add(new Event("alpha"));
 		test1.add(new Event("beta"));
-		es1.events.clear();
-		es1.events.addAll(test1);
+		es1 = new EventSet();
+		es1.addEvents(test1);
 
 		/* es2 gets a 75/25 split between alpha and beta */
 		test2.add(new Event("alpha"));
 		test2.add(new Event("alpha"));
 		test2.add(new Event("alpha"));
 		test2.add(new Event("beta"));
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2 = new EventSet();
+		es2.addEvents(test2);
 		double result = new
 			 KullbackLeiblerDivergence().distance(es1, es2);
 System.out.println(result);
@@ -99,8 +99,8 @@ System.out.println(result);
 		test2.add(new Event("beta"));
 		test2.add(new Event("gamma"));
 
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2 = new EventSet();
+		es2.addEvents(test2);
 System.out.println("Start here");
 		result = new
 			 KullbackLeiblerDivergence().distance(es1, es2);

@@ -17,46 +17,37 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.DocumentSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
 
 /**
- * Extract the 50 most common words across the entire corpus as features.
+ * Extract bigrams of characters as features.
  *
  */
-public class CommonWordEventDriver extends MostCommonEventDriver {
-    
+public class POSBiGramEventDriver extends NGramEventDriver {
+
     @Override
     public String displayName(){
-    	return "Common words";
+    	return "POS BiGrams";
     }
     
     @Override
     public String tooltipText(){
-    	return "50 Most Common Words";
+    	return "Part-of- Speech Pairs in Sequence";
     }
     
     @Override
     public boolean showInGUI(){
-    	return false;
+    	return true;
     }
 
-    private MostCommonEventDriver theDriver;
+  private NGramEventDriver theDriver;
 
     @Override
-    public EventSet createEventSet(DocumentSet ds) {
-        EventSet es;
-        theDriver = new MostCommonEventDriver();
-        if (!getParameter("N").equals("")) {
-            theDriver.setParameter("N", "50");
-        } else {
-            theDriver.setParameter("N", getParameter("N"));
-            // Error checking for invalid parameters handled at MCES.class
-        }
-
-        es = theDriver.createEventSet(ds);
-        es.setAuthor(ds.getDocument(0).getAuthor());
-        es.setNewEventSetID(ds.getDocument(0).getAuthor());
-        return es;
+    public EventSet createEventSet(Document ds) {
+        theDriver = new NGramEventDriver();
+        // default value of N is 2 already
+        theDriver.setParameter("underlyingEvents", "PartOfSpeechEventDriver");
+        return theDriver.createEventSet(ds);
     }
 }

@@ -31,7 +31,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.jgaap.generics.Document;
-import com.jgaap.generics.Document.DocType;
+import com.jgaap.generics.DocType;
 import com.jgaap.gui.stepPanels.CanonicizeStepPanel;
 
 /**

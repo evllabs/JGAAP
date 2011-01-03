@@ -31,12 +31,13 @@ public class IntersectionDistanceTest {
 		test1.add(new Event("alpha"));
 		test1.add(new Event("beta"));
 		test1.add(new Event("gamma"));
-		es1.events.addAll(test1);
-		es2.events.addAll(test1);
+		es1.addEvents(test1);
+		es2.addEvents(test1);
 		assertTrue(new IntersectionDistance().distance(es1, es2) == 0);
 
 		/* test 2 -- different distributions, total overlap */
 		Vector<Event> test2 = new Vector<Event>();
+		es2=new EventSet();
 		test2.add(new Event("alpha"));
 		test2.add(new Event("beta"));
 		test2.add(new Event("beta"));
@@ -45,40 +46,40 @@ public class IntersectionDistanceTest {
 		test2.add(new Event("beta"));
 		test2.add(new Event("beta"));
 		test2.add(new Event("gamma"));
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2.addEvents(test2);
 		assertTrue(new IntersectionDistance().distance(es1, es2) == 0);
 
 		/* test 3 -- totally disjoint (== 1.0) */
+		es2=new EventSet();
 		test2 = new Vector<Event>();
 		test2.add(new Event("omega"));
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2.addEvents(test2);
 		assertTrue(new IntersectionDistance().distance(es1, es2) == 1.0);
+		
 		/* test 4 -- Partial overlap.  5 (3/3) elem., one in common */
+		es2 = new EventSet();
 		test2 = new Vector<Event>();
 		test2.add(new Event("gamma"));
 		test2.add(new Event("delta"));
 		test2.add(new Event("epsilon"));
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2.addEvents(test2);
 
 		double result = new IntersectionDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 0.8, 0.0000000001));
 
 		/* test 5 -- subset:  4 elem., one in common */
+		es1=new EventSet();
 		test1 = new Vector<Event>();
 		test1.add(new Event("alpha"));
 		test1.add(new Event("beta"));
 		test1.add(new Event("gamma"));
 		test1.add(new Event("delta"));
-		es1.events.clear();
-		es1.events.addAll(test1);
+		es1.addEvents(test1);
 
+		es2=new EventSet();
 		test2 = new Vector<Event>();
 		test2.add(new Event("delta"));
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2.addEvents(test2);
 		result = new IntersectionDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 0.75, 0.0000000001));
 

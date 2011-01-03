@@ -27,18 +27,6 @@ import java.util.HashMap;
  */
 public class Parameterizable {
 
-	public String displayName(){
-	    return "Parameterizable";
-	}
-
-	public String tooltipText(){
-	    return "Parameterizable";
-	}
-
-	public boolean showInGUI(){
-	    return false;
-	}
-
     /** Parameters are stored using pairs of Strings in a HashMap */
     private HashMap<String, String> Parameters;
 

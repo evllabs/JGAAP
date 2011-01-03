@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -59,8 +57,7 @@ public class WordSyllablesEventDriverTest {
 			"OTTO " 	// 2 syllables
 		);
 
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new WordSyllablesEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new WordSyllablesEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("1"));
@@ -92,7 +89,7 @@ public class WordSyllablesEventDriverTest {
 		tmp.add(new Event("1"));
 		tmp.add(new Event("2"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 

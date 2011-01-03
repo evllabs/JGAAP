@@ -17,7 +17,7 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.DocumentSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -46,7 +46,7 @@ public class V34LetterWordEventDriver extends MNLetterWordEventDriver {
     private MNLetterWordEventDriver theDriver;
 
     @Override
-    public EventSet createEventSet(DocumentSet ds) {
+    public EventSet createEventSet(Document ds) {
         theDriver = new MNLetterWordEventDriver();
         theDriver.setParameter("underlyingevents", "VowelInitialWordEventDriver");
         theDriver.setParameter("M", "3");

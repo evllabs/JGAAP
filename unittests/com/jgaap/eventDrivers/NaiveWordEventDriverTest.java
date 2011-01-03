@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -35,8 +33,7 @@ public class NaiveWordEventDriverTest {
 
 		);
 
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new NaiveWordEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new NaiveWordEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
@@ -62,7 +59,7 @@ public class NaiveWordEventDriverTest {
 		tmp.add(new Event("he"));
 		tmp.add(new Event("grumbled."));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 

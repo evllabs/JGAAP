@@ -17,7 +17,7 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.DocumentSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -44,7 +44,7 @@ public class CharacterTriGramEventDriver extends NGramEventDriver {
     private NGramEventDriver theDriver;
 
     @Override
-    public EventSet createEventSet(DocumentSet ds) {
+    public EventSet createEventSet(Document ds) {
         theDriver = new NGramEventDriver();
         theDriver.setParameter("N", "3");
         theDriver.setParameter("underlyingEvents", "CharacterEventDriver");

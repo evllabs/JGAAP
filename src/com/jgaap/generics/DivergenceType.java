@@ -18,7 +18,7 @@
 /**
  * 
  */
-package com.jgaap;
+package com.jgaap.generics;
 
 /**
  * This keeps track of which if any of the variances on standard divergence is
@@ -28,5 +28,5 @@ package com.jgaap;
  * 
  */
 public enum DivergenceType {
-	Standard, Average, Max, Min, Reverse
+	Standard, Average, Max, Min, Reverse, Cross
 }

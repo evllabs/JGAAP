@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -28,8 +26,7 @@ public class CharacterTetraGramEventDriverTest {
 	public void testCreateEventSetDocumentSet() {
 		Document doc = new Document();
 		doc.readStringText("abcdefghijklmnopqrstuvwxyz .");
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new CharacterTetraGramEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new CharacterTetraGramEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("abcd"));
@@ -56,8 +53,8 @@ public class CharacterTetraGramEventDriverTest {
 		tmp.add(new Event("vwxy"));
 		tmp.add(new Event("wxyz"));
 		tmp.add(new Event("xyz "));
-		expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event("yz ."));
+		expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event("yz ."));
 		
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		

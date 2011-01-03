@@ -18,7 +18,7 @@ public class JointMM extends SegStrategy {
 		// String[] substring= sentence.split("\\p{Punct}"); // ("\\p{Punct}")
 		// for English text file
 
-		Vector<String> seged = new Vector<String>();
+		Vector<String> seged;
 		Vector<String> Jointsegmented = new Vector<String>();
 
 		for (int i = 0; i < substring.length; i++) {

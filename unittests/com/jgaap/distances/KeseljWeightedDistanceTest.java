@@ -37,8 +37,8 @@ public class KeseljWeightedDistanceTest {
 		test1.add(new Event("lazy"));
 		test1.add(new Event("dog"));
 		test1.add(new Event("."));
-		es1.events.addAll(test1);
-		es2.events.addAll(test1);
+		es1.addEvents(test1);
+		es2.addEvents(test1);
 		assertTrue(new KeseljWeightedDistance().distance(es1, es2) == 0);
 		Vector<Event> test2 = new Vector<Event>();
 		test2.add(new Event("3"));
@@ -51,8 +51,8 @@ public class KeseljWeightedDistanceTest {
 		test2.add(new Event("6"));
 		test2.add(new Event("55"));
 		test2.add(new Event("33"));
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2 = new EventSet();
+		es2.addEvents(test2);
 		double result = new KeseljWeightedDistance().distance(es1, es2);
 		//System.out.println("test 2 result is " + result);
 		assertTrue(DistanceTestHelper.inRange(result, 20.0, 0.0000000001));
@@ -66,8 +66,8 @@ public class KeseljWeightedDistanceTest {
 		test3.add(new Event("fox"));
 		test3.add(new Event("jumps"));
 		// five events missing -- should add 5.0 as distance
-		es2.events.clear();
-		es2.events.addAll(test3);
+		es2 = new EventSet();
+		es2.addEvents(test3);
 		result = new KeseljWeightedDistance().distance(es1, es2);
 		//System.out.println("test 3 result is " + result);
 		assertTrue(DistanceTestHelper.inRange(result, 5.5555555555, 0.000001));

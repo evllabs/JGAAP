@@ -17,7 +17,7 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.DocumentSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
@@ -46,19 +46,19 @@ public class NullEventDriver extends EventDriver {
     }
 
     @Override
-    public EventSet createEventSet(DocumentSet ds) {
-        EventSet es = new EventSet(ds.getDocument(0).getAuthor());
+    public EventSet createEventSet(Document doc) {
+        EventSet es = new EventSet(doc.getAuthor());
 
         // again, use logging facilities when they exist
         //System.out.println(ds.getDocument(0).getAuthor());
-        for (int i = 0; i < ds.documentCount(); i++) {
+        //for (int i = 0; i < ds.documentCount(); i++) {
 
             // again, use logging facilities when they exist
 	    // System.out.println("--- Document #" + i + " --- ");
 	    // System.out.println(ds.getDocument(i).stringify());
 
-            es.events.add(new Event(ds.getDocument(i).stringify()));
-        }
+            es.addEvent(new Event(doc.stringify()));
+        //}
 
         return es;
     }

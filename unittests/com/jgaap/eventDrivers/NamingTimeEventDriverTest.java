@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
@@ -36,8 +34,7 @@ public class NamingTimeEventDriverTest {
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
 
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new NamingTimeEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new NamingTimeEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
@@ -60,7 +57,7 @@ public class NamingTimeEventDriverTest {
 		tmp.add(new Event("756.00"));
 		tmp.add(new Event("822.64"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 // System.out.println("Expected is " + expectedEventSet.toString());/
 // System.out.println("Actual is " + sampleEventSet.toString());

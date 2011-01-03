@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -37,8 +35,7 @@ public class MWFunctionWordsEventDriverTest {
 // line below should be eliminated 
 "distractor fail eliminate megafail lose gark hoser shimatta"
 		);
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new MWFunctionWordsEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new MWFunctionWordsEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("a"));
@@ -111,7 +108,7 @@ public class MWFunctionWordsEventDriverTest {
 		tmp.add(new Event("with"));
 		tmp.add(new Event("would"));
 		tmp.add(new Event("your"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 //		System.out.println(expectedEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}

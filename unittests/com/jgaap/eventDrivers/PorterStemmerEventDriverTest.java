@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -62,8 +60,7 @@ public class PorterStemmerEventDriverTest {
 "accounted accounts accoutred accoutrement accoutrements accrue");
 
 
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new PorterStemmerEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new PorterStemmerEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
@@ -224,7 +221,7 @@ public class PorterStemmerEventDriverTest {
 		tmp.add(new Event("accoutr"));
 		tmp.add(new Event("accoutr"));
 		tmp.add(new Event("accru"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 //System.out.println("Expected is " + expectedEventSet.toString());
 //System.out.println("Actual is " + sampleEventSet.toString());

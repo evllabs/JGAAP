@@ -18,7 +18,7 @@
 package com.jgaap.canonicizers;
 
 import java.awt.Color;
-import java.util.Vector;
+import java.util.List;
 
 import com.jgaap.generics.Canonicizer;
 
@@ -59,9 +59,9 @@ public class UnifyCase extends Canonicizer {
      * @return Vector of Characters after conversion to lower case
      */
     @Override
-    public Vector<Character> process(Vector<Character> procText) {
+    public List<Character> process(List<Character> procText) {
         for (int i = 0; i < procText.size(); i++) {
-            procText.set(i, Character.toLowerCase(procText.elementAt(i)));
+            procText.set(i, Character.toLowerCase(procText.get(i)));
         }
         return procText;
     }

@@ -9,13 +9,9 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.NumericEventSet;
 
 /**
  * @author Patrick Juola
@@ -38,10 +34,9 @@ public class TruncatedEventDriverTest {
 
 		);
 
-		DocumentSet docSet = new DocumentSet(doc);
 		TruncatedEventDriver n = new TruncatedEventDriver();
 		n.setParameter("length","3");
-		EventSet sampleEventSet = n.createEventSet(docSet);
+		EventSet sampleEventSet = n.createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
@@ -67,7 +62,7 @@ public class TruncatedEventDriverTest {
 		tmp.add(new Event("he"));
 		tmp.add(new Event("gru"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 //System.out.println("Expected is " +expectedEventSet.events.toString());
 //System.out.println("Actual is " +sampleEventSet.events.toString());

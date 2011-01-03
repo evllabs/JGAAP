@@ -21,17 +21,16 @@
 package com.jgaap.gui.stepPanels;
 
 import java.awt.GridLayout;
-import java.util.Collections;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
-import com.jgaap.DivergenceType;
 import com.jgaap.backend.AutoPopulate;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.DistanceFunction;
+import com.jgaap.generics.DivergenceType;
 import com.jgaap.gui.generics.StepPanel;
 
 /**
@@ -80,17 +79,15 @@ public class AnalyzeStepPanel extends StepPanel {
 		setLayout(new GridLayout(0, 3)); // 3 columns, unlimited rows
 
 		distance_methods = new Vector<DistanceFunction>();
-		for (DistanceFunction event : AutoPopulate.getDistanceFunctions().values()) {
+		for (DistanceFunction event : AutoPopulate.getDistanceFunctions()) {
 			if (event.showInGUI())
 				distance_methods.add(event);
 		}
-		Collections.sort(distance_methods);
 		analysis_methods = new Vector<AnalysisDriver>();
-		for (AnalysisDriver event : AutoPopulate.getAnalysisDrivers().values()) {
+		for (AnalysisDriver event : AutoPopulate.getAnalysisDrivers()) {
 			if (event.showInGUI())
 				analysis_methods.add(event);
 		}
-		Collections.sort(analysis_methods);
 		analysisMethodsRadioButtons = new JRadioButton[distance_methods.size()+analysis_methods.size()]; // One
 		// radio
 		// button
@@ -127,7 +124,6 @@ public class AnalyzeStepPanel extends StepPanel {
 			i++;
 		}
 		
-
 		verboseCheckBox = new JCheckBox("Verbose Report Output");
 		verboseCheckBox.setEnabled(false);
 		this.add(verboseCheckBox);

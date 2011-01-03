@@ -20,9 +20,9 @@
  */
 package com.jgaap.gui.dnd;
 
-import com.jgaap.backend.guiDriver;
+import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.Document.DocType;
+import com.jgaap.generics.DocType;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -45,7 +45,7 @@ public class DnDManager {
 	/**
 	 * Reference to the guiDriver that powers the backend of the JGAAP GUI.
 	 */
-	private final guiDriver driver;
+	private final API driver;
 	
 	/**
 	 * List of CanonicizerLabelPanels that are registered for canonicizer changes.
@@ -68,7 +68,7 @@ public class DnDManager {
 	 * Constructor takes a reference to the guiDriver, which it will use to
 	 * pass information to the backend.
 	 */
-	public DnDManager( guiDriver driver ){
+	public DnDManager( API driver ){
 		this.driver = driver;
 		for( DocType docType : DocType.values() )
 			panelsByDocType.put( docType, new ArrayList<CanonicizerLabelPanel>() );
@@ -93,7 +93,12 @@ public class DnDManager {
 		//System.out.println("DnDManager add to all. (" + labelPanels.size() + ")");
 		for( CanonicizerLabelPanel panel : labelPanels )
 			panel.addCanonicizerLabel( new CanonicizerLabel( label, panel ) );
-		driver.addCanonicizerToAllDocuments( label.getCanonicizer() );
+		try {
+			driver.addCanonicizer( label.getCanonicizer().displayName().toLowerCase() );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -109,7 +114,12 @@ public class DnDManager {
 		//System.out.println("DnDManager add to docType: " + docType + "(" + panelsByDocType.get(docType) + ")");
 		for( CanonicizerLabelPanel panel : panelsByDocType.get(docType) )
 			panel.addCanonicizerLabel( new CanonicizerLabel( label, panel ) );
-		driver.addCanonicizerToDocType( label.getCanonicizer(), docType );
+		try {
+			driver.addCanonicizer( label.getCanonicizer().displayName(), docType );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -123,7 +133,12 @@ public class DnDManager {
 	public void processAdd( CanonicizerLabel label,
 							Document document ){
 		//System.out.println("DnDManager add to document: " + document);
-		driver.addCanonicizerToDocument( label.getCanonicizer(), document );
+		try {
+			driver.addCanonicizer( label.getCanonicizer().displayName(), document );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -136,7 +151,7 @@ public class DnDManager {
 		//System.out.println("DnDManager remove from all.");
 		for( CanonicizerLabelPanel panel : labelPanels )
 			panel.removeForeignCanonicizerLabel( new CanonicizerLabel( label, panel ) );
-		driver.removeCanonicizerFromAllDocuments( label.getCanonicizer() );
+		driver.removeCanonicizer( label.getCanonicizer().displayName().toLowerCase() );
 	}
 	
 	/**
@@ -152,7 +167,7 @@ public class DnDManager {
 		//System.out.println("DnDManager remove from docType: " + docType);
 		for( CanonicizerLabelPanel panel : panelsByDocType.get(docType) )
 			panel.removeForeignCanonicizerLabel( new CanonicizerLabel( label, panel ) );
-		driver.removeCanonicizerFromDocType( label.getCanonicizer(), docType );
+		driver.removeCanonicizer( label.getCanonicizer().displayName().toLowerCase(), docType );
 	}
 	
 	/**
@@ -166,7 +181,7 @@ public class DnDManager {
 	public void processRemove( CanonicizerLabel label,
 							   Document document ){
 		//System.out.println("DnDManager remove from document: " + document);
-		driver.removeCanonicizerFromDocument( label.getCanonicizer(), document );
+		driver.removeCanonicizer( label.getCanonicizer().displayName().toLowerCase(), document );
 	}
 	
 	/**
@@ -178,7 +193,7 @@ public class DnDManager {
 			panel.removeAllCanonicizerLabels();
 		for( JTable table : tables )
 			table.repaint();
-		driver.clearAllCanonicizers();
+		driver.removeAllCanonicizers();
 	}
 	
 	/**

@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -35,8 +33,7 @@ public class HDLegomenaEventDriverTest {
 
 	    Document doc = new Document();
 	    doc.readStringText("Jack be nimble, Jack be quick, Jack jump over the candlestick.");
-	    DocumentSet docset = new DocumentSet(doc);
-	    EventSet sampleSet = new HDLegomenaEventDriver().createEventSet(docset);    
+	    EventSet sampleSet = new HDLegomenaEventDriver().createEventSet(doc);    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
 	    tmp.add(new Event("be"));
@@ -47,7 +44,7 @@ public class HDLegomenaEventDriverTest {
 	    tmp.add(new Event("over"));
 	    tmp.add(new Event("the"));
 	    tmp.add(new Event("candlestick."));
-	    expectedSet.events.addAll(tmp);     
+	    expectedSet.addEvents(tmp);     
 	    assertTrue(expectedSet.equals(sampleSet));
 	    }
 }

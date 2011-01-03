@@ -27,8 +27,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.util.Collection;
 
+import com.jgaap.backend.API;
 import com.jgaap.backend.AutoPopulate;
-import com.jgaap.backend.guiDriver;
 import com.jgaap.generics.Canonicizer;
 import com.jgaap.generics.Document;
 import com.jgaap.gui.dnd.*;
@@ -91,7 +91,7 @@ public class CanonicizeStepPanel extends StepPanel implements ActionListener {
     /**
      * Default constructor.
      */
-    public CanonicizeStepPanel( IconGlassPane glassPane, guiDriver driver ) {
+    public CanonicizeStepPanel( IconGlassPane glassPane, API driver ) {
         super("Canonicize");
         this.glassPane = glassPane;
         this.setLayout( new GridBagLayout() );
@@ -182,7 +182,7 @@ public class CanonicizeStepPanel extends StepPanel implements ActionListener {
         }  */
         
         // Iterate through all subclasses of Canonicizer found in the canonicizers package
-        for(Canonicizer canon : AutoPopulate.getCanonicizers().values()) {
+        for(Canonicizer canon : AutoPopulate.getCanonicizers()) {
         	
         	if( canon.showInGUI() ) // if the canonicizer should be shown in the GUI, keep it 
         	{

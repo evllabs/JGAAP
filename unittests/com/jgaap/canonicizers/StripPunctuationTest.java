@@ -5,6 +5,7 @@ package com.jgaap.canonicizers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
@@ -55,7 +56,7 @@ public class StripPunctuationTest {
 		expected.add('l');
 		expected.add('d');
 		
-		Vector<Character> test = new StripPunctuation().process(sample);
+		List<Character> test = new StripPunctuation().process(sample);
 		assertTrue(expected.equals(test));
 	}
 

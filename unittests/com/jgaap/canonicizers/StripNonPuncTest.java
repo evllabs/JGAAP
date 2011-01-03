@@ -5,6 +5,7 @@ package com.jgaap.canonicizers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
@@ -77,7 +78,7 @@ public class StripNonPuncTest {
 		expected.add('&');
 		expected.add('$');
 
-		Vector<Character> test = new StripNonPunc().process(sample);
+		List<Character> test = new StripNonPunc().process(sample);
 		assertTrue(expected.equals(test));
 	}
 

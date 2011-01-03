@@ -5,12 +5,14 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * @author darrenvescovi
@@ -19,7 +21,7 @@ import com.jgaap.generics.EventSet;
 public class SVMTest {
 
 	/**
-	 * Test method for {@link com.jgaap.classifiers.SVM#analyze(com.jgaap.generics.EventSet, java.util.Vector)}.
+	 * Test method for {@link com.jgaap.classifiers.SVM#analyze(com.jgaap.generics.EventSet, List<EventSet>)}.
 	 */
 	@Test
 	public void testAnalyze() {
@@ -39,7 +41,7 @@ public class SVMTest {
 		test1.add(new Event("white"));
 		test1.add(new Event("as"));
 		test1.add(new Event("snow."));
-		known1.events.addAll(test1);
+		known1.addEvents(test1);
 		known1.setAuthor("Mary");
 		
 		
@@ -52,7 +54,7 @@ public class SVMTest {
 		test2.add(new Event("of"));
 		test2.add(new Event("pickled"));
 		test2.add(new Event("peppers."));
-		known2.events.addAll(test2);
+		known2.addEvents(test2);
 		known2.setAuthor("Peter");
 		
 		Vector<Event> test3 = new Vector<Event>();
@@ -67,16 +69,17 @@ public class SVMTest {
 		test3.add(new Event("white"));
 		test3.add(new Event("as"));
 		test3.add(new Event("snow."));
-		unknown.events.addAll(test3);
+		unknown.addEvents(test3);
 		
 		Vector <EventSet> esv = new Vector<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
 		
-		String t = new SVM().analyze(unknown, esv);
+		List<Pair<String,Double>> t = new SVM().analyze(unknown, esv);
+		String r = t.get(0).getFirst();
 		String s = "Mary";
 		
-		assertTrue(t.equals(s));
+		assertTrue(r.equals(s));
 		
 	}
 

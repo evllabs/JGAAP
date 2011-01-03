@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -38,8 +36,7 @@ public class VowelInitialWordEventDriverTest {
 "_none ?of #these *should 1be 4included +in ^output"
 		);
 
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new VowelInitialWordEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new VowelInitialWordEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
@@ -56,7 +53,7 @@ public class VowelInitialWordEventDriverTest {
 		tmp.add(new Event("Uniform"));
 		tmp.add(new Event("Yankee"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 }

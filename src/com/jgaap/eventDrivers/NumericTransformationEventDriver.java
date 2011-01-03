@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
@@ -38,146 +37,144 @@ import com.jgaap.generics.NumericEventSet;
 
 import com.jgaap.generics.*;
 
-// NOTE:  This is not actually deprecated, but hopefully the generated compiler warnings
-// will get someone's attention who knows how to properly javadoc this class.
-// Please do NOT remove the Deprecated annotation until this class has javadocs.
-@Deprecated
+
 public class NumericTransformationEventDriver extends NumericEventDriver {
 
-    @Override
-    public String displayName(){
-    	return "Numeric Transformation Events";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return  "Filtered Numeric Transformation Events";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return false;
-    }
-    private EventDriver underlyingEvents;
+	@Override
+	public String displayName() {
+		return "Numeric Transformation Events";
+	}
 
-    private String      filename;
+	@Override
+	public String tooltipText() {
+		return "Filtered Numeric Transformation Events";
+	}
 
-    @Override
-    public NumericEventSet createEventSet(DocumentSet ds) {
-        String param;
-        HashMap<String, String> transform = new HashMap<String, String>();
-        boolean whitelist = true;
+	@Override
+	public boolean showInGUI() {
+		return false;
+	}
 
-        String line;
-        String[] words;
+	private EventDriver underlyingEvents;
 
-        if (!(param = (getParameter("underlyingEvents"))).equals("")) {
-            try {
-                Object o = Class.forName(param).newInstance();
-                if (o instanceof EventDriver) {
-                    underlyingEvents = (EventDriver) o;
-                } else {
-                    throw new ClassCastException();
-                }
-            } catch (Exception e) {
-                System.out.println("Error: cannot create EventDriver " + param);
-                System.out.println(" -- Using NaiveWordEventSet");
-                underlyingEvents = new NaiveWordEventDriver();
-            }
-        } else { // no underlyingEventsParameter, use NaiveWordEventSet
-            underlyingEvents = new NaiveWordEventDriver();
-        }
+	private String filename;
 
-        if (!(param = (getParameter("filename"))).equals("")) {
-            filename = param;
-        } else { // no underlyingfilename,
-            filename = null;
-        }
+	@Override
+	public NumericEventSet createEventSet(Document ds) {
+		String param;
+		HashMap<String, String> transform = new HashMap<String, String>();
+		boolean whitelist = true;
 
-        if (!(param = (getParameter("implicitWhiteList"))).equals("")) {
-            if (param.equalsIgnoreCase("false")) {
-                whitelist = false;
-            }
-        } else { // default is implicit whitelist to eliminate invalid events
-            whitelist = true;
-        }
+		String line;
+		String[] words;
 
-        EventSet es = underlyingEvents.createEventSet(ds);
+		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
+			try {
+				Object o = Class.forName(param).newInstance();
+				if (o instanceof EventDriver) {
+					underlyingEvents = (EventDriver) o;
+				} else {
+					throw new ClassCastException();
+				}
+			} catch (Exception e) {
+				System.out.println("Error: cannot create EventDriver " + param);
+				System.out.println(" -- Using NaiveWordEventSet");
+				underlyingEvents = new NaiveWordEventDriver();
+			}
+		} else { // no underlyingEventsParameter, use NaiveWordEventSet
+			underlyingEvents = new NaiveWordEventDriver();
+		}
 
-        NumericEventSet newEs = new NumericEventSet();
-        newEs.setAuthor(es.getAuthor());
-        newEs.setNewEventSetID(es.getAuthor());
+		if (!(param = (getParameter("filename"))).equals("")) {
+			filename = param;
+		} else { // no underlyingfilename,
+			filename = null;
+		}
 
-        BufferedReader br = null;
+		if (!(param = (getParameter("implicitWhiteList"))).equals("")) {
+			if (param.equalsIgnoreCase("false")) {
+				whitelist = false;
+			}
+		} else { // default is implicit whitelist to eliminate invalid events
+			whitelist = true;
+		}
 
-        if (filename != null) {
-            try {
-                FileInputStream fis = new FileInputStream(filename);
-                br = new BufferedReader(new InputStreamReader(fis));
+		EventSet es = underlyingEvents.createEventSet(ds);
 
-                while ((line = br.readLine()) != null) {
-                    if (line.length() > 0) {
-                        String sep = line.substring(0, 1);
+		NumericEventSet newEs = new NumericEventSet();
+		newEs.setAuthor(es.getAuthor());
+		newEs.setNewEventSetID(es.getAuthor());
 
-                        words = line.substring(1).split(sep);
+		BufferedReader br = null;
 
-                        if (words.length > 1) {
-                            if (!isNumber(words[1])) {
-                                System.err.println("Warning : " + words[0]
-                                        + "->" + words[1]
-                                        + " is not a number, omitted.");
-                            } else {
-                                transform.put(words[0], words[1]);
-                            }
-                        }
-                    }
-                }
+		if (filename != null) {
+			try {
+				FileInputStream fis = new FileInputStream(filename);
+				br = new BufferedReader(new InputStreamReader(fis));
 
-            } catch (IOException e) {
-                // catch io errors from FileInputStream or readLine()
-                System.out.println("Cannot open/read " + filename);
-                System.out.println("IOException error! " + e.getMessage());
-                transform = null;
-            } finally {
-                // if the file opened okay, make sure we close it
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException ioe) {
-                    }
-                }
-            }
-        } else {
-            transform = null;
-        }
+				while ((line = br.readLine()) != null) {
+					if (line.length() > 0) {
+						String sep = line.substring(0, 1);
 
-        for (int i = 0; i < es.size(); i++) {
-            String s = (es.eventAt(i)).toString();
-            if (transform == null) {
-                newEs.events.add(es.eventAt(i));
-            } else if (transform.containsKey(s)) {
-                String newS = transform.get(s);
-                if (newS.length() > 0) {
-                    newEs.events.add(new Event(newS));
-                }
-            } else // s is not in transformation list
-            if (whitelist == false) {
-                // add only if no implicit whitelisting
-                newEs.events.add(es.eventAt(i));
-            } // otherwise add nothing
-        }
-        return newEs;
-    }
+						words = line.substring(1).split(sep);
 
-    private boolean isNumber(String s) {
-        try {
-            Double.parseDouble(s);
-            return true;
-        } catch (Exception e) {
-            /* any exception means it's not a number */
-            return false;
-        }
+						if (words.length > 1) {
+							if (!isNumber(words[1])) {
+								System.err.println("Warning : " + words[0]
+										+ "->" + words[1]
+										+ " is not a number, omitted.");
+							} else {
+								transform.put(words[0], words[1]);
+							}
+						}
+					}
+				}
 
-    }
+			} catch (IOException e) {
+				// catch io errors from FileInputStream or readLine()
+				System.out.println("Cannot open/read " + filename);
+				System.out.println("IOException error! " + e.getMessage());
+				transform = null;
+			} finally {
+				// if the file opened okay, make sure we close it
+				if (br != null) {
+					try {
+						br.close();
+					} catch (IOException ioe) {
+					}
+				}
+			}
+		} else {
+			transform = null;
+		}
+
+		for (Event e : es) {
+			String s = e.toString();
+			if (transform == null) {
+				newEs.addEvent(e);
+			} else if (transform.containsKey(s)) {
+				String newS = transform.get(s);
+				if (newS.length() > 0) {
+					newEs.addEvent(new Event(newS));
+				}
+			} else // s is not in transformation list
+			if (whitelist == false) {
+				// add only if no implicit whitelisting
+				newEs.addEvent(e);
+			} // otherwise add nothing
+		}
+		return newEs;
+	}
+
+	private boolean isNumber(String s) {
+		try {
+			Double.parseDouble(s);
+			return true;
+		} catch (Exception e) {
+			/* any exception means it's not a number */
+			return false;
+		}
+
+	}
 
 }

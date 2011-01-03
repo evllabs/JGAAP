@@ -30,7 +30,6 @@ public class NewGrader {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         Vector<String> docList = new Vector<String>();
-        int i =0;
         while(input.hasNextLine()){
             String curr = input.nextLine();
 	    //System.out.println(i);

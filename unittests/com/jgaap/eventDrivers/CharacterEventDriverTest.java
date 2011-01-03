@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -28,8 +26,7 @@ public class CharacterEventDriverTest {
 	public void testCreateEventSetDocumentSet() {
 		Document doc = new Document();
 		doc.readStringText("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz.");
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new CharacterEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new CharacterEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("a"));
@@ -58,10 +55,10 @@ public class CharacterEventDriverTest {
 		tmp.add(new Event("x"));
 		tmp.add(new Event("y"));
 		tmp.add(new Event("z"));
-		expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event(" "));
-		expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event("."));
+		expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event(" "));
+		expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event("."));
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		
 	}

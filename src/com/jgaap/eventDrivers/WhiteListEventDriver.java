@@ -23,7 +23,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 
-import com.jgaap.generics.DocumentSet;
+import com.jgaap.generics.Document;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 import com.jgaap.jgaapConstants;
@@ -36,99 +37,99 @@ import com.jgaap.jgaapConstants;
  */
 public class WhiteListEventDriver extends EventDriver {
 
-    @Override
-    public String displayName(){
-    	return "White-List";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return  "Filtered Event Set with Named Events Kept";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return false;
-    }
+	@Override
+	public String displayName() {
+		return "White-List";
+	}
 
-   private EventDriver underlyingEvents;
+	@Override
+	public String tooltipText() {
+		return "Filtered Event Set with Named Events Kept";
+	}
 
-    private String      filename;
+	@Override
+	public boolean showInGUI() {
+		return false;
+	}
 
-    @Override
-    public EventSet createEventSet(DocumentSet ds) {
-        String param;
-        HashSet<String> whitelist = new HashSet<String>();
+	private EventDriver underlyingEvents;
 
-        String word;
+	private String filename;
 
-        if (!(param = (getParameter("underlyingEvents"))).equals("")) {
-            try {
-                Object o = Class.forName(
-			jgaapConstants.JGAAP_EVENTDRIVERPREFIX+param)
-				.newInstance();
-                if (o instanceof EventDriver) {
-                    underlyingEvents = (EventDriver) o;
-                } else {
-                    throw new ClassCastException();
-                }
-            } catch (Exception e) {
-                System.out.println("Error: cannot create EventDriver " + param);
-                System.out.println(" -- Using NaiveWordEventDriver");
-                underlyingEvents = new NaiveWordEventDriver();
-            }
-        } else { // no underlyingEventsParameter, use NaiveWordEventSet
-            underlyingEvents = new NaiveWordEventDriver();
-        }
+	@Override
+	public EventSet createEventSet(Document ds) {
+		String param;
+		HashSet<String> whitelist = new HashSet<String>();
 
-        if (!(param = (getParameter("filename"))).equals("")) {
-            filename = param;
-        } else { // no underlyingfilename,
-            filename = null;
-        }
+		String word;
 
-        EventSet es = underlyingEvents.createEventSet(ds);
+		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
+			try {
+				Object o = Class.forName(
+						jgaapConstants.JGAAP_EVENTDRIVERPREFIX + param)
+						.newInstance();
+				if (o instanceof EventDriver) {
+					underlyingEvents = (EventDriver) o;
+				} else {
+					throw new ClassCastException();
+				}
+			} catch (Exception e) {
+				System.out.println("Error: cannot create EventDriver " + param);
+				System.out.println(" -- Using NaiveWordEventDriver");
+				underlyingEvents = new NaiveWordEventDriver();
+			}
+		} else { // no underlyingEventsParameter, use NaiveWordEventSet
+			underlyingEvents = new NaiveWordEventDriver();
+		}
 
-        EventSet newEs = new EventSet();
-        newEs.setAuthor(es.getAuthor());
-        newEs.setNewEventSetID(es.getAuthor());
+		if (!(param = (getParameter("filename"))).equals("")) {
+			filename = param;
+		} else { // no underlyingfilename,
+			filename = null;
+		}
 
-        BufferedReader br = null;
+		EventSet es = underlyingEvents.createEventSet(ds);
 
-        if (filename != null) {
-            try {
-                FileInputStream fis = new FileInputStream(filename);
-                br = new BufferedReader(new InputStreamReader(fis));
+		EventSet newEs = new EventSet();
+		newEs.setAuthor(es.getAuthor());
+		newEs.setNewEventSetID(es.getAuthor());
 
-                while ((word = br.readLine()) != null) {
-                    whitelist.add(word.trim());
-                }
+		BufferedReader br = null;
 
-            } catch (IOException e) {
-                // catch io errors from FileInputStream or readLine()
-                System.out.println("Cannot open/read " + filename);
-                System.out.println("IOException error! " + e.getMessage());
-                whitelist = null;
-            } finally {
-                // if the file opened okay, make sure we close it
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException ioe) {
-                    }
-                }
-            }
-        } else {
-            whitelist = null;
-        }
+		if (filename != null) {
+			try {
+				FileInputStream fis = new FileInputStream(filename);
+				br = new BufferedReader(new InputStreamReader(fis));
 
-        for (int i = 0; i < es.size(); i++) {
-            String s = (es.eventAt(i)).toString();
-            if ((whitelist == null) || whitelist.contains(s)) {
-                newEs.events.add(es.eventAt(i));
-            }
-        }
-        return newEs;
-    }
+				while ((word = br.readLine()) != null) {
+					whitelist.add(word.trim());
+				}
+
+			} catch (IOException e) {
+				// catch io errors from FileInputStream or readLine()
+				System.out.println("Cannot open/read " + filename);
+				System.out.println("IOException error! " + e.getMessage());
+				whitelist = null;
+			} finally {
+				// if the file opened okay, make sure we close it
+				if (br != null) {
+					try {
+						br.close();
+					} catch (IOException ioe) {
+					}
+				}
+			}
+		} else {
+			whitelist = null;
+		}
+
+		for (Event e : es) {
+			String s = e.toString();
+			if ((whitelist == null) || whitelist.contains(s)) {
+				newEs.addEvent(e);
+			}
+		}
+		return newEs;
+	}
 
 }

@@ -26,7 +26,7 @@ public class CrossEntropyDivergenceTest {
 		
 		
 		EventSet known1 = new EventSet();
-		EventSet known2 = new EventSet();
+		EventSet known2;
 		
 		
 		
@@ -42,7 +42,7 @@ public class CrossEntropyDivergenceTest {
 		test1.add(new Event("white"));
 		test1.add(new Event("as"));
 		test1.add(new Event("snow"));
-		known1.events.addAll(test1);
+		known1.addEvents(test1);
 		known1.setAuthor("Mary");
 		
 		
@@ -63,15 +63,15 @@ public class CrossEntropyDivergenceTest {
 		
 		test1.add(new Event("alpha"));
 		test1.add(new Event("beta"));
-		known1.events.clear();
-		known1.events.addAll(test1);
+		known1 = new EventSet();
+		known1.addEvents(test1);
 		
 		test2.add(new Event("alpha"));
 		test2.add(new Event("alpha"));
 		test2.add(new Event("alpha"));
 		test2.add(new Event("beta"));
-		known2.events.clear();
-		known2.events.addAll(test2);
+		known2 = new EventSet();
+		known2.addEvents(test2);
 		
 		Result = new CrossEntropyDivergence().divergence(known1, known2);
 		
@@ -94,8 +94,8 @@ public class CrossEntropyDivergenceTest {
 		test2.add(new Event("alpha"));
 		test2.add(new Event("beta"));
 		test2.add(new Event("gamma"));
-		known2.events.clear();
-		known2.events.addAll(test2);
+		known2 = new EventSet();
+		known2.addEvents(test2);
 	
 		
 		//System.out.println("Start Here"); 
@@ -104,7 +104,7 @@ public class CrossEntropyDivergenceTest {
 		
 		//System.out.println(Result);
 		
-		assertTrue(DistanceTestHelper.inRange(Result, 0.866433, 0.000001));
+		assertTrue(DistanceTestHelper.inRange(Result, 0.5198603854199589, 0.000001));
 		
 		//revese the event sets
 		

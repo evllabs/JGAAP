@@ -1,6 +1,6 @@
 package com.jgaap.generics;
 
-import java.util.Vector;
+import java.util.List;
 
 import com.jgaap.jgaapConstants;
 
@@ -20,7 +20,7 @@ import com.jgaap.jgaapConstants;
  * @author Michael Ryan
  * 
  */
-public abstract class Language implements Comparable<Language> {
+public abstract class Language implements Comparable<Language>, Displayable {
 	private String name = "Generic";
 	private String language = "generic";
 	private String charset = "";
@@ -48,6 +48,7 @@ public abstract class Language implements Comparable<Language> {
 	 * sets the global parameters language and charset to the values defined by the language
 	 */
 	public void apply() {
+		jgaapConstants.globalObjects.put("language", this);
 		jgaapConstants.globalParams.setParameter("language", this.language);
 		jgaapConstants.globalParams.setParameter("charset", this.charset);
 	}
@@ -59,7 +60,7 @@ public abstract class Language implements Comparable<Language> {
 	 * @param document - The unparsed document
 	 * @return - the parsed document in the format required for storage and canonicization
 	 */
-	public Vector<Character> parseLanguage(String document) {
+	public List<Character> parseLanguage(String document) {
 		return null;
 	}
 
@@ -79,6 +80,14 @@ public abstract class Language implements Comparable<Language> {
 		return name;
 	}
 
+	public String displayName(){
+		return getName();
+	}
+	
+	public String tooltipText(){
+		return "";
+	}
+	
 	public void setParseable(Boolean parseable) {
 		this.parseable = parseable;
 	}

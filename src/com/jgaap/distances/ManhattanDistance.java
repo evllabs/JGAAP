@@ -17,8 +17,6 @@
  **/
 package com.jgaap.distances;
 
-import java.util.Enumeration;
-
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
@@ -58,9 +56,7 @@ public class ManhattanDistance extends DistanceFunction {
     public double distance(EventSet es1, EventSet es2) {
         EventHistogram h1 = new EventHistogram();
         EventHistogram h2 = new EventHistogram();
-        double distance = 0.0, increment = 0.0;
-        Enumeration<Event> EventList;
-        Event theEvent;
+        double distance = 0.0, increment;
 
         for (int i = 0; i < es1.size(); i++) {
             h1.add(es1.eventAt(i));
@@ -70,25 +66,19 @@ public class ManhattanDistance extends DistanceFunction {
             h2.add(es2.eventAt(i));
         }
 
-        for (EventList = h1.events(); EventList.hasMoreElements();
-        /* nothing -- handled in function */) {
-
-            theEvent = EventList.nextElement();
-            increment = h1.getRelativeFrequency(theEvent)
-                    - h2.getRelativeFrequency(theEvent);
+        for (Event event : h1) {
+            increment = h1.getRelativeFrequency(event)
+                    - h2.getRelativeFrequency(event);
             if (increment < 0) {
                 increment = increment * -1;
             }
             distance += increment;
         }
 
-        for (EventList = h2.events(); EventList.hasMoreElements();
-        /* nothing -- handled in function */) {
-
-            theEvent = EventList.nextElement();
-            if (h1.getAbsoluteFrequency(theEvent) == 0) {
-                increment = h1.getRelativeFrequency(theEvent)
-                        - h2.getRelativeFrequency(theEvent);
+        for (Event event : h2) {
+            if (h1.getAbsoluteFrequency(event) == 0) {
+                increment = h1.getRelativeFrequency(event)
+                        - h2.getRelativeFrequency(event);
                 if (increment < 0) {
                     increment = increment * -1;
                 }
