@@ -17,8 +17,8 @@
  **/
 package com.jgaap.eventDrivers;
 
+import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.DocumentSet;
 
 /**
  * Extract words with 2 or 3 letters as features
@@ -49,7 +49,7 @@ public class _24LetterWordEventDriver extends MNLetterWordEventDriver {
     private MNLetterWordEventDriver theDriver;
 
     @Override
-    public EventSet createEventSet(DocumentSet ds) {
+    public EventSet createEventSet(Document ds) {
         theDriver = new MNLetterWordEventDriver();
         theDriver.setParameter("M", "2");
         theDriver.setParameter("N", "4");

@@ -18,16 +18,14 @@
 package com.jgaap.backend;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 
+import com.jgaap.generics.*;
 import com.jgaap.jgaapConstants;
-import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.Canonicizer;
-import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.Language;
+
 /**
  * This class dynamically locates subclasses of a given named superclass within
  * a specific directory. You can use it, for example, to find all (e.g.)
@@ -162,18 +160,19 @@ public class AutoPopulate {
     }
     
     
-    public static Map<String, Canonicizer> getCanonicizers(){
-    	Map<String, Canonicizer> canonicizers;
+    @SuppressWarnings("unchecked")
+	public static List<Canonicizer> getCanonicizers(){
+    	List<Canonicizer> canonicizers = new ArrayList<Canonicizer>();
     	if(jgaapConstants.globalObjects.containsKey("canonicizers")){
-    		canonicizers = (Map<String, Canonicizer>) jgaapConstants.globalObjects.get("canonicizers");
+    		canonicizers.addAll( (List<Canonicizer>) jgaapConstants.globalObjects.get("canonicizers"));
     	}else{
-    		canonicizers = new HashMap<String, Canonicizer>();
 			for (Object tmpC : AutoPopulate.findAll(
 					jgaapConstants.binDir()+"/com/jgaap/canonicizers",
 					"com.jgaap.generics.Canonicizer", true)) {
 				Canonicizer canon = (Canonicizer) tmpC;
-				canonicizers.put(canon.displayName().toLowerCase(), canon);
+				canonicizers.add(canon);
 			}
+			Collections.sort(canonicizers);
 			jgaapConstants.globalObjects.put("canonicizers", canonicizers);
     	}
 		return canonicizers;
@@ -181,72 +180,95 @@ public class AutoPopulate {
     
     
  // Load the event drivers dynamically
-    public static Map<String, EventDriver> getEventDrivers(){
-		Map<String, EventDriver> eventDrivers;
+    @SuppressWarnings("unchecked")
+	public static List<EventDriver> getEventDrivers(){
+		List<EventDriver> eventDrivers;
     	if(jgaapConstants.globalObjects.containsKey("eventDrivers")){
-    		eventDrivers = (Map<String, EventDriver>) jgaapConstants.globalObjects.get("eventDrivers");
+    		eventDrivers = (List<EventDriver>) jgaapConstants.globalObjects.get("eventDrivers");
     	}else{
-    	eventDrivers = new HashMap<String, EventDriver>();
+    	eventDrivers = new ArrayList<EventDriver>();
 			for (Object tmpE : AutoPopulate.findAll(jgaapConstants.binDir()+"/com/jgaap/eventDrivers",
 					"com.jgaap.generics.EventDriver", true)) {
 				EventDriver event = (EventDriver) tmpE;
-				eventDrivers.put(event.displayName().toLowerCase(), event);
+				eventDrivers.add(event);
 			}
+			Collections.sort(eventDrivers);
 			jgaapConstants.globalObjects.put("eventDrivers", eventDrivers);
     	}
 		return eventDrivers;
     }
-    public static Map<String, DistanceFunction> getDistanceFunctions(){
+    @SuppressWarnings("unchecked")
+	public static List<DistanceFunction> getDistanceFunctions(){
 		// Load the distance functions dynamically
-    	Map<String, DistanceFunction> distances;
+    	List<DistanceFunction> distances;
     	if(jgaapConstants.globalObjects.containsKey("distances")){
-    		distances = (Map<String, DistanceFunction>) jgaapConstants.globalObjects.get("distances");
+    		distances = (List<DistanceFunction>) jgaapConstants.globalObjects.get("distances");
     	}else{
-			distances = new HashMap<String, DistanceFunction>();
+			distances = new ArrayList<DistanceFunction>();
 			for (Object tmpD : AutoPopulate.findAll(jgaapConstants.binDir()+"/com/jgaap/distances",
 					"com.jgaap.generics.DistanceFunction", true)) {
 				DistanceFunction method = (DistanceFunction) tmpD;
-				distances.put(method.displayName().toLowerCase(), method);
+				distances.add(method);
 			}
+			Collections.sort(distances);
 			jgaapConstants.globalObjects.put("distances", distances);
     	}
     	return distances;
     }
-    public static Map<String, AnalysisDriver> getAnalysisDrivers(){
+    @SuppressWarnings("unchecked")
+	public static List<AnalysisDriver> getAnalysisDrivers(){
 	// Load the classifiers dynamically
-    	Map<String, AnalysisDriver> analysisDrivers;
+    	List<AnalysisDriver> analysisDrivers;
     	if(jgaapConstants.globalObjects.containsKey("classifiers")){
-    		analysisDrivers=(Map<String, AnalysisDriver>) jgaapConstants.globalObjects.get("classifiers");
+    		analysisDrivers=(List<AnalysisDriver>) jgaapConstants.globalObjects.get("classifiers");
     	}else{
-	    	analysisDrivers = new HashMap<String, AnalysisDriver>();
+	    	analysisDrivers = new ArrayList<AnalysisDriver>();
 			for (Object tmpA : AutoPopulate.findAll(jgaapConstants.binDir()+"/com/jgaap/classifiers",
 					"com.jgaap.generics.AnalysisDriver", true)) {
 				AnalysisDriver method = (AnalysisDriver) tmpA;
-				analysisDrivers.put(method.displayName().toLowerCase(), method);
+				analysisDrivers.add(method);
 			}
+			Collections.sort(analysisDrivers);
 			jgaapConstants.globalObjects.put("classifiers", analysisDrivers);
     	}
 	return analysisDrivers;
     }
-    public static Map<String, Language> getLanguages(){
+    @SuppressWarnings("unchecked")
+	public static List<Language> getLanguages(){
 	// Load the classifiers dynamically
-    	Map<String, Language> languages;
+    	List<Language> languages;
     	if(jgaapConstants.globalObjects.containsKey("languages")){
-    		languages = (Map<String, Language>) jgaapConstants.globalObjects.get("languages");
+    		languages = (List<Language>) jgaapConstants.globalObjects.get("languages");
     	}else{
-			languages = new HashMap<String, Language>();
+			languages = new ArrayList<Language>();
 			for (Object tmpA : AutoPopulate.findAll(jgaapConstants.binDir()+"/com/jgaap/languages",
 					"com.jgaap.generics.Language", true)) {
 				Language lang = (Language) tmpA;
-				languages.put(lang.getName().toLowerCase(), lang);
+				languages.add(lang);
 			}
+			Collections.sort(languages);
 			jgaapConstants.globalObjects.put("languages", languages);
     	}
 	return languages;
     }
-    
-    
-    
+    @SuppressWarnings("unchecked")
+	public static List<EventCuller> getEventCullers(){
+	// Load the event cullers dynamically
+    	List<EventCuller> cullers;
+    	if(jgaapConstants.globalObjects.containsKey("eventCullers")){
+    		cullers = (List<EventCuller>) jgaapConstants.globalObjects.get("eventCullers");
+    	}else{
+			cullers = new ArrayList<EventCuller>();
+			for (Object tmpA : AutoPopulate.findAll(jgaapConstants.binDir()+"/com/jgaap/eventCullers",
+					"com.jgaap.generics.EventCuller", true)) {
+				EventCuller lang = (EventCuller) tmpA;
+				cullers.add(lang);
+			}
+			Collections.sort(cullers);
+			jgaapConstants.globalObjects.put("eventCullers", cullers);
+    	}
+	return cullers;
+    }
     
     /**
      * Main routine for testing. Lists (on the screen) all subclasses of the

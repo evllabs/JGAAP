@@ -17,7 +17,7 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.DocumentSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.jgaapConstants;
@@ -46,7 +46,7 @@ public class TruncatedFreqEventDriver extends EventDriver {
     private EventDriver theDriver;
 
     @Override
-    public EventSet createEventSet(DocumentSet ds) {
+    public EventSet createEventSet(Document ds) {
         theDriver = new TruncatedEventDriver();
         theDriver.setParameter("length", "3");
         theDriver.setParameter("underlyingEvents", "FreqEventDriver");

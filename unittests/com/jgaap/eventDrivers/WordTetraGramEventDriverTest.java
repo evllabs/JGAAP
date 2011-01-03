@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -28,8 +26,7 @@ public class WordTetraGramEventDriverTest {
 	public void testCreateEventSetDocumentSet() {
 		Document doc = new Document();
 		doc.readStringText("Mary had a little lamb, little lamb. Its fleece was white as snow.");
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new WordTetraGramEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new WordTetraGramEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("(Mary)-(had)-(a)-(little)"));
@@ -42,7 +39,7 @@ public class WordTetraGramEventDriverTest {
 		tmp.add(new Event("(Its)-(fleece)-(was)-(white)"));
 		tmp.add(new Event("(fleece)-(was)-(white)-(as)"));
 		tmp.add(new Event("(was)-(white)-(as)-(snow.)"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		
 	}

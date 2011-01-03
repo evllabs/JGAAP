@@ -210,13 +210,10 @@ public class CanonicizerLabel extends JLabel implements DragSourceMotionListener
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		try{
-			CanonicizerLabel otherLabel = (CanonicizerLabel) obj;
-			return this.getCanonicizer().displayName().equals(
-					otherLabel.getCanonicizer().displayName() );
-		}catch(Exception e){
-			return false;
-		}
+        if(obj instanceof CanonicizerLabel) {
+			return this.getCanonicizer().displayName().equals(((CanonicizerLabel)obj).getCanonicizer().displayName());
+        }
+        return false;
 	}	
 	
 	

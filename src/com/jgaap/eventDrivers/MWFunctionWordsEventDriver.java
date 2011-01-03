@@ -18,7 +18,7 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.jgaapConstants;
-import com.jgaap.generics.DocumentSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
@@ -60,7 +60,7 @@ public class MWFunctionWordsEventDriver extends EventDriver {
 
     /** Creates EventSet using M-W function word list */
     @Override
-    public EventSet createEventSet(DocumentSet ds) {
+    public EventSet createEventSet(Document ds) {
         return e.createEventSet(ds);
     }
 

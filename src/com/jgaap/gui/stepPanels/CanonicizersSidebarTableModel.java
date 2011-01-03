@@ -17,7 +17,7 @@
  **/
 package com.jgaap.gui.stepPanels;
 
-import com.jgaap.generics.Document.DocType;
+import com.jgaap.generics.DocType;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import com.jgaap.gui.dnd.CanonDropLocation;

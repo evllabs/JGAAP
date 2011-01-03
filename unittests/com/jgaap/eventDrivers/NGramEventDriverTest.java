@@ -4,15 +4,12 @@ import static org.junit.Assert.*;
 
 import java.util.Vector;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 
 public class NGramEventDriverTest {
 
@@ -21,8 +18,7 @@ public class NGramEventDriverTest {
 		Document doc = new Document();
 		
 		doc.readStringText("Testing sentence. My name is Joe. run jump, game-start?  Hello!");
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new NGramEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new NGramEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		
@@ -40,7 +36,7 @@ public class NGramEventDriverTest {
 		
 		
 		
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		
 //System.out.println(expectedEventSet.toString());
 //System.out.println(sampleEventSet.toString());

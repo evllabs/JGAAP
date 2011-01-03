@@ -274,8 +274,12 @@ public class DocumentsStepPanel extends StepPanel implements ActionListener,
                     "Enter document title here (optional)...")) {
                 docTitleField.setText("");
             }
-            addDocument( new Document( filePathField.getText(), authorNameField.getText(), 
-            		docTitleField.getText() ));
+            try {
+				addDocument( new Document( filePathField.getText(), authorNameField.getText(), docTitleField.getText() ));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 
             // clear the add document panel fields
             docTitleField.setText("Enter document title here (optional)...");
@@ -311,20 +315,20 @@ public class DocumentsStepPanel extends StepPanel implements ActionListener,
     	documentsTableModel.addDocument( newDocument );
     }
 
-    /**
-     * Adds a Document to this StepPanel. Documents can be retrieved from this
-     * panel by using the 'getDocuments()' method.
-     * 
-     * @param title
-     *            the title of the document
-     * @param filePath
-     *            the file path to the document
-     * @param authorName
-     *            the name of the document's author
-     */
-    public void addDocument( String filePath, String authorName, String title ) {
-    	documentsTableModel.addDocument( new Document( filePath, authorName, title ));
-    }
+//    /**
+//     * Adds a Document to this StepPanel. Documents can be retrieved from this
+//     * panel by using the 'getDocuments()' method.
+//     * 
+//     * @param title
+//     *            the title of the document
+//     * @param filePath
+//     *            the file path to the document
+//     * @param authorName
+//     *            the name of the document's author
+//     */
+//    public void addDocument( String filePath, String authorName, String title ) {
+//    	documentsTableModel.addDocument( new Document( filePath, authorName, title ));
+//    }
     
     /**
      * Remove all current documents from this panel.

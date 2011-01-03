@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
@@ -36,8 +34,7 @@ public class TruncatedNamingTimeEventDriverTest {
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
 
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new TruncatedNamingTimeEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new TruncatedNamingTimeEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
@@ -59,7 +56,7 @@ public class TruncatedNamingTimeEventDriverTest {
 		tmp.add(new Event("75"));
 		tmp.add(new Event("82"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 
 // System.out.println("Expected is " + expectedEventSet.toString());
 // System.out.println("Actual is " + sampleEventSet.toString());

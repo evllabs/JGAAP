@@ -17,8 +17,6 @@
  **/
 package com.jgaap.distances;
 
-import java.util.Enumeration;
-
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
@@ -61,8 +59,6 @@ public class CosineDistance extends DistanceFunction {
         double distance = 0.0;
         double h1Magnitude = 0.0;
         double h2Magnitude = 0.0;
-        Enumeration<Event> EventList;
-        Event theEvent;
 
         for (int i = 0; i < es1.size(); i++) {
             h1.add(es1.eventAt(i));
@@ -72,33 +68,25 @@ public class CosineDistance extends DistanceFunction {
             h2.add(es2.eventAt(i));
         }
 
-        for (EventList = h1.events(); EventList.hasMoreElements();
-        /* nothing -- handled in function */) {
+        for (Event event: h1) {
+            distance += (h1.getAbsoluteFrequency(event) * h2
+                    .getAbsoluteFrequency(event));
 
-            theEvent = EventList.nextElement();
-
-            distance += (h1.getAbsoluteFrequency(theEvent) * h2
-                    .getAbsoluteFrequency(theEvent));
-
-            h1Magnitude += h1.getAbsoluteFrequency(theEvent)
-                    * h1.getAbsoluteFrequency(theEvent);
-            h2Magnitude += h2.getAbsoluteFrequency(theEvent)
-                    * h2.getAbsoluteFrequency(theEvent);
+            h1Magnitude += h1.getAbsoluteFrequency(event)
+                    * h1.getAbsoluteFrequency(event);
+            h2Magnitude += h2.getAbsoluteFrequency(event)
+                    * h2.getAbsoluteFrequency(event);
         }
 
-        for (EventList = h2.events(); EventList.hasMoreElements();
-        /* nothing -- handled in function */) {
+        for (Event event : h2) {
+            if (h1.getAbsoluteFrequency(event) == 0) {
+                distance += (h1.getAbsoluteFrequency(event) * h2
+                        .getAbsoluteFrequency(event));
 
-            theEvent = EventList.nextElement();
-
-            if (h1.getAbsoluteFrequency(theEvent) == 0) {
-                distance += (h1.getAbsoluteFrequency(theEvent) * h2
-                        .getAbsoluteFrequency(theEvent));
-
-                h1Magnitude += h1.getAbsoluteFrequency(theEvent)
-                        * h1.getAbsoluteFrequency(theEvent);
-                h2Magnitude += h2.getAbsoluteFrequency(theEvent)
-                        * h2.getAbsoluteFrequency(theEvent);
+                h1Magnitude += h1.getAbsoluteFrequency(event)
+                        * h1.getAbsoluteFrequency(event);
+                h2Magnitude += h2.getAbsoluteFrequency(event)
+                        * h2.getAbsoluteFrequency(event);
             }
         }
 

@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -34,8 +32,7 @@ public class WordLengthEventDriverTest {
 				   "for me the lexicons full weight\n"+
 				   "if nature gain who can complain\n"+
 				   "tho dr johnson fulminate");
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new WordLengthEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new WordLengthEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("3"));
@@ -69,7 +66,7 @@ public class WordLengthEventDriverTest {
 		tmp.add(new Event("2"));
 		tmp.add(new Event("7"));
 		tmp.add(new Event("9"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 
 		/* test case 2 -- punctuation */
@@ -77,8 +74,7 @@ public class WordLengthEventDriverTest {
 		doc = new Document();
 		doc.readStringText(
 			"`the' quick brown \"fox\" isn't very? dumb!");
-		docSet = new DocumentSet(doc);
-		sampleEventSet = new WordLengthEventDriver().createEventSet(docSet);
+		sampleEventSet = new WordLengthEventDriver().createEventSet(doc);
 		expectedEventSet = new EventSet();
 		tmp = new Vector<Event>();
 		tmp.add(new Event("5"));
@@ -88,14 +84,13 @@ public class WordLengthEventDriverTest {
 		tmp.add(new Event("5"));
 		tmp.add(new Event("5"));
 		tmp.add(new Event("5"));
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 
 		/* test case 3 -- no words */
 		doc = new Document();
 		doc.readStringText("\t         \t\n");
-		docSet = new DocumentSet(doc);
-		sampleEventSet = new WordLengthEventDriver().createEventSet(docSet);
+		sampleEventSet = new WordLengthEventDriver().createEventSet(doc);
 		expectedEventSet = new EventSet();
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		

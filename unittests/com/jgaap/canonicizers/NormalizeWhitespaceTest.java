@@ -5,6 +5,7 @@ package com.jgaap.canonicizers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class NormalizeWhitespaceTest {
 		expected.add('d');
 		expected.add('!');
 		expected.add(' ');
-		Vector<Character> test = new NormalizeWhitespace().process(sample);
+		List<Character> test = new NormalizeWhitespace().process(sample);
 		assertTrue(expected.equals(test));
 	}
 

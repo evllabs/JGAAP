@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -32,8 +30,7 @@ public class WordTriGramEventDriverTest {
 "Its fleece was white as snow.\n" +
 "And everywhere that Mary went,\n" +
 "The lamb was sure to go.");
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new WordTriGramEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new WordTriGramEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("(Mary)-(had)-(a)"));
@@ -57,7 +54,7 @@ public class WordTriGramEventDriverTest {
 		tmp.add(new Event("(was)-(sure)-(to)"));
 		tmp.add(new Event("(sure)-(to)-(go.)"));
 
-		expectedEventSet.events.addAll(tmp);
+		expectedEventSet.addEvents(tmp);
 System.out.println(expectedEventSet.toString());
 System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));

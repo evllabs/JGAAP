@@ -33,8 +33,8 @@ public class MeanDistanceTest {
 		test1.add(new Event("4.0"));
 		test1.add(new Event("5.0"));
 
-		es1.events.addAll(test1);
-		es2.events.addAll(test1);
+		es1.addEvents(test1);
+		es2.addEvents(test1);
 		assertTrue(new MeanDistance().distance(es1, es2) == 0);
 
 		Vector<Event> test2 = new Vector<Event>();
@@ -42,8 +42,8 @@ public class MeanDistanceTest {
 		test2.add(new Event("2.0"));
 		test2.add(new Event("3.0"));
 		
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2 = new EventSet();
+		es2.addEvents(test2);
 		double result = new MeanDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 1.0, 0.0000000001));
 	}

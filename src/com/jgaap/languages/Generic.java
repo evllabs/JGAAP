@@ -12,4 +12,8 @@ import com.jgaap.generics.Language;
 
 public class Generic extends Language {
 
+	public boolean showInGUI() {
+		return true;
+	}
+	
 }

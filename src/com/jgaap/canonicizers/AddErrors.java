@@ -18,7 +18,7 @@
 package com.jgaap.canonicizers;
 
 import java.awt.Color;
-import java.util.Vector;
+import java.util.List;
 
 
 import com.jgaap.generics.Canonicizer;
@@ -93,7 +93,7 @@ public class AddErrors extends Canonicizer {
      * @param procText Vector of characters to be processed.
      * @return Vector of characters after processing.
      */
-    public Vector<Character> process(Vector<Character> procText) {
+    public List<Character> process(List<Character> procText) {
 
         int numChanges = (int) ((percentErrors / 100.0) * procText.size());
 
@@ -103,9 +103,9 @@ public class AddErrors extends Canonicizer {
 
         for (int i = 0; i < numChanges; i++) {
             int changePos = (int) (Math.random() * procText.size());
-            if ((procText.elementAt(changePos) == ' ')
-                    || (procText.elementAt(changePos) == '\t')
-                    || (procText.elementAt(changePos) == '\n')) {
+            if ((procText.get(changePos) == ' ')
+                    || (procText.get(changePos) == '\t')
+                    || (procText.get(changePos) == '\n')) {
                 int newChar = (int) (Math.random() * 3);
                 switch (newChar) {
                     case 0:

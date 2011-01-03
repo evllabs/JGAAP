@@ -28,6 +28,6 @@ public abstract class NumericEventDriver extends EventDriver {
 
 
     @Override
-    abstract public NumericEventSet createEventSet(DocumentSet ds);
+    abstract public NumericEventSet createEventSet(Document ds);
 
 }

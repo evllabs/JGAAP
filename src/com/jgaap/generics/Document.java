@@ -17,555 +17,348 @@
  **/
 package com.jgaap.generics;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Vector;
-
-import javax.swing.text.*;
-import javax.swing.text.html.*;
-
-import org.pdfbox.pdmodel.PDDocument;
-import org.pdfbox.util.PDFTextStripper;
-
-import org.apache.poi.poifs.filesystem.*;
-import org.apache.poi.hwpf.*;
-import org.apache.poi.hwpf.extractor.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.jgaap.jgaapConstants;
 import com.jgaap.gui.jgaapGUI;
 
-/** 
- * Code for storing and processing individual documents of any type. 
+/**
+ * Code for storing and processing individual documents of any type.
  */
 public class Document extends Parameterizable {
 
-	public String displayName(){
-	    return "Document";
+	private String author;
+	private String filepath;
+	private String title;
+	private List<Character> rawText;
+	private List<Character> procText;
+	private int size;
+	private DocType docType;
+	private List<Canonicizer> canonicizers;
+	private Map<EventDriver, EventSet> eventSets;
+	private Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> results;
+
+
+
+	public Document() {
+		filepath = "";
+		title = "";
+		size = 0;
+		canonicizers = new ArrayList<Canonicizer>();
+		eventSets = new HashMap<EventDriver, EventSet>();
+		results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>();
+		rawText = new ArrayList<Character>();
+		procText = new ArrayList<Character>();
+		docType = DocType.GENERIC;
+
 	}
 
-	public String tooltipText(){
-	    return "For storing and processing individual documents of any type";
+	public Document(String filepath, String author) throws Exception {
+		this(filepath, author, getTitleFromPath(filepath));
 	}
 
-	public boolean showInGUI(){
-	    return false;
+	/**
+	 * Copy constructor. Can be used to break object references and protect a
+	 * Document instance from being modified by other classes.
+	 * 
+	 * @param document
+	 *            The document to be copied
+	 */
+	public Document(Document document) {
+		this.author = new String(document.author);
+		this.canonicizers = new ArrayList<Canonicizer>(document.canonicizers);
+		this.docType = document.docType;
+		this.eventSets = new HashMap<EventDriver, EventSet>(document.eventSets);
+		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>(
+				document.results);
+		this.filepath = new String(document.filepath);
+		this.procText = new ArrayList<Character>(document.procText);
+		this.rawText = new ArrayList<Character>(document.rawText);
+		this.size = document.size;
+		this.title = new String(document.title);
 	}
 
-    private String           author;
-    private String           filepath;
-    private String           title;
-    private char[]           rawText;
-    private int              size;
-    private DocType			 docType;
-    
-    /**
-     * List of possible document types.
-     */
-    public static enum DocType { PDF, URL, DOC, HTML, GENERIC };
-    
-    /**
-     * This is a list of canonicizers that will be applied to this document.
-     */
-    private Vector<Canonicizer> canonicizers = new Vector<Canonicizer>();
-
-    /** Contains current processed text **/
-    public Vector<Character> procText;
-
-    /** Create document with no text, setting author later **/
-    public Document() {
-        author = null;
-        filepath = null;
-        docType = DocType.GENERIC;
-        title = "null title";
-        size = 0;
-        rawText = null;
-        procText = null;
-        canonicizers.clear();
-    }
-
-    /** 
-     * Create and read in document with only the filepath.
-     * 
-     * @param filepath
-     * 				file path of the document to be read
-     */
-    public Document(String filepath) {
-        this( filepath, null );
-    }
-
-    /** 
-     * Create and read in a document with a given filepath and author.
-     * 
-     * @param filepath
-     * 			file path of the document to be read
-     * @param author
-     * 			author of the document; a null value indicates an unknown author
-     */
-    public Document(String filepath, String author) {
-    	this( filepath, author, getTitleFromPath(filepath) );
-    }
-    
-    /**
-     * Copy constructor. Can be used to break object references and protect a Document
-     * instance from being modified by other classes.
-     * 
-     * @param document The document to be copied
-     */
-    public Document( Document document ){
-    	this( document.getFilePath(), document.getAuthor(), document.getTitle() );
-    }
-    
-    /**
-     * Constructor that takes three arguments: file path, file author, file title
-     * 
-     * @param filepath The path to the file
-     * @param author The author of the document
-     * @param title The title of the document
-     */
-    public Document( String filepath, String author, String title )
-    {
-    	this.author = author;
-    	if( author.equals("") ) // unknown authors are null
-    		this.author = null;
-        this.filepath = filepath;
-        this.title = title;
-        if( title.equals("") )
-        	this.title = getTitleFromPath(filepath);
-        if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
-            docType = DocType.URL;
-            readURLText(filepath);
-        } else if (filepath.endsWith(".pdf")) {
-        	docType = DocType.PDF;
-            loadPDF(filepath);
-        } else if (filepath.endsWith(".doc")) {
-        	docType = DocType.DOC;
-            loadMSWord(filepath);
-        } else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
-        	docType = DocType.HTML;
-            loadHTML(filepath);
-        }        
-        /*
-         * The POI MSWord reader seems to be broken. Code left here for
-         * reference only. else if(filepath.endsWith(".doc")) {
-         * System.out.println("Doc file"); try { POIFSFileSystem doc = new
-         * POIFSFileSystem(new FileInputStream(filepath)); WordExtractor
-         * extractor = new WordExtractor(doc);
-         * System.out.println(extractor.getText()); procText = new
-         * Vector<Character>(); char[] origText =
-         * extractor.getText().toCharArray(); for(Character c : origText) {
-         * procText.add(c); } } catch(Exception e) { e.printStackTrace(); } }
-         */
-        else {
-            docType = DocType.GENERIC;
-            readLocalText(filepath);
-        }
-    }
-    
-    /**
-     * Takes a file path and returns only the file name.
-     * 
-     * @param filePath 
-     * 				the full path to the file
-     * @return A document title derived from the file path.
-     */
-    private static String getTitleFromPath( String filePath ){
-    	String[] split = filePath.split( "[\\\\[\\/]]" );
-    	return split[ split.length - 1 ];    	
-    }
-    
-    /**
-     * Extracts text from a PDF and stores it in the document. Takes an input
-     * stream rather than a file name.
-     * 
-     * @param filesInputStream
-     *            An input stream pointing to a PDF file.
-     */
-    private void loadPDF(InputStream filesInputStream) {
-        PDDocument doc;
-        try {
-            doc = PDDocument.load(filesInputStream);
-            PDFTextStripper pdfStripper = new PDFTextStripper();
-            pdfStripper.setSortByPosition(false);
-            procText = new Vector<Character>();
-            char[] origText = pdfStripper.getText(doc).toCharArray();
-            for (Character c : origText) {
-                procText.add(c);
-            }
-
-            doc.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Extracts text from a PDF and stores it in the document.
-     * 
-     * @param filepath
-     *            The filepath of the PDF to be read.
-     */
-    private void loadPDF(String filepath) {
-        PDDocument doc;
-        try {
-            doc = PDDocument.load(new FileInputStream(filepath));
-            PDFTextStripper pdfStripper = new PDFTextStripper();
-            pdfStripper.setSortByPosition(false);
-            procText = new Vector<Character>();
-            char[] origText = pdfStripper.getText(doc).toCharArray();
-            for (Character c : origText) {
-                procText.add(c);
-            }
-            doc.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    /**
-     * Extracts text from an HTML document and stores it in the document.
-     * 
-     * @param filepath The filepath of the HTML document to be read.
-     */
-    private void loadHTML(String filepath) {
-        System.out.println("HTML Document");
-        try {
-            EditorKit kit = new HTMLEditorKit();
-            javax.swing.text.Document doc = kit.createDefaultDocument();
-            kit.read((InputStream)(new FileInputStream(filepath)), doc, 0);
-            procText = new Vector<Character>();
-            System.out.println(doc.getText(0, doc.getLength()));
-            char[] origText = doc.getText(0, doc.getLength()).toCharArray();
-            for (Character c : origText) {
-                procText.add(c);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    /**
-     * Extracts text from an HTML document and stores it in the document.
-     * 
-     * @param filesInputStream An input stream pointing to the HTML document to be read.
-     */
-    private void loadHTML(InputStream filesInputStream) {
-        System.out.println("HTML Document");
-        try {
-            EditorKit kit = new HTMLEditorKit();
-            javax.swing.text.Document doc = kit.createDefaultDocument();
-            kit.read(filesInputStream, doc, 0);
-            procText = new Vector<Character>();
-            System.out.println(doc.getText(0, doc.getLength()));
-            char[] origText = doc.getText(0, doc.getLength()).toCharArray();
-            for (Character c : origText) {
-                procText.add(c);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Extracts text from a Word document and stores it in the document.
-     * 
-     * @param filepath The filepath of the Word document to be read.
-     */
-    private void loadMSWord(String filepath) {
-        System.out.println("Word Document");
-        procText = new Vector<Character>();
-        try {
-            POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(filepath));
-            HWPFDocument doc = new HWPFDocument(fs);
-            WordExtractor we = new WordExtractor(doc);
-            System.out.println(we.getText());
-            char[] origText = we.getText().toCharArray();
-            for (Character c : origText) {
-                procText.add(c);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    /**
-     * Extracts text from a Word document and stores it in the document.
-     * 
-     * @param filesInputStream An input stream pointing to the Word document to be read.
-     */
-    private void loadMSWord(InputStream filesInputStream) {
-        System.out.println("Word Document");
-        try {
-            POIFSFileSystem fs = new POIFSFileSystem(filesInputStream);
-            HWPFDocument doc = new HWPFDocument(fs);
-            WordExtractor we = new WordExtractor(doc);
-            System.out.println(we.getText());
-            char[] origText = we.getText().toCharArray();
-            for (Character c : origText) {
-                procText.add(c);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void print() {
-        for (Character c : procText) {
-            System.out.print(c);
-        }
-    }
-
-    /**
-     * Reads text from a local file. Exceptions are not caught by name. Rather,
-     * all exceptions are handled through just printing the error message to
-     * stdout. This should probably be changed for robustness. The raw text of
-     * the file is stored for quick access in an array.
-     **/
-    /*
-     * MVR - 4/7/08 readLocalText has been changed so that it now uses a
-     * InputStreamReader wrapped in a BufferedReader to handle the
-     * FileInputStream. The updated readLocalText also uses the parameterizable
-     * class to check what charset is being used and then read the files in the
-     * chosen charset.
-     */
-    public void readLocalText(String filepath) {
-        int c, ctr = 0;
-        try {
-            File input = new File(filepath);
-            size = (int) input.length();
-            rawText = new char[size];
-            procText = new Vector<Character>();
-            FileInputStream fis = new FileInputStream(input);
-            BufferedReader br;
-            if (jgaapConstants.globalParams.getParameter("charset").equals("")) {
-                br = new BufferedReader(new InputStreamReader(fis));
-            } else {
-                br = new BufferedReader(new InputStreamReader(fis,
-                        jgaapConstants.globalParams.getParameter("charset")));
-            }
-            while ((c = br.read()) != -1) {
-                rawText[ctr++] = (char) c;
-                procText.add(new Character((char) c));
-            }
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void readStringText(String text){
-    	procText = new Vector<Character>();
-    	for(int i=0;i<text.length();i++){
-    		procText.add(text.charAt(i));
-    	}
-    }
-    
-    /**
-     * Reads text from a local file. Exceptions are not caught by name. Rather,
-     * all exceptions are handled through just printing the error message to
-     * stdout. This should probably be changed for robustness. The raw text of
-     * the file is stored for quick access in an array. Modeled from
-     * readLocalText PMJ 10/25/08
-     **/
-
-    public void readURLText(String url) {
-        int c, ctr = 0;
-        try {
-            URL input = new URL(url);
-            InputStream ir = input.openStream();
-            BufferedReader br;
-
-            procText = new Vector<Character>();
-
-            if (url.endsWith(".pdf")) {
-                loadPDF(input.openStream());
-                return;
-            } else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
-                loadHTML(input.openStream());
-                return;
-            } else if (filepath.endsWith(".doc")) {
-                loadMSWord(input.openStream());
-                return;
-            }
-
-            if (jgaapConstants.globalParams.getParameter("charset").equals("")) {
-                br = new BufferedReader(new InputStreamReader(ir));
-            } else {
-                br = new BufferedReader(new InputStreamReader(ir,
-                        jgaapConstants.globalParams.getParameter("charset")));
-            }
-            while ((c = br.read()) != -1) {
-                procText.add(new Character((char) c));
-            }
-
-            size = procText.size();
-            rawText = new char[size];
-            for (int i = 0; i < size; i++) {
-                rawText[ctr++] = procText.elementAt(i);
-            }
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    // --------------------------------------------------
-    // ------------ Getters and Setters -----------------
-    // --------------------------------------------------
-    
-    /** Retrieves the author of the current document **/
-    public String getAuthor() {
-        return author;
-    }
-
-    /** Returns the docType of the current document **/
-    public DocType getDocType() {
-        return docType;
-    }
-
-    /** Returns the full filepath of the current document **/
-    public String getFilePath() {
-        return filepath;
-    }
-
-    /**
-     * Returns text with preprocessing done. Preprocessing can include stripping
-     * whitespace or normalizing the case
-     **/
-    public Vector<Character> getProcessedText() {
-        return procText;
-    }
-  
-    public void setProcessedText(Vector<Character>procText){
-    	this.procText = procText;
-    }
-    
-    /**
-     * Returns the size of the document. Size is determined by the number of
-     * characters plus whitespace
-     **/
-    public int getSize() {
-        return size;
-    }
-
-    /** Returns the title of the current document **/
-    public String getTitle() {
-        return title;
-    }   
-
-    /** Sets the author of the current document **/
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    /** Sets the docType of the current document **/
-    public void setDocType(DocType t) {
-        docType = t;
-    }
-
-    /** Sets the title of the current document **/
-    public void setTitle(String t) {
-        title = t;
-    }
-    
-    /**
-     * Clear the list of canonicizers associated with this Document.
-     */
-    public void clearCanonicizers(){
-    	canonicizers.clear();
-    }
-    
-    /**
-     * Add a Canonicizer to the internal list maintained by this Document.
-     * 
-     * @param newCanonicizer A new canonicizer to add to the list
-     */
-    public void addCanonicizer( Canonicizer newCanonicizer ){
-    	// Don't allow duplicate canonicizers in the list
-    	//if( !canonicizers.contains( newCanonicizer ) )
-    		canonicizers.add( newCanonicizer );
-    }
-    
-    /**
-     * Remove a Canonicizer from the internal list maintained by this Document.
-     * 
-     * @param canonicizer A canonicizer to remove from the list
-     * @return Returns true if a matching Canonicizer was found and removed
-     */
-    public boolean removeCanonicizer( Canonicizer canonicizer ){
-    	return canonicizers.remove( canonicizer );
-    }
-    
-    /**
-     * Set all the canonicizers associated with this Document at once.
-     * 
-     * @param newCanonicizers A vector of canonicizers to be applied to this document
-     */
-    public void setCanonicizers( Vector<Canonicizer> newCanonicizers ){
-    	// defensively copy the new array, rather than just take a reference to it
-    	canonicizers = new Vector<Canonicizer>( newCanonicizers );
-    }
-    
-    /**
-     * Get all the canonicizers associated with this Document.
-     * 
-     * return A vector of canonicizers associated with this document
-     */
-    public Vector<Canonicizer> getCanonicizers(){
-    	// defensively copy the internal array, rather than give out a reference to it
-    	return new Vector<Canonicizer>( canonicizers );
-    }
-    
-    /**
-     * Take the list of canonicizers associated with this document and apply them to 
-     * the document one by one, in the same order they were added.
-     */
-    public void processCanonicizers(){
-		
-		for( Canonicizer canonicizer : canonicizers ) {
-			procText = canonicizer.process(procText);
+	/**
+	 * Constructor that takes three arguments: file path, file author, file
+	 * title
+	 * 
+	 * @param filepath
+	 *            The path to the file
+	 * @param author
+	 *            The author of the document
+	 * @param title
+	 *            The title of the document
+	 * @throws Exception
+	 */
+	public Document(String filepath, String author, String title)
+			throws Exception {
+		this.author = author;
+		if (author != null && author.equals("")) // unknown authors are null
+			this.author = null;
+		this.filepath = filepath;
+		this.title = title;
+		if (title.equals(""))
+			this.title = getTitleFromPath(filepath);
+		this.rawText = DocumentHelper.loadDocument(filepath);
+		this.docType = DocumentHelper.getDocType(filepath);
+		this.size = this.rawText.size();
+		if (this.size == 0) {
+			throw new Exception("Empty Document Error");
 		}
-		jgaapGUI.incProgress();
-	
+		this.eventSets = new HashMap<EventDriver, EventSet>();
+		this.canonicizers = new ArrayList<Canonicizer>();
+		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>();
+	}
+
+	/**
+	 * Takes a file path and returns only the file name.
+	 * 
+	 * @param filePath
+	 *            the full path to the file
+	 * @return A document title derived from the file path.
+	 */
+	private static String getTitleFromPath(String filePath) {
+		String[] split = filePath.split("[\\\\[\\/]]");
+		return split[split.length - 1];
+	}
+
+	public void readStringText(String text) {
+		rawText = new ArrayList<Character>();
+		for (int i = 0; i < text.length(); i++) {
+			rawText.add(text.charAt(i));
+		}
+		size = rawText.size();
+		procText = rawText;
+	}
+
+	public void print() {
+		for (Character c : rawText) {
+			System.out.print(c);
+		}
+	}
+
+	/** Retrieves the author of the current document **/
+	public String getAuthor() {
+		return author;
+	}
+
+	/** Returns the docType of the current document **/
+	public DocType getDocType() {
+		return docType;
+	}
+
+	/** Returns the full filepath of the current document **/
+	public String getFilePath() {
+		return filepath;
+	}
+
+	/**
+	 * Returns text with preprocessing done. Preprocessing can include stripping
+	 * whitespace or normalizing the case
+	 **/
+	public List<Character> getProcessedText() {
+		if (procText != null)
+			return procText;
+		else
+			return rawText;
+	}
+
+	public void setProcessedText(List<Character> procText) {
+		this.procText = procText;
+	}
+
+	/**
+	 * Returns the size of the document. Size is determined by the number of
+	 * characters plus whitespace
+	 **/
+	public int getSize() {
+		return size;
+	}
+
+	/** Returns the title of the current document **/
+	public String getTitle() {
+		return title;
+	}
+
+	/** Sets the author of the current document **/
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	/** Sets the docType of the current document **/
+	public void setDocType(DocType t) {
+		docType = t;
+	}
+
+	/** Sets the title of the current document **/
+	public void setTitle(String t) {
+		title = t;
+	}
+
+	/**
+	 * Clear the list of canonicizers associated with this Document.
+	 */
+	public void clearCanonicizers() {
+		canonicizers.clear();
+	}
+
+	/**
+	 * Add a Canonicizer to the internal list maintained by this Document.
+	 * 
+	 * @param newCanonicizer
+	 *            A new canonicizer to add to the list
+	 */
+	public void addCanonicizer(Canonicizer newCanonicizer) {
+		canonicizers.add(newCanonicizer);
+	}
+
+	/**
+	 * Remove a Canonicizer from the internal list maintained by this Document.
+	 * 
+	 * @param canonicizer
+	 *            A canonicizer to remove from the list
+	 * @return Returns true if a matching Canonicizer was found and removed
+	 */
+	public boolean removeCanonicizer(Canonicizer canonicizer) {
+		return canonicizers.remove(canonicizer);
+	}
+
+	public boolean removeCanonicizer(String action) {
+		for (Canonicizer canonicizer : canonicizers) {
+			if (canonicizer.displayName().equalsIgnoreCase(action)) {
+				return canonicizers.remove(canonicizer);
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Get all the canonicizers associated with this Document.
+	 * 
+	 * return A vector of canonicizers associated with this document
+	 */
+	public List<Canonicizer> getCanonicizers() {
+		return new ArrayList<Canonicizer>(canonicizers);
+	}
+
+	/**
+	 * Take the list of canonicizers associated with this document and apply
+	 * them to the document one by one, in the same order they were added.
+	 */
+	public void processCanonicizers() {
+		procText = new ArrayList<Character>();
+		procText.addAll(rawText);
+		if (jgaapConstants.globalObjects.containsKey("language")) {
+			Language language = (Language) jgaapConstants.globalObjects
+					.get("language");
+			if (language.isParseable())
+				procText = language.parseLanguage(stringify());
+		}
+		for (Canonicizer canonicizer : canonicizers) {
+			procText = canonicizer.process(procText);
+			jgaapGUI.incProgress();
+		}
+	}
+
+	public void addEventSet(EventDriver eventDriver, EventSet eventSet) {
+		eventSet.setAuthor(author);
+		eventSet.setDocumentName(getFilePath());
+		eventSets.put(eventDriver, eventSet);
+	}
+
+	public Map<EventDriver, EventSet> getEventSets() {
+		return eventSets;
+	}
+
+	public EventSet getEventSet(EventDriver eventDriver) {
+		return eventSets.get(eventDriver);
+	}
+
+	public void clearEventSets() {
+		eventSets.clear();
+	}
+
+	public void addResult(AnalysisDriver analysisDriver,
+			EventDriver eventDriver, List<Pair<String, Double>> list) {
+		Map<EventDriver, List<Pair<String, Double>>> entry;
+		if (results.containsKey(analysisDriver)) {
+			entry = results.get(analysisDriver);
+		} else {
+			entry = new HashMap<EventDriver, List<Pair<String, Double>>>();
+			results.put(analysisDriver, entry);
+		}
+		entry.put(eventDriver, list);
+	}
+
+	public String getResult() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(getTitle() + " ");
+		buffer.append(getFilePath() + "\n");
+		buffer.append("Canonicizers: ");
+		if (canonicizers.isEmpty()) {
+			buffer.append("none");
+		} else {
+			for (Canonicizer canonicizer : canonicizers) {
+				buffer.append(canonicizer.displayName() + " ");
+			}
+		}
+		buffer.append("\n");
+		for (AnalysisDriver analysisDriver : results.keySet()) {
+			String analysis = analysisDriver.displayName();
+			Map<EventDriver, List<Pair<String, Double>>> eventResults = results.get(analysisDriver);
+			for (EventDriver eventDriver : eventResults.keySet()) {
+				buffer.append("Analyzed by " + analysis + " using "
+						+ eventDriver.displayName() + " as events\n");
+				int count =0;
+				for(Pair<String, Double> result : eventResults.get(eventDriver)){
+					count++;
+					buffer.append(count+". "+result.getFirst()+" "+result.getSecond()+"\n");
+				}
+				buffer.append("\n\n");
+			}
+		}
+		return buffer.toString();
 	}
 	
-    /**
-     * Indicates whether this document has a known author or not.
-     * 
-     * @return boolean value indicating whether the author of this document is known
-     */
-    public boolean isAuthorKnown(){
-    	return (author != null);
-    }
+	public Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> getResults(){
+		return results;
+	}
 
-    /**
-     * Convert processed document into one really long string.
-     **/
-    public String stringify() {
-        /*
-         * JN 3/11/08 - Changed the String to a StringBuffer. This has reduced
-         * the running time from several minutes to instantaneous.
-         */
-        StringBuffer t = new StringBuffer(procText.size());
-        for (int i = 0; i < procText.size(); i++) {
-            t.append((char) procText.elementAt(i));
-        }
-        return t.toString();
-    }
+	public void clearResults() {
+		results.clear();
+	}
 
-    @Override
-    public String toString() {
-        String t = new String();
-        t =  "Title:  " + title + "\n";
-        t += "Path:   " + filepath + "\n";
-        t += "Author: " + author + "\n";
-        t += "Canons: " + getCanonicizers() + "\n";
-        return t;
-    }
+	/**
+	 * Indicates whether this document has a known author or not.
+	 * 
+	 * @return boolean value indicating whether the author of this document is
+	 *         known
+	 */
+	public boolean isAuthorKnown() {
+		return (author != null);
+	}
+
+	/**
+	 * Convert processed document into one really long string.
+	 **/
+	public String stringify() {
+		StringBuffer t = new StringBuffer(procText.size());
+		for (int i = 0; i < procText.size(); i++) {
+			t.append((char) procText.get(i));
+		}
+		return t.toString();
+	}
+
+	@Override
+	public String toString() {
+		String t;
+		t = "Title:  " + title + "\n";
+		t += "Path:   " + filepath + "\n";
+		t += "Author: " + author + "\n";
+		t += "Canons: " + getCanonicizers() + "\n";
+		return t;
+	}
 }

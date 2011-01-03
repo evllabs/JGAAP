@@ -17,14 +17,16 @@
  **/
 package com.jgaap.classifiers;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.TreeSet;
-import java.util.Vector;
 import java.util.Iterator;
-import java.util.Enumeration;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /**
  * Naive Bayes classifier performs bayesian probability model with maximum a
@@ -52,13 +54,12 @@ public class NaiveBayes extends AnalysisDriver {
 	}
 
     @Override
- 	public String analyze(EventSet unknown, Vector<EventSet> known) {
+ 	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 
 	// probability that a given event w1 in the EventSet is author A1 is
 	// the avg probability - standard deviation of w1 over all documents by A1
 
 	    EventHistogram hKnown = new EventHistogram();   // histogram of known eventset
-	    Enumeration<Event> EventList;
 	    Event theEvent;
 	    
 	    int flag;                      // indicator of author found
@@ -69,16 +70,15 @@ public class NaiveBayes extends AnalysisDriver {
 	    //  double[] posteriorA = new double[authors.length-1]; //posterior probability for each known author
 	    double[] posteriorA = new double[50];
 	    double temp;
-	    double prior;                  // probability of each author
-	    double normalizing;            // normalizing constant
-	    double count=0.0;                  // # of documents in known by author A
+        double count;                  // # of documents in known by author A
 	    double sum;                    // sum of relative frequency of an unknown event in eventset by known author A
 	    double sum2;                   // sum of square relative frequency 
 	    double prob;                   // mu - standard deviation -- probability of event set by author A over all docs by author A
 	    double posterior;              // posterior probability -- product of prob for each unknown eventset
 	    double max = 0.0;              // maximum posterior probability 
-	    String maxAuthor = "";  // name of author which maximizes the posterior
 
+	    List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
+	    
 	    TreeSet<Event> vocab = new TreeSet<Event>();  
 
 
@@ -123,7 +123,7 @@ public class NaiveBayes extends AnalysisDriver {
 		    for (int l=0; l < known.get(i).size(); l++){
 			hKnown.add(known.get(i).eventAt(l));
 		    }
-		    EventList = hKnown.events();
+		    //EventList = hKnown.events();
 		    Iterator<Event> it = vocab.iterator();
 		    for(int b=0; it.hasNext(); b++) {
 			theEvent = it.next();
@@ -146,7 +146,6 @@ public class NaiveBayes extends AnalysisDriver {
 
 	    //for each event
 	    for(int j=0; j<vocab.size(); j++){	
-		prob = 0.0;
 		sum =0;
 		count = 0;
 		sum2 = 0;
@@ -199,45 +198,12 @@ public class NaiveBayes extends AnalysisDriver {
 	    if(tenCount[i]!= max){
 		posteriorA[i] = posteriorA[i]*1000000000*(max-tenCount[i]);
 	    }
-	    //   System.out.println("Author "+ i + "  NewPosterior = " +posteriorA[i]);
+	    results.add(new Pair<String, Double>(authors[i], posteriorA[i], 2));
 	}
 	
-	/*max = 0.0;
-	//find author which maximizes the posterior
-	for(int i=0; i<authorCount; i++){  	
-	    if(posteriorA[i] > max){
-		 max = posteriorA[i];
-		 maxAuthor = authors[i];
-	    }
-	}
-	*/
-	for(int i=0; i<posteriorA.length-1; i++){
-		for(int j=posteriorA.length-1; j>i; j--){
-			if(posteriorA[j-1]<posteriorA[j]){
-				double tmp = posteriorA[j-1];
-				posteriorA[j-1]=posteriorA[j];
-				posteriorA[j]=tmp;
-				String tmpA = authors[j-1];
-				authors[j-1]= authors[j];
-				authors[j]=tmpA;
-			}
-		}
-	}
-
-	
-	for(int i=1; i<posteriorA.length; i++){
-		if(authors[i-1] != null)
-			maxAuthor = maxAuthor +"\n"+i+". "+ authors[i-1]+" "+posteriorA[i-1];
-		else
-			break;
-	}
-	
-	maxAuthor = maxAuthor +"\n----------------------------------------\n";
-	
-	
-
-	//System.out.println("max Author = " + maxAuthor);
-	return maxAuthor;
+	Collections.sort(results);
+	Collections.reverse(results);
+	return results;
 
 	}
 

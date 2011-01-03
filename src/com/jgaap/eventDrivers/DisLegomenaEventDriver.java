@@ -17,111 +17,107 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.DocumentSet;
-
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventHistogram;
 
 /**
- * This event set is all events occurring only twice of an underlying
- * event model (parameterized as underlyingevents)
+ * This event set is all events occurring only twice of an underlying event
+ * model (parameterized as underlyingevents)
  * 
  * @author Patrick Juola
  * @since 4.1
  **/
 public class DisLegomenaEventDriver extends EventDriver {
 
-    @Override
-    public String displayName(){
-    	return "Dis Legomena";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return "Words appearing only twice per document";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return true;
-    }
+	@Override
+	public String displayName() {
+		return "Dis Legomena";
+	}
 
-    /** Underlying EventDriver from which Events are drawn. */
-    public EventDriver underlyingevents = new NaiveWordEventDriver();
+	@Override
+	public String tooltipText() {
+		return "Words appearing only twice per document";
+	}
 
-    @Override
-    public EventSet createEventSet(DocumentSet ds) {
+	@Override
+	public boolean showInGUI() {
+		return true;
+	}
 
-	String param;
-        if (!(param = (getParameter("underlyingEvents"))).equals("")) {
-            try {
-            	/* TODO: If ever use Event Driver that are not part of
-            	 * com.jgaap.eventDriver, this will need to be changed.  You
-            	 * can catch the first exception, try appending com.jgaap.eventDriver,
-            	 * then catch a second exception if even that doesn't work, but since
-            	 * all our eventDriver are in one place right now, I didn't do it
-            	 * that way -- JN 04/26/09
-            	 */
-                Object o = Class.forName("com.jgaap.eventDriver." + param).newInstance();
-                if (o instanceof EventDriver) {
-                    setEvents((EventDriver) o);
-                } else {
-                    throw new ClassCastException();
-                }
-            } catch (Exception e) {
-                System.out.println("Error: cannot create EventDriver " + param);
-                System.out.println(" -- Using NaiveWordEventDriver");
-                setEvents(new NaiveWordEventDriver());
-            }
-        }
-        EventSet es = underlyingevents.createEventSet(ds);
-        EventSet newEs = new EventSet();
-        newEs.setAuthor(es.getAuthor());
-        newEs.setNewEventSetID(es.getAuthor());
-        String s, theEvent;
+	/** Underlying EventDriver from which Events are drawn. */
+	public EventDriver underlyingevents = new NaiveWordEventDriver();
 
-        /**
-	 * Create histogram will all events from stream
-         */
-	EventHistogram hist = new EventHistogram();
-        for (int i = 0; i < es.size(); i++) {
-	    hist.add( es.eventAt(i) );
-        }
+	@Override
+	public EventSet createEventSet(Document ds) {
+
+		String param;
+		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
+			try {
+				/*
+				 * TODO: If ever use Event Driver that are not part of
+				 * com.jgaap.eventDriver, this will need to be changed. You can
+				 * catch the first exception, try appending
+				 * com.jgaap.eventDriver, then catch a second exception if even
+				 * that doesn't work, but since all our eventDriver are in one
+				 * place right now, I didn't do it that way -- JN 04/26/09
+				 */
+				Object o = Class.forName("com.jgaap.eventDriver." + param)
+						.newInstance();
+				if (o instanceof EventDriver) {
+					setEvents((EventDriver) o);
+				} else {
+					throw new ClassCastException();
+				}
+			} catch (Exception e) {
+				System.out.println("Error: cannot create EventDriver " + param);
+				System.out.println(" -- Using NaiveWordEventDriver");
+				setEvents(new NaiveWordEventDriver());
+			}
+		}
+		EventSet es = underlyingevents.createEventSet(ds);
+		EventSet newEs = new EventSet();
+		newEs.setAuthor(es.getAuthor());
+		newEs.setNewEventSetID(es.getAuthor());
+
+		/**
+		 * Create histogram will all events from stream
+		 */
+		EventHistogram hist = new EventHistogram();
+		for (int i = 0; i < es.size(); i++) {
+			hist.add(es.eventAt(i));
+		}
+
+		/**
+		 * Re-search event stream for unique events as measured by histogram
+		 * count. If count is 1, it's a hapax so add
+		 */
+		for (Event e : es) {
+			if (hist.getAbsoluteFrequency(e) == 2)
+				newEs.addEvent(e);
+		}
+		return newEs;
+	}
 
 	/**
-	 * Re-search event stream for unique events as measured by
-	 * histogram count.   If count is 1, it's a hapax so add
-	 */ 
-        for (int i = 0; i < es.size(); i++) {
-	    Event e = es.eventAt(i);
+	 * Get EventDriver for relevant Events *
+	 * 
+	 * @return underlying EventDriver
+	 */
+	public EventDriver getEvents() {
+		return underlyingevents;
+	}
 
-	    if (hist.getAbsoluteFrequency(e) == 2)
-                newEs.events.add( e ) ;
-        }
-        return newEs;
-    }
-
-
-    /**
-     * Get EventDriver for relevant Events *
-     * 
-     * @return underlying EventDriver
-     */
-    public EventDriver getEvents() {
-        return underlyingevents;
-    }
-
-
-    /**
-     * Set EventDriver for relevant Events *
-     * 
-     * @param underlyingevents
-     *            underlying EventDriver
-     */
-    public void setEvents(EventDriver underlyingevents) {
-        this.underlyingevents = underlyingevents;
-    }
+	/**
+	 * Set EventDriver for relevant Events *
+	 * 
+	 * @param underlyingevents
+	 *            underlying EventDriver
+	 */
+	public void setEvents(EventDriver underlyingevents) {
+		this.underlyingevents = underlyingevents;
+	}
 
 }

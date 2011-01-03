@@ -15,4 +15,7 @@ public class English extends Language {
 		super("English", "english", null);
 	}
 
+	public boolean showInGUI() {
+		return true;
+	}
 }

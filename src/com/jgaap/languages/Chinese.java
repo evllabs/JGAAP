@@ -14,4 +14,8 @@ public class Chinese extends Language {
 	public Chinese() {
 		super("Chinese", "chinese", "GB2123");
 	}
+
+	public boolean showInGUI() {
+		return true;
+	}
 }

@@ -6,6 +6,8 @@ package com.jgaap.canonicizers;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import java.util.List;
 import java.util.Vector;
 
 
@@ -36,12 +38,12 @@ public class AddErrorsTest {
 			
 			AddErrors thing = new AddErrors(25);
 			int notChanged = 0;
-			Vector<Character> test2 = thing.process(test1);
+			List<Character> test2 = thing.process(test1);
 			for (int j=0; j<test2.size(); j++)
 			{
 				//System.out.println((int)test2.elementAt(j));
 				
-				if (test2.elementAt(j)=='b')
+				if (test2.get(j)=='b')
 				{
 					notChanged = notChanged + 1;
 				}
@@ -89,14 +91,14 @@ public class AddErrorsTest {
 				
 				AddErrors thing = new AddErrors(100);
 				
-				Vector<Character> test2 = thing.process(test1);
+				List<Character> test2 = thing.process(test1);
 				for (int j=0; j<test2.size(); j++)
 				{
 					//System.out.println((int)test2.elementAt(j));
 					
-					if (test2.elementAt(j)!='b')
+					if (test2.get(j)!='b')
 					{
-						LA[i][(int)test2.elementAt(j)-65]=LA[i][(int)test2.elementAt(j)-65]+1;
+						LA[i][(int)test2.get(j)-65]=LA[i][(int)test2.get(j)-65]+1;
 					}
 					
 				}
@@ -119,11 +121,11 @@ public class AddErrorsTest {
 		
 		double ssy =0.0;
 		double sst = 0.0;
-		double sse = 0.0;
-		double mst = 0.0;
-		double mse = 0.0;
+		double sse;
+		double mst;
+		double mse;
 		double yBar =0.0;
-		double F = 0.0;
+		double F;
 		double [] yBars = new double [26];
 		
 		for (int j =0; j<=25; j++)

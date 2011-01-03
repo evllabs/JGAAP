@@ -62,6 +62,7 @@
 			<include name="com/jgaap/*.java"/>
 			<include name="com/jgaap/generics/*.java"/>
 			<include name="com/jgaap/eventDrivers/*.java"/>
+			<include name="com/jgaap/eventCullers/*.java"/>
 			<include name="com/jgaap/distances/*.java"/>
 			<include name="com/jgaap/classifiers/*.java"/>
 			<include name="com/jgaap/canonicizers/*.java"/>

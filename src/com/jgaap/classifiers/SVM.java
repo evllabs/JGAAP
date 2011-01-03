@@ -19,16 +19,12 @@ package com.jgaap.classifiers;
 
 import libsvm.*;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.*;
 
 import com.jgaap.backend.KernelMethodMatrix;
 import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
-import com.jgaap.jgaapConstants;
+import com.jgaap.generics.Pair;
  
 /**
  * SVM classifier rewritten to talk directly to libsvm. 
@@ -65,8 +61,9 @@ public class SVM extends AnalysisDriver {
         kernelType = t;
     }
 
-    @Override
-    public String analyze(EventSet unknown, Vector<EventSet> known) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+    public List<Pair<String,Double>> analyze(EventSet unknown, List<EventSet> known) {
 		
 		int i;
 		
@@ -155,13 +152,9 @@ public class SVM extends AnalysisDriver {
 		int decision = (int)svm.svm_predict(model, x);
 		
 		// whose author we lookup in groupsMap and return.
-        return (String)groupsMap.get(new Integer(decision));
+		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
+		results.add(new Pair((String)groupsMap.get(new Integer(decision)),new Double(decision)));
+        return results;
 	}
-
-    @Override
-    public String analyzeAverage(EventSet unknown,
-            Vector<EventSet> known) {
-        return analyze(unknown, known);
-    }
 
 }

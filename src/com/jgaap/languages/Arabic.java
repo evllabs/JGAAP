@@ -12,4 +12,8 @@ public class Arabic extends Language {
 	public Arabic() {
 		super("Arabic", "arabic", "ISO-8859-6");
 	}
+
+	public boolean showInGUI() {
+		return true;
+	}
 }

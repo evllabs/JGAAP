@@ -18,7 +18,8 @@
 package com.jgaap.canonicizers;
 
 import java.awt.Color;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jgaap.generics.Canonicizer;
 
@@ -60,15 +61,15 @@ public class NormalizeWhitespace extends Canonicizer {
      *         single space.
      */
     @Override
-    public Vector<Character> process(Vector<Character> procText) {
-        Vector<Character> processed = new Vector<Character>();
+    public List<Character> process(List<Character> procText) {
+        List<Character> processed = new ArrayList<Character>();
         boolean spaceflag = false;
         for (int i = 0; i < procText.size(); i++) {
-            if (Character.isWhitespace(procText.elementAt(i)) && !spaceflag) {
+            if (Character.isWhitespace(procText.get(i)) && !spaceflag) {
                 processed.add(new Character(' '));
                 spaceflag = true;
-            } else if (!Character.isWhitespace(procText.elementAt(i))) {
-                processed.add(procText.elementAt(i));
+            } else if (!Character.isWhitespace(procText.get(i))) {
+                processed.add(procText.get(i));
                 spaceflag = false;
             }
         }

@@ -9,9 +9,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.DocumentSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -28,8 +26,7 @@ public class CharacterBiGramEventDriverTest {
 	public void testCreateEventSetDocumentSet() {
 		Document doc = new Document();
 		doc.readStringText("abcdefghijklmnopqrstuvwxyz .");
-		DocumentSet docSet = new DocumentSet(doc);
-		EventSet sampleEventSet = new CharacterBiGramEventDriver().createEventSet(docSet);
+		EventSet sampleEventSet = new CharacterBiGramEventDriver().createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("ab"));
@@ -57,10 +54,10 @@ public class CharacterBiGramEventDriverTest {
 		tmp.add(new Event("wx"));
 		tmp.add(new Event("xy"));
 		tmp.add(new Event("yz"));
-		expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event("z "));
-		//expectedEventSet.events.addAll(tmp);
-		expectedEventSet.events.add(new Event(" ."));
+		expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event("z "));
+		//expectedEventSet.addEvents(tmp);
+		expectedEventSet.addEvent(new Event(" ."));
 // System.out.println(expectedEventSet.toString());
 // System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));

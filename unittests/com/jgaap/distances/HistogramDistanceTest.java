@@ -36,9 +36,10 @@ public class HistogramDistanceTest {
 		test1.add(new Event("lazy"));
 		test1.add(new Event("dog"));
 		test1.add(new Event("."));
-		es1.events.addAll(test1);
-		es2.events.addAll(test1);
+		es1.addEvents(test1);
+		es2.addEvents(test1);
 		assertTrue(new HistogramDistance().distance(es1, es2) == 0);
+		es2=new EventSet();
 		Vector<Event> test2 = new Vector<Event>();
 		test2.add(new Event("3"));
 		test2.add(new Event(".."));
@@ -50,8 +51,7 @@ public class HistogramDistanceTest {
 		test2.add(new Event("6"));
 		test2.add(new Event("55"));
 		test2.add(new Event("33"));
-		es2.events.clear();
-		es2.events.addAll(test2);
+		es2.addEvents(test2);
 		double result = new HistogramDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 0.2, 0.0000000001));
 	}

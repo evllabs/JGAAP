@@ -18,7 +18,7 @@
 package com.jgaap.generics;
 
 import java.awt.Color;
-import java.util.Vector;
+import java.util.List;
 
 /**
  * Class for canonicizers. As an abstract class, can only be instantiated
@@ -27,7 +27,7 @@ import java.util.Vector;
  * @author unknown
  * @since 1.0
  */
-public abstract class Canonicizer extends Parameterizable implements Comparable<Canonicizer> {
+public abstract class Canonicizer extends Parameterizable implements Comparable<Canonicizer>, Displayable {
 	
 	/**
 	 * Simple method to return the display name of this Canonicizer, to be used in the GUI.
@@ -65,8 +65,9 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
 	 */
 	@Override
 	public boolean equals( Object o ){
-		if( this.displayName().equalsIgnoreCase( ((Canonicizer)o).displayName() ))
-			return true;
+        if(o instanceof Canonicizer) {
+    		return (this.displayName().equalsIgnoreCase(((Canonicizer)o).displayName()));
+        }
 		return false;
 	}
 	
@@ -91,7 +92,7 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
      * @return a Vector of Characters containing the processed text
      */
 
-    abstract public Vector<Character> process(Vector<Character> procText);
+    abstract public List<Character> process(List<Character> procText);
 
 
     /**

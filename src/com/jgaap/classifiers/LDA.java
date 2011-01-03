@@ -25,6 +25,9 @@ import static org.math.array.LinearAlgebra.minus;
 import static org.math.array.LinearAlgebra.plus;
 import static org.math.array.LinearAlgebra.times;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.Vector;
 
@@ -32,6 +35,7 @@ import com.jgaap.backend.KernelMethodMatrix;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 /*
  * LDA class performs linear discriminant analysis on a set of data. NOTE: We
@@ -78,7 +82,7 @@ public class LDA extends AnalysisDriver {
     }
 
     @Override
-    public synchronized String analyze(EventSet unknown, Vector<EventSet> known) {
+    public synchronized List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
         KernelMethodMatrix matrixFactory = new KernelMethodMatrix();
 
         // Train only once, then use the already-calculated discriminant function
@@ -86,31 +90,14 @@ public class LDA extends AnalysisDriver {
             double[] unknownRow = matrixFactory.getRow(unknown, vocab);
             double [] distArray = getClassification(unknownRow);
             String [] authorArray = authors;
-            
+            List<Pair<String,Double>>results = new ArrayList<Pair<String,Double>>();
             for(int i=0; i<distArray.length-1; i++){
-    			for(int j=distArray.length-1; j>i; j--){
-    				if(distArray[j-1]<distArray[j]){
-    					double tmp = distArray[j-1];
-    					distArray[j-1]=distArray[j];
-    					distArray[j]=tmp;
-    					String tmpA = authorArray[j-1];
-    					authorArray[j-1]= authorArray[j];
-    					authorArray[j]=tmpA;
-    				}
-    			}
+            	results.add(new Pair<String, Double>(authorArray[i], distArray[i], 2));
     		}
+            Collections.sort(results);
+            Collections.reverse(results);
             
-            String auth = "";
-            
-            for(int i=1; i<=distArray.length; i++){
-    			auth = auth +"\n"+i+". "+ authorArray[i-1]+" "+distArray[i-1];
-    		}
-    		
-    		auth = auth +"\n----------------------------------------\n";
-    		
-    		//System.out.println(auth);
-            
-            return auth;
+            return results;
         }
 
         int numGroups = 0;
@@ -152,31 +139,14 @@ public class LDA extends AnalysisDriver {
         double[] unknownRow = matrixFactory.getRow(unknown, vocab,1000);
         double [] distArray = getClassification(unknownRow);
         String [] authorArray = authors;
-        
+        List<Pair<String,Double>>results = new ArrayList<Pair<String,Double>>();
         for(int i=0; i<distArray.length-1; i++){
-			for(int j=distArray.length-1; j>i; j--){
-				if(distArray[j-1]<distArray[j]){
-					double tmp = distArray[j-1];
-					distArray[j-1]=distArray[j];
-					distArray[j]=tmp;
-					String tmpA = authorArray[j-1];
-					authorArray[j-1]= authorArray[j];
-					authorArray[j]=tmpA;
-				}
-			}
+        	results.add(new Pair<String, Double>(authorArray[i], distArray[i], 2));
 		}
+        Collections.sort(results);
+        Collections.reverse(results);
         
-        String auth = "";
-        
-        for(int i=1; i<=distArray.length; i++){
-			auth = auth +"\n"+i+". "+ authorArray[i-1]+" "+distArray[i-1];
-		}
-		
-		auth = auth +"\n----------------------------------------\n";
-		
-		//System.out.println(auth);
-        
-        return auth;
+        return results;
     }
 
      /** 
@@ -223,7 +193,7 @@ public class LDA extends AnalysisDriver {
      * functions.
      */
     public double [] getClassification(double[] data) {
-        int max = 0;
+        //int max = 0;
         double endResults[] = new double[numGroups];
         double[][] newData = new double[1][data.length];
         for (int i = 0; i < data.length; i++) {

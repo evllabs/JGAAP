@@ -5,6 +5,7 @@ package com.jgaap.canonicizers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
@@ -47,7 +48,7 @@ public class UnifyCaseTest {
 		expected.add('l');
 		expected.add('d');
 		expected.add('!');
-		Vector<Character> test = new UnifyCase().process(sample);
+		List<Character> test = new UnifyCase().process(sample);
 		assertTrue(expected.equals(test));
 	}
 

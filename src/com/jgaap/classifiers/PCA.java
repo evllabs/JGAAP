@@ -23,8 +23,9 @@ import static org.math.array.LinearAlgebra.times;
 import static org.math.array.StatisticSample.covariance;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
-import java.util.Vector;
 
 import org.math.array.linearalgebra.EigenvalueDecomposition;
 import org.math.plot.FrameView;
@@ -35,6 +36,7 @@ import com.jgaap.backend.KernelMethodMatrix;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 import com.jgaap.jgaap;
 
 /**
@@ -58,7 +60,7 @@ public class PCA extends AnalysisDriver {
 	}
 
     @Override
-    public String analyze(EventSet unknown, Vector<EventSet> known) {
+    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 
         TreeSet<Event> vocab = new TreeSet<Event>(); // list of all events
         // (known & unknown)
@@ -144,7 +146,6 @@ public class PCA extends AnalysisDriver {
         // *****************************************
         // create covariance matrix
         // *****************************************
-        covarianceMatrix = new double[vocab.size()][vocab.size()];
 
         covarianceMatrix = covariance(eventMatrix);
 
@@ -161,7 +162,6 @@ public class PCA extends AnalysisDriver {
         // *******************************************************************
         eigenValue = new double[covarianceMatrix[0].length];
         eigenValueDsort = new double[eigenValue.length];
-        eigenVectors = new double[eigenValue.length][eigenValue.length];
         basis = new double[eigenValue.length][eigenValue.length];
         pBasis = new double[eigenValue.length][2];
 
@@ -229,8 +229,6 @@ public class PCA extends AnalysisDriver {
         // project data onto new basis
         // *****************************************
 
-        finalMatrix = new double[eventMatrix.length][2];
-
         finalMatrix = times(eventMatrix, pBasis);
 
         System.out.println();
@@ -283,8 +281,9 @@ public class PCA extends AnalysisDriver {
         new FrameView(plot);
         }
         
-        return maxAuthor;
-
+        List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
+        results.add(new Pair<String, Double>(maxAuthor, 0.0));
+        return results;
     }
 
 }

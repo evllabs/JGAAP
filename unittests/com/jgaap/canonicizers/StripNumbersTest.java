@@ -5,6 +5,7 @@ package com.jgaap.canonicizers;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
@@ -66,7 +67,7 @@ public class StripNumbersTest {
 		expected.add('#');
 
 
-		Vector<Character> test = new StripNumbers().process(sample);
+		List<Character> test = new StripNumbers().process(sample);
 		assertTrue(expected.equals(test));
 	}
 
