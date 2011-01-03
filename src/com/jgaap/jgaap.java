@@ -18,7 +18,7 @@
 package com.jgaap;
 
 import com.jgaap.backend.jgaapCLI;
-import com.jgaap.gui.jgaapGUI;
+import com.jgaap.ui.JGAAP_UI_MainForm;
 
 /**
  * The jgaap main file.
@@ -37,7 +37,9 @@ public class jgaap {
     private static void createAndShowGUI() {
     	// Note that the GUI object is stored in the globalObjects HashMap
     	// under the key "gui" so other objects can access it easily
-        jgaapConstants.globalObjects.put("gui", (new jgaapGUI()));
+    	JGAAP_UI_MainForm gui = new JGAAP_UI_MainForm();
+    	gui.setVisible(true);
+        jgaapConstants.globalObjects.put("gui", (gui));
     }
 /**
  * Initializes predefined global parameters.
