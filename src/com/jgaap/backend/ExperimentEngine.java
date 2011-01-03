@@ -54,28 +54,28 @@ public class ExperimentEngine {
 	 *            the identifier given to this experiment
 	 * @return the location of where the file will be written
 	 */
-	private static String fileNameGen(List<String> canons, String event,
+	public static String fileNameGen(List<String> canons, String event,
 			String analysis, String experimentName, String number) {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd(HH:mm:ss)");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
 		String canonName = "none";
 		String tmpCanon = new String();
 		for (String iterator : canons) {
-			tmpCanon = tmpCanon + iterator;
+			tmpCanon = tmpCanon + " " + iterator;
 		}
 		if (!tmpCanon.equals("")) {
 			canonName = tmpCanon;
 		}
-		File file = new File("../tmp/" + canonName + "/" + event + "/"
-				+ analysis + "/");
+		File file = new File(jgaapConstants.tmpDir() + canonName + "/" + event
+				+ "/" + analysis + "/");
 		file.mkdirs();
 		// if (!file.mkdirs()) {
 		// System.err.println("Error creating experiment directory");
 		// System.exit(1);
 		// }
 		return (jgaapConstants.tmpDir() + canonName + "/" + event + "/"
-				+ analysis + "/" + experimentName + dateFormat.format(date)
-				+ number + ".txt");
+				+ analysis + "/" + experimentName + number
+				+ dateFormat.format(date) + ".txt");
 	}
 
 	/**

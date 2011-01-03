@@ -322,6 +322,10 @@ public class Document extends Parameterizable {
 		}
 		return buffer.toString();
 	}
+	
+	public Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> getResults(){
+		return results;
+	}
 
 	public void clearResults() {
 		results.clear();
