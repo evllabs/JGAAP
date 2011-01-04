@@ -99,7 +99,7 @@ public class Document extends Parameterizable {
 			this.author = null;
 		this.filepath = filepath;
 		this.title = title;
-		if (title.equals(""))
+		if (title == null || title.equals(""))
 			this.title = getTitleFromPath(filepath);
 		this.rawText = DocumentHelper.loadDocument(filepath);
 		this.docType = DocumentHelper.getDocType(filepath);
