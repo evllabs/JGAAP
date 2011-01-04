@@ -41,11 +41,16 @@ public class JSONExperimentEngine {
 					API api = new API();
 					String number = (String) experiment.get("number");
 					String language = (String) experiment.get("language");
-					JSONArray canonicizers = (JSONArray) experiment.get("canonicizers");
-					JSONArray eventDrivers = (JSONArray) experiment.get("eventDrivers");
-					JSONArray eventCullers = (JSONArray) experiment.get("eventCullers");
-					JSONArray analysisDrivers = (JSONArray) experiment.get("analysisDrivers");
-					JSONArray documents = (JSONArray) experiment.get("documents");
+					JSONArray canonicizers = (JSONArray) experiment
+							.get("canonicizers");
+					JSONArray eventDrivers = (JSONArray) experiment
+							.get("eventDrivers");
+					JSONArray eventCullers = (JSONArray) experiment
+							.get("eventCullers");
+					JSONArray analysisDrivers = (JSONArray) experiment
+							.get("analysisDrivers");
+					JSONArray documents = (JSONArray) experiment
+							.get("documents");
 					try {
 						api.setLanguage(language);
 						for (int j = 0; j < canonicizers.size(); j++) {
@@ -119,27 +124,9 @@ public class JSONExperimentEngine {
 						}
 						for (int j = 0; j < documents.size(); j++) {
 							JSONObject current = (JSONObject) documents.get(j);
-							if (current.containsKey("title")) {
-								if (current.containsKey("author")) {
-									api.addDocument(
-											(String) current.get("file"),
-											(String) current.get("author"),
-											(String) current.get("title"));
-								} else {
-									api.addDocument(
-											(String) current.get("file"), "",
-											(String) current.get("title"));
-								}
-							} else {
-								if (current.containsKey("author")) {
-									api.addDocument(
-											(String) current.get("file"),
-											(String) current.get("author"));
-								} else {
-									api.addDocument(
-											(String) current.get("file"), "");
-								}
-							}
+							api.addDocument((String) current.get("file"),
+									(String) current.get("author"),
+									(String) current.get("title"));
 
 						}
 
@@ -148,39 +135,62 @@ public class JSONExperimentEngine {
 								.getUnknownDocuments();
 						for (Document document : unknownDocuments) {
 							List<String> canons = new ArrayList<String>();
-							for(Canonicizer canonicizer : document.getCanonicizers()){
+							for (Canonicizer canonicizer : document
+									.getCanonicizers()) {
 								canons.add(canonicizer.displayName());
 							}
-							Map<AnalysisDriver , Map< EventDriver, List<Pair<String,Double>>>> results = document.getResults();
-							for(AnalysisDriver analysisDriver : results.keySet()){
-								for(EventDriver eventDriver : results.get(analysisDriver).keySet()){
+							Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> results = document
+									.getResults();
+							for (AnalysisDriver analysisDriver : results
+									.keySet()) {
+								for (EventDriver eventDriver : results.get(
+										analysisDriver).keySet()) {
 									StringBuffer buffer = new StringBuffer();
 									buffer.append("\n-----------------------------------------------------------------------------");
-									buffer.append("\nTitle: "+document.getTitle());
-									buffer.append("\nLocation: "+document.getFilePath());
+									buffer.append("\nTitle: "
+											+ document.getTitle());
+									buffer.append("\nLocation: "
+											+ document.getFilePath());
 									buffer.append("\nCanonicizers: ");
-									for(Canonicizer canonicizer : document.getCanonicizers()){
-										buffer.append(canonicizer.displayName()+" ,");
+									for (Canonicizer canonicizer : document
+											.getCanonicizers()) {
+										buffer.append(canonicizer.displayName()
+												+ " ,");
 									}
-									buffer.deleteCharAt(buffer.length()-1);
+									buffer.deleteCharAt(buffer.length() - 1);
 									buffer.append("\n");
-									buffer.append("Event Driver: "+eventDriver.displayName()+"\n");
+									buffer.append("Event Driver: "
+											+ eventDriver.displayName() + "\n");
 									buffer.append("Event Cullers: ");
-									for(EventCuller eventCuller : api.getEventCullers()){
-										buffer.append(eventCuller.displayName()+" ,");
+									for (EventCuller eventCuller : api
+											.getEventCullers()) {
+										buffer.append(eventCuller.displayName()
+												+ " ,");
 									}
-									buffer.deleteCharAt(buffer.length()-1);
+									buffer.deleteCharAt(buffer.length() - 1);
 									buffer.append("\n");
-									buffer.append("Analysis Method:"+analysisDriver.displayName()+"\n");
-									for(Pair<String, Double> result : results.get(analysisDriver).get(eventDriver)){
-										buffer.append(result.getFirst()+"\t| "+result.getSecond()+"\n");
+									buffer.append("Analysis Method:"
+											+ analysisDriver.displayName()
+											+ "\n");
+									for (Pair<String, Double> result : results
+											.get(analysisDriver).get(
+													eventDriver)) {
+										buffer.append(result.getFirst()
+												+ "\t| " + result.getSecond()
+												+ "\n");
 									}
-									String filePath = ExperimentEngine.fileNameGen(canons, eventDriver.displayName(), analysisDriver.displayName(), experimentName, number);
-									Utils.appendToFile(filePath, buffer.toString());
-									
+									String filePath = ExperimentEngine
+											.fileNameGen(canons, eventDriver
+													.displayName(),
+													analysisDriver
+															.displayName(),
+													experimentName, number);
+									Utils.appendToFile(filePath,
+											buffer.toString());
+
 								}
 							}
-							
+
 						}
 					} catch (Exception e) {
 
