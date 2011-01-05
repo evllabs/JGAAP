@@ -107,7 +107,9 @@ public class jgaapCLI {
 					list.addAll(AutoPopulate.getCanonicizers());
 				} else if (current.equalsIgnoreCase("es")) {
 					list.addAll(AutoPopulate.getEventDrivers());
-				} else if (current.equalsIgnoreCase("a")) {
+				} else if (current.equalsIgnoreCase("ec")){
+					list.addAll(AutoPopulate.getEventCullers());
+				}else if (current.equalsIgnoreCase("a")) {
 					list.addAll(AutoPopulate.getAnalysisDrivers());
 				} else if (current.equalsIgnoreCase("d")) {
 					list.addAll(AutoPopulate.getDistanceFunctions());
@@ -128,6 +130,7 @@ public class jgaapCLI {
 			jgaap.commandline = true;
 			API commandDriver = new API();
 			String eventSelected = "";
+			List<String> eventCullersSelected = new ArrayList<String>();
 			String analyzerSelected = "";
 			String distanceSelected = "";
 			String saveFilePath = "";
@@ -160,7 +163,9 @@ public class jgaapCLI {
 						canonicizers.add(canonSelected);
 					} else if (currentArg.equalsIgnoreCase("-es")) {
 						eventSelected = optionBuilder(currentTagSet);
-					} else if (currentArg.equalsIgnoreCase("-a")) {
+					} else if (currentArg.equalsIgnoreCase("-ec")){
+						eventCullersSelected.add(optionBuilder(currentTagSet));
+					}else if (currentArg.equalsIgnoreCase("-a")) {
 						analyzerSelected = optionBuilder(currentTagSet);
 					} else if (currentArg.equalsIgnoreCase("-d")) {
 						distanceSelected = optionBuilder(currentTagSet);
@@ -215,6 +220,9 @@ public class jgaapCLI {
 					commandDriver.addCanonicizer(c);
 				}
 				commandDriver.addEventDriver(eventSelected);
+				for (String eventCuller : eventCullersSelected){
+					commandDriver.addEventCuller(eventCuller);
+				}
 				AnalysisDriver analysisDriver = commandDriver.addAnalysisDriver(analyzerSelected);
 				if (!distanceSelected.equalsIgnoreCase("")){
 					commandDriver.addDistanceFunction(distanceSelected, analysisDriver);
