@@ -23,7 +23,7 @@
 			<include name="jmathio.jar"/>
 			<include name="jmatharray.jar"/>
 			<include name="fasttag_v2.jar"/>
-
+			<include name="json_simple-1.1.jar"/>
 			<include name="libsvm.jar"/>
 		</fileset>
 	</path>
