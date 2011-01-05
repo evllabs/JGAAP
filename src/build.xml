@@ -68,15 +68,9 @@
 			<include name="com/jgaap/canonicizers/*.java"/>
 			<include name="com/jgaap/backend/*.java"/>
 			<include name="com/jgaap/languages/*.java"/>
-			<include name="com/jgaap/gui/*.java"/>
-			<include name="com/jgaap/gui/stepPanels/*.java"/>
-			<include name="com/jgaap/gui/dnd/*.java"/>
-			<include name="com/jgaap/gui/generics/*.java"/>
+			<include name="com/jgaap/ui/*.java"/>
 		</javac>
 		
-		<copy todir="../bin/com/jgaap/gui/resources">
-			<fileset dir="com/jgaap/gui/resources"/>
-		</copy>
 	</target>
 	
 	<target name="compile-tests">
