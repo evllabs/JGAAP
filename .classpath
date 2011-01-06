@@ -2,9 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="unittests"/>
-	<classpathentry kind="src" path="util"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/external/abbot.jar"/>
 	<classpathentry kind="lib" path="lib/external/ant.jar"/>
 	<classpathentry kind="lib" path="lib/external/bcmail-jdk14-132.jar"/>
@@ -26,5 +23,6 @@
 	<classpathentry kind="lib" path="lib/external/poi-ooxml-3.5-beta3-20080926.jar"/>
 	<classpathentry kind="lib" path="lib/external/poi-scratchpad-3.5-beta3-20080926.jar"/>
 	<classpathentry kind="lib" path="lib/external/json_simple-1.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
