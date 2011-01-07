@@ -19,6 +19,7 @@ package com.jgaap;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 
 import com.jgaap.generics.Parameterizable;
@@ -32,7 +33,12 @@ public class jgaapConstants {
 	 * n.b. these are NOT final but should nevertheless not be changed.
 	 */
 	
-	
+	/**
+	 * This flag sets if you want the jgaap jar to be independent (true) 
+	 * or if you want it to require the directory structure (false)  
+	 */
+	public static final boolean JGAAP_PACKAGE_JAR = false;
+
 	/**
 	 * Location for binary (executable) objects. Not final but should not be
 	 * changed.
@@ -143,6 +149,10 @@ public class jgaapConstants {
 		path = path.replaceAll("bin$", "");
 		path = path.replaceAll("src$", "");
 		return path;
+	}
+	
+	public static URL getLocation(){
+		return jgaap.class.getResource("");
 	}
 	
 	/**
