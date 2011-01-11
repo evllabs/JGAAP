@@ -177,7 +177,9 @@ public class jgaapCLI {
 						currentDivergenceMethod = DivergenceType.Min;
 					} else if (currentArg.equalsIgnoreCase("-rev")) {
 						currentDivergenceMethod = DivergenceType.Reverse;
-					} else if (currentArg.equalsIgnoreCase("-l")) {
+					} else if (currentArg.equalsIgnoreCase("-cross")) {
+						currentDivergenceMethod = DivergenceType.Cross;
+					}else if (currentArg.equalsIgnoreCase("-l")) {
 						String csvFilePath = optionBuilder(currentTagSet);
 						documentMatrix = CSVIO.readCSV(csvFilePath);
 					} else if (currentArg.equalsIgnoreCase("-s")) {
