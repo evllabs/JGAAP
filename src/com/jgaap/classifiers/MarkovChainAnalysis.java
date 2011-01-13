@@ -168,7 +168,7 @@ public class MarkovChainAnalysis extends AnalysisDriver{
 			
 			//assign the probability to the current known document author
 			
-			results.add(new Pair<String, Double>(ev.getAuthor(), prob));
+			results.add(new Pair<String, Double>(ev.getAuthor(), prob, 2));
 			
 			
 		}
@@ -176,6 +176,7 @@ public class MarkovChainAnalysis extends AnalysisDriver{
 		
 		//return the results
 		Collections.sort(results);
+		Collections.reverse(results);
 		
 		
 		return results;
