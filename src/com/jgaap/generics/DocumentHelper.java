@@ -13,6 +13,7 @@ import java.util.Vector;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.EditorKit;
+import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
 import org.apache.poi.hwpf.HWPFDocument;
@@ -118,7 +119,8 @@ class DocumentHelper {
 		System.out.println("HTML Document");
 		List<Character> rawText;
 		EditorKit kit = new HTMLEditorKit();
-		javax.swing.text.Document doc = kit.createDefaultDocument();
+		HTMLDocument doc = (HTMLDocument) kit.createDefaultDocument();
+		doc.putProperty("IgnoreCharsetDirective", new Boolean(true));
 		kit.read(filesInputStream, doc, 0);
 		rawText = new Vector<Character>();
 		char[] origText = doc.getText(0, doc.getLength()).toCharArray();
