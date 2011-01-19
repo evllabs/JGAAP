@@ -1,0 +1,7 @@
+Testsuite: com.jgaap.eventDrivers.POSBiGramEventDriverTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 2.641 sec
+------------- Standard Output ---------------
+Test Started
+------------- ---------------- ---------------
+
+Testcase: testCreateEventSetDocumentSet took 2.626 sec

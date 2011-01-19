@@ -1,0 +1,4 @@
+Testsuite: com.jgaap.distances.CosineDistanceTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.035 sec
+
+Testcase: testDistance took 0.011 sec

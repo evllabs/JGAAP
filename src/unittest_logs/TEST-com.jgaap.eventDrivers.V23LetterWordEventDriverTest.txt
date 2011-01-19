@@ -1,0 +1,8 @@
+Testsuite: com.jgaap.eventDrivers.V23LetterWordEventDriverTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.023 sec
+------------- Standard Output ---------------
+aa, ee, ii, oo, uu, yy, aaa, eee, iii, ooo, uuu, yyy, AA, EE, II, OO, UU, YY, AAA, EEE, III, OOO, UUU, YYY
+aa, ee, ii, oo, uu, yy, aaa, eee, iii, ooo, uuu, yyy, AA, EE, II, OO, UU, YY, AAA, EEE, III, OOO, UUU, YYY
+------------- ---------------- ---------------
+
+Testcase: testCreateEventSetDocumentSet took 0.008 sec

@@ -1,0 +1,4 @@
+Testsuite: com.jgaap.distances.LZWDistanceTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.036 sec
+
+Testcase: testDistance took 0.021 sec

@@ -1,0 +1,8 @@
+Testsuite: com.jgaap.eventDrivers.BlackListEventDriverTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.086 sec
+------------- Standard Output ---------------
+Humpty, Dumpty, sat, on, wall., Humpty, Dumpty, had, great, fall., itsy, bitsy, spider, ran, up, water, spout.
+Humpty, Dumpty, sat, on, wall., Humpty, Dumpty, had, great, fall., itsy, bitsy, spider, ran, up, water, spout.
+------------- ---------------- ---------------
+
+Testcase: testCreateEventSetDocumentSet took 0.02 sec

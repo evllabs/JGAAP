@@ -1,0 +1,11 @@
+Testsuite: com.jgaap.classifiers.SPCATest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.16 sec
+------------- Standard Output ---------------
+
+Mary     3.158189673083804 1.732050807568877 
+Peter     -3.6616691861841204 8.236135032170195E-17 
+Unknown     8.421839128223478 -4.618802153517005 
+
+------------- ---------------- ---------------
+
+Testcase: testAnalyze took 0.146 sec

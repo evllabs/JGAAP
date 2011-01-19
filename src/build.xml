@@ -25,6 +25,7 @@
 			<include name="fasttag_v2.jar"/>
 			<include name="json_simple-1.1.jar"/>
 			<include name="libsvm.jar"/>
+			<include name="edu.mit.jwi_2.1.5_jdk.jar"/>
 		</fileset>
 	</path>
 	
