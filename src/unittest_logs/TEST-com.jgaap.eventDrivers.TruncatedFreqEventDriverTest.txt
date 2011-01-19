@@ -1,0 +1,4 @@
+Testsuite: com.jgaap.eventDrivers.TruncatedFreqEventDriverTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.092 sec
+
+Testcase: testCreateEventSetDocumentSet took 0.077 sec

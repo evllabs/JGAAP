@@ -1,0 +1,8 @@
+Testsuite: com.jgaap.eventDrivers.WordTriGramEventDriverTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.024 sec
+------------- Standard Output ---------------
+(Mary)-(had)-(a), (had)-(a)-(little), (a)-(little)-(lamb;), (little)-(lamb;)-(Its), (lamb;)-(Its)-(fleece), (Its)-(fleece)-(was), (fleece)-(was)-(white), (was)-(white)-(as), (white)-(as)-(snow.), (as)-(snow.)-(And), (snow.)-(And)-(everywhere), (And)-(everywhere)-(that), (everywhere)-(that)-(Mary), (that)-(Mary)-(went,), (Mary)-(went,)-(The), (went,)-(The)-(lamb), (The)-(lamb)-(was), (lamb)-(was)-(sure), (was)-(sure)-(to), (sure)-(to)-(go.)
+(Mary)-(had)-(a), (had)-(a)-(little), (a)-(little)-(lamb;), (little)-(lamb;)-(Its), (lamb;)-(Its)-(fleece), (Its)-(fleece)-(was), (fleece)-(was)-(white), (was)-(white)-(as), (white)-(as)-(snow.), (as)-(snow.)-(And), (snow.)-(And)-(everywhere), (And)-(everywhere)-(that), (everywhere)-(that)-(Mary), (that)-(Mary)-(went,), (Mary)-(went,)-(The), (went,)-(The)-(lamb), (The)-(lamb)-(was), (lamb)-(was)-(sure), (was)-(sure)-(to), (sure)-(to)-(go.)
+------------- ---------------- ---------------
+
+Testcase: testCreateEventSetDocumentSet took 0.009 sec

@@ -1,0 +1,4 @@
+Testsuite: com.jgaap.eventDrivers.NamingTimeEventDriverTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.162 sec
+
+Testcase: testCreateEventSetDocumentSet took 0.143 sec

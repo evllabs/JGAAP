@@ -1,0 +1,4 @@
+Testsuite: com.jgaap.classifiers.MahalanobisDistanceTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.041 sec
+
+Testcase: testAnalyze took 0.026 sec

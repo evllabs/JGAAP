@@ -1,0 +1,13 @@
+Testsuite: com.jgaap.eventDrivers.DefinitionsEventDriverTest
+Tests run: 1, Failures: 1, Errors: 0, Time elapsed: 3.857 sec
+------------- Standard Output ---------------
+Test Started
+the present time or age; "the world of today"; "today we have computers", alert carnivorous mammal with pointed muzzle and ears and a bushy tail; most are predators that do not hunt in packs, moving slowly and gently; "up a lazy river"; "lazy white clouds"; "at a lazy pace", a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times; occurs in many breeds; "the dog barked all night", alert carnivorous mammal with pointed muzzle and ears and a bushy tail; most are predators that do not hunt in packs, moving slowly and gently; "up a lazy river"; "lazy white clouds"; "at a lazy pace", a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times; occurs in many breeds; "the dog barked all night", feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats, an automotive vehicle suitable for hauling, an automotive vehicle suitable for hauling, feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats, moving slowly and gently; "up a lazy river"; "lazy white clouds"; "at a lazy pace", a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times; occurs in many breeds; "the dog barked all night", negation of a word or group of words; "he does not speak French"; "she is not going"; "they are not friends"; "not many"; "not much"; "not at all", to a very great extent or degree; "the idea is so obvious"; "never been so happy"; "I love you so"; "my head aches so!", moving slowly and gently; "up a lazy river"; "lazy white clouds"; "at a lazy pace", feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats
+------------- ---------------- ---------------
+
+Testcase: testCreateEventSet took 3.842 sec
+	FAILED
+Not yet implemented
+junit.framework.AssertionFailedError: Not yet implemented
+	at com.jgaap.eventDrivers.DefinitionsEventDriverTest.testCreateEventSet(DefinitionsEventDriverTest.java:35)
+

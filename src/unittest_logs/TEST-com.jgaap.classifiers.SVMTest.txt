@@ -1,0 +1,12 @@
+Testsuite: com.jgaap.classifiers.SVMTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.125 sec
+------------- Standard Output ---------------
+*
+optimization finished, #iter = 1
+nu = 1.035294108637106E-14
+obj = -1.0352940945883649E-13, rho = -0.17647056269212807
+nSV = 2, nBSV = 0
+Total nSV = 2
+------------- ---------------- ---------------
+
+Testcase: testAnalyze took 0.094 sec

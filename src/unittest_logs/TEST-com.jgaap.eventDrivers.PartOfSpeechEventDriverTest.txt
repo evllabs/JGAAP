@@ -1,0 +1,87 @@
+Testsuite: com.jgaap.eventDrivers.PartOfSpeechEventDriverTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 4.003 sec
+------------- Standard Output ---------------
+Test Started
+39
+NN NN
+true
+DT DT
+true
+NN NN
+true
+VBD VBD
+true
+IN IN
+true
+DT DT
+true
+JJ JJ
+true
+NN NN
+true
+IN IN
+true
+DT DT
+true
+NN NN
+true
+VBD VBD
+true
+IN IN
+true
+DT DT
+true
+JJ JJ
+true
+NN NN
+true
+DT DT
+true
+NN NN
+true
+VBD VBD
+true
+IN IN
+true
+DT DT
+true
+NN NN
+true
+DT DT
+true
+NN NN
+true
+VBD VBD
+true
+DT DT
+true
+NN NN
+true
+CC CC
+true
+DT DT
+true
+JJ JJ
+true
+NN NN
+true
+VBD VBD
+true
+RB RB
+true
+RB RB
+true
+JJ JJ
+true
+CC CC
+true
+VBN VBN
+true
+DT DT
+true
+NN NN
+true
+39
+------------- ---------------- ---------------
+
+Testcase: testCreateEventSetDocumentSet took 3.996 sec
