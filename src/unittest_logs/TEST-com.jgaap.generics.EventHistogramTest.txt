@@ -1,7 +1,0 @@
-Testsuite: com.jgaap.generics.EventHistogramTest
-Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.021 sec
-------------- Standard Output ---------------
-[B:5]
-------------- ---------------- ---------------
-
-Testcase: testProcess took 0.006 sec
