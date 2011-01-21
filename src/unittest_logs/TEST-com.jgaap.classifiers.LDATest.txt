@@ -1,9 +1,0 @@
-Testsuite: com.jgaap.classifiers.LDATest
-Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.05 sec
-------------- Standard Output ---------------
-Class 0 has discriminant function value: 1.935464262508883E8
-Class 1 has discriminant function value: 1.9354642459313416E8
-
-------------- ---------------- ---------------
-
-Testcase: testAnalyze took 0.031 sec
