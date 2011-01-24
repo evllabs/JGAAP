@@ -1,12 +1,10 @@
 package com.jgaap.eventDrivers;
 
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 
 import com.jgaap.jgaapConstants;
@@ -65,10 +63,9 @@ public class DefinitionsEventDriver extends EventDriver {
 		//String wnhome = System.getenv("WNHOME");
 		//System.out.print(wnhome);
 		//String path = wnhome + File.separator + "dict";
-		jgaapConstants constants   = new jgaapConstants();
 		
 		URL url = null;
-		try{ url = new URL("file", null, constants.utilDir()+"WordNet-3.0/dict"); } 
+		try{ url = new URL("file", null, jgaapConstants.utilDir()+"WordNet-3.0/dict"); } 
 		catch(MalformedURLException e){ e.printStackTrace(); }
 		if(url == null) return null;
 		
@@ -140,7 +137,7 @@ public class DefinitionsEventDriver extends EventDriver {
 	@Override
 	public String displayName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Definition Events";
 	}
 
 	@Override
