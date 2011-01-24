@@ -17,7 +17,7 @@
  **/
 package com.jgaap;
 
-import com.jgaap.backend.jgaapCLI;
+import com.jgaap.backend.CLI;
 import com.jgaap.ui.JGAAP_UI_MainForm;
 
 /**
@@ -60,7 +60,7 @@ public class jgaap {
                 }
             });
         } else {
-            jgaapCLI.main(args);
+            CLI.main(args);
         }
     }
 }

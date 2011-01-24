@@ -37,7 +37,7 @@ import com.jgaap.generics.NeighborAnalysisDriver;
  * 
  * @author michael ryan
  */
-public class jgaapCLI {
+public class CLI {
 
 	/**
 	 * Parses the arguments passed to jgaap from the command line. Will either

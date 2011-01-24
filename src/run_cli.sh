@@ -24,5 +24,5 @@ done
 
 # run it
 
-java -Xmx2048m -cp "$cli_classpath" com.jgaap.backend.jgaapCLI $cli_args
+java -Xmx2048m -cp "$cli_classpath" com.jgaap.backend.CLI $cli_args
 
