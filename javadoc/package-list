@@ -4,10 +4,8 @@ com.jgaap.backend
 com.jgaap.canonicizers
 com.jgaap.classifiers
 com.jgaap.distances
-com.jgaap.eventSets
+com.jgaap.eventCullers
+com.jgaap.eventDrivers
 com.jgaap.generics
-com.jgaap.gui
-com.jgaap.gui.dnd
-com.jgaap.gui.generics
-com.jgaap.gui.stepPanels
 com.jgaap.languages
+com.jgaap.ui
