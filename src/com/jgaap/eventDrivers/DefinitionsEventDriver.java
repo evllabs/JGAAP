@@ -4,10 +4,13 @@ package com.jgaap.eventDrivers;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 
 import com.jgaap.jgaapConstants;
+import com.jgaap.canonicizers.StripPunctuation;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
@@ -56,13 +59,58 @@ public class DefinitionsEventDriver extends EventDriver {
 		table.put("VBZ", new Integer(2));
 		
 		
+		//Set of stop words.
+		HashSet<String> stopWords = new HashSet<String>();
+		
+		stopWords.add("the");
+		stopWords.add("of");
+		stopWords.add("to");
+		stopWords.add("and");
+		stopWords.add("a");
+		stopWords.add("in");
+		stopWords.add("is");
+		stopWords.add("it");
+		stopWords.add("you");
+		stopWords.add("that");
+		stopWords.add("he");
+		stopWords.add("was");
+		stopWords.add("for");
+		stopWords.add("on");
+		stopWords.add("are");
+		stopWords.add("with");
+		stopWords.add("as");
+		stopWords.add("i");
+		stopWords.add("his");
+		stopWords.add("they");
+		stopWords.add("be");
+		stopWords.add("at");
+		stopWords.add("have");
+		stopWords.add("this");
+		stopWords.add("or");
+		stopWords.add("had");
+		stopWords.add("by");
+		stopWords.add("but");
+		stopWords.add("some");
+		stopWords.add("what");
+		stopWords.add("there");
+		stopWords.add("we");
+		stopWords.add("other");
+		stopWords.add("were");
+		stopWords.add("your");
+		stopWords.add("an");
+		stopWords.add("do");
+		stopWords.add("if");
+		
+		
+		
+		
+		
 		EventSet eventSet = new EventSet(doc.getAuthor());
+		PorterStemmerEventDriver port = new PorterStemmerEventDriver();
+		EventSet tmpevent;
+		//System.out.println(tmpevent+"\n\n\n");
 		
 		
-		// construct the URL to the Wordnet dictionary directory
-		//String wnhome = System.getenv("WNHOME");
-		//System.out.print(wnhome);
-		//String path = wnhome + File.separator + "dict";
 		
 		URL url = null;
 		try{ url = new URL("file", null, jgaapConstants.utilDir()+"WordNet-3.0/dict"); } 
@@ -90,45 +138,76 @@ public class DefinitionsEventDriver extends EventDriver {
 		IIndexWord idxWord;
 		List<IWordID> wordID;
 		IWord word;
+		String outDef="";
 		//System.out.println("entering loop");
+		
+		/*idxWord = dict.getIndexWord("todai", POS.NOUN);
+	   	wordID = idxWord.getWordIDs();
+	   	word = dict.getWord(wordID.get(0));*/
+	   	//TODO change things to do what juola wants them to do
+	   	//System.out.println(word.getSynset().getGloss()+"\nprinting");
+		
 		for(int i=0; i<tmpArray.length; i++){
 			//System.out.println(i);
+			String definition = "";
 			if(table.containsKey(tagged.get(i))){
 				
 				switch(table.get(tagged.get(i))){
 				case(1): 
 					idxWord = dict.getIndexWord(tmpArray[i], POS.NOUN);
-				   	wordID = idxWord.getWordIDs();
-				   	word = dict.getWord(wordID.get(0));
-				   	//TODO change things to do what juola wants them to do
-				   	eventSet.addEvent(new Event(word.getSynset().getGloss()));
-				   	break;
+					if(idxWord == null)break;
+					wordID = idxWord.getWordIDs();
+					word = dict.getWord(wordID.get(0));
+					definition = word.getSynset().getGloss();
+					break;
 				case(2):
-					idxWord = dict.getIndexWord(tmpArray[i], POS.VERB);
+					Document tmpDoc = new Document();
+					tmpDoc.readStringText(tmpArray[i]);
+					tmpevent = port.createEventSet(tmpDoc);
+					idxWord = dict.getIndexWord(tmpevent.eventAt(0).getEvent(), POS.VERB);
 					if(idxWord==null)break;
 			   		wordID = idxWord.getWordIDs();
 			   		word = dict.getWord(wordID.get(0));
-			   		eventSet.addEvent(new Event(word.getSynset().getGloss()));
+			   		definition = word.getSynset().getGloss();
 			   		break;
 				case(3):
 					idxWord = dict.getIndexWord(tmpArray[i], POS.ADJECTIVE);
+					if(idxWord == null)break;
 			   		wordID = idxWord.getWordIDs();
 			   		word = dict.getWord(wordID.get(0));
-			   		eventSet.addEvent(new Event(word.getSynset().getGloss()));
+			   		definition = word.getSynset().getGloss();
 			   		break;
 				case(4):
 					idxWord = dict.getIndexWord(tmpArray[i], POS.ADVERB);
+					if(idxWord == null)break;
 			   		wordID = idxWord.getWordIDs();
 			   		word = dict.getWord(wordID.get(0));
-			   		eventSet.addEvent(new Event(word.getSynset().getGloss()));
+			   		definition = word.getSynset().getGloss();
 			   		break;
 				}
 				
+				String [] tmpDef = definition.split(";");
+				if(tmpDef[0]!="")
+					outDef = outDef+tmpDef[0]+" ";
 				
-				
+												
 				}
 				
 			}
+		Document outDoc = new Document();
+		outDoc.readStringText(outDef);
+		StripPunctuation strip = new StripPunctuation();
+		
+		List<Character> charDef = strip.process(outDoc.getProcessedText());
+		
+		outDoc.setProcessedText(charDef);
+		
+		
+		String [] eventArray = outDoc.stringify().split("\\s");
+		for(int i=0; i<eventArray.length; i++){
+			if(!stopWords.contains(eventArray[i]))
+				eventSet.addEvent(new Event(eventArray[i]));
+		}
 		
 		
 		return eventSet;
