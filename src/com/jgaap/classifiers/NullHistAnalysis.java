@@ -59,7 +59,7 @@ public class NullHistAnalysis extends AnalysisDriver {
         System.out.println("--- Unknown Event Set ---");
         //System.out.println("%hash = (");
         for(Event event : h1){
-        	System.out.println("'"+event.getEvent()+"','"+h1.getRelativeFrequency(event)+"',");
+        	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+h1.getRelativeFrequency(event)+"',");
         }
         //System.out.println(h1);
 
@@ -72,7 +72,7 @@ public class NullHistAnalysis extends AnalysisDriver {
             // h2.add(e);
             System.out.println("--- Known Event Set #" + i + " ---");
             for(Event event : h2){
-            	System.out.println("'"+event.getEvent()+"','"+h1.getRelativeFrequency(event)+"',");
+            	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+h1.getRelativeFrequency(event)+"',");
             }
         }
 
