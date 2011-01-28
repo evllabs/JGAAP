@@ -82,7 +82,7 @@ public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 					count++;
 				}
 				for (Event event : hist) {
-					writer.write(event.getEvent()+"\t"+hist.getRelativeFrequency(event));
+					writer.write(event.getEvent()+"\t"+hist.getRelativeFrequency(event)+"\n");
 					for (int i = 0; i < Math.round(hist.getAbsoluteFrequency(event) / count); i++) {
 						centroid.addEvent(event);
 					}
