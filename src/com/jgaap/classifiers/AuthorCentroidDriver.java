@@ -101,8 +101,8 @@ public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 			Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.tmpDir()+ "key.centroid")));
 			for (Event event : orderedEvents) {
 				writer.write(event.getEvent() + "\n");
-				writer.close();
 			}
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -118,6 +118,11 @@ public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 			}
 			j++;
 		}
+		EventHistogram unknownHist = new EventHistogram();
+		for(Event event : unknown){
+			unknownHist.add(event);
+		}
+
 
 		for (int i = 0; i < knownCentroids.size(); i++) {
 			double current = distance.distance(unknown, knownCentroids.get(i));
