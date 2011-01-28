@@ -17,6 +17,11 @@
  **/
 package com.jgaap.classifiers;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -51,44 +56,53 @@ public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 
 	@Override
 	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
-		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
+		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
 		List<EventSet> knownCentroids = new ArrayList<EventSet>();
 		Map<String, List<EventSet>> knownAuthors = new HashMap<String, List<EventSet>>();
-		for(EventSet eventSet : known){
-			if(knownAuthors.containsKey(eventSet.getAuthor())){
+		for (EventSet eventSet : known) {
+			if (knownAuthors.containsKey(eventSet.getAuthor())) {
 				knownAuthors.get(eventSet.getAuthor()).add(eventSet);
-			}else{
+			} else {
 				List<EventSet> tmp = new ArrayList<EventSet>();
 				tmp.add(eventSet);
 				knownAuthors.put(eventSet.getAuthor(), tmp);
 			}
 		}
-		
-		for(String author : knownAuthors.keySet()){
+
+		for (String author : knownAuthors.keySet()) {
 			EventSet centroid = new EventSet(author);
-			double count = 0;
-			EventHistogram hist = new EventHistogram();
-			for(EventSet eventSet : knownAuthors.get(author)){
-				for(Event event : eventSet){
-					hist.add(event);
+			try {
+				Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.tmpDir()+ author + ".centroid")));
+				double count = 0;
+				EventHistogram hist = new EventHistogram();
+				for (EventSet eventSet : knownAuthors.get(author)) {
+					for (Event event : eventSet) {
+						hist.add(event);
+					}
+					count++;
 				}
-				count++;
-			}
-			for(Event event : hist){
-				for(int i =0; i < Math.round(hist.getAbsoluteFrequency(event)/count); i++){
-					centroid.addEvent(event);
+				for (Event event : hist) {
+					writer.write(event.getEvent()+"\t"+hist.getRelativeFrequency(event));
+					for (int i = 0; i < Math.round(hist.getAbsoluteFrequency(event) / count); i++) {
+						centroid.addEvent(event);
+					}
 				}
+				knownCentroids.add(centroid);
+				writer.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			knownCentroids.add(centroid);
 		}
-		
+
 		for (int i = 0; i < knownCentroids.size(); i++) {
 			double current = distance.distance(unknown, knownCentroids.get(i));
-			results.add(new Pair<String, Double>(knownCentroids.get(i).getAuthor(),current,2));
+			results.add(new Pair<String, Double>(knownCentroids.get(i).getAuthor(), current, 2));
 			if (jgaapConstants.JGAAP_DEBUG_VERBOSITY) {
 				System.out.print(unknown.getDocumentName() + "(Unknown)");
 				System.out.print(":");
-				System.out.print(knownCentroids.get(i).getDocumentName() + "(" + knownCentroids.get(i).getAuthor() + ")\t");
+				System.out.print(knownCentroids.get(i).getDocumentName() + "("
+						+ knownCentroids.get(i).getAuthor() + ")\t");
 				System.out.println("Distance is " + current);
 			}
 		}
