@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -56,7 +57,11 @@ public class NullHistAnalysis extends AnalysisDriver {
         // h1.add(e);
 
         System.out.println("--- Unknown Event Set ---");
-        System.out.println(h1);
+        //System.out.println("%hash = (");
+        for(Event event : h1){
+        	System.out.println("'"+event.getEvent()+"','"+h1.getRelativeFrequency(event)+"',");
+        }
+        //System.out.println(h1);
 
         for (i = 0; i < known.size(); i++) {
             h2 = new EventHistogram();
@@ -66,7 +71,9 @@ public class NullHistAnalysis extends AnalysisDriver {
             // for(Event e : known.elementAt(i))
             // h2.add(e);
             System.out.println("--- Known Event Set #" + i + " ---");
-            System.out.println(h2);
+            for(Event event : h2){
+            	System.out.println("'"+event.getEvent()+"','"+h1.getRelativeFrequency(event)+"',");
+            }
         }
 
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
