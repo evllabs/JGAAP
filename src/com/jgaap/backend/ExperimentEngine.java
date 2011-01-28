@@ -22,6 +22,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import com.jgaap.jgaapConstants;
@@ -54,28 +55,24 @@ public class ExperimentEngine {
 	 *            the identifier given to this experiment
 	 * @return the location of where the file will be written
 	 */
-	public static String fileNameGen(List<String> canons, String event,
-			String analysis, String experimentName, String number) {
+	public static String fileNameGen(List<String> canons, String event, String analysis,
+			String experimentName, String number) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
-		String canonName = "none";
-		String tmpCanon = new String();
-		for (String iterator : canons) {
-			tmpCanon = tmpCanon + " " + iterator;
+		Iterator<String> iterator = canons.iterator();
+		String canonName = (iterator.hasNext() ? iterator.next() : "none");
+		while (iterator.hasNext()) {
+			canonName = canonName + " " + iterator.next();
 		}
-		if (!tmpCanon.equals("")) {
-			canonName = tmpCanon;
-		}
-		File file = new File(jgaapConstants.tmpDir() + canonName + "/" + event
-				+ "/" + analysis + "/");
+		File file = new File(jgaapConstants.tmpDir() + canonName + "/" + event + "/" + analysis
+				+ "/");
 		file.mkdirs();
 		// if (!file.mkdirs()) {
 		// System.err.println("Error creating experiment directory");
 		// System.exit(1);
 		// }
-		return (jgaapConstants.tmpDir() + canonName + "/" + event + "/"
-				+ analysis + "/" + experimentName + number
-				+ dateFormat.format(date) + ".txt");
+		return (jgaapConstants.tmpDir() + canonName + "/" + event + "/" + analysis + "/"
+				+ experimentName + number + dateFormat.format(date) + ".txt");
 	}
 
 	/**
@@ -99,17 +96,20 @@ public class ExperimentEngine {
 				@Override
 				public void run() {
 					String number = experimentRow.get(0);
-					String[] canonicizers = experimentRow.get(1).split("\\|");
 					List<String> canons = new ArrayList<String>();
-					for (String current : canonicizers) {
-						canons.add(current.trim());
+					if (!"".equalsIgnoreCase(experimentRow.get(1).trim())) {
+						String[] canonicizers = experimentRow.get(1).split("\\|");
+						canons = new ArrayList<String>();
+						for (String current : canonicizers) {
+							canons.add(current.trim());
+						}
 					}
 					String eventDriver = experimentRow.get(2);
 					String analysis = experimentRow.get(3);
 					String[] flags = experimentRow.get(4).split(" ");
 					String documentsPath = experimentRow.get(5);
-					String fileName = fileNameGen(canons, eventDriver,
-							analysis, experimentName, number);
+					String fileName = fileNameGen(canons, eventDriver, analysis, experimentName,
+							number);
 					DivergenceType divergenceType = DivergenceType.Standard;
 					for (String flag : flags) {
 						if (flag.equalsIgnoreCase("-avg")) {
@@ -124,9 +124,8 @@ public class ExperimentEngine {
 					}
 					API experiment = new API();
 					try {
-						List<Document> documents = Utils
-								.getDocumentsFromCSV(CSVIO
-										.readCSV(documentsPath));
+						List<Document> documents = Utils.getDocumentsFromCSV(CSVIO
+								.readCSV(documentsPath));
 						for (Document document : documents) {
 							experiment.addDocument(document);
 						}
@@ -134,27 +133,22 @@ public class ExperimentEngine {
 							experiment.addCanonicizer(canonicizer);
 						}
 						experiment.addEventDriver(eventDriver);
-						AnalysisDriver analysisDriver = experiment
-								.addAnalysisDriver(analysis);
+						AnalysisDriver analysisDriver = experiment.addAnalysisDriver(analysis);
 						if (analysisDriver instanceof NeighborAnalysisDriver) {
-							((NeighborAnalysisDriver) analysisDriver)
-									.getDistanceFunction().setParameter(
-											"divergenceOption",
-											divergenceType.ordinal());
+							((NeighborAnalysisDriver) analysisDriver).getDistanceFunction()
+									.setParameter("divergenceOption", divergenceType.ordinal());
 						}
 						experiment.execute();
-						List<Document> unknowns = experiment
-								.getUnknownDocuments();
+						List<Document> unknowns = experiment.getUnknownDocuments();
 						StringBuffer buffer = new StringBuffer();
 						for (Document unknown : unknowns) {
 							buffer.append(unknown.getResult());
 						}
 						Utils.saveFile(fileName, buffer.toString());
 					} catch (Exception e) {
-						Utils.appendToFile(jgaapConstants.tmpDir()
-								+ "/EEerrors",
-								Arrays.toString(experimentRow.toArray()) + "\n"
-										+ e.getMessage() + "\n------------\n");
+						Utils.appendToFile(jgaapConstants.tmpDir() + "/EEerrors",
+								Arrays.toString(experimentRow.toArray()) + "\n" + e.getMessage()
+										+ "\n------------\n");
 					}
 				}
 			});
