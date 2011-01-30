@@ -1502,7 +1502,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
     private void BatchSaveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatchSaveMenuItemActionPerformed
         FileChoser = new JFileChooser(filepath);
-        int choice = FileChoser.showOpenDialog(JGAAP_UI_MainForm.this);
+        int choice = FileChoser.showSaveDialog(JGAAP_UI_MainForm.this);
         if (choice == JFileChooser.APPROVE_OPTION)
         {
             try 
@@ -1513,8 +1513,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 for (int i = 0; i < DocumentList.size(); i++)
                 {
                     Vector<String> doc = new Vector<String>();
-                    doc.add(DocumentList.get(i).getTitle());
-                    doc.add(DocumentList.get(i).getFilePath());
                     if (DocumentList.get(i).getAuthor() != null)
                     {
                         doc.add(DocumentList.get(i).getAuthor());
@@ -1523,6 +1521,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     {
                         doc.add("");
                     }
+                    doc.add(DocumentList.get(i).getFilePath());
+                    doc.add(DocumentList.get(i).getTitle());
                     DocumentCSVs.add(doc);
                 }
                 CSVIO.writeCSV(DocumentCSVs, filepath);
