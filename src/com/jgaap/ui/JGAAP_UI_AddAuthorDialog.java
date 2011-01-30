@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 import com.jgaap.backend.API;
 import javax.swing.*;
 import com.jgaap.generics.Document;
+
+import java.io.File;
 import java.util.*;
 
 public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
@@ -65,8 +67,9 @@ public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
         }
         else
         {
-            FileChoser = new JFileChooser();
+            FileChoser = new JFileChooser("..");
         }
+        FileChoser.setMultiSelectionEnabled(true);
     }
 
     /** This method is called from within the constructor to
@@ -243,15 +246,17 @@ public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
 
         int choice = FileChoser.showOpenDialog(JGAAP_UI_AddAuthorDialog.this);
         if (choice == JFileChooser.APPROVE_OPTION) {
-            try {
-                String filepath = FileChoser.getSelectedFile().getCanonicalPath();
-                String[] Split = filepath.split("[\\\\[\\/]]");
-                String Title = Split[Split.length - 1];
-                Object RowData[] = {Title, filepath};
-                DocumentsTable_Model.addRow(RowData);
-                Filepath = filepath;
-            } catch (Exception e) {
-
+            for(File file : FileChoser.getSelectedFiles()){
+	        	try {
+	                String filepath = file.getCanonicalPath();
+	                String[] Split = filepath.split("[\\\\[\\/]]");
+	                String Title = Split[Split.length - 1];
+	                Object RowData[] = {Title, filepath};
+	                DocumentsTable_Model.addRow(RowData);
+	                Filepath = filepath;
+	            } catch (Exception e) {
+	            	//TODO: add error dialog here 
+	            }
             }
         }
 }//GEN-LAST:event_AddDocumentsButtonActionPerformed
