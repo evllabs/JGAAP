@@ -1,11 +1,9 @@
 package com.jgaap.classifiers;
 
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
+import com.jgaap.generics.*;
 import com.jgaap.jgaapConstants;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -21,7 +19,7 @@ import java.util.Scanner;
  * Time: 11:53:53 AM
  * To change this template use File | Settings | File Templates.
  */
-public class VectorOutputAnalysis {
+public class VectorOutputAnalysis extends AnalysisDriver {
     	public String displayName() {
 	    return "Vector Output";
 	}
@@ -34,13 +32,18 @@ public class VectorOutputAnalysis {
 	    return true;
 	}
 
-    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
+        public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 
         EventHistogram hist = new EventHistogram();
         String keyFile = jgaapConstants.libDir() + "personae.key";
-        Scanner keyIn = new Scanner(keyFile);
+            Scanner keyIn = null;
+            try {
+                keyIn = new Scanner(new File(keyFile));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
 
-        FileOutputStream fsOut;
+            FileOutputStream fsOut;
         PrintStream writer = null;
         try {
             String docPath = unknown.getDocumentName();
@@ -51,7 +54,7 @@ public class VectorOutputAnalysis {
             writer = new PrintStream(fsOut);
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();  
+            e.printStackTrace();
         }
 
         for(Event e : unknown) {
