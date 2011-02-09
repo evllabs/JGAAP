@@ -28,6 +28,8 @@ import com.knowledgebooks.nlp.fasttag.*;
  * 
  * replaces words with their definitions
  * 
+ * ENGLISH ONLY EVENT DRIVER
+ * 
  * NOTE:this is event driver uses packages that can only be used for non-commercial implementation
  * 		specifically the edu.mit.jwi_2.1.5_jdk.jar
  */
@@ -101,12 +103,77 @@ public class DefinitionsEventDriver extends EventDriver {
 		stopWords.add("do");
 		stopWords.add("if");
 		
+		Hashtable<String, String> nouns = new Hashtable<String, String>();
+		nouns.put("alumni", "alumnus");
+		nouns.put("analyses", "analysis");
+		nouns.put("antennae", "antenna");
+		nouns.put("antennas", "antenna");
+		nouns.put("appendices", "appendix");
+		nouns.put("axes", "axis");
+		nouns.put("bacteria", "bacterium");
+		nouns.put("bases", "basis");
+		nouns.put("beaux", "beau");
+		nouns.put("bureaux", "bureau");
+		nouns.put("bureaus", "bureau");
+		nouns.put("children", "child");
+		nouns.put("corpora", "corpus");
+		nouns.put("corpuses", "corpus");
+		nouns.put("crises", "crisis");
+		nouns.put("criteria", "criterion");
+		nouns.put("curricula", "curriculum");
+		nouns.put("data", "datum");
+		nouns.put("deer", "deer");
+		nouns.put("diagnoses", "diagnosis");
+		nouns.put("ellipses", "ellipsis");
+		nouns.put("fish", "fish");
+		nouns.put("foci", "focus");
+		nouns.put("focuses", "focus");
+		nouns.put("feet", "foot");
+		nouns.put("formulae", "formula");
+		nouns.put("formulas", "formula");
+		nouns.put("fungi", "fungus");
+		nouns.put("funguses", "fungus");
+		nouns.put("genera", "genus");
+		nouns.put("geese", "goose");
+		nouns.put("hypotheses", "hypothesis");
+		nouns.put("indices", "index");
+		nouns.put("indexes", "index");
+		nouns.put("lice", "louse");
+		nouns.put("men", "man");
+		nouns.put("matrices", "matrix");
+		nouns.put("means", "means");
+		nouns.put("media", "medium");
+		nouns.put("mice", "mouse");
+		nouns.put("nebulae", "nebula");
+		nouns.put("nuclei", "nucleus");
+		nouns.put("oases", "oasis");
+		nouns.put("oxen", "ox");
+		nouns.put("paralyses", "paralysis");
+		nouns.put("parentheses", "parenthesis");
+		nouns.put("phenomena", "phenomenon");
+		nouns.put("radii", "radius");
+		nouns.put("series", "series");
+		nouns.put("sheep", "sheep");
+		nouns.put("species", "species");
+		nouns.put("stimuli", "stimulus");
+		nouns.put("strata", "stratum");
+		nouns.put("syntheses", "synthesis");
+		nouns.put("synopses", "synopsis");
+		nouns.put("tableaux", "tableau");
+		nouns.put("theses", "thesis");
+		nouns.put("teeth", "tooth");
+		nouns.put("vertebrae", "vertebra");
+		nouns.put("vitae", "vita");
+		nouns.put("women", "woman");
+		
+		
 		
 		
 		
 		
 		EventSet eventSet = new EventSet(doc.getAuthor());
-		PorterStemmerEventDriver port = new PorterStemmerEventDriver();
+		PorterStemmerWithIrregularEventDriver port = new PorterStemmerWithIrregularEventDriver();
+		//PorterStemmerEventDriver port = new PorterStemmerEventDriver();
 		EventSet tmpevent;
 		//System.out.println(tmpevent+"\n\n\n");
 		
@@ -139,21 +206,22 @@ public class DefinitionsEventDriver extends EventDriver {
 		List<IWordID> wordID;
 		IWord word;
 		String outDef="";
-		//System.out.println("entering loop");
+		Document tmpDoc = new Document();
 		
-		/*idxWord = dict.getIndexWord("todai", POS.NOUN);
-	   	wordID = idxWord.getWordIDs();
-	   	word = dict.getWord(wordID.get(0));*/
-	   	//TODO change things to do what juola wants them to do
-	   	//System.out.println(word.getSynset().getGloss()+"\nprinting");
+		
+		
 		
 		for(int i=0; i<tmpArray.length; i++){
 			//System.out.println(i);
 			String definition = "";
 			if(table.containsKey(tagged.get(i))){
+				if(nouns.containsKey(tmpArray[i])){
+					tmpArray[i]=nouns.get(tmpArray[i]);
+				}
 				
 				switch(table.get(tagged.get(i))){
-				case(1): 
+				case(1):
+					
 					idxWord = dict.getIndexWord(tmpArray[i], POS.NOUN);
 					if(idxWord == null)break;
 					wordID = idxWord.getWordIDs();
@@ -161,7 +229,7 @@ public class DefinitionsEventDriver extends EventDriver {
 					definition = word.getSynset().getGloss();
 					break;
 				case(2):
-					Document tmpDoc = new Document();
+					tmpDoc = new Document();
 					tmpDoc.readStringText(tmpArray[i]);
 					tmpevent = port.createEventSet(tmpDoc);
 					idxWord = dict.getIndexWord(tmpevent.eventAt(0).getEvent(), POS.VERB);
@@ -222,13 +290,13 @@ public class DefinitionsEventDriver extends EventDriver {
 	@Override
 	public boolean showInGUI() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public String tooltipText() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Replaces words with their definitions";
 	}
 
 }
