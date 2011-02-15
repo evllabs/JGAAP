@@ -22,12 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Event;
@@ -57,7 +52,7 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
 
 	@Override
 	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
-		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
+        List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
 		Map<String, List<EventSet>> knownAuthors = new HashMap<String, List<EventSet>>();
 		Set<Event> events = new HashSet<Event>();
 		for (EventSet eventSet : known) {
@@ -96,35 +91,35 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
 			authorFrequencies.put(author, authorHistogram);
 		}
 
+        EventHistogram unknownHS = new EventHistogram();
+        for(Event e: unknown) {
+            unknownHS.add(e);
+        }
+        Vector<Double> unknownVector = new Vector<Double>();
 		List<Event> orderedEvents = new ArrayList<Event>(events);
-		try {
-			Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.tmpDir()
-					+ "key.centroid")));
-			for (Event event : orderedEvents) {
-				writer.write(event.getEvent() + "\n");
-			}
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        //Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.tmpDir()
+        //		+ "key.centroid")));
+        for (Event event : orderedEvents) {
+            //writer.write(event.getEvent() + "\n");
+            unknownVector.add(unknownHS.getRelativeFrequency(event));
+        }
+        //writer.close();
+
 		for (String author : authorFrequencies.keySet()) {
-			try {
-				Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.tmpDir()
-						+ author + ".centroid")));
-				for (Event event : orderedEvents) {
-					if (authorFrequencies.get(author).containsKey(event)) {
-						writer.write(authorFrequencies.get(author).get(event)+"\n");
-					} else {
-						writer.write("0.0\n");
-					}
-				}
-				writer.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            //Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.tmpDir()
+            //		+ author + ".centroid")));
+            Vector<Double> authorCentroid = new Vector<Double>();
+            for (Event event : orderedEvents) {
+                if (authorFrequencies.get(author).containsKey(event)) {
+                    authorCentroid.add(authorFrequencies.get(author).get(event));
+                } else {
+                    authorCentroid.add(0.0);
+                }
+            }
+
+            results.add(new Pair<String, Double>(author, distance.distance(unknownVector, authorCentroid), 2));
 		}
+        Collections.sort(results);
 		return results;
 	}
 
