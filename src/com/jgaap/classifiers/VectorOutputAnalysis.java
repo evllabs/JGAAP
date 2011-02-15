@@ -55,7 +55,7 @@ public class VectorOutputAnalysis extends AnalysisDriver {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        };
+        }
 
         for(Event e : unknown) {
             hist.add(e);
