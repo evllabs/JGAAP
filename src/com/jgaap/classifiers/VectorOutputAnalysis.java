@@ -55,14 +55,14 @@ public class VectorOutputAnalysis extends AnalysisDriver {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        };
 
         for(Event e : unknown) {
             hist.add(e);
         }
 
-        while(keyIn.hasNext()) {
-            String next = keyIn.next();
+        while(keyIn.hasNextLine()) {
+            String next = keyIn.nextLine();
             double freq = hist.getRelativeFrequency(new Event(next));
             if(freq > 0) {
                 writer.println(freq);
