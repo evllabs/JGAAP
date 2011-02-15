@@ -22,6 +22,8 @@ import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
 
+import java.util.Vector;
+
 /**
  * Cosine Distance or normalized dot product. This is YA distance for Nearest
  * Neighbor algorithms, based on John's research at JHU. NOTE: The cosine
@@ -88,6 +90,29 @@ public class CosineDistance extends DistanceFunction {
                 h2Magnitude += h2.getAbsoluteFrequency(event)
                         * h2.getAbsoluteFrequency(event);
             }
+        }
+
+        return Math.abs((distance / (Math.sqrt(h1Magnitude) * Math
+                .sqrt(h2Magnitude))) - 1);
+    }
+
+    public double distance(Vector<Double> v1, Vector<Double> v2) {
+        int max = 0;
+        double distance = 0.0;
+        double h1Magnitude = 0.0;
+        double h2Magnitude = 0.0;
+
+        if(v1.size() > v2.size()) {
+            max = v1.size();
+        }
+        else {
+            max = v2.size();
+        }
+
+        for(int i = 0; i < max; i++) {
+            distance += (v1.elementAt(i) * v2.elementAt(i));
+            h1Magnitude += (v1.elementAt(i) * v1.elementAt(i));
+            h2Magnitude += (v2.elementAt(i) * v2.elementAt(i));
         }
 
         return Math.abs((distance / (Math.sqrt(h1Magnitude) * Math
