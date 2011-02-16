@@ -150,10 +150,14 @@ public class SVM extends AnalysisDriver {
 
 		// svm_predict selects a groupID 
 		int decision = (int)svm.svm_predict(model, x);
-		
+
+        double[] prob_estimates = new double[groupsMap.size()];
+
+        double v = svm.svm_predict_probability(model, x, prob_estimates);
+
 		// whose author we lookup in groupsMap and return.
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
-		results.add(new Pair((String)groupsMap.get(new Integer(decision)),new Double(decision)));
+		results.add(new Pair((String)groupsMap.get(new Integer(decision)),v));
         return results;
 	}
 

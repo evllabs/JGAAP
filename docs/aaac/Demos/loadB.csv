@@ -1,51 +1,51 @@
-,../docs/aaac/problemB/Bsample01.txt,Correct: Author01
-,../docs/aaac/problemB/Bsample02.txt,Correct: Author09
-,../docs/aaac/problemB/Bsample03.txt,Correct: Author13
-,../docs/aaac/problemB/Bsample04.txt,Correct: Author05
-,../docs/aaac/problemB/Bsample05.txt,Correct: Author10
-,../docs/aaac/problemB/Bsample06.txt,Correct: Author03
-,../docs/aaac/problemB/Bsample07.txt,Correct: Author07
-,../docs/aaac/problemB/Bsample08.txt,Correct: Author08
-,../docs/aaac/problemB/Bsample09.txt,Correct: Author11
-,../docs/aaac/problemB/Bsample10.txt,Correct: Author12
-,../docs/aaac/problemB/Bsample11.txt,Correct: Author02
-,../docs/aaac/problemB/Bsample12.txt,Correct: Author06
-,../docs/aaac/problemB/Bsample13.txt,Correct: Author04
-Author01,../docs/aaac/problemB/Btrain01-1.txt,
-Author01,../docs/aaac/problemB/Btrain01-2.txt,
-Author01,../docs/aaac/problemB/Btrain01-3.txt,
-Author02,../docs/aaac/problemB/Btrain02-2.txt,
-Author02,../docs/aaac/problemB/Btrain02-3.txt,
-Author03,../docs/aaac/problemB/Btrain03-1.txt,
-Author03,../docs/aaac/problemB/Btrain03-2.txt,
-Author03,../docs/aaac/problemB/Btrain03-3.txt,
-Author04,../docs/aaac/problemB/Btrain04-1.txt,
-Author04,../docs/aaac/problemB/Btrain04-2.txt,
-Author04,../docs/aaac/problemB/Btrain04-3.txt,
-Author05,../docs/aaac/problemB/Btrain05-1.txt,
-Author05,../docs/aaac/problemB/Btrain05-2.txt,
-Author05,../docs/aaac/problemB/Btrain05-3.txt,
-Author06,../docs/aaac/problemB/Btrain06-1.txt,
-Author06,../docs/aaac/problemB/Btrain06-2.txt,
-Author06,../docs/aaac/problemB/Btrain06-3.txt,
-Author07,../docs/aaac/problemB/Btrain07-1.txt,
-Author07,../docs/aaac/problemB/Btrain07-2.txt,
-Author07,../docs/aaac/problemB/Btrain07-3.txt,
-Author08,../docs/aaac/problemB/Btrain08-1.txt,
-Author08,../docs/aaac/problemB/Btrain08-2.txt,
-Author08,../docs/aaac/problemB/Btrain08-3.txt,
-Author09,../docs/aaac/problemB/Btrain09-1.txt,
-Author09,../docs/aaac/problemB/Btrain09-2.txt,
-Author09,../docs/aaac/problemB/Btrain09-3.txt,
-Author10,../docs/aaac/problemB/Btrain10-1.txt,
-Author10,../docs/aaac/problemB/Btrain10-2.txt,
-Author10,../docs/aaac/problemB/Btrain10-3.txt,
-Author11,../docs/aaac/problemB/Btrain11-1.txt,
-Author11,../docs/aaac/problemB/Btrain11-2.txt,
-Author11,../docs/aaac/problemB/Btrain11-3.txt,
-Author12,../docs/aaac/problemB/Btrain12-1.txt,
-Author12,../docs/aaac/problemB/Btrain12-2.txt,
-Author12,../docs/aaac/problemB/Btrain12-3.txt,
-Author13,../docs/aaac/problemB/Btrain13-1.txt,
-Author13,../docs/aaac/problemB/Btrain13-2.txt,
-Author13,../docs/aaac/problemB/Btrain13-3.txt,
+,../docs/aaac/problemB/Bsample01.txt,Correct: AuthorB01
+,../docs/aaac/problemB/Bsample02.txt,Correct: AuthorB09
+,../docs/aaac/problemB/Bsample03.txt,Correct: AuthorB13
+,../docs/aaac/problemB/Bsample04.txt,Correct: AuthorB05
+,../docs/aaac/problemB/Bsample05.txt,Correct: AuthorB10
+,../docs/aaac/problemB/Bsample06.txt,Correct: AuthorB03
+,../docs/aaac/problemB/Bsample07.txt,Correct: AuthorB07
+,../docs/aaac/problemB/Bsample08.txt,Correct: AuthorB08
+,../docs/aaac/problemB/Bsample09.txt,Correct: AuthorB11
+,../docs/aaac/problemB/Bsample10.txt,Correct: AuthorB12
+,../docs/aaac/problemB/Bsample11.txt,Correct: AuthorB02
+,../docs/aaac/problemB/Bsample12.txt,Correct: AuthorB06
+,../docs/aaac/problemB/Bsample13.txt,Correct: AuthorB04
+AuthorB01,../docs/aaac/problemB/Btrain01-1.txt,
+AuthorB01,../docs/aaac/problemB/Btrain01-2.txt,
+AuthorB01,../docs/aaac/problemB/Btrain01-3.txt,
+AuthorB02,../docs/aaac/problemB/Btrain02-2.txt,
+AuthorB02,../docs/aaac/problemB/Btrain02-3.txt,
+AuthorB03,../docs/aaac/problemB/Btrain03-1.txt,
+AuthorB03,../docs/aaac/problemB/Btrain03-2.txt,
+AuthorB03,../docs/aaac/problemB/Btrain03-3.txt,
+AuthorB04,../docs/aaac/problemB/Btrain04-1.txt,
+AuthorB04,../docs/aaac/problemB/Btrain04-2.txt,
+AuthorB04,../docs/aaac/problemB/Btrain04-3.txt,
+AuthorB05,../docs/aaac/problemB/Btrain05-1.txt,
+AuthorB05,../docs/aaac/problemB/Btrain05-2.txt,
+AuthorB05,../docs/aaac/problemB/Btrain05-3.txt,
+AuthorB06,../docs/aaac/problemB/Btrain06-1.txt,
+AuthorB06,../docs/aaac/problemB/Btrain06-2.txt,
+AuthorB06,../docs/aaac/problemB/Btrain06-3.txt,
+AuthorB07,../docs/aaac/problemB/Btrain07-1.txt,
+AuthorB07,../docs/aaac/problemB/Btrain07-2.txt,
+AuthorB07,../docs/aaac/problemB/Btrain07-3.txt,
+AuthorB08,../docs/aaac/problemB/Btrain08-1.txt,
+AuthorB08,../docs/aaac/problemB/Btrain08-2.txt,
+AuthorB08,../docs/aaac/problemB/Btrain08-3.txt,
+AuthorB09,../docs/aaac/problemB/Btrain09-1.txt,
+AuthorB09,../docs/aaac/problemB/Btrain09-2.txt,
+AuthorB09,../docs/aaac/problemB/Btrain09-3.txt,
+AuthorB10,../docs/aaac/problemB/Btrain10-1.txt,
+AuthorB10,../docs/aaac/problemB/Btrain10-2.txt,
+AuthorB10,../docs/aaac/problemB/Btrain10-3.txt,
+AuthorB11,../docs/aaac/problemB/Btrain11-1.txt,
+AuthorB11,../docs/aaac/problemB/Btrain11-2.txt,
+AuthorB11,../docs/aaac/problemB/Btrain11-3.txt,
+AuthorB12,../docs/aaac/problemB/Btrain12-1.txt,
+AuthorB12,../docs/aaac/problemB/Btrain12-2.txt,
+AuthorB12,../docs/aaac/problemB/Btrain12-3.txt,
+AuthorB13,../docs/aaac/problemB/Btrain13-1.txt,
+AuthorB13,../docs/aaac/problemB/Btrain13-2.txt,
+AuthorB13,../docs/aaac/problemB/Btrain13-3.txt,

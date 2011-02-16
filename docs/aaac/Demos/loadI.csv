@@ -1,9 +1,9 @@
-,../docs/aaac/problemI/Isample01.txt,Correct: Author02
-,../docs/aaac/problemI/Isample02.txt,Correct: Author01
-,../docs/aaac/problemI/Isample03.txt,Correct: Author01
-,../docs/aaac/problemI/Isample04.txt,Correct: Author02
-Author01,../docs/aaac/problemI/Itrain01-01.txt,
-Author01,../docs/aaac/problemI/Itrain01-02.txt,
-Author01,../docs/aaac/problemI/Itrain01-03.txt,
-Author02,../docs/aaac/problemI/Itrain02-01.txt,
-Author02,../docs/aaac/problemI/Itrain02-02.txt,
+,../docs/aaac/problemI/Isample01.txt,Correct: AuthorI02
+,../docs/aaac/problemI/Isample02.txt,Correct: AuthorI01
+,../docs/aaac/problemI/Isample03.txt,Correct: AuthorI01
+,../docs/aaac/problemI/Isample04.txt,Correct: AuthorI02
+AuthorI01,../docs/aaac/problemI/Itrain01-01.txt,
+AuthorI01,../docs/aaac/problemI/Itrain01-02.txt,
+AuthorI01,../docs/aaac/problemI/Itrain01-03.txt,
+AuthorI02,../docs/aaac/problemI/Itrain02-01.txt,
+AuthorI02,../docs/aaac/problemI/Itrain02-02.txt,
