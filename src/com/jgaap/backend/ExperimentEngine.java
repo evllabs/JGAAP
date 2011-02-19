@@ -55,8 +55,8 @@ public class ExperimentEngine {
 	 *            the identifier given to this experiment
 	 * @return the location of where the file will be written
 	 */
-	public static String fileNameGen(List<String> canons, String event, String analysis,
-			String experimentName, String number) {
+	public static String fileNameGen(List<String> canons, String event,
+			String analysis, String experimentName, String number) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
 		Iterator<String> iterator = canons.iterator();
@@ -64,15 +64,16 @@ public class ExperimentEngine {
 		while (iterator.hasNext()) {
 			canonName = canonName + " " + iterator.next();
 		}
-		File file = new File(jgaapConstants.tmpDir() + canonName + "/" + event + "/" + analysis
-				+ "/");
+		File file = new File(jgaapConstants.tmpDir() + canonName + "/" + event
+				+ "/" + analysis + "/");
 		file.mkdirs();
 		// if (!file.mkdirs()) {
 		// System.err.println("Error creating experiment directory");
 		// System.exit(1);
 		// }
-		return (jgaapConstants.tmpDir() + canonName + "/" + event + "/" + analysis + "/"
-				+ experimentName + number + dateFormat.format(date) + ".txt");
+		return (jgaapConstants.tmpDir() + canonName + "/" + event + "/"
+				+ analysis + "/" + experimentName + number
+				+ dateFormat.format(date) + ".txt");
 	}
 
 	/**
@@ -92,79 +93,101 @@ public class ExperimentEngine {
 		final String experimentName = experimentTable.remove(0).get(0);
 		List<Thread> threads = new ArrayList<Thread>();
 		for (final List<String> experimentRow : experimentTable) {
-			Thread thread = new Thread(new Runnable() {
-				@Override
-				public void run() {
-					String number = experimentRow.get(0);
-					List<String> canons = new ArrayList<String>();
-					if (!"".equalsIgnoreCase(experimentRow.get(1).trim())) {
-						String[] canonicizers = experimentRow.get(1).split("\\|");
-						canons = new ArrayList<String>();
-						for (String current : canonicizers) {
-							canons.add(current.trim());
+			if (experimentRow.size() >= 5) {
+				Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						String number = experimentRow.get(0);
+						List<String> canons = new ArrayList<String>();
+						if (!"".equalsIgnoreCase(experimentRow.get(1).trim())) {
+							String[] canonicizers = experimentRow.get(1).split(
+									"\\|");
+							canons = new ArrayList<String>();
+							for (String current : canonicizers) {
+								canons.add(current.trim());
+							}
+						}
+						String eventDriver = experimentRow.get(2);
+						String analysis = experimentRow.get(3);
+						String[] flags = experimentRow.get(4).split(" ");
+						String documentsPath = experimentRow.get(5);
+						String fileName = fileNameGen(canons, eventDriver,
+								analysis, experimentName, number);
+						DivergenceType divergenceType = DivergenceType.Standard;
+						for (String flag : flags) {
+							if (flag.equalsIgnoreCase("-avg")) {
+								divergenceType = DivergenceType.Average;
+							} else if (flag.equalsIgnoreCase("-max")) {
+								divergenceType = DivergenceType.Max;
+							} else if (flag.equalsIgnoreCase("-min")) {
+								divergenceType = DivergenceType.Min;
+							} else if (flag.equalsIgnoreCase("-rev")) {
+								divergenceType = DivergenceType.Reverse;
+							}
+						}
+						API experiment = new API();
+						try {
+							List<Document> documents = Utils
+									.getDocumentsFromCSV(CSVIO
+											.readCSV(documentsPath));
+							for (Document document : documents) {
+								experiment.addDocument(document);
+							}
+							for (String canonicizer : canons) {
+								experiment.addCanonicizer(canonicizer);
+							}
+							experiment.addEventDriver(eventDriver);
+							AnalysisDriver analysisDriver = experiment
+									.addAnalysisDriver(analysis);
+							if (analysisDriver instanceof NeighborAnalysisDriver) {
+								((NeighborAnalysisDriver) analysisDriver)
+										.getDistanceFunction().setParameter(
+												"divergenceOption",
+												divergenceType.ordinal());
+							}
+							experiment.execute();
+							List<Document> unknowns = experiment
+									.getUnknownDocuments();
+							StringBuffer buffer = new StringBuffer();
+							for (Document unknown : unknowns) {
+								buffer.append(unknown.getResult());
+							}
+							Utils.saveFile(fileName, buffer.toString());
+						} catch (Exception e) {
+							Utils.appendToFile(jgaapConstants.tmpDir()
+									+ "/EEerrors",
+									Arrays.toString(experimentRow.toArray())
+											+ "\n" + e.getMessage()
+											+ "\n------------\n");
 						}
 					}
-					String eventDriver = experimentRow.get(2);
-					String analysis = experimentRow.get(3);
-					String[] flags = experimentRow.get(4).split(" ");
-					String documentsPath = experimentRow.get(5);
-					String fileName = fileNameGen(canons, eventDriver, analysis, experimentName,
-							number);
-					DivergenceType divergenceType = DivergenceType.Standard;
-					for (String flag : flags) {
-						if (flag.equalsIgnoreCase("-avg")) {
-							divergenceType = DivergenceType.Average;
-						} else if (flag.equalsIgnoreCase("-max")) {
-							divergenceType = DivergenceType.Max;
-						} else if (flag.equalsIgnoreCase("-min")) {
-							divergenceType = DivergenceType.Min;
-						} else if (flag.equalsIgnoreCase("-rev")) {
-							divergenceType = DivergenceType.Reverse;
-						}
-					}
-					API experiment = new API();
-					try {
-						List<Document> documents = Utils.getDocumentsFromCSV(CSVIO
-								.readCSV(documentsPath));
-						for (Document document : documents) {
-							experiment.addDocument(document);
-						}
-						for (String canonicizer : canons) {
-							experiment.addCanonicizer(canonicizer);
-						}
-						experiment.addEventDriver(eventDriver);
-						AnalysisDriver analysisDriver = experiment.addAnalysisDriver(analysis);
-						if (analysisDriver instanceof NeighborAnalysisDriver) {
-							((NeighborAnalysisDriver) analysisDriver).getDistanceFunction()
-									.setParameter("divergenceOption", divergenceType.ordinal());
-						}
-						experiment.execute();
-						List<Document> unknowns = experiment.getUnknownDocuments();
-						StringBuffer buffer = new StringBuffer();
-						for (Document unknown : unknowns) {
-							buffer.append(unknown.getResult());
-						}
-						Utils.saveFile(fileName, buffer.toString());
-					} catch (Exception e) {
-						Utils.appendToFile(jgaapConstants.tmpDir() + "/EEerrors",
-								Arrays.toString(experimentRow.toArray()) + "\n" + e.getMessage()
-										+ "\n------------\n");
-					}
-				}
-			});
-			threads.add(thread);
+				});
+				threads.add(thread);
+			} else {
+				System.out.println("Error wiht");
+			}
 		}
-		for (int i = 0; i < threads.size() / 2; i++) {
-			try {
-				Thread thread1 = threads.get(i * 2);
-				thread1.start();
-				if (i * 2 + 1 < threads.size()) {
-					Thread thread2 = threads.get(i * 2 + 1);
-					thread2.start();
-					thread2.join();
+		if (threads.size() > 1)
+			for (int i = 0; i < threads.size() / 2; i++) {
+				try {
+					Thread thread1 = threads.get(i * 2);
+					thread1.start();
+					if (i * 2 + 1 < threads.size()) {
+						Thread thread2 = threads.get(i * 2 + 1);
+						thread2.start();
+						thread2.join();
+					}
+					thread1.join();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				thread1.join();
-			} catch (Exception e) {
+			}
+		else{
+			threads.get(0).start();
+			try {
+				threads.get(0).join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
