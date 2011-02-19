@@ -2,9 +2,7 @@ package com.jgaap.canonicizers;
 
 import com.jgaap.generics.Canonicizer;
 
-import java.awt.*;
-import java.awt.List;
-import java.util.*;
+import java.awt.Color;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,13 +33,13 @@ public class StripNullCharacters extends Canonicizer {
     }
 
     @Override
-    public java.util.List<Character> process(java.util.List<Character> procText) {
-        java.util.List<Character> retList = new ArrayList<Character>();
+    public char[] process(char[] procText) {
+        StringBuilder stringBuilder = new StringBuilder();
         for(Character c : procText) {
             if(c != '\u0000') {
-                retList.add(c);
+                stringBuilder.append(c);
             }
         }
-        return retList;  //To change body of implemented methods use File | Settings | File Templates.
+        return stringBuilder.toString().toCharArray();  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

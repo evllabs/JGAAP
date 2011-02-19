@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Set;
 
 import com.jgaap.jgaapConstants;
 import com.jgaap.canonicizers.StripPunctuation;
@@ -266,7 +265,7 @@ public class DefinitionsEventDriver extends EventDriver {
 		outDoc.readStringText(outDef);
 		StripPunctuation strip = new StripPunctuation();
 		
-		List<Character> charDef = strip.process(outDoc.getProcessedText());
+		char[] charDef = strip.process(outDoc.getProcessedText());
 		
 		outDoc.setProcessedText(charDef);
 		

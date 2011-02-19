@@ -1,10 +1,8 @@
 package com.jgaap.canonicizers;
 
-import com.jgaap.generics.Canonicizer;
+import java.awt.Color;
 
-import java.awt.*;
-import java.awt.List;
-import java.util.*;
+import com.jgaap.generics.Canonicizer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,7 +33,7 @@ public class IntervieweeText extends Canonicizer {
     }
 
     @Override
-    public java.util.List<Character> process(java.util.List<Character> procText) {
+    public char[] process(char[] procText) {
         StringBuffer text = new StringBuffer();
         StringBuffer newText = new StringBuffer();
         for(Character c : procText) {
@@ -51,14 +49,7 @@ public class IntervieweeText extends Canonicizer {
             end = text.indexOf("</B>", start);
 
             if(start == -1) {
-
-                ArrayList<Character> returnText = new ArrayList<Character>();
-
-                for(Character c : newText.toString().toCharArray()) {
-                    returnText.add(c);
-                }
-
-                return returnText;
+                return newText.toString().toCharArray();
             }
             newText.append(" " + text.substring(start+3, end) + " ");
         }

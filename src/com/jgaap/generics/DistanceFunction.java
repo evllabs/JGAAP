@@ -58,14 +58,14 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
 
         for(Integer i = 0; i < max; i++) {
             Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(v1.elementAt(i)); j++) {
+            for(int j = 0; j < Math.round(v1.elementAt(i)*1000); j++) {
                 es1.addEvent(e);
             }
         }
 
         for(Integer i = 0; i < max; i++) {
             Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(v2.elementAt(i)); j++) {
+            for(int j = 0; j < Math.round(v2.elementAt(i)*1000); j++) {
                 es2.addEvent(e);
             }
         }

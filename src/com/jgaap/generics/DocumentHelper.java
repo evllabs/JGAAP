@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.EditorKit;
@@ -26,7 +25,7 @@ import com.jgaap.jgaapConstants;
 
 class DocumentHelper {
 
-	static List<Character> loadDocument(String filepath) throws IOException,
+	static char[] loadDocument(String filepath) throws IOException,
 			BadLocationException {
 		if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
 			return readURLText(filepath);
@@ -63,22 +62,16 @@ class DocumentHelper {
 	 *            An input stream pointing to a PDF file.
 	 * @throws IOException
 	 */
-	static private List<Character> loadPDF(InputStream filesInputStream)
+	static private char[] loadPDF(InputStream filesInputStream)
 			throws IOException {
 		PDDocument doc;
-		List<Character> rawText;
 		doc = PDDocument.load(filesInputStream);
 		PDFTextStripper pdfStripper = new PDFTextStripper();
 		pdfStripper.setSortByPosition(false);
-		rawText = new Vector<Character>();
 		char[] origText = pdfStripper.getText(doc).toCharArray();
-		for (Character c : origText) {
-			rawText.add(c);
-		}
-
 		doc.close();
 
-		return rawText;
+		return origText;
 	}
 
 	/**
@@ -88,7 +81,7 @@ class DocumentHelper {
 	 *            The filepath of the PDF to be read.
 	 * @throws IOException
 	 */
-	static private List<Character> loadPDF(String filepath) throws IOException {
+	static private char[] loadPDF(String filepath) throws IOException {
 		return loadPDF(new FileInputStream(filepath));
 	}
 
@@ -101,7 +94,7 @@ class DocumentHelper {
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	static private List<Character> loadHTML(String filepath)
+	static private char[] loadHTML(String filepath)
 			throws FileNotFoundException, IOException, BadLocationException {
 		return loadHTML(new FileInputStream(filepath));
 	}
@@ -114,20 +107,16 @@ class DocumentHelper {
 	 * @throws BadLocationException
 	 * @throws IOException
 	 */
-	static private List<Character> loadHTML(InputStream filesInputStream)
+	static private char[] loadHTML(InputStream filesInputStream)
 			throws IOException, BadLocationException {
 		System.out.println("HTML Document");
-		List<Character> rawText;
 		EditorKit kit = new HTMLEditorKit();
 		HTMLDocument doc = (HTMLDocument) kit.createDefaultDocument();
 		doc.putProperty("IgnoreCharsetDirective", new Boolean(true));
 		kit.read(filesInputStream, doc, 0);
-		rawText = new Vector<Character>();
 		char[] origText = doc.getText(0, doc.getLength()).toCharArray();
-		for (Character c : origText) {
-			rawText.add(c);
-		}
-		return rawText;
+
+		return origText;
 	}
 
 	/**
@@ -138,7 +127,7 @@ class DocumentHelper {
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	static private List<Character> loadMSWord(String filepath)
+	static private char[] loadMSWord(String filepath)
 			throws FileNotFoundException, IOException {
 		return loadMSWord(new FileInputStream(filepath));
 	}
@@ -150,18 +139,15 @@ class DocumentHelper {
 	 *            An input stream pointing to the Word document to be read.
 	 * @throws IOException
 	 */
-	static private List<Character> loadMSWord(InputStream filesInputStream)
+	static private char[] loadMSWord(InputStream filesInputStream)
 			throws IOException {
 		System.out.println("Word Document");
-		List<Character> rawText = new ArrayList<Character>();
 		POIFSFileSystem fs = new POIFSFileSystem(filesInputStream);
 		HWPFDocument doc = new HWPFDocument(fs);
 		WordExtractor we = new WordExtractor(doc);
 		char[] origText = we.getText().toCharArray();
-		for (Character c : origText) {
-			rawText.add(c);
-		}
-		return rawText;
+
+		return origText;
 	}
 
 	/**
@@ -172,15 +158,13 @@ class DocumentHelper {
 	 * 
 	 * @throws IOException
 	 **/
-	static public List<Character> readLocalText(String filepath)
-			throws IOException {
+	static public char[] readLocalText(String filepath) throws IOException {
 		return readText(new FileInputStream(filepath));
 	}
 
-	static public List<Character> readText(InputStream is) throws IOException {
+	static public char[] readText(InputStream is) throws IOException {
 		int c;
 		List<Character> rawText = new ArrayList<Character>();
-
 		BufferedReader br;
 		if (jgaapConstants.globalParams.getParameter("charset").equals("")) {
 			br = new BufferedReader(new InputStreamReader(is));
@@ -188,10 +172,15 @@ class DocumentHelper {
 			br = new BufferedReader(new InputStreamReader(is,
 					jgaapConstants.globalParams.getParameter("charset")));
 		}
+
 		while ((c = br.read()) != -1) {
 			rawText.add(new Character((char) c));
 		}
-		return rawText;
+		char[] raw = new char[rawText.size()];
+		for (int i = 0; i < rawText.size(); i++) {
+			raw[i] = rawText.get(i);
+		}
+		return raw;
 	}
 
 	/**
@@ -205,9 +194,9 @@ class DocumentHelper {
 	 * @throws BadLocationException
 	 **/
 
-	static public List<Character> readURLText(String filepath)
-			throws IOException, BadLocationException {
-		List<Character> rawText;
+	static public char[] readURLText(String filepath) throws IOException,
+			BadLocationException {
+		char[] rawText;
 		URL input = new URL(filepath);
 		InputStream is = input.openStream();
 		if (filepath.endsWith(".pdf")) {

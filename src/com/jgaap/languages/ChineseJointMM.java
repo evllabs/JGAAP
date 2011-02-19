@@ -1,6 +1,5 @@
 package com.jgaap.languages;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.jgaapConstants;
@@ -24,17 +23,15 @@ public class ChineseJointMM extends Language {
 	}
 
 	@Override
-	public List<Character> parseLanguage(String document) {
-		List<Character> parsedDocument = new ArrayList<Character>();
+	public char[] parseLanguage(String document) {
+		StringBuilder stringBuilder = new StringBuilder();
 		WordSegment wordSegmenter = new WordSegment(jgaapConstants.libDir()
 				+ "chinese_dictionary.dat", new JointMM());
 		List<String> segmented = wordSegmenter.Segment(document);
 		for (String word : segmented) {
-			for (Character c : word.toCharArray()) {
-				parsedDocument.add(c);
-			}
+			stringBuilder.append(word);
 		}
-		return parsedDocument;
+		return stringBuilder.toString().toCharArray();
 	}
 	
 	public boolean showInGUI() {

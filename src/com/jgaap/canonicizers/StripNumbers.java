@@ -18,8 +18,6 @@
 package com.jgaap.canonicizers;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.jgaap.generics.Canonicizer;
 
@@ -33,51 +31,50 @@ import com.jgaap.generics.Canonicizer;
 public class StripNumbers extends Canonicizer {
 
 	@Override
-    public String displayName(){
-    	return "Strip Numbers";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return "Converts numbers to a single # sign";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return true;
-    }
-    
-    @Override
-    public Color guiColor(){
-    	return Color.MAGENTA;
-    }
-	
-    /**
-     * strip numbers in argument
-     * 
-     * @param procText
-     *            Vector of Characters to be processed
-     * @return Vector of Characters after converting digit string to '#'
-     *
-     */
-    @Override
-    public List<Character> process(List<Character> procText) {
-        List<Character> processed = new ArrayList<Character>();
-        boolean spaceflag = false;
-        for (int i = 0; i < procText.size(); i++) {
-            if (Character.isDigit(procText.get(i)) && !spaceflag) {
-                processed.add(new Character('#'));
-                spaceflag = true;
-            } else if (!Character.isDigit(procText.get(i)) &&
-		procText.get(i) != ',' &&
-		procText.get(i) != '.' ) {
-			// handle numbers like 3.14 and 20,000 as well
-			// TODO : handle numbers like .001 or 12. (?)
+	public String displayName() {
+		return "Strip Numbers";
+	}
 
-                processed.add(procText.get(i));
-                spaceflag = false;
-            }
-        }
-        return processed;
-    }
+	@Override
+	public String tooltipText() {
+		return "Converts numbers to a single # sign";
+	}
+
+	@Override
+	public boolean showInGUI() {
+		return true;
+	}
+
+	@Override
+	public Color guiColor() {
+		return Color.MAGENTA;
+	}
+
+	/**
+	 * strip numbers in argument
+	 * 
+	 * @param procText
+	 *            Vector of Characters to be processed
+	 * @return Vector of Characters after converting digit string to '#'
+	 * 
+	 */
+	@Override
+	public char[] process(char[] procText) {
+		StringBuilder stringBuilder = new StringBuilder();
+		boolean spaceflag = false;
+		for (int i = 0; i < procText.length; i++) {
+			if (Character.isDigit(procText[i]) && !spaceflag) {
+				stringBuilder.append('#');
+				spaceflag = true;
+			} else if (!Character.isDigit(procText[i]) && procText[i] != ','
+					&& procText[i] != '.') {
+				// handle numbers like 3.14 and 20,000 as well
+				// TODO : handle numbers like .001 or 12. (?)
+//				processed.add(procText[i]);
+				stringBuilder.append(procText[i]);
+				spaceflag = false;
+			}
+		}
+		return stringBuilder.toString().toCharArray();
+	}
 }

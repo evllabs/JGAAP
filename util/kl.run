@@ -1,0 +1,105 @@
+KL_Max
+400000,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadA.csv
+400001,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadB.csv
+400002,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadC.csv
+400003,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadD.csv
+400004,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadE.csv
+400005,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadF.csv
+400006,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadG.csv
+400007,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadH.csv
+400008,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadI.csv
+400009,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadJ.csv
+400010,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadK.csv
+400011,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadL.csv
+400012,Unify Case ,Words,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadM.csv
+500000,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadA.csv
+500001,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadB.csv
+500002,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadC.csv
+500003,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadD.csv
+500004,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadE.csv
+500005,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadF.csv
+500006,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadG.csv
+500007,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadH.csv
+500008,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadI.csv
+500009,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadJ.csv
+500010,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadK.csv
+500011,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadL.csv
+500012,Unify Case ,Characters,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadM.csv
+600000,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadA.csv
+600001,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadB.csv
+600002,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadC.csv
+600003,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadD.csv
+600004,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadE.csv
+600005,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadF.csv
+600006,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadG.csv
+600007,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadH.csv
+600008,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadI.csv
+600009,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadJ.csv
+600010,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadK.csv
+600011,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadL.csv
+600012,Unify Case ,Word BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadM.csv
+700000,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadA.csv
+700001,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadB.csv
+700002,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadC.csv
+700003,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadD.csv
+700004,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadE.csv
+700005,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadF.csv
+700006,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadG.csv
+700007,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadH.csv
+700008,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadI.csv
+700009,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadJ.csv
+700010,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadK.csv
+700011,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadL.csv
+700012,Unify Case ,Character BiGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadM.csv
+800000,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadA.csv
+800001,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadB.csv
+800002,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadC.csv
+800003,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadD.csv
+800004,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadE.csv
+800005,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadF.csv
+800006,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadG.csv
+800007,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadH.csv
+800008,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadI.csv
+800009,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadJ.csv
+800010,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadK.csv
+800011,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadL.csv
+800012,Unify Case ,Word TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadM.csv
+900000,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadA.csv
+900001,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadB.csv
+900002,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadC.csv
+900003,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadD.csv
+900004,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadE.csv
+900005,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadF.csv
+900006,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadG.csv
+900007,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadH.csv
+900008,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadI.csv
+900009,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadJ.csv
+900010,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadK.csv
+900011,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadL.csv
+900012,Unify Case ,Character TriGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadM.csv
+1000000,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadA.csv
+1000001,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadB.csv
+1000002,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadC.csv
+1000003,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadD.csv
+1000004,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadE.csv
+1000005,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadF.csv
+1000006,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadG.csv
+1000007,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadH.csv
+1000008,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadI.csv
+1000009,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadJ.csv
+1000010,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadK.csv
+1000011,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadL.csv
+1000012,Unify Case ,Word TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadM.csv
+1100000,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadA.csv
+1100001,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadB.csv
+1100002,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadC.csv
+1100003,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadD.csv
+1100004,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadE.csv
+1100005,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadF.csv
+1100006,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadG.csv
+1100007,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadH.csv
+1100008,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadI.csv
+1100009,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadJ.csv
+1100010,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadK.csv
+1100011,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadL.csv
+1100012,Unify Case ,Character TetraGrams,Kullback Leibler Distance,-max,../docs/aaac/Demos/loadM.csv

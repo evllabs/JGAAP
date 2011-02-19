@@ -18,6 +18,7 @@
 package com.jgaap.generics;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,15 +33,15 @@ public class Document extends Parameterizable {
 	private String author;
 	private String filepath;
 	private String title;
-	private List<Character> rawText;
-	private List<Character> procText;
+	// private List<Character> rawText;
+	private char[] rawText;
+	// private List<Character> procText;
+	private char[] procText;
 	private int size;
 	private DocType docType;
 	private List<Canonicizer> canonicizers;
 	private Map<EventDriver, EventSet> eventSets;
 	private Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> results;
-
-
 
 	public Document() {
 		filepath = "";
@@ -49,8 +50,8 @@ public class Document extends Parameterizable {
 		canonicizers = new ArrayList<Canonicizer>();
 		eventSets = new HashMap<EventDriver, EventSet>();
 		results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>();
-		rawText = new ArrayList<Character>();
-		procText = new ArrayList<Character>();
+		// rawText = new ArrayList<Character>();
+		// procText = new ArrayList<Character>();
 		docType = DocType.GENERIC;
 
 	}
@@ -74,8 +75,11 @@ public class Document extends Parameterizable {
 		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>(
 				document.results);
 		this.filepath = new String(document.filepath);
-		this.procText = new ArrayList<Character>(document.procText);
-		this.rawText = new ArrayList<Character>(document.rawText);
+		// this.procText = new ArrayList<Character>(document.procText);
+		// this.rawText = new ArrayList<Character>(document.rawText);
+		this.procText = Arrays.copyOf(document.procText,
+				document.procText.length);
+		this.rawText = Arrays.copyOf(document.rawText, document.rawText.length);
 		this.size = document.size;
 		this.title = new String(document.title);
 	}
@@ -103,7 +107,7 @@ public class Document extends Parameterizable {
 			this.title = getTitleFromPath(filepath);
 		this.rawText = DocumentHelper.loadDocument(filepath);
 		this.docType = DocumentHelper.getDocType(filepath);
-		this.size = this.rawText.size();
+		this.size = this.rawText.length;
 		if (this.size == 0) {
 			throw new Exception("Empty Document Error");
 		}
@@ -125,12 +129,9 @@ public class Document extends Parameterizable {
 	}
 
 	public void readStringText(String text) {
-		rawText = new ArrayList<Character>();
-		for (int i = 0; i < text.length(); i++) {
-			rawText.add(text.charAt(i));
-		}
-		size = rawText.size();
-		procText = rawText;
+		rawText = text.toCharArray();
+		size = rawText.length;
+		procText = Arrays.copyOf(rawText, size);
 	}
 
 	public void print() {
@@ -158,14 +159,14 @@ public class Document extends Parameterizable {
 	 * Returns text with preprocessing done. Preprocessing can include stripping
 	 * whitespace or normalizing the case
 	 **/
-	public List<Character> getProcessedText() {
+	public char[] getProcessedText() {
 		if (procText != null)
-			return procText;
+			return Arrays.copyOf(procText, procText.length);
 		else
-			return rawText;
+			return Arrays.copyOf(rawText, rawText.length);
 	}
 
-	public void setProcessedText(List<Character> procText) {
+	public void setProcessedText(char[] procText) {
 		this.procText = procText;
 	}
 
@@ -248,8 +249,9 @@ public class Document extends Parameterizable {
 	 * them to the document one by one, in the same order they were added.
 	 */
 	public void processCanonicizers() {
-		procText = new ArrayList<Character>();
-		procText.addAll(rawText);
+		// procText = new ArrayList<Character>();
+		// procText.addAll(rawText);
+		procText = Arrays.copyOf(rawText, rawText.length);
 		if (jgaapConstants.globalObjects.containsKey("language")) {
 			Language language = (Language) jgaapConstants.globalObjects
 					.get("language");
@@ -306,22 +308,25 @@ public class Document extends Parameterizable {
 		buffer.append("\n");
 		for (AnalysisDriver analysisDriver : results.keySet()) {
 			String analysis = analysisDriver.displayName();
-			Map<EventDriver, List<Pair<String, Double>>> eventResults = results.get(analysisDriver);
+			Map<EventDriver, List<Pair<String, Double>>> eventResults = results
+					.get(analysisDriver);
 			for (EventDriver eventDriver : eventResults.keySet()) {
 				buffer.append("Analyzed by " + analysis + " using "
 						+ eventDriver.displayName() + " as events\n");
-				int count =0;
-				for(Pair<String, Double> result : eventResults.get(eventDriver)){
+				int count = 0;
+				for (Pair<String, Double> result : eventResults
+						.get(eventDriver)) {
 					count++;
-					buffer.append(count+". "+result.getFirst()+" "+result.getSecond()+"\n");
+					buffer.append(count + ". " + result.getFirst() + " "
+							+ result.getSecond() + "\n");
 				}
 				buffer.append("\n\n");
 			}
 		}
 		return buffer.toString();
 	}
-	
-	public Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> getResults(){
+
+	public Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> getResults() {
 		return results;
 	}
 
@@ -343,9 +348,9 @@ public class Document extends Parameterizable {
 	 * Convert processed document into one really long string.
 	 **/
 	public String stringify() {
-		StringBuffer t = new StringBuffer(procText.size());
-		for (int i = 0; i < procText.size(); i++) {
-			t.append((char) procText.get(i));
+		StringBuilder t = new StringBuilder(procText.length);
+		for (int i = 0; i < procText.length; i++) {
+			t.append(procText[i]);
 		}
 		return t.toString();
 	}
