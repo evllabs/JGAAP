@@ -73,6 +73,6 @@ public class KullbackLeiblerDivergence extends DivergenceFunction {
              distance += h1.getRelativeFrequency(event) * Math.log(h1.getRelativeFrequency(event)/h2.getRelativeFrequency(event)); 
             }
         }
-        return distance;
+        return Math.abs(distance);
     }
 }
