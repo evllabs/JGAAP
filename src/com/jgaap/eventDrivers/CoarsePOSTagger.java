@@ -82,11 +82,13 @@ public class CoarsePOSTagger extends EventDriver {
 
 	@Override
 	public EventSet createEventSet(Document doc) {
-		EventSet preprocessEventSet = new PartOfSpeechEventDriver()
-				.createEventSet(doc);
+		EventSet preprocessEventSet = new PartOfSpeechEventDriver().createEventSet(doc);
 		EventSet eventSet = new EventSet(doc.getAuthor());
 		for (Event event : preprocessEventSet) {
-			eventSet.addEvent(new Event(translationTable.get(event.getEvent())));
+			if(translationTable.containsKey(event.getEvent()))
+				eventSet.addEvent(new Event(translationTable.get(event.getEvent())));
+			else
+				eventSet.addEvent(event);
 		}
 		return eventSet;
 	}

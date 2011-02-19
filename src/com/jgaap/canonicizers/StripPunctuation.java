@@ -18,8 +18,6 @@
 package com.jgaap.canonicizers;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.jgaap.generics.Canonicizer;
 
@@ -58,17 +56,17 @@ public class StripPunctuation extends Canonicizer {
      * @return Vector of processed characters.
      */
     @Override
-    public List<Character> process(List<Character> procText) {
-        List<Character> processed = new ArrayList<Character>();
-        for (int i = 0; i < procText.size(); i++) {
-            if (punc.indexOf(procText.get(i)) == -1) { // If the character
+    public char[] process(char[] procText) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < procText.length; i++) {
+            if (punc.indexOf(procText[i]) == -1) { // If the character
                 // is not
                 // punctuation
-                processed.add(procText.get(i));
+                stringBuilder.append(procText[i]);
             } else {
                 ; // Do nothing
             }
         }
-        return processed;
+        return stringBuilder.toString().toCharArray();
     }
 }

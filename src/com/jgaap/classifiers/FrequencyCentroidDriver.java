@@ -17,11 +17,6 @@
  **/
 package com.jgaap.classifiers;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.*;
 
 import com.jgaap.jgaapConstants;
@@ -146,9 +141,9 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
             Map<String, Map<Event, Double>> authorFrequencies = (Map<String, Map<Event, Double>>)jgaapConstants.globalObjects.get("authorFrequencies");
 
             for (String author : authorFrequencies.keySet()) {
-                results.add(new Pair<String, Double>(author, distance.distance(unknownVector, (Vector<Double>)jgaapConstants.globalObjects.get(author + "Vector"))));
+                results.add(new Pair<String, Double>(author, distance.distance(unknownVector, (Vector<Double>)jgaapConstants.globalObjects.get(author + "Vector")), 2));
             }
-
+            Collections.sort(results);
             return results;
         }
 	}

@@ -17,8 +17,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import java.util.List;
-
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
@@ -29,47 +27,42 @@ import com.jgaap.generics.EventSet;
  * preprocessing applied in the previous stage.
  **/
 public class CharacterEventDriver extends EventDriver {
-    // test all named files direcly using main() method
-    /**
-     * test using files named on command line
-     * 
-     * @param args
-     *            files to process
-     */
+	/**
+	 * test using files named on command line
+	 * 
+	 * @param args
+	 *            files to process
+	 */
 
-    @Override
-    public String displayName(){
-    	return "Characters";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return "UNICODE Characters";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return true;
-    }
+	@Override
+	public String displayName() {
+		return "Characters";
+	}
 
- 
-    /**
-     * Create sequence of characters from document set.
-     * 
-     * @param ds
-     *            document set of interest
-     */
-    @Override
-    public EventSet createEventSet(Document document) {
-        EventSet es = new EventSet(document.getAuthor());
-//        for (int i = 0; i < ds.documentCount(); i++) {
-//            Document current = ds.getDocument(i);
-            List<Character> cd = document.getProcessedText();
-            for (int j = 0; j < cd.size(); j++) {
-                es.addEvent(new Event(cd.get(j)));
-            }
-//        }
-        return es;
-    }
+	@Override
+	public String tooltipText() {
+		return "UNICODE Characters";
+	}
+
+	@Override
+	public boolean showInGUI() {
+		return true;
+	}
+
+	/**
+	 * Create sequence of characters from document set.
+	 * 
+	 * @param document
+	 *            document of interest
+	 */
+	@Override
+	public EventSet createEventSet(Document document) {
+		EventSet es = new EventSet(document.getAuthor());
+		char[] cd = document.getProcessedText();
+		for (int j = 0; j < cd.length; j++) {
+			es.addEvent(new Event(cd[j]));
+		}
+		return es;
+	}
 
 }

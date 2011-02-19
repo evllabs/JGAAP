@@ -18,7 +18,6 @@
 package com.jgaap.canonicizers;
 
 import java.awt.Color;
-import java.util.List;
 
 import com.jgaap.generics.Canonicizer;
 
@@ -55,12 +54,12 @@ public class NullCanonicizer extends Canonicizer {
 	 * @return Vector of processed characters 
 	 */
 
-    public List<Character> process(List<Character> procText) {
+    public char[] process(char[] procText) {
 
         // Reimplemented to play nicely with threading
         StringBuffer tmp = new StringBuffer();
-        for (int i = 0; i < procText.size(); i++) {
-            tmp.append(procText.get(i));
+        for (int i = 0; i < procText.length; i++) {
+            tmp.append(procText[i]);
         }
 		System.out.print(" --- Begin Document ---\n" + tmp + "\n --- End Document ---\n");
 

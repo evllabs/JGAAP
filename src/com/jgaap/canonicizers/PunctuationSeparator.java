@@ -1,8 +1,6 @@
 package com.jgaap.canonicizers;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.jgaap.generics.Canonicizer;
 
@@ -35,8 +33,8 @@ public class PunctuationSeparator extends Canonicizer {
 	}
 
 	@Override
-	public List<Character> process(List<Character> procText) {
-		List<Character> results = new ArrayList<Character>();
+	public char[] process(char[] procText) {
+		StringBuilder stringBuilder = new StringBuilder();
 		int state = 0;
 		for (Character character : procText) {
 			if (state == 0) {
@@ -44,18 +42,17 @@ public class PunctuationSeparator extends Canonicizer {
 			} else if (state == 1) {
 				state = getState(character);
 				if (state == 2) {
-					results.add(' ');
+					stringBuilder.append(' ');
 				}
 			} else {
 				state = getState(character);
 				if (state == 1 || state == 2) {
-					results.add(' ');
+					stringBuilder.append(' ');
 				}
 			}
-			results.add(character);
-
+			stringBuilder.append(character);
 		}
-		return results;
+		return stringBuilder.toString().toCharArray();
 	}
 
 	private int getState(Character character) {

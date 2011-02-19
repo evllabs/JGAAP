@@ -1,7 +1,5 @@
 package com.jgaap.generics;
 
-import java.util.List;
-
 import com.jgaap.jgaapConstants;
 
 /**
@@ -60,7 +58,7 @@ public abstract class Language implements Comparable<Language>, Displayable {
 	 * @param document - The unparsed document
 	 * @return - the parsed document in the format required for storage and canonicization
 	 */
-	public List<Character> parseLanguage(String document) {
+	public char[] parseLanguage(String document) {
 		return null;
 	}
 

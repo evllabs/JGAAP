@@ -7,10 +7,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import java.util.List;
-import java.util.Vector;
-
-
 /**
  * @author darrenvescovi
  *
@@ -28,22 +24,22 @@ public class AddErrorsTest {
 		
 		for (int i = 0; i <=99; i++)
 		{
-			Vector<Character> test1 = new Vector<Character>();
+			StringBuilder test1 = new StringBuilder();
 			
 			for (int k = 0; k<= 999; k++)
 			{
-					test1.add(new Character('b'));
+					test1.append('b');
 			}
 			
 			
 			AddErrors thing = new AddErrors(25);
 			int notChanged = 0;
-			List<Character> test2 = thing.process(test1);
-			for (int j=0; j<test2.size(); j++)
+			char[] test2 = thing.process(test1.toString().toCharArray());
+			for (int j=0; j<test2.length; j++)
 			{
 				//System.out.println((int)test2.elementAt(j));
 				
-				if (test2.get(j)=='b')
+				if (test2[j]=='b')
 				{
 					notChanged = notChanged + 1;
 				}
@@ -81,24 +77,24 @@ public class AddErrorsTest {
 		int [][] LA = new int [1000][26];
 			for (int i = 0; i <=999; i++)
 			{
-				Vector<Character> test1 = new Vector<Character>();
+				StringBuilder test1 = new StringBuilder();
 				
 				for (int k = 0; k<= 999; k++)
 				{
-						test1.add(new Character('b'));
+						test1.append('b');
 				}
 				
 				
 				AddErrors thing = new AddErrors(100);
 				
-				List<Character> test2 = thing.process(test1);
-				for (int j=0; j<test2.size(); j++)
+				char[] test2 = thing.process(test1.toString().toCharArray());
+				for (int j=0; j<test2.length; j++)
 				{
 					//System.out.println((int)test2.elementAt(j));
 					
-					if (test2.get(j)!='b')
+					if (test2[j]!='b')
 					{
-						LA[i][(int)test2.get(j)-65]=LA[i][(int)test2.get(j)-65]+1;
+						LA[i][(int)test2[j]-65]=LA[i][(int)test2[j]-65]+1;
 					}
 					
 				}

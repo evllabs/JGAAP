@@ -18,7 +18,6 @@
 package com.jgaap.generics;
 
 import java.awt.Color;
-import java.util.List;
 
 /**
  * Class for canonicizers. As an abstract class, can only be instantiated
@@ -92,7 +91,7 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
      * @return a Vector of Characters containing the processed text
      */
 
-    abstract public List<Character> process(List<Character> procText);
+    abstract public char[] process(char[] procText);
 
 
     /**
