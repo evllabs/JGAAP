@@ -73,6 +73,9 @@ public class ExperimentEngine {
 			cullerName += eventCuller.trim();
 			first = false;
 		}
+		if ("".equals(cullerName)){
+			cullerName="none";
+		}
 		File file = new File(jgaapConstants.tmpDir() + canonName + "/" + event + "/" + cullerName
 				+ "/" + analysis + "/");
 		file.mkdirs();
