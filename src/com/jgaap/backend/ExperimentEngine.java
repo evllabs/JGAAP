@@ -55,7 +55,7 @@ public class ExperimentEngine {
 	 *            the identifier given to this experiment
 	 * @return the location of where the file will be written
 	 */
-	public static String fileNameGen(List<String> canons, String event,
+	public static String fileNameGen(List<String> canons, String event, String[] eventCullers,
 			String analysis, String experimentName, String number) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
@@ -64,14 +64,23 @@ public class ExperimentEngine {
 		while (iterator.hasNext()) {
 			canonName = canonName + " " + iterator.next();
 		}
-		File file = new File(jgaapConstants.tmpDir() + canonName + "/" + event
+		boolean first = true;
+		String cullerName ="";
+		for(String eventCuller : eventCullers){
+			if(!first){
+				cullerName += " ";
+			}
+			cullerName += eventCuller.trim();
+			first = false;
+		}
+		File file = new File(jgaapConstants.tmpDir() + canonName + "/" + event + "/" + cullerName
 				+ "/" + analysis + "/");
 		file.mkdirs();
 		// if (!file.mkdirs()) {
 		// System.err.println("Error creating experiment directory");
 		// System.exit(1);
 		// }
-		return (jgaapConstants.tmpDir() + canonName + "/" + event + "/"
+		return (jgaapConstants.tmpDir() + canonName + "/" + event + "/" + cullerName + "/"
 				+ analysis + "/" + experimentName + number
 				+ dateFormat.format(date) + ".txt");
 	}
@@ -93,7 +102,7 @@ public class ExperimentEngine {
 		final String experimentName = experimentTable.remove(0).get(0);
 		List<Thread> threads = new ArrayList<Thread>();
 		for (final List<String> experimentRow : experimentTable) {
-			if (experimentRow.size() >= 5) {
+			if (experimentRow.size() >= 6) {
 				Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -108,10 +117,11 @@ public class ExperimentEngine {
 							}
 						}
 						String eventDriver = experimentRow.get(2);
-						String analysis = experimentRow.get(3);
-						String[] flags = experimentRow.get(4).split(" ");
-						String documentsPath = experimentRow.get(5);
-						String fileName = fileNameGen(canons, eventDriver,
+						String[] eventCullers = experimentRow.get(3).split("\\|");
+						String analysis = experimentRow.get(4);
+						String[] flags = experimentRow.get(5).split(" ");
+						String documentsPath = experimentRow.get(6);
+						String fileName = fileNameGen(canons, eventDriver, eventCullers,
 								analysis, experimentName, number);
 						DivergenceType divergenceType = DivergenceType.Standard;
 						for (String flag : flags) {
@@ -137,6 +147,10 @@ public class ExperimentEngine {
 								experiment.addCanonicizer(canonicizer);
 							}
 							experiment.addEventDriver(eventDriver);
+							for(String eventCuller : eventCullers){
+								if(eventCuller!=null && !"".equalsIgnoreCase(eventCuller))
+									experiment.addEventCuller(eventCuller.trim());
+							}
 							AnalysisDriver analysisDriver = experiment
 									.addAnalysisDriver(analysis);
 							if (analysisDriver instanceof NeighborAnalysisDriver) {
