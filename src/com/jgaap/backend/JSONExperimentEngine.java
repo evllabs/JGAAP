@@ -179,12 +179,13 @@ public class JSONExperimentEngine {
 												+ "\t| " + result.getSecond()
 												+ "\n");
 									}
-									String filePath = ExperimentEngine
-											.fileNameGen(canons, eventDriver
-													.displayName(),
-													analysisDriver
-															.displayName(),
-													experimentName, number);
+//									String filePath = ExperimentEngine
+//											.fileNameGen(canons, eventDriver
+//													.displayName(),
+//													analysisDriver
+//															.displayName(),
+//													experimentName, number);
+									String filePath = "something";
 									Utils.appendToFile(filePath,
 											buffer.toString());
 
