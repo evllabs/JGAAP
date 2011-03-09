@@ -17,11 +17,6 @@
  **/
 package com.jgaap.classifiers;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.*;
 
 import com.jgaap.jgaapConstants;
@@ -50,6 +45,7 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 

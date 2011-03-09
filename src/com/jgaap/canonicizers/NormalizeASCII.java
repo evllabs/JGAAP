@@ -27,8 +27,6 @@ import com.jgaap.generics.Canonicizer;
  */
 public class NormalizeASCII extends Canonicizer {
 
-    private String punc = ",.?!\"\'`;:-()&$"; // Characters which will be
-
     @Override
     public String displayName(){
     	return "Normalize to ASCII";

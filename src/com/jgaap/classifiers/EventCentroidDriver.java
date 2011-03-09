@@ -89,7 +89,7 @@ public class EventCentroidDriver extends NeighborAnalysisDriver {
 			e.printStackTrace();
 		}
 		
-		List<EventSet> knownCentroids = new ArrayList<EventSet>();
+//		List<EventSet> knownCentroids = new ArrayList<EventSet>();
 		
 		for(String author : authorDocumentHistograms.keySet()){
 			try {

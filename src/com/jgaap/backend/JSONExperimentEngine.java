@@ -29,7 +29,7 @@ public class JSONExperimentEngine {
 	public static void runExperiments(FileInputStream file) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(file));
 		JSONObject json = (JSONObject) JSONValue.parse(reader);
-		final String experimentName = (String) json.get("name");
+//		final String experimentName = (String) json.get("name");
 		JSONArray experiments = (JSONArray) json.get("experiments");
 		List<Thread> threads = new ArrayList<Thread>();
 		for (int i = 0; i < experiments.size(); i++) {
@@ -39,7 +39,7 @@ public class JSONExperimentEngine {
 				@Override
 				public void run() {
 					API api = new API();
-					String number = (String) experiment.get("number");
+//					String number = (String) experiment.get("number");
 					String language = (String) experiment.get("language");
 					JSONArray canonicizers = (JSONArray) experiment
 							.get("canonicizers");
