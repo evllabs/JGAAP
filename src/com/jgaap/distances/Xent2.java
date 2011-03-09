@@ -220,17 +220,17 @@ public class Xent2 extends DivergenceFunction {
 			windowSize = e1.size();
 		}
 
-		for (int j = 0; j <= e1.size() - windowSize; j++) {
+//		for (int j = 0; j <= e1.size() - windowSize; j++) {
 			XEDictionary xed = new XEDictionary();
 			EventSet dictionary;
-			dictionary = window(e1, j, windowSize);
+			dictionary = window(e1, 0, windowSize);
 			xed.build(dictionary);
 
 			for (int i = 0; i <= e2.size()-windowSize; i++) {
 				totalEntropy += xed.find(window(e2,i,windowSize));
 				trials++;
 			}
-		}
+//		}
 		return totalEntropy / trials;
 	}
 
