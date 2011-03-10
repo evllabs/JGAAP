@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.jgaap.classifiers.FrequencyCentroidDriver;
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.generics.*;
 

@@ -35,7 +35,7 @@ public class VectorOutputAnalysis extends AnalysisDriver {
         public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 
         EventHistogram hist = new EventHistogram();
-        String keyFile = jgaapConstants.libDir() + "personae.key";
+        String keyFile = jgaapConstants.libDir() + "l1.key";
             Scanner keyIn = null;
             try {
                 keyIn = new Scanner(new File(keyFile));
