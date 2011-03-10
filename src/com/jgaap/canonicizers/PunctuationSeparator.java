@@ -32,6 +32,14 @@ public class PunctuationSeparator extends Canonicizer {
 		return Color.DARK_GRAY;
 	}
 
+    /**
+     * Separate punctuation by inserting  whitespace into argument
+     *
+     * @param procText
+     *            Array of Characters to be processed
+     * @return Array of Characters after separating punctuation with 
+     *         single space.
+     */
 	@Override
 	public char[] process(char[] procText) {
 		StringBuilder stringBuilder = new StringBuilder();

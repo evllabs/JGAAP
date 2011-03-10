@@ -54,8 +54,8 @@ public class NormalizeWhitespace extends Canonicizer {
      * normalize whitespace in argument
      * 
      * @param procText
-     *            Vector of Characters to be processed
-     * @return Vector of Characters after converting tab, newline, etc. to
+     *            Array of Characters to be processed
+     * @return Array of Characters after converting tab, newline, etc. to
      *         single space.
      */
     @Override

@@ -87,8 +87,8 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
      * @author unknown
      * @since 1.0
      * @param procText
-     *            the text (Vector of Characters) to be processed
-     * @return a Vector of Characters containing the processed text
+     *            the text (array of characters) to be processed
+     * @return an array of characters containing the processed text
      */
 
     abstract public char[] process(char[] procText);

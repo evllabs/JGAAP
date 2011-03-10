@@ -96,8 +96,8 @@ public class AddErrors extends Canonicizer {
 	 * texts.
 	 * 
 	 * @param procText
-	 *            Vector of characters to be processed.
-	 * @return Vector of characters after processing.
+	 *            Array of characters to be processed.
+	 * @return Array of characters after processing.
 	 */
 	public char[] process(char[] procText) {
 

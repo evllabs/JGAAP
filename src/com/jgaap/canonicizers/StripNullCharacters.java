@@ -32,6 +32,15 @@ public class StripNullCharacters extends Canonicizer {
         return Color.BLUE;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    /**
+     * eliminate null characters '\u0000'  in argument.  Should be handled with general
+     *  UTF-16 processing instead
+     *
+     * @param procText
+     *            Array of Characters to be processed
+     * @return Array of Characters with null characters eliminated
+     */
+
     @Override
     public char[] process(char[] procText) {
         StringBuilder stringBuilder = new StringBuilder();

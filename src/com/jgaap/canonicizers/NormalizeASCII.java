@@ -29,7 +29,7 @@ public class NormalizeASCII extends Canonicizer {
 
     @Override
     public String displayName(){
-    	return "Normalize to ASCII";
+    	return "Normalize ASCII";
     }
     
     @Override
