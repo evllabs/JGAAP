@@ -24,16 +24,16 @@ import com.jgaap.generics.EventSet;
  * Extract bigrams of characters as features.
  *
  */
-public class POSBiGramEventDriver extends NGramEventDriver {
+public class POSHexaGramEventDriver extends NGramEventDriver {
 
     @Override
     public String displayName(){
-    	return "POS BiGrams";
+    	return "POS HexaGrams";
     }
     
     @Override
     public String tooltipText(){
-    	return "Part-of- Speech Pairs in Sequence";
+    	return "Part-of- Speech Hexairs in Sequence";
     }
     
     @Override
@@ -47,7 +47,7 @@ public class POSBiGramEventDriver extends NGramEventDriver {
     public EventSet createEventSet(Document ds) {
         theDriver = new NGramEventDriver();
         // default value of N is 2 already
-        theDriver.setParameter("N", "2");
+        theDriver.setParameter("N", "6");
         theDriver.setParameter("underlyingEvents", "PartOfSpeechEventDriver");
         return theDriver.createEventSet(ds);
     }
