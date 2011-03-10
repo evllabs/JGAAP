@@ -54,8 +54,8 @@ public class StripNumbers extends Canonicizer {
 	 * strip numbers in argument
 	 * 
 	 * @param procText
-	 *            Vector of Characters to be processed
-	 * @return Vector of Characters after converting digit string to '#'
+	 *            Array of Characters to be processed
+	 * @return Array of Characters after converting digit string to '#'
 	 * 
 	 */
 	@Override

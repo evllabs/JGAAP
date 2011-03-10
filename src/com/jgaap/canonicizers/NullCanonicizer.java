@@ -50,8 +50,8 @@ public class NullCanonicizer extends Canonicizer {
 	/**
 	 * Does not affect its input in any way, but prints out the texts
 	 * to standard output.
-	 * @param procText Vector of characters to be processed.
-	 * @return Vector of processed characters 
+	 * @param procText Array of characters to be processed.
+	 * @return Array of processed characters 
 	 */
 
     public char[] process(char[] procText) {

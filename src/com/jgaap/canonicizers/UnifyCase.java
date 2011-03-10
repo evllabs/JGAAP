@@ -54,8 +54,8 @@ public class UnifyCase extends Canonicizer {
      * unify (smash) case
      * 
      * @param procText
-     *            Vector of Characters to be processed
-     * @return Vector of Characters after conversion to lower case
+     *            Array of Characters to be processed
+     * @return Array of Characters after conversion to lower case
      */
     @Override
     public char[] process(char[] procText) {

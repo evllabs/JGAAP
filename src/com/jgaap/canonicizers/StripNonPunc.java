@@ -56,8 +56,8 @@ public class StripNonPunc extends Canonicizer {
 	 * Strip non-punctuation from input characters
 	 * 
 	 * @param procText
-	 *            Vector of characters to be processed.
-	 * @return Vector of processed characters.
+	 *            Array of characters to be processed.
+	 * @return Array of processed characters.
 	 */
 	@Override
 	public char[] process(char[] procText) {
