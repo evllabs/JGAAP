@@ -12,6 +12,7 @@ import org.junit.Test;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventDriver;
 
 /**
  * @author Patrick Juola
@@ -24,7 +25,7 @@ public class SyllableTransitionEventDriverTest {
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() {
-		/* test case 1 -- no punctuation */
+		/* test case 1 -- bigrams */
 		Document doc = new Document();
 		doc.readStringText(
 			"cat " +	// 1 syllable
@@ -90,6 +91,43 @@ public class SyllableTransitionEventDriverTest {
 
 		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
-	}
 
+		/* test case 2 -- trigrams */
+		EventDriver ed = new SyllableTransitionEventDriver();
+		ed.setParameter("N","3"); 
+		sampleEventSet = ed.createEventSet(doc);
+
+		expectedEventSet = new EventSet();
+		tmp = new Vector<Event>();
+
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-2"));
+		tmp.add(new Event("1-2-2"));
+		tmp.add(new Event("2-2-2"));
+		tmp.add(new Event("2-2-2"));
+		tmp.add(new Event("2-2-3"));
+		tmp.add(new Event("2-3-1"));
+		tmp.add(new Event("3-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-1"));
+		tmp.add(new Event("1-1-2"));
+
+		expectedEventSet.addEvents(tmp);
+		assertTrue(expectedEventSet.equals(sampleEventSet));
+	}
 }
