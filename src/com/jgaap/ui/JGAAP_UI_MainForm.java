@@ -31,6 +31,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 import javax.swing.tree.TreePath;
 import javax.swing.table.DefaultTableModel;
+import java.awt.BorderLayout;     
+//import java.awt.event.*;
 
 import com.jgaap.generics.*;
 import com.jgaap.backend.API;
@@ -678,17 +680,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         jScrollPane10.setViewportView(EventSetsPanel_SelectedEventSetListBox);
 
         EventSetsPanel_ParametersPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout EventSetsPanel_ParametersPanelLayout = new javax.swing.GroupLayout(EventSetsPanel_ParametersPanel);
-        EventSetsPanel_ParametersPanel.setLayout(EventSetsPanel_ParametersPanelLayout);
-        EventSetsPanel_ParametersPanelLayout.setHorizontalGroup(
-            EventSetsPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
-        EventSetsPanel_ParametersPanelLayout.setVerticalGroup(
-            EventSetsPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
-        );
 
         EventSetsPanel_EventSetCrossSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
 
@@ -1905,6 +1896,51 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         {
             EventSetsListBox_Model.addElement(EventDriverMasterList.get(i).displayName());
         }
+        
+        EventSetsPanel_EventSetListBox.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e)
+            {
+                GetEventSetPanel();
+            }
+        });
+}
+    
+    private void GetEventSetPanel() {
+    	/*EventSetsPanel_ParametersPanel = new JPanel();
+    	EventSetsPanel_ParametersPanel = EventDriverMasterList.get(1).getGUI();
+    	EventSetsPanel_ParametersPanel.repaint();
+    	EventSetsPanel_ParametersPanel.revalidate();*/
+    	
+    	/*EventSetsPanel_ParametersPanel = new JPanel( new BorderLayout() );
+    	JButton button1 = new JButton("Button Text");
+    	EventSetsPanel_ParametersPanel.add(button1, BorderLayout.CENTER);
+    	EventSetsPanel_ParametersPanel.revalidate();
+    	EventSetsPanel_ParametersPanel.repaint();*/
+    	
+    	/*javax.swing.GroupLayout EventSetsPanel_ParametersPanelLayout = new javax.swing.GroupLayout(EventSetsPanel_ParametersPanel);
+        EventSetsPanel_ParametersPanel.setLayout(EventSetsPanel_ParametersPanelLayout);
+        EventSetsPanel_ParametersPanelLayout.setHorizontalGroup(
+            EventSetsPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EventSetsPanel_ParametersPanelLayout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addComponent(jLabel11)
+                .addContainerGap(160, Short.MAX_VALUE))
+        );
+        EventSetsPanel_ParametersPanelLayout.setVerticalGroup(
+            EventSetsPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EventSetsPanel_ParametersPanelLayout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addComponent(jLabel11)
+                .addContainerGap(214, Short.MAX_VALUE))
+        );*/
+    	
+    	//EventSetsPanel_ParametersPanel = new JPanel();
+    	EventSetsPanel_ParametersPanel.removeAll();
+    	EventSetsPanel_ParametersPanel.setLayout(EventDriverMasterList.get(EventSetsPanel_EventSetListBox.getSelectedIndex()).getGUILayout(EventSetsPanel_ParametersPanel));
+    	
+    	//EventSetsPanel_ParametersPanel.revalidate();
+    	//EventSetsPanel_ParametersPanel.repaint();
+    	
 }
 
     private void SetUnknownDocumentColumns() {
