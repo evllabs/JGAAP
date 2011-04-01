@@ -21,6 +21,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 /**
  * This event set is all "words" (NaiveWordEventDriver) beginning with vowels
@@ -45,6 +47,11 @@ public class VowelInitialWordEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	/** Underlying EventDriver from which Events are drawn. */
 	public EventDriver underlyingevents = new NaiveWordEventDriver();

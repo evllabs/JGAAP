@@ -27,6 +27,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 /**
  * Transforms Event strings for other Event Strings in generation. Creates an
@@ -50,6 +52,11 @@ public class TransformationEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return false;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	private EventDriver underlyingEvents;
 

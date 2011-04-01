@@ -21,6 +21,8 @@ import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
 
 import com.knowledgebooks.nlp.fasttag.*;
+import javax.swing.*;
+
 
 /*
  * @author Darren Vescovi
@@ -297,6 +299,12 @@ public class DefinitionsEventDriver extends EventDriver {
 		// TODO Auto-generated method stub
 		return "Replaces words with their definitions";
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
+
 
 }
 

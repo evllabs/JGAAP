@@ -24,6 +24,8 @@ import com.jgaap.generics.NumericEventDriver;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
 import com.jgaap.jgaapConstants;
+import javax.swing.*;
+
 
 /**
  * Truncates Events to shorter strings -- i.e. "hello" becomes "he" Useful for
@@ -45,6 +47,11 @@ public class TruncatedEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return false;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	private EventDriver underlyingEvents;
 	private int length;

@@ -22,6 +22,8 @@ import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventHistogram;
+import javax.swing.*;
+
 
 /**
  * This event set is all events occurring only once of an underlying event model
@@ -46,6 +48,11 @@ public class RareWordsEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	/** Underlying EventDriver from which Events are drawn. */
 	public EventDriver underlyingevents = new NaiveWordEventDriver();

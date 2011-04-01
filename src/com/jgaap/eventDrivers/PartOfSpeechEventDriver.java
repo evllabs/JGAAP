@@ -6,6 +6,8 @@ import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 import com.knowledgebooks.nlp.fasttag.*;
 import java.util.*;
+import javax.swing.*;
+
 
 /**
  * This changes words into their parts of speech in a document. This does not
@@ -30,6 +32,11 @@ public class PartOfSpeechEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	@Override
 	public EventSet createEventSet(Document doc) {

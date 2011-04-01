@@ -7,6 +7,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 public class SentenceLengthWithWordsEventDriver extends EventDriver {
 	
@@ -24,6 +26,11 @@ public class SentenceLengthWithWordsEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 	
 	@Override
 	public EventSet createEventSet(Document doc) {

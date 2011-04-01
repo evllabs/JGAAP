@@ -18,6 +18,8 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.generics.*;
+import javax.swing.*;
+
 
 /**
  * This event set is the number of syllables in a given word, defined (naively)
@@ -41,6 +43,11 @@ public class WordSyllablesEventDriver extends NumericEventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	public EventDriver wordtokenizer = new NaiveWordEventDriver();
 

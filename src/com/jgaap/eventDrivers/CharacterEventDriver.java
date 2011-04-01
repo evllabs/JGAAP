@@ -21,6 +21,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 /**
  * This event set is all individual characters, as determined by the
@@ -48,6 +50,10 @@ public class CharacterEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	/**
 	 * Create sequence of characters from document set.
