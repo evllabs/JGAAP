@@ -21,6 +21,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 /** 
  * Extract whitespace-separated words (including punctuation) as features.
@@ -40,6 +42,11 @@ public class NaiveWordEventDriver extends EventDriver {
     @Override
     public boolean showInGUI(){
     	return true;
+    }
+
+    @Override
+    public GroupLayout getGUILayout(JPanel panel){
+    	return null;
     }
 
  

@@ -21,6 +21,8 @@ import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 /**
  * Uses function words as defined by Mosteller-Wallace in their Federalist
@@ -42,6 +44,11 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     @Override
     public boolean showInGUI(){
     	return true;
+    }
+
+    @Override
+    public GroupLayout getGUILayout(JPanel panel){
+    	return null;
     }
 
     /** Static field for efficiency */

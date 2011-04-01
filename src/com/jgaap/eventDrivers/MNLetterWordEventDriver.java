@@ -21,6 +21,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 /**
  * This event set is all "words" (NaiveWordEventDriver) with M <= length <= N (M
@@ -44,6 +46,11 @@ public class MNLetterWordEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return false;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	/** Underlying EventDriver from which Events are drawn. */
 	public EventDriver underlyingevents = new NaiveWordEventDriver();

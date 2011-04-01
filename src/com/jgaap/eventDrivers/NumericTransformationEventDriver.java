@@ -27,6 +27,8 @@ import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
+import javax.swing.*;
+
 
 /**
  * TransformationEventSet where transformed events are numeric, such as
@@ -54,6 +56,11 @@ public class NumericTransformationEventDriver extends NumericEventDriver {
 	public boolean showInGUI() {
 		return false;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	private EventDriver underlyingEvents;
 

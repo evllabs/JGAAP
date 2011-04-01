@@ -27,6 +27,7 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
 
 /**
  * Filters all Event strings against named file and removes named events.
@@ -50,6 +51,12 @@ public class BlackListEventDriver extends EventDriver {
     public boolean showInGUI(){
     	return false;
     }
+
+    @Override
+    public GroupLayout getGUILayout(JPanel panel){
+    	return null;
+    }
+
 
     private EventDriver underlyingEvents;
 

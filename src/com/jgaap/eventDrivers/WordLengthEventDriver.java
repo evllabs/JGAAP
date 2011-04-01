@@ -18,6 +18,8 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.generics.*;
+import javax.swing.*;
+
 
 /**
  * Extract number of characters in each word as features.
@@ -40,6 +42,11 @@ public class WordLengthEventDriver extends NumericEventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	private EventDriver wordTokenizer;
 

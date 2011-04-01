@@ -21,6 +21,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.jgaapConstants;
+import javax.swing.*;
+
 
 /**
  * Truncate lexical frequency for discrete binning 
@@ -41,6 +43,11 @@ public class TruncatedNamingTimeEventDriver extends EventDriver {
     @Override
     public boolean showInGUI(){
     	return jgaapConstants.globalParams.getParameter("language").equals("english");
+    }
+
+    @Override
+    public GroupLayout getGUILayout(JPanel panel){
+    	return null;
     }
 
     private EventDriver theDriver;

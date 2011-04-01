@@ -7,6 +7,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 public class CoarsePOSTagger extends EventDriver {
 
@@ -92,5 +94,10 @@ public class CoarsePOSTagger extends EventDriver {
 		}
 		return eventSet;
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 }

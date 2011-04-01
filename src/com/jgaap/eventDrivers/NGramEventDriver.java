@@ -21,6 +21,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 /**
  * This event set is N-grams (parameterized as N) of an underlying event model
@@ -42,6 +44,11 @@ public class NGramEventDriver extends EventDriver {
     @Override
     public boolean showInGUI(){
     	return false;
+    }
+
+    @Override
+    public GroupLayout getGUILayout(JPanel panel){
+    	return null;
     }
 
   /** Underlying EventSets from which Events are drawn. */

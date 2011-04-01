@@ -21,6 +21,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 /**
  * Appends two or more underlying EventSets (parameterized as
@@ -49,6 +51,11 @@ public class SimpleAppendEventDriver extends EventDriver {
     @Override
     public boolean showInGUI(){
     	return false;
+    }
+
+    @Override
+    public GroupLayout getGUILayout(JPanel panel){
+    	return null;
     }
 
   /** Underlying EventSets from which Events are drawn. */

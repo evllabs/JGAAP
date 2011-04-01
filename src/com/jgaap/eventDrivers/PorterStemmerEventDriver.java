@@ -22,6 +22,8 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
+import javax.swing.*;
+
 
 /**
  * Applies Porter's stemming algorithm (the Porter Stemmer) to produce just the
@@ -57,6 +59,11 @@ public class PorterStemmerEventDriver extends EventDriver {
 		return jgaapConstants.globalParams.getParameter("language").equals(
 				"english");
 	}
+
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            return null;
+        }
 
 	// Peter - Changed Jan 21 2010
 	// This was causing havoc with the autopopulator
