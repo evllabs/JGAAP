@@ -38,7 +38,7 @@ public class POSHeptaGramEventDriver extends NGramEventDriver {
     
     @Override
     public boolean showInGUI(){
-    	return true;
+    	return false;
     }
 
   private NGramEventDriver theDriver;

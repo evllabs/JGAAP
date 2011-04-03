@@ -50,7 +50,8 @@ public class VowelInitialWordEventDriver extends EventDriver {
 
         @Override
         public GroupLayout getGUILayout(JPanel panel){
-            return null;
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+            return layout;
         }
 
 	/** Underlying EventDriver from which Events are drawn. */

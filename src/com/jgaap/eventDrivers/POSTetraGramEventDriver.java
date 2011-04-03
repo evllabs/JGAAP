@@ -38,7 +38,7 @@ public class POSTetraGramEventDriver extends NGramEventDriver {
     
     @Override
     public boolean showInGUI(){
-    	return true;
+    	return false;
     }
 
   private NGramEventDriver theDriver;

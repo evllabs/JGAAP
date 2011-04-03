@@ -41,7 +41,7 @@ public class V24LetterWordEventDriver extends MNLetterWordEventDriver {
     
     @Override
     public boolean showInGUI(){
-    	return true;
+    	return false;
     }
 
     private MNLetterWordEventDriver theDriver;
