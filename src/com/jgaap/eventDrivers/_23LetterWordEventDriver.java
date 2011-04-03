@@ -43,7 +43,7 @@ public class _23LetterWordEventDriver extends MNLetterWordEventDriver {
     
     @Override
     public boolean showInGUI(){
-    	return true;
+    	return false;
     }
 
     private MNLetterWordEventDriver theDriver;

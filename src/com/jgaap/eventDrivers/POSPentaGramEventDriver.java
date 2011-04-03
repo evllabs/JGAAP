@@ -38,7 +38,7 @@ public class POSPentaGramEventDriver extends NGramEventDriver {
     
     @Override
     public boolean showInGUI(){
-    	return true;
+    	return false;
     }
 
   private NGramEventDriver theDriver;

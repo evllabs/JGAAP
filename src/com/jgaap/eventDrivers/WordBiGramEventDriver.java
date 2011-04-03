@@ -39,7 +39,7 @@ public class WordBiGramEventDriver extends NGramEventDriver {
 
     @Override
     public boolean showInGUI(){
-        return true;
+        return false;
     }
 
 

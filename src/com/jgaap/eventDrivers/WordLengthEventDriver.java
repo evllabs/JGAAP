@@ -45,7 +45,8 @@ public class WordLengthEventDriver extends NumericEventDriver {
 
         @Override
         public GroupLayout getGUILayout(JPanel panel){
-            return null;
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+            return layout;
         }
 
 	private EventDriver wordTokenizer;

@@ -46,10 +46,11 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     	return true;
     }
 
-    @Override
-    public GroupLayout getGUILayout(JPanel panel){
-    	return null;
-    }
+        @Override
+        public GroupLayout getGUILayout(JPanel panel){
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+            return layout;
+        }
 
     /** Static field for efficiency */
     // private static EventDriver e;

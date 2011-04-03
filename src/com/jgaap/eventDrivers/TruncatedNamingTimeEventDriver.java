@@ -47,7 +47,8 @@ public class TruncatedNamingTimeEventDriver extends EventDriver {
 
     @Override
     public GroupLayout getGUILayout(JPanel panel){
-    	return null;
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+        return layout;
     }
 
     private EventDriver theDriver;

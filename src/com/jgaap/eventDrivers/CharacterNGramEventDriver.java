@@ -22,13 +22,10 @@ import com.jgaap.generics.EventSet;
 import javax.swing.*;
 
 /**
- * Extract syllable bigrams as features.  (Suggested by Richard Forsyth,
- * David I Holmes, and Emily K Tse, in 1998 tech report "Cicero, Sigonio and
- * Burrows: Investigating the Authenticity of the 'Consolatio'"
- * @author Patrick Juola
+ * Extract character N-grams as features.
  *
  */
-public class SyllableTransitionEventDriver extends NGramEventDriver {
+public class CharacterNGramEventDriver extends NGramEventDriver {
 
     JLabel NLabel = new JLabel();
     JComboBox NBox = new JComboBox();
@@ -36,22 +33,22 @@ public class SyllableTransitionEventDriver extends NGramEventDriver {
 
     @Override
     public String displayName(){
-        return "Syllable Transitions";
+    	return "Character NGrams";
     }
 
     @Override
     public String tooltipText(){
-        return "NGrams of Syllable Numbers";
+    	return "Groups of N Successive Characters";
     }
 
     @Override
     public boolean showInGUI(){
-        return true;
+    	return true;
     }
 
     @Override
     public GroupLayout getGUILayout(JPanel panel){
-
+    	
     	NLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     	NLabel.setText("N");
 
@@ -92,15 +89,15 @@ public class SyllableTransitionEventDriver extends NGramEventDriver {
 
     private NGramEventDriver theDriver;
 
+
     @Override
     public EventSet createEventSet(Document ds) {
         theDriver = new NGramEventDriver();
-        // default value of N is 2 already
-	theDriver.setParameter("N",LocalN);
-        theDriver.setParameter("underlyingEvents", "WordSyllablesEventDriver");
+        theDriver.setParameter("N", LocalN);
+        theDriver.setParameter("underlyingEvents", "CharacterEventDriver");
         theDriver.setParameter("opendelim", "null");
         theDriver.setParameter("closedelim", "null");
-
+        theDriver.setParameter("separator", "null");
         return theDriver.createEventSet(ds);
     }
 }

@@ -645,16 +645,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         EventSetsPanel_NotesButton.setLabel("Notes");
 
-        jLabel6.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel6.setText("Event Driver");
 
-        jLabel7.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel7.setText("Parameters");
 
         jLabel8.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel8.setText("Event Driver Description");
 
-        jLabel9.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel9.setText("Selected ED");
 
         EventSetsPanel_EventSetListBox.setModel(EventSetsListBox_Model);
@@ -788,10 +788,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel15.setText("Event Culling");
 
-        jLabel16.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel16.setText("Parameters");
 
-        jLabel17.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel17.setText("Selected EC");
 
         EventCullingPanel_NotesButton.setLabel("Notes");
@@ -930,10 +930,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel20.setText("Analysis Methods");
 
-        jLabel21.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel21.setText("Parameters");
 
-        jLabel22.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel22.setText("Selected AM");
 
         AnalysisMethodPanel_NotesButton.setLabel("Notes");
@@ -1875,7 +1875,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             EventSetsListBox_Model.addElement(EventDriverMasterList.get(i).displayName());
         }
         
-        EventSetsPanel_EventSetListBox.addMouseListener(new MouseAdapter() {
+        EventSetsPanel_SelectedEventSetListBox.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e)
             {
                 GetEventSetPanel();
@@ -1914,7 +1914,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     	
     	//EventSetsPanel_ParametersPanel = new JPanel();
     	EventSetsPanel_ParametersPanel.removeAll();
-    	EventSetsPanel_ParametersPanel.setLayout(EventDriverMasterList.get(EventSetsPanel_EventSetListBox.getSelectedIndex()).getGUILayout(EventSetsPanel_ParametersPanel));
+    	EventSetsPanel_ParametersPanel.setLayout(SelectedEventDriverList.get(EventSetsPanel_SelectedEventSetListBox.getSelectedIndex()).getGUILayout(EventSetsPanel_ParametersPanel));
     	
     	//EventSetsPanel_ParametersPanel.revalidate();
     	//EventSetsPanel_ParametersPanel.repaint();
