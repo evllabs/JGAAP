@@ -152,7 +152,7 @@ public class MarkovChainAnalysis extends AnalysisDriver{
 							//use the negative log(base e) sum since multiplication will
 							//almost always result in a probability of 0;\
 							Double tmp = probMatrix.get(event1).get(event2);
-							System.out.println(tmp);
+							//System.out.println(tmp);
 							prob -= Math.log(tmp);
 							//System.out.println(prob+"-----------");
 						}
