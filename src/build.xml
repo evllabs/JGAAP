@@ -71,7 +71,11 @@
 			<include name="com/jgaap/languages/*.java"/>
 			<include name="com/jgaap/ui/*.java"/>
 		</javac>
-		
+		<copy todir="../bin">
+		  <fileset dir="../src">
+		    <include name="com/jgaap/ui/resources/*"/>
+		  </fileset>
+</copy>
 	</target>
 	
 	<target name="compile-tests">
