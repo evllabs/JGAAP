@@ -18,7 +18,6 @@ public class SyllableTransitionEventDriver extends NGramEventDriver {
 
     JLabel NLabel = new JLabel();
     JComboBox NBox = new JComboBox();
-    int LocalN = 2;
 
     @Override
     public String displayName(){
@@ -42,7 +41,12 @@ public class SyllableTransitionEventDriver extends NGramEventDriver {
     	NLabel.setText("N");
 
     	NBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50" }));
-        NBox.setSelectedIndex(LocalN-1);
+        String temp = this.getParameter("N");
+        if (temp.equals(""))
+        {
+            this.setParameter("N", 2);
+        }
+        NBox.setSelectedIndex(Integer.parseInt(this.getParameter("N")) - 1);
         NBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NBoxActionPerformed(evt);
@@ -73,7 +77,7 @@ public class SyllableTransitionEventDriver extends NGramEventDriver {
     }
 
     private void NBoxActionPerformed(java.awt.event.ActionEvent evt) {
-        LocalN = NBox.getSelectedIndex()+1;
+        this.setParameter("N", NBox.getSelectedIndex()+1);
     }
 
     private NGramEventDriver theDriver;
@@ -82,7 +86,12 @@ public class SyllableTransitionEventDriver extends NGramEventDriver {
     public EventSet createEventSet(Document ds) {
         theDriver = new NGramEventDriver();
         // default value of N is 2 already
-	theDriver.setParameter("N",Integer.toString(LocalN));
+	String temp = this.getParameter("N");
+        if (temp.equals(""))
+        {
+            this.setParameter("N", 2);
+        }
+        theDriver.setParameter("N",  this.getParameter("N"));
         theDriver.setParameter("underlyingEvents", "WordSyllablesEventDriver");
         theDriver.setParameter("opendelim", "null");
         theDriver.setParameter("closedelim", "null");
