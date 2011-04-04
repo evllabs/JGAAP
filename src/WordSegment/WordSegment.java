@@ -1,3 +1,4 @@
+// Copyright (c) 2009, 2011 by Patrick Juola.   All rights reserved.  All unauthorized use prohibited.  
 package WordSegment;
 
 import java.io.*;
