@@ -79,7 +79,7 @@ public class CharacterNGramEventDriver extends NGramEventDriver {
     @Override
     public EventSet createEventSet(Document ds) {
         theDriver = new NGramEventDriver();
-        theDriver.setParameter("N", LocalN);
+        theDriver.setParameter("N", Integer.toString(LocalN));
         theDriver.setParameter("underlyingEvents", "CharacterEventDriver");
         theDriver.setParameter("opendelim", "null");
         theDriver.setParameter("closedelim", "null");

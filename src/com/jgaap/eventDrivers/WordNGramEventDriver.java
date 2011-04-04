@@ -79,7 +79,7 @@ public class WordNGramEventDriver extends NGramEventDriver {
     @Override
     public EventSet createEventSet(Document ds) {
         theDriver = new NGramEventDriver();
-        theDriver.setParameter("N", LocalN);
+        theDriver.setParameter("N", Integer.toString(LocalN));
         return theDriver.createEventSet(ds);
     }
 }
