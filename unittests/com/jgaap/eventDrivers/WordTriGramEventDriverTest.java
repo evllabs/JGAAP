@@ -56,8 +56,8 @@ public class WordTriGramEventDriverTest {
 		tmp.add(new Event("(sure)-(to)-(go.)"));
 
 		expectedEventSet.addEvents(tmp);
-System.out.println(expectedEventSet.toString());
-System.out.println(sampleEventSet.toString());
+// System.out.println(expectedEventSet.toString());
+// System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		
 	}

@@ -91,6 +91,8 @@ public class SyllableTransitionEventDriverTest {
 		tmp.add(new Event("1-2"));
 
 		expectedEventSet.addEvents(tmp);
+		System.out.println(expectedEventSet.toString());
+		System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 
 		/* test case 2 -- trigrams */
@@ -129,6 +131,8 @@ public class SyllableTransitionEventDriverTest {
 		tmp.add(new Event("1-1-2"));
 
 		expectedEventSet.addEvents(tmp);
+		System.out.println(expectedEventSet.toString());
+		System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 }
