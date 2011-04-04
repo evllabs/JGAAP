@@ -1,3 +1,4 @@
+// Copyright (c) 2009, 2011 by Patrick Juola.   All rights reserved.  All unauthorized use prohibited.  
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

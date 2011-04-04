@@ -1,3 +1,4 @@
+// Copyright (c) 2009, 2011 by Patrick Juola.   All rights reserved.  All unauthorized use prohibited.  
 /**
  **/
 import com.jgaap.backend.CSVIO;
