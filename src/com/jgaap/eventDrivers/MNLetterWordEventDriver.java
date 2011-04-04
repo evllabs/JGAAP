@@ -187,6 +187,7 @@ public class MNLetterWordEventDriver extends EventDriver {
 		 */
 		for (Event e : es) {
 			s = e.toString();
+// System.out.println("Event: "+s);
 			if (s.length() >= M && s.length() <= N) {
 				// should we clone event before adding? PMJ
 				newEs.addEvent(e);
