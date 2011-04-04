@@ -79,7 +79,7 @@ public class POSNGramEventDriver extends NGramEventDriver {
     @Override
     public EventSet createEventSet(Document ds) {
         theDriver = new NGramEventDriver();
-        theDriver.setParameter("N", LocalN);
+        theDriver.setParameter("N", Integer.toString(LocalN));
         theDriver.setParameter("underlyingEvents", "PartOfSpeechEventDriver");
         return theDriver.createEventSet(ds);
     }
