@@ -65,7 +65,7 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 		Collections.sort(rawResults);
         for(int i = 0; i < Math.min(k, rawResults.size()); i++) {
             Pair<String, Double> p = rawResults.get(i);
-            ballot.vote(p.getFirst());
+            ballot.vote(p.getFirst(), (1 + Math.pow(10, (-1.0 * (i+1)))));
         }
 
         List<Pair<String, Double>> results = ballot.getResults();
