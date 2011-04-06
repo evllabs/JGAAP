@@ -19,7 +19,7 @@ public abstract class AnalysisDriver extends Parameterizable implements Comparab
 
 	public abstract String tooltipText();
 
-	public String longDescription() { return "No description found."; }
+	public String longDescription() { return tooltipText(); }
 
 	public abstract boolean showInGUI();
 
