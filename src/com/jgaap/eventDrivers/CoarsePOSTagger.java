@@ -75,7 +75,12 @@ public class CoarsePOSTagger extends EventDriver {
 
 	@Override
 	public String tooltipText() {
-		return "A simplification of the normal part of speach tagger";
+		return "A simplification of the normal part of speech tagger";
+	}
+
+	@Override
+	public String longDescription() {
+		return "A simplification of the normal part of speech tagger, neutralizing minor variations such as plural inflection; for example, all noun types (proper/common, singular/plural) are grouped.";
 	}
 
 	@Override

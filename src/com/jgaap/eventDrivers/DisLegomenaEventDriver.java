@@ -31,6 +31,12 @@ public class DisLegomenaEventDriver extends EventDriver {
 	}
 
 	@Override
+	public String longDescription() {
+		return "Words appearing only twice per document";
+	}
+
+
+	@Override
 	public boolean showInGUI() {
 		return false;
 	}

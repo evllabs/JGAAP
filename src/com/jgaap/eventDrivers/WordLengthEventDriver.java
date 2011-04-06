@@ -25,6 +25,12 @@ public class WordLengthEventDriver extends NumericEventDriver {
 	}
 
 	@Override
+	public String longDescription() {
+		return "Lengths (in characters) of Word-Events";
+	}
+
+
+	@Override
 	public boolean showInGUI() {
 		return true;
 	}

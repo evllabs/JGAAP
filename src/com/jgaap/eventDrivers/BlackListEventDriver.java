@@ -32,6 +32,11 @@ public class BlackListEventDriver extends EventDriver {
     public String tooltipText(){
     	return "Filtered Event Set with Named Events Removed";
     }
+
+    @Override
+    public String longDescription(){
+    	return "Filtered Event Set with Named Events Removed";
+    }
     
     @Override
     public boolean showInGUI(){

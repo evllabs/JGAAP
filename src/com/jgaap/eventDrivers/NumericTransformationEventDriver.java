@@ -39,6 +39,12 @@ public class NumericTransformationEventDriver extends NumericEventDriver {
 	}
 
 	@Override
+	public String longDescription() {
+		return "Modified TransformationEventDriver where the results of the transformation are numbers, such as frequencies or reaction times"; 
+	}
+
+
+	@Override
 	public boolean showInGUI() {
 		return false;
 	}

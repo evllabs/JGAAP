@@ -19,7 +19,12 @@ public class POSBiGramEventDriver extends NGramEventDriver {
     
     @Override
     public String tooltipText(){
-    	return "Part-of- Speech Pairs in Sequence";
+    	return "Part-of-Speech Pairs in Sequence";
+    }
+    
+    @Override
+    public String longDescription(){
+    	return "Part-of-Speech pairs in sequence, using a sliding window";
     }
     
     @Override
