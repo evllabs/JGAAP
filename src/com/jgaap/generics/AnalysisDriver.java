@@ -19,6 +19,8 @@ public abstract class AnalysisDriver extends Parameterizable implements Comparab
 
 	public abstract String tooltipText();
 
+	public abstract String longDescription();
+
 	public abstract boolean showInGUI();
 
 

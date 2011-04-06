@@ -16,6 +16,7 @@ public abstract class EventCuller extends Parameterizable implements Comparable<
     public abstract String displayName();
 	public abstract String tooltipText();
 	public abstract boolean showInGUI();
+	public abstract String longDescription();
 
     public int compareTo(EventCuller o){
     	return displayName().compareTo(o.displayName());

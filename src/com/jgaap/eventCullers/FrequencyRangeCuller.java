@@ -83,6 +83,16 @@ public class FrequencyRangeCuller extends EventCuller {
     }
 
     @Override
+    public String longDescription() {
+        return "Analyze only events in a frequency across all documents " +
+          "(e.g., the 5th through 99th most common words in the corpus). " +
+          "The parameter minPos is the first event position to be included e.g. 5th in the example above), " +
+          "while numEvents is the number of events to include (e.g. 95). " +
+          "If minPos is negative, the function returns numEvents events starting minPos positions from the least common event (where minPos = -1 indicates the least common event).";
+    }
+
+
+    @Override
     public boolean showInGUI() {
         return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
