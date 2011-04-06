@@ -23,6 +23,11 @@ public class CharacterTetraGramEventDriver extends NGramEventDriver {
     }
     
     @Override
+    public String longDescription(){
+    	return "Groups of four successive characters (sliding window)";
+    }
+
+    @Override
     public boolean showInGUI(){
     	return false;
     }

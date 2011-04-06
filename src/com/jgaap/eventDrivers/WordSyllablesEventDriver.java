@@ -26,6 +26,11 @@ public class WordSyllablesEventDriver extends NumericEventDriver {
 	}
 
 	@Override
+	public String longDescription() {
+		return "Simplified syllable counter; each vowel cluster is assumed to be one syllable (as in 'beater' 'queue' or 'candelabrae').   Will fail with words like 'sometimes' or 'coopt'.";
+	}
+
+	@Override
 	public boolean showInGUI() {
 		return true;
 	}

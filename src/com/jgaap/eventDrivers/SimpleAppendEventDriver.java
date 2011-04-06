@@ -33,6 +33,11 @@ public class SimpleAppendEventDriver extends EventDriver {
     public String tooltipText(){
     	return "(Should never be user-visible)";
     }
+
+    @Override
+    public String longDescription(){
+    	return "Appends two independent EventSets.";
+    }
     
     @Override
     public boolean showInGUI(){

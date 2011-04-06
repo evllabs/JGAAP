@@ -26,6 +26,11 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     public String tooltipText(){
     	return "Function Words from Mosteller-Wallace";
     }
+
+    @Override
+    public String longDescription(){
+    	return "Function Words from Mosteller-Wallace's study of the Federalist Papers";
+    }
     
     @Override
     public boolean showInGUI(){

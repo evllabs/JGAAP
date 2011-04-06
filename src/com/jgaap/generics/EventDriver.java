@@ -17,7 +17,7 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 
 	public abstract String tooltipText();
 
-        public String longDescription() { return "No description found."; }
+        public String longDescription() { return tooltipText(); }
 
 	public abstract boolean showInGUI();
 

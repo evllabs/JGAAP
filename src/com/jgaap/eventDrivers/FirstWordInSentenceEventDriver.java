@@ -24,6 +24,11 @@ public class FirstWordInSentenceEventDriver extends EventDriver {
 	}
 
 	@Override
+	public String longDescription() {
+		return "First Word In Sentence";
+	}
+
+	@Override
 	public boolean showInGUI() {
 		return true;
 	}

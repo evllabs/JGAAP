@@ -23,6 +23,11 @@ public class CharacterBiGramEventDriver extends NGramEventDriver {
     }
     
     @Override
+    public String longDescription(){
+    	return "Character pairs in sequence (overlapping)";
+    }
+    
+    @Override
     public boolean showInGUI(){
     	return false;
     }

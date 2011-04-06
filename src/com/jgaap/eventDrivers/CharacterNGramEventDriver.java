@@ -23,7 +23,12 @@ public class CharacterNGramEventDriver extends NGramEventDriver {
 
     @Override
     public String tooltipText(){
-    	return "Groups of N Successive Characters";
+    	return "Groups of N successive characters";
+    }
+
+    @Override
+    public String longDescription(){
+    	return "Groups of N successive characters (sliding window); N is given as a parameter.";
     }
 
     @Override

@@ -33,6 +33,12 @@ public class CharacterEventDriver extends EventDriver {
 	}
 
 	@Override
+	public String longDescription() {
+		return "UNICODE Characters";
+	}
+
+
+	@Override
 	public boolean showInGUI() {
 		return true;
 	}

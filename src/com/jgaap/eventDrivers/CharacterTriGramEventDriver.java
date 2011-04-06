@@ -23,6 +23,11 @@ public class CharacterTriGramEventDriver extends NGramEventDriver {
     }
     
     @Override
+    public String longDescription(){
+    	return "Groups of three successive characters (sliding window)";
+    }
+    
+    @Override
     public boolean showInGUI(){
     	return false;
     }

@@ -27,6 +27,11 @@ public class WordNGramEventDriver extends NGramEventDriver {
     }
 
     @Override
+    public String longDescription(){
+    	return "Groups of N successive words (using sliding window)";
+    }
+
+    @Override
     public boolean showInGUI(){
     	return true;
     }

@@ -26,6 +26,11 @@ public class NGramEventDriver extends EventDriver {
     public String tooltipText(){
     	return "(Should never be user-visible)";
     }
+
+    @Override
+    public String longDescription(){
+    	return "Sliding window N-gram (N is a parameter) of underlying events (also a parameter).  Used as a generic N-gram event driver";
+    }
     
     @Override
     public boolean showInGUI(){

@@ -34,6 +34,11 @@ public class MNLetterWordEventDriver extends EventDriver {
 	}
 
 	@Override
+	public String longDescription() {
+		return "Words with between M and N letters (M and N are given as parameters)";
+	}
+
+	@Override
 	public boolean showInGUI() {
 		return true;
 	}

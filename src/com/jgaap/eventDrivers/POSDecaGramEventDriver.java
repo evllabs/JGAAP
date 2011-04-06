@@ -19,7 +19,7 @@ public class POSDecaGramEventDriver extends NGramEventDriver {
     
     @Override
     public String tooltipText(){
-    	return "Part-of- Speech Decairs in Sequence";
+    	return "Part-of-Speech Decairs in Sequence";
     }
     
     @Override
