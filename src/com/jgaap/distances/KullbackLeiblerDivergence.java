@@ -13,7 +13,7 @@ import com.jgaap.generics.EventSet;
  * nearest-neighbor algorithms. This is technically a divergence instead of a
  * "distance" as it is noncommutative.
  * 
- * @author Ryan
+ * @author Michael Ryan
  * @version 3.1
  */
 

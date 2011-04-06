@@ -16,7 +16,11 @@ import com.jgaap.generics.Pair;
  * This class is designe for its side effects only and should never be added to
  * the main branch of jgaap
  * 
+ *
+ * @author Michael Ryan
+ * @since 5.0.0
  */
+
 public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
 
 	public String displayName() {
