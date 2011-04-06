@@ -20,7 +20,11 @@ public class IntervieweeText extends Canonicizer {
 
     @Override
     public String tooltipText() {
-        return "Extract Interviewee Text from LINDSEI L1 Corpus";  //To change body of implemented methods use File | Settings | File Templates.
+        return "Extract Interviewee Text";  //To change body of implemented methods use File | Settings | File Templates.
+    }
+    @Override
+    public String longDescription() {
+        return "Extract Interviewee Text from LINDSEI L1 Corpus";
     }
 
     @Override

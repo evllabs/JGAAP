@@ -15,12 +15,17 @@ public class PunctuationSeparator extends Canonicizer {
 
 	@Override
 	public String displayName() {
-		return "Punctuation Seperater";
+		return "Punctuation Separator";
 	}
 
 	@Override
 	public String tooltipText() {
 		return "Whitespace pad all punctuation";
+	}
+
+	@Override
+	public String longDescription() {
+		return "Put a single space before and after each punctuation mark, to keep them separate from adjacent words.";
 	}
 
 	@Override

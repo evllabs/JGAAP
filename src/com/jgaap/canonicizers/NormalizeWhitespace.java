@@ -25,6 +25,12 @@ public class NormalizeWhitespace extends Canonicizer {
     public String tooltipText(){
     	return "Converts all whitespace characters (newline, space and tab) to a single space.";
     }
+
+    @Override
+    public String longDescription(){
+    	return "Converts all whitespace characters (newline, space and tab) to a single space.  Uses Java Character.isWhitespace for classification.";
+    }
+    
     
     @Override
     public boolean showInGUI(){

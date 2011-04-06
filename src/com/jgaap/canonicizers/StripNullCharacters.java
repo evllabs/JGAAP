@@ -24,6 +24,11 @@ public class StripNullCharacters extends Canonicizer {
     }
 
     @Override
+    public String longDescription() {
+        return "Strip Null (0x00) characters from text"; 
+    }
+
+    @Override
     public boolean showInGUI() {
         return true;  //To change body of implemented methods use File | Settings | File Templates.
     }

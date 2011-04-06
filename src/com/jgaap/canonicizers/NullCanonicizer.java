@@ -22,6 +22,9 @@ public class NullCanonicizer extends Canonicizer {
     public String tooltipText(){
     	return "This preprocessor makes no changes to the text, but prints it to the console.";
     }
+
+    public String tooltipText(){
+    	return "This preprocessor makes no changes to the text, but prints it to the console.  Generally only useful for software testing.";
     
 
     public boolean showInGUI(){
