@@ -17,7 +17,7 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
 
 	public abstract String tooltipText();
 
-        public String longDescription() { return "No description found."; }
+        public String longDescription() { return tooltipText(); }
 
 
 
