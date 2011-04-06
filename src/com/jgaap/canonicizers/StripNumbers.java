@@ -27,6 +27,11 @@ public class StripNumbers extends Canonicizer {
 	}
 
 	@Override
+	public String longDescription() {
+		return "Converts numbers (digit strings) to a single # sign";
+	}
+
+	@Override
 	public boolean showInGUI() {
 		return true;
 	}
