@@ -22,6 +22,12 @@ public class NormalizeASCII extends Canonicizer {
     public String tooltipText(){
     	return "Strip all non-ASCII, non-printing characters from the text.  Whitespace is preserved.";
     }
+
+    @Override
+    public String longDescription(){
+    	return "Strip all non-ASCII, non-printing characters from the text.  Whitespace is preserved.  (Geek content: Whitespace is defined as characters 0x09-0x0D, inclusive, and printable ASCII is characters 0x20-0x7E, inclusive.)";
+    }
+    
     
     @Override
     public boolean showInGUI(){

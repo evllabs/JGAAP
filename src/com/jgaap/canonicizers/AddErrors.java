@@ -31,6 +31,12 @@ public class AddErrors extends Canonicizer {
 	}
 
 	@Override
+	public String longDescription() {
+		return "Add random character replacement errors to the document; useful for evaluating method effectiveness in the presence of OCR-type errors.";
+	}
+
+
+	@Override
 	public boolean showInGUI() {
 		return false;
 	}
