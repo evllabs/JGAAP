@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.jgaap.generics.DistanceFunction;
+/**
+ * @author Michael Ryan
+ * @since 5.0.0
+ */
 
 public class DistanceFunctionFactory {
 

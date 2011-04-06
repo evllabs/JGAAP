@@ -20,6 +20,10 @@ import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
+/**
+ * @author Michael Ryan
+ * @since 5.0.0
+ */
 
 public class JSONExperimentEngine {
 

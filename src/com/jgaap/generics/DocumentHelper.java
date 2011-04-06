@@ -23,6 +23,10 @@ import org.pdfbox.pdmodel.PDDocument;
 import org.pdfbox.util.PDFTextStripper;
 
 import com.jgaap.jgaapConstants;
+/**
+ * @author Michael Ryan
+ * @since 5.0.0
+ */
 
 class DocumentHelper {
 

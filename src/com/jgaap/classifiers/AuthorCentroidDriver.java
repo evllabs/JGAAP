@@ -27,7 +27,11 @@ import com.jgaap.generics.Pair;
  * Assigns authorship labels by using a nearest-neighbor approach on a given
  * distance/divergence function.
  * 
+ *
+ * @author Michael Ryan
+ * @since 5.0.0
  */
+
 public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 
 	public String displayName() {

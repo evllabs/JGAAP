@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.jgaap.generics.AnalysisDriver;
-
+/**
+ * @author Michael Ryan
+ * @since 5.0.0
+ */
 public class AnalysisDriverFactory {
 
 	private Map<String, AnalysisDriver> analysisDrivers;

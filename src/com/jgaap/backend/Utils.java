@@ -18,7 +18,7 @@ import com.jgaap.generics.Document;
  * 
  * Any method added here is required to be static 
  * When using Utils simply reference the method you want do not instance it.
- * @author ryan
+ * @author Michael Ryan
  *
  */
 public class Utils {

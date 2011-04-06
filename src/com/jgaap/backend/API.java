@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.jgaap.classifiers.FrequencyCentroidDriver;
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.generics.*;
 
@@ -19,7 +18,7 @@ import com.jgaap.generics.*;
  * or the com.jgaap.backend.CLI class for a command line example
  * 
  * @author Michael Ryan
- * @since 5.0
+ * @since 5.0.0
  */
 public class API {
 
