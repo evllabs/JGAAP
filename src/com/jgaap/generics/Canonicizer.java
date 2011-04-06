@@ -28,7 +28,8 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
 	 */
 	public abstract String tooltipText();
 
-	public abstract String longDescription();
+        public String longDescription() { return "No description found."; }
+
 
 	/**
 	 * Simple method to indicate whether this Canonicizer should be displayed in the GUI.
