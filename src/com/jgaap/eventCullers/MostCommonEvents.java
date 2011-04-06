@@ -38,6 +38,13 @@ public class MostCommonEvents extends EventCuller {
     }
 
     @Override
+    public String longDescription() {
+        return "Analyze only the N most frequent events across all documents; " +
+               "the value of N is passed as a parameter (numEvents). ";
+    }
+
+
+    @Override
     public boolean showInGUI() {
         return true;
     }

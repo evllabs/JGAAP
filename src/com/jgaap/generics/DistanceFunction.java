@@ -17,6 +17,8 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
 
 	public abstract String tooltipText();
 
+	public abstract String longDescription();
+
 	public abstract boolean showInGUI();
 
     /**

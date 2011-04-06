@@ -57,7 +57,12 @@ public class ExtremeCuller extends EventCuller {
 
 	@Override
 	public String tooltipText() {
-		return "All Events appear in all samples suggested by (Jockers, 2008)";
+		return "All Events that appear in all samples.";
+	}
+
+	@Override
+	public String longDescription() {
+		return "Analyzes only those Events appear in all samples [as suggested by (Jockers, 2008)].";
 	}
 
 	@Override
