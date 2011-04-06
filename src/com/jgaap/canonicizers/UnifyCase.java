@@ -25,6 +25,11 @@ public class UnifyCase extends Canonicizer {
     public String tooltipText(){
     	return "Converts all text to lower case.";
     }
+
+    @Override
+    public String longDescription(){
+    	return "Converts all text to lower case.";
+    }
     
     @Override
     public boolean showInGUI(){

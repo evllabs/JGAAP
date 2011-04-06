@@ -23,6 +23,11 @@ public class StripPunctuation extends Canonicizer {
     public String tooltipText(){
     	return "Strip all punctuation characters from the text.";
     }
+
+    @Override
+    public String longDescription(){
+    	return "Strip all punctuation characters (\""+punc+"\") from the text.";
+    }
     
     @Override
     public boolean showInGUI(){
