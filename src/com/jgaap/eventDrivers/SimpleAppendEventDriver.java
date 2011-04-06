@@ -36,7 +36,7 @@ public class SimpleAppendEventDriver extends EventDriver {
 
     @Override
     public String longDescription(){
-    	return "Appends two independent EventSets.";
+    	return "Appends several independent EventSets. Parameter underlyingEvents is a comma-separated list of EventDrivers.";
     }
     
     @Override
