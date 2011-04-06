@@ -30,7 +30,7 @@ public class StripNonPunc extends Canonicizer {
 
 	@Override
 	public String longDescription() {
-		return "Strip all non-whitespace characters that are not punctuation marks (one of \"+punc+"\" from the text.";
+		return "Strip all non-whitespace characters that are not punctuation marks (one of \""+punc+"\" from the text.";
 	}
 
 	@Override

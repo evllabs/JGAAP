@@ -23,8 +23,9 @@ public class NullCanonicizer extends Canonicizer {
     	return "This preprocessor makes no changes to the text, but prints it to the console.";
     }
 
-    public String tooltipText(){
+    public String longDescription(){
     	return "This preprocessor makes no changes to the text, but prints it to the console.  Generally only useful for software testing.";
+    }
     
 
     public boolean showInGUI(){
