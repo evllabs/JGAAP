@@ -8,10 +8,21 @@ import java.util.*;
 
 public class Ballot<T> {
     TreeMap<T, Double> votes;
+    Comparator comparator;
 
     public Ballot() {
         votes = new TreeMap<T, Double>();
     }
+
+    public Ballot(Comparator comparator) {
+        this.comparator = comparator;
+        votes = new TreeMap<T, Double>();
+    }
+
+    public void setComparator(Comparator comparator) {
+        this.comparator = comparator;
+    }
+
 
     public void vote(T candidate, Double numVotes) {
         if(votes.containsKey(candidate)) {
@@ -30,7 +41,12 @@ public class Ballot<T> {
     public List<Pair<T, Double> > getResults() {
         List<Pair<T, Double> > list = new ArrayList<Pair<T, Double> >();
         for(Map.Entry<T, Double> e : votes.entrySet()) {
-            list.add(new Pair<T, Double>(e.getKey(), e.getValue(), 2));
+            if(comparator == null) {
+                list.add(new Pair<T, Double>(e.getKey(), e.getValue(), 2));
+            }
+            else {
+                list.add(new Pair<T, Double>(e.getKey(), e.getValue(), comparator));
+            }
         }
         Collections.sort(list);
         Collections.reverse(list);
