@@ -267,25 +267,25 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="JGAAP_TabbedPane" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="386" max="-2" attributes="0"/>
                       <Component id="Process_Button" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="JGAAP_TabbedPane" min="-2" pref="877" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="JGAAP_TabbedPane" max="32767" attributes="0"/>
+              <Component id="JGAAP_TabbedPane" pref="560" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="Process_Button" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -313,16 +313,16 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" pref="969" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="852" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="DocumentsPanel_LanguageComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="801" max="32767" attributes="0"/>
+                              <EmptySpace pref="684" max="32767" attributes="0"/>
                               <Component id="DocumentsPanel_NotesButton" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" alignment="0" pref="969" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="852" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -371,7 +371,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="354" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="222" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="DocumentsPanel_RemoveAuthorButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -524,40 +524,41 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jScrollPane3" min="-2" pref="463" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jScrollPane4" pref="280" max="32767" attributes="1"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="CanonicizersPanel_RemoveCanonicizerButton" alignment="0" max="32767" attributes="1"/>
-                                          <Component id="CanonicizersPanel_AddAllCanonicizersButton" alignment="0" max="32767" attributes="1"/>
-                                          <Component id="CanonicizersPanel_AddCanonicizerButton" alignment="0" max="32767" attributes="1"/>
-                                          <Component id="CanonicizersPanel_RemoveAllCanonicizersButton" alignment="1" min="-2" pref="64" max="-2" attributes="1"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane5" min="-2" pref="144" max="-2" attributes="1"/>
-                                  </Group>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="CanonicizersPanel_SetToDocumentButton" alignment="0" max="32767" attributes="1"/>
-                                      <Component id="CanonicizersPanel_SetToAllDocuments" alignment="0" max="32767" attributes="1"/>
-                                      <Component id="CanonicizersPanel_SetToDocumentTypeButton" alignment="0" max="32767" attributes="1"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="787" max="32767" attributes="0"/>
-                              <Component id="CanonicizersPanel_NotesButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="1"/>
-                                  <Component id="jScrollPane8" pref="535" max="32767" attributes="1"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jScrollPane4" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
+                                  <Component id="CanonicizersPanel_SetToDocumentButton" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="CanonicizersPanel_SetToAllDocuments" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="CanonicizersPanel_SetToDocumentTypeButton" alignment="0" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="CanonicizersPanel_NotesButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="CanonicizersPanel_RemoveCanonicizerButton" alignment="0" max="32767" attributes="1"/>
+                                              <Component id="CanonicizersPanel_AddAllCanonicizersButton" alignment="0" max="32767" attributes="1"/>
+                                              <Component id="CanonicizersPanel_AddCanonicizerButton" alignment="0" max="32767" attributes="1"/>
+                                              <Component id="CanonicizersPanel_RemoveAllCanonicizersButton" alignment="1" min="-2" pref="64" max="-2" attributes="1"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jScrollPane5" min="-2" pref="144" max="-2" attributes="1"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane8" min="-2" pref="394" max="-2" attributes="1"/>
+                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="1"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane7" min="-2" pref="428" max="-2" attributes="1"/>
+                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -567,19 +568,19 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="CanonicizersPanel_NotesButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="CanonicizersPanel_NotesButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane3" alignment="0" pref="467" max="32767" attributes="1"/>
+                          <Component id="jScrollPane3" alignment="0" pref="339" max="32767" attributes="1"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jScrollPane5" alignment="0" pref="380" max="32767" attributes="1"/>
-                                  <Component id="jScrollPane4" alignment="0" pref="380" max="32767" attributes="1"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane4" pref="252" max="32767" attributes="1"/>
+                                  <Component id="jScrollPane5" alignment="0" pref="252" max="32767" attributes="1"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="CanonicizersPanel_AddCanonicizerButton" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -588,27 +589,36 @@
                                       <Component id="CanonicizersPanel_AddAllCanonicizersButton" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="CanonicizersPanel_RemoveAllCanonicizersButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="CanonicizersPanel_SetToDocumentButton" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="CanonicizersPanel_SetToDocumentButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="CanonicizersPanel_SetToDocumentTypeButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="CanonicizersPanel_SetToAllDocuments" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="CanonicizersPanel_SetToDocumentTypeButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="CanonicizersPanel_SetToAllDocuments" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jScrollPane7" max="32767" attributes="1"/>
-                          <Component id="jScrollPane8" alignment="1" pref="101" max="32767" attributes="1"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jScrollPane8" max="32767" attributes="1"/>
+                          <Component id="jScrollPane7" alignment="0" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -668,6 +678,7 @@
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CanonicizersPanel_CanonicizerListBoxMouseClicked"/>
                     <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="CanonicizersPanel_CanonicizerListBoxMouseMoved"/>
                   </Events>
                 </Component>
@@ -688,6 +699,7 @@
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CanonicizersPanel_SelectedCanonicizerListBoxMouseClicked"/>
                     <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="CanonicizersPanel_SelectedCanonicizerListBoxMouseMoved"/>
                   </Events>
                 </Component>
@@ -735,6 +747,7 @@
                 <Component class="javax.swing.JTextArea" name="CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                   </Properties>
                 </Component>
@@ -795,6 +808,16 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CanonicizersPanel_SetToAllDocumentsActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="jLabel14">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Note: These buttons are used to add"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel19">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="selected canonacizers to documents."/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="JGAAP_EventSetsPanel">
@@ -812,7 +835,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane6" alignment="0" pref="969" max="32767" attributes="0"/>
+                          <Component id="jScrollPane6" alignment="0" pref="852" max="32767" attributes="0"/>
                           <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -835,7 +858,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="308" max="32767" attributes="0"/>
+                                      <EmptySpace pref="191" max="32767" attributes="0"/>
                                       <Component id="EventSetsPanel_NotesButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="EventSetsPanel_ParametersPanel" max="32767" attributes="0"/>
@@ -863,8 +886,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="EventSetsPanel_ParametersPanel" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane10" pref="467" max="32767" attributes="0"/>
-                          <Component id="jScrollPane9" alignment="0" pref="467" max="32767" attributes="0"/>
+                          <Component id="jScrollPane10" pref="335" max="32767" attributes="0"/>
+                          <Component id="jScrollPane9" alignment="0" pref="335" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="EventSetsPanel_AddEventSetButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -937,6 +960,7 @@
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EventSetsPanel_EventSetListBoxMouseClicked"/>
                     <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="EventSetsPanel_EventSetListBoxMouseMoved"/>
                   </Events>
                 </Component>
@@ -957,6 +981,7 @@
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EventSetsPanel_SelectedEventSetListBoxMouseClicked"/>
                     <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="EventSetsPanel_SelectedEventSetListBoxMouseMoved"/>
                   </Events>
                 </Component>
@@ -974,12 +999,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="489" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="372" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="463" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="331" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1048,7 +1073,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane16" alignment="0" pref="969" max="32767" attributes="0"/>
+                          <Component id="jScrollPane16" alignment="0" pref="852" max="32767" attributes="0"/>
                           <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -1071,7 +1096,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="307" max="32767" attributes="0"/>
+                                      <EmptySpace pref="190" max="32767" attributes="0"/>
                                       <Component id="EventCullingPanel_NotesButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="EventCullingPanel_ParametersPanel" max="32767" attributes="1"/>
@@ -1096,9 +1121,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane14" pref="467" max="32767" attributes="0"/>
+                          <Component id="jScrollPane14" pref="335" max="32767" attributes="0"/>
                           <Component id="EventCullingPanel_ParametersPanel" max="32767" attributes="1"/>
-                          <Component id="jScrollPane15" alignment="0" pref="467" max="32767" attributes="0"/>
+                          <Component id="jScrollPane15" alignment="0" pref="335" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="EventCullingPanel_AddEventCullingButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1164,6 +1189,7 @@
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EventCullingPanel_SelectedEventCullingListBoxMouseClicked"/>
                     <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="EventCullingPanel_SelectedEventCullingListBoxMouseMoved"/>
                   </Events>
                 </Component>
@@ -1213,12 +1239,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="488" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="371" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="463" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="331" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1238,6 +1264,7 @@
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EventCullingPanel_EventCullingListBoxMouseClicked"/>
                     <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="EventCullingPanel_EventCullingListBoxMouseMoved"/>
                   </Events>
                 </Component>
@@ -1283,7 +1310,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane19" alignment="0" pref="969" max="32767" attributes="0"/>
+                          <Component id="jScrollPane19" alignment="0" pref="852" max="32767" attributes="0"/>
                           <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1299,17 +1326,17 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane17" min="0" pref="0" max="32767" attributes="1"/>
                                   <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane17" min="-2" pref="196" max="-2" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" attributes="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="202" max="32767" attributes="0"/>
                                       <Component id="AnalysisMethodPanel_NotesButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="AnalysisMethodPanel_ParametersPanel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="AnalysisMethodPanel_ParametersPanel" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1329,9 +1356,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane17" pref="332" max="32767" attributes="0"/>
                           <Component id="AnalysisMethodPanel_ParametersPanel" max="32767" attributes="0"/>
-                          <Component id="jScrollPane18" pref="464" max="32767" attributes="0"/>
-                          <Component id="jScrollPane17" alignment="0" pref="464" max="32767" attributes="0"/>
+                          <Component id="jScrollPane18" pref="332" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="AnalysisMethodPanel_AddAnalysisMethodButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1397,6 +1424,7 @@
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked"/>
                     <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseMoved"/>
                   </Events>
                 </Component>
@@ -1446,12 +1474,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="494" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="383" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="460" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="328" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1471,6 +1499,7 @@
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AnalysisMethodPanel_AnalysisMethodsListBoxMouseClicked"/>
                     <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="AnalysisMethodPanel_AnalysisMethodsListBoxMouseMoved"/>
                   </Events>
                 </Component>
@@ -1500,28 +1529,6 @@
               </SubComponents>
             </Container>
           </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="JGAAP_ReportingPanel">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Reporting">
-                <Property name="tabTitle" type="java.lang.String" value="Reporting"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="989" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="664" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
         </Container>
       </SubComponents>
     </Container>
