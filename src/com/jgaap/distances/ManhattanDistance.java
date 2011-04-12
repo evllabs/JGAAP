@@ -22,7 +22,7 @@ public class ManhattanDistance extends DistanceFunction {
 	}
 
 	public String tooltipText(){
-	    return "Manhattan Distance (L1 Norm) Nearest Neighbor Classifier";
+	    return "Manhattan Distance (aka taxicab or Minkowski L1 distance)";
 	}
 
 	public boolean showInGUI(){

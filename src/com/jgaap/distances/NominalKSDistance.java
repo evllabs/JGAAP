@@ -17,7 +17,7 @@ public class NominalKSDistance extends DistanceFunction {
 	}
 
 	public String tooltipText(){
-	    return "Nominal Kolmogorov-Smirnov distance";
+	    return "Nominal Kolmogorov-Smirnov distance (also known as the Minkowski L-infinity metric)";
 	}
 
 	public boolean showInGUI(){
