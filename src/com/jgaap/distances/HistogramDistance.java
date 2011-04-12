@@ -21,7 +21,7 @@ public class HistogramDistance extends DistanceFunction {
 	}
 
 	public String tooltipText() {
-		return "Histogram Distance (L2 Norm) Nearest Neighbor Classifier";
+		return "Histogram Distance (also known as Euclidean or L2 Norm)";
 	}
 
 	public boolean showInGUI() {
