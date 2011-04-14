@@ -151,29 +151,31 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         DocumentsPanel_LanguageComboBox = new javax.swing.JComboBox();
         JGAAP_CanonicizerPanel = new javax.swing.JPanel();
-        CanonicizersPanel_NotesButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        CanonicizersPanel_DocumentsTable = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        CanonicizersPanel_CanonicizerListBox = new javax.swing.JList();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        CanonicizersPanel_SelectedCanonicizerListBox = new javax.swing.JList();
-        CanonicizersPanel_AddCanonicizerButton = new javax.swing.JButton();
         CanonicizersPanel_RemoveCanonicizerButton = new javax.swing.JButton();
-        CanonicizersPanel_AddAllCanonicizersButton = new javax.swing.JButton();
-        CanonicizersPanel_RemoveAllCanonicizersButton = new javax.swing.JButton();
-        jScrollPane7 = new javax.swing.JScrollPane();
+        jLabel27 = new javax.swing.JLabel();
+        CanonicizersPanel_NotesButton = new javax.swing.JButton();
+        jScrollPane11 = new javax.swing.JScrollPane();
         CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox = new javax.swing.JTextArea();
-        jScrollPane8 = new javax.swing.JScrollPane();
+        CanonicizersPanel_AddCanonicizerButton = new javax.swing.JButton();
+        CanonicizersPanel_AddAllCanonicizersButton = new javax.swing.JButton();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        CanonicizersPanel_CanonicizerListBox = new javax.swing.JList();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        CanonicizersPanel_SelectedCanonicizerListBox = new javax.swing.JList();
+        CanonicizersPanel_RemoveAllCanonicizersButton = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
+        jScrollPane20 = new javax.swing.JScrollPane();
+        CanonicizersPanel_DocumentsTable = new javax.swing.JTable();
+        jScrollPane21 = new javax.swing.JScrollPane();
         CanonicizersPanel_DocumentsCurrentCanonicizersTextBox = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         CanonicizersPanel_SetToDocumentButton = new javax.swing.JButton();
         CanonicizersPanel_SetToDocumentTypeButton = new javax.swing.JButton();
         CanonicizersPanel_SetToAllDocuments = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
         JGAAP_EventSetsPanel = new javax.swing.JPanel();
         EventSetsPanel_NotesButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -410,14 +412,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_DocumentsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JGAAP_DocumentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
                     .addGroup(JGAAP_DocumentsPanelLayout.createSequentialGroup()
                         .addGroup(JGAAP_DocumentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(DocumentsPanel_LanguageComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 684, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 656, Short.MAX_VALUE)
                         .addComponent(DocumentsPanel_NotesButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JGAAP_DocumentsPanelLayout.createSequentialGroup()
                         .addGroup(JGAAP_DocumentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -456,7 +458,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JGAAP_DocumentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DocumentsPanel_RemoveAuthorButton)
@@ -467,21 +469,37 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         JGAAP_TabbedPane.addTab("Documents", JGAAP_DocumentsPanel);
 
-        CanonicizersPanel_NotesButton.setLabel("Notes");
-        CanonicizersPanel_NotesButton.addActionListener(new java.awt.event.ActionListener() {
+        CanonicizersPanel_RemoveCanonicizerButton.setText("-");
+        CanonicizersPanel_RemoveCanonicizerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CanonicizersPanel_NotesButtonActionPerformed(evt);
+                CanonicizersPanel_RemoveCanonicizerButtonActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
-        jLabel3.setText("Documents");
+        jLabel27.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
+        jLabel27.setText("Documents");
 
-        CanonicizersPanel_DocumentsTable.setModel(DocumentsTable_Model);
-        CanonicizersPanel_DocumentsTable.setColumnSelectionAllowed(true);
-        CanonicizersPanel_DocumentsTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(CanonicizersPanel_DocumentsTable);
-        CanonicizersPanel_DocumentsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        CanonicizersPanel_NotesButton.setLabel("Notes");
+
+        CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setColumns(20);
+        CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setLineWrap(true);
+        CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setRows(5);
+        CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setWrapStyleWord(true);
+        jScrollPane11.setViewportView(CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox);
+
+        CanonicizersPanel_AddCanonicizerButton.setText("+");
+        CanonicizersPanel_AddCanonicizerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CanonicizersPanel_AddCanonicizerButtonActionPerformed(evt);
+            }
+        });
+
+        CanonicizersPanel_AddAllCanonicizersButton.setText("All");
+        CanonicizersPanel_AddAllCanonicizersButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CanonicizersPanel_AddAllCanonicizersButtonActionPerformed(evt);
+            }
+        });
 
         CanonicizersPanel_CanonicizerListBox.setModel(CanonicizerListBox_Model);
         CanonicizersPanel_CanonicizerListBox.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -495,7 +513,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 CanonicizersPanel_CanonicizerListBoxMouseMoved(evt);
             }
         });
-        jScrollPane4.setViewportView(CanonicizersPanel_CanonicizerListBox);
+        jScrollPane12.setViewportView(CanonicizersPanel_CanonicizerListBox);
 
         CanonicizersPanel_SelectedCanonicizerListBox.setModel(SelectedCanonicizerListBox_Model);
         CanonicizersPanel_SelectedCanonicizerListBox.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -509,28 +527,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 CanonicizersPanel_SelectedCanonicizerListBoxMouseMoved(evt);
             }
         });
-        jScrollPane5.setViewportView(CanonicizersPanel_SelectedCanonicizerListBox);
-
-        CanonicizersPanel_AddCanonicizerButton.setLabel("+");
-        CanonicizersPanel_AddCanonicizerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CanonicizersPanel_AddCanonicizerButtonActionPerformed(evt);
-            }
-        });
-
-        CanonicizersPanel_RemoveCanonicizerButton.setLabel("-");
-        CanonicizersPanel_RemoveCanonicizerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CanonicizersPanel_RemoveCanonicizerButtonActionPerformed(evt);
-            }
-        });
-
-        CanonicizersPanel_AddAllCanonicizersButton.setText("All");
-        CanonicizersPanel_AddAllCanonicizersButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CanonicizersPanel_AddAllCanonicizersButtonActionPerformed(evt);
-            }
-        });
+        jScrollPane13.setViewportView(CanonicizersPanel_SelectedCanonicizerListBox);
 
         CanonicizersPanel_RemoveAllCanonicizersButton.setText("Clear");
         CanonicizersPanel_RemoveAllCanonicizersButton.addActionListener(new java.awt.event.ActionListener() {
@@ -539,45 +536,51 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
         });
 
-        CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setColumns(20);
-        CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setLineWrap(true);
-        CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setRows(5);
-        jScrollPane7.setViewportView(CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox);
+        jLabel31.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
+        jLabel31.setText("Document's Current Canonicizers");
+
+        CanonicizersPanel_DocumentsTable.setModel(DocumentsTable_Model);
+        jScrollPane20.setViewportView(CanonicizersPanel_DocumentsTable);
 
         CanonicizersPanel_DocumentsCurrentCanonicizersTextBox.setColumns(20);
+        CanonicizersPanel_DocumentsCurrentCanonicizersTextBox.setLineWrap(true);
         CanonicizersPanel_DocumentsCurrentCanonicizersTextBox.setRows(5);
-        jScrollPane8.setViewportView(CanonicizersPanel_DocumentsCurrentCanonicizersTextBox);
+        CanonicizersPanel_DocumentsCurrentCanonicizersTextBox.setWrapStyleWord(true);
+        jScrollPane21.setViewportView(CanonicizersPanel_DocumentsCurrentCanonicizersTextBox);
 
-        jLabel4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        jLabel4.setText("Document's Current Canonicizers");
-
-        jLabel5.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        jLabel5.setText("Canonicizer Description");
-
-        CanonicizersPanel_SetToDocumentButton.setText("Set to Document");
+        CanonicizersPanel_SetToDocumentButton.setText("Set to Doc");
         CanonicizersPanel_SetToDocumentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CanonicizersPanel_SetToDocumentButtonActionPerformed(evt);
             }
         });
 
-        CanonicizersPanel_SetToDocumentTypeButton.setText("Set to Document Type");
+        CanonicizersPanel_SetToDocumentTypeButton.setText("Set to Doc Type");
         CanonicizersPanel_SetToDocumentTypeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CanonicizersPanel_SetToDocumentTypeButtonActionPerformed(evt);
             }
         });
 
-        CanonicizersPanel_SetToAllDocuments.setText("Set to All Documents");
+        CanonicizersPanel_SetToAllDocuments.setText("Set to All Docs");
         CanonicizersPanel_SetToAllDocuments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CanonicizersPanel_SetToAllDocumentsActionPerformed(evt);
             }
         });
 
-        jLabel14.setText("Note: These buttons are used to add");
+        jLabel29.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
+        jLabel29.setText("Selected C");
 
-        jLabel19.setText("selected canonacizers to documents.");
+        jLabel30.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
+        jLabel30.setText("Canonicizers");
+
+        jLabel32.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
+        jLabel32.setText("Canonicizer Description");
+
+        jLabel33.setText("Note: These buttons are used to add");
+
+        jLabel34.setText("selected canonicizers to documents.");
 
         javax.swing.GroupLayout JGAAP_CanonicizerPanelLayout = new javax.swing.GroupLayout(JGAAP_CanonicizerPanel);
         JGAAP_CanonicizerPanel.setLayout(JGAAP_CanonicizerPanelLayout);
@@ -587,52 +590,60 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, 0, 0, Short.MAX_VALUE)
-                            .addComponent(CanonicizersPanel_SetToDocumentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CanonicizersPanel_SetToAllDocuments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CanonicizersPanel_SetToDocumentTypeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+                                .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel30)
+                                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(CanonicizersPanel_AddCanonicizerButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(CanonicizersPanel_RemoveCanonicizerButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(CanonicizersPanel_AddAllCanonicizersButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(CanonicizersPanel_RemoveAllCanonicizersButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jLabel33)
+                            .addComponent(jLabel34))
+                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CanonicizersPanel_SetToDocumentTypeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(jLabel29)
+                            .addComponent(CanonicizersPanel_SetToDocumentButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(CanonicizersPanel_SetToAllDocuments, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane20, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
+                                .addComponent(CanonicizersPanel_NotesButton))))
+                    .addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane21, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(CanonicizersPanel_NotesButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_CanonicizerPanelLayout.createSequentialGroup()
-                                    .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(CanonicizersPanel_RemoveCanonicizerButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(CanonicizersPanel_AddAllCanonicizersButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(CanonicizersPanel_AddCanonicizerButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(CanonicizersPanel_RemoveAllCanonicizersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel19)))
-                    .addComponent(jLabel3)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_CanonicizerPanelLayout.createSequentialGroup()
-                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))))
+                            .addComponent(jLabel32)
+                            .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         JGAAP_CanonicizerPanelLayout.setVerticalGroup(
             JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_CanonicizerPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(CanonicizersPanel_NotesButton))
+                    .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel27)
+                        .addComponent(jLabel30)
+                        .addComponent(jLabel29))
+                    .addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(CanonicizersPanel_NotesButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+                    .addComponent(jScrollPane20, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
                         .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                             .addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
                                 .addComponent(CanonicizersPanel_AddCanonicizerButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -640,28 +651,33 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(CanonicizersPanel_AddAllCanonicizersButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CanonicizersPanel_RemoveAllCanonicizersButton)
-                                .addGap(142, 142, 142)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CanonicizersPanel_SetToDocumentButton)
-                            .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(CanonicizersPanel_RemoveAllCanonicizersButton))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+                                .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CanonicizersPanel_SetToDocumentButton)))
+                        .addGap(6, 6, 6)
+                        .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel33)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel34)
+                                .addGap(18, 18, 18))
                             .addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
                                 .addComponent(CanonicizersPanel_SetToDocumentTypeButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CanonicizersPanel_SetToAllDocuments))
-                            .addComponent(jLabel19))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(CanonicizersPanel_SetToAllDocuments)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel31)
+                    .addComponent(jLabel32))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane8)
-                    .addComponent(jScrollPane7))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(JGAAP_CanonicizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane21, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         JGAAP_TabbedPane.addTab("Canonicizers", JGAAP_CanonicizerPanel);
@@ -714,15 +730,17 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         EventSetsPanel_ParametersPanel.setLayout(EventSetsPanel_ParametersPanelLayout);
         EventSetsPanel_ParametersPanelLayout.setHorizontalGroup(
             EventSetsPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 372, Short.MAX_VALUE)
+            .addGap(0, 344, Short.MAX_VALUE)
         );
         EventSetsPanel_ParametersPanelLayout.setVerticalGroup(
             EventSetsPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
+            .addGap(0, 346, Short.MAX_VALUE)
         );
 
         EventSetsPanel_EventSetDescriptionTextBox.setColumns(20);
+        EventSetsPanel_EventSetDescriptionTextBox.setLineWrap(true);
         EventSetsPanel_EventSetDescriptionTextBox.setRows(5);
+        EventSetsPanel_EventSetDescriptionTextBox.setWrapStyleWord(true);
         jScrollPane6.setViewportView(EventSetsPanel_EventSetDescriptionTextBox);
 
         EventSetsPanel_AddEventSetButton.setLabel("+");
@@ -760,7 +778,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_EventSetsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JGAAP_EventSetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JGAAP_EventSetsPanelLayout.createSequentialGroup()
                         .addGroup(JGAAP_EventSetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -780,7 +798,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                         .addGroup(JGAAP_EventSetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JGAAP_EventSetsPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                                 .addComponent(EventSetsPanel_NotesButton))
                             .addComponent(EventSetsPanel_ParametersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -799,8 +817,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JGAAP_EventSetsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(EventSetsPanel_ParametersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                     .addGroup(JGAAP_EventSetsPanelLayout.createSequentialGroup()
                         .addComponent(EventSetsPanel_AddEventSetButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -877,11 +895,11 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         EventCullingPanel_ParametersPanel.setLayout(EventCullingPanel_ParametersPanelLayout);
         EventCullingPanel_ParametersPanelLayout.setHorizontalGroup(
             EventCullingPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 371, Short.MAX_VALUE)
+            .addGap(0, 343, Short.MAX_VALUE)
         );
         EventCullingPanel_ParametersPanelLayout.setVerticalGroup(
             EventCullingPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
+            .addGap(0, 346, Short.MAX_VALUE)
         );
 
         EventCullingPanel_EventCullingListBox.setModel(EventCullingListBox_Model);
@@ -899,7 +917,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         jScrollPane15.setViewportView(EventCullingPanel_EventCullingListBox);
 
         EventCullingPanel_EventCullingDescriptionTextbox.setColumns(20);
+        EventCullingPanel_EventCullingDescriptionTextbox.setLineWrap(true);
         EventCullingPanel_EventCullingDescriptionTextbox.setRows(5);
+        EventCullingPanel_EventCullingDescriptionTextbox.setWrapStyleWord(true);
         jScrollPane16.setViewportView(EventCullingPanel_EventCullingDescriptionTextbox);
 
         jLabel18.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
@@ -912,7 +932,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_EventCullingPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JGAAP_EventCullingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JGAAP_EventCullingPanelLayout.createSequentialGroup()
                         .addGroup(JGAAP_EventCullingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -932,7 +952,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                         .addGroup(JGAAP_EventCullingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(JGAAP_EventCullingPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                                 .addComponent(EventCullingPanel_NotesButton))
                             .addComponent(EventCullingPanel_ParametersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -949,9 +969,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     .addComponent(EventCullingPanel_NotesButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JGAAP_EventCullingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                    .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                     .addComponent(EventCullingPanel_ParametersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                     .addGroup(JGAAP_EventCullingPanelLayout.createSequentialGroup()
                         .addComponent(EventCullingPanel_AddEventCullingButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1029,11 +1049,11 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         AnalysisMethodPanel_ParametersPanel.setLayout(AnalysisMethodPanel_ParametersPanelLayout);
         AnalysisMethodPanel_ParametersPanelLayout.setHorizontalGroup(
             AnalysisMethodPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 383, Short.MAX_VALUE)
+            .addGap(0, 355, Short.MAX_VALUE)
         );
         AnalysisMethodPanel_ParametersPanelLayout.setVerticalGroup(
             AnalysisMethodPanel_ParametersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 328, Short.MAX_VALUE)
+            .addGap(0, 343, Short.MAX_VALUE)
         );
 
         AnalysisMethodPanel_AnalysisMethodsListBox.setModel(AnalysisMethodListBox_Model);
@@ -1054,7 +1074,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         jLabel28.setText("Analysis Method Description");
 
         AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setColumns(20);
+        AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setLineWrap(true);
         AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setRows(5);
+        AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setWrapStyleWord(true);
         jScrollPane19.setViewportView(AnalysisMethodPanel_AnalysisMethodDescriptionTextBox);
 
         javax.swing.GroupLayout JGAAP_AnalysisMethodPanelLayout = new javax.swing.GroupLayout(JGAAP_AnalysisMethodPanel);
@@ -1064,7 +1086,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_AnalysisMethodPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JGAAP_AnalysisMethodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
+                    .addComponent(jScrollPane19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
                     .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JGAAP_AnalysisMethodPanelLayout.createSequentialGroup()
                         .addGroup(JGAAP_AnalysisMethodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1084,7 +1106,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                         .addGroup(JGAAP_AnalysisMethodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JGAAP_AnalysisMethodPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel21)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                                 .addComponent(AnalysisMethodPanel_NotesButton))
                             .addComponent(AnalysisMethodPanel_ParametersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -1100,9 +1122,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     .addComponent(AnalysisMethodPanel_NotesButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JGAAP_AnalysisMethodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                    .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                     .addComponent(AnalysisMethodPanel_ParametersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                    .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                     .addGroup(JGAAP_AnalysisMethodPanelLayout.createSequentialGroup()
                         .addComponent(AnalysisMethodPanel_AddAnalysisMethodButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1205,19 +1227,19 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(386, 386, 386)
                         .addComponent(Process_Button))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(JGAAP_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(JGAAP_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 849, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(JGAAP_TabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addComponent(JGAAP_TabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Process_Button)
                 .addContainerGap())
@@ -1388,6 +1410,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }
 }//GEN-LAST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseMoved
 
+    private void AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked
+        AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setText(SelectedAnalysisDriverList.get(AnalysisMethodPanel_SelectedAnalysisMethodsListBox.getSelectedIndex()).longDescription());
+}//GEN-LAST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked
+
     private void EventCullingPanel_EventCullingListBoxMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EventCullingPanel_EventCullingListBoxMouseMoved
         JList theList = (JList) evt.getSource();
         int index = theList.locationToIndex(evt.getPoint());
@@ -1440,6 +1466,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             theList.setToolTipText(text);
         }
 }//GEN-LAST:event_EventCullingPanel_SelectedEventCullingListBoxMouseMoved
+
+    private void EventCullingPanel_SelectedEventCullingListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EventCullingPanel_SelectedEventCullingListBoxMouseClicked
+        EventCullingPanel_EventCullingDescriptionTextbox.setText(SelectedEventCullersList.get(EventCullingPanel_SelectedEventCullingListBox.getSelectedIndex()).longDescription());
+}//GEN-LAST:event_EventCullingPanel_SelectedEventCullingListBoxMouseClicked
 
     private void EventSetsPanel_RemoveAllEventSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EventSetsPanel_RemoveAllEventSetsButtonActionPerformed
         JGAAP_API.removeAllEventDrivers();
@@ -1497,54 +1527,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 }//GEN-LAST:event_EventSetsPanel_EventSetListBoxMouseMoved
 
     private void EventSetsPanel_EventSetListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EventSetsPanel_EventSetListBoxMouseClicked
-         EventSetsPanel_EventSetDescriptionTextBox.setText(EventDriverMasterList.get(EventSetsPanel_EventSetListBox.getSelectedIndex()).longDescription());
+        EventSetsPanel_EventSetDescriptionTextBox.setText(EventDriverMasterList.get(EventSetsPanel_EventSetListBox.getSelectedIndex()).longDescription());
 }//GEN-LAST:event_EventSetsPanel_EventSetListBoxMouseClicked
-
-    private void CanonicizersPanel_SetToAllDocumentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CanonicizersPanel_SetToAllDocumentsActionPerformed
-        JGAAP_API.removeAllCanonicizers();
-        for (int i = 0; i < SelectedCanonicizerList.size(); i++) {
-            try {
-                JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName());
-            } catch (Exception e) {
-            }
-        }
-        UpdateCurrentCanonicizerBox();
-        UpdateDocumentsTable();
-}//GEN-LAST:event_CanonicizersPanel_SetToAllDocumentsActionPerformed
-
-    private void CanonicizersPanel_SetToDocumentTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CanonicizersPanel_SetToDocumentTypeButtonActionPerformed
-        int row = CanonicizersPanel_DocumentsTable.getSelectedRow();
-        if (row >= 0) {
-            DocumentList = JGAAP_API.getDocuments();
-            Document temp = DocumentList.get(row);
-            temp.clearCanonicizers();
-            for (int i = 0; i < SelectedCanonicizerList.size(); i++) {
-                try {
-                    JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName(),temp);
-                } catch (Exception e) {
-                }
-            }
-            UpdateCurrentCanonicizerBox();
-            UpdateDocumentsTable();
-        }
-}//GEN-LAST:event_CanonicizersPanel_SetToDocumentTypeButtonActionPerformed
-
-    private void CanonicizersPanel_SetToDocumentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CanonicizersPanel_SetToDocumentButtonActionPerformed
-        int row = CanonicizersPanel_DocumentsTable.getSelectedRow();
-        if (row >= 0) {
-            DocumentList = JGAAP_API.getDocuments();
-            Document temp = DocumentList.get(row);
-            temp.clearCanonicizers();
-            for (int i = 0; i < SelectedCanonicizerList.size(); i++) {
-                try {
-                    JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName(),temp);
-                } catch (Exception e) {
-                }
-            }
-            UpdateCurrentCanonicizerBox();
-            UpdateDocumentsTable();
-        }
-}//GEN-LAST:event_CanonicizersPanel_SetToDocumentButtonActionPerformed
 
     private void CanonicizersPanel_RemoveAllCanonicizersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CanonicizersPanel_RemoveAllCanonicizersButtonActionPerformed
         SelectedCanonicizerList.clear();
@@ -1608,10 +1592,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setText(CanonicizerMasterList.get(CanonicizersPanel_CanonicizerListBox.getSelectedIndex()).longDescription());
 }//GEN-LAST:event_CanonicizersPanel_CanonicizerListBoxMouseClicked
 
-    private void CanonicizersPanel_NotesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CanonicizersPanel_NotesButtonActionPerformed
-
-    }//GEN-LAST:event_CanonicizersPanel_NotesButtonActionPerformed
-
     private void DocumentsPanel_LanguageComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DocumentsPanel_LanguageComboBoxActionPerformed
         try {
             JGAAP_API.setLanguage(DocumentsPanel_LanguageComboBox.getSelectedItem().toString());
@@ -1633,7 +1613,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         } else {
 
         }
-    }//GEN-LAST:event_DocumentsPanel_RemoveAuthorButtonActionPerformed
+}//GEN-LAST:event_DocumentsPanel_RemoveAuthorButtonActionPerformed
 
     private void DocumentsPanel_EditAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DocumentsPanel_EditAuthorButtonActionPerformed
         TreePath Path = DocumentsPanel_KnownAuthorsTree.getSelectionPath();
@@ -1646,7 +1626,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         } else {
 
         }
-    }//GEN-LAST:event_DocumentsPanel_EditAuthorButtonActionPerformed
+}//GEN-LAST:event_DocumentsPanel_EditAuthorButtonActionPerformed
 
     private void DocumentsPanel_AddAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DocumentsPanel_AddAuthorButtonActionPerformed
         JGAAP_UI_AddAuthorDialog  AddAuthorDialog= new JGAAP_UI_AddAuthorDialog(JGAAP_UI_MainForm.this, true, JGAAP_API,"",filepath);
@@ -1679,13 +1659,51 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }
 }//GEN-LAST:event_DocumentsPanel_AddDocumentsButtonActionPerformed
 
-    private void AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked
-        AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setText(SelectedAnalysisDriverList.get(AnalysisMethodPanel_SelectedAnalysisMethodsListBox.getSelectedIndex()).longDescription());
-    }//GEN-LAST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked
+    private void CanonicizersPanel_SetToDocumentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CanonicizersPanel_SetToDocumentButtonActionPerformed
+        int row = CanonicizersPanel_DocumentsTable.getSelectedRow();
+        if (row >= 0) {
+            DocumentList = JGAAP_API.getDocuments();
+            Document temp = DocumentList.get(row);
+            temp.clearCanonicizers();
+            for (int i = 0; i < SelectedCanonicizerList.size(); i++) {
+                try {
+                    JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName(),temp);
+                } catch (Exception e) {
+                }
+            }
+            UpdateCurrentCanonicizerBox();
+            UpdateDocumentsTable();
+        }
+    }//GEN-LAST:event_CanonicizersPanel_SetToDocumentButtonActionPerformed
 
-    private void EventCullingPanel_SelectedEventCullingListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EventCullingPanel_SelectedEventCullingListBoxMouseClicked
-        EventCullingPanel_EventCullingDescriptionTextbox.setText(SelectedEventCullersList.get(EventCullingPanel_SelectedEventCullingListBox.getSelectedIndex()).longDescription());
-    }//GEN-LAST:event_EventCullingPanel_SelectedEventCullingListBoxMouseClicked
+        private void CanonicizersPanel_SetToDocumentTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CanonicizersPanel_SetToDocumentTypeButtonActionPerformed
+    int row = CanonicizersPanel_DocumentsTable.getSelectedRow();
+        if (row >= 0) {
+            DocumentList = JGAAP_API.getDocuments();
+            Document temp = DocumentList.get(row);
+            temp.clearCanonicizers();
+            for (int i = 0; i < SelectedCanonicizerList.size(); i++) {
+                try {
+                    JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName(),temp);
+                } catch (Exception e) {
+                }
+            }
+            UpdateCurrentCanonicizerBox();
+            UpdateDocumentsTable();
+        }
+        }//GEN-LAST:event_CanonicizersPanel_SetToDocumentTypeButtonActionPerformed
+
+        private void CanonicizersPanel_SetToAllDocumentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CanonicizersPanel_SetToAllDocumentsActionPerformed
+            JGAAP_API.removeAllCanonicizers();
+            for (int i = 0; i < SelectedCanonicizerList.size(); i++) {
+                try {
+                    JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName());
+                } catch (Exception e) {
+                }
+            }
+            UpdateCurrentCanonicizerBox();
+            UpdateDocumentsTable();
+        }//GEN-LAST:event_CanonicizersPanel_SetToAllDocumentsActionPerformed
 
     private void toggleHelpDialog(){
         helpDialog.setVisible(!helpDialog.isVisible());
@@ -2093,12 +2111,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -2107,10 +2123,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2121,6 +2141,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
@@ -2128,12 +2151,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane20;
+    private javax.swing.JScrollPane jScrollPane21;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     // End of variables declaration//GEN-END:variables
 
