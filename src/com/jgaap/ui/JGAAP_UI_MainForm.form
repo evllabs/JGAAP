@@ -198,6 +198,78 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="AAAC Problems"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem A"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem B"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem C"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem D"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem E"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem F"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem G"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem H"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem I"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem J"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem K"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem L"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Problem M"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <Menu class="javax.swing.JMenu" name="jMenu3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Options"/>
@@ -264,28 +336,31 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" max="-2" attributes="0">
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="386" max="-2" attributes="0"/>
-                      <Component id="Process_Button" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="JGAAP_TabbedPane" min="-2" pref="849" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="JGAAP_TabbedPane" alignment="1" pref="849" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="Review_Button" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Next_Button" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <Component id="JGAAP_TabbedPane" pref="575" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Process_Button" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="JGAAP_TabbedPane" min="-2" pref="529" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="Next_Button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Review_Button" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -371,7 +446,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="237" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="191" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="DocumentsPanel_RemoveAuthorButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -485,6 +560,9 @@
               <Properties>
                 <Property name="label" type="java.lang.String" value="Notes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DocumentsPanel_NotesButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
@@ -590,7 +668,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane20" pref="350" max="32767" attributes="0"/>
+                          <Component id="jScrollPane20" pref="304" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
@@ -604,8 +682,8 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jScrollPane13" pref="263" max="32767" attributes="1"/>
-                                          <Component id="jScrollPane12" alignment="1" pref="263" max="32767" attributes="1"/>
+                                          <Component id="jScrollPane13" pref="217" max="32767" attributes="1"/>
+                                          <Component id="jScrollPane12" alignment="1" pref="217" max="32767" attributes="1"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="CanonicizersPanel_SetToDocumentButton" min="-2" max="-2" attributes="0"/>
@@ -645,7 +723,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="CanonicizersPanel_RemoveCanonicizerButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="-"/>
+                <Property name="text" type="java.lang.String" value="&lt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CanonicizersPanel_RemoveCanonicizerButtonActionPerformed"/>
@@ -663,6 +741,9 @@
               <Properties>
                 <Property name="label" type="java.lang.String" value="Notes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CanonicizersPanel_NotesButtonActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane11">
               <AuxValues>
@@ -683,7 +764,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="CanonicizersPanel_AddCanonicizerButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="+"/>
+                <Property name="text" type="java.lang.String" value="&gt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CanonicizersPanel_AddCanonicizerButtonActionPerformed"/>
@@ -823,7 +904,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft Sans Serif" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Selected C"/>
+                <Property name="text" type="java.lang.String" value="Selected"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel30">
@@ -920,8 +1001,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="EventSetsPanel_ParametersPanel" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane10" pref="350" max="32767" attributes="0"/>
-                          <Component id="jScrollPane9" alignment="0" pref="350" max="32767" attributes="0"/>
+                          <Component id="jScrollPane10" pref="304" max="32767" attributes="0"/>
+                          <Component id="jScrollPane9" alignment="0" pref="304" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="EventSetsPanel_AddEventSetButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -946,6 +1027,9 @@
               <Properties>
                 <Property name="label" type="java.lang.String" value="Notes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EventSetsPanel_NotesButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
@@ -976,7 +1060,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft Sans Serif" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Selected ED"/>
+                <Property name="text" type="java.lang.String" value="Selected"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane9">
@@ -1038,7 +1122,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="346" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1062,7 +1146,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="EventSetsPanel_AddEventSetButton">
               <Properties>
-                <Property name="label" type="java.lang.String" value="+"/>
+                <Property name="text" type="java.lang.String" value="&gt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EventSetsPanel_AddEventSetButtonActionPerformed"/>
@@ -1070,7 +1154,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="EventSetsPanel_RemoveEventSetButton">
               <Properties>
-                <Property name="label" type="java.lang.String" value="-"/>
+                <Property name="text" type="java.lang.String" value="&lt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EventSetsPanel_RemoveEventSetButtonActionPerformed"/>
@@ -1157,9 +1241,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane14" pref="350" max="32767" attributes="0"/>
+                          <Component id="jScrollPane14" pref="304" max="32767" attributes="0"/>
                           <Component id="EventCullingPanel_ParametersPanel" max="32767" attributes="1"/>
-                          <Component id="jScrollPane15" alignment="0" pref="350" max="32767" attributes="0"/>
+                          <Component id="jScrollPane15" alignment="0" pref="304" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="EventCullingPanel_AddEventCullingButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1202,13 +1286,16 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft Sans Serif" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Selected EC"/>
+                <Property name="text" type="java.lang.String" value="Selected"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="EventCullingPanel_NotesButton">
               <Properties>
                 <Property name="label" type="java.lang.String" value="Notes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EventCullingPanel_NotesButtonActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane14">
               <AuxValues>
@@ -1233,7 +1320,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="EventCullingPanel_AddEventCullingButton">
               <Properties>
-                <Property name="label" type="java.lang.String" value="+"/>
+                <Property name="text" type="java.lang.String" value="&gt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EventCullingPanel_AddEventCullingButtonActionPerformed"/>
@@ -1241,7 +1328,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="EventCullingPanel_RemoveEventCullingButton">
               <Properties>
-                <Property name="label" type="java.lang.String" value="-"/>
+                <Property name="text" type="java.lang.String" value="&lt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EventCullingPanel_RemoveEventCullingButtonActionPerformed"/>
@@ -1280,7 +1367,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="346" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1348,19 +1435,23 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane19" alignment="0" pref="824" max="32767" attributes="0"/>
-                          <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jScrollPane18" min="0" pref="0" max="32767" attributes="1"/>
-                                  <Component id="jLabel20" alignment="0" max="32767" attributes="1"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="AnalysisMethodPanel_RemoveAnalysisMethodsButton" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="AnalysisMethodPanel_AddAllAnalysisMethodsButton" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="AnalysisMethodPanel_AddAnalysisMethodButton" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="AnalysisMethodPanel_RemoveAllAnalysisMethodsButton" alignment="1" min="-2" pref="64" max="-2" attributes="1"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel35" alignment="0" pref="257" max="32767" attributes="1"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jScrollPane22" alignment="0" pref="187" max="32767" attributes="1"/>
+                                          <Component id="jScrollPane18" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                                          <Component id="jLabel20" alignment="0" max="32767" attributes="1"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="AnalysisMethodPanel_RemoveAnalysisMethodsButton" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="AnalysisMethodPanel_AddAllAnalysisMethodsButton" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="AnalysisMethodPanel_AddAnalysisMethodButton" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="AnalysisMethodPanel_RemoveAllAnalysisMethodsButton" alignment="1" min="-2" pref="64" max="-2" attributes="1"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -1369,12 +1460,25 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="AnalysisMethodPanel_DFParametersPanel" max="32767" attributes="0"/>
+                                  <Component id="AnalysisMethodPanel_AMParametersPanel" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="174" max="32767" attributes="0"/>
+                                      <EmptySpace pref="133" max="32767" attributes="0"/>
                                       <Component id="AnalysisMethodPanel_NotesButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="AnalysisMethodPanel_ParametersPanel" max="32767" attributes="0"/>
+                                  <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane19" min="-2" pref="405" max="-2" attributes="0"/>
+                                  <Component id="jLabel36" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane23" alignment="0" pref="413" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1394,24 +1498,43 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane17" pref="347" max="32767" attributes="0"/>
-                          <Component id="AnalysisMethodPanel_ParametersPanel" max="32767" attributes="0"/>
-                          <Component id="jScrollPane18" pref="347" max="32767" attributes="0"/>
+                          <Component id="jScrollPane17" pref="301" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="AnalysisMethodPanel_AddAnalysisMethodButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="AnalysisMethodPanel_AMParametersPanel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="AnalysisMethodPanel_RemoveAnalysisMethodsButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="AnalysisMethodPanel_AddAllAnalysisMethodsButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="AnalysisMethodPanel_DFParametersPanel" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="AnalysisMethodPanel_AddAnalysisMethodButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="AnalysisMethodPanel_RemoveAnalysisMethodsButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="AnalysisMethodPanel_AddAllAnalysisMethodsButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="AnalysisMethodPanel_RemoveAllAnalysisMethodsButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPane18" min="-2" pref="129" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="AnalysisMethodPanel_RemoveAllAnalysisMethodsButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="156" pref="156" max="156" attributes="0"/>
+                              <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane22" pref="132" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane19" min="-2" pref="101" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jScrollPane19" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Component id="jScrollPane23" min="-2" pref="101" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1431,7 +1554,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft Sans Serif" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Parameters"/>
+                <Property name="text" type="java.lang.String" value="AM Parameters"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel22">
@@ -1439,13 +1562,16 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft Sans Serif" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Selected AM"/>
+                <Property name="text" type="java.lang.String" value="Selected"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="AnalysisMethodPanel_NotesButton">
               <Properties>
                 <Property name="label" type="java.lang.String" value="Notes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AnalysisMethodPanel_NotesButtonActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane17">
               <AuxValues>
@@ -1470,7 +1596,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="AnalysisMethodPanel_AddAnalysisMethodButton">
               <Properties>
-                <Property name="label" type="java.lang.String" value="+"/>
+                <Property name="text" type="java.lang.String" value="&gt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AnalysisMethodPanel_AddAnalysisMethodButtonActionPerformed"/>
@@ -1478,7 +1604,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="AnalysisMethodPanel_RemoveAnalysisMethodsButton">
               <Properties>
-                <Property name="label" type="java.lang.String" value="-"/>
+                <Property name="text" type="java.lang.String" value="&lt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AnalysisMethodPanel_RemoveAnalysisMethodsButtonActionPerformed"/>
@@ -1500,7 +1626,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AnalysisMethodPanel_RemoveAllAnalysisMethodsButtonActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JPanel" name="AnalysisMethodPanel_ParametersPanel">
+            <Container class="javax.swing.JPanel" name="AnalysisMethodPanel_AMParametersPanel">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1517,7 +1643,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="343" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="125" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1548,7 +1674,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft Sans Serif" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Analysis Method Description"/>
+                <Property name="text" type="java.lang.String" value="Distance Function Description"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane19">
@@ -1568,16 +1694,148 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane22">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JList" name="AnalysisMethodPanel_DistanceFunctionsListBox">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="DistanceFunctionsListBox_Model" type="code"/>
+                    </Property>
+                    <Property name="selectionMode" type="int" value="0"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AnalysisMethodPanel_DistanceFunctionsListBoxMouseClicked"/>
+                    <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="AnalysisMethodPanel_DistanceFunctionsListBoxMouseMoved"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JLabel" name="jLabel35">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Microsoft Sans Serif" size="24" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Distance Functions"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane23">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="AnalysisMethodPanel_DistanceFunctionDescriptionTextBox">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
+                    <Property name="rows" type="int" value="5"/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JLabel" name="jLabel36">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Microsoft Sans Serif" size="24" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Analysis Method Description"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JPanel" name="AnalysisMethodPanel_DFParametersPanel">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="355" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="128" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Component class="javax.swing.JLabel" name="jLabel37">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Microsoft Sans Serif" size="24" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="DF Parameters"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="JGAAP_ReviewPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Review &amp; Process">
+                <Property name="tabTitle" type="java.lang.String" value="Review &amp; Process"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="368" max="-2" attributes="0"/>
+                      <Component id="Process_Button" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="407" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="467" max="32767" attributes="0"/>
+                      <Component id="Process_Button" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JButton" name="Process_Button">
+              <Properties>
+                <Property name="label" type="java.lang.String" value="Process"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Process_ButtonActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="Process_Button">
+    <Component class="javax.swing.JButton" name="Next_Button">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Process"/>
+        <Property name="text" type="java.lang.String" value="Next &gt;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Process_ButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Next_ButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Review_Button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Finish &amp; Review"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Review_ButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

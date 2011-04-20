@@ -28,7 +28,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	public boolean showInGUI() {
-		return false;
+		return true;
 	}
 
 	@Override

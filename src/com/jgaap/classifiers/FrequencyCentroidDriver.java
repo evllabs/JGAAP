@@ -32,7 +32,7 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
 	}
 
 	public boolean showInGUI() {
-		return false;
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
