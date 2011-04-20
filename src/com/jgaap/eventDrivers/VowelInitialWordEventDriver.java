@@ -34,12 +34,6 @@ public class VowelInitialWordEventDriver extends EventDriver {
 		return true;
 	}
 
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
 	/** Underlying EventDriver from which Events are drawn. */
 	public EventDriver underlyingevents = new NaiveWordEventDriver();
 

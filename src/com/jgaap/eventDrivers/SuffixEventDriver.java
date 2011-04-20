@@ -37,12 +37,6 @@ public class SuffixEventDriver extends EventDriver {
 		return true;
 	}
 
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
 	private EventDriver underlyingEvents;
 	private int length;
 	private int minimumlength;

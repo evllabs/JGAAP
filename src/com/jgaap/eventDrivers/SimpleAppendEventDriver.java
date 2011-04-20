@@ -40,12 +40,6 @@ public class SimpleAppendEventDriver extends EventDriver {
 		return false;
 	}
 
-	@Override
-	public GroupLayout getGUILayout(JPanel panel) {
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-		return layout;
-	}
-
 	/** Underlying EventSets from which Events are drawn. */
 	public EventDriver underlyingevents = new NaiveWordEventDriver();
 

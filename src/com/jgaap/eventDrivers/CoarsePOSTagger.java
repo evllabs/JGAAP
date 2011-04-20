@@ -100,11 +100,4 @@ public class CoarsePOSTagger extends EventDriver {
 		}
 		return eventSet;
 	}
-
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
 }

@@ -35,12 +35,6 @@ public class WordSyllablesEventDriver extends NumericEventDriver {
 		return true;
 	}
 
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
 	public EventDriver wordtokenizer = new NaiveWordEventDriver();
 
 	/* define vowels for cluster elements */

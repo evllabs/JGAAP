@@ -37,8 +37,11 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
     	return displayName().compareTo(o.displayName());
     }
     
-    abstract public GroupLayout getGUILayout(JPanel panel);
-
+    public GroupLayout getGUILayout(JPanel panel)
+    {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+        return layout;
+    }
 }
 
 

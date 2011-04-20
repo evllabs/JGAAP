@@ -5,6 +5,7 @@ package com.jgaap.generics;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 
 /**
  * Class for statistical analysis methods. As an abstract class, can only be
@@ -52,5 +53,10 @@ public abstract class AnalysisDriver extends Parameterizable implements Comparab
     public int compareTo(AnalysisDriver o){
     	return displayName().compareTo(o.displayName());
     }
-    
+
+    public GroupLayout getGUILayout(JPanel panel)
+    {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+        return layout;
+    }
 }

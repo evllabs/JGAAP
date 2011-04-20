@@ -4,6 +4,7 @@
 package com.jgaap.generics;
 
 import java.util.Vector;
+import javax.swing.*;
 
 /**
  * This is an abstract class for distance functions. It is used, for example, in
@@ -66,6 +67,12 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
 
     public int compareTo(DistanceFunction o){
     	return displayName().compareTo(o.displayName());
+    }
+
+    public GroupLayout getGUILayout(JPanel panel)
+    {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+        return layout;
     }
 
 }

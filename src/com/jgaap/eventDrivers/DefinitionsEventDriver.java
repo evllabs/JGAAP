@@ -306,13 +306,5 @@ public class DefinitionsEventDriver extends EventDriver {
 		// TODO Auto-generated method stub
 		return "Replaces words with words from their definitions as given in WordNet's dictionary";
 	}
-
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
-
 }
 
