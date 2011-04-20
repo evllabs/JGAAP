@@ -1703,8 +1703,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 }//GEN-LAST:event_EventCullingPanel_SelectedEventCullingListBoxMouseMoved
 
     private void EventCullingPanel_SelectedEventCullingListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EventCullingPanel_SelectedEventCullingListBoxMouseClicked
-        EventCullingPanel_EventCullingDescriptionTextbox.setText(SelectedEventCullersList.get(EventCullingPanel_SelectedEventCullingListBox.getSelectedIndex()).longDescription());
+        EventCullingPanel_ParametersPanel.removeAll();
+        EventCullingPanel_ParametersPanel.setLayout(SelectedEventCullersList.get(EventCullingPanel_SelectedEventCullingListBox.getSelectedIndex()).getGUILayout(EventCullingPanel_ParametersPanel));
 
+        EventCullingPanel_EventCullingDescriptionTextbox.setText(SelectedEventCullersList.get(EventCullingPanel_SelectedEventCullingListBox.getSelectedIndex()).longDescription());
         if (evt.getClickCount() == 2)
         {
             RemoveEventCullerSelection();

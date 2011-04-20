@@ -31,12 +31,6 @@ public class TruncatedReactionTimeEventDriver extends EventDriver {
     	return jgaapConstants.globalParams.getParameter("language").equals("english");
     }
 
-    @Override
-    public GroupLayout getGUILayout(JPanel panel){
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-        return layout;
-    }
-
     private EventDriver theDriver;
 
     @Override

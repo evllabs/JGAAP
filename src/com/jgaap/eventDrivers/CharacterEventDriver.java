@@ -42,11 +42,6 @@ public class CharacterEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
 
 	/**
 	 * Create sequence of characters from document set.

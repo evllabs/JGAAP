@@ -33,12 +33,6 @@ public class FirstWordInSentenceEventDriver extends EventDriver {
 		return true;
 	}
 
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
 	@Override
 	public EventSet createEventSet(Document doc) {
 		EventSet es = new EventSet(doc.getAuthor());

@@ -380,12 +380,6 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 		return true;
 	}
 
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
 	@Override
 	public String tooltipText() {
 		

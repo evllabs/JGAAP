@@ -39,12 +39,6 @@ public class TransformationEventDriver extends EventDriver {
 		return false;
 	}
 
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
 	private EventDriver underlyingEvents;
 
 	private String filename;

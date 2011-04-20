@@ -46,12 +46,6 @@ public class PorterStemmerEventDriver extends EventDriver {
 				"english");
 	}
 
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
 	// Peter - Changed Jan 21 2010
 	// This was causing havoc with the autopopulator
 	// (Also, why are we resetting the static EventDriver in the constructor?)

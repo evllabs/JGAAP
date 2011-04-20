@@ -37,12 +37,6 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     	return true;
     }
 
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-            return layout;
-        }
-
     /** Static field for efficiency */
     // private static EventDriver e;
     // Peter Jan 21 2010 ^ if this is static, then why are we setting it in the constructor?
