@@ -35,8 +35,10 @@ import javax.swing.table.DefaultTableModel;
 //import java.awt.event.*;
 
 import com.jgaap.generics.*;
+import com.jgaap.jgaapConstants;
 import com.jgaap.backend.API;
 import com.jgaap.backend.CSVIO;
+import java.awt.Color;
 import java.io.IOException;
 
 public class JGAAP_UI_MainForm extends javax.swing.JFrame {
@@ -119,6 +121,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         SetLanguagesList();
         SelectedEventDriverList.clear();
         SelectedAnalysisDriverList.clear();
+        CheckMinimumRequirements();
       
        // DefaultMutableTreeNode top = new DefaultMutableTreeNode("The Java Series");
     }
@@ -243,32 +246,40 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         AnalysisMethodPanel_DFParametersPanel = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         JGAAP_ReviewPanel = new javax.swing.JPanel();
-        Process_Button = new javax.swing.JButton();
+        ReviewPanel_ProcessButton = new javax.swing.JButton();
+        ReviewPanel_DocumentsLabel = new javax.swing.JLabel();
+        jScrollPane24 = new javax.swing.JScrollPane();
+        ReviewPanel_DocumentsTable = new javax.swing.JTable();
+        ReviewPanel_SelectedEventSetLabel = new javax.swing.JLabel();
+        ReviewPanel_SelectedEventCullingLabel = new javax.swing.JLabel();
+        ReviewPanel_SelectedAnalysisMethodsLabel = new javax.swing.JLabel();
+        jScrollPane25 = new javax.swing.JScrollPane();
+        ReviewPanel_SelectedEventSetListBox = new javax.swing.JList();
+        jScrollPane26 = new javax.swing.JScrollPane();
+        ReviewPanel_SelectedEventCullingListBox = new javax.swing.JList();
+        jScrollPane27 = new javax.swing.JScrollPane();
+        ReviewPanel_SelectedAnalysisMethodsListBox = new javax.swing.JList();
         Next_Button = new javax.swing.JButton();
         Review_Button = new javax.swing.JButton();
         JGAAP_MenuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        SaveProblemMenuItem = new javax.swing.JMenuItem();
-        LoadProblemMenuItem = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         BatchSaveMenuItem = new javax.swing.JMenuItem();
         BatchLoadMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        ProblemAMenuItem = new javax.swing.JMenuItem();
+        ProblemBMenuItem = new javax.swing.JMenuItem();
+        ProblemCMenuItem = new javax.swing.JMenuItem();
+        ProblemDMenuItem = new javax.swing.JMenuItem();
+        ProblemEMenuItem = new javax.swing.JMenuItem();
+        ProblemFMenuItem = new javax.swing.JMenuItem();
+        ProblemGMenuItem = new javax.swing.JMenuItem();
+        ProblemHMenuItem = new javax.swing.JMenuItem();
+        ProblemIMenuItem = new javax.swing.JMenuItem();
+        ProblemJMenuItem = new javax.swing.JMenuItem();
+        ProblemKMenuItem = new javax.swing.JMenuItem();
+        ProblemLMenuItem = new javax.swing.JMenuItem();
+        ProblemMMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -513,7 +524,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel27.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
+        jLabel27.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         jLabel27.setText("Documents");
 
         CanonicizersPanel_NotesButton.setLabel("Notes");
@@ -731,8 +742,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
-        jLabel6.setText("Event Driver");
+        jLabel6.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel6.setText("Event Drivers");
 
         jLabel7.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
         jLabel7.setText("Parameters");
@@ -883,7 +894,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         JGAAP_TabbedPane.addTab("Event Drivers", JGAAP_EventSetsPanel);
 
-        jLabel15.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
+        jLabel15.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         jLabel15.setText("Event Culling");
 
         jLabel16.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
@@ -1268,27 +1279,127 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         JGAAP_TabbedPane.addTab("Analysis Methods", JGAAP_AnalysisMethodPanel);
 
-        Process_Button.setLabel("Process");
-        Process_Button.addActionListener(new java.awt.event.ActionListener() {
+        ReviewPanel_ProcessButton.setLabel("Process");
+        ReviewPanel_ProcessButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Process_ButtonActionPerformed(evt);
+                ReviewPanel_ProcessButtonActionPerformed(evt);
             }
         });
+
+        ReviewPanel_DocumentsLabel.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        ReviewPanel_DocumentsLabel.setText("Documents");
+        ReviewPanel_DocumentsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReviewPanel_DocumentsLabelMouseClicked(evt);
+            }
+        });
+
+        ReviewPanel_DocumentsTable.setModel(DocumentsTable_Model);
+        ReviewPanel_DocumentsTable.setEnabled(false);
+        ReviewPanel_DocumentsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReviewPanel_DocumentsTableMouseClicked(evt);
+            }
+        });
+        jScrollPane24.setViewportView(ReviewPanel_DocumentsTable);
+
+        ReviewPanel_SelectedEventSetLabel.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        ReviewPanel_SelectedEventSetLabel.setText("Event Driver");
+        ReviewPanel_SelectedEventSetLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReviewPanel_SelectedEventSetLabelMouseClicked(evt);
+            }
+        });
+
+        ReviewPanel_SelectedEventCullingLabel.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        ReviewPanel_SelectedEventCullingLabel.setText("Event Culling");
+        ReviewPanel_SelectedEventCullingLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReviewPanel_SelectedEventCullingLabelMouseClicked(evt);
+            }
+        });
+
+        ReviewPanel_SelectedAnalysisMethodsLabel.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        ReviewPanel_SelectedAnalysisMethodsLabel.setText("Analysis Methods");
+        ReviewPanel_SelectedAnalysisMethodsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReviewPanel_SelectedAnalysisMethodsLabelMouseClicked(evt);
+            }
+        });
+
+        ReviewPanel_SelectedEventSetListBox.setModel(SelectedEventSetsListBox_Model);
+        ReviewPanel_SelectedEventSetListBox.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ReviewPanel_SelectedEventSetListBox.setEnabled(false);
+        ReviewPanel_SelectedEventSetListBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReviewPanel_SelectedEventSetListBoxMouseClicked(evt);
+            }
+        });
+        jScrollPane25.setViewportView(ReviewPanel_SelectedEventSetListBox);
+
+        ReviewPanel_SelectedEventCullingListBox.setModel(SelectedEventCullingListBox_Model);
+        ReviewPanel_SelectedEventCullingListBox.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ReviewPanel_SelectedEventCullingListBox.setEnabled(false);
+        ReviewPanel_SelectedEventCullingListBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReviewPanel_SelectedEventCullingListBoxMouseClicked(evt);
+            }
+        });
+        jScrollPane26.setViewportView(ReviewPanel_SelectedEventCullingListBox);
+
+        ReviewPanel_SelectedAnalysisMethodsListBox.setModel(SelectedAnalysisMethodListBox_Model);
+        ReviewPanel_SelectedAnalysisMethodsListBox.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ReviewPanel_SelectedAnalysisMethodsListBox.setEnabled(false);
+        ReviewPanel_SelectedAnalysisMethodsListBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReviewPanel_SelectedAnalysisMethodsListBoxMouseClicked(evt);
+            }
+        });
+        jScrollPane27.setViewportView(ReviewPanel_SelectedAnalysisMethodsListBox);
 
         javax.swing.GroupLayout JGAAP_ReviewPanelLayout = new javax.swing.GroupLayout(JGAAP_ReviewPanel);
         JGAAP_ReviewPanel.setLayout(JGAAP_ReviewPanelLayout);
         JGAAP_ReviewPanelLayout.setHorizontalGroup(
             JGAAP_ReviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JGAAP_ReviewPanelLayout.createSequentialGroup()
-                .addGap(368, 368, 368)
-                .addComponent(Process_Button)
-                .addContainerGap(407, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_ReviewPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(JGAAP_ReviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
+                    .addComponent(ReviewPanel_DocumentsLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ReviewPanel_ProcessButton)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JGAAP_ReviewPanelLayout.createSequentialGroup()
+                        .addGroup(JGAAP_ReviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane25, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ReviewPanel_SelectedEventSetLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(JGAAP_ReviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ReviewPanel_SelectedEventCullingLabel)
+                            .addComponent(jScrollPane26, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(JGAAP_ReviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ReviewPanel_SelectedAnalysisMethodsLabel)
+                            .addComponent(jScrollPane27, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         JGAAP_ReviewPanelLayout.setVerticalGroup(
             JGAAP_ReviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JGAAP_ReviewPanelLayout.createSequentialGroup()
-                .addContainerGap(467, Short.MAX_VALUE)
-                .addComponent(Process_Button)
+            .addGroup(JGAAP_ReviewPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ReviewPanel_DocumentsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane24, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(JGAAP_ReviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ReviewPanel_SelectedEventSetLabel)
+                    .addComponent(ReviewPanel_SelectedEventCullingLabel)
+                    .addComponent(ReviewPanel_SelectedAnalysisMethodsLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(JGAAP_ReviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane27, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addComponent(jScrollPane26, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addComponent(jScrollPane25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ReviewPanel_ProcessButton)
                 .addContainerGap())
         );
 
@@ -1309,24 +1420,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         });
 
         jMenu1.setText("File");
-
-        SaveProblemMenuItem.setText("Save Problem");
-        SaveProblemMenuItem.setEnabled(false);
-        SaveProblemMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveProblemMenuItemActionPerformed(evt);
-            }
-        });
-        jMenu1.add(SaveProblemMenuItem);
-
-        LoadProblemMenuItem.setText("Load Problem");
-        LoadProblemMenuItem.setEnabled(false);
-        LoadProblemMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoadProblemMenuItemActionPerformed(evt);
-            }
-        });
-        jMenu1.add(LoadProblemMenuItem);
 
         jMenu4.setText("Batch Documents");
 
@@ -1350,53 +1443,111 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         jMenu2.setText("AAAC Problems");
 
-        jMenuItem1.setText("Problem A");
-        jMenu2.add(jMenuItem1);
+        ProblemAMenuItem.setText("Problem A");
+        ProblemAMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemAMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemAMenuItem);
 
-        jMenuItem2.setText("Problem B");
-        jMenu2.add(jMenuItem2);
+        ProblemBMenuItem.setText("Problem B");
+        ProblemBMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemBMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemBMenuItem);
 
-        jMenuItem3.setText("Problem C");
-        jMenu2.add(jMenuItem3);
+        ProblemCMenuItem.setText("Problem C");
+        ProblemCMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemCMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemCMenuItem);
 
-        jMenuItem4.setText("Problem D");
-        jMenu2.add(jMenuItem4);
+        ProblemDMenuItem.setText("Problem D");
+        ProblemDMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemDMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemDMenuItem);
 
-        jMenuItem5.setText("Problem E");
-        jMenu2.add(jMenuItem5);
+        ProblemEMenuItem.setText("Problem E");
+        ProblemEMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemEMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemEMenuItem);
 
-        jMenuItem6.setText("Problem F");
-        jMenu2.add(jMenuItem6);
+        ProblemFMenuItem.setText("Problem F");
+        ProblemFMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemFMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemFMenuItem);
 
-        jMenuItem7.setText("Problem G");
-        jMenu2.add(jMenuItem7);
+        ProblemGMenuItem.setText("Problem G");
+        ProblemGMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemGMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemGMenuItem);
 
-        jMenuItem8.setText("Problem H");
-        jMenu2.add(jMenuItem8);
+        ProblemHMenuItem.setText("Problem H");
+        ProblemHMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemHMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemHMenuItem);
 
-        jMenuItem9.setText("Problem I");
-        jMenu2.add(jMenuItem9);
+        ProblemIMenuItem.setText("Problem I");
+        ProblemIMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemIMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemIMenuItem);
 
-        jMenuItem10.setText("Problem J");
-        jMenu2.add(jMenuItem10);
+        ProblemJMenuItem.setText("Problem J");
+        ProblemJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemJMenuItem);
 
-        jMenuItem11.setText("Problem K");
-        jMenu2.add(jMenuItem11);
+        ProblemKMenuItem.setText("Problem K");
+        ProblemKMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemKMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemKMenuItem);
 
-        jMenuItem12.setText("Problem L");
-        jMenu2.add(jMenuItem12);
+        ProblemLMenuItem.setText("Problem L");
+        ProblemLMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemLMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemLMenuItem);
 
-        jMenuItem13.setText("Problem M");
-        jMenu2.add(jMenuItem13);
+        ProblemMMenuItem.setText("Problem M");
+        ProblemMMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProblemMMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProblemMMenuItem);
 
         jMenu1.add(jMenu2);
-
-        jMenu3.setText("Options");
-
-        jMenu5.setText("Default Language");
-        jMenu3.add(jMenu5);
-
-        jMenu1.add(jMenu3);
 
         exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         exitMenuItem.setText("Exit");
@@ -1452,7 +1603,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Process_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Process_ButtonActionPerformed
+    private void ReviewPanel_ProcessButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReviewPanel_ProcessButtonActionPerformed
         try {
             JGAAP_API.clearResults();
             JGAAP_API.execute();
@@ -1466,11 +1617,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             ResultsPage.setVisible(true);
         } catch (Exception e){
         }
-    }//GEN-LAST:event_Process_ButtonActionPerformed
-
-    private void SaveProblemMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveProblemMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SaveProblemMenuItemActionPerformed
+    }//GEN-LAST:event_ReviewPanel_ProcessButtonActionPerformed
 
     private void LoadProblemMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadProblemMenuItemActionPerformed
         // TODO add your handling code here:
@@ -1605,6 +1752,43 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         AddAnalysisMethodSelection();
 }//GEN-LAST:event_AnalysisMethodPanel_AddAnalysisMethodButtonActionPerformed
 
+    private void CheckMinimumRequirements() {
+        boolean OK = true;
+        if (DocumentList.isEmpty())
+        {
+            OK = false;
+            ReviewPanel_DocumentsLabel.setForeground(Color.RED);
+        }
+        else
+        {
+            ReviewPanel_DocumentsLabel.setForeground(Color.GREEN);
+        }
+
+        if (SelectedEventDriverList.isEmpty())
+        {
+            OK = false;
+            ReviewPanel_SelectedEventSetLabel.setForeground(Color.RED);
+        }
+        else
+        {
+            ReviewPanel_SelectedEventSetLabel.setForeground(Color.GREEN);
+        }
+
+        ReviewPanel_SelectedEventCullingLabel.setForeground(Color.GREEN);
+
+        if (SelectedAnalysisDriverList.isEmpty())
+        {
+            OK = false;
+            ReviewPanel_SelectedAnalysisMethodsLabel.setForeground(Color.RED);
+        }
+        else
+        {
+            ReviewPanel_SelectedAnalysisMethodsLabel.setForeground(Color.GREEN);
+        }
+
+        ReviewPanel_ProcessButton.setEnabled(OK);
+    }
+
     private void AddAnalysisMethodSelection() {
         try{
             AnalysisDriver temp = JGAAP_API.addAnalysisDriver(AnalysisMethodPanel_AnalysisMethodsListBox.getSelectedValue().toString());
@@ -1628,8 +1812,19 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 }//GEN-LAST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseMoved
 
     private void AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked
-        AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setText(SelectedAnalysisDriverList.get(AnalysisMethodPanel_SelectedAnalysisMethodsListBox.getSelectedIndex()).longDescription());
-
+        AnalysisDriver temp = SelectedAnalysisDriverList.get(AnalysisMethodPanel_SelectedAnalysisMethodsListBox.getSelectedIndex());
+        AnalysisMethodPanel_AMParametersPanel.removeAll();
+        AnalysisMethodPanel_DFParametersPanel.removeAll();
+        AnalysisMethodPanel_AMParametersPanel.setLayout(temp.getGUILayout(AnalysisMethodPanel_AMParametersPanel));
+        if (temp instanceof NeighborAnalysisDriver)
+        {
+            AnalysisMethodPanel_DFParametersPanel.setLayout(((NeighborAnalysisDriver)temp).getDistanceFunction().getGUILayout(AnalysisMethodPanel_DFParametersPanel));
+        }
+        AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setText(temp.longDescription());
+        if (temp instanceof NeighborAnalysisDriver)
+        {
+            AnalysisMethodPanel_DistanceFunctionDescriptionTextBox.setText(((NeighborAnalysisDriver)temp).getDistanceFunction().longDescription());
+        }
         if (evt.getClickCount() == 2)
         {
             RemoveAnalysisMethodSelection();
@@ -2072,6 +2267,272 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             JGAAP_TabbedPane.setSelectedIndex(5);
         }//GEN-LAST:event_Review_ButtonActionPerformed
 
+        private void ProblemAMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemAMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadA.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemAMenuItemActionPerformed
+
+        private void ProblemBMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemBMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadB.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemBMenuItemActionPerformed
+
+        private void ProblemCMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemCMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadC.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemCMenuItemActionPerformed
+
+        private void ProblemDMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemDMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadD.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemDMenuItemActionPerformed
+
+        private void ProblemEMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemEMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadE.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemEMenuItemActionPerformed
+
+        private void ProblemFMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemFMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadF.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemFMenuItemActionPerformed
+
+        private void ProblemGMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemGMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadG.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemGMenuItemActionPerformed
+
+        private void ProblemHMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemHMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadH.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemHMenuItemActionPerformed
+
+        private void ProblemIMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemIMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadI.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemIMenuItemActionPerformed
+
+        private void ProblemJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemJMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadJ.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemJMenuItemActionPerformed
+
+        private void ProblemKMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemKMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadK.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemKMenuItemActionPerformed
+
+        private void ProblemLMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemLMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadL.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemLMenuItemActionPerformed
+
+        private void ProblemMMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemMMenuItemActionPerformed
+            try
+            {
+                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadM.csv";
+                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
+                for (int i = 0; i < DocumentCSVs.size(); i++)
+                {
+                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
+                }
+                UpdateKnownDocumentsTree();
+                UpdateUnknownDocumentsTable();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }//GEN-LAST:event_ProblemMMenuItemActionPerformed
+
+        private void ReviewPanel_DocumentsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_DocumentsLabelMouseClicked
+            JGAAP_TabbedPane.setSelectedIndex(0);
+        }//GEN-LAST:event_ReviewPanel_DocumentsLabelMouseClicked
+
+        private void ReviewPanel_DocumentsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_DocumentsTableMouseClicked
+            JGAAP_TabbedPane.setSelectedIndex(0);
+        }//GEN-LAST:event_ReviewPanel_DocumentsTableMouseClicked
+
+        private void ReviewPanel_SelectedEventSetLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedEventSetLabelMouseClicked
+            JGAAP_TabbedPane.setSelectedIndex(2);
+        }//GEN-LAST:event_ReviewPanel_SelectedEventSetLabelMouseClicked
+
+        private void ReviewPanel_SelectedEventSetListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedEventSetListBoxMouseClicked
+            JGAAP_TabbedPane.setSelectedIndex(2);
+        }//GEN-LAST:event_ReviewPanel_SelectedEventSetListBoxMouseClicked
+
+        private void ReviewPanel_SelectedEventCullingLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedEventCullingLabelMouseClicked
+            JGAAP_TabbedPane.setSelectedIndex(3);
+        }//GEN-LAST:event_ReviewPanel_SelectedEventCullingLabelMouseClicked
+
+        private void ReviewPanel_SelectedEventCullingListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedEventCullingListBoxMouseClicked
+            JGAAP_TabbedPane.setSelectedIndex(3);
+        }//GEN-LAST:event_ReviewPanel_SelectedEventCullingListBoxMouseClicked
+
+        private void ReviewPanel_SelectedAnalysisMethodsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedAnalysisMethodsLabelMouseClicked
+            JGAAP_TabbedPane.setSelectedIndex(4);
+        }//GEN-LAST:event_ReviewPanel_SelectedAnalysisMethodsLabelMouseClicked
+
+        private void ReviewPanel_SelectedAnalysisMethodsListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedAnalysisMethodsListBoxMouseClicked
+            JGAAP_TabbedPane.setSelectedIndex(4);
+        }//GEN-LAST:event_ReviewPanel_SelectedAnalysisMethodsListBoxMouseClicked
+
     private void toggleHelpDialog(){
         helpDialog.setVisible(!helpDialog.isVisible());
     }
@@ -2095,6 +2556,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         {
             SelectedAnalysisMethodListBox_Model.addElement(SelectedAnalysisDriverList.get(i).displayName());
         }
+        CheckMinimumRequirements();
     }
 
     private void UpdateSelectedEventSetListBox()
@@ -2105,6 +2567,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         {
             SelectedEventSetsListBox_Model.addElement(SelectedEventDriverList.get(i).displayName());
         }
+        CheckMinimumRequirements();
     }
 
     private void UpdateSelectedEventCullingListBox()
@@ -2179,6 +2642,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             Object RowData[] = {DocumentList.get(i).getTitle(), DocumentList.get(i).isAuthorKnown(), DocumentList.get(i).getAuthor(), DocumentList.get(i).getDocType(), CanonPresent};
             DocumentsTable_Model.addRow(RowData);
         }
+        CheckMinimumRequirements();
 }
 
     private void UpdateCurrentCanonicizerBox() {
@@ -2452,11 +2916,30 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar JGAAP_MenuBar;
     private javax.swing.JPanel JGAAP_ReviewPanel;
     private javax.swing.JTabbedPane JGAAP_TabbedPane;
-    private javax.swing.JMenuItem LoadProblemMenuItem;
     private javax.swing.JButton Next_Button;
-    private javax.swing.JButton Process_Button;
+    private javax.swing.JMenuItem ProblemAMenuItem;
+    private javax.swing.JMenuItem ProblemBMenuItem;
+    private javax.swing.JMenuItem ProblemCMenuItem;
+    private javax.swing.JMenuItem ProblemDMenuItem;
+    private javax.swing.JMenuItem ProblemEMenuItem;
+    private javax.swing.JMenuItem ProblemFMenuItem;
+    private javax.swing.JMenuItem ProblemGMenuItem;
+    private javax.swing.JMenuItem ProblemHMenuItem;
+    private javax.swing.JMenuItem ProblemIMenuItem;
+    private javax.swing.JMenuItem ProblemJMenuItem;
+    private javax.swing.JMenuItem ProblemKMenuItem;
+    private javax.swing.JMenuItem ProblemLMenuItem;
+    private javax.swing.JMenuItem ProblemMMenuItem;
+    private javax.swing.JLabel ReviewPanel_DocumentsLabel;
+    private javax.swing.JTable ReviewPanel_DocumentsTable;
+    private javax.swing.JButton ReviewPanel_ProcessButton;
+    private javax.swing.JLabel ReviewPanel_SelectedAnalysisMethodsLabel;
+    private javax.swing.JList ReviewPanel_SelectedAnalysisMethodsListBox;
+    private javax.swing.JLabel ReviewPanel_SelectedEventCullingLabel;
+    private javax.swing.JList ReviewPanel_SelectedEventCullingListBox;
+    private javax.swing.JLabel ReviewPanel_SelectedEventSetLabel;
+    private javax.swing.JList ReviewPanel_SelectedEventSetListBox;
     private javax.swing.JButton Review_Button;
-    private javax.swing.JMenuItem SaveProblemMenuItem;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JButton helpCloseButton;
@@ -2496,22 +2979,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -2528,6 +2996,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane21;
     private javax.swing.JScrollPane jScrollPane22;
     private javax.swing.JScrollPane jScrollPane23;
+    private javax.swing.JScrollPane jScrollPane24;
+    private javax.swing.JScrollPane jScrollPane25;
+    private javax.swing.JScrollPane jScrollPane26;
+    private javax.swing.JScrollPane jScrollPane27;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane9;
     // End of variables declaration//GEN-END:variables
