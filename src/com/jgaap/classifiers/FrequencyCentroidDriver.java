@@ -42,7 +42,7 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
         System.out.println("Now analyzing: " + unknown.getDocumentName());
 
         List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
-        if(!jgaapConstants.globalObjects.containsKey("orderedEvents")) {
+//        if(!jgaapConstants.globalObjects.containsKey("orderedEvents")) {
             Map<String, List<EventSet>> knownAuthors = new HashMap<String, List<EventSet>>();
             Set<Event> events = new HashSet<Event>();
             for (EventSet eventSet : known) {
@@ -108,35 +108,35 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
                 }
 
                 results.add(new Pair<String, Double>(author, distance.distance(unknownVector, authorCentroid), 2));
-                jgaapConstants.globalObjects.put("authorFrequencies", authorFrequencies);
-                jgaapConstants.globalObjects.put((author + "Vector"), authorCentroid);
+//                jgaapConstants.globalObjects.put("authorFrequencies", authorFrequencies);
+//                jgaapConstants.globalObjects.put((author + "Vector"), authorCentroid);
 
             }
 
-            jgaapConstants.globalObjects.put("orderedEvents", (Object)orderedEvents);
-            jgaapConstants.globalObjects.put("authorFrequencies", (Object)authorFrequencies);
+//            jgaapConstants.globalObjects.put("orderedEvents", (Object)orderedEvents);
+//            jgaapConstants.globalObjects.put("authorFrequencies", (Object)authorFrequencies);
             Collections.sort(results);
             return results;
-        }
+//        }
 
-        else {
-            List<Event> orderedEvents = (List<Event>)jgaapConstants.globalObjects.get("orderedEvents");
-            Vector<Double> unknownVector = new Vector<Double>();
-            EventHistogram unknownHS = new EventHistogram();
-            for(Event e : unknown) {
-                unknownHS.add(e);
-            }
-            for(Event event : orderedEvents) {
-                unknownVector.add(unknownHS.getRelativeFrequency(event));
-            }
-            Map<String, Map<Event, Double>> authorFrequencies = (Map<String, Map<Event, Double>>)jgaapConstants.globalObjects.get("authorFrequencies");
-
-            for (String author : authorFrequencies.keySet()) {
-                results.add(new Pair<String, Double>(author, distance.distance(unknownVector, (Vector<Double>)jgaapConstants.globalObjects.get(author + "Vector"))));
-            }
-
-            return results;
-        }
+//        else {
+//            List<Event> orderedEvents = (List<Event>)jgaapConstants.globalObjects.get("orderedEvents");
+//            Vector<Double> unknownVector = new Vector<Double>();
+//            EventHistogram unknownHS = new EventHistogram();
+//            for(Event e : unknown) {
+//                unknownHS.add(e);
+//            }
+//            for(Event event : orderedEvents) {
+//                unknownVector.add(unknownHS.getRelativeFrequency(event));
+//            }
+//            Map<String, Map<Event, Double>> authorFrequencies = (Map<String, Map<Event, Double>>)jgaapConstants.globalObjects.get("authorFrequencies");
+//
+//            for (String author : authorFrequencies.keySet()) {
+//                results.add(new Pair<String, Double>(author, distance.distance(unknownVector, (Vector<Double>)jgaapConstants.globalObjects.get(author + "Vector"))));
+//            }
+//
+//            return results;
+//        }
 	}
 
 }
