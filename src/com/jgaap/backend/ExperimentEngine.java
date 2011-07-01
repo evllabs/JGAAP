@@ -115,6 +115,12 @@ public class ExperimentEngine {
 						String[] eventCullers = experimentRow.get(3).split(
 								"\\|");
 						String analysis = experimentRow.get(4);
+						String distance = null;
+						if(analysis.contains("|")){
+							String[] tmp = analysis.split("\\|");
+							analysis=tmp[0];
+							distance=tmp[1];
+						}
 						String[] flags = experimentRow.get(5).split(" ");
 						String documentsPath = experimentRow.get(6);
 						String fileName = fileNameGen(canons, eventDriver,
@@ -151,6 +157,9 @@ public class ExperimentEngine {
 							}
 							AnalysisDriver analysisDriver = experiment
 									.addAnalysisDriver(analysis);
+							if(distance!=null){
+								experiment.addDistanceFunction(distance, analysisDriver);
+							}
 							if (analysisDriver instanceof NeighborAnalysisDriver) {
 								((NeighborAnalysisDriver) analysisDriver)
 										.getDistanceFunction().setParameter(

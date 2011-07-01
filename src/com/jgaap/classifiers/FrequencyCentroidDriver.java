@@ -5,7 +5,6 @@ package com.jgaap.classifiers;
 
 import java.util.*;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
@@ -35,7 +34,6 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 
