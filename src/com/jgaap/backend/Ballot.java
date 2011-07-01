@@ -6,9 +6,10 @@ import com.jgaap.generics.Pair;
 
 import java.util.*;
 
+@SuppressWarnings("rawtypes")
 public class Ballot<T> {
     TreeMap<T, Double> votes;
-    Comparator comparator;
+	Comparator comparator;
 
     public Ballot() {
         votes = new TreeMap<T, Double>();
