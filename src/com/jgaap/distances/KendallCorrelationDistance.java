@@ -154,7 +154,8 @@ public class KendallCorrelationDistance extends DistanceFunction {
 
 				y1 = hm1.get(e2);
 				/* if not present, rank is size + 1 */
-				if (y1 == null) x1 = hm1.size()+1;
+				//broke because if (y1 == null) x1 = hm1.size()+1; x1 should be y1
+				if (y1 == null) y1 = hm1.size()+1;
 
 				y2 = hm2.get(e2);
 				if (y2 == null) y2 = hm2.size()+1;
@@ -169,7 +170,7 @@ public class KendallCorrelationDistance extends DistanceFunction {
 				*/
 
 				correlation += (sgn(x1.compareTo(y1)) * sgn(x2.compareTo(y2)));
-				//System.out.println(correlation);
+				System.out.println(correlation);
 			}
 		}
 	
