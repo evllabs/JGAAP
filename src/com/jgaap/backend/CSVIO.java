@@ -14,8 +14,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /*
  * MVR 8/1/2008 This class will handle all IO for CSV files. readCSV- Input:
@@ -101,7 +101,7 @@ public class CSVIO {
         BufferedInputStream bis;
         InputStreamReader isr;
         BufferedReader br;
-        List<List<String>> rows = new Vector<List<String>>();
+        List<List<String>> rows = new ArrayList<List<String>>();
         try {
             fis = new FileInputStream(file);
             bis = new BufferedInputStream(fis);
@@ -109,7 +109,7 @@ public class CSVIO {
             br = new BufferedReader(isr);
             String rowText = "";
             while ((rowText = br.readLine()) != null) {
-                Vector<String> column = new Vector<String>();
+                List<String> column = new ArrayList<String>();
                 StringBuffer buffer = new StringBuffer();
                 int state = 1;
                 // loop through the row of test using a finite state machine to
