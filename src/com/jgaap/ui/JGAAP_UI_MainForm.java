@@ -1825,7 +1825,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         {
             AnalysisMethodPanel_DistanceFunctionDescriptionTextBox.setText(((NeighborAnalysisDriver)temp).getDistanceFunction().longDescription());
         }
-        if (evt.getClickCount() == 2)
+        if (evt!=null && evt.getClickCount() == 2)
         {
             RemoveAnalysisMethodSelection();
         }
@@ -1902,7 +1902,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         EventCullingPanel_ParametersPanel.setLayout(SelectedEventCullersList.get(EventCullingPanel_SelectedEventCullingListBox.getSelectedIndex()).getGUILayout(EventCullingPanel_ParametersPanel));
 
         EventCullingPanel_EventCullingDescriptionTextbox.setText(SelectedEventCullersList.get(EventCullingPanel_SelectedEventCullingListBox.getSelectedIndex()).longDescription());
-        if (evt.getClickCount() == 2)
+        if (evt!=null && evt.getClickCount() == 2)
         {
             RemoveEventCullerSelection();
         }
@@ -1962,7 +1962,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         EventSetsPanel_ParametersPanel.removeAll();
         EventSetsPanel_ParametersPanel.setLayout(SelectedEventDriverList.get(EventSetsPanel_SelectedEventSetListBox.getSelectedIndex()).getGUILayout(EventSetsPanel_ParametersPanel));
         EventSetsPanel_EventSetDescriptionTextBox.setText(SelectedEventDriverList.get(EventSetsPanel_SelectedEventSetListBox.getSelectedIndex()).longDescription());
-        if (evt.getClickCount() == 2)
+        if (evt != null && evt.getClickCount() == 2)
         {
             RemoveEventSetSelection();
         }
@@ -2040,7 +2040,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
     private void CanonicizersPanel_SelectedCanonicizerListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CanonicizersPanel_SelectedCanonicizerListBoxMouseClicked
         CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setText(SelectedCanonicizerList.get(CanonicizersPanel_SelectedCanonicizerListBox.getSelectedIndex()).longDescription());
-        if (evt.getClickCount() == 2)
+        if (evt != null && evt.getClickCount() == 2)
         {
             RemoveCanonicizerSelection();
         }
@@ -2557,6 +2557,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             SelectedAnalysisMethodListBox_Model.addElement(SelectedAnalysisDriverList.get(i).displayName());
         }
         CheckMinimumRequirements();
+        if(!SelectedAnalysisDriverList.isEmpty()){
+        	AnalysisMethodPanel_SelectedAnalysisMethodsListBox.setSelectedIndex(SelectedAnalysisDriverList.size()-1);
+        	AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked(null);
+        }
     }
 
     private void UpdateSelectedEventSetListBox()
@@ -2568,6 +2572,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             SelectedEventSetsListBox_Model.addElement(SelectedEventDriverList.get(i).displayName());
         }
         CheckMinimumRequirements();
+        if(!SelectedEventDriverList.isEmpty()){
+        	EventSetsPanel_SelectedEventSetListBox.setSelectedIndex(SelectedEventDriverList.size()-1);
+        	EventSetsPanel_SelectedEventSetListBoxMouseClicked(null);
+        }
     }
 
     private void UpdateSelectedEventCullingListBox()
@@ -2578,6 +2586,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         {
             SelectedEventCullingListBox_Model.addElement(SelectedEventCullersList.get(i).displayName());
         }
+        if(!SelectedEventCullersList.isEmpty()){
+        	EventCullingPanel_SelectedEventCullingListBox.setSelectedIndex(SelectedEventCullersList.size()-1);
+        	EventCullingPanel_SelectedEventCullingListBoxMouseClicked(null);
+        }
     }
 
     private void UpdateSelectedCanonicizerListBox() {
@@ -2585,6 +2597,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         for (int i = 0; i < SelectedCanonicizerList.size(); i++)
         {
             SelectedCanonicizerListBox_Model.addElement(SelectedCanonicizerList.get(i).displayName());
+        }
+        if(!SelectedCanonicizerList.isEmpty()){
+        	CanonicizersPanel_SelectedCanonicizerListBox.setSelectedIndex(SelectedCanonicizerList.size()-1);
+        	CanonicizersPanel_SelectedCanonicizerListBoxMouseClicked(null);
         }
 }
 
