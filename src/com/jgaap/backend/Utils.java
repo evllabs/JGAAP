@@ -45,9 +45,9 @@ public class Utils {
 	}
 	
 	public static void saveDocumentsToCSV(List<Document> documents, File file){
-		Vector<Vector<String>> csvOfDocuments = new Vector<Vector<String>>();
+		List<List<String>> csvOfDocuments = new ArrayList<List<String>>();
 		for(Document document : documents){
-			Vector<String> current = new Vector<String>();
+			List<String> current = new ArrayList<String>();
 			current.add(document.getAuthor());
 			current.add(document.getFilePath());
 			current.add(document.getTitle());
