@@ -167,6 +167,16 @@ public class API {
 		}
 		return new ArrayList<String>(authors);
 	}
+	
+	/**
+	 * Loads the documents from the file system
+	 * @throws Exception 
+	 */
+	private void loadDocuments() throws Exception{
+		for(Document document : documents){
+			document.load();
+		}
+	}
 
 	/**
 	 * Adds the specified canonicizer to all documents currently loaded in the system.
@@ -464,6 +474,7 @@ public class API {
 						document.addEventSet(eventDriver,
 								eventDriver.createEventSet(document));
 					}
+					document.readStringText("");
 				}
 			});
 			threads.add(t);
@@ -530,14 +541,12 @@ public class API {
 
 	/**
 	 * Runs the canonicize eventify cull and analyze methods since a strict order has to be enforced when using them 
-	 * @throws InterruptedException
+	 * @throws Exception 
 	 */
-	public void execute() throws InterruptedException {
-		//load documents here
+	public void execute() throws Exception {
+		loadDocuments();
 		canonicize();
-		//release original doc text here
 		eventify();
-		//release canonicized doc text here
 		cull();
 		analyze();
 		clearEventSets();
