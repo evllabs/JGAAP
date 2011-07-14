@@ -1761,7 +1761,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }
         else
         {
-            ReviewPanel_DocumentsLabel.setForeground(Color.GREEN);
+            ReviewPanel_DocumentsLabel.setForeground(Color.GREEN.darker());
         }
 
         if (SelectedEventDriverList.isEmpty())
@@ -1771,10 +1771,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }
         else
         {
-            ReviewPanel_SelectedEventSetLabel.setForeground(Color.GREEN);
+            ReviewPanel_SelectedEventSetLabel.setForeground(Color.GREEN.darker());
         }
 
-        ReviewPanel_SelectedEventCullingLabel.setForeground(Color.GREEN);
+        ReviewPanel_SelectedEventCullingLabel.setForeground(Color.GREEN.darker());
 
         if (SelectedAnalysisDriverList.isEmpty())
         {
@@ -1783,7 +1783,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }
         else
         {
-            ReviewPanel_SelectedAnalysisMethodsLabel.setForeground(Color.GREEN);
+            ReviewPanel_SelectedAnalysisMethodsLabel.setForeground(Color.GREEN.darker());
         }
 
         ReviewPanel_ProcessButton.setEnabled(OK);
