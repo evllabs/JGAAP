@@ -105,12 +105,17 @@ public class JGAAP_UI_ResultsDialog extends javax.swing.JDialog {
     {
         JTextArea TextArea = new JTextArea();
         TextArea.setText(note);
-        JScrollPane ScrollPane = new JScrollPane(TextArea);
+        final JScrollPane ScrollPane = new JScrollPane(TextArea);
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        	   public void run() { 
+        	       ScrollPane.getVerticalScrollBar().setValue(0);
+        	   }
+        	}); 
         JPanel Panel = new JPanel();
         Panel.setLayout(new BorderLayout());
         Panel.add(ScrollPane, BorderLayout.CENTER);
         Results_TabbedPane.add(now(),Panel);
-
+        Results_TabbedPane.setSelectedComponent(Panel);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
