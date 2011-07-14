@@ -445,19 +445,19 @@ public class API {
 	 * @throws InterruptedException
 	 */
 	private void canonicize() throws InterruptedException {
-		List<Thread> threads = new ArrayList<Thread>();
+//		List<Thread> threads = new ArrayList<Thread>();
 		for (final Document document : documents) {
-			Thread t = new Thread(new Runnable() {
-				public void run() {
+//			Thread t = new Thread(new Runnable() {
+//				public void run() {
 					document.processCanonicizers();
-				}
-			});
-			threads.add(t);
-			t.start();
+//				}
+//			});
+//			threads.add(t);
+//			t.start();
 		}
-		for (Thread t : threads) {
-			t.join();
-		}
+//		for (Thread t : threads) {
+//			t.join();
+//		}
 	}
 
 	/**
@@ -466,23 +466,23 @@ public class API {
 	 * @throws InterruptedException
 	 */
 	private void eventify() throws InterruptedException {
-		List<Thread> threads = new ArrayList<Thread>();
+//		List<Thread> threads = new ArrayList<Thread>();
 		for (final Document document : documents) {
-			Thread t = new Thread(new Runnable() {
-				public void run() {
+//			Thread t = new Thread(new Runnable() {
+//				public void run() {
 					for (EventDriver eventDriver : eventDrivers) {
 						document.addEventSet(eventDriver,
 								eventDriver.createEventSet(document));
 					}
 					document.readStringText("");
-				}
-			});
-			threads.add(t);
-			t.start();
+//				}
+//			});
+//			threads.add(t);
+//			t.start();
 		}
-		for (Thread t : threads) {
-			t.join();
-		}
+//		for (Thread t : threads) {
+//			t.join();
+//		}
 	}
 
 	/**
@@ -514,7 +514,7 @@ public class API {
 	 * @throws InterruptedException
 	 */
 	private void analyze() throws InterruptedException {
-		List<Thread> threads = new ArrayList<Thread>();
+//		List<Thread> threads = new ArrayList<Thread>();
 		final List<Document> knownDocuments = new ArrayList<Document>();
 		List<Document> unknownDocuments = new ArrayList<Document>();
 		for (Document document : documents) {
@@ -526,17 +526,17 @@ public class API {
 		}
 		for (final AnalysisDriver analysisDriver : analysisDrivers)
 			for (final Document unknownDocument : unknownDocuments) {
-				Thread t = new Thread(new Runnable() {
-					public void run() {
+//				Thread t = new Thread(new Runnable() {
+//					public void run() {
 						analysisDriver.analyze(unknownDocument, knownDocuments);
-					}
-				});
-				threads.add(t);
-				t.start();
+//					}
+//				});
+//				threads.add(t);
+//				t.start();
 			}
-		for (Thread t : threads) {
-			t.join();
-		}
+//		for (Thread t : threads) {
+//			t.join();
+//		}
 	}
 
 	/**
