@@ -10,7 +10,6 @@ import com.jgaap.generics.NumericEventDriver;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
 import com.jgaap.jgaapConstants;
-import javax.swing.*;
 
 
 /**

@@ -4,7 +4,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.generics.*;
-import javax.swing.*;
 
 
 /**

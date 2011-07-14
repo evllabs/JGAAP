@@ -7,7 +7,6 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.jgaapConstants;
-import javax.swing.*;
 
 
 /**
