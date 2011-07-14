@@ -1654,11 +1654,11 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             try 
             {
                 filepath = FileChoser.getSelectedFile().getCanonicalPath();
-                Vector<Vector<String>> DocumentCSVs = new Vector<Vector<String>>();
+                List<List<String>> DocumentCSVs = new ArrayList<List<String>>();
                 DocumentList = JGAAP_API.getDocuments();
                 for (int i = 0; i < DocumentList.size(); i++)
                 {
-                    Vector<String> doc = new Vector<String>();
+                    List<String> doc = new ArrayList<String>();
                     if (DocumentList.get(i).getAuthor() != null)
                     {
                         doc.add(DocumentList.get(i).getAuthor());

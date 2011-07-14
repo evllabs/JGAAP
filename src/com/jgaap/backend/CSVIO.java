@@ -39,13 +39,13 @@ public class CSVIO {
      * @param informationMatrix contains the information you want in each cell and where you want the cells
      * @param fileName name of the csv file that will be created
      */
-    public static void altWriteCSV(Vector<Vector<String>> informationMatrix,
+    public static void altWriteCSV(List<List<String>> informationMatrix,
             String fileName) {
         File file = new File(fileName);
         try {
             Writer output = new BufferedWriter(new FileWriter(file));
             while (!informationMatrix.isEmpty()) {
-                Vector<String> currentRow = informationMatrix.remove(0);
+                List<String> currentRow = informationMatrix.remove(0);
                 StringBuffer row = new StringBuffer();
                 while (!currentRow.isEmpty()) {
                     String entry = currentRow.remove(0);
@@ -86,8 +86,8 @@ public class CSVIO {
  * to how it will appear in the csv. This is for testing purposes.
  * @param csvMatrix contains the information you want in each cell and where you want the cells
  */
-    public static void printCSV(Vector<Vector<String>> csvMatrix) {
-        for (Vector<String> line : csvMatrix) {
+    public static void printCSV(List<List<String>> csvMatrix) {
+        for (List<String> line : csvMatrix) {
             System.out.println(line);
         }
     }
@@ -176,16 +176,16 @@ public class CSVIO {
      * @param csvMatrix contains the information you want in each cell and where you want the cells
      * @param file the csv file you want to create
      */
-    public static void writeCSV(Vector<Vector<String>> csvMatrix, File file) {
+    public static void writeCSV(List<List<String>> csvMatrix, File file) {
         try {
             Writer output = new BufferedWriter(new FileWriter(file));
             for (int i = 0; i < csvMatrix.size(); i++) {
-                Vector<String> row = csvMatrix.elementAt(i);
+                List<String> row = csvMatrix.get(i);
                 StringBuffer rowBuffer = new StringBuffer();
                 boolean first = true;
                 for (int j = 0; j < row.size(); j++) {
                     StringBuffer thisEntry = new StringBuffer();
-                    String entry = row.elementAt(j);
+                    String entry = row.get(j);
                     boolean quoteFlag = false;
                     for (int k = 0; k < entry.length(); k++) {
                         if (entry.charAt(k) == '"') {
@@ -229,7 +229,7 @@ public class CSVIO {
  * @param csvMatrix information to be writen to file
  * @param fileName name of the file to be creatd and writen
  */
-    public static void writeCSV(Vector<Vector<String>> csvMatrix,
+    public static void writeCSV(List<List<String>> csvMatrix,
             String fileName) {
         File file = new File(fileName);
         writeCSV(csvMatrix, file);
