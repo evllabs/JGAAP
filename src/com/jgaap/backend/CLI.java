@@ -241,7 +241,8 @@ public class CLI {
 	private static String optionBuilder(List<String> tagSet) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(tagSet.remove(0));
-		for (String s : tagSet) {
+		while (!tagSet.isEmpty()) {
+			String s = tagSet.remove(0);
 			buffer.append(" " + s);
 		}
 		return buffer.toString();
