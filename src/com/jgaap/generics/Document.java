@@ -82,8 +82,7 @@ public class Document extends Parameterizable {
 	 *            The title of the document
 	 * @throws Exception
 	 */
-	public Document(String filepath, String author, String title)
-			throws Exception {
+	public Document(String filepath, String author, String title){
 		this.author = author;
 		if (author != null && author.equals("")) // unknown authors are null
 			this.author = null;
@@ -91,15 +90,18 @@ public class Document extends Parameterizable {
 		this.title = title;
 		if (title == null || title.equals(""))
 			this.title = getTitleFromPath(filepath);
-		this.rawText = DocumentHelper.loadDocument(filepath);
 		this.docType = DocumentHelper.getDocType(filepath);
+		this.eventSets = new HashMap<EventDriver, EventSet>();
+		this.canonicizers = new ArrayList<Canonicizer>();
+		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>();
+	}
+	
+	public void load() throws Exception{
+		this.rawText = DocumentHelper.loadDocument(filepath);
 		this.size = this.rawText.length;
 		if (this.size == 0) {
 			throw new Exception("Empty Document Error");
 		}
-		this.eventSets = new HashMap<EventDriver, EventSet>();
-		this.canonicizers = new ArrayList<Canonicizer>();
-		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>();
 	}
 
 	/**
