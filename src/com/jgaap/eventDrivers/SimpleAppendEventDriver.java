@@ -6,7 +6,6 @@ package com.jgaap.eventDrivers;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
-import javax.swing.*;
 
 /**
  * Appends two or more underlying EventSets (parameterized as underlyingevents,

@@ -7,7 +7,6 @@ import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 import com.knowledgebooks.nlp.fasttag.*;
 import java.util.*;
-import javax.swing.*;
 
 
 /**

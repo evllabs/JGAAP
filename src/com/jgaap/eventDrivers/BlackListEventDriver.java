@@ -13,7 +13,6 @@ import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
-import javax.swing.*;
 
 /**
  * Filters all Event strings against named file and removes named events.

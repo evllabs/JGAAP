@@ -22,7 +22,6 @@ import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
 
 import com.knowledgebooks.nlp.fasttag.*;
-import javax.swing.*;
 
 
 /*
