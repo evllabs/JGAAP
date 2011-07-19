@@ -182,7 +182,6 @@ public class EventSet implements Iterable<Event> {
     	return false;
     }
 
-	@Override
 	public Iterator<Event> iterator() {
 		return events.iterator();
 	}
