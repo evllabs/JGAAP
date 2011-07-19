@@ -35,6 +35,8 @@ package com.jgaap.ui;
 
 
 //Package Imports
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -1458,6 +1460,22 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         jMenu1.add(jMenu4);
 
         jMenu2.setText("AAAC Problems");
+
+        ProblemAMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemBMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemCMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemDMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemEMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_E, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemFMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemGMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemHMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemIMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemKMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemLMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+        ProblemMMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, (java.awt.event.InputEvent.CTRL_MASK) | InputEvent.SHIFT_MASK));
+
+
 
         ProblemAMenuItem.setText("Problem A");
         ProblemAMenuItem.addActionListener(new java.awt.event.ActionListener() {
