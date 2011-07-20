@@ -188,7 +188,7 @@ public class API {
 	 * Loads the documents from the file system
 	 * @throws Exception 
 	 */
-	private void loadDocuments() throws Exception{
+	public void loadDocuments() throws Exception{
 		for(Document document : documents){
 			document.load();
 		}
