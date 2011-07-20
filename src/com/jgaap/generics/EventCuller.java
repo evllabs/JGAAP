@@ -40,10 +40,4 @@ public abstract class EventCuller extends Parameterizable implements Comparable<
     public int compareTo(EventCuller o){
     	return displayName().compareTo(o.displayName());
     }
-
-    public GroupLayout getGUILayout(JPanel panel)
-    {
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-        return layout;
-    }
 }

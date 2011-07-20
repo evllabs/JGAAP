@@ -46,6 +46,11 @@ public class LeastCommonEvents extends EventCuller {
         return underlyingCuller.cull(eventSets);
     }
 
+    public LeastCommonEvents() {
+        super();
+        addParams("N", "numEvents", "50", new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }, true);
+    }
+
     @Override
     public String displayName() {
         return "Least Common Events";
@@ -66,7 +71,7 @@ public class LeastCommonEvents extends EventCuller {
     public boolean showInGUI() {
         return true;
     }
-
+/*
     JLabel NLabel = new JLabel();
     JComboBox NBox = new JComboBox();
 
@@ -118,5 +123,5 @@ public class LeastCommonEvents extends EventCuller {
         this.setParameter("numEvents", (String)NBox.getSelectedItem());
         this.setParameter("minPos", -Integer.parseInt((String)NBox.getSelectedItem()));
     }
-
+*/
 }

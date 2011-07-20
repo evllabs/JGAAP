@@ -19,7 +19,13 @@
  **/
 package com.jgaap.generics;
 
+import org.apache.tools.ant.taskdefs.Java;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.Event;
 import java.util.HashMap;
+import java.util.Vector;
 
 /**
  * A class of things-that-can-take-(label:value)-parameters.
@@ -32,9 +38,13 @@ public class Parameterizable {
     /** Parameters are stored using pairs of Strings in a HashMap */
     private HashMap<String, String> Parameters;
 
+    /** Store parameter GUI settings representations (label, dropdown box pair) */
+    private Vector<Pair<JLabel, JComboBox>> paramGUI;
+
     /** Construct new Parameterizable with empty set */
     public Parameterizable() {
         Parameters = new HashMap<String, String>();
+        paramGUI = new Vector<Pair<JLabel, JComboBox>>();
     }
 
     /** Removes all label and their associated values */
@@ -115,5 +125,59 @@ public class Parameterizable {
      */
     public void setParameter(String label, String value) {
         Parameters.put(label.toLowerCase(), value);
+    }
+
+    public void addParams(String paramName, String displayName, String defaultValue, String[] possibleValues, boolean editable) {
+        JLabel label = new JLabel();
+        JComboBox box = new JComboBox();
+
+        setParameter(paramName, defaultValue);
+
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setText(displayName);
+
+        box.setModel(new javax.swing.DefaultComboBoxModel(possibleValues));
+        box.setEditable(editable);
+        box.setName(paramName);
+        box.setSelectedItem(defaultValue);
+        box.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeParam(evt);
+            }
+        });
+
+        paramGUI.add(new Pair<JLabel, JComboBox>(label, box));
+    }
+
+    public GroupLayout getGUILayout(JPanel panel){
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
+        GroupLayout.ParallelGroup labels = layout.createParallelGroup();
+        GroupLayout.ParallelGroup boxes = layout.createParallelGroup();
+        for(Pair<JLabel, JComboBox> p : paramGUI) {
+            labels.addComponent(p.getFirst());
+            boxes.addComponent(p.getSecond());
+        }
+        hGroup.addGroup(labels);
+        hGroup.addGroup(boxes);
+        layout.setHorizontalGroup(hGroup);
+
+        GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
+        for(Pair<JLabel, JComboBox> p: paramGUI) {
+            vGroup.addGroup(layout.createParallelGroup().addComponent(p.getFirst()).addComponent(p.getSecond()));
+        }
+        layout.setVerticalGroup(vGroup);
+
+        return layout;
+    }
+
+    private void changeParam(java.awt.event.ActionEvent evt) {
+        for(Pair<JLabel, JComboBox> p : paramGUI) {
+            this.setParameter(p.getSecond().getName(), (String)p.getSecond().getSelectedItem());
+        }
     }
 }
