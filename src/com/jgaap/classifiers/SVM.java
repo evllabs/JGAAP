@@ -62,7 +62,7 @@ public class SVM extends AnalysisDriver {
 
     public SVM(int t) {
         super();
-        this.addParams("N", "N", "50", new String[] {"50", "100", "200"}, true);
+        //this.addParams("N", "N", "50", new String[] {"50", "100", "200"}, true);
         kernelType = t;
     }
 

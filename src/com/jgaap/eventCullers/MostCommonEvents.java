@@ -30,6 +30,11 @@ import java.util.List;
 public class MostCommonEvents extends EventCuller {
 
 
+    public MostCommonEvents() {
+        super();
+        addParams("numEvents", "N", "50", new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }, true);
+    }
+
     @Override
     public List<EventSet> cull(List<EventSet> eventSets) {
 
@@ -61,59 +66,6 @@ public class MostCommonEvents extends EventCuller {
         return "Analyze only the N most frequent events across all documents; " +
                "the value of N is passed as a parameter (numEvents). ";
     }
-
-    // TODO: Extract parameterization to its own method
-
-    JLabel NLabel = new JLabel();
-    JComboBox NBox = new JComboBox();
-
-    @Override
-    public GroupLayout getGUILayout(JPanel panel){
-
-    	NLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    	NLabel.setText("N");
-
-    	NBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }));
-        NBox.setEditable(true);
-        String temp = this.getParameter("numEvents");
-        if (temp.equals(""))
-        {
-            this.setParameter("numEvents", 50);
-        }
-        NBox.setSelectedItem(this.getParameter("numEvents"));
-        NBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NBoxActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-        layout.setHorizontalGroup(
-        		layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(NLabel)
-                        .addComponent(NBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(275, Short.MAX_VALUE))
-            );
-
-        layout.setVerticalGroup(
-        		layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(NLabel)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(NBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(255, Short.MAX_VALUE))
-            );
-        return layout;
-    }
-
-    private void NBoxActionPerformed(java.awt.event.ActionEvent evt) {
-        this.setParameter("numEvents", (String)NBox.getSelectedItem());
-    }
-
 
     @Override
     public boolean showInGUI() {

@@ -19,6 +19,7 @@ package com.jgaap.eventCullers;
 
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 import javax.swing.*;
 import java.util.List;
@@ -48,7 +49,7 @@ public class LeastCommonEvents extends EventCuller {
 
     public LeastCommonEvents() {
         super();
-        addParams("N", "numEvents", "50", new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }, true);
+        addParams("numEvents", "N", "50", new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }, true);
     }
 
     @Override
@@ -124,4 +125,10 @@ public class LeastCommonEvents extends EventCuller {
         this.setParameter("minPos", -Integer.parseInt((String)NBox.getSelectedItem()));
     }
 */
+    @Override
+    protected void changeParam(java.awt.event.ActionEvent evt) {
+        super.changeParam(evt);
+        Integer minPos = -Integer.parseInt(getParameter("numEvents"));
+        setParameter("minPos", minPos.toString());
+    }
 }
