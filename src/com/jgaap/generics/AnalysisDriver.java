@@ -69,10 +69,10 @@ public abstract class AnalysisDriver extends Parameterizable implements Comparab
     public int compareTo(AnalysisDriver o){
     	return displayName().compareTo(o.displayName());
     }
-
+/*
     public GroupLayout getGUILayout(JPanel panel)
     {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
         return layout;
-    }
+    } */
 }
