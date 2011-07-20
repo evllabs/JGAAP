@@ -56,6 +56,8 @@ import com.jgaap.generics.*;
 import com.jgaap.jgaapConstants;
 import com.jgaap.backend.API;
 import com.jgaap.backend.CSVIO;
+import com.jgaap.backend.Utils;
+
 import java.awt.Color;
 import java.io.IOException;
 
@@ -1687,25 +1689,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         {
             try 
             {
-                filepath = FileChoser.getSelectedFile().getCanonicalPath();
-                List<List<String>> DocumentCSVs = new ArrayList<List<String>>();
+            	JGAAP_API.loadDocuments();
                 DocumentList = JGAAP_API.getDocuments();
-                for (int i = 0; i < DocumentList.size(); i++)
-                {
-                    List<String> doc = new ArrayList<String>();
-                    if (DocumentList.get(i).getAuthor() != null)
-                    {
-                        doc.add(DocumentList.get(i).getAuthor());
-                    }
-                    else
-                    {
-                        doc.add("");
-                    }
-                    doc.add(DocumentList.get(i).getFilePath());
-                    doc.add(DocumentList.get(i).getTitle());
-                    DocumentCSVs.add(doc);
-                }
-                CSVIO.writeCSV(DocumentCSVs, filepath);
+                Utils.saveDocumentsToCSV(DocumentList, FileChoser.getSelectedFile());
             }
             catch (Exception e)
             {
