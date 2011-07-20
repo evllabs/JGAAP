@@ -175,7 +175,7 @@ public class Parameterizable {
         return layout;
     }
 
-    private void changeParam(java.awt.event.ActionEvent evt) {
+    protected void changeParam(java.awt.event.ActionEvent evt) {
         for(Pair<JLabel, JComboBox> p : paramGUI) {
             this.setParameter(p.getSecond().getName(), (String)p.getSecond().getSelectedItem());
         }
