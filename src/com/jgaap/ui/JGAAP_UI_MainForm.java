@@ -321,7 +321,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         jLabel12.setText("<html> JGAAP, the Java Graphical Authorship Attribution Program, <br/>is an opensource author attribution / text classification tool <br/>Developed by the EVL lab (Evaluating Variation in Language Labratory) <br/> Released by Patrick Juola under the GPL v3.0");
 
-        jLabel13.setText("�2011 EVL lab");
+        jLabel13.setText("©2011 EVL lab");
 
         jLabel23.setForeground(new java.awt.Color(0, 0, 255));
         jLabel23.setText("http://evllabs.com");
@@ -537,7 +537,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         JGAAP_TabbedPane.addTab("Documents", JGAAP_DocumentsPanel);
 
-        CanonicizersPanel_RemoveCanonicizerButton.setText("<");
+        CanonicizersPanel_RemoveCanonicizerButton.setText("←");
         CanonicizersPanel_RemoveCanonicizerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CanonicizersPanel_RemoveCanonicizerButtonActionPerformed(evt);
@@ -560,7 +560,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setWrapStyleWord(true);
         jScrollPane11.setViewportView(CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox);
 
-        CanonicizersPanel_AddCanonicizerButton.setText(">");
+        CanonicizersPanel_AddCanonicizerButton.setText("→");
         CanonicizersPanel_AddCanonicizerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CanonicizersPanel_AddCanonicizerButtonActionPerformed(evt);
@@ -821,14 +821,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         EventSetsPanel_EventSetDescriptionTextBox.setWrapStyleWord(true);
         jScrollPane6.setViewportView(EventSetsPanel_EventSetDescriptionTextBox);
 
-        EventSetsPanel_AddEventSetButton.setText(">");
+        EventSetsPanel_AddEventSetButton.setText("→");
         EventSetsPanel_AddEventSetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EventSetsPanel_AddEventSetButtonActionPerformed(evt);
             }
         });
 
-        EventSetsPanel_RemoveEventSetButton.setText("<");
+        EventSetsPanel_RemoveEventSetButton.setText("←");
         EventSetsPanel_RemoveEventSetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EventSetsPanel_RemoveEventSetButtonActionPerformed(evt);
@@ -944,14 +944,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         });
         jScrollPane14.setViewportView(EventCullingPanel_SelectedEventCullingListBox);
 
-        EventCullingPanel_AddEventCullingButton.setText(">");
+        EventCullingPanel_AddEventCullingButton.setText("→");
         EventCullingPanel_AddEventCullingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EventCullingPanel_AddEventCullingButtonActionPerformed(evt);
             }
         });
 
-        EventCullingPanel_RemoveEventCullingButton.setText("<");
+        EventCullingPanel_RemoveEventCullingButton.setText("←");
         EventCullingPanel_RemoveEventCullingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EventCullingPanel_RemoveEventCullingButtonActionPerformed(evt);
@@ -1103,14 +1103,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         });
         jScrollPane17.setViewportView(AnalysisMethodPanel_SelectedAnalysisMethodsListBox);
 
-        AnalysisMethodPanel_AddAnalysisMethodButton.setText(">");
+        AnalysisMethodPanel_AddAnalysisMethodButton.setText("→");
         AnalysisMethodPanel_AddAnalysisMethodButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnalysisMethodPanel_AddAnalysisMethodButtonActionPerformed(evt);
             }
         });
 
-        AnalysisMethodPanel_RemoveAnalysisMethodsButton.setText("<");
+        AnalysisMethodPanel_RemoveAnalysisMethodsButton.setText("←");
         AnalysisMethodPanel_RemoveAnalysisMethodsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnalysisMethodPanel_RemoveAnalysisMethodsButtonActionPerformed(evt);
@@ -1425,7 +1425,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         JGAAP_TabbedPane.addTab("Review & Process", JGAAP_ReviewPanel);
 
-        Next_Button.setText("Next >");
+        Next_Button.setText("Next →");
         Next_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Next_ButtonActionPerformed(evt);
@@ -2784,7 +2784,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         if (!CanonicizerMasterList.isEmpty())
         {
             CanonicizersPanel_CanonicizerListBox.setSelectedIndex(0);
-            CanonicizersPanel_DocumentsCurrentCanonicizersTextBox.setText(CanonicizerMasterList.get(0).longDescription());
+            //CanonicizersPanel_DocumentsCurrentCanonicizersTextBox.setText(CanonicizerMasterList.get(0).longDescription());
         }
 }
 
