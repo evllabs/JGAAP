@@ -73,7 +73,7 @@ public class Parameterizable {
         if (Parameters.containsKey(label.toLowerCase())) {
             return Parameters.get(label.toLowerCase());
         } else {
-            return new String("");
+            return "";
         }
     }
 
