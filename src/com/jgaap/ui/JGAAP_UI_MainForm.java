@@ -537,7 +537,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         JGAAP_TabbedPane.addTab("Documents", JGAAP_DocumentsPanel);
 
-        CanonicizersPanel_RemoveCanonicizerButton.setText("←");
+        CanonicizersPanel_RemoveCanonicizerButton.setText("\u2190");
         CanonicizersPanel_RemoveCanonicizerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CanonicizersPanel_RemoveCanonicizerButtonActionPerformed(evt);
@@ -828,7 +828,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
         });
 
-        EventSetsPanel_RemoveEventSetButton.setText("←");
+        EventSetsPanel_RemoveEventSetButton.setText("\u2190");
         EventSetsPanel_RemoveEventSetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EventSetsPanel_RemoveEventSetButtonActionPerformed(evt);
@@ -951,7 +951,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
         });
 
-        EventCullingPanel_RemoveEventCullingButton.setText("←");
+        EventCullingPanel_RemoveEventCullingButton.setText("\u2190");
         EventCullingPanel_RemoveEventCullingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EventCullingPanel_RemoveEventCullingButtonActionPerformed(evt);
@@ -1110,7 +1110,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
         });
 
-        AnalysisMethodPanel_RemoveAnalysisMethodsButton.setText("←");
+        AnalysisMethodPanel_RemoveAnalysisMethodsButton.setText("\u2190");
         AnalysisMethodPanel_RemoveAnalysisMethodsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnalysisMethodPanel_RemoveAnalysisMethodsButtonActionPerformed(evt);
