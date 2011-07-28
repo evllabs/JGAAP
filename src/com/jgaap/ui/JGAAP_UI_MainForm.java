@@ -560,7 +560,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setWrapStyleWord(true);
         jScrollPane11.setViewportView(CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox);
 
-        CanonicizersPanel_AddCanonicizerButton.setText("→");
+        CanonicizersPanel_AddCanonicizerButton.setText("\u2192");
         CanonicizersPanel_AddCanonicizerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CanonicizersPanel_AddCanonicizerButtonActionPerformed(evt);
@@ -821,7 +821,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         EventSetsPanel_EventSetDescriptionTextBox.setWrapStyleWord(true);
         jScrollPane6.setViewportView(EventSetsPanel_EventSetDescriptionTextBox);
 
-        EventSetsPanel_AddEventSetButton.setText("→");
+        EventSetsPanel_AddEventSetButton.setText("\u2192");
         EventSetsPanel_AddEventSetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EventSetsPanel_AddEventSetButtonActionPerformed(evt);
@@ -944,7 +944,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         });
         jScrollPane14.setViewportView(EventCullingPanel_SelectedEventCullingListBox);
 
-        EventCullingPanel_AddEventCullingButton.setText("→");
+        EventCullingPanel_AddEventCullingButton.setText("\u2192");
         EventCullingPanel_AddEventCullingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EventCullingPanel_AddEventCullingButtonActionPerformed(evt);
@@ -1103,7 +1103,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         });
         jScrollPane17.setViewportView(AnalysisMethodPanel_SelectedAnalysisMethodsListBox);
 
-        AnalysisMethodPanel_AddAnalysisMethodButton.setText("→");
+        AnalysisMethodPanel_AddAnalysisMethodButton.setText("\u2192");
         AnalysisMethodPanel_AddAnalysisMethodButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnalysisMethodPanel_AddAnalysisMethodButtonActionPerformed(evt);
@@ -1425,7 +1425,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         JGAAP_TabbedPane.addTab("Review & Process", JGAAP_ReviewPanel);
 
-        Next_Button.setText("Next →");
+        Next_Button.setText("Next \u2192");
         Next_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Next_ButtonActionPerformed(evt);
