@@ -82,7 +82,7 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
                     }
                     for (Event event : current) {
                         if (authorHistogram.containsKey(event)) {
-                            Double tmp = authorHistogram.get(event);
+                            double tmp = authorHistogram.get(event);
                             tmp += current.getRelativeFrequency(event)
                                     / knownAuthors.get(author).size();
                             authorHistogram.put(event, tmp);
