@@ -52,6 +52,13 @@ import com.jgaap.jgaapConstants;
  */
 public class AutoPopulate {
 
+	private static final List<Canonicizer> CANONICIZERS = loadCanonicizers();
+	private static final List<EventDriver> EVENT_DRIVERS = loadEventDrivers();
+	private static final List<EventCuller> EVENT_CULLERS = loadEventCullers();
+	private static final List<DistanceFunction> DISTANCE_FUNCTIONS = loadDistanceFunctions();
+	private static final List<AnalysisDriver> ANALYSIS_DRIVERS = loadAnalysisDrivers();
+	private static final List<Language> LANGUAGES = loadLanguages();
+
 	/**
 	 * Search named directory for all instantiations of the type named.
 	 * 
@@ -72,8 +79,8 @@ public class AutoPopulate {
 			thingy = Class.forName(theclass);
 		} catch (Exception e) {
 			if (jgaapConstants.JGAAP_DEBUG_VERBOSITY)
-				System.out.println("Error: problem instantiating " + theclass + " ("
-						+ e.getClass().getName() + ")");
+				System.out.println("Error: problem instantiating " + theclass
+						+ " (" + e.getClass().getName() + ")");
 		}
 		String[] children = null;
 		if (jgaapConstants.JGAAP_PACKAGE_JAR) {
@@ -101,7 +108,8 @@ public class AutoPopulate {
 		} else {
 			for (int i = 0; i < children.length; i++) {
 				if (children[i].endsWith(".class")) {
-					String s = children[i].substring(0, children[i].length() - 6);
+					String s = children[i].substring(0,
+							children[i].length() - 6);
 
 					// System.out.println(s);
 					// list.add(s);
@@ -110,15 +118,16 @@ public class AutoPopulate {
 					fulQualName = "com.jgaap" + fulQualName.replace("/", ".");
 
 					try {
-						Object o = Class.forName(fulQualName + "." + s).newInstance();
+						Object o = Class.forName(fulQualName + "." + s)
+								.newInstance();
 						if (thingy != null && thingy.isInstance(o)) {
 							list.add(s);
 						}
 
 					} catch (Exception ex) {
 						if (jgaapConstants.JGAAP_DEBUG_VERBOSITY)
-							System.out.println("Error: problem instantiating " + s + " ("
-									+ ex.getClass().getName() + ")");
+							System.out.println("Error: problem instantiating "
+									+ s + " (" + ex.getClass().getName() + ")");
 					}
 				}
 			}
@@ -142,15 +151,16 @@ public class AutoPopulate {
 	 * @return A Vector containing instantiations of all classes that are
 	 *         subclasses of 'theclass'.
 	 */
-	public static Vector<Object> findAll(String directory, String theclass, boolean getObjects) {
+	public static Vector<Object> findAll(String directory, String theclass,
+			boolean getObjects) {
 		Vector<Object> list = new Vector<Object>();
 		Class<?> thingy = null;
 		try {
 			thingy = Class.forName(theclass);
 		} catch (Exception e) {
 			if (jgaapConstants.JGAAP_DEBUG_VERBOSITY)
-				System.out.println("Error: problem instantiating " + theclass + " ("
-						+ e.getClass().getName() + ")");
+				System.out.println("Error: problem instantiating " + theclass
+						+ " (" + e.getClass().getName() + ")");
 		}
 
 		String[] children = null;
@@ -179,7 +189,8 @@ public class AutoPopulate {
 		} else {
 			for (int i = 0; i < children.length; i++) {
 				if (children[i].endsWith(".class")) {
-					String s = children[i].substring(0, children[i].length() - 6);
+					String s = children[i].substring(0,
+							children[i].length() - 6);
 
 					// System.out.println(s);
 					// list.add(s);
@@ -188,15 +199,16 @@ public class AutoPopulate {
 					fulQualName = "com.jgaap" + fulQualName.replace("/", ".");
 
 					try {
-						Object o = Class.forName(fulQualName + "." + s).newInstance();
+						Object o = Class.forName(fulQualName + "." + s)
+								.newInstance();
 						if (thingy != null && thingy.isInstance(o)) {
 							list.add(o);
 						}
 
 					} catch (Exception ex) {
 						if (jgaapConstants.JGAAP_DEBUG_VERBOSITY)
-							System.out.println("Error: problem instantiating " + s + " ("
-									+ ex.getClass().getName() + ")");
+							System.out.println("Error: problem instantiating "
+									+ s + " (" + ex.getClass().getName() + ")");
 					}
 				}
 			}
@@ -204,117 +216,109 @@ public class AutoPopulate {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static List<Canonicizer> getCanonicizers() {
+		return CANONICIZERS;
+	}
+
+	private static List<Canonicizer> loadCanonicizers() {
 		List<Canonicizer> canonicizers = new ArrayList<Canonicizer>();
-		if (jgaapConstants.globalObjects.containsKey("canonicizers")) {
-			canonicizers.addAll((List<Canonicizer>) jgaapConstants.globalObjects
-					.get("canonicizers"));
-		} else {
-			for (Object tmpC : findAll(jgaapConstants.binDir() + "/com/jgaap/canonicizers",
-					"com.jgaap.generics.Canonicizer", true)) {
-				Canonicizer canon = (Canonicizer) tmpC;
-				canonicizers.add(canon);
-			}
-			Collections.sort(canonicizers);
-			jgaapConstants.globalObjects.put("canonicizers", canonicizers);
+		for (Object tmpC : findAll(jgaapConstants.binDir()
+				+ "/com/jgaap/canonicizers", "com.jgaap.generics.Canonicizer",
+				true)) {
+			Canonicizer canon = (Canonicizer) tmpC;
+			canonicizers.add(canon);
 		}
+		Collections.sort(canonicizers);
+		jgaapConstants.globalObjects.put("canonicizers", canonicizers);
 		return canonicizers;
 	}
 
-	// Load the event drivers dynamically
-	@SuppressWarnings("unchecked")
 	public static List<EventDriver> getEventDrivers() {
+		return EVENT_DRIVERS;
+	}
+
+	private static List<EventDriver> loadEventDrivers() {
 		List<EventDriver> eventDrivers;
-		if (jgaapConstants.globalObjects.containsKey("eventDrivers")) {
-			eventDrivers = (List<EventDriver>) jgaapConstants.globalObjects.get("eventDrivers");
-		} else {
-			eventDrivers = new ArrayList<EventDriver>();
-			for (Object tmpE : findAll(jgaapConstants.binDir() + "/com/jgaap/eventDrivers",
-					"com.jgaap.generics.EventDriver", true)) {
-				EventDriver event = (EventDriver) tmpE;
-				eventDrivers.add(event);
-			}
-			Collections.sort(eventDrivers);
-			jgaapConstants.globalObjects.put("eventDrivers", eventDrivers);
+		eventDrivers = new ArrayList<EventDriver>();
+		for (Object tmpE : findAll(jgaapConstants.binDir()
+				+ "/com/jgaap/eventDrivers", "com.jgaap.generics.EventDriver",
+				true)) {
+			EventDriver event = (EventDriver) tmpE;
+			eventDrivers.add(event);
 		}
+		Collections.sort(eventDrivers);
+		jgaapConstants.globalObjects.put("eventDrivers", eventDrivers);
 		return eventDrivers;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static List<DistanceFunction> getDistanceFunctions() {
-		// Load the distance functions dynamically
-		List<DistanceFunction> distances;
-		if (jgaapConstants.globalObjects.containsKey("distances")) {
-			distances = (List<DistanceFunction>) jgaapConstants.globalObjects.get("distances");
-		} else {
-			distances = new ArrayList<DistanceFunction>();
-			for (Object tmpD : findAll(jgaapConstants.binDir() + "/com/jgaap/distances",
-					"com.jgaap.generics.DistanceFunction", true)) {
-				DistanceFunction method = (DistanceFunction) tmpD;
-				distances.add(method);
-			}
-			Collections.sort(distances);
-			jgaapConstants.globalObjects.put("distances", distances);
+		return DISTANCE_FUNCTIONS;
+	}
+
+	private static List<DistanceFunction> loadDistanceFunctions() {
+		List<DistanceFunction> distances = new ArrayList<DistanceFunction>();
+		for (Object tmpD : findAll(jgaapConstants.binDir()
+				+ "/com/jgaap/distances",
+				"com.jgaap.generics.DistanceFunction", true)) {
+			DistanceFunction method = (DistanceFunction) tmpD;
+			distances.add(method);
 		}
+		Collections.sort(distances);
+		jgaapConstants.globalObjects.put("distances", distances);
+
 		return distances;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static List<AnalysisDriver> getAnalysisDrivers() {
-		// Load the classifiers dynamically
+		return ANALYSIS_DRIVERS;
+	}
+
+	private static List<AnalysisDriver> loadAnalysisDrivers() {
 		List<AnalysisDriver> analysisDrivers;
-		if (jgaapConstants.globalObjects.containsKey("classifiers")) {
-			analysisDrivers = (List<AnalysisDriver>) jgaapConstants.globalObjects
-					.get("classifiers");
-		} else {
-			analysisDrivers = new ArrayList<AnalysisDriver>();
-			for (Object tmpA : findAll(jgaapConstants.binDir() + "/com/jgaap/classifiers",
-					"com.jgaap.generics.AnalysisDriver", true)) {
-				AnalysisDriver method = (AnalysisDriver) tmpA;
-				analysisDrivers.add(method);
-			}
-			Collections.sort(analysisDrivers);
-			jgaapConstants.globalObjects.put("classifiers", analysisDrivers);
+		analysisDrivers = new ArrayList<AnalysisDriver>();
+		for (Object tmpA : findAll(jgaapConstants.binDir()
+				+ "/com/jgaap/classifiers",
+				"com.jgaap.generics.AnalysisDriver", true)) {
+			AnalysisDriver method = (AnalysisDriver) tmpA;
+			analysisDrivers.add(method);
 		}
+		Collections.sort(analysisDrivers);
+		jgaapConstants.globalObjects.put("classifiers", analysisDrivers);
 		return analysisDrivers;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static List<Language> getLanguages() {
-		// Load the classifiers dynamically
+		return LANGUAGES;
+	}
+
+	private static List<Language> loadLanguages() {
 		List<Language> languages;
-		if (jgaapConstants.globalObjects.containsKey("languages")) {
-			languages = (List<Language>) jgaapConstants.globalObjects.get("languages");
-		} else {
-			languages = new ArrayList<Language>();
-			for (Object tmpA : findAll(jgaapConstants.binDir() + "/com/jgaap/languages",
-					"com.jgaap.generics.Language", true)) {
-				Language lang = (Language) tmpA;
-				languages.add(lang);
-			}
-			Collections.sort(languages);
-			jgaapConstants.globalObjects.put("languages", languages);
+		languages = new ArrayList<Language>();
+		for (Object tmpA : findAll(jgaapConstants.binDir()
+				+ "/com/jgaap/languages", "com.jgaap.generics.Language", true)) {
+			Language lang = (Language) tmpA;
+			languages.add(lang);
 		}
+		Collections.sort(languages);
+		jgaapConstants.globalObjects.put("languages", languages);
 		return languages;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static List<EventCuller> getEventCullers() {
-		// Load the event cullers dynamically
+		return EVENT_CULLERS;
+	}
+
+	private static List<EventCuller> loadEventCullers() {
 		List<EventCuller> cullers;
-		if (jgaapConstants.globalObjects.containsKey("eventCullers")) {
-			cullers = (List<EventCuller>) jgaapConstants.globalObjects.get("eventCullers");
-		} else {
-			cullers = new ArrayList<EventCuller>();
-			for (Object tmpA : findAll(jgaapConstants.binDir() + "/com/jgaap/eventCullers",
-					"com.jgaap.generics.EventCuller", true)) {
-				EventCuller lang = (EventCuller) tmpA;
-				cullers.add(lang);
-			}
-			Collections.sort(cullers);
-			jgaapConstants.globalObjects.put("eventCullers", cullers);
+		cullers = new ArrayList<EventCuller>();
+		for (Object tmpA : findAll(jgaapConstants.binDir()
+				+ "/com/jgaap/eventCullers", "com.jgaap.generics.EventCuller",
+				true)) {
+			EventCuller lang = (EventCuller) tmpA;
+			cullers.add(lang);
 		}
+		Collections.sort(cullers);
+		jgaapConstants.globalObjects.put("eventCullers", cullers);
 		return cullers;
 	}
 
@@ -332,7 +336,8 @@ public class AutoPopulate {
 	 * @throws URISyntaxException
 	 * @throws IOException
 	 */
-	private static String[] getResourceListing(String path) throws URISyntaxException, IOException {
+	private static String[] getResourceListing(String path)
+			throws URISyntaxException, IOException {
 		Class<?> clazz = com.jgaap.jgaap.class;
 		URL dirURL = clazz.getClassLoader().getResource(path);
 		if (dirURL != null && (dirURL.getProtocol().equals("file"))) {
@@ -348,12 +353,14 @@ public class AutoPopulate {
 			dirURL = clazz.getClassLoader().getResource(me);
 		}
 
-		if (dirURL.getProtocol().equals("jar") || dirURL.getProtocol().equals("rsrc")) {
+		if (dirURL.getProtocol().equals("jar")
+				|| dirURL.getProtocol().equals("rsrc")) {
 			String jarPath;
 			if (dirURL.getProtocol().equals("rsrc")) {
 				jarPath = "jgaap.jar";
 			} else {
-				jarPath = dirURL.getPath().substring(5, dirURL.getPath().indexOf("!"));
+				jarPath = dirURL.getPath().substring(5,
+						dirURL.getPath().indexOf("!"));
 			}
 			JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
 			Enumeration<JarEntry> entries = jar.entries();
@@ -373,7 +380,8 @@ public class AutoPopulate {
 			return result.toArray(new String[result.size()]);
 		}
 
-		throw new UnsupportedOperationException("Cannot list files for URL " + dirURL);
+		throw new UnsupportedOperationException("Cannot list files for URL "
+				+ dirURL);
 	}
 
 	/**
