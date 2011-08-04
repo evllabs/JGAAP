@@ -41,12 +41,12 @@ public class ChineseJointMM extends Language {
 
 	@Override
 	public char[] parseLanguage(String document) {
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder(document.length());
 		WordSegment wordSegmenter = new WordSegment(jgaapConstants.libDir()
 				+ "chinese_dictionary.dat", new JointMM());
 		List<String> segmented = wordSegmenter.Segment(document);
 		for (String word : segmented) {
-			stringBuilder.append(word);
+			stringBuilder.append(word).append(" ");
 		}
 		return stringBuilder.toString().toCharArray();
 	}
