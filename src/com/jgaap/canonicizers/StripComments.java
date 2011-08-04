@@ -79,7 +79,7 @@ public class StripComments extends Canonicizer {
 	 */
 	@Override
 	public char[] process(char[] procText) {
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder(procText.length);
 		boolean isPrinting = true;
 		LanguageEnum theLang = LanguageEnum.UNDEF;
 

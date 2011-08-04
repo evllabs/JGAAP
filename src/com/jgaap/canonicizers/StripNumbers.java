@@ -67,7 +67,7 @@ public class StripNumbers extends Canonicizer {
 	 */
 	@Override
 	public char[] process(char[] procText) {
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder(procText.length);
 		boolean spaceflag = false;
 		for (int i = 0; i < procText.length; i++) {
 			if (Character.isDigit(procText[i]) && !spaceflag) {

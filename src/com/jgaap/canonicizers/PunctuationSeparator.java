@@ -64,7 +64,7 @@ public class PunctuationSeparator extends Canonicizer {
      */
 	@Override
 	public char[] process(char[] procText) {
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder(procText.length);
 		int state = 0;
 		for (Character character : procText) {
 			if (state == 0) {

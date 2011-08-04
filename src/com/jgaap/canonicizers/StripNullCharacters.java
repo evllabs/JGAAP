@@ -65,7 +65,7 @@ public class StripNullCharacters extends Canonicizer {
 
     @Override
     public char[] process(char[] procText) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder(procText.length);
         for(Character c : procText) {
             if(c != '\u0000') {
                 stringBuilder.append(c);
