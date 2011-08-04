@@ -55,8 +55,8 @@ public class IntervieweeText extends Canonicizer {
 
     @Override
     public char[] process(char[] procText) {
-        StringBuffer text = new StringBuffer();
-        StringBuffer newText = new StringBuffer();
+        StringBuilder text = new StringBuilder(procText.length);
+        StringBuilder newText = new StringBuilder(procText.length);
         for(Character c : procText) {
             text.append(c);
         }

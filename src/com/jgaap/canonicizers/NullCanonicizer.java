@@ -63,7 +63,7 @@ public class NullCanonicizer extends Canonicizer {
     public char[] process(char[] procText) {
 
         // Reimplemented to play nicely with threading
-        StringBuffer tmp = new StringBuffer();
+        StringBuilder tmp = new StringBuilder(procText.length);
         for (int i = 0; i < procText.length; i++) {
             tmp.append(procText[i]);
         }
