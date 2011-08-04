@@ -64,7 +64,7 @@ public class StripPunctuation extends Canonicizer {
      */
     @Override
     public char[] process(char[] procText) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder(procText.length);
         for (int i = 0; i < procText.length; i++) {
             if (punc.indexOf(procText[i]) == -1) { // If the character
                 // is not

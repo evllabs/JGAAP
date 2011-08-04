@@ -63,7 +63,7 @@ public class NormalizeASCII extends Canonicizer {
      */
     @Override
     public char[] process(char[] procText) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder(procText.length);
         for (int i = 0; i < procText.length; i++) {
 	    int c = procText[i];
 	    if ((c> 0x08 && c <= 0x0D) || // whitespace control codes
