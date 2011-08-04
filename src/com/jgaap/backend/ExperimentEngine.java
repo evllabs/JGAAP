@@ -153,7 +153,7 @@ public class ExperimentEngine {
 								divergenceType = DivergenceType.Reverse;
 							}
 						}
-						API experiment = new API();
+						API experiment = API.getPrivateInstance();
 						try {
 							List<Document> documents = Utils
 									.getDocumentsFromCSV(CSVIO

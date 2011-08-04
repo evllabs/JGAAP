@@ -66,10 +66,10 @@ public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
     };
 
     /** Creates new form JGAAP_UI_AddAuthorDialog */
-    public JGAAP_UI_AddAuthorDialog(java.awt.Frame parent, boolean modal, API api, String name, String filepath) {
+    public JGAAP_UI_AddAuthorDialog(java.awt.Frame parent, boolean modal, String name, String filepath) {
         super(parent, modal);
         initComponents();
-        JGAAP_API = api;
+        JGAAP_API = API.getInstance();
         Edit_AuthorName = name;
         Filepath = filepath;
         SetUnknownDocumentColumns();
@@ -311,7 +311,7 @@ public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JGAAP_UI_AddAuthorDialog dialog = new JGAAP_UI_AddAuthorDialog(new javax.swing.JFrame(), true, null, "", "");
+                JGAAP_UI_AddAuthorDialog dialog = new JGAAP_UI_AddAuthorDialog(new javax.swing.JFrame(), true, "", "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

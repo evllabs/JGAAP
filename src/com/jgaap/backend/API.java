@@ -50,7 +50,9 @@ public class API {
 	private DistanceFunctionFactory distanceFunctionFactory;
 	private LanguageFactory languageFactory;
 
-	public API() {
+	private static API INSTANCE = new API();
+	
+	private API() {
 		documents = new ArrayList<Document>();
 		eventDrivers = new ArrayList<EventDriver>();
 		eventCullers = new ArrayList<EventCuller>();
@@ -61,6 +63,18 @@ public class API {
 		analysisDriverFactory = new AnalysisDriverFactory();
 		distanceFunctionFactory = new DistanceFunctionFactory();
 		languageFactory = new LanguageFactory();
+	}
+	
+	public static API getInstance(){
+		return INSTANCE;
+	}
+	
+	public static void rest(){
+		INSTANCE = new API();
+	}
+	
+	public static API getPrivateInstance(){
+		return new API();
 	}
 
 	/**

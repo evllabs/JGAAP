@@ -111,7 +111,7 @@ public class CLI {
 
 		} else {
 			jgaap.commandline = true;
-			API commandDriver = new API();
+			API commandDriver = API.getInstance();
 			String eventSelected = "";
 			List<String> eventCullersSelected = new ArrayList<String>();
 			String analyzerSelected = "";
