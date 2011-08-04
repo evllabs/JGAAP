@@ -59,7 +59,7 @@ public class JSONExperimentEngine {
 				@SuppressWarnings("rawtypes")
 				@Override
 				public void run() {
-					API api = new API();
+					API api = API.getPrivateInstance();
 //					String number = (String) experiment.get("number");
 					String language = (String) experiment.get("language");
 					JSONArray canonicizers = (JSONArray) experiment

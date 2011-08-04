@@ -105,7 +105,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }
     };
 
-    API JGAAP_API = new API();
+    API JGAAP_API = API.getInstance();
 
     JFileChooser  FileChoser;
     String filepath = "..";
@@ -2111,7 +2111,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         String AuthorName;
         if(Path.getPathCount() != 1) {
             AuthorName = Path.getPathComponent(1).toString();
-            JGAAP_UI_AddAuthorDialog  AddAuthorDialog= new JGAAP_UI_AddAuthorDialog(JGAAP_UI_MainForm.this, true, JGAAP_API, AuthorName, filepath);
+            JGAAP_UI_AddAuthorDialog  AddAuthorDialog= new JGAAP_UI_AddAuthorDialog(JGAAP_UI_MainForm.this, true, AuthorName, filepath);
             AddAuthorDialog.setVisible(true);
             UpdateKnownDocumentsTree();
         } else {
@@ -2120,7 +2120,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 }//GEN-LAST:event_DocumentsPanel_EditAuthorButtonActionPerformed
 
     private void DocumentsPanel_AddAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DocumentsPanel_AddAuthorButtonActionPerformed
-        JGAAP_UI_AddAuthorDialog  AddAuthorDialog= new JGAAP_UI_AddAuthorDialog(JGAAP_UI_MainForm.this, true, JGAAP_API,"",filepath);
+        JGAAP_UI_AddAuthorDialog  AddAuthorDialog= new JGAAP_UI_AddAuthorDialog(JGAAP_UI_MainForm.this, true,"",filepath);
         AddAuthorDialog.setVisible(true);
         filepath = AddAuthorDialog.getFilePath();
         UpdateKnownDocumentsTree();
