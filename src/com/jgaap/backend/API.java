@@ -464,6 +464,34 @@ public class API {
 		return language;
 	}
 
+	private void loadCanonicizeEventify() throws Exception{
+		List<Thread> threads = new ArrayList<Thread>();
+		for(final Document document : documents){
+			Thread t = new Thread( new Runnable() {
+				
+				@Override
+				public void run() {
+					try {
+						document.load();
+						document.processCanonicizers();
+						for (EventDriver eventDriver : eventDrivers) {
+							document.addEventSet(eventDriver,eventDriver.createEventSet(document));
+						}
+						document.readStringText("");
+						System.gc();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			t.start();
+			threads.add(t);
+		}
+		for(Thread thread : threads){
+			thread.join();
+		}
+	}
+	
 	/**
 	 * Events are culled from EventSets across all Documents on a per EventDriver basis
 	 * @throws InterruptedException
@@ -519,19 +547,11 @@ public class API {
 	}
 
 	/**
-	 * Runs the canonicize eventify cull and analyze methods since a strict order has to be enforced when using them 
+	 * Preforms the canonicize eventify cull and analyze methods since a strict order has to be enforced when using them 
 	 * @throws Exception 
 	 */
 	public void execute() throws Exception {
-		for(Document document : documents){
-			document.load();
-			document.processCanonicizers();
-			for (EventDriver eventDriver : eventDrivers) {
-				document.addEventSet(eventDriver,eventDriver.createEventSet(document));
-			}
-			document.readStringText("");
-			System.gc();
-		}
+		loadCanonicizeEventify();
 		cull();
 		analyze();
 		clearEventSets();
