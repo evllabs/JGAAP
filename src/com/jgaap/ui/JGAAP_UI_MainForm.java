@@ -1655,10 +1655,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ReviewPanel_ProcessButtonActionPerformed
 
-    private void LoadProblemMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadProblemMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LoadProblemMenuItemActionPerformed
-
     private void BatchLoadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatchLoadMenuItemActionPerformed
         FileChoser = new JFileChooser(filepath);
         int choice = FileChoser.showOpenDialog(JGAAP_UI_MainForm.this);
@@ -2287,238 +2283,72 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             JGAAP_TabbedPane.setSelectedIndex(5);
         }//GEN-LAST:event_Review_ButtonActionPerformed
 
+        private void loadAAACProblem(String problem){
+        	filepath = jgaapConstants.docsDir()+"aaac/Demos/load"+problem+".csv";
+        	List<Document> documents = Collections.emptyList();
+        	try {
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(filepath));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			for(Document document : documents){
+				JGAAP_API.addDocument(document);
+			}
+			UpdateKnownDocumentsTree();
+			UpdateUnknownDocumentsTable();
+        	
+        }
+        
         private void ProblemAMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemAMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadA.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("A");
         }//GEN-LAST:event_ProblemAMenuItemActionPerformed
 
         private void ProblemBMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemBMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadB.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("B");
         }//GEN-LAST:event_ProblemBMenuItemActionPerformed
 
         private void ProblemCMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemCMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadC.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("C");
         }//GEN-LAST:event_ProblemCMenuItemActionPerformed
 
         private void ProblemDMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemDMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadD.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("D");
         }//GEN-LAST:event_ProblemDMenuItemActionPerformed
 
         private void ProblemEMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemEMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadE.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("E");
         }//GEN-LAST:event_ProblemEMenuItemActionPerformed
 
         private void ProblemFMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemFMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadF.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("F");
         }//GEN-LAST:event_ProblemFMenuItemActionPerformed
 
         private void ProblemGMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemGMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadG.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("G");
         }//GEN-LAST:event_ProblemGMenuItemActionPerformed
 
         private void ProblemHMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemHMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadH.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("H");
         }//GEN-LAST:event_ProblemHMenuItemActionPerformed
 
         private void ProblemIMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemIMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadI.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("I");
         }//GEN-LAST:event_ProblemIMenuItemActionPerformed
 
         private void ProblemJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemJMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadJ.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("J");
         }//GEN-LAST:event_ProblemJMenuItemActionPerformed
 
         private void ProblemKMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemKMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadK.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("K");
         }//GEN-LAST:event_ProblemKMenuItemActionPerformed
 
         private void ProblemLMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemLMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadL.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("L");
         }//GEN-LAST:event_ProblemLMenuItemActionPerformed
 
         private void ProblemMMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProblemMMenuItemActionPerformed
-            try
-            {
-                filepath = jgaapConstants.docsDir()+"aaac/Demos/loadM.csv";
-                List<List<String>> DocumentCSVs = CSVIO.readCSV(filepath);
-                for (int i = 0; i < DocumentCSVs.size(); i++)
-                {
-                	JGAAP_API.addDocument(DocumentCSVs.get(i).get(1),DocumentCSVs.get(i).get(0),(DocumentCSVs.get(i).size()>2?DocumentCSVs.get(i).get(2):null));
-                }
-                UpdateKnownDocumentsTree();
-                UpdateUnknownDocumentsTable();
-            }
-            catch (Exception e)
-            {
-
-            }
+        	loadAAACProblem("M");
         }//GEN-LAST:event_ProblemMMenuItemActionPerformed
 
         private void ReviewPanel_DocumentsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_DocumentsLabelMouseClicked
@@ -2526,7 +2356,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }//GEN-LAST:event_ReviewPanel_DocumentsLabelMouseClicked
 
         private void ReviewPanel_DocumentsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_DocumentsTableMouseClicked
-            JGAAP_TabbedPane.setSelectedIndex(0);
+            //JGAAP_TabbedPane.setSelectedIndex(0);
         }//GEN-LAST:event_ReviewPanel_DocumentsTableMouseClicked
 
         private void ReviewPanel_SelectedEventSetLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedEventSetLabelMouseClicked
@@ -2534,7 +2364,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }//GEN-LAST:event_ReviewPanel_SelectedEventSetLabelMouseClicked
 
         private void ReviewPanel_SelectedEventSetListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedEventSetListBoxMouseClicked
-            JGAAP_TabbedPane.setSelectedIndex(2);
+            //JGAAP_TabbedPane.setSelectedIndex(2);
         }//GEN-LAST:event_ReviewPanel_SelectedEventSetListBoxMouseClicked
 
         private void ReviewPanel_SelectedEventCullingLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedEventCullingLabelMouseClicked
@@ -2542,7 +2372,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }//GEN-LAST:event_ReviewPanel_SelectedEventCullingLabelMouseClicked
 
         private void ReviewPanel_SelectedEventCullingListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedEventCullingListBoxMouseClicked
-            JGAAP_TabbedPane.setSelectedIndex(3);
+            //JGAAP_TabbedPane.setSelectedIndex(3);
         }//GEN-LAST:event_ReviewPanel_SelectedEventCullingListBoxMouseClicked
 
         private void ReviewPanel_SelectedAnalysisMethodsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedAnalysisMethodsLabelMouseClicked
@@ -2550,7 +2380,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }//GEN-LAST:event_ReviewPanel_SelectedAnalysisMethodsLabelMouseClicked
 
         private void ReviewPanel_SelectedAnalysisMethodsListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReviewPanel_SelectedAnalysisMethodsListBoxMouseClicked
-            JGAAP_TabbedPane.setSelectedIndex(4);
+            //JGAAP_TabbedPane.setSelectedIndex(4);
         }//GEN-LAST:event_ReviewPanel_SelectedAnalysisMethodsListBoxMouseClicked
 
     private void toggleHelpDialog(){
