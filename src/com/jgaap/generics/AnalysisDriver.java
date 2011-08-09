@@ -21,7 +21,6 @@ package com.jgaap.generics;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
 
 /**
  * Class for statistical analysis methods. As an abstract class, can only be

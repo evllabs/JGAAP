@@ -28,8 +28,6 @@ import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
 
-import javax.swing.*;
-
 /**
  * SVM classifier rewritten to talk directly to libsvm. 
  * The previous incarnation invoked a system call and launched another instance of Java
