@@ -38,7 +38,7 @@ public class Document extends Parameterizable {
 	// private List<Character> rawText;
 	private char[] rawText;
 	// private List<Character> procText;
-	private char[] procText;
+	//private char[] procText;
 	private int size;
 	private DocType docType;
 	private List<Canonicizer> canonicizers;
@@ -79,8 +79,8 @@ public class Document extends Parameterizable {
 		this.filepath = new String(document.filepath);
 		// this.procText = new ArrayList<Character>(document.procText);
 		// this.rawText = new ArrayList<Character>(document.rawText);
-		this.procText = Arrays.copyOf(document.procText,
-				document.procText.length);
+		//this.procText = Arrays.copyOf(document.procText,
+		//		document.procText.length);
 		this.rawText = Arrays.copyOf(document.rawText, document.rawText.length);
 		this.size = document.size;
 		this.title = new String(document.title);
@@ -135,7 +135,7 @@ public class Document extends Parameterizable {
 	public void readStringText(String text) {
 		rawText = text.toCharArray();
 		size = rawText.length;
-		procText = Arrays.copyOf(rawText, size);
+		//procText = Arrays.copyOf(rawText, size);
 	}
 
 	public void print() {
@@ -164,15 +164,15 @@ public class Document extends Parameterizable {
 	 * whitespace or normalizing the case
 	 **/
 	public char[] getProcessedText() {
-		if (procText != null)
-			return Arrays.copyOf(procText, procText.length);
-		else
+		//if (procText != null)
+		//	return Arrays.copyOf(procText, procText.length);
+		//else
 			return Arrays.copyOf(rawText, rawText.length);
 	}
 
-	public void setProcessedText(char[] procText) {
-		this.procText = procText;
-	}
+//	public void setProcessedText(char[] procText) {
+//		this.procText = procText;
+//	}
 
 	/**
 	 * Returns the size of the document. Size is determined by the number of
@@ -255,15 +255,15 @@ public class Document extends Parameterizable {
 	public void processCanonicizers() {
 		// procText = new ArrayList<Character>();
 		// procText.addAll(rawText);
-		procText = Arrays.copyOf(rawText, rawText.length);
+		//procText = Arrays.copyOf(rawText, rawText.length);
 		if (jgaapConstants.globalObjects.containsKey("language")) {
 			Language language = (Language) jgaapConstants.globalObjects
 					.get("language");
 			if (language.isParseable())
-				procText = language.parseLanguage(stringify());
+				rawText = language.parseLanguage(stringify());
 		}
 		for (Canonicizer canonicizer : canonicizers) {
-			procText = canonicizer.process(procText);
+			rawText = canonicizer.process(rawText);
 		}
 	}
 
@@ -352,9 +352,9 @@ public class Document extends Parameterizable {
 	 * Convert processed document into one really long string.
 	 **/
 	public String stringify() {
-		StringBuilder t = new StringBuilder(procText.length);
-		for (int i = 0; i < procText.length; i++) {
-			t.append(procText[i]);
+		StringBuilder t = new StringBuilder(rawText.length);
+		for (int i = 0; i < rawText.length; i++) {
+			t.append(rawText[i]);
 		}
 		return t.toString();
 	}
