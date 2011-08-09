@@ -222,7 +222,7 @@ public class DefinitionsEventDriver extends EventDriver {
 		IIndexWord idxWord;
 		List<IWordID> wordID;
 		IWord word;
-		String outDef="";
+		StringBuilder outDef= new StringBuilder();
 		Document tmpDoc = new Document();
 		
 		
@@ -273,20 +273,16 @@ public class DefinitionsEventDriver extends EventDriver {
 				
 				String [] tmpDef = definition.split(";");
 				if(tmpDef[0]!="")
-					outDef = outDef+tmpDef[0]+" ";
-				
-												
+					outDef.append(tmpDef[0]).append(" ");
 				}
 				
 			}
 		Document outDoc = new Document();
-		outDoc.readStringText(outDef);
+		outDoc.readStringText(outDef.toString());
 		StripPunctuation strip = new StripPunctuation();
 		
-		char[] charDef = strip.process(outDoc.getProcessedText());
-		
-		outDoc.setProcessedText(charDef);
-		
+		outDoc.addCanonicizer(strip);
+		outDoc.processCanonicizers();
 		
 		String [] eventArray = outDoc.stringify().split("\\s");
 		for(int i=0; i<eventArray.length; i++){
