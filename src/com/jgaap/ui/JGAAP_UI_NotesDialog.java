@@ -108,11 +108,11 @@ public class JGAAP_UI_NotesDialog extends javax.swing.JDialog {
 
     private void OK_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OK_ButtonActionPerformed
         SaveNote();
-        this.hide();
+        this.setVisible(false);
     }//GEN-LAST:event_OK_ButtonActionPerformed
 
     private void Cancel_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_ButtonActionPerformed
-        this.hide();
+        this.setVisible(false);
     }//GEN-LAST:event_Cancel_ButtonActionPerformed
 
     /**
