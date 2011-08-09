@@ -20,8 +20,6 @@ package com.jgaap.eventCullers;
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventSet;
 
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.util.List;
 
 /**

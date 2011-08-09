@@ -19,9 +19,7 @@ package com.jgaap.eventCullers;
 
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
 
-import javax.swing.*;
 import java.util.List;
 
 /**

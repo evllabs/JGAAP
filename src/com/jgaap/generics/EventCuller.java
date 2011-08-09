@@ -18,7 +18,6 @@
 package com.jgaap.generics;
 
 import java.util.List;
-import javax.swing.*;
 
 /**
  * Event Culling abstract parent class.
