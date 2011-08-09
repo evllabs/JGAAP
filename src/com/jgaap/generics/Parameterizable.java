@@ -19,12 +19,9 @@
  **/
 package com.jgaap.generics;
 
-import org.apache.tools.ant.taskdefs.Java;
-
 import javax.swing.*;
-import java.awt.*;
-import java.awt.Event;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -39,7 +36,7 @@ public class Parameterizable {
     private HashMap<String, String> Parameters;
 
     /** Store parameter GUI settings representations (label, dropdown box pair) */
-    private Vector<Pair<JLabel, JComboBox>> paramGUI;
+    private List<Pair<JLabel, JComboBox>> paramGUI;
 
     /** Construct new Parameterizable with empty set */
     public Parameterizable() {
