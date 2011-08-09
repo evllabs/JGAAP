@@ -461,65 +461,14 @@ public class API {
 	public Language setLanguage(String action) throws Exception {
 		Language language = languageFactory.getLanguage(action);
 		language.apply();
-		List<Document> tmpDocuments = new ArrayList<Document>(documents); 
-		for(Document document : tmpDocuments){
-			addDocument(document.getFilePath(), document.getAuthor(), document.getTitle());
-			removeDocument(document);
-		}
 		return language;
-	}
-
-	/**
-	 * Generates a Thread for each Document.
-	 * Processes the Canonicizers on each Document in its own thread.
-	 * @throws InterruptedException
-	 */
-	private void canonicize() throws InterruptedException {
-//		List<Thread> threads = new ArrayList<Thread>();
-		for (final Document document : documents) {
-//			Thread t = new Thread(new Runnable() {
-//				public void run() {
-					document.processCanonicizers();
-//				}
-//			});
-//			threads.add(t);
-//			t.start();
-		}
-//		for (Thread t : threads) {
-//			t.join();
-//		}
-	}
-
-	/**
-	 * Generates a Thread for each Document.
-	 * In the threads the documents are processed by each loaded EventDriver generating a unique EventSet from everyone. 
-	 * @throws InterruptedException
-	 */
-	private void eventify() throws InterruptedException {
-//		List<Thread> threads = new ArrayList<Thread>();
-		for (final Document document : documents) {
-//			Thread t = new Thread(new Runnable() {
-//				public void run() {
-					for (EventDriver eventDriver : eventDrivers) {
-						document.addEventSet(eventDriver,
-								eventDriver.createEventSet(document));
-					}
-					document.readStringText("");
-//				}
-//			});
-//			threads.add(t);
-//			t.start();
-		}
-//		for (Thread t : threads) {
-//			t.join();
-//		}
 	}
 
 	/**
 	 * Events are culled from EventSets across all Documents on a per EventDriver basis
 	 * @throws InterruptedException
 	 */
-	private void cull() throws InterruptedException {
+	private void cull() {
 		for (EventDriver eventDriver : eventDrivers) {
 			List<EventSet> eventSets = new ArrayList<EventSet>();
 			for (final Document document : documents) {
@@ -574,9 +523,15 @@ public class API {
 	 * @throws Exception 
 	 */
 	public void execute() throws Exception {
-		loadDocuments();
-		canonicize();
-		eventify();
+		for(Document document : documents){
+			document.load();
+			document.processCanonicizers();
+			for (EventDriver eventDriver : eventDrivers) {
+				document.addEventSet(eventDriver,eventDriver.createEventSet(document));
+			}
+			document.readStringText("");
+			System.gc();
+		}
 		cull();
 		analyze();
 		clearEventSets();
