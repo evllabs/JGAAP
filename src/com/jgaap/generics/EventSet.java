@@ -19,9 +19,9 @@
  **/
 package com.jgaap.generics;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 /**
  *  A set of Events
@@ -30,8 +30,8 @@ import java.util.Vector;
  */
 public class EventSet implements Iterable<Event> {
 
-    /** Events are currently stored as a Vector of Events */
-    private Vector<Event> events      = new Vector<Event>();
+    /** Events are currently stored as a ArrayList of Events */
+    private List<Event> events;
     /** The author, if any, is stored as a String. May be null. */
     private String       author;
     /** Name of document from which Events were derived. */
@@ -43,14 +43,14 @@ public class EventSet implements Iterable<Event> {
 
     /** Creates a new, empty list of events. Will also include unique ID */
     public EventSet() {
-        events = new Vector<Event>();
+        events = new ArrayList<Event>();
         setAuthor("default");
         setNewEventSetID("default");
     }
 
     /** Creates a new list of events given a previously created list of events **/
     public EventSet(List<Event> evts) {
-        events = new Vector<Event>(evts);
+        events = new ArrayList<Event>(evts);
         setAuthor("default");
         setNewEventSetID("default");
     }
@@ -62,7 +62,7 @@ public class EventSet implements Iterable<Event> {
      *            the name of the author
      */
     public EventSet(String Author) {
-        events = new Vector<Event>();
+        events = new ArrayList<Event>();
         setAuthor(Author);
         setNewEventSetID(Author);
     }
@@ -164,14 +164,11 @@ public class EventSet implements Iterable<Event> {
      **/
     @Override
     public String toString() {
-        String t = new String();
-        for (int i = 0; i < events.size(); i++) {
-            t += events.elementAt(i);
-            if (i != events.size() - 1) {
-                t += ", ";
-            }
+        StringBuilder builder = new StringBuilder();
+        for(Event event : events){
+        	builder.append(event).append(", ");
         }
-        return t;
+        return builder.substring(0, builder.length()-2);
     }
     
 
