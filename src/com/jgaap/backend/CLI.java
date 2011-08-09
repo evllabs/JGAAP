@@ -21,7 +21,6 @@ package com.jgaap.backend;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import com.jgaap.jgaap;
 import com.jgaap.jgaapConstants;
@@ -120,25 +119,25 @@ public class CLI {
 			String language = "english";
 			DivergenceType currentDivergenceMethod = DivergenceType.Standard;
 			boolean saveResults = false;
-			Vector<Vector<String>> commandInput = new Vector<Vector<String>>();
-			List<List<String>> documentMatrix = new Vector<List<String>>();
-			Vector<String> canonicizers = new Vector<String>();
+			List<List<String>> commandInput = new ArrayList<List<String>>();
+			List<List<String>> documentMatrix = new ArrayList<List<String>>();
+			List<String> canonicizers = new ArrayList<String>();
 			for (int i = 0; i < args.length; i++) {
-				Vector<String> nextFlag;
+				List<String> nextFlag;
 				if (args[i] == null) {
 					break;
 				}
 				if ((args[i].charAt(0) == '-') || (args[i].charAt(0) == '+')) {
-					nextFlag = new Vector<String>();
+					nextFlag = new ArrayList<String>();
 					nextFlag.add(args[i]);
 					commandInput.add(nextFlag);
 				} else {
-					commandInput.lastElement().add(args[i]);
+					commandInput.get(commandInput.size()-1).add(args[i]);
 				}
 			}
 			System.out.println(commandInput);
 			while (!commandInput.isEmpty()) {
-				Vector<String> currentTagSet = commandInput.remove(0);
+				List<String> currentTagSet = commandInput.remove(0);
 				String currentArg = currentTagSet.remove(0);
 				if (currentArg.equalsIgnoreCase("-c")) {
 					String canonSelected = optionBuilder(currentTagSet);
