@@ -18,6 +18,7 @@
 package com.jgaap.backend;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.jgaap.generics.EventDriver;
@@ -28,23 +29,28 @@ import com.jgaap.generics.EventDriver;
 
 public class EventDriverFactory {
 
-	private Map<String, EventDriver> eventDrivers;
+	private static final Map<String, EventDriver> eventDrivers = loadEventDrivers();
 	
-	public EventDriverFactory() {
+	private static Map<String, EventDriver> loadEventDrivers() {
 		// Load the event drivers dynamically
-		eventDrivers = new HashMap<String, EventDriver>();
+		Map<String, EventDriver> eventDrivers = new HashMap<String, EventDriver>();
 		for(EventDriver eventDriver : AutoPopulate.getEventDrivers()){
 			eventDrivers.put(eventDriver.displayName().toLowerCase().trim(), eventDriver);
 		}
+		return eventDrivers;
 	}
 	
-	public EventDriver getEventDriver(String action) throws Exception{
+	public static EventDriver getEventDriver(String action) throws Exception{
 		EventDriver eventDriver;
-		action = action.toLowerCase().trim();
+		List<String[]> parameters = Utils.getParameters(action);
+		action = parameters.remove(0)[0].toLowerCase().trim();
 		if(eventDrivers.containsKey(action)){
 			eventDriver = eventDrivers.get(action).getClass().newInstance();
 		}else{
 			throw new Exception("Event Driver "+action+" not found!");
+		}
+		for(String[] parameter : parameters){
+			eventDriver.setParameter(parameter[0].trim(), parameter[1].trim());
 		}
 		return eventDriver;
 	}
