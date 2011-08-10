@@ -93,4 +93,13 @@ public class Utils {
 		}
 		return displayElements;
 	}
+	
+	public static List<String[]> getParameters(String input){
+		List<String[]> parameters = new ArrayList<String[]>();
+		String[] sets = input.split("\\|");
+		for(int i = 0; i<sets.length;i++){
+			parameters.add(sets[i].split(":"));
+		}
+		return parameters;
+	}
 }

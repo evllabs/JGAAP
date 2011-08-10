@@ -20,27 +20,33 @@ package com.jgaap.backend;
 import com.jgaap.generics.EventCuller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EventCullerFactory {
 
-	private Map<String, EventCuller> eventCullers;
+	private static final Map<String, EventCuller> eventCullers = loadEventCullers();
 
-	public EventCullerFactory() {
+	private static Map<String, EventCuller> loadEventCullers() {
 		// Load the classifiers dynamically
-		eventCullers = new HashMap<String, EventCuller>();
+		Map<String, EventCuller> eventCullers = new HashMap<String, EventCuller>();
 		for(EventCuller eventCuller: AutoPopulate.getEventCullers()){
 			eventCullers.put(eventCuller.displayName().toLowerCase().trim(), eventCuller);
 		}
+		return eventCullers;
 	}
 
-	public EventCuller getEventCuller(String action) throws Exception{
+	public static EventCuller getEventCuller(String action) throws Exception{
 		EventCuller eventCuller;
-		action = action.toLowerCase().trim();
+		List<String[]> parameters = Utils.getParameters(action);
+		action = parameters.remove(0)[0].toLowerCase().trim();
 		if(eventCullers.containsKey(action)){
 			eventCuller = eventCullers.get(action).getClass().newInstance();
 		}else{
 			throw new Exception("Event culler "+action+" not found!");
+		}
+		for(String[] parameter : parameters){
+			eventCuller.setParameter(parameter[0].trim(), parameter[1].trim());
 		}
 		return eventCuller;
 	}

@@ -18,6 +18,7 @@
 package com.jgaap.backend;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.jgaap.generics.AnalysisDriver;
@@ -27,23 +28,28 @@ import com.jgaap.generics.AnalysisDriver;
  */
 public class AnalysisDriverFactory {
 
-	private Map<String, AnalysisDriver> analysisDrivers;
+	private static final Map<String, AnalysisDriver> analysisDrivers = loadAnalysisDrivers();
 	
-	public AnalysisDriverFactory() {
+	private static Map<String, AnalysisDriver> loadAnalysisDrivers() {
 		// Load the classifiers dynamically
-		analysisDrivers = new HashMap<String, AnalysisDriver>();
+		Map<String, AnalysisDriver>analysisDrivers = new HashMap<String, AnalysisDriver>();
 		for(AnalysisDriver analysisDriver: AutoPopulate.getAnalysisDrivers()){
 			analysisDrivers.put(analysisDriver.displayName().toLowerCase(), analysisDriver);
 		}
+		return analysisDrivers;
 	}
 	
-	public AnalysisDriver getAnalysisDriver(String action) throws Exception{
+	public static AnalysisDriver getAnalysisDriver(String action) throws Exception{
 		AnalysisDriver analysisDriver;
-		action = action.toLowerCase();
+		List<String[]> parameters = Utils.getParameters(action);
+		action = parameters.remove(0)[0].toLowerCase().trim();
 		if(analysisDrivers.containsKey(action)){
 			analysisDriver = analysisDrivers.get(action).getClass().newInstance();
 		}else{
 			throw new Exception("Analysis Driver "+action+" not found!");
+		}
+		for(String[] parameter : parameters){
+			analysisDriver.setParameter(parameter[0].trim(), parameter[1].trim());
 		}
 		return analysisDriver;
 	}

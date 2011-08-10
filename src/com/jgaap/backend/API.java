@@ -43,13 +43,6 @@ public class API {
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 
-	private CanonicizerFactory canonicizerFactory;
-	private EventDriverFactory eventDriverFactory;
-	private EventCullerFactory eventCullerFactory;
-	private AnalysisDriverFactory analysisDriverFactory;
-	private DistanceFunctionFactory distanceFunctionFactory;
-	private LanguageFactory languageFactory;
-
 	private static API INSTANCE = new API();
 	
 	private API() {
@@ -57,12 +50,6 @@ public class API {
 		eventDrivers = new ArrayList<EventDriver>();
 		eventCullers = new ArrayList<EventCuller>();
 		analysisDrivers = new ArrayList<AnalysisDriver>();
-		canonicizerFactory = new CanonicizerFactory();
-		eventDriverFactory = new EventDriverFactory();
-		eventCullerFactory = new EventCullerFactory();
-		analysisDriverFactory = new AnalysisDriverFactory();
-		distanceFunctionFactory = new DistanceFunctionFactory();
-		languageFactory = new LanguageFactory();
 	}
 	
 	public static API getInstance(){
@@ -245,7 +232,7 @@ public class API {
 	 */
 	public Canonicizer addCanonicizer(String action, Document document)
 			throws Exception {
-		Canonicizer canonicizer = canonicizerFactory.getCanonicizer(action);
+		Canonicizer canonicizer = CanonicizerFactory.getCanonicizer(action);
 		document.addCanonicizer(canonicizer);
 		return canonicizer;
 	}
@@ -316,7 +303,7 @@ public class API {
 	 * @throws Exception - If the action is not found or the EventDriver cannot be instanced
 	 */
 	public EventDriver addEventDriver(String action) throws Exception {
-		EventDriver eventDriver = eventDriverFactory.getEventDriver(action);
+		EventDriver eventDriver = EventDriverFactory.getEventDriver(action);
 		eventDrivers.add(eventDriver);
 		return eventDriver;
 	}
@@ -356,7 +343,7 @@ public class API {
 	 * @throws Exception - if the EventCuller cannot be found or cannor be instanced 
 	 */
 	public EventCuller addEventCuller(String action) throws Exception {
-		EventCuller eventCuller = eventCullerFactory.getEventCuller(action);
+		EventCuller eventCuller = EventCullerFactory.getEventCuller(action);
 		eventCullers.add(eventCuller);
 		return eventCuller;
 	}
@@ -401,7 +388,7 @@ public class API {
 	public AnalysisDriver addAnalysisDriver(String action) throws Exception {
 		AnalysisDriver analysisDriver;
 		try {
-			analysisDriver = analysisDriverFactory.getAnalysisDriver(action);
+			analysisDriver = AnalysisDriverFactory.getAnalysisDriver(action);
 		} catch (Exception e) {
 			analysisDriver = new NearestNeighborDriver();
 			addDistanceFunction(action, analysisDriver);
@@ -437,7 +424,7 @@ public class API {
 	 */
 	public DistanceFunction addDistanceFunction(String action,
 			AnalysisDriver analysisDriver) throws Exception {
-		DistanceFunction distanceFunction = distanceFunctionFactory
+		DistanceFunction distanceFunction = DistanceFunctionFactory
 				.getDistanceFunction(action);
 		((NeighborAnalysisDriver) analysisDriver).setDistance(distanceFunction);
 		return distanceFunction;
@@ -459,7 +446,7 @@ public class API {
 	 * @throws Exception - if the language cannot be found or cannot be instanced 
 	 */
 	public Language setLanguage(String action) throws Exception {
-		Language language = languageFactory.getLanguage(action);
+		Language language = LanguageFactory.getLanguage(action);
 		language.apply();
 		return language;
 	}

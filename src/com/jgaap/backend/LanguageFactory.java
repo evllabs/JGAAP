@@ -28,17 +28,18 @@ import com.jgaap.generics.Language;
 
 public class LanguageFactory {
 
-	private Map<String, Language> languages;
+	private static final Map<String, Language> languages = loadLanguages();
 	
-	public LanguageFactory() {
+	private static Map<String, Language> loadLanguages() {
 		// Load the classifiers dynamically
-		languages = new HashMap<String, Language>();
+		Map<String, Language>languages = new HashMap<String, Language>();
 		for(Language language : AutoPopulate.getLanguages()){
 			languages.put(language.getName().toLowerCase().trim(), language);
 		}
+		return languages;
 	}
 	
-	public Language getLanguage(String action) throws Exception{
+	public static Language getLanguage(String action) throws Exception{
 		Language language;
 		action = action.toLowerCase().trim();
 		if(languages.containsKey(action)){

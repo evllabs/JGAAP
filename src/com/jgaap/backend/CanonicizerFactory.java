@@ -28,17 +28,18 @@ import com.jgaap.generics.Canonicizer;
 
 public class CanonicizerFactory {
 
-	Map<String, Canonicizer> canonicizers;
+	private static final Map<String, Canonicizer> canonicizers = loadCanonicizers();
 	
-	public CanonicizerFactory() {
+	private static Map<String, Canonicizer> loadCanonicizers() {
 		// Load the canonicizers dynamically
-		canonicizers = new HashMap<String, Canonicizer>();
+		Map<String, Canonicizer> canonicizers = new HashMap<String, Canonicizer>();
 		for(Canonicizer canon : AutoPopulate.getCanonicizers()){
 			canonicizers.put(canon.displayName().toLowerCase().trim(), canon);
 		}	
+		return canonicizers;
 	}
 	
-	public Canonicizer getCanonicizer(String action) throws Exception{
+	public static Canonicizer getCanonicizer(String action) throws Exception{
 		Canonicizer canonicizer;
 		action = action.toLowerCase().trim();
 		if(canonicizers.containsKey(action)){
