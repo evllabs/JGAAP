@@ -70,20 +70,20 @@ public class Document extends Parameterizable {
 	 *            The document to be copied
 	 */
 	public Document(Document document) {
-		this.author = new String(document.author);
+		this.author = document.author;
 		this.canonicizers = new ArrayList<Canonicizer>(document.canonicizers);
 		this.docType = document.docType;
 		this.eventSets = new HashMap<EventDriver, EventSet>(document.eventSets);
 		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>(
 				document.results);
-		this.filepath = new String(document.filepath);
+		this.filepath = document.filepath;
 		// this.procText = new ArrayList<Character>(document.procText);
 		// this.rawText = new ArrayList<Character>(document.rawText);
 		//this.procText = Arrays.copyOf(document.procText,
 		//		document.procText.length);
 		this.rawText = Arrays.copyOf(document.rawText, document.rawText.length);
 		this.size = document.size;
-		this.title = new String(document.title);
+		this.title = document.title;
 	}
 
 	/**
