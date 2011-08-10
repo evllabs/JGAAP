@@ -39,15 +39,13 @@ public class Event implements Comparable<Object> {
     }
 
     /** Create a new event given a character representation of the event **/
-    public Event(Character data) {
-        char[] c = new char[1];
-        c[0] = data.charValue();
-        this.data = new String(c);
+    public Event(char data) {
+        this.data = Character.toString(data);
     }
 
     /** Create a new event given a string representation of this event **/
     public Event(String data) {
-        this.data = new String(data);
+        this.data = data;
     }
 
     /**
