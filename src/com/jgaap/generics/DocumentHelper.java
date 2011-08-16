@@ -38,7 +38,6 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.pdfbox.pdmodel.PDDocument;
 import org.pdfbox.util.PDFTextStripper;
 
-import com.jgaap.jgaapConstants;
 /**
  * @author Michael Ryan
  * @since 5.0.0
@@ -46,7 +45,7 @@ import com.jgaap.jgaapConstants;
 
 class DocumentHelper {
 
-	static char[] loadDocument(String filepath) throws IOException,
+	static char[] loadDocument(String filepath, String charset) throws IOException,
 			BadLocationException {
 		if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
 			return readURLText(filepath);
@@ -57,7 +56,7 @@ class DocumentHelper {
 		} else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
 			return loadHTML(filepath);
 		} else {
-			return readLocalText(filepath);
+			return readLocalText(filepath, charset);
 		}
 	}
 
@@ -179,19 +178,18 @@ class DocumentHelper {
 	 * 
 	 * @throws IOException
 	 **/
-	static public char[] readLocalText(String filepath) throws IOException {
-		return readText(new FileInputStream(filepath));
+	static public char[] readLocalText(String filepath, String charset) throws IOException {
+		return readText(new FileInputStream(filepath), charset);
 	}
 
-	static public char[] readText(InputStream is) throws IOException {
+	static public char[] readText(InputStream is, String charset) throws IOException {
 		int c;
 		List<Character> rawText = new ArrayList<Character>();
 		BufferedReader br;
-		if (jgaapConstants.globalParams.getParameter("charset").equals("")) {
+		if (charset==null) {
 			br = new BufferedReader(new InputStreamReader(is));
 		} else {
-			br = new BufferedReader(new InputStreamReader(is,
-					jgaapConstants.globalParams.getParameter("charset")));
+			br = new BufferedReader(new InputStreamReader(is,charset));
 		}
 
 		while ((c = br.read()) != -1) {
@@ -227,7 +225,7 @@ class DocumentHelper {
 		} else if (filepath.endsWith(".doc")) {
 			rawText = loadMSWord(is);
 		} else {
-			rawText = readText(is);
+			rawText = readText(is, null);
 		}
 		return rawText;
 	}

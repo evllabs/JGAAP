@@ -21,8 +21,8 @@ package com.jgaap.canonicizers;
 
 import java.awt.Color;
 
+import com.jgaap.backend.API;
 import com.jgaap.generics.Canonicizer;
-import com.jgaap.jgaapConstants;
 
 /**
  * Strips comments from source file.
@@ -60,7 +60,7 @@ public class StripComments extends Canonicizer {
 
 	@Override
 	public boolean showInGUI(){
-        	return jgaapConstants.globalParams.getParameter("language").equals("computer");
+        	return API.getInstance().getLanguage().displayName().equalsIgnoreCase("computer");
 	}
 
 

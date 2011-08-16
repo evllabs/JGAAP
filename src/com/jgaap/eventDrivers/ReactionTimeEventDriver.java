@@ -20,6 +20,7 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.jgaapConstants;
+import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.NumericEventSet;
 
@@ -44,7 +45,7 @@ public class ReactionTimeEventDriver extends NumericTransformationEventDriver {
     
     @Override
     public boolean showInGUI(){
-    	return jgaapConstants.globalParams.getParameter("language").equals("english");
+    	return API.getInstance().getLanguage().displayName().equalsIgnoreCase("english");
     }
 
 

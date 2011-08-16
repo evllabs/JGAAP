@@ -29,9 +29,7 @@ import java.util.List;
 
 import com.jgaap.jgaapConstants;
 import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.DivergenceType;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.NeighborAnalysisDriver;
 
 /**
  * Experiment Engine This class takes a csv file of experiments and then will
@@ -137,22 +135,9 @@ public class ExperimentEngine {
 							analysis=tmp[0];
 							distance=tmp[1];
 						}
-						String[] flags = experimentRow.get(5).split(" ");
 						String documentsPath = experimentRow.get(6);
 						String fileName = fileNameGen(canons, eventDriver,
 								eventCullers, analysis, experimentName, number);
-						DivergenceType divergenceType = DivergenceType.Standard;
-						for (String flag : flags) {
-							if (flag.equalsIgnoreCase("-avg")) {
-								divergenceType = DivergenceType.Average;
-							} else if (flag.equalsIgnoreCase("-max")) {
-								divergenceType = DivergenceType.Max;
-							} else if (flag.equalsIgnoreCase("-min")) {
-								divergenceType = DivergenceType.Min;
-							} else if (flag.equalsIgnoreCase("-rev")) {
-								divergenceType = DivergenceType.Reverse;
-							}
-						}
 						API experiment = API.getPrivateInstance();
 						try {
 							List<Document> documents = Utils
@@ -175,12 +160,6 @@ public class ExperimentEngine {
 									.addAnalysisDriver(analysis);
 							if(distance!=null){
 								experiment.addDistanceFunction(distance, analysisDriver);
-							}
-							if (analysisDriver instanceof NeighborAnalysisDriver) {
-								((NeighborAnalysisDriver) analysisDriver)
-										.getDistanceFunction().setParameter(
-												"divergenceOption",
-												divergenceType.ordinal());
 							}
 							experiment.execute();
 							List<Document> unknowns = experiment

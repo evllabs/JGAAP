@@ -22,9 +22,6 @@ package com.jgaap;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-
-import com.jgaap.generics.Parameterizable;
 
 /**
  * Defines a whole slew of public static constants that can be used system-wide.
@@ -52,7 +49,7 @@ public class jgaapConstants {
 			File folder = new File(".");
 			String path = folder.getCanonicalPath();
 			path=processPath(path);
-			return path + "/bin/";
+			return path +"/bin/";
 
 		} catch (IOException e) {
 			return "../bin/";
@@ -158,32 +155,31 @@ public class jgaapConstants {
 	}
 	
 	/**
-	 * Java Prefix for different types of object collections Again, not final
-	 * but should not be changed
+	 * Java Prefix for different types of object collections
 	 */
-	public static String JGAAP_CANONICIZERPREFIX = "com.jgaap.canonicizers.";
-	public static String JGAAP_EVENTDRIVERPREFIX = "com.jgaap.eventDrivers.";
-	public static String JGAAP_DISTANCEPREFIX = "com.jgaap.distances.";
-	public static String JGAAP_CLASSIFIERPREFIX = "com.jgaap.classifiers.";
-	public static String JGAAP_GUIPREFIX = "com.jgaap.gui.";
-	public static String JGAAP_GENERICSPREFIX = "com.jgaap.generics.";
-	public static String JGAAP_BACKENDPREFIX = "com.jgaap.backend.";
-	public static String JGAAP_LANGUAGEPREFIX = "com.jgaap.languages.";
+	public static final String JGAAP_CANONICIZERPREFIX = "com.jgaap.canonicizers.";
+	public static final String JGAAP_EVENTDRIVERPREFIX = "com.jgaap.eventDrivers.";
+	public static final String JGAAP_DISTANCEPREFIX = "com.jgaap.distances.";
+	public static final String JGAAP_CLASSIFIERPREFIX = "com.jgaap.classifiers.";
+	public static final String JGAAP_GUIPREFIX = "com.jgaap.gui.";
+	public static final String JGAAP_GENERICSPREFIX = "com.jgaap.generics.";
+	public static final String JGAAP_BACKENDPREFIX = "com.jgaap.backend.";
+	public static final String JGAAP_LANGUAGEPREFIX = "com.jgaap.languages.";
 
 	/*
 	 * JGAAP prints out a lot of warnings/messages that ordinary users needn't
 	 * see. Set this to 'false' for major releases.
 	 */
-	public static boolean JGAAP_DEBUG_VERBOSITY = false;
+	public static final boolean JGAAP_DEBUG_VERBOSITY = false;
 
-	// MVR This can and should be changed.
-	/** Set of global parameters, to change via usual schemes. */
-	public static Parameterizable globalParams = new Parameterizable();
-
-	/**
-	 * Set of global objects, accessed via a HashMap (when Parameterizable is
-	 * not sufficient because we need to store generic objects)
-	 */
-	public static HashMap<String, Object> globalObjects = new HashMap<String, Object>();
+//	// MVR This can and should be changed.
+//	/** Set of global parameters, to change via usual schemes. */
+//	public static Parameterizable globalParams = new Parameterizable();
+//
+//	/**
+//	 * Set of global objects, accessed via a HashMap (when Parameterizable is
+//	 * not sufficient because we need to store generic objects)
+//	 */
+//	public static HashMap<String, Object> globalObjects = new HashMap<String, Object>();
 
 }

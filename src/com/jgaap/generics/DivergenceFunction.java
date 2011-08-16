@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.jgaap.generics;
+
+import com.jgaap.generics.DivergenceType;
+
 /**
  * @author Michael Ryan
  * @since 4.5.0
@@ -30,10 +33,9 @@ public abstract class DivergenceFunction extends DistanceFunction {
 		double dist;
 		double first;
 		double second;
-		String divergenceOptionStr = getParameter("divergenceOption");
-		int divergenceOption = Integer.parseInt(divergenceOptionStr
-				.equalsIgnoreCase("") ? "0" : divergenceOptionStr);
-		switch (divergenceOption) {
+		String divergenceString = getParameter("divergenceType");
+		DivergenceType divergenceType = DivergenceType.valueOf(divergenceString.toUpperCase());
+		switch (divergenceType.ordinal()) {
 		case 1:
 			dist = (divergence(es1, es2) + divergence(es2, es1)) / 2.0;
 			break;

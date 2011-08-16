@@ -34,7 +34,7 @@ public class LanguageFactory {
 		// Load the classifiers dynamically
 		Map<String, Language>languages = new HashMap<String, Language>();
 		for(Language language : AutoPopulate.getLanguages()){
-			languages.put(language.getName().toLowerCase().trim(), language);
+			languages.put(language.displayName().toLowerCase().trim(), language);
 		}
 		return languages;
 	}
