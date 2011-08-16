@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jgaap.jgaapConstants;
+import com.jgaap.languages.English;
 
 /**
  * Code for storing and processing individual documents of any type.
@@ -41,6 +41,7 @@ public class Document extends Parameterizable {
 	//private char[] procText;
 	private int size;
 	private DocType docType;
+	private Language language;
 	private List<Canonicizer> canonicizers;
 	private Map<EventDriver, EventSet> eventSets;
 	private Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> results;
@@ -55,7 +56,7 @@ public class Document extends Parameterizable {
 		// rawText = new ArrayList<Character>();
 		// procText = new ArrayList<Character>();
 		docType = DocType.GENERIC;
-
+		this.language = new English();
 	}
 
 	public Document(String filepath, String author) throws Exception {
@@ -84,6 +85,7 @@ public class Document extends Parameterizable {
 		this.rawText = Arrays.copyOf(document.rawText, document.rawText.length);
 		this.size = document.size;
 		this.title = document.title;
+		this.language = document.getLanguage();
 	}
 
 	/**
@@ -107,13 +109,14 @@ public class Document extends Parameterizable {
 		if (title == null || title.equals(""))
 			this.title = getTitleFromPath(filepath);
 		this.docType = DocumentHelper.getDocType(filepath);
+		this.language = new English();
 		this.eventSets = new HashMap<EventDriver, EventSet>();
 		this.canonicizers = new ArrayList<Canonicizer>();
 		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>();
 	}
 	
 	public void load() throws Exception{
-		this.rawText = DocumentHelper.loadDocument(filepath);
+		this.rawText = DocumentHelper.loadDocument(filepath, language.getCharset());
 		this.size = this.rawText.length;
 		if (this.size == 0) {
 			throw new Exception("Empty Document Error");
@@ -256,11 +259,8 @@ public class Document extends Parameterizable {
 		// procText = new ArrayList<Character>();
 		// procText.addAll(rawText);
 		//procText = Arrays.copyOf(rawText, rawText.length);
-		if (jgaapConstants.globalObjects.containsKey("language")) {
-			Language language = (Language) jgaapConstants.globalObjects
-					.get("language");
-			if (language.isParseable())
-				rawText = language.parseLanguage(stringify());
+		if (language.isParseable()){
+			rawText = language.parseLanguage(stringify());
 		}
 		for (Canonicizer canonicizer : canonicizers) {
 			rawText = canonicizer.process(rawText);
@@ -367,5 +367,13 @@ public class Document extends Parameterizable {
 		t += "Author: " + author + "\n";
 		t += "Canons: " + getCanonicizers() + "\n";
 		return t;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 }

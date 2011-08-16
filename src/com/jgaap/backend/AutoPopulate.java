@@ -150,7 +150,7 @@ public class AutoPopulate {
 			canonicizers.add(canon);
 		}
 		Collections.sort(canonicizers);
-		jgaapConstants.globalObjects.put("canonicizers", canonicizers);
+//		jgaapConstants.globalObjects.put("canonicizers", canonicizers);
 		return canonicizers;
 	}
 
@@ -166,7 +166,7 @@ public class AutoPopulate {
 			eventDrivers.add(event);
 		}
 		Collections.sort(eventDrivers);
-		jgaapConstants.globalObjects.put("eventDrivers", eventDrivers);
+//		jgaapConstants.globalObjects.put("eventDrivers", eventDrivers);
 		return eventDrivers;
 	}
 
@@ -183,7 +183,7 @@ public class AutoPopulate {
 			distances.add(method);
 		}
 		Collections.sort(distances);
-		jgaapConstants.globalObjects.put("distances", distances);
+//		jgaapConstants.globalObjects.put("distances", distances);
 
 		return distances;
 	}
@@ -201,7 +201,7 @@ public class AutoPopulate {
 			analysisDrivers.add(method);
 		}
 		Collections.sort(analysisDrivers);
-		jgaapConstants.globalObjects.put("classifiers", analysisDrivers);
+//		jgaapConstants.globalObjects.put("classifiers", analysisDrivers);
 		return analysisDrivers;
 	}
 
@@ -217,7 +217,7 @@ public class AutoPopulate {
 			languages.add(lang);
 		}
 		Collections.sort(languages);
-		jgaapConstants.globalObjects.put("languages", languages);
+//		jgaapConstants.globalObjects.put("languages", languages);
 		return languages;
 	}
 
@@ -233,7 +233,7 @@ public class AutoPopulate {
 			cullers.add(lang);
 		}
 		Collections.sort(cullers);
-		jgaapConstants.globalObjects.put("eventCullers", cullers);
+//		jgaapConstants.globalObjects.put("eventCullers", cullers);
 		return cullers;
 	}
 

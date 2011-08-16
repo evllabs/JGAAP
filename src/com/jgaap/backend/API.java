@@ -24,6 +24,7 @@ import java.util.Set;
 
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.generics.*;
+import com.jgaap.languages.English;
 
 /**
  * 
@@ -39,14 +40,16 @@ import com.jgaap.generics.*;
 public class API {
 
 	private List<Document> documents;
+	private Language language;
 	private List<EventDriver> eventDrivers;
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 
-	private static API INSTANCE = new API();
+	private static final API INSTANCE = new API();
 	
 	private API() {
 		documents = new ArrayList<Document>();
+		language = new English();
 		eventDrivers = new ArrayList<EventDriver>();
 		eventCullers = new ArrayList<EventCuller>();
 		analysisDrivers = new ArrayList<AnalysisDriver>();
@@ -54,10 +57,6 @@ public class API {
 	
 	public static API getInstance(){
 		return INSTANCE;
-	}
-	
-	public static void rest(){
-		INSTANCE = new API();
 	}
 	
 	public static API getPrivateInstance(){
@@ -438,6 +437,10 @@ public class API {
 		return new ArrayList<AnalysisDriver>(analysisDrivers);
 	}
 
+	public Language getLanguage(){
+		return language;
+	}
+	
 	/**
 	 * Set the Language that JGAAP will operate in.
 	 * This restricts what methods are available, changes the charset that is expected when reading files, and will add any pre-processing that is needed
@@ -446,8 +449,7 @@ public class API {
 	 * @throws Exception - if the language cannot be found or cannot be instanced 
 	 */
 	public Language setLanguage(String action) throws Exception {
-		Language language = LanguageFactory.getLanguage(action);
-		language.apply();
+		language = LanguageFactory.getLanguage(action);
 		return language;
 	}
 
@@ -459,6 +461,7 @@ public class API {
 				@Override
 				public void run() {
 					try {
+						document.setLanguage(language);
 						document.load();
 						document.processCanonicizers();
 						for (EventDriver eventDriver : eventDrivers) {

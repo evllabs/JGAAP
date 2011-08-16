@@ -22,7 +22,6 @@ package com.jgaap.distances;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.DivergenceFunction;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
@@ -194,9 +193,8 @@ public class Xent2 extends DivergenceFunction {
 
 	@Override
 	public double divergence(EventSet e1, EventSet e2) {
-		if (!jgaapConstants.globalParams.getParameter("windowSize").equals("")) {
-			windowSize = Integer.parseInt(jgaapConstants.globalParams
-					.getParameter("windowSize"));
+		if (!getParameter("windowSize").equals("")) {
+			windowSize = Integer.parseInt(getParameter("windowSize"));
 		}
 		return distance(e1, e2, windowSize);
 	}

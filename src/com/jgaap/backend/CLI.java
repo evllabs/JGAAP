@@ -23,11 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.jgaap;
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Displayable;
-import com.jgaap.generics.DivergenceType;
-import com.jgaap.generics.NeighborAnalysisDriver;
 
 /**
  * Command Line Interface This is version 3 of the command line interface.
@@ -55,7 +52,7 @@ public class CLI {
 								+ "(Java Graphical Aurthorship Attribution Program) "
 								+ "\nCommandLine Interface: "
 								+ "\n\n\tjgaap [-c Canonicizer] [-lang Language] [-es EventSet] [-ec EventCuller] [-a AnalysisName] "
-								+ "\n\t      [-l CorpusCSV] [-mc] [-avg] [-rev] [-max] [-min] [-ad] [-s FileName]"
+								+ "\n\t      [-l CorpusCSV] [-s FileName]"
 								+ "\n\n\tTo view a list of valid arguments for any tag simply type jgaap help [tag]"
 								+ "\n\t\te.g. jgaap help a or jgaap help canonicizer"
 								+ "\n\n\tLoad Corpus: [-l CORPUSNAME]"
@@ -67,13 +64,6 @@ public class CLI {
 								+ "\n\t\tThis feature will allow the use to add laguages to JGAAP by adding a "
 								+ "\n\t\tlanguage class to the com.jgaap.languages package."
 								+ "\n\t\tEnter a known language or one you have found/created there."
-								+ "\n\n\tFlags: [-avg, -rev, -max, -min]"
-								+ "\n\t\tMost Common [-mc]: only uses the 50 most common words accorss the documents."
-								+ "\n\t\tAverage Divergence [-avg]: the divergence in both directions averaged together."
-								+ "\n\t\tReverse Divergence [-rev]: the divergence is taken from the unknown document to the known."
-								+ "\n\t\tMax Divergence [-max]: the divergence is taken in both directions and the max is returned."
-								+ "\n\t\tMin Divergence [-min]: the divergence is taken in both directions and the min is returned."
-								+ "\n\t\tAuthor Distance [-ad]: uses the average distance of an author's work against an unknown."
 								+ "\n\n\tA fully qualified JGAAP command will look like the following:"
 								+ "\n\t\tjava -jar jgaap.jar -c Smash Case -es Words -a cross entropy -l ../docs/aaac/Demos/loadA.csv\n"
 								+ "\nMore information can be found at www.jgaap.com");
@@ -117,7 +107,6 @@ public class CLI {
 			String distanceSelected = "";
 			String saveFilePath = "";
 			String language = "english";
-			DivergenceType currentDivergenceMethod = DivergenceType.Standard;
 			boolean saveResults = false;
 			List<List<String>> commandInput = new ArrayList<List<String>>();
 			List<List<String>> documentMatrix = new ArrayList<List<String>>();
@@ -150,16 +139,6 @@ public class CLI {
 					analyzerSelected = optionBuilder(currentTagSet);
 				} else if (currentArg.equalsIgnoreCase("-d")) {
 					distanceSelected = optionBuilder(currentTagSet);
-				} else if (currentArg.equalsIgnoreCase("-avg")) {
-					currentDivergenceMethod = DivergenceType.Average;
-				} else if (currentArg.equalsIgnoreCase("-max")) {
-					currentDivergenceMethod = DivergenceType.Max;
-				} else if (currentArg.equalsIgnoreCase("-min")) {
-					currentDivergenceMethod = DivergenceType.Min;
-				} else if (currentArg.equalsIgnoreCase("-rev")) {
-					currentDivergenceMethod = DivergenceType.Reverse;
-				} else if (currentArg.equalsIgnoreCase("-cross")) {
-					currentDivergenceMethod = DivergenceType.Cross;
 				} else if (currentArg.equalsIgnoreCase("-l")) {
 					String csvFilePath = optionBuilder(currentTagSet);
 					documentMatrix = CSVIO.readCSV(csvFilePath);
@@ -172,11 +151,6 @@ public class CLI {
 					System.exit(0);
 				} else if (currentArg.equalsIgnoreCase("-lang")) {
 					language = optionBuilder(currentTagSet);
-				} else if (currentArg.equalsIgnoreCase("-ws")) {
-					String wSize = optionBuilder(currentTagSet);
-					System.out.println(wSize + " " + Integer.parseInt(wSize));
-					jgaapConstants.globalParams.setParameter("windowSize",
-							Integer.parseInt(wSize));
 				} else {
 					System.out.println("The following command"
 							+ (currentTagSet.size() > 1 ? "s" : "") + " "
@@ -209,15 +183,7 @@ public class CLI {
 					commandDriver.addDistanceFunction(distanceSelected, analysisDriver);
 				}
 				
-				if (analysisDriver instanceof NeighborAnalysisDriver) {
-					((NeighborAnalysisDriver) analysisDriver)
-							.getDistanceFunction().setParameter(
-									"divergenceOption",
-									currentDivergenceMethod.ordinal());
-				}
 				StringBuffer finalResults = new StringBuffer();
-				jgaapConstants.globalParams.setParameter("divergenceOption",
-						currentDivergenceMethod.ordinal());
 				commandDriver.execute();
 				String results = finalResults.toString();
 				System.out.println(results);

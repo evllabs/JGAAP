@@ -17,7 +17,6 @@
  */
 package com.jgaap.generics;
 
-import com.jgaap.jgaapConstants;
 
 /**
  * This class was designed to make the implementation of languages in jgaap as
@@ -60,15 +59,6 @@ public abstract class Language implements Comparable<Language>, Displayable {
 	public Language() {
 	}
 	/**
-	 * sets the global parameters language and charset to the values defined by the language
-	 */
-	public void apply() {
-		jgaapConstants.globalObjects.put("language", this);
-		jgaapConstants.globalParams.setParameter("language", this.language);
-		jgaapConstants.globalParams.setParameter("charset", this.charset);
-	}
-
-	/**
 	 * 
 	 * parses documents after they have been read in.
 	 * 
@@ -79,24 +69,16 @@ public abstract class Language implements Comparable<Language>, Displayable {
 		return null;
 	}
 
-	public void setCharset(String charset) {
-		this.charset = charset;
+	public String getCharset(){
+		return charset;
 	}
-
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
+	
+	public String getLanguage(){
+		return language;
 	}
 
 	public String displayName(){
-		return getName();
+		return name;
 	}
 	
 	public String tooltipText(){
@@ -116,7 +98,7 @@ public abstract class Language implements Comparable<Language>, Displayable {
 	}
 	
 	public int compareTo(Language o){
-    	return getName().compareTo(o.getName());
+    	return name.compareTo(o.name);
     }
 
 }

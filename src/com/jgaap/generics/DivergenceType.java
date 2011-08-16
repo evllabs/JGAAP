@@ -30,5 +30,5 @@ package com.jgaap.generics;
  * 
  */
 public enum DivergenceType {
-	Standard, Average, Max, Min, Reverse, Cross
+	STANDARD, AVERAGE, MAX, MIN, REVERSE, CROSS
 }

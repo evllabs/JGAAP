@@ -41,20 +41,14 @@ public class jgaap {
     	// under the key "gui" so other objects can access it easily
     	JGAAP_UI_MainForm gui = new JGAAP_UI_MainForm();
     	gui.setVisible(true);
-        jgaapConstants.globalObjects.put("gui", (gui));
+//        jgaapConstants.globalObjects.put("gui", (gui));
     }
-/**
- * Initializes predefined global parameters.
- */
-    public static void initParameters() {
-        jgaapConstants.globalParams.setParameter("Language", "English");
-    }
+
 /**
  * launches either the CLI or the GUI based on the command line arguments
  * @param args the command line arguments
  */
     public static void main(String[] args) {
-        initParameters();
         if (args.length == 0) {
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 public void run() {

@@ -19,7 +19,7 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.jgaapConstants;
+import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
@@ -55,10 +55,8 @@ public class PorterStemmerEventDriver extends EventDriver {
 
 	@Override
 	public boolean showInGUI() {
-
 		// only valid for English documents
-		return jgaapConstants.globalParams.getParameter("language").equals(
-				"english");
+		return API.getInstance().getLanguage().displayName().equalsIgnoreCase("english");
 	}
 
 	// Peter - Changed Jan 21 2010
