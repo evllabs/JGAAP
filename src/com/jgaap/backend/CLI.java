@@ -27,13 +27,14 @@ import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Displayable;
 
 /**
- * Command Line Interface This is version 3 of the command line interface.
- * Version 3 implements a new tag based system to allow for more descriptive
- * names of event sets and analysis methods it also adds flags for enforced
- * commutativity and most common events. For information on how to use the CLI
- * visit http://www.jgaap.com
+ * Command Line Interface This is version 3.5 of the command line interface.
+ * Version 3.5 continues tag based system to allow for more descriptive
+ * names of event sets and analysis methods. 3.5 adds the ability to specify 
+ * parameters for part of jgaap that takes them (EventSet, EventCuller, Analysis, Distance)
+ * simply place a bar (|) after the method and then give it string pair separated by a colon (:)
+ * For information on how to use the CLI visit http://www.jgaap.com
  * 
- * @author michael ryan
+ * @author Michael Ryan
  */
 public class CLI {
 
@@ -52,9 +53,9 @@ public class CLI {
 								+ "(Java Graphical Aurthorship Attribution Program) "
 								+ "\nCommandLine Interface: "
 								+ "\n\n\tjgaap [-c Canonicizer] [-lang Language] [-es EventSet] [-ec EventCuller] [-a AnalysisName] "
-								+ "\n\t      [-l CorpusCSV] [-s FileName]"
+								+ "\n\t      [-d Distance] [-l CorpusCSV] [-s FileName]"
 								+ "\n\n\tTo view a list of valid arguments for any tag simply type jgaap help [tag]"
-								+ "\n\t\te.g. jgaap help a or jgaap help canonicizer"
+								+ "\n\t\te.g. jgaap help a or jgaap help c"
 								+ "\n\n\tLoad Corpus: [-l CORPUSNAME]"
 								+ "\n\t\tThis feature takes the name of a csv file of the authors names and the "
 								+ "\n\t\tfiles paths of the associated documents and loads them into JGAAP."
