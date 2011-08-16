@@ -38,6 +38,9 @@ import com.jgaap.generics.Document;
  * @author Mike Ryan
  */
 public class ExperimentEngine {
+	
+	private static final int workers = 2;
+	
 	/**
 	 * This method generates unique file names and a directory structure to save
 	 * the results of an experiment run
@@ -109,10 +112,10 @@ public class ExperimentEngine {
 
 	public static void runExperiment(List<List<String>> experimentTable) {
 		final String experimentName = experimentTable.remove(0).get(0);
-		List<Thread> threads = new ArrayList<Thread>();
+		WorkQueue experimentWorkQueue = new WorkQueue(workers);
 		for (final List<String> experimentRow : experimentTable) {
 			if (experimentRow.size() >= 6) {
-				Thread thread = new Thread(new Runnable() {
+				Runnable work = new Runnable() {
 					@Override
 					public void run() {
 						String number = experimentRow.get(0);
@@ -177,31 +180,18 @@ public class ExperimentEngine {
 											+ "\n------------\n");
 						}
 					}
-				});
-				threads.add(thread);
+				};
+				experimentWorkQueue.execute(work);
 			} else {
 				System.out.println("Error wiht");
 			}
 		}
-		if (threads.size() > 1)
-			for (int i = 0; i < threads.size() / 2; i++) {
-				try {
-					Thread thread1 = threads.get(i * 2);
-					thread1.start();
-					if (i * 2 + 1 < threads.size()) {
-						Thread thread2 = threads.get(i * 2 + 1);
-						thread2.start();
-						thread2.join();
-					}
-					thread1.join();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		else {
-			threads.get(0).start();
+		for(int i =0; i<workers;i++){
+			experimentWorkQueue.execute(-1);
+		}
+		while (experimentWorkQueue.isRunning()){
 			try {
-				threads.get(0).join();
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
