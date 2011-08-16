@@ -1,7 +1,11 @@
 package com.jgaap.backend;
 
 import java.util.LinkedList;
-
+/**
+ * 
+ * @author Michael Ryan
+ * @since 5.0.1
+ */
 @SuppressWarnings("rawtypes")
 public class WorkQueue {
 

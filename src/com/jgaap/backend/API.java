@@ -611,7 +611,7 @@ public class API {
 	}
 
 	/**
-	 * Get a List of All Languages that are avalible to be used
+	 * Get a List of All Languages that are available to be used
 	 * @return List of All Languages
 	 */
 	public List<Language> getAllLanguages() {
