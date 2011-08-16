@@ -44,6 +44,9 @@ public class API {
 	private List<EventDriver> eventDrivers;
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
+	private WorkQueue loadCanonicizeEventifyWorkQueue;
+	
+	private final int loadCanonicizeEventifyWorkers = 100;
 
 	private static final API INSTANCE = new API();
 	
@@ -454,10 +457,9 @@ public class API {
 	}
 
 	private void loadCanonicizeEventify() throws Exception{
-		List<Thread> threads = new ArrayList<Thread>();
+		loadCanonicizeEventifyWorkQueue= new WorkQueue(loadCanonicizeEventifyWorkers);
 		for(final Document document : documents){
-			Thread t = new Thread( new Runnable() {
-				
+			Runnable work = new Runnable() {
 				@Override
 				public void run() {
 					try {
@@ -473,12 +475,14 @@ public class API {
 						e.printStackTrace();
 					}
 				}
-			});
-			t.start();
-			threads.add(t);
+			};
+			loadCanonicizeEventifyWorkQueue.execute(work);
 		}
-		for(Thread thread : threads){
-			thread.join();
+		for(int i =0; i<loadCanonicizeEventifyWorkers;i++){
+			loadCanonicizeEventifyWorkQueue.execute(-1);
+		}
+		while(loadCanonicizeEventifyWorkQueue.isRunning()){
+			Thread.sleep(500);
 		}
 	}
 	

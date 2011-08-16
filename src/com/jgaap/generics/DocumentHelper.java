@@ -186,7 +186,7 @@ class DocumentHelper {
 		int c;
 		List<Character> rawText = new ArrayList<Character>();
 		BufferedReader br;
-		if (charset==null) {
+		if (charset==null||charset.isEmpty()) {
 			br = new BufferedReader(new InputStreamReader(is));
 		} else {
 			br = new BufferedReader(new InputStreamReader(is,charset));
