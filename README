@@ -4,6 +4,12 @@ On Unix-based systems, or from the Windows command-line, you can also run:
 
 java -jar jgaap.jar
 
+NOTE: It is suggested that you increase the Heap size alloted to the JVM 
+     when using JGAAP since it is very memory intensive 2GB is good for 
+     most applications
+
+java -Xmx2048m -jar jgaap.jar
+
 from the bin directory.
 
 
@@ -12,16 +18,12 @@ line options by running:
 
 java -jar jgaap.jar help
 
-from the bin directory.  
 
+JGAAP also comes with a ant build file in the src and bin directories.  
+To compile the system:
 
-JGAAP also comes with a compile script in the src/ directory.  To compile
-the system, simply:
+ant build
 
-cd src
-./compile
+To launch the gui:
 
-
-JGAAP can also be run from the src directory with:
-
-./jgaap
+ant run-gui
