@@ -110,12 +110,12 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     JFileChooser  FileChoser;
     String filepath = "..";
 
-    List<Canonicizer> CanonicizerMasterList = JGAAP_API.getAllCanonicizers();
-    List<EventDriver> EventDriverMasterList = JGAAP_API.getAllEventDrivers();
-    List<AnalysisDriver> AnalysisDriverMasterList = JGAAP_API.getAllAnalysisDrivers();
-    List<DistanceFunction> DistanceFunctionsMasterList = JGAAP_API.getAllDistanceFunctions();
-    List<EventCuller> EventCullersMasterList = JGAAP_API.getAllEventCullers();
-    List<Language> LanguagesMasterList = JGAAP_API.getAllLanguages();
+    List<Canonicizer> CanonicizerMasterList =  new ArrayList<Canonicizer>();
+    List<EventDriver> EventDriverMasterList = new ArrayList<EventDriver>();
+    List<AnalysisDriver> AnalysisDriverMasterList = new ArrayList<AnalysisDriver>();
+    List<DistanceFunction> DistanceFunctionsMasterList = new ArrayList<DistanceFunction>();
+    List<EventCuller> EventCullersMasterList = new ArrayList<EventCuller>();
+    List<Language> LanguagesMasterList = new ArrayList<Language>();
 
     List<EventDriver> SelectedEventDriverList = new ArrayList<EventDriver>();
     List<EventCuller> SelectedEventCullersList = new ArrayList<EventCuller>();
@@ -2082,8 +2082,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     private void DocumentsPanel_LanguageComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DocumentsPanel_LanguageComboBoxActionPerformed
         try {
             JGAAP_API.setLanguage(DocumentsPanel_LanguageComboBox.getSelectedItem().toString());
+            SanatizeMasterLists();
+            SetAnalysisMethodList();
+            SetCanonicizerList();
+            SetDistanceFunctionList();
+            SetEventCullingList();
+            SetEventSetList();
         } catch (Exception e) {
-
+        	e.printStackTrace();
         }
 }//GEN-LAST:event_DocumentsPanel_LanguageComboBoxActionPerformed
 
@@ -2528,6 +2534,13 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 
     private void SanatizeMasterLists() {
+    	AnalysisDriverMasterList= new ArrayList<AnalysisDriver>(JGAAP_API.getAllAnalysisDrivers());
+    	CanonicizerMasterList= new ArrayList<Canonicizer>(JGAAP_API.getAllCanonicizers());
+    	DistanceFunctionsMasterList= new ArrayList<DistanceFunction>(JGAAP_API.getAllDistanceFunctions());
+    	EventCullersMasterList= new ArrayList<EventCuller>(JGAAP_API.getAllEventCullers());
+    	EventDriverMasterList= new ArrayList<EventDriver>(JGAAP_API.getAllEventDrivers());
+    	LanguagesMasterList= new ArrayList<Language>(JGAAP_API.getAllLanguages());
+    		
         for (int i = AnalysisDriverMasterList.size() - 1; i >= 0; i--)
         {
             if (!AnalysisDriverMasterList.get(i).showInGUI())
@@ -2584,6 +2597,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 }
 
     private void SetAnalysisMethodList() {
+    	AnalysisMethodListBox_Model.removeAllElements();
         for (int i = 0; i < AnalysisDriverMasterList.size(); i++)
         {
             AnalysisMethodListBox_Model.addElement(AnalysisDriverMasterList.get(i).displayName());
@@ -2595,6 +2609,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }
     }
     private void SetDistanceFunctionList() {
+    	DistanceFunctionsListBox_Model.removeAllElements();
         for (int i = 0; i < DistanceFunctionsMasterList.size(); i++)
         {
             DistanceFunctionsListBox_Model.addElement(DistanceFunctionsMasterList.get(i).displayName());
@@ -2607,6 +2622,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
     }
 
     private void SetCanonicizerList() {
+    	CanonicizerListBox_Model.removeAllElements();
         for (int i = 0; i < CanonicizerMasterList.size(); i++)
         {
             CanonicizerListBox_Model.addElement(CanonicizerMasterList.get(i).displayName());
@@ -2619,6 +2635,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 }
 
     private void SetEventCullingList() {
+    	EventCullingListBox_Model.removeAllElements();
         for (int i = 0; i < EventCullersMasterList.size(); i++)
         {
             EventCullingListBox_Model.addElement(EventCullersMasterList.get(i).displayName());
@@ -2649,6 +2666,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 }
 
     private void SetEventSetList() {
+    	EventSetsListBox_Model.clear();
         for (int i = 0; i < EventDriverMasterList.size(); i++)
         {
             EventSetsListBox_Model.addElement(EventDriverMasterList.get(i).displayName());
