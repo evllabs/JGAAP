@@ -34,7 +34,11 @@ public abstract class DivergenceFunction extends DistanceFunction {
 		double first;
 		double second;
 		String divergenceString = getParameter("divergenceType");
-		DivergenceType divergenceType = DivergenceType.valueOf(divergenceString.toUpperCase());
+		DivergenceType divergenceType;
+		if(!divergenceString.isEmpty())
+			divergenceType = DivergenceType.valueOf(divergenceString.toUpperCase());
+		else
+			divergenceType = DivergenceType.STANDARD;
 		switch (divergenceType.ordinal()) {
 		case 1:
 			dist = (divergence(es1, es2) + divergence(es2, es1)) / 2.0;
