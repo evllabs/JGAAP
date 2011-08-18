@@ -34,7 +34,7 @@ public class POSNGramEventDriver extends NGramEventDriver {
 
     @Override
     public String displayName(){
-    	return "POS NGrams";
+    	return "POS "+getParameter("N")+"Grams";
     }
 
     @Override
