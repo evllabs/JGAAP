@@ -41,9 +41,9 @@ public abstract class AnalysisDriver extends Parameterizable implements Comparab
 
 
     /**
-     * Generic statistical analysis method (abstract). Analyze a given unknown
+     * Generic statistical analysis method. Analyze a given unknown
      * EventSet in terms of its similarity (broadly defined) to elements of a
-     * Vector of EventSets of known authorship. Legacy code from WAY back. We
+     * List of EventSets of known authorship. Legacy code from WAY back. We
      * should probably add a verify() method as well once the technology
      * improves.
      * 
@@ -51,9 +51,55 @@ public abstract class AnalysisDriver extends Parameterizable implements Comparab
      *            the EventSet to be analyzed
      * @param known
      *            a vector of EventSets of known authorship
-     * @return a String representing the name of the author assigned
+     * @return a list of (name,numeric-result) pairs
      */
-    abstract public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known);
+    /* Modified 18 Aug 2011 by PMJ to allow for multiple unknowns at once.
+     * Instead of passing a single unknown Event Set, you pass a List, which
+     * allows methods like LDA to create the (time-consuming and memory-
+     * intensive) matrix only once and re-use it.
+     * There are therefore two entry points (for backwards compatibility);
+     * AnalysisDrivers are only required to provide one.   The default behavior
+     * is to call the other one.
+     * I.e. if MyEventDriver provides only the first (singleton) entry point, it
+     * will also inherit the second one from AnalysisDriver.
+     * (This little bit of design work is courtesy of Mike Ryan, and a brilliant
+     * idea it is.)
+     */ 
+
+    /* First entry point for singleton EventSet; makes 1-place list and calls
+     * second entry point.
+     */
+    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known){
+	List<EventSet> ukl = new ArrayList<EventSet>();
+	ukl.add(unknown);
+	return analyze(ukl, known).get(0);
+    }
+
+    /**
+     * Generic statistical analysis method. Analyze a group of unknown
+     * EventSet in terms of their similarity (broadly defined) to elements of a
+     * Vector of EventSets of known authorship. Legacy code from WAY back. We
+     * should probably add a verify() method as well once the technology
+     * improves.
+     * 
+     * @param unknown
+     *            the list of EventSets to be analyzed
+     * @param known
+     *            a list of EventSets of known authorship
+     * @return a list of lists of (name,numeric-result) pairs
+     */
+    /* Second entry point for List<EventSet>; calls on individual list elements
+     * using first entry point and staples results together
+     */
+    public List<List<Pair<String, Double>>> analyze(List<EventSet> unknownList, List<EventSet> known){
+	List<List<Pair<String,Double>>> retVal =
+				 new ArrayList<List<Pair<String,Double>>>();
+	for (EventSet unknown : unknownList) {
+		retVal.add( analyze( unknown, known ) );
+	}
+	return retVal;
+   }
+		
 
     public void analyze(Document unknown, List<Document> known){
     	for(EventDriver eventDriver : unknown.getEventSets().keySet()){
