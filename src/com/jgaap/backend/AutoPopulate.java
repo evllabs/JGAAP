@@ -51,12 +51,12 @@ import com.jgaap.jgaapConstants;
  */
 public class AutoPopulate {
 
-	private static final List<Canonicizer> CANONICIZERS = loadCanonicizers();
-	private static final List<EventDriver> EVENT_DRIVERS = loadEventDrivers();
-	private static final List<EventCuller> EVENT_CULLERS = loadEventCullers();
-	private static final List<DistanceFunction> DISTANCE_FUNCTIONS = loadDistanceFunctions();
-	private static final List<AnalysisDriver> ANALYSIS_DRIVERS = loadAnalysisDrivers();
-	private static final List<Language> LANGUAGES = loadLanguages();
+	private static final List<Canonicizer> CANONICIZERS = Collections.unmodifiableList(loadCanonicizers());
+	private static final List<EventDriver> EVENT_DRIVERS = Collections.unmodifiableList(loadEventDrivers());
+	private static final List<EventCuller> EVENT_CULLERS = Collections.unmodifiableList(loadEventCullers());
+	private static final List<DistanceFunction> DISTANCE_FUNCTIONS = Collections.unmodifiableList(loadDistanceFunctions());
+	private static final List<AnalysisDriver> ANALYSIS_DRIVERS = Collections.unmodifiableList(loadAnalysisDrivers());
+	private static final List<Language> LANGUAGES = Collections.unmodifiableList(loadLanguages());
 
 	/**
 	 * Search named directory for all instantiations of the type named.
@@ -138,6 +138,9 @@ public class AutoPopulate {
 		return list;
 	}
 
+	/**
+	 * A read-only list of the Canonicizers
+	 */
 	public static List<Canonicizer> getCanonicizers() {
 		return CANONICIZERS;
 	}
@@ -150,10 +153,12 @@ public class AutoPopulate {
 			canonicizers.add(canon);
 		}
 		Collections.sort(canonicizers);
-//		jgaapConstants.globalObjects.put("canonicizers", canonicizers);
 		return canonicizers;
 	}
 
+	/**
+	 * A read-only list of the EventDrivers
+	 */
 	public static List<EventDriver> getEventDrivers() {
 		return EVENT_DRIVERS;
 	}
@@ -166,10 +171,12 @@ public class AutoPopulate {
 			eventDrivers.add(event);
 		}
 		Collections.sort(eventDrivers);
-//		jgaapConstants.globalObjects.put("eventDrivers", eventDrivers);
 		return eventDrivers;
 	}
 
+	/**
+	 * A read-only list of the DistanceFunctions
+	 */
 	public static List<DistanceFunction> getDistanceFunctions() {
 		return DISTANCE_FUNCTIONS;
 	}
@@ -183,11 +190,13 @@ public class AutoPopulate {
 			distances.add(method);
 		}
 		Collections.sort(distances);
-//		jgaapConstants.globalObjects.put("distances", distances);
 
 		return distances;
 	}
 
+	/**
+	 * A read-only list of the AnalysisDrivers
+	 */
 	public static List<AnalysisDriver> getAnalysisDrivers() {
 		return ANALYSIS_DRIVERS;
 	}
@@ -201,10 +210,12 @@ public class AutoPopulate {
 			analysisDrivers.add(method);
 		}
 		Collections.sort(analysisDrivers);
-//		jgaapConstants.globalObjects.put("classifiers", analysisDrivers);
 		return analysisDrivers;
 	}
 
+	/**
+	 * A read-only list of the Languages
+	 */
 	public static List<Language> getLanguages() {
 		return LANGUAGES;
 	}
@@ -217,10 +228,12 @@ public class AutoPopulate {
 			languages.add(lang);
 		}
 		Collections.sort(languages);
-//		jgaapConstants.globalObjects.put("languages", languages);
 		return languages;
 	}
 
+	/**
+	 * A read-only list of the EventCullers
+	 */
 	public static List<EventCuller> getEventCullers() {
 		return EVENT_CULLERS;
 	}
@@ -233,7 +246,6 @@ public class AutoPopulate {
 			cullers.add(lang);
 		}
 		Collections.sort(cullers);
-//		jgaapConstants.globalObjects.put("eventCullers", cullers);
 		return cullers;
 	}
 
