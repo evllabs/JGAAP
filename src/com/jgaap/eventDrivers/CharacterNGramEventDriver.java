@@ -34,7 +34,7 @@ public class CharacterNGramEventDriver extends NGramEventDriver {
 
     @Override
     public String displayName(){
-    	return "Character NGrams";
+    	return "Character "+getParameter("N")+"Grams";
     }
 
     @Override

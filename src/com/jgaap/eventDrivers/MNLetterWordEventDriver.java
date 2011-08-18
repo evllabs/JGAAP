@@ -41,7 +41,9 @@ public class MNLetterWordEventDriver extends EventDriver {
 
         @Override
 	public String displayName() {
-		return "M--N letter words";
+        	String m = (getParameter("M").isEmpty() ? "M" : getParameter("M"));
+        	String n = (getParameter("N").isEmpty() ? "N" : getParameter("N"));
+        	return m+"--"+n+" letter Words";
 	}
 
 	@Override

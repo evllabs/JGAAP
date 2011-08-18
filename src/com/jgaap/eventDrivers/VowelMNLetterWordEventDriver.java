@@ -38,7 +38,9 @@ public class VowelMNLetterWordEventDriver extends MNLetterWordEventDriver {
 
     @Override
     public String displayName(){
-    	return "Vowel M--N letter Words";
+    	String m = (getParameter("M").isEmpty() ? "M" : getParameter("M"));
+    	String n = (getParameter("N").isEmpty() ? "N" : getParameter("N"));
+    	return "Vowel "+m+"--"+n+" letter Words";
     }
     
     @Override

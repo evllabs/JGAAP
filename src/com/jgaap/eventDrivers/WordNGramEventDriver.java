@@ -34,7 +34,7 @@ public class WordNGramEventDriver extends NGramEventDriver {
 
     @Override
     public String displayName(){
-    	return "Word NGrams";
+    	return "Word "+getParameter("N")+"Grams";
     }
 
     @Override
