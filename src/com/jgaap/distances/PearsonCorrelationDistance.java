@@ -25,7 +25,6 @@ import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.Pair;
 
 /**
  * PearsonCorrelationDistance : Parametric equivalent of
