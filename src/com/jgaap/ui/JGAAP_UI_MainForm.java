@@ -2533,68 +2533,39 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 }
 
 
-    private void SanatizeMasterLists() {
-    	AnalysisDriverMasterList= new ArrayList<AnalysisDriver>(JGAAP_API.getAllAnalysisDrivers());
-    	CanonicizerMasterList= new ArrayList<Canonicizer>(JGAAP_API.getAllCanonicizers());
-    	DistanceFunctionsMasterList= new ArrayList<DistanceFunction>(JGAAP_API.getAllDistanceFunctions());
-    	EventCullersMasterList= new ArrayList<EventCuller>(JGAAP_API.getAllEventCullers());
-    	EventDriverMasterList= new ArrayList<EventDriver>(JGAAP_API.getAllEventDrivers());
-    	LanguagesMasterList= new ArrayList<Language>(JGAAP_API.getAllLanguages());
-    		
-        for (int i = AnalysisDriverMasterList.size() - 1; i >= 0; i--)
-        {
-            if (!AnalysisDriverMasterList.get(i).showInGUI())
-            {
-                AnalysisDriverMasterList.remove(i);
-            }
+	private void SanatizeMasterLists() {
+		AnalysisDriverMasterList = new ArrayList<AnalysisDriver>();
+		CanonicizerMasterList = new ArrayList<Canonicizer>();
+		DistanceFunctionsMasterList = new ArrayList<DistanceFunction>();
+		EventCullersMasterList = new ArrayList<EventCuller>();
+		EventDriverMasterList = new ArrayList<EventDriver>();
+		LanguagesMasterList = new ArrayList<Language>();
 
-        }
-
-        for (int i = CanonicizerMasterList.size() - 1; i >= 0; i--)
-        {
-            if (!CanonicizerMasterList.get(i).showInGUI())
-            {
-                CanonicizerMasterList.remove(i);
-            }
-
-        }
-
-        for (int i = EventDriverMasterList.size() - 1; i >= 0; i--)
-        {
-            if (!EventDriverMasterList.get(i).showInGUI())
-            {
-                EventDriverMasterList.remove(i);
-            }
-
-        }
-
-        for (int i = EventCullersMasterList.size() - 1; i >= 0; i--)
-        {
-            if (!EventCullersMasterList.get(i).showInGUI())
-            {
-                EventCullersMasterList.remove(i);
-            }
-
-        }
-
-        for (int i = DistanceFunctionsMasterList.size() - 1; i >= 0; i--)
-        {
-            if (!DistanceFunctionsMasterList.get(i).showInGUI())
-            {
-                DistanceFunctionsMasterList.remove(i);
-            }
-
-        }
-
-        for (int i = LanguagesMasterList.size() - 1; i >= 0; i--)
-        {
-            if (!LanguagesMasterList.get(i).showInGUI())
-            {
-                LanguagesMasterList.remove(i);
-            }
-
-        }
-}
+		for (AnalysisDriver analysisDriver : JGAAP_API.getAllAnalysisDrivers()) {
+			if (analysisDriver.showInGUI())
+				AnalysisDriverMasterList.add(analysisDriver);
+		}
+		for (Canonicizer canonicizer : JGAAP_API.getAllCanonicizers()) {
+			if (canonicizer.showInGUI())
+				CanonicizerMasterList.add(canonicizer);
+		}
+		for (DistanceFunction distanceFunction : JGAAP_API.getAllDistanceFunctions()) {
+			if (distanceFunction.showInGUI())
+				DistanceFunctionsMasterList.add(distanceFunction);
+		}
+		for (EventCuller eventCuller : JGAAP_API.getAllEventCullers()) {
+			if (eventCuller.showInGUI())
+				EventCullersMasterList.add(eventCuller);
+		}
+		for (EventDriver eventDriver : JGAAP_API.getAllEventDrivers()) {
+			if (eventDriver.showInGUI())
+				EventDriverMasterList.add(eventDriver);
+		}
+		for (Language language : JGAAP_API.getAllLanguages()) {
+			if (language.showInGUI())
+				LanguagesMasterList.add(language);
+		}
+	}
 
     private void SetAnalysisMethodList() {
     	AnalysisMethodListBox_Model.removeAllElements();
