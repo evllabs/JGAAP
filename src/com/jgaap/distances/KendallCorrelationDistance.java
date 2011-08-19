@@ -155,8 +155,10 @@ public class KendallCorrelationDistance extends DistanceFunction {
 
 		
 		Integer x1, x2, y1, y2;
+		Set<Event> s2 = new HashSet<Event>(s);
 		for (Event e1 : s) {
-			for (Event e2: s) {
+			s2.remove(e1);
+			for (Event e2: s2) {
 
 				if (e1.equals(e2)) continue;
 
@@ -186,7 +188,7 @@ public class KendallCorrelationDistance extends DistanceFunction {
 				*/
 
 				correlation += (sgn(x1.compareTo(y1)) * sgn(x2.compareTo(y2)));
-				System.out.println(correlation);
+//				System.out.println(correlation);
 			}
 		}
 	
