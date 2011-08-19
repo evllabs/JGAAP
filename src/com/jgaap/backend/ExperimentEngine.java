@@ -132,15 +132,10 @@ public class ExperimentEngine {
 						String[] eventCullers = experimentRow.get(3).split(
 								"\\|");
 						String analysis = experimentRow.get(4);
-						String distance = null;
-						if(analysis.contains("|")){
-							String[] tmp = analysis.split("\\|");
-							analysis=tmp[0];
-							distance=tmp[1];
-						}
+						String distance = experimentRow.get(5).trim();
 						String documentsPath = experimentRow.get(6);
 						String fileName = fileNameGen(canons, eventDriver,
-								eventCullers, analysis, experimentName, number);
+								eventCullers, analysis+"-"+distance, experimentName, number);
 						API experiment = API.getPrivateInstance();
 						try {
 							List<Document> documents = Utils
@@ -161,7 +156,7 @@ public class ExperimentEngine {
 							}
 							AnalysisDriver analysisDriver = experiment
 									.addAnalysisDriver(analysis);
-							if(distance!=null){
+							if(distance.isEmpty()){
 								experiment.addDistanceFunction(distance, analysisDriver);
 							}
 							experiment.execute();
