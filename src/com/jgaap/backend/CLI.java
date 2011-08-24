@@ -102,6 +102,10 @@ public class CLI {
 		} else {
 			jgaap.commandline = true;
 			API commandDriver = API.getInstance();
+			commandDriver.removeAllAnalysisDrivers();
+			commandDriver.removeAllDocuments();
+			commandDriver.removeAllEventCullers();
+			commandDriver.removeAllEventDrivers();
 			String eventSelected = "";
 			List<String> eventCullersSelected = new ArrayList<String>();
 			String analyzerSelected = "";
@@ -199,7 +203,7 @@ public class CLI {
 	}
 
 	private static String optionBuilder(List<String> tagSet) {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append(tagSet.remove(0));
 		while (!tagSet.isEmpty()) {
 			String s = tagSet.remove(0);
