@@ -112,7 +112,7 @@ public class API {
 	 * Removes all documents loaded into the system.
 	 */
 	public void removeAllDocuments() {
-		documents = new ArrayList<Document>();
+		documents.clear();
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class API {
 	 * @return - a List of Documents loaded into the system
 	 */
 	public List<Document> getDocuments() {
-		return new ArrayList<Document>(documents);
+		return documents;
 	}
 
 	/**
@@ -323,7 +323,7 @@ public class API {
 	 * Removes all EventDrivers from the system
 	 */
 	public void removeAllEventDrivers() {
-		eventDrivers = new ArrayList<EventDriver>();
+		eventDrivers.clear();
 		for (Document document : documents) {
 			document.clearEventSets();
 		}
@@ -334,7 +334,7 @@ public class API {
 	 * @return List of All loaded EventDrivers
 	 */
 	public List<EventDriver> getEventDrivers() {
-		return new ArrayList<EventDriver>(eventDrivers);
+		return eventDrivers;
 	}
 
 	/**
@@ -364,7 +364,7 @@ public class API {
 	 * Removes all loaded EventCullers from the system
 	 */
 	public void removeAllEventCullers() {
-		eventCullers = new ArrayList<EventCuller>();
+		eventCullers.clear();
 	}
 
 	/**
@@ -372,7 +372,7 @@ public class API {
 	 * @return List of EventCullers loaded
 	 */
 	public List<EventCuller> getEventCullers() {
-		return new ArrayList<EventCuller>(eventCullers);
+		return eventCullers;
 	}
 
 	/**
@@ -412,7 +412,7 @@ public class API {
 	 * Removes all AnalysisDrivers from the system
 	 */
 	public void removeAllAnalysisDrivers() {
-		analysisDrivers = new ArrayList<AnalysisDriver>();
+		analysisDrivers.clear();
 	}
 
 	/**
@@ -437,7 +437,7 @@ public class API {
 	 * @return List of All AnalysisDrivers
 	 */
 	public List<AnalysisDriver> getAnalysisDrivers() {
-		return new ArrayList<AnalysisDriver>(analysisDrivers);
+		return analysisDrivers;
 	}
 
 	public Language getLanguage(){
@@ -491,8 +491,8 @@ public class API {
 	 * @throws InterruptedException
 	 */
 	private void cull() {
+		List<EventSet> eventSets = new ArrayList<EventSet>();
 		for (EventDriver eventDriver : eventDrivers) {
-			List<EventSet> eventSets = new ArrayList<EventSet>();
 			for (final Document document : documents) {
 				if (document.getEventSets().containsKey(eventDriver)) {
 					eventSets.add(document.getEventSet(eventDriver));
@@ -506,6 +506,7 @@ public class API {
 					document.addEventSet(eventDriver, eventSets.remove(0));
 				}
 			}
+			eventSets.clear();
 		}
 	}
 
