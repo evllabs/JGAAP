@@ -47,7 +47,7 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
 	}
 
 	public boolean showInGUI() {
-		return true;
+		return false;
 	}
 
 	@Override

@@ -1,0 +1,82 @@
+package com.jgaap.classifiers;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
+import com.jgaap.generics.Event;
+import com.jgaap.generics.EventHistogram;
+import com.jgaap.generics.EventSet;
+import com.jgaap.generics.NeighborAnalysisDriver;
+import com.jgaap.generics.Pair;
+
+public class CentroidDriver extends NeighborAnalysisDriver {
+
+	@Override
+	public String displayName() {
+		return "Centroid Driver";
+	}
+
+	@Override
+	public String tooltipText() {
+		return "Does awesome stuff";
+	}
+
+	@Override
+	public boolean showInGUI() {
+		return true;
+	}
+	
+	@Override
+	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> knowns) {
+		Map<String, List<EventHistogram>>knownHistograms=new HashMap<String, List<EventHistogram>>();
+		Set<Event> events = new HashSet<Event>();
+		for(EventSet known : knowns){
+			EventHistogram histogram = new EventHistogram();
+			for(Event event : known){
+				events.add(event);
+				histogram.add(event);
+			}
+			List<EventHistogram> histograms = knownHistograms.get(known.getAuthor());
+			if(histograms != null){
+				histograms.add(histogram);
+			} else {
+				histograms = new ArrayList<EventHistogram>();
+				histograms.add(histogram);
+				knownHistograms.put(known.getAuthor(), histograms);
+			}
+		}
+		EventHistogram unknownHistogram = new EventHistogram();
+		for(Event event : unknown){
+			events.add(event);
+			unknownHistogram.add(event);
+		}
+		Vector<Double> unknownVector = new Vector<Double>(events.size());
+		for(Event event : events){
+			unknownVector.add(unknownHistogram.getRelativeFrequency(event));
+		}
+		List<Pair<String, Double>> result = new ArrayList<Pair<String,Double>>(knownHistograms.size());
+		for(String author : knownHistograms.keySet()){
+			Vector<Double> knownVector = new Vector<Double>(events.size());
+			for(Event event : events){
+				double frequency = 0.0;
+				List<EventHistogram> currentKnownHistogram = knownHistograms.get(author);
+				double size = currentKnownHistogram.size();
+				for(EventHistogram known : currentKnownHistogram){
+					frequency += known.getRelativeFrequency(event)/size;
+				}
+				knownVector.add(frequency);
+			}
+			result.add(new Pair<String, Double>(author, distance.distance(unknownVector, knownVector), 2));			
+		}
+		Collections.sort(result);
+		return result;
+	}
+
+
+}
