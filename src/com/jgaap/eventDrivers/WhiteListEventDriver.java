@@ -22,14 +22,16 @@ package com.jgaap.eventDrivers;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 
+import com.jgaap.jgaapConstants;
+import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
-import com.jgaap.jgaapConstants;
 
 
 /**
@@ -68,14 +70,7 @@ public class WhiteListEventDriver extends EventDriver {
 
 		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
 			try {
-				Object o = Class.forName(
-						jgaapConstants.JGAAP_EVENTDRIVERPREFIX + param)
-						.newInstance();
-				if (o instanceof EventDriver) {
-					underlyingEvents = (EventDriver) o;
-				} else {
-					throw new ClassCastException();
-				}
+				underlyingEvents = EventDriverFactory.getEventDriver(param);
 			} catch (Exception e) {
 				System.out.println("Error: cannot create EventDriver " + param);
 				System.out.println(" -- Using NaiveWordEventDriver");
@@ -101,8 +96,13 @@ public class WhiteListEventDriver extends EventDriver {
 
 		if (filename != null) {
 			try {
-				FileInputStream fis = new FileInputStream(filename);
-				br = new BufferedReader(new InputStreamReader(fis));
+				InputStream is;
+				if(filename.startsWith(jgaapConstants.JGAAP_RESOURCE_PACKAGE)){
+					is = getClass().getResourceAsStream(filename);
+				} else{
+					is = new FileInputStream(filename);
+				}
+				br = new BufferedReader(new InputStreamReader(is));
 
 				while ((word = br.readLine()) != null) {
 					whitelist.add(word.trim());

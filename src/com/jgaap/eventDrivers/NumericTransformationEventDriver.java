@@ -20,8 +20,8 @@
 package com.jgaap.eventDrivers;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
@@ -119,8 +119,8 @@ public class NumericTransformationEventDriver extends NumericEventDriver {
 
 		if (filename != null) {
 			try {
-				FileInputStream fis = new FileInputStream(filename);
-				br = new BufferedReader(new InputStreamReader(fis));
+				InputStream is = getClass().getResourceAsStream(filename);
+				br = new BufferedReader(new InputStreamReader(is));
 
 				while ((line = br.readLine()) != null) {
 					if (line.length() > 0) {

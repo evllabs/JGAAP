@@ -14,8 +14,8 @@ public class WordSegment {
 	public WordSegment() {
 	}
 
-	public WordSegment(String dicFile, SegStrategy strategy) {
-		SetDic(dicFile);
+	public WordSegment(SegStrategy strategy) {
+		SetDic(getClass().getResourceAsStream("/WordSegment/recources/chinese_dictionary.dat"));
 		setStrategy(strategy);
 	}
 
@@ -35,11 +35,10 @@ public class WordSegment {
 		dic = d;
 	}
 
-	public void SetDic(String dicFile) {
+	public void SetDic(InputStream dicFile) {
 		ObjectInputStream objectIn = null;
 		try {
-			objectIn = new ObjectInputStream(new FileInputStream(new File(
-					dicFile)));
+			objectIn = new ObjectInputStream(dicFile);
 		} catch (IOException e) {
 			e.printStackTrace(System.err);
 			System.exit(1);

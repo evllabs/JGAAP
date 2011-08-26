@@ -52,8 +52,8 @@ public class NamingTimeEventDriver extends NumericTransformationEventDriver {
         NumericTransformationEventDriver theDriver = new NumericTransformationEventDriver();
         // uses NaiveWordEventSet for now
         theDriver.setParameter("implicitWhitelist", "true");
-        theDriver.setParameter("filename", jgaapConstants.libDir()
-                + "/ELPnaming.dat");
+        theDriver.setParameter("filename", jgaapConstants.JGAAP_RESOURCE_PACKAGE
+                + "ELPnaming.dat");
 
         return theDriver.createEventSet(ds);
     }
