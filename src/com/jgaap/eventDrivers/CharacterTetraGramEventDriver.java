@@ -26,6 +26,7 @@ import com.jgaap.generics.EventSet;
  * Extract character 4-grams as features.
  *
  */
+@Deprecated
 public class CharacterTetraGramEventDriver extends NGramEventDriver {
 
     @Override

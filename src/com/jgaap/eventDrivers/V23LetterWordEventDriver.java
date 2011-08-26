@@ -31,6 +31,7 @@ import com.jgaap.generics.EventSet;
 /**
  * N.b use of _ to mark class name beginning with digit.
  */
+@Deprecated
 public class V23LetterWordEventDriver extends MNLetterWordEventDriver {
 
     @Override

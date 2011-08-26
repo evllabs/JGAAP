@@ -26,6 +26,7 @@ import com.jgaap.generics.EventSet;
  * Extract character trigrams as features.
  *
  */
+@Deprecated
 public class CharacterTriGramEventDriver extends NGramEventDriver {
    
     @Override

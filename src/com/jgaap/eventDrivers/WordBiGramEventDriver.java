@@ -27,6 +27,7 @@ import com.jgaap.generics.EventSet;
  * @author John Noecker Jr.
  *
  */
+@Deprecated
 public class WordBiGramEventDriver extends NGramEventDriver {
 
     @Override
