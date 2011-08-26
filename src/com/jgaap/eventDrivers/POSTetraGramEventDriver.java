@@ -26,6 +26,7 @@ import com.jgaap.generics.EventSet;
  * Extract tetragrams of characters as features.
  *
  */
+@Deprecated
 public class POSTetraGramEventDriver extends NGramEventDriver {
 
     @Override

@@ -28,6 +28,7 @@ import com.jgaap.generics.EventSet;
  * @since 4.1
  *
  */
+@Deprecated
 public class V34LetterWordEventDriver extends MNLetterWordEventDriver {
 
     @Override

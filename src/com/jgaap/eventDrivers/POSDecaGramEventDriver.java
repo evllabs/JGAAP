@@ -26,6 +26,7 @@ import com.jgaap.generics.EventSet;
  * Extract bigrams of characters as features.
  *
  */
+@Deprecated
 public class POSDecaGramEventDriver extends NGramEventDriver {
 
     @Override
