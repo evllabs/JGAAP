@@ -54,8 +54,8 @@ public class ReactionTimeEventDriver extends NumericTransformationEventDriver {
         NumericTransformationEventDriver theDriver = new NumericTransformationEventDriver();
         // uses NaiveWordEventSet for now
         theDriver.setParameter("implicitWhitelist", "true");
-        theDriver.setParameter("filename", jgaapConstants.libDir()
-                + "/ELPrt.dat");
+        theDriver.setParameter("filename", jgaapConstants.JGAAP_RESOURCE_PACKAGE
+                + "ELPrt.dat");
 
         return theDriver.createEventSet(ds);
     }

@@ -153,6 +153,9 @@ public class jgaapConstants {
 	public static URL getLocation(){
 		return jgaap.class.getResource("");
 	}
+
+	
+	public static final String JGAAP_RESOURCE_PACKAGE = "/com/jgaap/resources/";
 	
 	/**
 	 * Java Prefix for different types of object collections

@@ -54,8 +54,7 @@ public class FreqEventDriver extends NumericTransformationEventDriver {
         NumericTransformationEventDriver theDriver = new NumericTransformationEventDriver();
         // uses NaiveWordEventSet for now
         theDriver.setParameter("implicitWhitelist", "true");
-        theDriver.setParameter("filename", jgaapConstants.libDir()
-                + "/ELPfreq.dat");
+        theDriver.setParameter("filename", jgaapConstants.JGAAP_RESOURCE_PACKAGE + "ELPfreq.dat");
 
         return theDriver.createEventSet(ds);
     }

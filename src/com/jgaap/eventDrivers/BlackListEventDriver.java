@@ -22,9 +22,11 @@ package com.jgaap.eventDrivers;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 
+import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
@@ -102,8 +104,13 @@ public class BlackListEventDriver extends EventDriver {
 
         if (filename != null) {
             try {
-                FileInputStream fis = new FileInputStream(filename);
-                br = new BufferedReader(new InputStreamReader(fis));
+            	InputStream is;
+            	if(filename.startsWith(jgaapConstants.JGAAP_RESOURCE_PACKAGE)){
+            		is = getClass().getResourceAsStream(filename);
+            	} else {
+            		is = new FileInputStream(filename);
+            	}
+                br = new BufferedReader(new InputStreamReader(is));
 
                 while ((word = br.readLine()) != null) {
                     blacklist.add(word.trim());

@@ -19,7 +19,6 @@ package com.jgaap.languages;
 
 import java.util.List;
 
-import com.jgaap.jgaapConstants;
 import com.jgaap.generics.Language;
 
 import WordSegment.*;
@@ -42,8 +41,7 @@ public class ChineseJointMM extends Language {
 	@Override
 	public char[] parseLanguage(String document) {
 		StringBuilder stringBuilder = new StringBuilder(document.length());
-		WordSegment wordSegmenter = new WordSegment(jgaapConstants.libDir()
-				+ "chinese_dictionary.dat", new JointMM());
+		WordSegment wordSegmenter = new WordSegment(new JointMM());
 		List<String> segmented = wordSegmenter.Segment(document);
 		for (String word : segmented) {
 			stringBuilder.append(word).append(" ");

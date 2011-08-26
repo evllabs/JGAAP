@@ -17,13 +17,13 @@
  */
 package com.jgaap.eventDrivers;
 
-
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 
 import com.jgaap.jgaapConstants;
 import com.jgaap.canonicizers.StripPunctuation;
@@ -39,26 +39,25 @@ import edu.mit.jwi.item.POS;
 
 import com.knowledgebooks.nlp.fasttag.*;
 
-
-/*
+/**
  * @author Darren Vescovi
  * 
- * replaces words with their definitions
+ *         replaces words with their definitions
  * 
- * ENGLISH ONLY EVENT DRIVER
+ *         ENGLISH ONLY EVENT DRIVER
  * 
- * NOTE:this is event driver uses packages that can only be used for non-commercial implementation
- * 		specifically the edu.mit.jwi_2.1.5_jdk.jar
+ *         NOTE:this is event driver uses packages that can only be used for
+ *         non-commercial implementation specifically the
+ *         edu.mit.jwi_2.1.5_jdk.jar
  */
 public class DefinitionsEventDriver extends EventDriver {
-	
-	
-	
-	
 
-	@Override
-	public EventSet createEventSet(Document doc) {
-		Hashtable<String, Integer > table = new Hashtable<String , Integer>();
+	private static Hashtable<String, Integer> table;
+	private static Set<String> stopWords;
+	private static Hashtable<String, String> nouns;
+
+	static {
+		table = new Hashtable<String, Integer>(17);
 		table.put("NN", new Integer(1));
 		table.put("NNS", new Integer(1));
 		table.put("NNP", new Integer(1));
@@ -76,11 +75,8 @@ public class DefinitionsEventDriver extends EventDriver {
 		table.put("VBN", new Integer(2));
 		table.put("VBP", new Integer(2));
 		table.put("VBZ", new Integer(2));
-		
-		
-		//Set of stop words.
-		HashSet<String> stopWords = new HashSet<String>();
-		
+
+		stopWords = Collections.synchronizedSet(new HashSet<String>(37));
 		stopWords.add("the");
 		stopWords.add("of");
 		stopWords.add("to");
@@ -119,8 +115,8 @@ public class DefinitionsEventDriver extends EventDriver {
 		stopWords.add("an");
 		stopWords.add("do");
 		stopWords.add("if");
-		
-		Hashtable<String, String> nouns = new Hashtable<String, String>();
+
+		nouns = new Hashtable<String, String>(60);
 		nouns.put("alumni", "alumnus");
 		nouns.put("analyses", "analysis");
 		nouns.put("antennae", "antenna");
@@ -182,25 +178,18 @@ public class DefinitionsEventDriver extends EventDriver {
 		nouns.put("vertebrae", "vertebra");
 		nouns.put("vitae", "vita");
 		nouns.put("women", "woman");
-		
-		
-		
-		
-		
-		
+	}
+
+	@Override
+	public EventSet createEventSet(Document doc) {
+
 		EventSet eventSet = new EventSet(doc.getAuthor());
 		PorterStemmerWithIrregularEventDriver port = new PorterStemmerWithIrregularEventDriver();
 		//PorterStemmerEventDriver port = new PorterStemmerEventDriver();
 		EventSet tmpevent;
 		//System.out.println(tmpevent+"\n\n\n");
 		
-		
-		
-		URL url = null;
-		try{ url = new URL("file", null, jgaapConstants.utilDir()+"WordNet-3.0/dict"); } 
-		catch(MalformedURLException e){ e.printStackTrace(); }
-		if(url == null) return null;
-		
+		URL url = getClass().getResource(jgaapConstants.JGAAP_RESOURCE_PACKAGE+"wordnet");
 		
 		// construct the dictionary object and open it
 		IDictionary dict = new Dictionary(url);
@@ -318,4 +307,3 @@ public class DefinitionsEventDriver extends EventDriver {
 		return "Replaces words with words from their definitions as given in WordNet's dictionary";
 	}
 }
-

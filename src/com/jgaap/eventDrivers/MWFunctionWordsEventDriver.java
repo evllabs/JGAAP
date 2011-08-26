@@ -62,8 +62,8 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     public MWFunctionWordsEventDriver() {
         e = new WhiteListEventDriver();
         e.setParameter("underlyingEvents", "NaiveWordEventDriver");
-        e.setParameter("filename", jgaapConstants.libDir()
-                + "/MWfunctionwords.dat");
+        e.setParameter("filename", jgaapConstants.JGAAP_RESOURCE_PACKAGE
+                + "MWfunctionwords.dat");
     }
 
     /** Creates EventSet using M-W function word list */
