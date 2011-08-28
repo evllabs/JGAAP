@@ -164,7 +164,7 @@ public class EventHistogram implements Iterable<Event> {
 	 * 
 	 * @return the number of distinct Event types stored in a histogram
 	 */
-	public long getNTypes() {
+	public int getNTypes() {
 		return theHist.size();
 	}
 
