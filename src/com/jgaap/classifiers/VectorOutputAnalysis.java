@@ -52,7 +52,7 @@ public class VectorOutputAnalysis extends AnalysisDriver {
         public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 
         EventHistogram hist = new EventHistogram();
-        String keyFile = jgaapConstants.libDir() + "l1.key";
+        String keyFile = jgaapConstants.JGAAP_LIBDIR + "l1.key";
             Scanner keyIn = null;
             try {
                 keyIn = new Scanner(new File(keyFile));
@@ -67,7 +67,7 @@ public class VectorOutputAnalysis extends AnalysisDriver {
             String[] docPathArray = docPath.split("/");
             System.out.println(Arrays.toString(docPathArray));
             String unknownFileName = docPathArray[docPathArray.length - 1];
-            fsOut = new FileOutputStream(jgaapConstants.tmpDir() + unknownFileName);
+            fsOut = new FileOutputStream(jgaapConstants.JGAAP_TMPDIR + unknownFileName);
             writer = new PrintStream(fsOut);
 
         } catch (FileNotFoundException e) {

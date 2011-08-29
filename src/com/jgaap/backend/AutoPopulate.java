@@ -42,10 +42,6 @@ import com.jgaap.jgaapConstants;
  * Preprocessors and populate the GUI with them automatically, eliminating the
  * need to recompile JGAAP every time you add a new canonicizer.
  * 
- * NOTE: This is a rewritten version of findClasses, since findClasses has been
- * modified to work only on canonicizers. The original findClasses class has not
- * been removed for legacy reasons.
- * 
  * @author Juola/Noecker
  * @version 4.0
  */
@@ -65,13 +61,10 @@ public class AutoPopulate {
 	 * com.jgaap
 	 * 
 	 * @param directory
-	 *            The directory to search for a given (super)class
+	 *            The directory to search for the implementing classes of the super class
 	 * @param theclass
 	 *            The (super)class for finding all subclasses of
-	 * @param getObjects
-	 *            This field is ignored, but if it is present the vector will
-	 *            contain the actual instantiated objects
-	 * @return A Vector containing instantiations of all classes that are
+	 * @return A List containing instantiations of all classes that are
 	 *         subclasses of 'theclass'.
 	 */
 	private static List<Object> findAll(String directory, String theclass) {
@@ -87,38 +80,26 @@ public class AutoPopulate {
 
 		String[] children = null;
 		if (jgaapConstants.JGAAP_PACKAGE_JAR) {
-			String[] tmp1 = directory.split("/");
-			String tmp = "";
-			for (int i = tmp1.length - 3; i < tmp1.length; i++) {
-				tmp += tmp1[i] + "/";
-			}
 			try {
-				children = getResourceListing(tmp);
+				children = getResourceListing(directory+"/");
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
-			File dir = new File(directory);
-			// for( String str : dir.list() )
-			// System.out.println( str );
+			File dir = new File(jgaapConstants.JGAAP_BINDIR + directory);
 			children = dir.list();
 		}
 		if (children == null) {
 			System.err.println("Cannot open " + directory + " for reading");
 			return list;
 		} else {
+			String fulQualName = directory.replace("/", ".");
 			for (int i = 0; i < children.length; i++) {
 				if (children[i].endsWith(".class")) {
 					String s = children[i].substring(0,
 							children[i].length() - 6);
-
-					// System.out.println(s);
-					// list.add(s);
-					String fulQualName = (directory.split("com/jgaap")[(directory
-							.split("com/jgaap")).length - 1]);
-					fulQualName = "com.jgaap" + fulQualName.replace("/", ".");
 
 					try {
 						Object o = Class.forName(fulQualName + "." + s)
@@ -147,8 +128,8 @@ public class AutoPopulate {
 
 	private static List<Canonicizer> loadCanonicizers() {
 		List<Canonicizer> canonicizers = new ArrayList<Canonicizer>();
-		for (Object tmpC : findAll(jgaapConstants.binDir()
-				+ "/com/jgaap/canonicizers", "com.jgaap.generics.Canonicizer")) {
+		for (Object tmpC : findAll("com/jgaap/canonicizers",
+				"com.jgaap.generics.Canonicizer")) {
 			Canonicizer canon = (Canonicizer) tmpC;
 			canonicizers.add(canon);
 		}
@@ -165,8 +146,8 @@ public class AutoPopulate {
 
 	private static List<EventDriver> loadEventDrivers() {
 		List<EventDriver> eventDrivers = new ArrayList<EventDriver>();
-		for (Object tmpE : findAll(jgaapConstants.binDir()
-				+ "/com/jgaap/eventDrivers", "com.jgaap.generics.EventDriver")) {
+		for (Object tmpE : findAll("com/jgaap/eventDrivers",
+				"com.jgaap.generics.EventDriver")) {
 			EventDriver event = (EventDriver) tmpE;
 			eventDrivers.add(event);
 		}
@@ -183,8 +164,7 @@ public class AutoPopulate {
 
 	private static List<DistanceFunction> loadDistanceFunctions() {
 		List<DistanceFunction> distances = new ArrayList<DistanceFunction>();
-		for (Object tmpD : findAll(jgaapConstants.binDir()
-				+ "/com/jgaap/distances",
+		for (Object tmpD : findAll("com/jgaap/distances",
 				"com.jgaap.generics.DistanceFunction")) {
 			DistanceFunction method = (DistanceFunction) tmpD;
 			distances.add(method);
@@ -203,8 +183,7 @@ public class AutoPopulate {
 
 	private static List<AnalysisDriver> loadAnalysisDrivers() {
 		List<AnalysisDriver> analysisDrivers = new ArrayList<AnalysisDriver>();
-		for (Object tmpA : findAll(jgaapConstants.binDir()
-				+ "/com/jgaap/classifiers",
+		for (Object tmpA : findAll("com/jgaap/classifiers",
 				"com.jgaap.generics.AnalysisDriver")) {
 			AnalysisDriver method = (AnalysisDriver) tmpA;
 			analysisDrivers.add(method);
@@ -222,8 +201,8 @@ public class AutoPopulate {
 
 	private static List<Language> loadLanguages() {
 		List<Language> languages = new ArrayList<Language>();
-		for (Object tmpA : findAll(jgaapConstants.binDir()
-				+ "/com/jgaap/languages", "com.jgaap.generics.Language")) {
+		for (Object tmpA : findAll("com/jgaap/languages",
+				"com.jgaap.generics.Language")) {
 			Language lang = (Language) tmpA;
 			languages.add(lang);
 		}
@@ -240,8 +219,8 @@ public class AutoPopulate {
 
 	private static List<EventCuller> loadEventCullers() {
 		List<EventCuller> cullers = new ArrayList<EventCuller>();
-		for (Object tmpA : findAll(jgaapConstants.binDir()
-				+ "/com/jgaap/eventCullers", "com.jgaap.generics.EventCuller")) {
+		for (Object tmpA : findAll("com/jgaap/eventCullers",
+				"com.jgaap.generics.EventCuller")) {
 			EventCuller lang = (EventCuller) tmpA;
 			cullers.add(lang);
 		}
@@ -289,6 +268,7 @@ public class AutoPopulate {
 				jarPath = dirURL.getPath().substring(5,
 						dirURL.getPath().indexOf("!"));
 			}
+			System.out.println(jarPath);
 			JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
 			Enumeration<JarEntry> entries = jar.entries();
 			Set<String> result = new HashSet<String>();
@@ -306,6 +286,7 @@ public class AutoPopulate {
 			}
 			return result.toArray(new String[result.size()]);
 		}
-		throw new UnsupportedOperationException("Cannot list files for URL " + dirURL);
+		throw new UnsupportedOperationException("Cannot list files for URL "
+				+ dirURL);
 	}
 }

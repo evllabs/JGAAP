@@ -80,21 +80,14 @@ public class ExperimentEngine {
 		if ("".equals(cullerName)) {
 			cullerName = "none";
 		}
-		File file = new File(jgaapConstants.tmpDir()
-				+ canonName.replace("/", "\\/") + "/"
-				+ event.trim().replace("/", "\\/") + "/"
-				+ cullerName.replace("/", "\\/") + "/"
-				+ analysis.trim().replace("/", "\\/") + "/");
+		String path = jgaapConstants.JGAAP_TMPDIR
+		+ canonName.replace("/", "\\/") + "/"
+		+ event.trim().replace("/", "\\/") + "/"
+		+ cullerName.replace("/", "\\/") + "/"
+		+ analysis.trim().replace("/", "\\/") + "/";
+		File file = new File(path);
 		file.mkdirs();
-		// if (!file.mkdirs()) {
-		// System.err.println("Error creating experiment directory");
-		// System.exit(1);
-		// }
-		return (jgaapConstants.tmpDir() + canonName.replace("/", "\\/") + "/"
-				+ event.trim().replace("/", "\\/") + "/"
-				+ cullerName.replace("/", "\\/") + "/"
-				+ analysis.trim().replace("/", "\\/") + "/" + experimentName
-				+ number + dateFormat.format(date) + ".txt");
+		return (path + experimentName + number + dateFormat.format(date) + ".txt");
 	}
 
 	/**
@@ -168,7 +161,7 @@ public class ExperimentEngine {
 							}
 							Utils.saveFile(fileName, buffer.toString());
 						} catch (Exception e) {
-							Utils.appendToFile(jgaapConstants.tmpDir()
+							Utils.appendToFile(jgaapConstants.JGAAP_TMPDIR
 									+ "/EEerrors",
 									Arrays.toString(experimentRow.toArray())
 											+ "\n" + e.getMessage()

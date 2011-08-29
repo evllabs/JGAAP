@@ -2320,7 +2320,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }//GEN-LAST:event_Review_ButtonActionPerformed
 
         private void loadAAACProblem(String problem){
-        	filepath = jgaapConstants.docsDir()+"aaac/Demos/load"+problem+".csv";
+        	filepath = jgaapConstants.JGAAP_DOCSDIR+"aaac/Demos/load"+problem+".csv";
         	List<Document> documents = Collections.emptyList();
         	try {
 				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(filepath));

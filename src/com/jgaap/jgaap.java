@@ -49,6 +49,7 @@ public class jgaap {
  * @param args the command line arguments
  */
     public static void main(String[] args) {
+//    	System.out.println(jgaap.class.getProtectionDomain().getCodeSource().getLocation());
         if (args.length == 0) {
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
