@@ -27,6 +27,14 @@ import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventSet;
 
+/**
+ * 
+ * Analyzes only those Events appear in all samples [as suggested by (Jockers, 2008)].
+ * 
+ * @author Michael Ryan
+ * @since 5.0.0
+ */
+
 public class ExtremeCuller extends EventCuller {
 
 	@Override

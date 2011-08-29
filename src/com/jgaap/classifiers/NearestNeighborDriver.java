@@ -40,7 +40,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	public String tooltipText() {
-		return " ";
+		return "Assigns authorship labels by using a nearest-neighbor approach on a given distance/divergence function. ";
 	}
 
 	public boolean showInGUI() {

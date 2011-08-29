@@ -23,6 +23,10 @@ import java.util.Map;
 
 import com.jgaap.generics.AnalysisDriver;
 /**
+ * 
+ * Instances new Analysis Drivers based on display name.
+ * If parameters are also passed in the form DisplayName|name:value|name:value they are added to the Analysis Driver before it is returned
+ * 
  * @author Michael Ryan
  * @since 5.0.0
  */

@@ -23,6 +23,9 @@ import java.util.List;
  * Event Culling abstract parent class.
  * Event Culling is any transformation on a List<EventSet> that results in
  * a List<EventSet>
+ * 
+ * @author John Noecker
+ * @since 5.0.0
  */
 public abstract class EventCuller extends Parameterizable implements Comparable<EventCuller>, Displayable {
 

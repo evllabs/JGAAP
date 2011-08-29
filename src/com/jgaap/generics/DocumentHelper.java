@@ -39,6 +39,9 @@ import org.pdfbox.pdmodel.PDDocument;
 import org.pdfbox.util.PDFTextStripper;
 
 /**
+ * 
+ * A helper class for Document that handles all the different ways documents can be loaded
+ * 
  * @author Michael Ryan
  * @since 5.0.0
  */

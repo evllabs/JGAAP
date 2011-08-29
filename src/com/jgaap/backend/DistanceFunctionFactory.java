@@ -23,6 +23,10 @@ import java.util.Map;
 
 import com.jgaap.generics.DistanceFunction;
 /**
+ * 
+ * Instances new Distance Functions based on display name.
+ * If parameters are also passed in the form DisplayName|name:value|name:value they are added to the Distance Function before it is returned
+ * 
  * @author Michael Ryan
  * @since 5.0.0
  */

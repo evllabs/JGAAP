@@ -15,6 +15,14 @@ import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
 
+/**
+ * 
+ * This is a version of was had been the Frequency Centroid Driver
+ * This uses the average relative frequency of events of a single author as a centroid
+ * 
+ * @author Michael Ryan
+ * @since 5.0.2
+ */
 public class CentroidDriver extends NeighborAnalysisDriver {
 
 	@Override
