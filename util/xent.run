@@ -12,19 +12,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Cosi
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:1,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
@@ -51,19 +51,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Cosi
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:2,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
@@ -90,19 +90,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Cosi
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:3,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
@@ -129,19 +129,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Cosi
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:4,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
@@ -168,19 +168,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Cosi
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Word Grams|N:5,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
@@ -207,19 +207,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:2,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
@@ -246,19 +246,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:4,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
@@ -285,19 +285,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:6,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
@@ -324,19 +324,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:8,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
@@ -363,19 +363,19 @@ J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10
 K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Cosine Distance,,../docs/aaac/Demos/loadK.csv
 L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Cosine Distance,,../docs/aaac/Demos/loadL.csv
 M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Cosine Distance,,../docs/aaac/Demos/loadM.csv
-A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadA.csv
-B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadB.csv
-C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadC.csv
-D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadD.csv
-E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadE.csv
-F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadF.csv
-G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadG.csv
-H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadH.csv
-I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadI.csv
-J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadJ.csv
-K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadK.csv
-L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadL.csv
-M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation Distance,,../docs/aaac/Demos/loadM.csv
+A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadA.csv
+B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadB.csv
+C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadC.csv
+D,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadD.csv
+E,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadE.csv
+F,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadF.csv
+G,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadG.csv
+H,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadH.csv
+I,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadI.csv
+J,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadJ.csv
+K,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadK.csv
+L,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadL.csv
+M,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Kendall Correlation TauB,,../docs/aaac/Demos/loadM.csv
 A,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Pearson Correlation Distance,,../docs/aaac/Demos/loadA.csv
 B,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Pearson Correlation Distance,,../docs/aaac/Demos/loadB.csv
 C,Punctuation Separator | Normalize Whitespace | Unify Case,Character Grams|N:10,,Pearson Correlation Distance,,../docs/aaac/Demos/loadC.csv
