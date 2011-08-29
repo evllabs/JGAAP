@@ -1652,6 +1652,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             ResultsPage.AddResults(buffer.toString());
             ResultsPage.setVisible(true);
         } catch (Exception e){
+        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_ReviewPanel_ProcessButtonActionPerformed
 
@@ -1673,7 +1675,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             catch (Exception e)
             {
-
+            	e.printStackTrace();
+            	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BatchLoadMenuItemActionPerformed
@@ -1691,7 +1694,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             catch (Exception e)
             {
-
+            	e.printStackTrace();
+            	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BatchSaveMenuItemActionPerformed
@@ -1750,7 +1754,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedAnalysisMethodListBox();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_AnalysisMethodPanel_AddAllAnalysisMethodsButtonActionPerformed
 
@@ -1814,7 +1819,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedAnalysisMethodListBox();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -1877,7 +1883,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedEventCullingListBox();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }        // TODO add your handling code here:
 }//GEN-LAST:event_EventCullingPanel_AddAllEventCullingButtonActionPerformed
 
@@ -1900,7 +1907,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             JGAAP_API.addEventCuller(EventCullingPanel_EventCullingListBox.getSelectedValue().toString());
             UpdateSelectedEventCullingListBox();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -1936,7 +1944,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedEventSetListBox();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_EventSetsPanel_AddAllEventSetsButtonActionPerformed
 
@@ -1961,7 +1970,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             JGAAP_API.addEventDriver(EventSetsPanel_EventSetListBox.getSelectedValue().toString());
             UpdateSelectedEventSetListBox();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -2014,7 +2024,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedCanonicizerListBox();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_CanonicizersPanel_AddAllCanonicizersButtonActionPerformed
 
@@ -2042,7 +2053,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e){
-            System.out.println(e.getMessage());
+        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     private void CanonicizersPanel_SelectedCanonicizerListBoxMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CanonicizersPanel_SelectedCanonicizerListBoxMouseMoved
@@ -2090,6 +2102,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             SetEventSetList();
         } catch (Exception e) {
         	e.printStackTrace();
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_DocumentsPanel_LanguageComboBoxActionPerformed
 
@@ -2145,7 +2158,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     JGAAP_API.addDocument(file.getCanonicalPath(), "","");
                     filepath = file.getCanonicalPath();
                 } catch (Exception e) {
-                    //TODO: add error dialog here
+                	e.printStackTrace();
+                	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
                 }
                 UpdateUnknownDocumentsTable();
             }
@@ -2162,6 +2176,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 try {
                     JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName(),temp);
                 } catch (Exception e) {
+                	e.printStackTrace();
+                	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             UpdateCurrentCanonicizerBox();
@@ -2179,6 +2195,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 try {
                     JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName(),temp);
                 } catch (Exception e) {
+                	e.printStackTrace();
+                	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             UpdateCurrentCanonicizerBox();
@@ -2192,6 +2210,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 try {
                     JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName());
                 } catch (Exception e) {
+                	e.printStackTrace();
+                	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             UpdateCurrentCanonicizerBox();
@@ -2207,6 +2227,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     Notes[0] = NotesPage.SavedNote;
                 }
             } catch (Exception e){
+            	e.printStackTrace();
+            	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
             }
         }//GEN-LAST:event_DocumentsPanel_NotesButtonActionPerformed
 
@@ -2219,6 +2241,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     Notes[1] = NotesPage.SavedNote;
                 }
             } catch (Exception e){
+            	e.printStackTrace();
+            	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
             }
         }//GEN-LAST:event_CanonicizersPanel_NotesButtonActionPerformed
 
@@ -2231,6 +2255,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     Notes[2] = NotesPage.SavedNote;
                 }
             } catch (Exception e){
+            	e.printStackTrace();
+            	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
             }
         }//GEN-LAST:event_EventSetsPanel_NotesButtonActionPerformed
 
@@ -2243,6 +2269,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     Notes[3] = NotesPage.SavedNote;
                 }
             } catch (Exception e){
+            	e.printStackTrace();
+            	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
             }
         }//GEN-LAST:event_EventCullingPanel_NotesButtonActionPerformed
 
@@ -2255,6 +2283,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     Notes[4] = NotesPage.SavedNote;
                 }
             } catch (Exception e){
+            	e.printStackTrace();
+            	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
             }
         }//GEN-LAST:event_AnalysisMethodPanel_NotesButtonActionPerformed
 
@@ -2296,6 +2326,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(filepath));
 			} catch (Exception e) {
 				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
 			}
 			for(Document document : documents){
 				JGAAP_API.addDocument(document);
@@ -2398,8 +2429,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         try {
             java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
             succees = true;
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
         return succees;
     }
