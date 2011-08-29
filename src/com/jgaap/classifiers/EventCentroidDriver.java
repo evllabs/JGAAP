@@ -84,7 +84,7 @@ public class EventCentroidDriver extends NeighborAnalysisDriver {
 		List<Event> orderedEvents = new ArrayList<Event>(events);
 		
 		try {
-			Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.tmpDir()+"key.centroid")));
+			Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.JGAAP_TMPDIR+"key.centroid")));
 			for(Event event : orderedEvents){
 				writer.write(event.getEvent());
 			}
@@ -99,7 +99,7 @@ public class EventCentroidDriver extends NeighborAnalysisDriver {
 		
 		for(String author : authorDocumentHistograms.keySet()){
 			try {
-				Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.tmpDir()+author+".centroid")));
+				Writer writer = new BufferedWriter(new FileWriter(new File(jgaapConstants.JGAAP_TMPDIR+author+".centroid")));
 				List<EventHistogram> currentHistograms = authorDocumentHistograms.get(author);
 				for(Event event : orderedEvents){
 					double sum = 0;

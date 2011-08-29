@@ -28,135 +28,89 @@ import java.net.URL;
  */
 public class jgaapConstants {
 
-	/*
-	 * n.b. these are NOT final but should nevertheless not be changed.
-	 */
-	
 	/**
-	 * This flag sets if you want the jgaap jar to be independent (true) 
-	 * or if you want it to require the directory structure (false)  
+	 * This flag sets if you want the jgaap jar to be independent (true) or if
+	 * you want it to require the directory structure (false)
 	 */
 	public static final boolean JGAAP_PACKAGE_JAR = false;
 
+	private static String path;
+
+	static {
+		try {
+			path = processPath(new File(".").getCanonicalPath());
+		} catch (IOException e) {
+			path = "..";
+		}
+	}
+
 	/**
-	 * Location for binary (executable) objects. Not final but should not be
-	 * changed.
+	 * Location for binary (executable) objects. 
 	 */
-	//public static String JGAAP_BINDIR = "../bin/";
+	public static final String JGAAP_BINDIR = path + "bin/";
 
 	public static String binDir() {
-		try {
-			File folder = new File(".");
-			String path = folder.getCanonicalPath();
-			path=processPath(path);
-			return path +"/bin/";
-
-		} catch (IOException e) {
-			return "../bin/";
-		}
+		return path + "/bin/";
 	}
 
 	/**
-	 * Location for libraries such as word lists. Not final but should not be
-	 * changed.
+	 * Location for libraries such as word lists. 
 	 */
-	//public static String JGAAP_LIBDIR = "../lib/";
+	public static final String JGAAP_LIBDIR = path + "lib/";
 
 	public static String libDir() {
-		try {
-			File folder = new File(".");
-			String path = folder.getCanonicalPath();
-			path=processPath(path);
-			return path + "/lib/";
-
-		} catch (IOException e) {
-			return "../lib/";
-		}
+		return path + "/lib/";
 	}
 
 	/**
-	 * Location for source code for JGAAP project. Not final but should not be
-	 * changed.
+	 * Location for source code for JGAAP project. 
 	 */
-//	public static String JGAAP_SRCDIR = "../src/";
+	public static final String JGAAP_SRCDIR = path + "src/";
 
 	public static String srcDir() {
-		try {
-			File folder = new File(".");
-			String path = folder.getCanonicalPath();
-			path=processPath(path);
-			return path + "/src/";
-
-		} catch (IOException e) {
-			return "../src/";
-		}
+		return path + "/src/";
 	}
 
 	/**
-	 * Location for documentation objects. Not final but should not be changed.
+	 * Location for documentation objects.
 	 */
-//	public static String JGAAP_DOCSDIR = "../docs/";
+	public static final String JGAAP_DOCSDIR = path + "docs/";
 
 	public static String docsDir() {
-		try {
-			File folder = new File(".");
-			String path = folder.getCanonicalPath();
-			path=processPath(path);
-			return path + "/docs/";
-		} catch (IOException e) {
-			return "../docs/";
-		}
+		return path + "/docs/";
 	}
 
 	/**
 	 * Location for utility programs. Not final but should not be changed.
 	 */
-//	public static String JGAAP_UTILDIR = "../util/";
+	public static final String JGAAP_UTILDIR = path + "util/";
 
 	public static String utilDir() {
-		try {
-			File folder = new File(".");
-			String path = folder.getCanonicalPath();
-			path=processPath(path);
-			return path + "/util/";
-
-		} catch (IOException e) {
-			return "../util/";
-		}
+		return path + "/util/";
 	}
 
 	/**
 	 * Location of the "tmp" directory - FIXME: I'm not sure that JGAAP should
 	 * be producing temporary files, but SVM needs this.
 	 */
-//	public static String JGAAP_TMPDIR = "../tmp/";
+	public static final String JGAAP_TMPDIR = path + "tmp/";
 
 	public static String tmpDir() {
-		try {
-			File folder = new File(".");
-			String path = folder.getCanonicalPath();
-			path=processPath(path);
-			return path + "/tmp/";
-
-		} catch (IOException e) {
-			return "../tmp/";
-		}
+		return path + "/tmp/";
 	}
-	
-	
-	private static String processPath(String path){
+
+	private static String processPath(String path) {
 		path = path.replaceAll("bin$", "");
 		path = path.replaceAll("src$", "");
 		return path;
 	}
-	
-	public static URL getLocation(){
+
+	public static URL getLocation() {
 		return jgaap.class.getResource("");
 	}
 
-	
 	public static final String JGAAP_RESOURCE_PACKAGE = "/com/jgaap/resources/";
-	
+
 	/**
 	 * Java Prefix for different types of object collections
 	 */
@@ -164,25 +118,26 @@ public class jgaapConstants {
 	public static final String JGAAP_EVENTDRIVERPREFIX = "com.jgaap.eventDrivers.";
 	public static final String JGAAP_DISTANCEPREFIX = "com.jgaap.distances.";
 	public static final String JGAAP_CLASSIFIERPREFIX = "com.jgaap.classifiers.";
-	public static final String JGAAP_GUIPREFIX = "com.jgaap.gui.";
+	public static final String JGAAP_GUIPREFIX = "com.jgaap.ui.";
 	public static final String JGAAP_GENERICSPREFIX = "com.jgaap.generics.";
 	public static final String JGAAP_BACKENDPREFIX = "com.jgaap.backend.";
 	public static final String JGAAP_LANGUAGEPREFIX = "com.jgaap.languages.";
 
 	/*
 	 * JGAAP prints out a lot of warnings/messages that ordinary users needn't
-	 * see. Set this to 'false' for major releases.
+	 * see. Set this to 'false' for releases.
 	 */
 	public static final boolean JGAAP_DEBUG_VERBOSITY = false;
 
-//	// MVR This can and should be changed.
-//	/** Set of global parameters, to change via usual schemes. */
-//	public static Parameterizable globalParams = new Parameterizable();
-//
-//	/**
-//	 * Set of global objects, accessed via a HashMap (when Parameterizable is
-//	 * not sufficient because we need to store generic objects)
-//	 */
-//	public static HashMap<String, Object> globalObjects = new HashMap<String, Object>();
+	// // MVR This can and should be changed.
+	// /** Set of global parameters, to change via usual schemes. */
+	// public static Parameterizable globalParams = new Parameterizable();
+	//
+	// /**
+	// * Set of global objects, accessed via a HashMap (when Parameterizable is
+	// * not sufficient because we need to store generic objects)
+	// */
+	// public static HashMap<String, Object> globalObjects = new HashMap<String,
+	// Object>();
 
 }
