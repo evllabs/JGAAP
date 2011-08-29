@@ -268,7 +268,6 @@ public class AutoPopulate {
 				jarPath = dirURL.getPath().substring(5,
 						dirURL.getPath().indexOf("!"));
 			}
-			System.out.println(jarPath);
 			JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
 			Enumeration<JarEntry> entries = jar.entries();
 			Set<String> result = new HashSet<String>();
