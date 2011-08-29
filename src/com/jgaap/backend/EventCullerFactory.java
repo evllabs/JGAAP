@@ -23,6 +23,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Instances new Event Cullers based on display name.
+ * If parameters are also passed in the form DisplayName|name:value|name:value they are added to the Event Culler before it is returned
+ *
+ * @author John Noecker
+ * @since 5.0.0
+ */
+
 public class EventCullerFactory {
 
 	private static final Map<String, EventCuller> eventCullers = loadEventCullers();

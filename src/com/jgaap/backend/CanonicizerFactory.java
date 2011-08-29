@@ -22,6 +22,9 @@ import java.util.Map;
 
 import com.jgaap.generics.Canonicizer;
 /**
+ * 
+ * Instances new Canonicizers based on display name.
+ *
  * @author Michael Ryan
  * @since 5.0.0
  */

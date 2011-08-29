@@ -3,6 +3,8 @@ package com.jgaap.backend;
 import java.util.LinkedList;
 /**
  * 
+ * Work is queued up and workers being as it comes in
+ * 
  * @author Michael Ryan
  * @since 5.0.1
  */

@@ -16,6 +16,16 @@ import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
 
+/**
+ * 
+ * This was implemented because the Kendall tau rank correlation showed promise
+ * This runs in N long N time unlike the simple implementation
+ * This version also takes ties of X Y and (X,Y) into account making to closest to the Tau-B
+ * The original impl calculated the Tau-A 
+ * 
+ * @author Michael Ryan
+ * @since 5.0.2
+ */
 public class KendallCorrelationTauBDistance extends DistanceFunction {
 
 	@Override

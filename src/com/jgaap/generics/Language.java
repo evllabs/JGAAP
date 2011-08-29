@@ -32,7 +32,7 @@ package com.jgaap.generics;
  * MUST add super.setParseable(true) to your constructor.
  * 
  * @author Michael Ryan
- * 
+ * @since 4.x
  */
 public abstract class Language implements Comparable<Language>, Displayable {
 	private String name = "Generic";

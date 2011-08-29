@@ -20,6 +20,9 @@ package com.jgaap.generics;
 import com.jgaap.generics.DivergenceType;
 
 /**
+ * 
+ * Abstact class for divergences (distance like functions where A->B != B->A)
+ * 
  * @author Michael Ryan
  * @since 4.5.0
  */
