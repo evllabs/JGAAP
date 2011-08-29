@@ -32,7 +32,7 @@ public class jgaapConstants {
 	 * This flag sets if you want the jgaap jar to be independent (true) or if
 	 * you want it to require the directory structure (false)
 	 */
-	public static final boolean JGAAP_PACKAGE_JAR = true;
+	public static final boolean JGAAP_PACKAGE_JAR = false;
 
 	private static String path;
 

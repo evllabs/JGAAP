@@ -128,7 +128,7 @@ public class ExperimentEngine {
 						String distance = experimentRow.get(5).trim();
 						String documentsPath = experimentRow.get(6);
 						String fileName = fileNameGen(canons, eventDriver,
-								eventCullers, analysis+"-"+distance, experimentName, number);
+								eventCullers, analysis+(distance.isEmpty()?"":"-"+distance), experimentName, number);
 						API experiment = API.getPrivateInstance();
 						try {
 							List<Document> documents = Utils
@@ -149,7 +149,7 @@ public class ExperimentEngine {
 							}
 							AnalysisDriver analysisDriver = experiment
 									.addAnalysisDriver(analysis);
-							if(distance.isEmpty()){
+							if(!distance.isEmpty()){
 								experiment.addDistanceFunction(distance, analysisDriver);
 							}
 							experiment.execute();
