@@ -74,6 +74,8 @@
 		<copy todir="../bin">
 		  <fileset dir="../src">
 		    <include name="com/jgaap/ui/resources/*"/>
+		  	<include name="com/jgaap/resources/*"/>
+		  	<include name="com/jgaap/resources/wordnet/*"/>
 		  </fileset>
 </copy>
 	</target>
