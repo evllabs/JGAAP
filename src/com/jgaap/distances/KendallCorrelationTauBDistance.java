@@ -189,7 +189,9 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 		//System.err.println("n0 "+n0+" n1 "+n1+" n2 "+n2+" n3"+n3);
 //		int swaps = swaps(y);
 		//System.err.println(swaps);
-		return 1-(n0-n1-n2+n3-2*swaps(y))/(n0);
+		double result = (n0-n1-n2+n3-2*swaps(y));
+		result = result/Math.sqrt((n0-n1)*(n0-n2));
+		return 1-result;
 	}
 	
 //	private int swapCounter = 0;
@@ -198,7 +200,7 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 	private int swaps(List<Integer> list){
 //		swapCounter++;
 		if (list.size()<=1){
-			return list.size();
+			return 0;
 		}
 		int middle = list.size()/2;
 
