@@ -39,6 +39,7 @@ public class jgaapConstants {
 	static {
 		try {
 			path = processPath(new File(".").getCanonicalPath());
+			System.out.println(path);
 		} catch (IOException e) {
 			path = "..";
 		}
@@ -102,6 +103,9 @@ public class jgaapConstants {
 	private static String processPath(String path) {
 		path = path.replaceAll("bin$", "");
 		path = path.replaceAll("src$", "");
+		if(!path.endsWith("/")){
+			path+="/";
+		}
 		return path;
 	}
 

@@ -105,7 +105,7 @@ public class POSNGramEventDriver extends NGramEventDriver {
             this.setParameter("N", 2);
         }
         theDriver.setParameter("N",  this.getParameter("N"));
-        theDriver.setParameter("underlyingEvents", "PartOfSpeechEventDriver");
+        theDriver.setParameter("underlyingEvents", "POS");
         return theDriver.createEventSet(ds);
     }
 }

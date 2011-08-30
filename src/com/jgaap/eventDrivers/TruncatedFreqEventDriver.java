@@ -51,7 +51,7 @@ public class TruncatedFreqEventDriver extends EventDriver {
     public EventSet createEventSet(Document ds) {
         theDriver = new TruncatedEventDriver();
         theDriver.setParameter("length", "3");
-        theDriver.setParameter("underlyingEvents", "FreqEventDriver");
+        theDriver.setParameter("underlyingEvents", "Lexical Frequencies");
         return theDriver.createEventSet(ds);
     }
 }

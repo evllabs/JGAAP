@@ -19,6 +19,7 @@
  **/
 package com.jgaap.eventDrivers;
 
+import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
@@ -65,21 +66,8 @@ public class DisLegomenaEventDriver extends EventDriver {
 		String param;
 		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
 			try {
-				/*
-				 * TODO: If ever use Event Driver that are not part of
-				 * com.jgaap.eventDriver, this will need to be changed. You can
-				 * catch the first exception, try appending
-				 * com.jgaap.eventDriver, then catch a second exception if even
-				 * that doesn't work, but since all our eventDriver are in one
-				 * place right now, I didn't do it that way -- JN 04/26/09
-				 */
-				Object o = Class.forName("com.jgaap.eventDriver." + param)
-						.newInstance();
-				if (o instanceof EventDriver) {
-					setEvents((EventDriver) o);
-				} else {
-					throw new ClassCastException();
-				}
+	            setEvents(EventDriverFactory.getEventDriver(param));
+
 			} catch (Exception e) {
 				System.out.println("Error: cannot create EventDriver " + param);
 				System.out.println(" -- Using NaiveWordEventDriver");

@@ -55,7 +55,7 @@ public class CharacterTriGramEventDriver extends NGramEventDriver {
     public EventSet createEventSet(Document ds) {
         theDriver = new NGramEventDriver();
         theDriver.setParameter("N", "3");
-        theDriver.setParameter("underlyingEvents", "CharacterEventDriver");
+        theDriver.setParameter("underlyingEvents", "Characters");
         theDriver.setParameter("opendelim", "null");
         theDriver.setParameter("closedelim", "null");
         theDriver.setParameter("separator", "null");

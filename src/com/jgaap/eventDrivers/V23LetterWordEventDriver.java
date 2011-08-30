@@ -54,7 +54,7 @@ public class V23LetterWordEventDriver extends MNLetterWordEventDriver {
     @Override
     public EventSet createEventSet(Document ds) {
         theDriver = new MNLetterWordEventDriver();
-        theDriver.setParameter("underlyingevents", "VowelInitialWordEventDriver");
+        theDriver.setParameter("underlyingevents", "Vowel-initial Words");
         theDriver.setParameter("M", "2");
         theDriver.setParameter("N", "3");
         return theDriver.createEventSet(ds);

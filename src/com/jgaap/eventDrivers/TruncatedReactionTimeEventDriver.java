@@ -51,7 +51,7 @@ public class TruncatedReactionTimeEventDriver extends EventDriver {
     public EventSet createEventSet(Document ds) {
         theDriver = new TruncatedEventDriver();
         theDriver.setParameter("length", "2");
-        theDriver.setParameter("underlyingEvents", "ReactionTimeEventDriver");
+        theDriver.setParameter("underlyingEvents", "Lexical Decision Reaction Times");
         return theDriver.createEventSet(ds);
     }
 }

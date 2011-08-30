@@ -61,7 +61,7 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     // Peter Jan 21 2010 - this needs to be public for autopopulator
     public MWFunctionWordsEventDriver() {
         e = new WhiteListEventDriver();
-        e.setParameter("underlyingEvents", "NaiveWordEventDriver");
+        e.setParameter("underlyingEvents", "Words");
         e.setParameter("filename", jgaapConstants.JGAAP_RESOURCE_PACKAGE
                 + "MWfunctionwords.dat");
     }

@@ -51,7 +51,7 @@ public class TruncatedNamingTimeEventDriver extends EventDriver {
     public EventSet createEventSet(Document ds) {
         theDriver = new TruncatedEventDriver();
         theDriver.setParameter("length", "2");
-        theDriver.setParameter("underlyingEvents", "NamingTimeEventDriver");
+        theDriver.setParameter("underlyingEvents", "Naming Reaction Times");
         return theDriver.createEventSet(ds);
     }
 }

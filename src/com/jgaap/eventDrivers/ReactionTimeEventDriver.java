@@ -35,7 +35,7 @@ public class ReactionTimeEventDriver extends NumericTransformationEventDriver {
 
     @Override
     public String displayName(){
-    	return "Lexical Decion Reaction Times";
+    	return "Lexical Decision Reaction Times";
     }
     
     @Override

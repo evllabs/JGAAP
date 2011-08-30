@@ -51,7 +51,7 @@ public class POSDecaGramEventDriver extends NGramEventDriver {
         theDriver = new NGramEventDriver();
         // default value of N is 2 already
         theDriver.setParameter("N", "10");
-        theDriver.setParameter("underlyingEvents", "PartOfSpeechEventDriver");
+        theDriver.setParameter("underlyingEvents", "POS");
         return theDriver.createEventSet(ds);
     }
 }

@@ -108,7 +108,7 @@ public class SyllableTransitionEventDriver extends NGramEventDriver {
             this.setParameter("N", 2);
         }
         theDriver.setParameter("N",  this.getParameter("N"));
-        theDriver.setParameter("underlyingEvents", "WordSyllablesEventDriver");
+        theDriver.setParameter("underlyingEvents", "Syllables Per Word");
         theDriver.setParameter("opendelim", "null");
         theDriver.setParameter("closedelim", "null");
 

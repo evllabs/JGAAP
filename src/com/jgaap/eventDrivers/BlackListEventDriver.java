@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 
 import com.jgaap.jgaapConstants;
+import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
@@ -72,13 +73,8 @@ public class BlackListEventDriver extends EventDriver {
         String word;
 
         if (!(param = (getParameter("underlyingEvents"))).equals("")) {
-            try {
-                Object o = Class.forName(param).newInstance();
-                if (o instanceof EventDriver) {
-                    underlyingEvents = (EventDriver) o;
-                } else {
-                    throw new ClassCastException();
-                }
+        	try {
+                underlyingEvents = EventDriverFactory.getEventDriver(param);
             } catch (Exception e) {
                 System.out.println("Error: cannot create EventDriver " + param);
                 System.out.println(" -- Using NaiveWordEventSet");
