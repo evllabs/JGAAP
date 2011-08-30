@@ -19,6 +19,7 @@
  **/
 package com.jgaap.eventDrivers;
 
+import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
@@ -69,7 +70,7 @@ public class SimpleAppendEventDriver extends EventDriver {
 		if ((param = (getParameter("underlyingEvents"))).equals("")) {
 			// Just for testing purposes, we'll use words, lengths,
 			// and bigrams
-			param = "NaiveWordEventDriver,WordLengthEventDriver,WordBiGramEventDriver";
+			param = "Words,Word Lengths,Word Grams|N:2";
 		}
 
 		System.out.println("Starting processing " + param);
@@ -82,14 +83,7 @@ public class SimpleAppendEventDriver extends EventDriver {
 			System.out.println("Processing " + set[i]);
 
 			try {
-				Object o = Class.forName(
-						"com.jgaap.eventDrivers." + set[i].trim())
-						.newInstance();
-				if (o instanceof EventDriver) {
-					underlyingevents = (EventDriver) o;
-				} else {
-					throw new ClassCastException();
-				}
+				setEvents(EventDriverFactory.getEventDriver(set[i].trim()));
 			} catch (Exception e) {
 				System.out.println("Error: cannot create EventDriver " + param);
 				System.out.println(" -- Using NaiveWordEventSet");

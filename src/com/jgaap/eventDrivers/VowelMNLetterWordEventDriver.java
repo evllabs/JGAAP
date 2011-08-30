@@ -131,7 +131,7 @@ public class VowelMNLetterWordEventDriver extends MNLetterWordEventDriver {
     @Override
     public EventSet createEventSet(Document ds) {
         theDriver = new MNLetterWordEventDriver();
-        theDriver.setParameter("underlyingevents", "VowelInitialWordEventDriver");
+        theDriver.setParameter("underlyingevents", "Vowel-initial Words");
         String temp = this.getParameter("M");
         if (temp.equals(""))
         {

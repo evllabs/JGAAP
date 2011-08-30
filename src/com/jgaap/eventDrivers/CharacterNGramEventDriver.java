@@ -110,7 +110,7 @@ public class CharacterNGramEventDriver extends NGramEventDriver {
             this.setParameter("N", 2);
         }
         theDriver.setParameter("N",  this.getParameter("N"));
-        theDriver.setParameter("underlyingEvents", "CharacterEventDriver");
+        theDriver.setParameter("underlyingEvents", "Characters");
         theDriver.setParameter("opendelim", "null");
         theDriver.setParameter("closedelim", "null");
         theDriver.setParameter("separator", "null");
