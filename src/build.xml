@@ -77,6 +77,9 @@
 		  	<include name="com/jgaap/resources/*"/>
 		  	<include name="com/jgaap/resources/wordnet/*"/>
 		  </fileset>
+		  <fileset dir="../unittests">
+			<include name="com/jgaap/resources/*"/>
+		  </fileset>
 </copy>
 	</target>
 	
@@ -101,6 +104,7 @@
 					<fileset dir="../unittests/">
 						<include name="**/*Test.class"/>
 						<exclude name="**/*PartOfSpeechEventDriverTest*"/>
+						<include name="com/jgaap/resources/*"/>
 					</fileset>
 				</batchtest>
 			</junit>
@@ -119,6 +123,7 @@
 				<batchtest todir="unittest_logs">
 					<fileset dir="../unittests/">
 						<include name="**/eventDrivers/PartOfSpeechEventDriverTest.class"/>
+						<include name="com/jgaap/resources/*"/>
 					</fileset>
 				</batchtest>
 			</junit>
