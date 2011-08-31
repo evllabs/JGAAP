@@ -39,7 +39,6 @@ public class jgaapConstants {
 	static {
 		try {
 			path = processPath(new File(".").getCanonicalPath());
-			System.out.println(path);
 		} catch (IOException e) {
 			path = "..";
 		}
