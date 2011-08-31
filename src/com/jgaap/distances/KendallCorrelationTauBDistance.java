@@ -9,6 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
@@ -44,6 +45,17 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 	}
 
 	@Override
+	public double distance(Vector<Double> v1, Vector<Double> v2){
+		List<Pair<String, Double>> unknownList = new ArrayList<Pair<String,Double>>();
+		List<Pair<String, Double>> knownList = new ArrayList<Pair<String,Double>>();
+		for(int i=0; i<v1.size();i++){
+			unknownList.add(new Pair<String, Double>(Integer.toString(i), v1.get(i), 2));
+			knownList.add(new Pair<String, Double>(Integer.toString(i), v2.get(i), 2));
+		}
+		return distance(unknownList, knownList);
+	}
+	
+	@Override
 	public double distance(EventSet es1, EventSet es2) {
 		
 		EventHistogram unknownHistogram = new EventHistogram();
@@ -63,6 +75,9 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 		for(Event e : knownHistogram){
 			knownList.add(new Pair<String, Double>(e.getEvent(), knownHistogram.getRelativeFrequency(e), 2));
 		}
+		return distance(unknownList, knownList);
+	}
+	private double distance(List<Pair<String, Double>> unknownList, List<Pair<String, Double>>knownList){
 		//System.err.println("2");
 		Collections.sort(unknownList);
 		Collections.reverse(unknownList);
