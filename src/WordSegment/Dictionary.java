@@ -23,10 +23,10 @@ public class Dictionary implements Serializable
 		if (checkWord(newWord))
 		{
 			int t = dic.get(newWord);
-			dic.put(newWord, new Integer(t + 1));
+			dic.put(newWord, t + 1);
 		}
 		else
-			dic.put(newWord, new Integer(1));
+			dic.put(newWord, 1);
 		wordsNumOfTrainDoc++;
 	}
 	
@@ -50,13 +50,13 @@ public class Dictionary implements Serializable
 	public String toString()
 	{
 		Iterator<String> keyIter = dic.keySet().iterator();
-		String value = new String();
+		StringBuilder stringBuilder = new StringBuilder();
 		while (keyIter.hasNext())
 		{
 			String key = keyIter.next();
-			value += key + " " + getFrequency(key) + "\n";
+			stringBuilder.append(key).append(" ").append(getFrequency(key)).append("\n");
 		}
-		return value;
+		return stringBuilder.toString();
 	}
 
 	
