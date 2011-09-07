@@ -20,6 +20,7 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.generics.Document;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -49,16 +50,12 @@ public class CharacterBiGramEventDriver extends NGramEventDriver {
     	return false;
     }
 
-  private NGramEventDriver theDriver;
+  private EventDriver theDriver;
 
     @Override
     public EventSet createEventSet(Document ds) {
-        theDriver = new NGramEventDriver();
-        // default value of N is 2 already
-        theDriver.setParameter("underlyingEvents", "Characters");
-        theDriver.setParameter("opendelim", "null");
-        theDriver.setParameter("closedelim", "null");
-        theDriver.setParameter("separator", "null");
+        theDriver = new CharacterNGramEventDriver();
+        theDriver.setParameter("N", 2);
         return theDriver.createEventSet(ds);
     }
 }
