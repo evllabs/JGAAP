@@ -470,7 +470,6 @@ public class API {
 							document.addEventSet(eventDriver,eventDriver.createEventSet(document));
 						}
 						document.readStringText("");
-						System.gc();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
