@@ -58,7 +58,7 @@ public class MeanDistance extends DistanceFunction {
 		double sum2 = 0.0;
 
 		if (!(es1 instanceof NumericEventSet)
-				|| !(es1 instanceof NumericEventSet)) {
+				|| !(es2 instanceof NumericEventSet)) {
 			System.out
 					.println("ERROR : MeanDistance: Attempting to take average of non-numeric set!");
 			return Double.NaN;
