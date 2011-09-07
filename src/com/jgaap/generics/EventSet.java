@@ -47,6 +47,16 @@ public class EventSet implements Iterable<Event> {
         setAuthor("default");
         setNewEventSetID("default");
     }
+    
+    /**
+     * Creates a empty list of event of the specified size
+     * @param size
+     */
+    public EventSet(int size) {
+        events = new ArrayList<Event>(size);
+        setAuthor("default");
+        setNewEventSetID("default");
+    }
 
     /** Creates a new list of events given a previously created list of events **/
     public EventSet(List<Event> evts) {
