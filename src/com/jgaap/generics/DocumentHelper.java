@@ -25,10 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.EditorKit;
