@@ -57,11 +57,6 @@ public class AddErrors extends Canonicizer {
 		return false;
 	}
 
-	@Override
-	public Color guiColor() {
-		return null;
-	}
-
 	/**
 	 * Prompt the user (via JOptionPane) for the percentage of characters to
 	 * replace with errors.

@@ -63,12 +63,6 @@ public class StripComments extends Canonicizer {
         	return API.getInstance().getLanguage().displayName().equalsIgnoreCase("computer");
 	}
 
-
-	@Override
-	public Color guiColor() {
-		return Color.CYAN;
-	}
-
 	/**
 	 * strip comments from source code given in argument
 	 * 
