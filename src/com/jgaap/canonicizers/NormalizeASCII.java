@@ -49,12 +49,6 @@ public class NormalizeASCII extends Canonicizer {
     public boolean showInGUI(){
     	return true;
     }
-    
-    @Override
-    public Color guiColor(){
-    	return Color.LIGHT_GRAY;
-    }
-    
 
     /**
      * Strip punctuation from input characters

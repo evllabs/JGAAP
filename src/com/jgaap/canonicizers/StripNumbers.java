@@ -50,11 +50,6 @@ public class StripNumbers extends Canonicizer {
 		return true;
 	}
 
-	@Override
-	public Color guiColor() {
-		return Color.MAGENTA;
-	}
-
 	/**
 	 * strip numbers in argument
 	 * 

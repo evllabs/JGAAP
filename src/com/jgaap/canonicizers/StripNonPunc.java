@@ -54,11 +54,6 @@ public class StripNonPunc extends Canonicizer {
 		return true;
 	}
 
-	@Override
-	public Color guiColor() {
-		return Color.YELLOW;
-	}
-
 	/**
 	 * Strip non-punctuation from input characters
 	 * 
