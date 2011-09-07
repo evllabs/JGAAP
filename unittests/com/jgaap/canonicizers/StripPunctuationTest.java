@@ -48,5 +48,18 @@ public class StripPunctuationTest {
 		char[] test = new StripPunctuation().process(sample);
 		assertTrue(Arrays.equals(expected, test));
 	}
+	
+	@Test
+	public void testWhitespace() {
+		
+		char[] sample2 = { 'H', 'e', 'l', 'l', 'o', ' ', ',', ' ', 'W', ';', ':',
+				'$', 'o', 'r', 'l', 'd', '!', '.', '?', '(', ')' };
+		
+		char[] expected = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l',
+		'd' };
+		
+		char [] test = new StripPunctuation().process(sample2);
+		assertTrue(Arrays.equals(expected, test));		
+	}
 
 }
