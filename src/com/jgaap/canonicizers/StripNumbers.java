@@ -24,9 +24,7 @@ import java.awt.Color;
 import com.jgaap.generics.Canonicizer;
 
 /**
- * Changes length of all white spaces to 1. Any sequence of whitespaces
- * including newline, tab, and space, will become a single space in the
- * processed document.
+ * Replace all numbers with "0"
  * 
  * @since 4.1
  **/
@@ -39,12 +37,12 @@ public class StripNumbers extends Canonicizer {
 
 	@Override
 	public String tooltipText() {
-		return "Converts numbers to a single # sign";
+		return "Converts numbers to a single 0";
 	}
 
 	@Override
 	public String longDescription() {
-		return "Converts numbers (digit strings) to a single # sign";
+		return "Converts numbers (digit strings) to a single 0";
 	}
 
 	@Override
@@ -62,7 +60,7 @@ public class StripNumbers extends Canonicizer {
 	 * 
 	 * @param procText
 	 *            Array of Characters to be processed
-	 * @return Array of Characters after converting digit string to '#'
+	 * @return Array of Characters after converting digit string to '0'
 	 * 
 	 */
 	@Override
@@ -71,7 +69,7 @@ public class StripNumbers extends Canonicizer {
 		boolean spaceflag = false;
 		for (int i = 0; i < procText.length; i++) {
 			if (Character.isDigit(procText[i]) && !spaceflag) {
-				stringBuilder.append('#');
+				stringBuilder.append('0');
 				spaceflag = true;
 			} else if (!Character.isDigit(procText[i]) && procText[i] != ','
 					&& procText[i] != '.') {

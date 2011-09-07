@@ -65,12 +65,10 @@ public class StripNullCharacters extends Canonicizer {
 
     @Override
     public char[] process(char[] procText) {
-        StringBuilder stringBuilder = new StringBuilder(procText.length);
-        for(Character c : procText) {
-            if(c != '\u0000') {
-                stringBuilder.append(c);
-            }
-        }
-        return stringBuilder.toString().toCharArray();  //To change body of implemented methods use File | Settings | File Templates.
+    	String procString = new String(procText);
+    	procString = procString.replaceAll("\\s\\u0000\\s", " ");
+    	procString = procString.replaceAll("\\u0000", "");
+
+    	return procString.toCharArray();
     }
 }

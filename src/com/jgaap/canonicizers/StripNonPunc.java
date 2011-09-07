@@ -68,16 +68,9 @@ public class StripNonPunc extends Canonicizer {
 	 */
 	@Override
 	public char[] process(char[] procText) {
-		StringBuilder stringBuilder = new StringBuilder(procText.length);
-		for (int i = 0; i < procText.length; i++) {
-			if (punc.indexOf(procText[i]) == -1
-					&& !Character.isWhitespace(procText[i])) {
-				// If the character is not punctuation
-				; // Do nothing
-			} else {
-				stringBuilder.append(procText[i]);
-			}
-		}
-		return stringBuilder.toString().toCharArray();
+    	String procString = new String(procText);
+    	procString = procString.replaceAll("\\s\\p{Alnum}+\\s", " ");
+    	procString = procString.replaceAll("\\p{Alnum}", "");
+    	return procString.toCharArray();
 	}
 }
