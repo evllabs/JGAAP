@@ -148,16 +148,16 @@ public class TumblingNGramEventDriver extends EventDriver {
         // watch off-by-one error at end of event stream
         for (int i = N; i <= es.size(); i+= tumbleLength) {
 
-            theEvent = "";
+            StringBuilder eventBuilder = new StringBuilder();
             // watch off-by-one error at end of event stream
             for (int j = i - N; j < i; j++) {
-                s = es.eventAt(j).toString();
-                theEvent += opendelim + s + closedelim;
+                s = es.eventAt(j).getEvent();
+                eventBuilder.append(opendelim).append(s).append(closedelim);
                 if (j != i - 1) {
-                    theEvent += separator;
+                	eventBuilder.append(separator);
                 }
             }
-            newEs.addEvent(new Event(theEvent));
+            newEs.addEvent(new Event(eventBuilder.toString()));
         }
         return newEs;
     }
