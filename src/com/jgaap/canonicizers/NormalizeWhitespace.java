@@ -52,11 +52,6 @@ public class NormalizeWhitespace extends Canonicizer {
     public boolean showInGUI(){
     	return true;
     }
-    
-    @Override
-    public Color guiColor(){
-    	return Color.RED;
-    }
 	
     /**
      * normalize whitespace in argument

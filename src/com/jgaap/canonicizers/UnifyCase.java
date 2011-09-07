@@ -51,12 +51,7 @@ public class UnifyCase extends Canonicizer {
     public boolean showInGUI(){
     	return true;
     }
-    
-    @Override
-    public Color guiColor(){
-    	return Color.BLUE;
-    }
-	
+
     /**
      * unify (smash) case
      * 

@@ -49,11 +49,6 @@ public class IntervieweeText extends Canonicizer {
     }
 
     @Override
-    public Color guiColor() {
-        return Color.BLUE;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
     public char[] process(char[] procText) {
         StringBuilder text = new StringBuilder(procText.length);
         StringBuilder newText = new StringBuilder(procText.length);

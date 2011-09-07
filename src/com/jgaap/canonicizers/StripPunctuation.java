@@ -49,12 +49,7 @@ public class StripPunctuation extends Canonicizer {
     public boolean showInGUI(){
     	return true;
     }
-    
-    @Override
-    public Color guiColor(){
-    	return Color.GREEN;
-    }
-    
+
     // considered "punctuation"
 
     /**
