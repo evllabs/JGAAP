@@ -73,9 +73,9 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 		List<Pair<String, Double>> result = new ArrayList<Pair<String,Double>>(knownHistograms.size());
 		for(String author : knownHistograms.keySet()){
 			Vector<Double> knownVector = new Vector<Double>(events.size());
+			List<EventHistogram> currentKnownHistogram = knownHistograms.get(author);
 			for(Event event : events){
 				double frequency = 0.0;
-				List<EventHistogram> currentKnownHistogram = knownHistograms.get(author);
 				double size = currentKnownHistogram.size();
 				for(EventHistogram known : currentKnownHistogram){
 					frequency += known.getRelativeFrequency(event)/size;
