@@ -59,7 +59,7 @@ public class MeanDistanceTest {
 		test2.add(new Event("2.0"));
 		test2.add(new Event("3.0"));
 		
-		es2 = new EventSet();
+		es2 = new NumericEventSet();
 		es2.addEvents(test2);
 		double result = new MeanDistance().distance(es1, es2);
 		assertTrue(DistanceTestHelper.inRange(result, 1.0, 0.0000000001));
