@@ -139,7 +139,7 @@ public class TumblingNGramEventDriver extends EventDriver {
         EventSet newEs = new EventSet();
         newEs.setAuthor(es.getAuthor());
         newEs.setNewEventSetID(es.getAuthor());
-        String s, theEvent;
+        String s;
 
         /**
          * Start at event N-1, then put the previous N together as a string. s
