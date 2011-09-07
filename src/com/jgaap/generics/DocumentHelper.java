@@ -18,11 +18,14 @@
 package com.jgaap.generics;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +138,7 @@ class DocumentHelper {
 		System.out.println("HTML Document");
 		EditorKit kit = new HTMLEditorKit();
 		HTMLDocument doc = (HTMLDocument) kit.createDefaultDocument();
-		doc.putProperty("IgnoreCharsetDirective", new Boolean(true));
+		doc.putProperty("IgnoreCharsetDirective", true);
 		kit.read(filesInputStream, doc, 0);
 		char[] origText = doc.getText(0, doc.getLength()).toCharArray();
 
@@ -182,27 +185,36 @@ class DocumentHelper {
 	 * @throws IOException
 	 **/
 	static public char[] readLocalText(String filepath, String charset) throws IOException {
-		return readText(new FileInputStream(filepath), charset);
+		File file = new File(filepath);
+		return readText(new FileInputStream(file), charset, (int)file.length());
 	}
 
+	static public char[] readText(InputStream is, String charset, int length) throws IOException{
+		Reader reader;
+		if(charset==null || charset.isEmpty()){
+			reader = new InputStreamReader(is);
+		} else {
+			reader = new InputStreamReader(is, charset);
+		}
+		char[] text = new char[length];
+		reader.read(text);
+		reader.close();
+		return text;
+	}
+	
 	static public char[] readText(InputStream is, String charset) throws IOException {
 		int c;
-		List<Character> rawText = new ArrayList<Character>();
+		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader br;
 		if (charset==null||charset.isEmpty()) {
 			br = new BufferedReader(new InputStreamReader(is));
 		} else {
 			br = new BufferedReader(new InputStreamReader(is,charset));
 		}
-
 		while ((c = br.read()) != -1) {
-			rawText.add(new Character((char) c));
+			stringBuilder.append((char)c);
 		}
-		char[] raw = new char[rawText.size()];
-		for (int i = 0; i < rawText.size(); i++) {
-			raw[i] = rawText.get(i);
-		}
-		return raw;
+		return stringBuilder.toString().toCharArray();
 	}
 
 	/**
