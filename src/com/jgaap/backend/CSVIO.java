@@ -110,7 +110,7 @@ public class CSVIO {
     /**
      * parses a csv document and places it in a representation of columns and rows using vectors
      * @param file the csv file
-     * @return a vector of vectors of strings this gives a representation of infromation in string within the vectors  
+     * @return a vector of vectors of strings this gives a representation of information in string within the vectors  
      */
     public static List<List<String>> readCSV(File file) {
         FileInputStream fis;
