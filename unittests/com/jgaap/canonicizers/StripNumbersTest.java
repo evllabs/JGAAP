@@ -41,8 +41,8 @@ public class StripNumbersTest {
 		char[] sample = { 'P', 'i', ' ', 'i', 's', ' ', '3', '.', '1', '4',
 				'1', '5', ';', '2', '^', '6', ' ', 'i', 's', ' ', '6', '4' };
 
-		char[] expected = { 'P', 'i', ' ', 'i', 's', ' ', '#', ';', '#', '^',
-				'#', ' ', 'i', 's', ' ', '#' };
+		char[] expected = { 'P', 'i', ' ', 'i', 's', ' ', '0', ';', '0', '^',
+				'0', ' ', 'i', 's', ' ', '0' };
 
 		char[] test = new StripNumbers().process(sample);
 		assertTrue(Arrays.equals(expected, test));
