@@ -19,8 +19,8 @@
  **/
 package com.jgaap.distances;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.jgaap.generics.DivergenceFunction;
 import com.jgaap.generics.Event;
@@ -117,7 +117,7 @@ class XEDictionary {
  **/
 class XEDictionaryNode {
 	Event key;
-	Hashtable<Event, XEDictionaryNode> child = new Hashtable<Event, XEDictionaryNode>();
+	Map<Event, XEDictionaryNode> child = new HashMap<Event, XEDictionaryNode>();
 
 	XEDictionaryNode() {
 		key = null;
@@ -138,11 +138,11 @@ class XEDictionaryNode {
 	 * purposes
 	 **/
 	String eventsAtThisLevel() {
-		String t = new String();
-		for (Enumeration<Event> en = child.keys(); en.hasMoreElements();) {
-			t += en.nextElement();
+		StringBuilder stringBuilder = new StringBuilder();
+		for (Event event : child.keySet()) {
+			stringBuilder.append(event);
 		}
-		return t;
+		return stringBuilder.toString();
 	}
 
 	XEDictionaryNode get(Event e) {
@@ -153,17 +153,13 @@ class XEDictionaryNode {
 		return child.containsKey(e);
 	}
 
-	String printKey(XEDictionaryNode key) {
-		return child.get(key).toString();
-	}
-
 	void setKey(Event key) {
 		this.key = key;
 	}
 
 	@Override
 	public String toString() {
-		String t = new String();
+		String t = "";
 		if (key != null) {
 			t = key.toString();
 		}
