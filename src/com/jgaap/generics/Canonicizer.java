@@ -55,13 +55,6 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
 	public abstract boolean showInGUI();
 	
 	/**
-	 * The color that should be used to represent this object in the GUI.
-	 * 
-	 * @return Color that will be used to represent this Canonicizer.
-	 */
-	public abstract Color guiColor();
-	
-	/**
 	 * Overrides the equals method so that Canonicizer can be compared more easily. A
 	 * canonicizer is equal to another Canonicizer if they share the same displayName.
 	 * 

@@ -49,10 +49,6 @@ public class NullCanonicizer extends Canonicizer {
     }
     
 
-    public Color guiColor(){
-    	return Color.GRAY;
-    }
-
 	/**
 	 * Does not affect its input in any way, but prints out the texts
 	 * to standard output.

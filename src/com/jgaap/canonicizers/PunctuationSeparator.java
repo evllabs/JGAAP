@@ -49,11 +49,6 @@ public class PunctuationSeparator extends Canonicizer {
 		return true;
 	}
 
-	@Override
-	public Color guiColor() {
-		return Color.DARK_GRAY;
-	}
-
     /**
      * Separate punctuation by inserting  whitespace into argument
      *
