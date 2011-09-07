@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * @since 5.0.1
  */
 @SuppressWarnings("rawtypes")
-public class WorkQueue {
+public final class WorkQueue {
 
 	private final int nThreads;
 	private final PoolWorker[] threads;
