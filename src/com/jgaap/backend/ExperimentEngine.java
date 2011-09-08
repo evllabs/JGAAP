@@ -91,7 +91,7 @@ public class ExperimentEngine {
 		File file = new File(path);
 		boolean newDirs = file.mkdirs();
 		if(!newDirs) {
-			// Nothing (check added to satisfy static analysis / show we are aware of this)
+			; // Nothing (check added to satisfy static analysis / show we are aware of this)
 		}
 		return (path + experimentName + number + dateFormat.format(date) + ".txt");
 	}
