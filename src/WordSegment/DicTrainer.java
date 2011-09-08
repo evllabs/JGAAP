@@ -39,6 +39,7 @@ public class DicTrainer
 					dic.addWord(st.nextToken());
 			}
 			inFile.close();
+			inStream.close();
 		}
 		catch (IOException e)
 		{
