@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Vector;
 
@@ -71,9 +72,9 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 			unknownVector.add(unknownHistogram.getRelativeFrequency(event));
 		}
 		List<Pair<String, Double>> result = new ArrayList<Pair<String,Double>>(knownHistograms.size());
-		for(String author : knownHistograms.keySet()){
+		for(Entry<String, List<EventHistogram>> knownEntry : knownHistograms.entrySet()){
 			Vector<Double> knownVector = new Vector<Double>(events.size());
-			List<EventHistogram> currentKnownHistogram = knownHistograms.get(author);
+			List<EventHistogram> currentKnownHistogram = knownEntry.getValue();
 			for(Event event : events){
 				double frequency = 0.0;
 				double size = currentKnownHistogram.size();
@@ -82,7 +83,7 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 				}
 				knownVector.add(frequency);
 			}
-			result.add(new Pair<String, Double>(author, distance.distance(unknownVector, knownVector), 2));			
+			result.add(new Pair<String, Double>(knownEntry.getKey(), distance.distance(unknownVector, knownVector), 2));			
 		}
 		Collections.sort(result);
 		return result;
