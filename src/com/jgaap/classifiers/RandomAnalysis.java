@@ -23,6 +23,7 @@ package com.jgaap.classifiers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventSet;
@@ -47,8 +48,9 @@ public class RandomAnalysis extends AnalysisDriver {
 	}
     @Override
     public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
+    	Random random = new Random();
         int numChoices = known.size();
-        EventSet s = known.get((int) (Math.random() * numChoices));
+        EventSet s = known.get(random.nextInt(numChoices));
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
         results.add(new Pair<String, Double>(s.getAuthor(), 0.0));
         return results;

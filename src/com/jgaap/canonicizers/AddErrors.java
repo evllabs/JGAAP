@@ -19,6 +19,8 @@
  **/
 package com.jgaap.canonicizers;
 
+import java.util.Random;
+
 import com.jgaap.generics.Canonicizer;
 
 /**
@@ -101,6 +103,7 @@ public class AddErrors extends Canonicizer {
 	 * @return Array of characters after processing.
 	 */
 	public char[] process(char[] procText) {
+		Random random = new Random();
 
 		int numChanges = (int) ((percentErrors / 100.0) * procText.length);
 
@@ -109,10 +112,10 @@ public class AddErrors extends Canonicizer {
 				+ " characters.");
 
 		for (int i = 0; i < numChanges; i++) {
-			int changePos = (int) (Math.random() * procText.length);
+			int changePos = random.nextInt(procText.length);
 			if ((procText[changePos] == ' ') || (procText[changePos] == '\t')
 					|| (procText[changePos] == '\n')) {
-				int newChar = (int) (Math.random() * 3);
+				int newChar = random.nextInt(3);
 				switch (newChar) {
 				case 0:
 					procText[changePos] = ' ';
@@ -124,7 +127,7 @@ public class AddErrors extends Canonicizer {
 					procText[changePos] = '\n';
 				}
 			} else {
-				int newChar = (int) (Math.random() * 26);
+				int newChar = random.nextInt(26);
 				char replaceWith = (char) (newChar + 'A');
 				procText[changePos] = replaceWith;
 			}
