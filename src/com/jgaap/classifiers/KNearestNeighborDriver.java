@@ -114,12 +114,12 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
             }
 
             // Otherwise, we want to move the decimal point right until we have an integer.
-            while((int)first != first) {
+            while(((int)first - first) > 0.0000001) {
                 first *= 2;
                 second *= 2;
             }
             // If first had fewer decimal places than second, this means the last first vote came BEFORE the last second vote.
-            if((int)second != second) {
+            if(((int)second -second) > 0.0000001) {
                 return 1;
             }
             // Otherwise, the last second vote came before the last first vote.
