@@ -64,10 +64,12 @@ public class ExperimentEngine {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
 		Iterator<String> iterator = canons.iterator();
-		String canonName = (iterator.hasNext() ? iterator.next() : "none");
+		StringBuilder canonNameBuilder = new StringBuilder();
+		canonNameBuilder.append((iterator.hasNext() ? iterator.next() : "none"));
 		while (iterator.hasNext()) {
-			canonName = canonName + " " + iterator.next().trim();
+			canonNameBuilder.append(" ").append(iterator.next().trim());
 		}
+		String canonName = canonNameBuilder.toString();
 		boolean first = true;
 		String cullerName = "";
 		for (String eventCuller : eventCullers) {
