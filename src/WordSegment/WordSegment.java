@@ -15,12 +15,12 @@ public class WordSegment {
 	}
 
 	public WordSegment(SegStrategy strategy) {
-		SetDic(getClass().getResourceAsStream("/WordSegment/recources/chinese_dictionary.dat"));
+		setDic(getClass().getResourceAsStream("/WordSegment/recources/chinese_dictionary.dat"));
 		setStrategy(strategy);
 	}
 
-	public Vector<String> Segment(String sentence) {
-		return segmentStrategy.Segment(sentence, dic);
+	public Vector<String> segment(String sentence) {
+		return segmentStrategy.segment(sentence, dic);
 	}
 
 	/*
@@ -31,11 +31,11 @@ public class WordSegment {
 	 * < words.size(); i++) System.out.println((String)words.get(i)); }
 	 */
 
-	public void SetDic(Dictionary d) {
+	public void setDic(Dictionary d) {
 		dic = d;
 	}
 
-	public void SetDic(InputStream dicFile) {
+	public void setDic(InputStream dicFile) {
 		ObjectInputStream objectIn = null;
 		try {
 			objectIn = new ObjectInputStream(dicFile);

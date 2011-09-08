@@ -92,6 +92,18 @@ public class Pair<First, Second> implements Comparable<Pair<First, Second> > {
             }
         }
     }
+    
+    public int hashCode() {
+    	if(myComparator instanceof Pair.sortFirst) {
+    		return first.hashCode();
+    	}
+    	else if(myComparator instanceof Pair.sortSecond) {
+    		return second.hashCode();
+    	}
+    	else {
+    		return Math.abs(first.hashCode() + second.hashCode());
+    	}
+    }
 
     private class sortFirst implements Comparator<Pair<? extends Comparable, Second> >  {
 

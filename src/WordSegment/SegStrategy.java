@@ -7,13 +7,13 @@ import java.util.*;
 public abstract class SegStrategy {
 	protected Dictionary dic = null;
 
-	public void SetDic(Dictionary d) {
+	public void setDic(Dictionary d) {
 		dic = d;
 	}
 
-	public Vector<String> Segment(String sentence) {
-		return Segment(sentence, dic);
+	public Vector<String> segment(String sentence) {
+		return segment(sentence, dic);
 	}
 
-	abstract public Vector<String> Segment(String sentence, Dictionary d);
+	abstract public Vector<String> segment(String sentence, Dictionary d);
 }

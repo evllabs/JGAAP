@@ -19,7 +19,7 @@ public class BMM extends SegStrategy {
 	 * WordSegment.Dictionary)
 	 */
 	// @Override
-	public Vector<String> Segment(String sentence, Dictionary dic) {
+	public Vector<String> segment(String sentence, Dictionary dic) {
 		int maxLength = dic.getMaxLength(); // the length of the longest word in
 											// the dictionary
 		int negPos = sentence.length();

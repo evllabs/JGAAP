@@ -46,18 +46,20 @@ public class VectorOutputAnalysis extends AnalysisDriver {
 	}
 
 	public boolean showInGUI(){
-	    return true;
+	    return false;
 	}
 
         public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 
         EventHistogram hist = new EventHistogram();
+        List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
         String keyFile = jgaapConstants.JGAAP_LIBDIR + "l1.key";
             Scanner keyIn = null;
             try {
                 keyIn = new Scanner(new File(keyFile));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                return results;
             }
 
             FileOutputStream fsOut;
@@ -72,6 +74,7 @@ public class VectorOutputAnalysis extends AnalysisDriver {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return results;
         }
 
         for(Event e : unknown) {
@@ -91,7 +94,6 @@ public class VectorOutputAnalysis extends AnalysisDriver {
 
         writer.close();
 
-        List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
         results.add(new Pair<String, Double>("No analysis performed.\n", 0.0));
         return results;
     }

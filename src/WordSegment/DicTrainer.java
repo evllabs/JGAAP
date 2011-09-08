@@ -14,7 +14,7 @@ public class DicTrainer
 		return dic;
 	}
 	
-	public void Train(String fileName)
+	public void train(String fileName)
 	{
 		File aFile = new File(fileName);
 		FileInputStream inFile = null;
@@ -39,6 +39,7 @@ public class DicTrainer
 					dic.addWord(st.nextToken());
 			}
 			inFile.close();
+			inStream.close();
 		}
 		catch (IOException e)
 		{
@@ -47,7 +48,7 @@ public class DicTrainer
 		}
 	}
 
-	public void SaveDic(String fileName)
+	public void saveDic(String fileName)
 	{
 		ObjectOutputStream objout;
 		try
@@ -65,7 +66,7 @@ public class DicTrainer
 	public static void main(String[] args) 
 	{
 		DicTrainer trainer = new DicTrainer();
-		trainer.Train("test.txt");
-		trainer.SaveDic("dic.dat");		
+		trainer.train("test.txt");
+		trainer.saveDic("dic.dat");		
 	}
 }
