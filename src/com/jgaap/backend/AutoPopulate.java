@@ -108,7 +108,15 @@ public class AutoPopulate {
 							list.add(o);
 						}
 
-					} catch (Exception ex) {
+					} catch (IllegalAccessException ex) {
+						if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
+							System.out.println("Error: problem instantiating "
+									+ s + " (" + ex.getClass().getName() + ")");
+					} catch(InstantiationException ex) {
+						if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
+							System.out.println("Error: problem instantiating "
+									+ s + " (" + ex.getClass().getName() + ")");
+					} catch(ClassNotFoundException ex) {
 						if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
 							System.out.println("Error: problem instantiating "
 									+ s + " (" + ex.getClass().getName() + ")");
