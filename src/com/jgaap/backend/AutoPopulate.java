@@ -244,7 +244,7 @@ public class AutoPopulate {
 	 */
 	private static String[] getResourceListing(String path)
 			throws URISyntaxException, IOException {
-		Class<?> clazz = com.jgaap.jgaap.class;
+		Class<?> clazz = com.jgaap.JGAAP.class;
 		URL dirURL = clazz.getClassLoader().getResource(path);
 		if (dirURL != null && (dirURL.getProtocol().equals("file"))) {
 			return new File(dirURL.toURI()).list();

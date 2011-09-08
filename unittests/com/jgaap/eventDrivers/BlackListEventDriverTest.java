@@ -39,7 +39,7 @@ import com.jgaap.generics.EventDriver;
 public class BlackListEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.BlackListEventDriver#createEventSet(com.jgaap.generics.DocumentSet)}.
+	 * Test method for {@link com.jgaap.eventDrivers.BlackListEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() {

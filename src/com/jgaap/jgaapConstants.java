@@ -109,7 +109,7 @@ public class jgaapConstants {
 	}
 
 	public static URL getLocation() {
-		return jgaap.class.getResource("");
+		return JGAAP.class.getResource("");
 	}
 
 	public static final String JGAAP_RESOURCE_PACKAGE = "/com/jgaap/resources/";

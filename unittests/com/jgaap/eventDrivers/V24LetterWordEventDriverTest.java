@@ -37,7 +37,7 @@ import com.jgaap.generics.EventSet;
 public class V24LetterWordEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.V24LetterWordEventDriver#createEventSet(com.jgaap.generics.DocumentSet)}.
+	 * Test method for {@link com.jgaap.eventDrivers.V24LetterWordEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() {

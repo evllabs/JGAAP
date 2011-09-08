@@ -145,21 +145,15 @@
 	</target>
 	
 	<target name="run-gui" depends="build">
-		<java classname="com.jgaap.jgaap" fork="true" maxmemory="2048m">
+		<java classname="com.jgaap.JGAAP" fork="true" maxmemory="2048m">
 		<classpath refid="run-classpath"/>
 		</java>
 	</target>
 	
 	<!-- ant cli -Dcli="arguments to jgaapCLI go here" -->
 	<target name="cli" depends="build">
-		<java classname="com.jgaap.jgaap" fork="true" maxmemory="8192m">
+		<java classname="com.jgaap.JGAAP" fork="true" maxmemory="8192m">
 			<arg line="${cli}"/>
-			<classpath refid="run-classpath"/>
-		</java>
-	</target>
-	
-	<target name="testapi" depends="build">
-		<java classname="com.jgaap.JgaapAPI" fork="false" maxmemory="512m">
 			<classpath refid="run-classpath"/>
 		</java>
 	</target>
