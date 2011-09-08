@@ -2555,12 +2555,12 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         {
             DocumentList = JGAAP_API.getDocuments();
             List<Canonicizer> tempList = DocumentList.get(row).getCanonicizers();
-            String tempString = "";
+            StringBuffer stringBuffer = new StringBuffer();
             for (int i = 0; i < tempList.size(); i++)
             {
-                tempString = tempString + tempList.get(i).displayName() + "\r\n";
+            	stringBuffer.append(tempList.get(i).displayName()).append("\n");
             }
-            CanonicizersPanel_DocumentsCurrentCanonicizersTextBox.setText(tempString);
+            CanonicizersPanel_DocumentsCurrentCanonicizersTextBox.setText(stringBuffer.toString());
         }
 }
 
