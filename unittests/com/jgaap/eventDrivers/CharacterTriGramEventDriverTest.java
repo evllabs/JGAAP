@@ -37,7 +37,7 @@ import com.jgaap.generics.EventSet;
 public class CharacterTriGramEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.CharacterTriGramEventDriver#createEventSet(com.jgaap.generics.DocumentSet)}.
+	 * Test method for {@link com.jgaap.eventDrivers.CharacterTriGramEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() {

@@ -38,7 +38,7 @@ import com.jgaap.generics.NumericEventSet;
 public class TruncatedReactionTimeEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.TruncatedReactionTimeEventDriver#createEventSet(com.jgaap.generics.DocumentSet)}.
+	 * Test method for {@link com.jgaap.eventDrivers.TruncatedReactionTimeEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() {

@@ -28,7 +28,7 @@ import com.jgaap.ui.JGAAP_UI_MainForm;
  * @author michael ryan
  */
 
-public class jgaap {
+public class JGAAP {
 
 	public static boolean commandline = false;
     public static final boolean DEBUG = true;

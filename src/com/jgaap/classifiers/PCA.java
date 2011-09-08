@@ -39,7 +39,7 @@ import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
-import com.jgaap.jgaap;
+import com.jgaap.JGAAP;
 
 /**
  * PCA - Principle Component Analysis Written by: Sandy Speer 10/2008 /
@@ -252,7 +252,7 @@ public class PCA extends AnalysisDriver {
          * print graph if in the GUI otherwise(tests or CLI) do not print it
          */
         
-        if(!(getParameter("printGraph").equals("false") || jgaap.commandline == true)){
+        if(!(getParameter("printGraph").equals("false") || JGAAP.commandline == true)){
         	setParameter("printGraph", "true");
         }
         

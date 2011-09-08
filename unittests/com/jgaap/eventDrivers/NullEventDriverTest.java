@@ -38,7 +38,7 @@ import com.jgaap.generics.EventSet;
 public class NullEventDriverTest{
 
     /**
-     * Test method for {@link com.jgaap.eventDrivers.NullEventDriver#createEventSet(com.jgaap.generics.DocumentSet)}.
+     * Test method for {@link com.jgaap.eventDrivers.NullEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
      */
 	@SuppressWarnings("deprecation")
 	@Test

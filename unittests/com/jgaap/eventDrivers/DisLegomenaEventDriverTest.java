@@ -38,7 +38,7 @@ import com.jgaap.generics.EventSet;
 public class DisLegomenaEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.DisLegomenaEventDriver#createEventSet(com.jgaap.generics.DocumentSet)}.
+	 * Test method for {@link com.jgaap.eventDrivers.DisLegomenaEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
 	 */
 
 	@Test

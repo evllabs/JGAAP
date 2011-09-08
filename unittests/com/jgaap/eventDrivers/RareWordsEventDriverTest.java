@@ -39,7 +39,7 @@ import com.jgaap.generics.EventDriver;
 public class RareWordsEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.HDLegomenaEventDriver#createEventSet(com.jgaap.generics.DocumentSet)}.
+	 * Test method for {@link com.jgaap.eventDrivers.HDLegomenaEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
 	 */
 
 	@Test

@@ -22,7 +22,7 @@ package com.jgaap.backend;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jgaap.jgaap;
+import com.jgaap.JGAAP;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Displayable;
 
@@ -100,7 +100,7 @@ public class CLI {
 			}
 
 		} else {
-			jgaap.commandline = true;
+			JGAAP.commandline = true;
 			API commandDriver = API.getInstance();
 			commandDriver.removeAllAnalysisDrivers();
 			commandDriver.removeAllDocuments();
