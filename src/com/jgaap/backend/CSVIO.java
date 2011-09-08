@@ -112,10 +112,9 @@ public class CSVIO {
      * @return a vector of vectors of strings this gives a representation of information in string within the vectors  
      */
     public static List<List<String>> readCSV(File file) {
-        BufferedReader br;
         List<List<String>> rows = new ArrayList<List<String>>();
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
             String rowText = "";
             while ((rowText = br.readLine()) != null) {
                 List<String> column = new ArrayList<String>();
