@@ -41,17 +41,17 @@ public class WordSegment {
 			objectIn = new ObjectInputStream(dicFile);
 		} catch (IOException e) {
 			e.printStackTrace(System.err);
-			System.exit(1);
+			return;
 		}
 
 		try {
 			dic = (Dictionary) (objectIn.readObject());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace(System.err);
-			System.exit(1);
+			return;
 		} catch (IOException e) {
 			e.printStackTrace(System.err);
-			System.exit(1);
+			return;
 		}
 	}
 
