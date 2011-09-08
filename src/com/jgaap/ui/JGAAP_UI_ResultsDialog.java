@@ -121,8 +121,7 @@ public class JGAAP_UI_ResultsDialog extends javax.swing.JDialog {
         return sdf.format(cal.getTime());
     }
 
-    public void AddResults(String note)
-    {
+    public void addResults(String note) {
         JTextArea TextArea = new JTextArea();
         TextArea.setText(note);
         final JScrollPane ScrollPane = new JScrollPane(TextArea);

@@ -1649,7 +1649,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 buffer.append(unknown.getResult());
             }
             //ResultsPage.DisplayResults(buffer.toString());
-            ResultsPage.AddResults(buffer.toString());
+            ResultsPage.addResults(buffer.toString());
             ResultsPage.setVisible(true);
         } catch (Exception e){
         	e.printStackTrace();
@@ -2220,7 +2220,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         private void DocumentsPanel_NotesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DocumentsPanel_NotesButtonActionPerformed
             try {
-                NotesPage.DisplayNote(Notes[0]);
+                NotesPage.displayNote(Notes[0]);
                 NotesPage.setVisible(true);
                 if (NotesPage.SavedNote != null)
                 {
@@ -2234,7 +2234,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         private void CanonicizersPanel_NotesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CanonicizersPanel_NotesButtonActionPerformed
             try {
-                NotesPage.DisplayNote(Notes[1]);
+                NotesPage.displayNote(Notes[1]);
                 NotesPage.setVisible(true);
                 if (NotesPage.SavedNote != null)
                 {
@@ -2248,7 +2248,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         private void EventSetsPanel_NotesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EventSetsPanel_NotesButtonActionPerformed
             try {
-                NotesPage.DisplayNote(Notes[2]);
+                NotesPage.displayNote(Notes[2]);
                 NotesPage.setVisible(true);
                 if (NotesPage.SavedNote != null)
                 {
@@ -2262,7 +2262,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         private void EventCullingPanel_NotesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EventCullingPanel_NotesButtonActionPerformed
             try {
-                NotesPage.DisplayNote(Notes[3]);
+                NotesPage.displayNote(Notes[3]);
                 NotesPage.setVisible(true);
                 if (NotesPage.SavedNote != null)
                 {
@@ -2276,7 +2276,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         private void AnalysisMethodPanel_NotesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalysisMethodPanel_NotesButtonActionPerformed
             try {
-                NotesPage.DisplayNote(Notes[4]);
+                NotesPage.displayNote(Notes[4]);
                 NotesPage.setVisible(true);
                 if (NotesPage.SavedNote != null)
                 {

@@ -110,7 +110,7 @@ public class JGAAP_UI_NotesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OK_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OK_ButtonActionPerformed
-        SaveNote();
+        saveNote();
         this.setVisible(false);
     }//GEN-LAST:event_OK_ButtonActionPerformed
 
@@ -135,14 +135,12 @@ public class JGAAP_UI_NotesDialog extends javax.swing.JDialog {
         });
     }
 
-    public void DisplayNote(String note)
-    {
+    public void displayNote(String note){
         SavedNote= null;
         Notes_TextArea.setText(note);
     }
 
-    public void SaveNote()
-    {
+    public void saveNote(){
         SavedNote = Notes_TextArea.getText();
     }
 
