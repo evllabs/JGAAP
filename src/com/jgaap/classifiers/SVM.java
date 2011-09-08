@@ -78,7 +78,7 @@ public class SVM extends AnalysisDriver {
 		for (i=0; i < known.size(); i++) {
 			String author = known.get(i).getAuthor();
 			if (!authorMap.containsKey(author)) {
-				Integer gid = new Integer(authorMap.size() + 1);
+				Integer gid = (authorMap.size() + 1);
 				authorMap.put(author, gid);
 				groupMap.put(gid, author);
 			}
@@ -161,7 +161,7 @@ public class SVM extends AnalysisDriver {
 
 		// whose author we lookup in groupsMap and return.
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
-		results.add(new Pair((String)groupMap.get(new Integer(decision)),v));
+		results.add(new Pair((String)groupMap.get(Integer.valueOf(decision)),v));
         return results;
 	}
 /*
