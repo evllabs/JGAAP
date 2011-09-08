@@ -19,8 +19,6 @@
  **/
 package com.jgaap.canonicizers;
 
-import java.awt.Color;
-
 import com.jgaap.generics.Canonicizer;
 
 /** 

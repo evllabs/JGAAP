@@ -19,8 +19,6 @@ package com.jgaap.canonicizers;
 
 import com.jgaap.generics.Canonicizer;
 
-import java.awt.Color;
-
 /**
  * Created by IntelliJ IDEA.
  * User: jnoecker

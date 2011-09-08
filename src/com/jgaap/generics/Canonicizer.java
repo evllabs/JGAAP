@@ -19,8 +19,6 @@
  **/
 package com.jgaap.generics;
 
-import java.awt.Color;
-
 /**
  * Class for canonicizers. As an abstract class, can only be instantiated
  * through subclasses. Legacy code inherited from WAY back.
