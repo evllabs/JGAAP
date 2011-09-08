@@ -71,14 +71,15 @@ public class ExperimentEngine {
 		}
 		String canonName = canonNameBuilder.toString();
 		boolean first = true;
-		String cullerName = "";
+		StringBuilder cullerNameBuilder = new StringBuilder();
 		for (String eventCuller : eventCullers) {
 			if (!first) {
-				cullerName += " ";
+				cullerNameBuilder.append(" ");
 			}
-			cullerName += eventCuller.trim();
+			cullerNameBuilder.append(eventCuller.trim());
 			first = false;
 		}
+		String cullerName = cullerNameBuilder.toString();
 		if ("".equals(cullerName)) {
 			cullerName = "none";
 		}
