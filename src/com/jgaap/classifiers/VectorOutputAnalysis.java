@@ -18,7 +18,7 @@
 package com.jgaap.classifiers;
 
 import com.jgaap.generics.*;
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,7 +53,7 @@ public class VectorOutputAnalysis extends AnalysisDriver {
 
         EventHistogram hist = new EventHistogram();
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
-        String keyFile = jgaapConstants.JGAAP_LIBDIR + "l1.key";
+        String keyFile = JGAAPConstants.JGAAP_LIBDIR + "l1.key";
             Scanner keyIn = null;
             try {
                 keyIn = new Scanner(new File(keyFile));
@@ -69,7 +69,7 @@ public class VectorOutputAnalysis extends AnalysisDriver {
             String[] docPathArray = docPath.split("/");
             System.out.println(Arrays.toString(docPathArray));
             String unknownFileName = docPathArray[docPathArray.length - 1];
-            fsOut = new FileOutputStream(jgaapConstants.JGAAP_TMPDIR + unknownFileName);
+            fsOut = new FileOutputStream(JGAAPConstants.JGAAP_TMPDIR + unknownFileName);
             writer = new PrintStream(fsOut);
 
         } catch (FileNotFoundException e) {

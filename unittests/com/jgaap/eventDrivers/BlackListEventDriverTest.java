@@ -26,7 +26,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
@@ -47,7 +47,7 @@ public class BlackListEventDriverTest {
 		doc.readStringText("Humpty Dumpty sat on the wall. Humpty Dumpty had a great fall. An itsy bitsy spider ran up the water spout.");
 		EventDriver ed = new BlackListEventDriver();
 		ed.setParameter("filename",
-			jgaapConstants.JGAAP_RESOURCE_PACKAGE+"articles.txt");
+			JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"articles.txt");
 		EventSet sampleEventSet = ed.createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();

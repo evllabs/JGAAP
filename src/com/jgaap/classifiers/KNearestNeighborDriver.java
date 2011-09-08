@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.jgaap.backend.Ballot;
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
@@ -79,7 +79,7 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
             rawResults.add(new Pair<String, Double>(known.get(i).getAuthor(), current, 2));
 
-			if (jgaapConstants.JGAAP_DEBUG_VERBOSITY) {
+			if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY) {
 				System.out.print(unknown.getDocumentName() + "(Unknown)");
 				System.out.print(":");
 				System.out.print(known.get(i).getDocumentName() + "("

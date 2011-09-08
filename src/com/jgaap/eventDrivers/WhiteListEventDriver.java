@@ -26,7 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
@@ -97,7 +97,7 @@ public class WhiteListEventDriver extends EventDriver {
 		if (filename != null) {
 			try {
 				InputStream is;
-				if(filename.startsWith(jgaapConstants.JGAAP_RESOURCE_PACKAGE)){
+				if(filename.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)){
 					is = getClass().getResourceAsStream(filename);
 				} else{
 					is = new FileInputStream(filename);

@@ -19,7 +19,7 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.NumericEventSet;
@@ -54,7 +54,7 @@ public class FreqEventDriver extends NumericTransformationEventDriver {
         NumericTransformationEventDriver theDriver = new NumericTransformationEventDriver();
         // uses NaiveWordEventSet for now
         theDriver.setParameter("implicitWhitelist", "true");
-        theDriver.setParameter("filename", jgaapConstants.JGAAP_RESOURCE_PACKAGE + "ELPfreq.dat");
+        theDriver.setParameter("filename", JGAAPConstants.JGAAP_RESOURCE_PACKAGE + "ELPfreq.dat");
 
         return theDriver.createEventSet(ds);
     }
