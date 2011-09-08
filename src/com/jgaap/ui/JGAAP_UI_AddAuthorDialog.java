@@ -227,6 +227,7 @@ public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
                     JGAAP_API.addDocument((String)DocumentsTable.getValueAt(i, 1), AuthorTextField.getText(), (String)DocumentsTable.getValueAt(i, 0));
                     
                 } catch (Exception e) {
+                	e.printStackTrace();
                 }
             }
             setVisible(false);
@@ -270,7 +271,7 @@ public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
 	                DocumentsTable_Model.addRow(RowData);
 	                Filepath = filepath;
 	            } catch (Exception e) {
-	            	//TODO: add error dialog here 
+	            	e.printStackTrace(); 
 	            }
             }
         }
