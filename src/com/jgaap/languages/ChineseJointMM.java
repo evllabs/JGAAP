@@ -42,7 +42,7 @@ public class ChineseJointMM extends Language {
 	public char[] parseLanguage(String document) {
 		StringBuilder stringBuilder = new StringBuilder(document.length());
 		WordSegment wordSegmenter = new WordSegment(new JointMM());
-		List<String> segmented = wordSegmenter.Segment(document);
+		List<String> segmented = wordSegmenter.segment(document);
 		for (String word : segmented) {
 			stringBuilder.append(word).append(" ");
 		}
