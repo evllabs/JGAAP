@@ -58,23 +58,23 @@ public class DefinitionsEventDriver extends EventDriver {
 
 	static {
 		table = new Hashtable<String, Integer>(17);
-		table.put("NN", new Integer(1));
-		table.put("NNS", new Integer(1));
-		table.put("NNP", new Integer(1));
-		table.put("NNPS", new Integer(1));
-		table.put("JJ", new Integer(3));
-		table.put("JJR", new Integer(3));
-		table.put("JJS", new Integer(3));
-		table.put("RB", new Integer(4));
-		table.put("RBR", new Integer(4));
-		table.put("RBS", new Integer(4));
-		table.put("RBR", new Integer(4));
-		table.put("VB", new Integer(2));
-		table.put("VBD", new Integer(2));
-		table.put("VBG", new Integer(2));
-		table.put("VBN", new Integer(2));
-		table.put("VBP", new Integer(2));
-		table.put("VBZ", new Integer(2));
+		table.put("NN", Integer.valueOf(1));
+		table.put("NNS", Integer.valueOf(1));
+		table.put("NNP", Integer.valueOf(1));
+		table.put("NNPS", Integer.valueOf(1));
+		table.put("JJ", Integer.valueOf(3));
+		table.put("JJR", Integer.valueOf(3));
+		table.put("JJS", Integer.valueOf(3));
+		table.put("RB", Integer.valueOf(4));
+		table.put("RBR", Integer.valueOf(4));
+		table.put("RBS", Integer.valueOf(4));
+		table.put("RBR", Integer.valueOf(4));
+		table.put("VB", Integer.valueOf(2));
+		table.put("VBD", Integer.valueOf(2));
+		table.put("VBG", Integer.valueOf(2));
+		table.put("VBN", Integer.valueOf(2));
+		table.put("VBP", Integer.valueOf(2));
+		table.put("VBZ", Integer.valueOf(2));
 
 		stopWords = Collections.synchronizedSet(new HashSet<String>(37));
 		stopWords.add("the");
@@ -211,11 +211,7 @@ public class DefinitionsEventDriver extends EventDriver {
 		IIndexWord idxWord;
 		List<IWordID> wordID;
 		IWord word;
-		StringBuilder outDef= new StringBuilder();
-		Document tmpDoc = new Document();
-		
-		
-		
+		StringBuilder outDef= new StringBuilder();	
 		
 		for(int i=0; i<tmpArray.length; i++){
 			//System.out.println(i);
@@ -235,7 +231,7 @@ public class DefinitionsEventDriver extends EventDriver {
 					definition = word.getSynset().getGloss();
 					break;
 				case(2):
-					tmpDoc = new Document();
+					Document tmpDoc = new Document();
 					tmpDoc.readStringText(tmpArray[i]);
 					tmpevent = port.createEventSet(tmpDoc);
 					idxWord = dict.getIndexWord(tmpevent.eventAt(0).getEvent(), POS.VERB);
