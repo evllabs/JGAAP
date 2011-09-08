@@ -22,9 +22,11 @@ package com.jgaap.classifiers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.jgaap.generics.AnalysisDriver;
@@ -60,7 +62,6 @@ public class MarkovChainAnalysis extends AnalysisDriver{
 	@Override
 	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
 		
-		
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
 		
 		Iterator<EventSet> setIt = known.iterator();
@@ -68,8 +69,8 @@ public class MarkovChainAnalysis extends AnalysisDriver{
 		//loop throught the known and assign a probability to the unknown set using
 		//a transition probability matrix built from each known event set.
 		while(setIt.hasNext()){
-			Hashtable<Event, Hashtable<Event, Double>> matrix = new Hashtable<Event, Hashtable<Event, Double>>();
-			Hashtable<Event, Hashtable<Event, Double>> probMatrix = new Hashtable<Event, Hashtable<Event, Double>>();
+			Map<Event, Map<Event, Double>> matrix = new HashMap<Event, Map<Event, Double>>();
+			Map<Event, Map<Event, Double>> probMatrix = new HashMap<Event, Map<Event, Double>>();
 			
 			EventSet ev = setIt.next();
 			
@@ -89,18 +90,18 @@ public class MarkovChainAnalysis extends AnalysisDriver{
 							//if so increment the count by 1;
 							double tmp = matrix.get(e1).get(e2).doubleValue();
 							matrix.get(e1).remove(e2);
-							matrix.get(e1).put(e2, new Double(tmp+1));
+							matrix.get(e1).put(e2, Double.valueOf(tmp+1));
 							
 						}
 						else{
 							//add the new sequence provided the first event is already
 							//in the matrix
-							matrix.get(e1).put(e2, new Double(1));
+							matrix.get(e1).put(e2, Double.valueOf(1));
 						}
 					}else{
 						//add the new sequence to matrix
-						matrix.put(e1, new Hashtable<Event, Double>());
-						matrix.get(e1).put(e2, new Double(1));
+						matrix.put(e1, new HashMap<Event, Double>());
+						matrix.get(e1).put(e2, Double.valueOf(1));
 					}
 					//reassign e1 to be e2				
 					e1=e2;
@@ -114,36 +115,28 @@ public class MarkovChainAnalysis extends AnalysisDriver{
 			//Get the row totals i.e. total of the double values from the second hashtable
 			//then divide each row entry by its row total to obtain a valid transition probability matrix
 			
-			Set<Event> keys = matrix.keySet();
-			Iterator<Event> keyIt = keys.iterator();
-			
-			while(keyIt.hasNext()){
+			for(Entry<Event, Map<Event, Double>> matrixEntry : matrix.entrySet()){
 				
-				Event event = keyIt.next();
+				Event event = matrixEntry.getKey();
 				
-				probMatrix.put(event, new Hashtable<Event, Double>());
-				Set<Event> keys2 = matrix.get(event).keySet();
-				Iterator<Event> keys2It = keys2.iterator();
+				probMatrix.put(event, new HashMap<Event, Double>());
+				Set<Entry<Event, Double>> matrixCellEntrySet = matrixEntry.getValue().entrySet();
 				double rowTotal =0;
-				while(keys2It.hasNext()){
+				for(Entry<Event, Double> matrixCellEntry : matrixCellEntrySet){
 					//Get the row totals.
-					Event event2 = keys2It.next();
-					rowTotal += matrix.get(event).get(event2).doubleValue();
+					rowTotal += matrixCellEntry.getValue().doubleValue();
 				}
 				
-				keys2It = keys2.iterator();
-				
-				while(keys2It.hasNext()){
+				for(Entry<Event, Double> matrixCellEntry : matrixCellEntrySet){
 					//divide each row entry by the row total to obtain a valid 
 					//transition probability matrix.
-					Event event2 = keys2It.next();
+					Event event2 = matrixCellEntry.getKey();
 					
-					double tmp = matrix.get(event).get(event2).doubleValue();
+					double tmp = matrixCellEntry.getValue().doubleValue();
 					//System.out.println(tmp.doubleValue());
 					tmp = tmp /rowTotal;
 					
-					
-					probMatrix.get(event).put(event2, new Double(tmp));
+					probMatrix.get(event).put(event2, Double.valueOf(tmp));
 					 
 					
 				}
@@ -180,21 +173,17 @@ public class MarkovChainAnalysis extends AnalysisDriver{
 									
 				}
 			
-			
 			}
 			
 			//assign the probability to the current known document author
 			
 			results.add(new Pair<String, Double>(ev.getAuthor(), prob, 2));
 			
-			
 		}
-		
 		
 		//return the results
 		Collections.sort(results);
 		Collections.reverse(results);
-		
 		
 		return results;
 	}
