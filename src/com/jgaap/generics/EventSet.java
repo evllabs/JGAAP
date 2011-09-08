@@ -181,12 +181,17 @@ public class EventSet implements Iterable<Event> {
         return builder.substring(0, builder.length()-2);
     }
     
-
-    public boolean equals(EventSet es){
-		if(this.events.equals(es.events)){
-			return true;
-		}
+    @Override
+    public boolean equals(Object o) {
+    	if(o instanceof EventSet){
+    		return this.events.equals(((EventSet)o).events);
+    	}
     	return false;
+    }
+    
+    @Override
+    public int hashCode(){
+    	return events.hashCode();
     }
 
 	public Iterator<Event> iterator() {
