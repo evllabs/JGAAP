@@ -37,8 +37,8 @@ import com.jgaap.generics.Pair;
  */
 public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
-    private final int DEFAULT_K = 5;
-    private final String DEFAULT_TIE = "lastPicked";
+    private static final int DEFAULT_K = 5;
+    private static final String DEFAULT_TIE = "lastPicked";
 
 	public String displayName() {
 		return "K-Nearest Neighbor Driver" + getDistanceName();
@@ -102,7 +102,7 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 		return results;
 	}
 
-    private class LastPickedComparator implements Comparator<Pair<String, Double>> {
+    private static class LastPickedComparator implements Comparator<Pair<String, Double>> {
 
         public int compare(Pair<String, Double> firstPair, Pair<String, Double> secondPair) {
             double first = firstPair.getSecond();
