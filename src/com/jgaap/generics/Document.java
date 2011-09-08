@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.jgaap.languages.English;
 
@@ -310,16 +311,14 @@ public class Document extends Parameterizable {
 			}
 		}
 		buffer.append("\n");
-		for (AnalysisDriver analysisDriver : results.keySet()) {
-			String analysis = analysisDriver.displayName();
-			Map<EventDriver, List<Pair<String, Double>>> eventResults = results
-					.get(analysisDriver);
-			for (EventDriver eventDriver : eventResults.keySet()) {
+		for (Entry<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> analysisEntry : results.entrySet()) {
+			String analysis = analysisEntry.getKey().displayName();
+			for (Entry<EventDriver, List<Pair<String, Double>>> eventEntry : analysisEntry.getValue().entrySet()) {
+				EventDriver eventDriver = eventEntry.getKey(); 
 				buffer.append("Analyzed by " + analysis + " using "
 						+ eventDriver.displayName() + " as events\n");
 				int count = 0;
-				for (Pair<String, Double> result : eventResults
-						.get(eventDriver)) {
+				for (Pair<String, Double> result : eventEntry.getValue()) {
 					count++;
 					buffer.append(count + ". " + result.getFirst() + " "
 							+ result.getSecond() + "\n");
