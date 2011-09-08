@@ -25,8 +25,8 @@ public class DicTrainer
 		catch (FileNotFoundException e)
 		{
 			e.printStackTrace(System.err);
-			System.exit(1);
-		}
+			return;
+			}
 
 		try
 		{
@@ -44,7 +44,7 @@ public class DicTrainer
 		catch (IOException e)
 		{
 			e.printStackTrace(System.err);
-			System.exit(0);
+			return;
 		}
 	}
 
@@ -60,7 +60,7 @@ public class DicTrainer
 		catch (IOException e)
 		{
 			e.printStackTrace(System.err);
-			System.exit(1);
+			return;
 		}
 	}
 	public static void main(String[] args) 
