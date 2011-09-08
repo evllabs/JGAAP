@@ -135,7 +135,7 @@ public class RandomAnalysisTest {
 		}
 
 		double probGood;
-		probGood = goodTest / 100; // this prob should be greater than .95
+		probGood = goodTest / 100.0; // this prob should be greater than .95
 									// because the confidence interval
 									// may not always cover the .62 mark for
 									// author Mary

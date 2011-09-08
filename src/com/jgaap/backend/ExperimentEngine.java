@@ -89,7 +89,10 @@ public class ExperimentEngine {
 		+ cullerName.replace("/", "\\/") + "/"
 		+ analysis.trim().replace("/", "\\/") + "/";
 		File file = new File(path);
-		file.mkdirs();
+		boolean newDirs = file.mkdirs();
+		if(!newDirs) {
+			// Nothing (check added to satisfy static analysis / show we are aware of this)
+		}
 		return (path + experimentName + number + dateFormat.format(date) + ".txt");
 	}
 
