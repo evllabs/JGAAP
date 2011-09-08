@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class JointMM extends SegStrategy {
 
-	public Vector<String> Segment(String sentence, Dictionary dic) {
+	public Vector<String> segment(String sentence, Dictionary dic) {
 
 		BMM b = new BMM();
 		FMM f = new FMM();
@@ -25,10 +25,10 @@ public class JointMM extends SegStrategy {
 		for (int i = 0; i < substring.length; i++) {
 			String s = substring[i]; // Let s be each small block
 
-			Vector<String> Bsegmented = b.Segment(s, dic); // Bsegmented is the
+			Vector<String> Bsegmented = b.segment(s, dic); // Bsegmented is the
 															// segmented vector
 															// using BMM
-			Vector<String> Fsegmented = f.Segment(s, dic); // Fsegmented is the
+			Vector<String> Fsegmented = f.segment(s, dic); // Fsegmented is the
 															// segmented vector
 															// using FMM
 
