@@ -19,6 +19,7 @@
  **/
 package com.jgaap.classifiers;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -102,7 +103,7 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 		return results;
 	}
 
-    private static class LastPickedComparator implements Comparator<Pair<String, Double>> {
+    private static class LastPickedComparator implements Comparator<Pair<String, Double>>, Serializable {
 
         public int compare(Pair<String, Double> firstPair, Pair<String, Double> secondPair) {
             double first = firstPair.getSecond();
