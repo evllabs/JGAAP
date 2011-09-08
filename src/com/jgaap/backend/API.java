@@ -46,7 +46,7 @@ public class API {
 	private List<AnalysisDriver> analysisDrivers;
 	private WorkQueue loadCanonicizeEventifyWorkQueue;
 	
-	private final int loadCanonicizeEventifyWorkers = 50;
+	private static final int loadCanonicizeEventifyWorkers = 50;
 
 	private static final API INSTANCE = new API();
 	
