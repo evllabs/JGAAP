@@ -19,7 +19,7 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
@@ -62,7 +62,7 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     public MWFunctionWordsEventDriver() {
         e = new WhiteListEventDriver();
         e.setParameter("underlyingEvents", "Words");
-        e.setParameter("filename", jgaapConstants.JGAAP_RESOURCE_PACKAGE
+        e.setParameter("filename", JGAAPConstants.JGAAP_RESOURCE_PACKAGE
                 + "MWfunctionwords.dat");
     }
 

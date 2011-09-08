@@ -25,7 +25,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.canonicizers.StripPunctuation;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
@@ -189,7 +189,7 @@ public class DefinitionsEventDriver extends EventDriver {
 		EventSet tmpevent;
 		//System.out.println(tmpevent+"\n\n\n");
 		
-		URL url = getClass().getResource(jgaapConstants.JGAAP_RESOURCE_PACKAGE+"wordnet");
+		URL url = getClass().getResource(JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"wordnet");
 		
 		// construct the dictionary object and open it
 		IDictionary dict = new Dictionary(url);

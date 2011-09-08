@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
@@ -54,7 +54,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 		for (int i = 0; i < known.size(); i++) {
 			double current = distance.distance(unknown, known.get(i));
 			results.add(new Pair<String, Double>(known.get(i).getAuthor(),current,2));
-			if (jgaapConstants.JGAAP_DEBUG_VERBOSITY) {
+			if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY) {
 				System.out.print(unknown.getDocumentName() + "(Unknown)");
 				System.out.print(":");
 				System.out.print(known.get(i).getDocumentName() + "("

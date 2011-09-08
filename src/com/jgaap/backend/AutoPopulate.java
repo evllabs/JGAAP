@@ -34,7 +34,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import com.jgaap.generics.*;
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 
 /**
  * This class dynamically locates subclasses of a given named superclass within
@@ -73,13 +73,13 @@ public class AutoPopulate {
 		try {
 			thingy = Class.forName(theclass);
 		} catch (Exception e) {
-			if (jgaapConstants.JGAAP_DEBUG_VERBOSITY)
+			if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
 				System.out.println("Error: problem instantiating " + theclass
 						+ " (" + e.getClass().getName() + ")");
 		}
 
 		String[] children = null;
-		if (jgaapConstants.JGAAP_PACKAGE_JAR) {
+		if (JGAAPConstants.JGAAP_PACKAGE_JAR) {
 			try {
 				children = getResourceListing(directory+"/");
 			} catch (URISyntaxException e) {
@@ -88,7 +88,7 @@ public class AutoPopulate {
 				e.printStackTrace();
 			}
 		} else {
-			File dir = new File(jgaapConstants.JGAAP_BINDIR + directory);
+			File dir = new File(JGAAPConstants.JGAAP_BINDIR + directory);
 			children = dir.list();
 		}
 		if (children == null) {
@@ -109,7 +109,7 @@ public class AutoPopulate {
 						}
 
 					} catch (Exception ex) {
-						if (jgaapConstants.JGAAP_DEBUG_VERBOSITY)
+						if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
 							System.out.println("Error: problem instantiating "
 									+ s + " (" + ex.getClass().getName() + ")");
 					}

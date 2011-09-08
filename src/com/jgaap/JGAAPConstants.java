@@ -26,7 +26,7 @@ import java.net.URL;
 /**
  * Defines a whole slew of public static constants that can be used system-wide.
  */
-public class jgaapConstants {
+public class JGAAPConstants {
 
 	/**
 	 * This flag sets if you want the jgaap jar to be independent (true) or if

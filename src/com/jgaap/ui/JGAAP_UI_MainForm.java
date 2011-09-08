@@ -53,7 +53,7 @@ import javax.swing.table.DefaultTableModel;
 //import java.awt.event.*;
 
 import com.jgaap.generics.*;
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
 import com.jgaap.backend.CSVIO;
 import com.jgaap.backend.Utils;
@@ -2320,7 +2320,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }//GEN-LAST:event_Review_ButtonActionPerformed
 
         private void loadAAACProblem(String problem){
-        	filepath = jgaapConstants.JGAAP_DOCSDIR+"aaac/Demos/load"+problem+".csv";
+        	filepath = JGAAPConstants.JGAAP_DOCSDIR+"aaac/Demos/load"+problem+".csv";
         	List<Document> documents = Collections.emptyList();
         	try {
 				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(filepath));

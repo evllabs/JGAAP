@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import com.jgaap.jgaapConstants;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Document;
 
@@ -83,7 +83,7 @@ public class ExperimentEngine {
 		if ("".equals(cullerName)) {
 			cullerName = "none";
 		}
-		String path = jgaapConstants.JGAAP_TMPDIR
+		String path = JGAAPConstants.JGAAP_TMPDIR
 		+ canonName.replace("/", "\\/") + "/"
 		+ event.trim().replace("/", "\\/") + "/"
 		+ cullerName.replace("/", "\\/") + "/"
@@ -164,7 +164,7 @@ public class ExperimentEngine {
 							}
 							Utils.saveFile(fileName, buffer.toString());
 						} catch (Exception e) {
-							Utils.appendToFile(jgaapConstants.JGAAP_TMPDIR
+							Utils.appendToFile(JGAAPConstants.JGAAP_TMPDIR
 									+ "/EEerrors",
 									Arrays.toString(experimentRow.toArray())
 											+ "\n" + e.getMessage()
