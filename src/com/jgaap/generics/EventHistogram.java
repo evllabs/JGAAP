@@ -64,9 +64,9 @@ public class EventHistogram implements Iterable<Event> {
 	public void add(Event e) {
 		Integer v = theHist.get(e);
 		if (v == null) {
-			theHist.put(e, new Integer(1));
+			theHist.put(e, Integer.valueOf(1));
 		} else {
-			theHist.put(e, new Integer(v.intValue() + 1));
+			theHist.put(e, Integer.valueOf(v.intValue() + 1));
 		}
 		numTokens++;
 	}
