@@ -119,6 +119,7 @@ public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 				for (Event event : orderedEvents) {
 					writer.write(hist.getRelativeFrequency(event)+"\n");
 				}
+				writer.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
