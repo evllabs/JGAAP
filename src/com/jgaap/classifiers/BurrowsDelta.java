@@ -5,11 +5,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Vector;
 
 import com.jgaap.backend.Utils;
 import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
