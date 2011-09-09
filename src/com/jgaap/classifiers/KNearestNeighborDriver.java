@@ -105,7 +105,9 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
     private static class LastPickedComparator implements Comparator<Pair<String, Double>>, Serializable {
 
-        public int compare(Pair<String, Double> firstPair, Pair<String, Double> secondPair) {
+		private static final long serialVersionUID = 1L;
+
+		public int compare(Pair<String, Double> firstPair, Pair<String, Double> secondPair) {
             double first = firstPair.getSecond();
             double second = secondPair.getSecond();
 
