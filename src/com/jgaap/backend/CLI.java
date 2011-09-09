@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.JGAAP;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Displayable;
 
@@ -146,7 +147,11 @@ public class CLI {
 					distanceSelected = optionBuilder(currentTagSet);
 				} else if (currentArg.equalsIgnoreCase("-l")) {
 					String csvFilePath = optionBuilder(currentTagSet);
-					documentMatrix = CSVIO.readCSV(csvFilePath);
+					if (csvFilePath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)) {
+						documentMatrix = CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(csvFilePath));
+					} else {
+						documentMatrix = CSVIO.readCSV(csvFilePath);
+					}
 				} else if (currentArg.equalsIgnoreCase("-s")) {
 					saveResults = true;
 					saveFilePath = optionBuilder(currentTagSet);
