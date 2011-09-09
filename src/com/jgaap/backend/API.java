@@ -515,8 +515,7 @@ public class API {
 	 * @throws InterruptedException
 	 */
 	private void analyze() throws InterruptedException {
-//		List<Thread> threads = new ArrayList<Thread>();
-		final List<Document> knownDocuments = new ArrayList<Document>();
+		List<Document> knownDocuments = new ArrayList<Document>();
 		List<Document> unknownDocuments = new ArrayList<Document>();
 		for (Document document : documents) {
 			if (document.isAuthorKnown()) {
@@ -525,19 +524,11 @@ public class API {
 				unknownDocuments.add(document);
 			}
 		}
-		for (final AnalysisDriver analysisDriver : analysisDrivers)
-			for (final Document unknownDocument : unknownDocuments) {
-//				Thread t = new Thread(new Runnable() {
-//					public void run() {
-						analysisDriver.analyze(unknownDocument, knownDocuments);
-//					}
-//				});
-//				threads.add(t);
-//				t.start();
+		for (AnalysisDriver analysisDriver : analysisDrivers){
+			for (Document unknownDocument : unknownDocuments) {
+				analysisDriver.analyze(unknownDocument, knownDocuments);
 			}
-//		for (Thread t : threads) {
-//			t.join();
-//		}
+		}
 	}
 
 	/**
