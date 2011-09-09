@@ -115,7 +115,7 @@ public class NumericTransformationEventDriver extends NumericEventDriver {
 
 		if (filename != null) {
 			try {
-				InputStream is = getClass().getResourceAsStream(filename);
+				InputStream is = com.jgaap.JGAAP.class.getResourceAsStream(filename);
 				br = new BufferedReader(new InputStreamReader(is));
 
 				while ((line = br.readLine()) != null) {
