@@ -135,9 +135,13 @@ public class ExperimentEngine {
 								eventCullers, analysis+(distance.isEmpty()?"":"-"+distance), experimentName, number);
 						API experiment = API.getPrivateInstance();
 						try {
-							List<Document> documents = Utils
-									.getDocumentsFromCSV(CSVIO
-											.readCSV(documentsPath));
+							List<List<String>> tmp;
+							if(documentsPath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)){
+								tmp = CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(documentsPath));
+							} else {
+								tmp = CSVIO.readCSV(documentsPath);
+							}
+							List<Document> documents = Utils.getDocumentsFromCSV(tmp);
 							for (Document document : documents) {
 								experiment.addDocument(document);
 							}
