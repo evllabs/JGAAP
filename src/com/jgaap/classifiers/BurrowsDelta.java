@@ -107,7 +107,12 @@ public class BurrowsDelta extends AnalysisDriver {
 			List<Double> knownValues = new ArrayList<Double>();
 			if (useCentroid) {
 				for (Map<Event, Double> centroid : centroids) {
-					knownValues.add(centroid.get(event));
+					Double value = centroid.get(event);
+					if(value!=null){
+						knownValues.add(centroid.get(event));
+					} else {
+						knownValues.add(0.0);
+					}
 				}
 			} else {
 				for (EventHistogram hist : knownHistograms) {
