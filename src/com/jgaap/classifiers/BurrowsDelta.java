@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.jgaap.backend.Utils;
@@ -16,9 +17,10 @@ import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
 
 public class BurrowsDelta extends AnalysisDriver {
-	
+
 	public BurrowsDelta() {
-		addParams("centroid", "Centroid Model", "false", new String[] {"true", "false"}, false);
+		addParams("centroid", "Centroid Model", "false", new String[] { "true",
+				"false" }, false);
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class BurrowsDelta extends AnalysisDriver {
 
 		EventHistogram unknownHistogram = new EventHistogram();
 		List<EventHistogram> knownHistograms = new ArrayList<EventHistogram>();
-		
+
 		Map<String, List<EventHistogram>> authorHistogramMap = new HashMap<String, List<EventHistogram>>();
 
 		for (Event e : unknown) {
@@ -64,10 +66,10 @@ public class BurrowsDelta extends AnalysisDriver {
 				currentKnownHistogram.add(e);
 				allEvents.add(e);
 			}
-			if(useCentroid){
+			if (useCentroid) {
 				String author = es.getAuthor();
 				List<EventHistogram> value = authorHistogramMap.get(author);
-				if(value != null){
+				if (value != null) {
 					value.add(currentKnownHistogram);
 				} else {
 					List<EventHistogram> tmp = new ArrayList<EventHistogram>();
@@ -78,23 +80,33 @@ public class BurrowsDelta extends AnalysisDriver {
 				knownHistograms.add(currentKnownHistogram);
 			}
 		}
-		
-		List<Map<Event, Double>> centroids = new ArrayList<Map<Event,Double>>();
-		
-		if(useCentroid){
-			for(List<EventHistogram> histograms : authorHistogramMap.values()){
-				centroids.add(Utils.makeCentroid(histograms));
+
+		List<Map<Event, Double>> centroids = new ArrayList<Map<Event, Double>>();
+
+		if (useCentroid) {
+			for (Entry<String, List<EventHistogram>> entry : authorHistogramMap
+					.entrySet()) {
+				centroids.add(Utils.makeNormalizedCentroid(entry.getValue()));
 			}
 		}
 
-		double[] delta = new double[known.size()];
-		for (int i = 0; i < known.size(); i++) {
-			delta[i] = 0.0;
+		double[] delta;
+		if (useCentroid) {
+			delta = new double[centroids.size()];
+			for (int i = 0; i < centroids.size(); i++) {
+				delta[i] = 0.0;
+			}
+		} else {
+			delta = new double[known.size()];
+			for (int i = 0; i < known.size(); i++) {
+				delta[i] = 0.0;
+			}
 		}
+
 		for (Event event : allEvents) {
 			List<Double> knownValues = new ArrayList<Double>();
 			if (useCentroid) {
-				for(Map<Event, Double> centroid : centroids){
+				for (Map<Event, Double> centroid : centroids) {
 					knownValues.add(centroid.get(event));
 				}
 			} else {
@@ -105,12 +117,24 @@ public class BurrowsDelta extends AnalysisDriver {
 			double stddev = Utils.stddev(knownValues);
 			for (int i = 0; i < delta.length; i++) {
 				delta[i] = delta[i]
-						+ Math.abs((unknownHistogram.getNormalizedFrequency(event) - knownValues.get(i)) / stddev);
+						+ Math.abs((unknownHistogram
+								.getNormalizedFrequency(event) - knownValues
+								.get(i))
+								/ stddev);
 			}
 		}
 
-		for (int i = 0; i < known.size(); i++) {
-			results.add(new Pair<String, Double>(known.get(i).getAuthor(), delta[i], 2));
+		if (useCentroid) {
+			int i = 0;
+			for(Entry<String, List<EventHistogram>> entry : authorHistogramMap.entrySet()){
+				results.add(new Pair<String, Double>(entry.getKey(), delta[i], 2));
+				i++;
+			}
+		} else {
+			for (int i = 0; i < known.size(); i++) {
+				results.add(new Pair<String, Double>(known.get(i).getAuthor(),
+						delta[i], 2));
+			}
 		}
 
 		Collections.sort(results);
