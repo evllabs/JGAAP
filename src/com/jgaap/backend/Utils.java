@@ -146,7 +146,7 @@ public class Utils {
 	/**
 	 * 
 	 */
-	public static Map<Event, Double> makeCentroid(List<EventHistogram> histograms){
+	public static Map<Event, Double> makeNormalizedCentroid(List<EventHistogram> histograms){
 		Map<Event, Double> centroid = new HashMap<Event, Double>();
 		double size = histograms.size();
 		for(EventHistogram histogram : histograms){
@@ -156,6 +156,24 @@ public class Utils {
 					centroid.put(event, (value+histogram.getNormalizedFrequency(event))/size);
 				} else {
 					centroid.put(event, histogram.getNormalizedFrequency(event)/size);
+				}
+			}
+		}
+		return centroid;
+	}
+	/**
+	 * 
+	 */
+	public static Map<Event, Double> makeRelativeCentroid(List<EventHistogram> histograms){
+		Map<Event, Double> centroid = new HashMap<Event, Double>();
+		double size = histograms.size();
+		for(EventHistogram histogram : histograms){
+			for(Event event : histogram){
+				Double value = centroid.get(event);
+				if(value != null){
+					centroid.put(event, (value+histogram.getRelativeFrequency(event))/size);
+				} else {
+					centroid.put(event, histogram.getRelativeFrequency(event)/size);
 				}
 			}
 		}
