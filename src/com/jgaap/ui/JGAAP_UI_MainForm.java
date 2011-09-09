@@ -2320,10 +2320,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         }//GEN-LAST:event_Review_ButtonActionPerformed
 
         private void loadAAACProblem(String problem){
-        	filepath = JGAAPConstants.JGAAP_DOCSDIR+"aaac/Demos/load"+problem+".csv";
+        	filepath = JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"aaac/problem"+problem+"/load"+problem+".csv";
         	List<Document> documents = Collections.emptyList();
         	try {
-				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(filepath));
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(filepath)));
 			} catch (Exception e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
