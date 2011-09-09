@@ -52,7 +52,9 @@ class DocumentHelper {
 			BadLocationException {
 		if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
 			return readURLText(filepath);
-		} else if (filepath.endsWith(".pdf")) {
+		} else if (filepath.startsWith("/com/jgaap/resources")){
+			return readResourceText(filepath, charset);
+		}else if (filepath.endsWith(".pdf")) {
 			return loadPDF(filepath);
 		} else if (filepath.endsWith(".doc")) {
 			return loadMSWord(filepath);
@@ -186,6 +188,11 @@ class DocumentHelper {
 		return readText(new FileInputStream(file), charset, (int)file.length());
 	}
 
+	static public char[] readResourceText(String filepath, String charset) throws IOException {
+		InputStream is = com.jgaap.JGAAP.class.getResourceAsStream(filepath);
+		return readText(is, charset);
+	}
+	
 	static public char[] readText(InputStream is, String charset, int length) throws IOException{
 		Reader reader;
 		if(charset==null || charset.isEmpty()){
