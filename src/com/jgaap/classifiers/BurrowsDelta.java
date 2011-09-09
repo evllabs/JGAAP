@@ -16,6 +16,10 @@ import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
 
 public class BurrowsDelta extends AnalysisDriver {
+	
+	public BurrowsDelta() {
+		addParams("centroid", "Centroid Model", "false", new String[] {"true", "false"}, false);
+	}
 
 	@Override
 	public String displayName() {
