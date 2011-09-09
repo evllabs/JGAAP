@@ -27,9 +27,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /*
@@ -111,10 +113,10 @@ public class CSVIO {
      * @param file the csv file
      * @return a vector of vectors of strings this gives a representation of information in string within the vectors  
      */
-    public static List<List<String>> readCSV(File file) {
+    public static List<List<String>> readCSV(InputStream is) {
         List<List<String>> rows = new ArrayList<List<String>>();
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String rowText = "";
             while ((rowText = br.readLine()) != null) {
                 List<String> column = new ArrayList<String>();
@@ -171,8 +173,12 @@ public class CSVIO {
     }
 
     public static List<List<String>> readCSV(String fileName) {
-        File file = new File(fileName);
-        return readCSV(file);
+        try {
+			return readCSV(new FileInputStream(fileName));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return Collections.emptyList();
+		}
     }
 
     
