@@ -32,6 +32,12 @@ public class BurrowsDelta extends AnalysisDriver {
 		return true;
 	}
 
+	/**
+	 * Burrows Delta using Argamon's Formula
+	 * Note this is sum(|(Xi - Yi) / sigma|)
+	 * (Basically, a Manhattan Distance normalized by the standard deviation
+	 * of a word across the known author list)
+	 */
     public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
     	List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
     	Set<Event> allEvents = new HashSet<Event>();
