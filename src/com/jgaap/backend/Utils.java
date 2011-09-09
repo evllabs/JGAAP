@@ -22,11 +22,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.jgaap.generics.Displayable;
 import com.jgaap.generics.Document;
+import com.jgaap.generics.Event;
+import com.jgaap.generics.EventHistogram;
+import com.jgaap.generics.EventSet;
 
 /**
  * Generic methods that will be reused throughout JGAAP
@@ -128,4 +133,32 @@ public class Utils {
 		return Math.sqrt(stddev);
 	}
 	
+	/**
+	 * 
+	 */
+	public static EventHistogram makeHistogram(EventSet eventSet){
+		EventHistogram histogram = new EventHistogram();
+		for(Event evet : eventSet){
+			histogram.add(evet);
+		}
+		return histogram;
+	}
+	/**
+	 * 
+	 */
+	public static Map<Event, Double> makeCentroid(List<EventHistogram> histograms){
+		Map<Event, Double> centroid = new HashMap<Event, Double>();
+		double size = histograms.size();
+		for(EventHistogram histogram : histograms){
+			for(Event event : histogram){
+				Double value = centroid.get(event);
+				if(value != null){
+					centroid.put(event, (value+histogram.getRelativeFrequency(event))/size);
+				} else {
+					centroid.put(event, histogram.getRelativeFrequency(event)/size);
+				}
+			}
+		}
+		return centroid;
+	}
 }
