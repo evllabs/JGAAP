@@ -317,9 +317,19 @@ public class Document extends Parameterizable {
 				EventDriver eventDriver = eventEntry.getKey(); 
 				buffer.append("Analyzed by " + analysis + " using "
 						+ eventDriver.displayName() + " as events\n");
-				int count = 0;
+				int count = 0; // Keeps a relative count (adjusted for ties)
+				int fullCount = 0; // Keeps the absolute count (does not count ties)
+				Double lastResult = Double.NaN;
 				for (Pair<String, Double> result : eventEntry.getValue()) {
-					count++;
+					fullCount++;
+
+					// Account for ties
+					if(!result.getSecond().equals(lastResult)) {
+						count = fullCount;
+					} 
+					
+					lastResult = result.getSecond();
+					
 					buffer.append(count + ". " + result.getFirst() + " "
 							+ result.getSecond() + "\n");
 				}
