@@ -1,51 +1,51 @@
-,../docs/aaac/problemA/Asample01.txt,Correct: Author03
-,../docs/aaac/problemA/Asample02.txt,Correct: Author13
-,../docs/aaac/problemA/Asample03.txt,Correct: Author11
-,../docs/aaac/problemA/Asample04.txt,Correct: Author07
-,../docs/aaac/problemA/Asample05.txt,Correct: Author10
-,../docs/aaac/problemA/Asample06.txt,Correct: Author12
-,../docs/aaac/problemA/Asample07.txt,Correct: Author08
-,../docs/aaac/problemA/Asample08.txt,Correct: Author01
-,../docs/aaac/problemA/Asample09.txt,Correct: Author05
-,../docs/aaac/problemA/Asample10.txt,Correct: Author04
-,../docs/aaac/problemA/Asample11.txt,Correct: Author06
-,../docs/aaac/problemA/Asample12.txt,Correct: Author02
-,../docs/aaac/problemA/Asample13.txt,Correct: Author09
-Author01,../docs/aaac/problemA/Atrain01-1.txt,
-Author01,../docs/aaac/problemA/Atrain01-2.txt,
-Author01,../docs/aaac/problemA/Atrain01-3.txt,
-Author02,../docs/aaac/problemA/Atrain02-2.txt,
-Author02,../docs/aaac/problemA/Atrain02-3.txt,
-Author03,../docs/aaac/problemA/Atrain03-1.txt,
-Author03,../docs/aaac/problemA/Atrain03-2.txt,
-Author03,../docs/aaac/problemA/Atrain03-3.txt,
-Author04,../docs/aaac/problemA/Atrain04-1.txt,
-Author04,../docs/aaac/problemA/Atrain04-2.txt,
-Author04,../docs/aaac/problemA/Atrain04-3.txt,
-Author05,../docs/aaac/problemA/Atrain05-1.txt,
-Author05,../docs/aaac/problemA/Atrain05-2.txt,
-Author05,../docs/aaac/problemA/Atrain05-3.txt,
-Author06,../docs/aaac/problemA/Atrain06-1.txt,
-Author06,../docs/aaac/problemA/Atrain06-2.txt,
-Author06,../docs/aaac/problemA/Atrain06-3.txt,
-Author07,../docs/aaac/problemA/Atrain07-1.txt,
-Author07,../docs/aaac/problemA/Atrain07-2.txt,
-Author07,../docs/aaac/problemA/Atrain07-3.txt,
-Author08,../docs/aaac/problemA/Atrain08-1.txt,
-Author08,../docs/aaac/problemA/Atrain08-2.txt,
-Author08,../docs/aaac/problemA/Atrain08-3.txt,
-Author09,../docs/aaac/problemA/Atrain09-1.txt,
-Author09,../docs/aaac/problemA/Atrain09-2.txt,
-Author09,../docs/aaac/problemA/Atrain09-3.txt,
-Author10,../docs/aaac/problemA/Atrain10-1.txt,
-Author10,../docs/aaac/problemA/Atrain10-2.txt,
-Author10,../docs/aaac/problemA/Atrain10-3.txt,
-Author11,../docs/aaac/problemA/Atrain11-1.txt,
-Author11,../docs/aaac/problemA/Atrain11-2.txt,
-Author11,../docs/aaac/problemA/Atrain11-3.txt,
-Author12,../docs/aaac/problemA/Atrain12-1.txt,
-Author12,../docs/aaac/problemA/Atrain12-2.txt,
-Author12,../docs/aaac/problemA/Atrain12-3.txt,
-Author13,../docs/aaac/problemA/Atrain13-1.txt,
-Author13,../docs/aaac/problemA/Atrain13-2.txt,
-Author13,../docs/aaac/problemA/Atrain13-3.txt,
+,/com/jgaap/resources/aaac/problemA/Asample01.txt,Correct: Author03
+,/com/jgaap/resources/aaac/problemA/Asample02.txt,Correct: Author13
+,/com/jgaap/resources/aaac/problemA/Asample03.txt,Correct: Author11
+,/com/jgaap/resources/aaac/problemA/Asample04.txt,Correct: Author07
+,/com/jgaap/resources/aaac/problemA/Asample05.txt,Correct: Author10
+,/com/jgaap/resources/aaac/problemA/Asample06.txt,Correct: Author12
+,/com/jgaap/resources/aaac/problemA/Asample07.txt,Correct: Author08
+,/com/jgaap/resources/aaac/problemA/Asample08.txt,Correct: Author01
+,/com/jgaap/resources/aaac/problemA/Asample09.txt,Correct: Author05
+,/com/jgaap/resources/aaac/problemA/Asample10.txt,Correct: Author04
+,/com/jgaap/resources/aaac/problemA/Asample11.txt,Correct: Author06
+,/com/jgaap/resources/aaac/problemA/Asample12.txt,Correct: Author02
+,/com/jgaap/resources/aaac/problemA/Asample13.txt,Correct: Author09
+Author01,/com/jgaap/resources/aaac/problemA/Atrain01-1.txt,
+Author01,/com/jgaap/resources/aaac/problemA/Atrain01-2.txt,
+Author01,/com/jgaap/resources/aaac/problemA/Atrain01-3.txt,
+Author02,/com/jgaap/resources/aaac/problemA/Atrain02-2.txt,
+Author02,/com/jgaap/resources/aaac/problemA/Atrain02-3.txt,
+Author03,/com/jgaap/resources/aaac/problemA/Atrain03-1.txt,
+Author03,/com/jgaap/resources/aaac/problemA/Atrain03-2.txt,
+Author03,/com/jgaap/resources/aaac/problemA/Atrain03-3.txt,
+Author04,/com/jgaap/resources/aaac/problemA/Atrain04-1.txt,
+Author04,/com/jgaap/resources/aaac/problemA/Atrain04-2.txt,
+Author04,/com/jgaap/resources/aaac/problemA/Atrain04-3.txt,
+Author05,/com/jgaap/resources/aaac/problemA/Atrain05-1.txt,
+Author05,/com/jgaap/resources/aaac/problemA/Atrain05-2.txt,
+Author05,/com/jgaap/resources/aaac/problemA/Atrain05-3.txt,
+Author06,/com/jgaap/resources/aaac/problemA/Atrain06-1.txt,
+Author06,/com/jgaap/resources/aaac/problemA/Atrain06-2.txt,
+Author06,/com/jgaap/resources/aaac/problemA/Atrain06-3.txt,
+Author07,/com/jgaap/resources/aaac/problemA/Atrain07-1.txt,
+Author07,/com/jgaap/resources/aaac/problemA/Atrain07-2.txt,
+Author07,/com/jgaap/resources/aaac/problemA/Atrain07-3.txt,
+Author08,/com/jgaap/resources/aaac/problemA/Atrain08-1.txt,
+Author08,/com/jgaap/resources/aaac/problemA/Atrain08-2.txt,
+Author08,/com/jgaap/resources/aaac/problemA/Atrain08-3.txt,
+Author09,/com/jgaap/resources/aaac/problemA/Atrain09-1.txt,
+Author09,/com/jgaap/resources/aaac/problemA/Atrain09-2.txt,
+Author09,/com/jgaap/resources/aaac/problemA/Atrain09-3.txt,
+Author10,/com/jgaap/resources/aaac/problemA/Atrain10-1.txt,
+Author10,/com/jgaap/resources/aaac/problemA/Atrain10-2.txt,
+Author10,/com/jgaap/resources/aaac/problemA/Atrain10-3.txt,
+Author11,/com/jgaap/resources/aaac/problemA/Atrain11-1.txt,
+Author11,/com/jgaap/resources/aaac/problemA/Atrain11-2.txt,
+Author11,/com/jgaap/resources/aaac/problemA/Atrain11-3.txt,
+Author12,/com/jgaap/resources/aaac/problemA/Atrain12-1.txt,
+Author12,/com/jgaap/resources/aaac/problemA/Atrain12-2.txt,
+Author12,/com/jgaap/resources/aaac/problemA/Atrain12-3.txt,
+Author13,/com/jgaap/resources/aaac/problemA/Atrain13-1.txt,
+Author13,/com/jgaap/resources/aaac/problemA/Atrain13-2.txt,
+Author13,/com/jgaap/resources/aaac/problemA/Atrain13-3.txt,

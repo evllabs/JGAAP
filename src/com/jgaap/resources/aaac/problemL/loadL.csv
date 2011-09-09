@@ -1,10 +1,10 @@
-,../docs/aaac/problemL/Lsample01.txt,Correct: Author02
-,../docs/aaac/problemL/Lsample02.txt,Correct: Author04
-,../docs/aaac/problemL/Lsample03.txt,Correct: Author01
-,../docs/aaac/problemL/Lsample04.txt,Correct: Author03
-Author01,../docs/aaac/problemL/Ltrain01-01.txt,
-Author01,../docs/aaac/problemL/Ltrain01-02.txt,
-Author02,../docs/aaac/problemL/Ltrain02-01.txt,
-Author02,../docs/aaac/problemL/Ltrain02-02.txt,
-Author03,../docs/aaac/problemL/Ltrain03-01.txt,
-Author04,../docs/aaac/problemL/Ltrain04-01.txt,
+,/com/jgaap/resources/aaac/problemL/Lsample01.txt,Correct: Author02
+,/com/jgaap/resources/aaac/problemL/Lsample02.txt,Correct: Author04
+,/com/jgaap/resources/aaac/problemL/Lsample03.txt,Correct: Author01
+,/com/jgaap/resources/aaac/problemL/Lsample04.txt,Correct: Author03
+Author01,/com/jgaap/resources/aaac/problemL/Ltrain01-01.txt,
+Author01,/com/jgaap/resources/aaac/problemL/Ltrain01-02.txt,
+Author02,/com/jgaap/resources/aaac/problemL/Ltrain02-01.txt,
+Author02,/com/jgaap/resources/aaac/problemL/Ltrain02-02.txt,
+Author03,/com/jgaap/resources/aaac/problemL/Ltrain03-01.txt,
+Author04,/com/jgaap/resources/aaac/problemL/Ltrain04-01.txt,
