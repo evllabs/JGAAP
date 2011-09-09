@@ -153,9 +153,9 @@ public class Utils {
 			for(Event event : histogram){
 				Double value = centroid.get(event);
 				if(value != null){
-					centroid.put(event, (value+histogram.getRelativeFrequency(event))/size);
+					centroid.put(event, (value+histogram.getNormalizedFrequency(event))/size);
 				} else {
-					centroid.put(event, histogram.getRelativeFrequency(event)/size);
+					centroid.put(event, histogram.getNormalizedFrequency(event)/size);
 				}
 			}
 		}
