@@ -136,6 +136,7 @@ public class Utils {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public static EventHistogram makeHistogram(EventSet eventSet){
 		EventHistogram histogram = new EventHistogram();
 		for(Event evet : eventSet){
