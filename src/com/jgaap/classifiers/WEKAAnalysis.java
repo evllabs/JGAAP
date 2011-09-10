@@ -73,6 +73,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 		for (String currentAuthorName : allAuthorNames) {
 			authorNames.addElement(currentAuthorName);
 		}
+		authorNames.addElement("Unknown");
 		Attribute authorNameAttribute = new Attribute("authorName", authorNames);
 		attributeList.addElement(authorNameAttribute);
 
@@ -169,6 +170,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 			int j = 0;
 			for(String authorName : allAuthorNames) {
 				oneResult.add(new Pair<String, Double>(authorName, probDistribution[j], 2));
+				j++;
 			}
 			Collections.sort(oneResult);
 			Collections.reverse(oneResult); // Reverse since we want higher probabilities first
