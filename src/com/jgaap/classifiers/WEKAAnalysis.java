@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import weka.classifiers.Classifier;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
@@ -24,6 +25,8 @@ import com.jgaap.generics.Pair;
  *
  */
 public abstract class WEKAAnalysis extends AnalysisDriver {
+	
+	public Classifier classifier;
 
 	@Override
 	public String displayName() {
@@ -96,8 +99,48 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 			EventHistogram knownHistogram = knownHistograms.get(i);
 			Instance currentTrainingDocument = new Instance(allEvents.size() + 1);
 			currentTrainingDocument.setValue((Attribute)attributeList.elementAt(0), knownList.get(i).getAuthor());
+			int j = 1; // Start counting events (at 1, since 0 is the author label)
+			for(Event event : allEvents) {
+				currentTrainingDocument.setValue((Attribute)attributeList.elementAt(j), knownHistogram.getNormalizedFrequency(event));
+				j++;
+			}
+			trainingSet.add(currentTrainingDocument);
 		}
 		
+		/*
+		 * Train the classifier
+		 * N.B. The classifier should be set in the constructor by all subclasses.
+		 */
+		try {
+			classifier.buildClassifier(trainingSet);
+		} catch(Exception e) {
+			e.printStackTrace();
+			List<Pair<String, Double>> errorResults = new ArrayList<Pair<String, Double>>();
+			Pair<String, Double> errorResult = new Pair<String, Double>("Error training classifier", 0.0);
+			errorResults.add(errorResult);
+			results.add(errorResults);
+			return results;
+		}
+		
+		/*
+		 * Generate the test sets, classifying each one as we go
+		 */
+		for(EventSet unknownEventSet : unknownList) {
+			List<Pair<String, Double>> oneResult = new ArrayList<Pair<String, Double>>();
+			EventHistogram currentUnknownHistogram = new EventHistogram();
+			for(Event event : currentUnknownHistogram) {
+				currentUnknownHistogram.add(event);
+			}
+			
+			Instance currentTest = new Instance(allEvents.size() + 1);
+			
+			currentTest.setValue((Attribute)attributeList.elementAt(0), "Unknown");
+			int i = 1; // Start at 1, again
+			for(Event event : allEvents) {
+				currentTest.setValue((Attribute)attributeList.elementAt(i), currentUnknownHistogram.getNormalizedFrequency(event));
+			}
+			currentTest.setDataset(trainingSet);
+		}
 		
 		return results;
 	}
