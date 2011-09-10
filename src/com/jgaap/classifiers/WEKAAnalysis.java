@@ -31,19 +31,13 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 	public Classifier classifier;
 
 	@Override
-	public String displayName() {
-		return "Generic WEKA Classifier";
-	}
+	public abstract String displayName(); 
 
 	@Override
-	public String tooltipText() {
-		return "Generic WEKA Classifier; should not appear in GUI";
-	}
+	public abstract String tooltipText();
 
 	@Override
-	public boolean showInGUI() {
-		return false;
-	}
+	public abstract boolean showInGUI();
 
 	/**
 	 * Convert from the JGAAP event framework to the WEKA instance framework to
