@@ -56,6 +56,18 @@ public class EventHistogram implements Iterable<Event> {
 	}
 
 	/**
+	 * Construct a histogram from an EventSet
+	 * 
+	 * @param eventSet the Event set to populate the histogram
+	 */
+	 public EventHistogram(EventSet eventSet) {
+		 this();
+		 for(Event event : eventSet) {
+			 this.add(event);
+		 }
+	 }
+	
+	/**
 	 * Add an Event to the histogram
 	 * 
 	 * @param e
