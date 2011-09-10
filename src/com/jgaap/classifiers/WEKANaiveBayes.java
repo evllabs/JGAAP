@@ -19,8 +19,8 @@ public class WEKANaiveBayes extends WEKAAnalysis {
 		return true;
 	}
 	
-	public WEKANaiveBayes() {
-		classifier = (Classifier)(new weka.classifiers.bayes.NaiveBayes());
+	public Classifier getClassifier() {
+		return (Classifier)(new weka.classifiers.bayes.NaiveBayes());
 	}
 
 }

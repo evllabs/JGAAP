@@ -20,7 +20,7 @@ import com.jgaap.generics.Pair;
 
 /**
  * Generic WEKA classifier. In theory, WEKA classifiers can extend this and set
- * the underlying classifier, plus any special parameters, in their constructor,
+ * the underlying classifier, plus any special parameters, in getClassifier(),
  * and everything else will Just Work.
  * 
  * @author John Noecker Jr.
@@ -39,12 +39,16 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 	@Override
 	public abstract boolean showInGUI();
 
+	public abstract Classifier getClassifier();
+	
+	
 	/**
 	 * Convert from the JGAAP event framework to the WEKA instance framework to
 	 * perform analysis.
 	 */
 	public List<List<Pair<String, Double>>> analyze(List<EventSet> unknownList,
 			List<EventSet> knownList) {
+		classifier = getClassifier();
 		List<List<Pair<String, Double>>> results = new ArrayList<List<Pair<String, Double>>>();
 
 		/*
