@@ -110,7 +110,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 			for (Event event : allEvents) {
 				currentTrainingDocument.setValue(
 						(Attribute) attributeList.elementAt(j),
-						knownHistogram.getNormalizedFrequency(event));
+						knownHistogram.getAbsoluteFrequency(event));
 				j++;
 			}
 			trainingSet.add(currentTrainingDocument);
@@ -149,7 +149,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 			int i = 1; // Start at 1, again
 			for (Event event : allEvents) {
 				currentTest.setValue((Attribute) attributeList.elementAt(i),
-						currentUnknownHistogram.getNormalizedFrequency(event));
+						currentUnknownHistogram.getAbsoluteFrequency(event));
 			}
 			currentTest.setDataset(trainingSet);
 
