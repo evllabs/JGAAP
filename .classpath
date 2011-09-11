@@ -26,5 +26,6 @@
 	<classpathentry kind="lib" path="lib/external/poi-scratchpad-3.5-beta3-20080926.jar"/>
 	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.1.5_jdk.jar"/>
 	<classpathentry kind="lib" path="lib/external/weka.jar"/>
+	<classpathentry kind="lib" path="lib/external/log4j-1.2.16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -29,7 +29,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import com.jgaap.JGAAPConstants;
+import org.apache.log4j.Logger;
+
 import com.jgaap.generics.*;
 
 /**
@@ -50,6 +51,8 @@ public class AutoPopulate {
 	private static final List<AnalysisDriver> ANALYSIS_DRIVERS = Collections.unmodifiableList(loadAnalysisDrivers());
 	private static final List<Language> LANGUAGES = Collections.unmodifiableList(loadLanguages());
 
+	static Logger logger = Logger.getLogger(AutoPopulate.class);
+	
 	/**
 	 * Search named directory for all instantiations of the type.
 	 * 
@@ -81,8 +84,8 @@ public class AutoPopulate {
 					}
 				}
 			} catch (IOException e) {
-				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
-					e.printStackTrace();
+				logger.error("Faild to open "+jar.toString());
+				logger.error(e.getMessage());
 			}
 		} else {
 			InputStream is = com.jgaap.JGAAP.class.getResourceAsStream("/"+ directory);
@@ -96,24 +99,22 @@ public class AutoPopulate {
 					}
 				}
 			} catch (IOException e) {
-				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
-					e.printStackTrace();
+				logger.error("Failed to open "+directory);
+				logger.error(e.getMessage());
 			}
 		}
 		for(String current : list){
 			try {
+				logger.debug(current);
 				Object o = Class.forName(current).newInstance();
 				if(superClass.isInstance(o))
 					classes.add(o);
 			} catch (InstantiationException e) {
-				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
-					e.printStackTrace();
+				logger.warn(e.getMessage());
 			} catch (IllegalAccessException e) {
-				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
-					e.printStackTrace();
+				logger.warn(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
-					e.printStackTrace();
+				logger.warn(e.getMessage());
 			}
 		}
 		return classes;
