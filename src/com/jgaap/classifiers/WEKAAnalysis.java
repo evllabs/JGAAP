@@ -138,7 +138,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 		for (EventSet unknownEventSet : unknownList) {
 			List<Pair<String, Double>> oneResult = new ArrayList<Pair<String, Double>>();
 			EventHistogram currentUnknownHistogram = new EventHistogram();
-			for (Event event : currentUnknownHistogram) {
+			for (Event event : unknownEventSet) {
 				currentUnknownHistogram.add(event);
 			}
 
