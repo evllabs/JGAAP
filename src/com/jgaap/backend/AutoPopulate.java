@@ -15,26 +15,22 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- **/
 package com.jgaap.backend;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLDecoder;
+import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
-import com.jgaap.generics.*;
 import com.jgaap.JGAAPConstants;
+import com.jgaap.generics.*;
 
 /**
  * This class dynamically locates subclasses of a given named superclass within
@@ -55,76 +51,72 @@ public class AutoPopulate {
 	private static final List<Language> LANGUAGES = Collections.unmodifiableList(loadLanguages());
 
 	/**
-	 * Search named directory for all instantiations of the type named.
-	 * 
-	 * NOTE: This only works if the classes are part of a package beginning with
-	 * com.jgaap
+	 * Search named directory for all instantiations of the type.
 	 * 
 	 * @param directory
-	 *            The directory to search for the implementing classes of the super class
-	 * @param theclass
+	 *            The directory to search for the implementing classes of the
+	 *            super class
+	 * @param superClass
 	 *            The (super)class for finding all subclasses of
 	 * @return A List containing instantiations of all classes that are
-	 *         subclasses of 'theclass'.
+	 *         subclasses of the class.
 	 */
-	private static List<Object> findAll(String directory, String theclass) {
-		List<Object> list = new ArrayList<Object>();
-		Class<?> thingy = null;
-		try {
-			thingy = Class.forName(theclass);
-		} catch (Exception e) {
-			if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
-				System.out.println("Error: problem instantiating " + theclass
-						+ " (" + e.getClass().getName() + ")");
-		}
+	private static List<Object> findClasses(String directory, Class<?> superClass) {
 
-		String[] children = null;
-		if (JGAAPConstants.JGAAP_PACKAGE_JAR) {
+		List<Object> classes = new ArrayList<Object>();
+		List<String> list = new ArrayList<String>();
+
+		CodeSource src = com.jgaap.JGAAP.class.getProtectionDomain().getCodeSource();
+		URL jar = src.getLocation();
+
+		if (jar.toString().endsWith(".jar")) {
+			ZipInputStream zip;
 			try {
-				children = getResourceListing(directory+"/");
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			File dir = new File(JGAAPConstants.JGAAP_BINDIR + directory);
-			children = dir.list();
-		}
-		if (children == null) {
-			System.err.println("Cannot open " + directory + " for reading");
-			return list;
-		} else {
-			String fulQualName = directory.replace("/", ".");
-			for (int i = 0; i < children.length; i++) {
-				if (children[i].endsWith(".class")) {
-					String s = children[i].substring(0,
-							children[i].length() - 6);
-
-					try {
-						Object o = Class.forName(fulQualName + "." + s)
-								.newInstance();
-						if (thingy != null && thingy.isInstance(o)) {
-							list.add(o);
-						}
-
-					} catch (IllegalAccessException ex) {
-						if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
-							System.out.println("Error: problem instantiating "
-									+ s + " (" + ex.getClass().getName() + ")");
-					} catch(InstantiationException ex) {
-						if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
-							System.out.println("Error: problem instantiating "
-									+ s + " (" + ex.getClass().getName() + ")");
-					} catch(ClassNotFoundException ex) {
-						if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
-							System.out.println("Error: problem instantiating "
-									+ s + " (" + ex.getClass().getName() + ")");
+				zip = new ZipInputStream(jar.openStream());
+				ZipEntry ze = null;
+				while ((ze = zip.getNextEntry()) != null) {
+					String entryName = ze.getName();
+					if (entryName.startsWith(directory)&& entryName.endsWith(".class")) {
+						list.add(entryName.substring(0, entryName.length() - 6).replace("/", "."));
 					}
 				}
+			} catch (IOException e) {
+				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
+					e.printStackTrace();
+			}
+		} else {
+			InputStream is = com.jgaap.JGAAP.class.getResourceAsStream("/"+ directory);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+			String line;
+			String packageName = directory.replace("/", ".") + ".";
+			try {
+				while ((line = reader.readLine()) != null) {
+					if (line.endsWith(".class")) {
+						list.add(packageName + line.substring(0, line.length() - 6));
+					}
+				}
+			} catch (IOException e) {
+				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
+					e.printStackTrace();
 			}
 		}
-		return list;
+		for(String current : list){
+			try {
+				Object o = Class.forName(current).newInstance();
+				if(superClass.isInstance(o))
+					classes.add(o);
+			} catch (InstantiationException e) {
+				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
+					e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
+					e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				if(JGAAPConstants.JGAAP_DEBUG_VERBOSITY)
+					e.printStackTrace();
+			}
+		}
+		return classes;
 	}
 
 	/**
@@ -136,8 +128,8 @@ public class AutoPopulate {
 
 	private static List<Canonicizer> loadCanonicizers() {
 		List<Canonicizer> canonicizers = new ArrayList<Canonicizer>();
-		for (Object tmpC : findAll("com/jgaap/canonicizers",
-				"com.jgaap.generics.Canonicizer")) {
+		for (Object tmpC : findClasses("com/jgaap/canonicizers",
+				com.jgaap.generics.Canonicizer.class)) {
 			Canonicizer canon = (Canonicizer) tmpC;
 			canonicizers.add(canon);
 		}
@@ -154,8 +146,8 @@ public class AutoPopulate {
 
 	private static List<EventDriver> loadEventDrivers() {
 		List<EventDriver> eventDrivers = new ArrayList<EventDriver>();
-		for (Object tmpE : findAll("com/jgaap/eventDrivers",
-				"com.jgaap.generics.EventDriver")) {
+		for (Object tmpE : findClasses("com/jgaap/eventDrivers",
+				com.jgaap.generics.EventDriver.class)) {
 			EventDriver event = (EventDriver) tmpE;
 			eventDrivers.add(event);
 		}
@@ -172,8 +164,8 @@ public class AutoPopulate {
 
 	private static List<DistanceFunction> loadDistanceFunctions() {
 		List<DistanceFunction> distances = new ArrayList<DistanceFunction>();
-		for (Object tmpD : findAll("com/jgaap/distances",
-				"com.jgaap.generics.DistanceFunction")) {
+		for (Object tmpD : findClasses("com/jgaap/distances",
+				com.jgaap.generics.DistanceFunction.class)) {
 			DistanceFunction method = (DistanceFunction) tmpD;
 			distances.add(method);
 		}
@@ -191,8 +183,8 @@ public class AutoPopulate {
 
 	private static List<AnalysisDriver> loadAnalysisDrivers() {
 		List<AnalysisDriver> analysisDrivers = new ArrayList<AnalysisDriver>();
-		for (Object tmpA : findAll("com/jgaap/classifiers",
-				"com.jgaap.generics.AnalysisDriver")) {
+		for (Object tmpA : findClasses("com/jgaap/classifiers",
+				com.jgaap.generics.AnalysisDriver.class)) {
 			AnalysisDriver method = (AnalysisDriver) tmpA;
 			analysisDrivers.add(method);
 		}
@@ -209,8 +201,8 @@ public class AutoPopulate {
 
 	private static List<Language> loadLanguages() {
 		List<Language> languages = new ArrayList<Language>();
-		for (Object tmpA : findAll("com/jgaap/languages",
-				"com.jgaap.generics.Language")) {
+		for (Object tmpA : findClasses("com/jgaap/languages",
+				com.jgaap.generics.Language.class)) {
 			Language lang = (Language) tmpA;
 			languages.add(lang);
 		}
@@ -227,73 +219,12 @@ public class AutoPopulate {
 
 	private static List<EventCuller> loadEventCullers() {
 		List<EventCuller> cullers = new ArrayList<EventCuller>();
-		for (Object tmpA : findAll("com/jgaap/eventCullers",
-				"com.jgaap.generics.EventCuller")) {
+		for (Object tmpA : findClasses("com/jgaap/eventCullers",
+				com.jgaap.generics.EventCuller.class)) {
 			EventCuller lang = (EventCuller) tmpA;
 			cullers.add(lang);
 		}
 		Collections.sort(cullers);
 		return cullers;
-	}
-
-	/**
-	 * A modified version of the following
-	 * 
-	 * List directory contents for a resource folder. Not recursive. This is
-	 * basically a brute-force implementation. Works for regular files and also
-	 * JARs.
-	 * 
-	 * @author Greg Briggs
-	 * @param path
-	 *            Should end with "/", but not start with one.
-	 * @return Just the name of each member item, not the full paths.
-	 * @throws URISyntaxException
-	 * @throws IOException
-	 */
-	private static String[] getResourceListing(String path)
-			throws URISyntaxException, IOException {
-		Class<?> clazz = com.jgaap.JGAAP.class;
-		URL dirURL = clazz.getClassLoader().getResource(path);
-		if (dirURL != null && (dirURL.getProtocol().equals("file"))) {
-			return new File(dirURL.toURI()).list();
-		}
-
-		if (dirURL == null) {
-			/*
-			 * In case of a jar file, we can't actually find a directory. Have
-			 * to assume the same jar as clazz.
-			 */
-			String me = clazz.getName().replace(".", "/") + ".class";
-			dirURL = clazz.getClassLoader().getResource(me);
-		}
-
-		if (dirURL.getProtocol().equals("jar")
-				|| dirURL.getProtocol().equals("rsrc")) {
-			String jarPath;
-			if (dirURL.getProtocol().equals("rsrc")) {
-				jarPath = "jgaap.jar";
-			} else {
-				jarPath = dirURL.getPath().substring(5,
-						dirURL.getPath().indexOf("!"));
-			}
-			JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
-			Enumeration<JarEntry> entries = jar.entries();
-			Set<String> result = new HashSet<String>();
-			while (entries.hasMoreElements()) {
-				String name = entries.nextElement().getName();
-				if (name.startsWith(path)) { // filter according to the path
-					String entry = name.substring(path.length());
-					int checkSubdir = entry.indexOf("/");
-					if (checkSubdir >= 0) {
-						entry = entry.substring(0, checkSubdir);
-					}
-					if (entry.length() > 0)
-						result.add(entry);
-				}
-			}
-			return result.toArray(new String[result.size()]);
-		}
-		throw new UnsupportedOperationException("Cannot list files for URL "
-				+ dirURL);
 	}
 }
