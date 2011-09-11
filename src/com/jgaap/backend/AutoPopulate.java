@@ -44,14 +44,14 @@ import com.jgaap.generics.*;
  */
 public class AutoPopulate {
 
+	static Logger logger = Logger.getLogger(AutoPopulate.class);
+	
 	private static final List<Canonicizer> CANONICIZERS = Collections.unmodifiableList(loadCanonicizers());
 	private static final List<EventDriver> EVENT_DRIVERS = Collections.unmodifiableList(loadEventDrivers());
 	private static final List<EventCuller> EVENT_CULLERS = Collections.unmodifiableList(loadEventCullers());
 	private static final List<DistanceFunction> DISTANCE_FUNCTIONS = Collections.unmodifiableList(loadDistanceFunctions());
 	private static final List<AnalysisDriver> ANALYSIS_DRIVERS = Collections.unmodifiableList(loadAnalysisDrivers());
 	private static final List<Language> LANGUAGES = Collections.unmodifiableList(loadLanguages());
-
-	static Logger logger = Logger.getLogger(AutoPopulate.class);
 	
 	/**
 	 * Search named directory for all instantiations of the type.
