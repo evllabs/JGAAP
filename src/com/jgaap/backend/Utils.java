@@ -31,7 +31,6 @@ import com.jgaap.generics.Displayable;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
 
 /**
  * Generic methods that will be reused throughout JGAAP
@@ -132,18 +131,7 @@ public class Utils {
 		stddev = stddev / (observations.size() - 1); // Get the sample standard deviation
 		return Math.sqrt(stddev);
 	}
-	
-	/**
-	 * 
-	 */
-	@Deprecated
-	public static EventHistogram makeHistogram(EventSet eventSet){
-		EventHistogram histogram = new EventHistogram();
-		for(Event evet : eventSet){
-			histogram.add(evet);
-		}
-		return histogram;
-	}
+
 	/**
 	 * 
 	 */
