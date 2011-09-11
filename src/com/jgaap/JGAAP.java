@@ -19,6 +19,10 @@
  **/
 package com.jgaap;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import com.jgaap.backend.CLI;
 import com.jgaap.ui.JGAAP_UI_MainForm;
 
@@ -30,6 +34,9 @@ import com.jgaap.ui.JGAAP_UI_MainForm;
 
 public class JGAAP {
 
+	static Logger logger = Logger.getLogger("com.jgaap");
+	static Logger mainLogger = Logger.getLogger(JGAAP.class);
+	
 	public static boolean commandline = false;
     public static final boolean DEBUG = true;
 
@@ -49,14 +56,19 @@ public class JGAAP {
  * @param args the command line arguments
  */
     public static void main(String[] args) {
-//    	System.out.println(jgaap.class.getProtectionDomain().getCodeSource().getLocation());
-        if (args.length == 0) {
+
+    	BasicConfigurator.configure();
+    	logger.setLevel(Level.INFO);
+    	
+    	if (args.length == 0) {
+    		mainLogger.info("Starting GUI");
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     createAndShowGUI();
                 }
             });
         } else {
+        	mainLogger.info("Starting CLI");
             CLI.main(args);
         }
     }
