@@ -113,6 +113,7 @@ public class JGAAPConstants {
 	 */
 	public static final String JGAAP_CANONICIZERPREFIX = "com.jgaap.canonicizers.";
 	public static final String JGAAP_EVENTDRIVERPREFIX = "com.jgaap.eventDrivers.";
+	public static final String JGAAP_EVENTCULLERPREFIX = "com.jgaap.eventCullers.";
 	public static final String JGAAP_DISTANCEPREFIX = "com.jgaap.distances.";
 	public static final String JGAAP_CLASSIFIERPREFIX = "com.jgaap.classifiers.";
 	public static final String JGAAP_GUIPREFIX = "com.jgaap.ui.";
