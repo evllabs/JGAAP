@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.generics.*;
 import com.jgaap.languages.English;
@@ -39,6 +41,8 @@ import com.jgaap.languages.English;
  */
 public class API {
 
+	static Logger logger = Logger.getLogger(API.class);
+	
 	private List<Document> documents;
 	private Language language;
 	private List<EventDriver> eventDrivers;
@@ -392,6 +396,7 @@ public class API {
 		try {
 			analysisDriver = AnalysisDriverFactory.getAnalysisDriver(action);
 		} catch (Exception e) {
+			logger.warn("Unable to load action "+action+" as AnalysisDriver attempting to load as DistanceFunction using NearestNeighborDriver", e);
 			analysisDriver = new NearestNeighborDriver();
 			addDistanceFunction(action, analysisDriver);
 		}
@@ -471,7 +476,7 @@ public class API {
 						}
 						document.readStringText("");
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.error("Problem with load/canonicize/eventify on document File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 					}
 				}
 			};
