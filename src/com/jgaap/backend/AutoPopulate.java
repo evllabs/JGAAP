@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -85,7 +86,7 @@ public class AutoPopulate {
 				}
 			} catch (IOException e) {
 				logger.error("Faild to open "+jar.toString());
-				logger.error(e.getMessage());
+				logger.error(Arrays.toString(e.getStackTrace()));
 			}
 		} else {
 			InputStream is = com.jgaap.JGAAP.class.getResourceAsStream("/"+ directory);
@@ -100,7 +101,7 @@ public class AutoPopulate {
 				}
 			} catch (IOException e) {
 				logger.error("Failed to open "+directory);
-				logger.error(e.getMessage());
+				logger.error(Arrays.toString(e.getStackTrace()));
 			}
 		}
 		for(String current : list){
@@ -110,11 +111,11 @@ public class AutoPopulate {
 				if(superClass.isInstance(o))
 					classes.add(o);
 			} catch (InstantiationException e) {
-				logger.warn(e.getMessage());
+				logger.warn(Arrays.toString(e.getStackTrace()));
 			} catch (IllegalAccessException e) {
-				logger.warn(e.getMessage());
+				logger.warn(Arrays.toString(e.getStackTrace()));
 			} catch (ClassNotFoundException e) {
-				logger.warn(e.getMessage());
+				logger.warn(Arrays.toString(e.getStackTrace()));
 			}
 		}
 		return classes;
