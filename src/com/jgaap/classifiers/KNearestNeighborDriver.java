@@ -25,8 +25,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.jgaap.backend.Ballot;
-import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
@@ -38,6 +39,8 @@ import com.jgaap.generics.Pair;
  */
 public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
+	static Logger logger = Logger.getLogger(KNearestNeighborDriver.class);
+	
     private static final int DEFAULT_K = 5;
     private static final String DEFAULT_TIE = "lastPicked";
 
@@ -77,16 +80,8 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
 		for (int i = 0; i < known.size(); i++) {
 			double current = distance.distance(unknown, known.get(i));
-
             rawResults.add(new Pair<String, Double>(known.get(i).getAuthor(), current, 2));
-
-			if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY) {
-				System.out.print(unknown.getDocumentName() + "(Unknown)");
-				System.out.print(":");
-				System.out.print(known.get(i).getDocumentName() + "("
-						+ known.get(i).getAuthor() + ")\t");
-				System.out.println("Distance is " + current);
-			}
+			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.get(i).getDocumentName()+"("+known.get(i).getAuthor()+") Distance:"+current);
 		}
 		Collections.sort(rawResults);
         for(int i = 0; i < Math.min(k, rawResults.size()); i++) {
