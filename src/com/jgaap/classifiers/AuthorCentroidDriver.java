@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
@@ -50,6 +52,8 @@ import com.jgaap.generics.Pair;
 
 public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 
+	static Logger logger = Logger.getLogger(AuthorCentroidDriver.class);
+	
 	public String displayName() {
 		return "Author Centroid Driver" + getDistanceName();
 	}
@@ -134,13 +138,7 @@ public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 		for (int i = 0; i < knownCentroids.size(); i++) {
 			double current = distance.distance(unknown, knownCentroids.get(i));
 			results.add(new Pair<String, Double>(knownCentroids.get(i).getAuthor(), current, 2));
-			if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY) {
-				System.out.print(unknown.getDocumentName() + "(Unknown)");
-				System.out.print(":");
-				System.out.print(knownCentroids.get(i).getDocumentName() + "("
-						+ knownCentroids.get(i).getAuthor() + ")\t");
-				System.out.println("Distance is " + current);
-			}
+			logger.debug(unknown.getDocumentName()+"(Unknown):"+knownCentroids.get(i).getDocumentName()+"("+knownCentroids.get(i).getAuthor()+") Distance:"+current);
 		}
 		Collections.sort(results);
 		return results;

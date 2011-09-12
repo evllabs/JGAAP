@@ -23,7 +23,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.jgaap.JGAAPConstants;
+import org.apache.log4j.Logger;
+
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
@@ -35,6 +36,8 @@ import com.jgaap.generics.Pair;
  */
 public class NearestNeighborDriver extends NeighborAnalysisDriver {
 
+	Logger logger = Logger.getLogger(NearestNeighborDriver.class);
+	
 	public String displayName() {
 		return "Nearest Neighbor Driver" + getDistanceName();
 	}
@@ -54,13 +57,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 		for (int i = 0; i < known.size(); i++) {
 			double current = distance.distance(unknown, known.get(i));
 			results.add(new Pair<String, Double>(known.get(i).getAuthor(),current,2));
-			if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY) {
-				System.out.print(unknown.getDocumentName() + "(Unknown)");
-				System.out.print(":");
-				System.out.print(known.get(i).getDocumentName() + "("
-						+ known.get(i).getAuthor() + ")\t");
-				System.out.println("Distance is " + current);
-			}
+			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.get(i).getDocumentName()+"("+known.get(i).getAuthor()+") Distance:"+current);
 		}
 		Collections.sort(results);
 		return results;

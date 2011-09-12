@@ -26,7 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.jgaap.JGAAPConstants;
+import org.apache.log4j.Logger;
+
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
@@ -42,6 +43,8 @@ import com.jgaap.generics.Pair;
 
 public class AuthorNeighborDriver extends NeighborAnalysisDriver {
 
+	static Logger logger = Logger.getLogger(AuthorNeighborDriver.class);
+	
 	public String displayName() {
 		return "Author Neighbor Driver" + getDistanceName();
 	}
@@ -66,13 +69,7 @@ public class AuthorNeighborDriver extends NeighborAnalysisDriver {
 			double current = distance.distance(unknown, known);
 			authors.add(known.getAuthor());
 			distances.add(current);
-			if (JGAAPConstants.JGAAP_DEBUG_VERBOSITY) {
-				System.out.print(unknown.getDocumentName() + "(Unknown)");
-				System.out.print(":");
-				System.out.print(known.getDocumentName() + "("
-						+ known.getAuthor() + ")\t");
-				System.out.println("Distance is " + current);
-			}
+			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.getDocumentName()+"("+known.getAuthor()+") Distance:"+current);
 		}
 		for (int i = 0; i < authors.size(); i++) {
 			if (authorMap.containsKey(authors.get(i))) {
