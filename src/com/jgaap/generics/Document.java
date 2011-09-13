@@ -36,10 +36,7 @@ public class Document extends Parameterizable {
 	private String author;
 	private String filepath;
 	private String title;
-	// private List<Character> rawText;
-	private char[] rawText;
-	// private List<Character> procText;
-	//private char[] procText;
+	private char[] text;
 	private int size;
 	private DocType docType;
 	private Language language;
@@ -54,8 +51,6 @@ public class Document extends Parameterizable {
 		canonicizers = new ArrayList<Canonicizer>();
 		eventSets = new HashMap<EventDriver, EventSet>();
 		results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>();
-		// rawText = new ArrayList<Character>();
-		// procText = new ArrayList<Character>();
 		docType = DocType.GENERIC;
 		this.language = new English();
 	}
@@ -79,11 +74,7 @@ public class Document extends Parameterizable {
 		this.results = new HashMap<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>>(
 				document.results);
 		this.filepath = document.filepath;
-		// this.procText = new ArrayList<Character>(document.procText);
-		// this.rawText = new ArrayList<Character>(document.rawText);
-		//this.procText = Arrays.copyOf(document.procText,
-		//		document.procText.length);
-		this.rawText = Arrays.copyOf(document.rawText, document.rawText.length);
+		this.text = Arrays.copyOf(document.text, document.text.length);
 		this.size = document.size;
 		this.title = document.title;
 		this.language = document.getLanguage();
@@ -117,8 +108,8 @@ public class Document extends Parameterizable {
 	}
 	
 	public void load() throws Exception{
-		this.rawText = DocumentHelper.loadDocument(filepath, language.getCharset());
-		this.size = this.rawText.length;
+		this.text = DocumentHelper.loadDocument(filepath, language.getCharset());
+		this.size = this.text.length;
 		if (this.size == 0) {
 			throw new Exception("Empty Document Error");
 		}
@@ -137,15 +128,17 @@ public class Document extends Parameterizable {
 	}
 
 	public void readStringText(String text) {
-		rawText = text.toCharArray();
-		size = rawText.length;
-		//procText = Arrays.copyOf(rawText, size);
+		this.text = text.toCharArray();
+		size = this.text.length;
+	}
+	
+	public void setText(char[] text){
+		this.text = text;
+		size = text.length;
 	}
 
 	public void print() {
-		for (Character c : rawText) {
-			System.out.print(c);
-		}
+		System.out.println(stringify());
 	}
 
 	/** Retrieves the author of the current document **/
@@ -168,15 +161,8 @@ public class Document extends Parameterizable {
 	 * whitespace or normalizing the case
 	 **/
 	public char[] getProcessedText() {
-		//if (procText != null)
-		//	return Arrays.copyOf(procText, procText.length);
-		//else
-			return Arrays.copyOf(rawText, rawText.length);
+			return Arrays.copyOf(text, text.length);
 	}
-
-//	public void setProcessedText(char[] procText) {
-//		this.procText = procText;
-//	}
 
 	/**
 	 * Returns the size of the document. Size is determined by the number of
@@ -197,13 +183,13 @@ public class Document extends Parameterizable {
 	}
 
 	/** Sets the docType of the current document **/
-	public void setDocType(DocType t) {
-		docType = t;
+	public void setDocType(DocType docType) {
+		this.docType = docType;
 	}
 
 	/** Sets the title of the current document **/
-	public void setTitle(String t) {
-		title = t;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/**
@@ -216,11 +202,11 @@ public class Document extends Parameterizable {
 	/**
 	 * Add a Canonicizer to the internal list maintained by this Document.
 	 * 
-	 * @param newCanonicizer
+	 * @param canonicizer
 	 *            A new canonicizer to add to the list
 	 */
-	public void addCanonicizer(Canonicizer newCanonicizer) {
-		canonicizers.add(newCanonicizer);
+	public void addCanonicizer(Canonicizer canonicizer) {
+		canonicizers.add(canonicizer);
 	}
 
 	/**
@@ -257,14 +243,11 @@ public class Document extends Parameterizable {
 	 * them to the document one by one, in the same order they were added.
 	 */
 	public void processCanonicizers() {
-		// procText = new ArrayList<Character>();
-		// procText.addAll(rawText);
-		//procText = Arrays.copyOf(rawText, rawText.length);
 		if (language.isParseable()){
-			rawText = language.parseLanguage(stringify());
+			text = language.parseLanguage(stringify());
 		}
 		for (Canonicizer canonicizer : canonicizers) {
-			rawText = canonicizer.process(rawText);
+			text = canonicizer.process(text);
 		}
 	}
 
@@ -299,7 +282,7 @@ public class Document extends Parameterizable {
 	}
 
 	public String getResult() {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append(getTitle() + " ");
 		buffer.append(getFilePath() + "\n");
 		buffer.append("Canonicizers: ");
@@ -361,7 +344,7 @@ public class Document extends Parameterizable {
 	 * Convert processed document into one really long string.
 	 **/
 	public String stringify() {
-		return new String(rawText);
+		return new String(text);
 	}
 
 	@Override
