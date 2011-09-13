@@ -1,7 +1,0 @@
-ExampleAAACTester
-Smash Case Normalize Whitespace,Words,Linear SVM,mc
-Smash Case Normalize Whitespace,Words,LDA,mc
-Smash Case Normalize Whitespace,Words,Gaussian SVM,mc
-Smash Case Normalize Whitespace,Characters,Linear SVM,mc
-Smash Case Normalize Whitespace,Characters,LDA,mc
-Smash Case Normalize Whitespace,Characters,Gaussian SVM,mc
