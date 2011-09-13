@@ -78,7 +78,8 @@ public class POSBiGramEventDriverTest {
  			tmp.add(new Event("(,)-(CC)"));
  			tmp.add(new Event("(CC)-(PRP$)"));
  			tmp.add(new Event("(PRP$)-(NN)"));
- 			tmp.add(new Event("(NN)-(VBN)"));
+ 			tmp.add(new Event("(NN)-(,)"));
+ 			tmp.add(new Event("(,)-(VBN)"));
  			tmp.add(new Event("(VBN)-(NNP)"));
  			tmp.add(new Event("(NNP)-(,)"));
  			tmp.add(new Event("(,)-(VBD)"));
@@ -86,25 +87,25 @@ public class POSBiGramEventDriverTest {
  			tmp.add(new Event("(RB)-(IN)"));
  			tmp.add(new Event("(IN)-(DT)"));
  			tmp.add(new Event("(DT)-(NN)"));
- 			tmp.add(new Event("(NN)-(CC)"));
+ 			tmp.add(new Event("(NN)-(,)"));
+ 			tmp.add(new Event("(,)-(CC)"));
  			tmp.add(new Event("(CC)-(IN)"));
  			tmp.add(new Event("(IN)-(IN)"));
  			tmp.add(new Event("(IN)-(DT)"));
  			tmp.add(new Event("(DT)-(NN)"));
- 			tmp.add(new Event("(NN)-(NNP)"));
+ 			tmp.add(new Event("(NN)-(,)"));
+ 			tmp.add(new Event("(,)-(NNP)"));
  			tmp.add(new Event("(NNP)-(.)"));
 
 
 		     expectedSet.addEvents(tmp);
 		     
-/*
-		     for(int i=0; i<sampleSet.size(); i++)
-			    {
-			    	System.out.println(sampleSet.eventAt(i).toString()+" "+expectedSet.eventAt(i).toString());
-			    	System.out.println(sampleSet.eventAt(i).toString().equals(expectedSet.eventAt(i).toString()));
-			    }
-		     System.out.println(expectedSet.size());
-*/
+//		     for(int i=0; i<sampleSet.size(); i++)
+//			    {
+//			    	System.out.println(sampleSet.eventAt(i).toString()+" "+expectedSet.eventAt(i).toString());
+//			    	System.out.println(sampleSet.eventAt(i).toString().equals(expectedSet.eventAt(i).toString()));
+//			    }
+//		     System.out.println(expectedSet.size());
 		     
 		     
 			    assertTrue(expectedSet.equals(sampleSet));
