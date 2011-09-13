@@ -361,11 +361,7 @@ public class Document extends Parameterizable {
 	 * Convert processed document into one really long string.
 	 **/
 	public String stringify() {
-		StringBuilder t = new StringBuilder(rawText.length);
-		for (int i = 0; i < rawText.length; i++) {
-			t.append(rawText[i]);
-		}
-		return t.toString();
+		return new String(rawText);
 	}
 
 	@Override
