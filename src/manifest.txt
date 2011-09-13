@@ -1,3 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: com.jgaap.jgaap
-Class-Path: external/jmathio.jar external/jmatharray.jar external/jmathplot.jar external/PDFBox-0.7.3.jar external/bcmail-jdk14-132.jar external/bcprov-jdk14-132.jar external/checkstyle-all-4.2.jar external/FontBox-0.1.0-dev.jar external/junit.jar external/lucene-core-2.0.0.jar external/lucene-demos-2.0.0.jar external/poi-3.5-beta3-20080926.jar external/poi-contrib-3.5-beta3-20080926.jar external/poi-jdk14-3.5-beta3-20080926.jar external/poi-ooxml-3.5-beta3-20080926.jar external/poi-scratchpad-3.5-beta3-20080926.jar
