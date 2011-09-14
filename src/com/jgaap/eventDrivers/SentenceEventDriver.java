@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -34,7 +32,7 @@ public class SentenceEventDriver extends EventDriver {
 
 	@Override
 	public boolean showInGUI() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -70,8 +68,8 @@ public class SentenceEventDriver extends EventDriver {
 		logger.debug(regex);
 		System.out.println(regex);
 		String text = doc.stringify();
-		List<String> sentences = Arrays.asList(text.split("(?<=[?!\\.])\\s+"));
-		EventSet eventSet = new EventSet(sentences.size());
+		String[] sentences = text.split("(?<=[?!\\.])\\s+");
+		EventSet eventSet = new EventSet(sentences.length);
 		StringBuilder eventBuilder = new StringBuilder();
 		for (String sentence : sentences) {
 			eventBuilder.append(sentence);
