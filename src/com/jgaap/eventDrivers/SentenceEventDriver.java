@@ -81,7 +81,6 @@ public class SentenceEventDriver extends EventDriver {
 		for (String sentence : sentences) {
 			eventBuilder.append(sentence);
 			if(!sentence.matches(regex)){
-				System.out.println(sentence);
 				eventSet.addEvent(new Event(eventBuilder.toString()));
 				eventBuilder = new StringBuilder();
 			} else {
