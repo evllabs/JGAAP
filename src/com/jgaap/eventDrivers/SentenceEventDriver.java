@@ -16,6 +16,14 @@ import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
+/**
+ * 
+ * 
+ * 
+ * @author Michael Ryan
+ *
+ */
+
 public class SentenceEventDriver extends EventDriver {
 
 	static Logger logger = Logger.getLogger(SentenceEventDriver.class);
@@ -66,7 +74,6 @@ public class SentenceEventDriver extends EventDriver {
 		regexBuilder.append(")\\s?[?!\\.]$");
 		String regex = regexBuilder.toString();
 		logger.debug(regex);
-		System.out.println(regex);
 		String text = doc.stringify();
 		String[] sentences = text.split("(?<=[?!\\.])\\s+");
 		EventSet eventSet = new EventSet(sentences.length);
