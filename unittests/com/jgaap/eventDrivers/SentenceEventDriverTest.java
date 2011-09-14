@@ -1,0 +1,60 @@
+/*
+ * JGAAP -- a graphical program for stylometric authorship attribution
+ * Copyright (C) 2009,2011 by Patrick Juola
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package com.jgaap.eventDrivers;
+
+/**
+ * @author Michael Ryan
+ */
+import static org.junit.Assert.*;
+
+import java.util.*;
+
+import org.junit.Test;
+
+import com.jgaap.generics.Document;
+import com.jgaap.generics.Event;
+import com.jgaap.generics.EventSet;
+
+public class SentenceEventDriverTest {
+
+	@Test
+	public void testCreateEventSetDocumentSet() {
+
+		Document doc = new Document();
+		doc.readStringText("Hello, Dr. Jones!  I'm not.feeling.too well today.  What's the matter Mr. Adams?  My stomach hurts, A.K.A, cramps.");
+
+		EventSet sampleEventSet = new SentenceEventDriver().createEventSet(doc);
+		EventSet expectedEventSet = new EventSet();
+		List<Event> tmp = new ArrayList<Event>();
+
+		tmp.add(new Event("Hello, Dr. Jones!"));
+        tmp.add(new Event("I'm not.feeling.too well today."));
+        tmp.add(new Event("What's the matter Mr. Adams?"));
+        tmp.add(new Event("My stomach hurts, A.K.A, cramps."));
+
+		expectedEventSet.addEvents(tmp);
+
+		for(Event event : sampleEventSet){
+			System.out.println(event);
+		}
+		
+		assertTrue(expectedEventSet.equals(sampleEventSet));
+	}
+
+}
+
