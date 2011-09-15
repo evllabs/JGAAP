@@ -33,7 +33,6 @@ import com.jgaap.generics.EventSet;
  * 
  * @since 4.1
  **/
-@Deprecated
 public class VowelInitialWordEventDriver extends EventDriver {
 
 	@Override
