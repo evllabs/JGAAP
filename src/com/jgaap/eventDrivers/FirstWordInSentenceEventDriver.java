@@ -50,20 +50,14 @@ public class FirstWordInSentenceEventDriver extends EventDriver {
 
 	@Override
 	public EventSet createEventSet(Document doc) {
-		EventSet es = new EventSet(doc.getAuthor());
-		//for (int i = 0; i < ds.documentCount(); i++) {
-			String current = doc.stringify();
-			String[] result = current.split("(((?<![A-Z])[?][\\s]*)|((?<![0-9])[?][\\s]*))|(((?<![A-Z])[!][\\s]*)|((?<![0-9])[!][\\s]*))|(((?<![A-Z])[a-z][.][\\s]++)|((?<=[0-9])[.][\\s]*))");
-        //regex splits at last letter of a word on a sentence ending with a period.
-        //EX: Im going to the mall. -- Im going to the mal
-			String splitSentence;
-			for (int j = 0; j < result.length; j++) {
-				splitSentence = result[j];
-				String[] wordsPerSent = splitSentence.split("[\\s++]|[,.][\\s++]");
-				es.addEvent(new Event(wordsPerSent[0]));
-			}
-		//}
-        return es;
+		EventSet sentences = new SentenceEventDriver().createEventSet(doc);
+		EventSet eventSet = new EventSet(sentences.size());
+		for(Event sentence : sentences){
+			String[] words = sentence.getEvent().split("\\s+");
+			if(words.length>0)
+				eventSet.addEvent(new Event(words[0]));
+		}
+		return eventSet;
     }
 
 }
