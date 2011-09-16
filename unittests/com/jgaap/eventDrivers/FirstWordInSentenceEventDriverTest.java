@@ -42,7 +42,7 @@ public class FirstWordInSentenceEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("Hello"));
+		tmp.add(new Event("Hello,"));
         tmp.add(new Event("I'm"));
         tmp.add(new Event("What's"));
         tmp.add(new Event("My"));
