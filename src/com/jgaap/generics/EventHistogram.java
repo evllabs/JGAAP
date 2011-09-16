@@ -20,6 +20,7 @@
 package com.jgaap.generics;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Class supporting basic histogram operations on Events. Uses a Hashtable to
@@ -201,20 +202,19 @@ public class EventHistogram implements Iterable<Event> {
      * list[size-1] is the least.
      * @return The above-described list of events.
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public List<Pair<Event, Integer> > getSortedHistogram() {
-        List list = new LinkedList(theHist.entrySet());
-        Collections.sort(list, new Comparator() {
-            public int compare(Object o1, Object o2) {
-            return -((Comparable)((Map.Entry)(o1)).getValue()).compareTo(((Map.Entry)(o2)).getValue());
-        }
-        });
+	public List<Pair<Event, Integer>> getSortedHistogram() {
+		List<Entry<Event, Integer>> list = new ArrayList<Entry<Event, Integer>>(theHist.entrySet());
+		Collections.sort(list, new Comparator<Entry<Event, Integer>>() {
+			public int compare(Entry<Event, Integer> o1, Entry<Event, Integer> o2) {
+				return -(o1.getValue().compareTo(o2.getValue()));
+			}
+		});
 
-        List<Pair<Event, Integer> > result = new ArrayList<Pair<Event, Integer> >();
-        for(Iterator it = list.iterator() ; it.hasNext() ; ) {
-            Map.Entry entry = (Map.Entry)it.next();
-            result.add(new Pair(entry.getKey(), entry.getValue(), 2));
-        }
-        return result;
-    }
+		List<Pair<Event, Integer>> result = new ArrayList<Pair<Event, Integer>>(list.size());
+		for (Iterator<Entry<Event, Integer>> it = list.iterator(); it.hasNext();) {
+			Entry<Event, Integer> entry = it.next();
+			result.add(new Pair<Event, Integer>(entry.getKey(), entry.getValue(), 2));
+		}
+		return result;
+	}
 }
