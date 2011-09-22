@@ -34,7 +34,7 @@ public class JGAAPConstants {
 		try {
 			path = processPath(new File(".").getCanonicalPath());
 		} catch (IOException e) {
-			path = "..";
+			path = "../";
 		}
 	}
 
@@ -44,7 +44,7 @@ public class JGAAPConstants {
 	public static final String JGAAP_BINDIR = path + "bin/";
 
 	public static String binDir() {
-		return path + "/bin/";
+		return JGAAP_BINDIR;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class JGAAPConstants {
 	public static final String JGAAP_LIBDIR = path + "lib/";
 
 	public static String libDir() {
-		return path + "/lib/";
+		return JGAAP_LIBDIR;
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class JGAAPConstants {
 	public static final String JGAAP_SRCDIR = path + "src/";
 
 	public static String srcDir() {
-		return path + "/src/";
+		return JGAAP_SRCDIR;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class JGAAPConstants {
 	public static final String JGAAP_DOCSDIR = path + "docs/";
 
 	public static String docsDir() {
-		return path + "/docs/";
+		return JGAAP_DOCSDIR;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class JGAAPConstants {
 	public static final String JGAAP_UTILDIR = path + "util/";
 
 	public static String utilDir() {
-		return path + "/util/";
+		return JGAAP_UTILDIR;
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class JGAAPConstants {
 	public static final String JGAAP_TMPDIR = path + "tmp/";
 
 	public static String tmpDir() {
-		return path + "/tmp/";
+		return JGAAP_TMPDIR;
 	}
 
 	private static String processPath(String path) {
@@ -120,22 +120,5 @@ public class JGAAPConstants {
 	public static final String JGAAP_GENERICSPREFIX = "com.jgaap.generics.";
 	public static final String JGAAP_BACKENDPREFIX = "com.jgaap.backend.";
 	public static final String JGAAP_LANGUAGEPREFIX = "com.jgaap.languages.";
-
-	/*
-	 * JGAAP prints out a lot of warnings/messages that ordinary users needn't
-	 * see. Set this to 'false' for releases.
-	 */
-	public static final boolean JGAAP_DEBUG_VERBOSITY = false;
-
-	// // MVR This can and should be changed.
-	// /** Set of global parameters, to change via usual schemes. */
-	// public static Parameterizable globalParams = new Parameterizable();
-	//
-	// /**
-	// * Set of global objects, accessed via a HashMap (when Parameterizable is
-	// * not sufficient because we need to store generic objects)
-	// */
-	// public static HashMap<String, Object> globalObjects = new HashMap<String,
-	// Object>();
 
 }
