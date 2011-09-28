@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.jgaap.JGAAPConstants;
+import com.jgaap.backend.API;
 import com.jgaap.canonicizers.StripPunctuation;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
@@ -288,7 +289,7 @@ public class DefinitionsEventDriver extends EventDriver {
 	@Override
 	public boolean showInGUI() {
 		// TODO Auto-generated method stub
-		return true;
+		return API.getInstance().getLanguage().displayName().equalsIgnoreCase("English");
 	}
 
 	@Override
