@@ -1,6 +1,7 @@
 package com.jgaap.classifiers;
 
 import weka.classifiers.Classifier;
+import weka.classifiers.meta.ClassificationViaRegression;
 
 public class WEKALinearRegression extends WEKAAnalysis {
 
@@ -20,7 +21,9 @@ public class WEKALinearRegression extends WEKAAnalysis {
 	}
 	
 	public Classifier getClassifier() {
-		return (Classifier)(new weka.classifiers.functions.LinearRegression());
+		ClassificationViaRegression c = new ClassificationViaRegression();
+		c.setClassifier(new weka.classifiers.functions.LinearRegression());
+		return (Classifier)c;
 	}
 
 }
