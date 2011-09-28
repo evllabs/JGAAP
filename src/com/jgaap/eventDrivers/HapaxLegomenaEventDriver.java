@@ -34,6 +34,7 @@ import com.jgaap.generics.EventHistogram;
  * @author Patrick Juola
  * @since 4.1
  **/
+@Deprecated
 public class HapaxLegomenaEventDriver extends EventDriver {
 
 	@Override
