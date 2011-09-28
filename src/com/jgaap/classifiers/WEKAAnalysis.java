@@ -150,6 +150,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 			for (Event event : allEvents) {
 				currentTest.setValue((Attribute) attributeList.elementAt(i),
 						currentUnknownHistogram.getNormalizedFrequency(event));
+				i++;
 			}
 			currentTest.setDataset(trainingSet);
 
