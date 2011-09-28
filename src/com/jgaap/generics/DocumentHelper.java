@@ -201,7 +201,9 @@ class DocumentHelper {
 			reader = new InputStreamReader(is, charset);
 		}
 		char[] text = new char[length];
-		reader.read(text);
+		int status = reader.read(text);
+		if(status < length || reader.read() != -1)
+			throw new IOException("Document too large to load for processing");
 		reader.close();
 		return text;
 	}
