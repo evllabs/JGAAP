@@ -32,16 +32,16 @@ import java.util.Map.Entry;
 public class EventHistogram implements Iterable<Event> {
 
 	/** The Hashtable storing the histogram of interest */
-	private Hashtable<Event, Integer> theHist;
+	private Map<Event, Integer> theHist;
 	/**
 	 * The current number of entries in the histogram. Zero is, of course, an
 	 * empty histogram with no data.
 	 */
-	private long numTokens;
+	private int numTokens;
 
 	/** Construct a new (empty) histogram */
 	public EventHistogram() {
-		theHist = new Hashtable<Event, Integer>(1001);
+		theHist = new HashMap<Event, Integer>(1001);
 		numTokens = 0;
 	}
 
@@ -52,7 +52,7 @@ public class EventHistogram implements Iterable<Event> {
 	 *            the initial capacity
 	 */
 	public EventHistogram(int initialCapacity) {
-		theHist = new Hashtable<Event, Integer>(initialCapacity);
+		theHist = new HashMap<Event, Integer>(initialCapacity);
 		numTokens = 0;
 	}
 
@@ -91,8 +91,8 @@ public class EventHistogram implements Iterable<Event> {
 	}
 
 	/** Return all Events in a histogram */
-	public Enumeration<Event> events() {
-		return theHist.keys();
+	public Set<Event> events() {
+		return theHist.keySet();
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class EventHistogram implements Iterable<Event> {
 	 * 
 	 * @return the number of Events stored in a histogram
 	 */
-	public long getNTokens() {
+	public int getNTokens() {
 		return numTokens;
 	}
 
