@@ -19,6 +19,7 @@
  **/
 package com.jgaap.eventDrivers;
 
+import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
 import javax.swing.*;
@@ -44,7 +45,7 @@ public class POSNGramEventDriver extends NGramEventDriver {
 
     @Override
     public boolean showInGUI(){
-    	return true;
+    	return API.getInstance().getLanguage().displayName().equalsIgnoreCase("English");
     }
 
     @Override

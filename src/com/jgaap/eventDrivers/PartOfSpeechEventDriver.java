@@ -17,6 +17,7 @@
  */
 package com.jgaap.eventDrivers;
 
+import com.jgaap.backend.API;
 import com.jgaap.canonicizers.PunctuationSeparator;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
@@ -46,7 +47,7 @@ public class PartOfSpeechEventDriver extends EventDriver {
 
 	@Override
 	public boolean showInGUI() {
-		return true;
+		return API.getInstance().getLanguage().displayName().equalsIgnoreCase("English");
 	}
 
 	@Override

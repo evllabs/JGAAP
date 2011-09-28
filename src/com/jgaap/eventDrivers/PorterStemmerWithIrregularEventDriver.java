@@ -20,6 +20,7 @@ package com.jgaap.eventDrivers;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
@@ -392,7 +393,7 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 	@Override
 	public boolean showInGUI() {
 		
-		return true;
+		return API.getInstance().getLanguage().displayName().equalsIgnoreCase("English");
 	}
 
 	@Override
