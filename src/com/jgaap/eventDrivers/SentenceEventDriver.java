@@ -56,6 +56,7 @@ public class SentenceEventDriver extends EventDriver {
 					abbreviations.add(current.toUpperCase());
 				}
 			}
+			reader.close();
 		} catch (IOException e) {
 			logger.warn("Problem while reading abbrivation list", e);
 		}

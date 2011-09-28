@@ -73,9 +73,8 @@ public class AutoPopulate {
 		URL jar = src.getLocation();
 
 		if (jar.toString().endsWith(".jar")) {
-			ZipInputStream zip;
 			try {
-				zip = new ZipInputStream(jar.openStream());
+				ZipInputStream zip = new ZipInputStream(jar.openStream());
 				ZipEntry ze = null;
 				while ((ze = zip.getNextEntry()) != null) {
 					String entryName = ze.getName();
@@ -83,6 +82,7 @@ public class AutoPopulate {
 						list.add(entryName.substring(0, entryName.length() - 6).replace("/", "."));
 					}
 				}
+				zip.close();
 			} catch (IOException e) {
 				logger.error("Faild to open "+jar.toString(), e);
 			}
@@ -97,6 +97,7 @@ public class AutoPopulate {
 						list.add(packageName + line.substring(0, line.length() - 6));
 					}
 				}
+				reader.close();
 			} catch (IOException e) {
 				logger.error("Failed to open "+directory, e);
 			}
