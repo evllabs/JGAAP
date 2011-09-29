@@ -67,9 +67,18 @@ public class Utils {
 		List<List<String>> csvOfDocuments = new ArrayList<List<String>>();
 		for(Document document : documents){
 			List<String> current = new ArrayList<String>();
-			current.add(document.getAuthor());
+			String author = document.getAuthor();
+			if(author == null)
+				author = "";
+			current.add(author);
+			String filePath = document.getFilePath();
+			if(filePath == null)
+				filePath = "";
 			current.add(document.getFilePath());
-			current.add(document.getTitle());
+			String title = document.getTitle();
+			if(title == null)
+				title = "";
+			current.add(title);
 			csvOfDocuments.add(current);
 		}
 		CSVIO.writeCSV(csvOfDocuments, file);
