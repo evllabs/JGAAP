@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -49,9 +50,11 @@ public class POSBiGramEventDriverTest {
 		    		       "but his daughter, named Nan , " +
 		    		       "ran away with a man, " +
 		    		       "and as for the bucket, Nantucket .");
-				
+			
+		    EventDriver eventDriver = new POSNGramEventDriver();
+		    eventDriver.setParameter("N", 2);
 		    
-		    EventSet sampleSet = new POSBiGramEventDriver().createEventSet(doc);
+		    EventSet sampleSet = eventDriver.createEventSet(doc);
 		    //System.out.println(sampleSet.size());
 		    //System.out.println(sampleSet.toString());
 		    

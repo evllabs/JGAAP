@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -47,7 +48,9 @@ public class WordBiGramEventDriverTest {
 "Its fleece was white as snow.\n" +
 "And everywhere that Mary went,\n" +
 "The lamb was sure to go.");
-		EventSet sampleEventSet = new WordBiGramEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new WordNGramEventDriver();
+		eventDriver.setParameter("N", 2);
+		EventSet sampleEventSet = eventDriver.createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("(Mary)-(had)"));

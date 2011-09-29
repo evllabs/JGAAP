@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -43,7 +44,9 @@ public class CharacterTetraGramEventDriverTest {
 	public void testCreateEventSetDocumentSet() {
 		Document doc = new Document();
 		doc.readStringText("abcdefghijklmnopqrstuvwxyz .");
-		EventSet sampleEventSet = new CharacterTetraGramEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new CharacterNGramEventDriver();
+		eventDriver.setParameter("N", 4);
+		EventSet sampleEventSet = eventDriver.createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("abcd"));
