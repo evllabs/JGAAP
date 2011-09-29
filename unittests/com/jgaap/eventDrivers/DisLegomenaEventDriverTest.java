@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -51,7 +52,11 @@ public class DisLegomenaEventDriverTest {
 	    Document doc = new Document();
 	    doc.readStringText("The Quick Brown Fox Jumped Over The Lazy Dog 3 3 3 4 4 4 4 5 5 5 5 5");
 
-	    EventSet sampleSet = new DisLegomenaEventDriver().createEventSet(doc);
+	    EventDriver eventDriver = new RareWordsEventDriver();
+	    eventDriver.setParameter("M", 2);
+	    eventDriver.setParameter("N", 2);
+	    
+	    EventSet sampleSet = eventDriver.createEventSet(doc);
 	    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();

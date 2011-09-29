@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -51,7 +52,11 @@ public class _23LetterWordEventDriverTest {
 		);
 
 
-		EventSet sampleEventSet = new _23LetterWordEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new MNLetterWordEventDriver();
+		eventDriver.setParameter("M", 2);
+		eventDriver.setParameter("N", 3);
+		
+		EventSet sampleEventSet = eventDriver.createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

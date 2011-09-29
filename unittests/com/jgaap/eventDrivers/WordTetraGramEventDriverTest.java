@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -43,7 +44,9 @@ public class WordTetraGramEventDriverTest {
 	public void testCreateEventSetDocumentSet() {
 		Document doc = new Document();
 		doc.readStringText("Mary had a little lamb, little lamb. Its fleece was white as snow.");
-		EventSet sampleEventSet = new WordTetraGramEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new WordNGramEventDriver();
+		eventDriver.setParameter("N", 4);
+		EventSet sampleEventSet = eventDriver.createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("(Mary)-(had)-(a)-(little)"));

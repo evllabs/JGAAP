@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -59,7 +60,11 @@ public class V24LetterWordEventDriverTest {
 		);
 
 
-		EventSet sampleEventSet = new V24LetterWordEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new VowelMNLetterWordEventDriver();
+		eventDriver.setParameter("M", 2);
+		eventDriver.setParameter("N", 4);
+
+		EventSet sampleEventSet = eventDriver.createEventSet(doc);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

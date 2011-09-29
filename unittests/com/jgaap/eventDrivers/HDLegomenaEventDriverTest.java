@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -50,7 +51,12 @@ public class HDLegomenaEventDriverTest {
 
 	    Document doc = new Document();
 	    doc.readStringText("Jack be nimble, Jack be quick, Jack jump over the candlestick.");
-	    EventSet sampleSet = new HDLegomenaEventDriver().createEventSet(doc);    
+	    
+	    EventDriver eventDriver = new RareWordsEventDriver();
+	    eventDriver.setParameter("M", 1);
+	    eventDriver.setParameter("N", 2);
+	    
+	    EventSet sampleSet = eventDriver.createEventSet(doc);    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
 	    tmp.add(new Event("be"));

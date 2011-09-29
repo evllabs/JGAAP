@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -51,7 +52,11 @@ public class HapaxLegomenaEventDriverTest {
 	    Document doc = new Document();
 	    doc.readStringText("The Quick Brown Fox Jumped Over The Lazy Dog 3 3 3 4 4 4 4 5 5 5 5 5");
 
-	    EventSet sampleSet = new HapaxLegomenaEventDriver().createEventSet(doc);
+	    EventDriver eventDriver = new RareWordsEventDriver();
+	    eventDriver.setParameter("M", 1);
+	    eventDriver.setParameter("N", 1);
+	    
+	    EventSet sampleSet = eventDriver.createEventSet(doc);
 	    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
