@@ -18,6 +18,7 @@
 package com.jgaap.backend;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,6 +32,7 @@ import java.util.zip.ZipInputStream;
 
 import org.apache.log4j.Logger;
 
+import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.*;
 
 /**
@@ -45,14 +47,14 @@ import com.jgaap.generics.*;
 public class AutoPopulate {
 
 	static Logger logger = Logger.getLogger(AutoPopulate.class);
-	
+
 	private static final List<Canonicizer> CANONICIZERS = Collections.unmodifiableList(loadCanonicizers());
 	private static final List<EventDriver> EVENT_DRIVERS = Collections.unmodifiableList(loadEventDrivers());
 	private static final List<EventCuller> EVENT_CULLERS = Collections.unmodifiableList(loadEventCullers());
 	private static final List<DistanceFunction> DISTANCE_FUNCTIONS = Collections.unmodifiableList(loadDistanceFunctions());
 	private static final List<AnalysisDriver> ANALYSIS_DRIVERS = Collections.unmodifiableList(loadAnalysisDrivers());
 	private static final List<Language> LANGUAGES = Collections.unmodifiableList(loadLanguages());
-	
+
 	/**
 	 * Search named directory for all instantiations of the type.
 	 * 
@@ -64,13 +66,17 @@ public class AutoPopulate {
 	 * @return A List containing instantiations of all classes that are
 	 *         subclasses of the class.
 	 */
-	private static List<Object> findClasses(String directory, Class<?> superClass) {
+	private static List<Object> findClasses(String directory,
+			Class<?> superClass) {
 
 		List<Object> classes = new ArrayList<Object>();
 		List<String> list = new ArrayList<String>();
 
-		CodeSource src = com.jgaap.JGAAP.class.getProtectionDomain().getCodeSource();
+		CodeSource src = com.jgaap.JGAAP.class.getProtectionDomain()
+				.getCodeSource();
 		URL jar = src.getLocation();
+
+		System.out.println(jar);
 
 		if (jar.toString().endsWith(".jar")) {
 			try {
@@ -78,35 +84,48 @@ public class AutoPopulate {
 				ZipEntry ze = null;
 				while ((ze = zip.getNextEntry()) != null) {
 					String entryName = ze.getName();
-					if (entryName.startsWith(directory)&& entryName.endsWith(".class")) {
-						list.add(entryName.substring(0, entryName.length() - 6).replace("/", "."));
+					if (entryName.startsWith(directory)
+							&& entryName.endsWith(".class")) {
+						list.add(entryName.substring(0, entryName.length() - 6)
+								.replace("/", "."));
 					}
 				}
 				zip.close();
 			} catch (IOException e) {
-				logger.error("Faild to open "+jar.toString(), e);
+				logger.error("Faild to open " + jar.toString(), e);
 			}
 		} else {
-			InputStream is = com.jgaap.JGAAP.class.getResourceAsStream("/"+ directory);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-			String line;
+			InputStream is = com.jgaap.JGAAP.class.getResourceAsStream("/" + directory);
 			String packageName = directory.replace("/", ".") + ".";
-			try {
-				while ((line = reader.readLine()) != null) {
+			if (is != null) {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+				String line;
+				try {
+					while ((line = reader.readLine()) != null) {
+						if (line.endsWith(".class")) {
+							list.add(packageName + line.substring(0, line.length() - 6));
+						}
+					}
+					reader.close();
+				} catch (IOException e) {
+					logger.error("Failed to open " + directory, e);
+				}
+			} else {
+				File file = new File(JGAAPConstants.JGAAP_BINDIR + directory);
+				String[] files = file.list();
+				for (String line : files) {
 					if (line.endsWith(".class")) {
 						list.add(packageName + line.substring(0, line.length() - 6));
 					}
 				}
-				reader.close();
-			} catch (IOException e) {
-				logger.error("Failed to open "+directory, e);
 			}
+
 		}
-		for(String current : list){
+		for (String current : list) {
 			try {
 				logger.debug(current);
 				Object o = Class.forName(current).newInstance();
-				if(superClass.isInstance(o))
+				if (superClass.isInstance(o))
 					classes.add(o);
 			} catch (InstantiationException e) {
 				logger.warn("Problem instancing object", e);
