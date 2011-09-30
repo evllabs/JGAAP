@@ -76,8 +76,6 @@ public class AutoPopulate {
 				.getCodeSource();
 		URL jar = src.getLocation();
 
-		System.out.println(jar);
-
 		if (jar.toString().endsWith(".jar")) {
 			try {
 				ZipInputStream zip = new ZipInputStream(jar.openStream());
