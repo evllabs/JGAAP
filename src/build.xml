@@ -27,6 +27,7 @@
 			<include name="libsvm.jar"/>
 			<include name="edu.mit.jwi_2.1.5_jdk.jar"/>
 			<include name="weka.jar"/>
+			<include name="log4j-1.2.16.jar"/>
 		</fileset>
 	</path>
 	
