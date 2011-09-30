@@ -19,21 +19,17 @@
  **/
 package com.jgaap.distances;
 
-import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.*;
 
 import java.util.Vector;
 
 /**
- * Given two event type-sets, A,B, calculate 1 - ||A intereset B|| // ||A union
- * B||
+ * Given two event type-sets, A,B, calculate 1 - ||A intereset B|| // ||A union B||
  * 
  * @author Juola
  * @version 4.1
  */
-public class IntersectionDistance extends DistanceFunction {
+public class IntersectionDistance extends DistanceFunction{
 	public String displayName() {
 		return "Intersection Distance";
 	}
@@ -58,19 +54,11 @@ public class IntersectionDistance extends DistanceFunction {
 
 	@Override
 	public double distance(EventSet es1, EventSet es2) {
-		EventHistogram h1 = new EventHistogram();
-		EventHistogram h2 = new EventHistogram();
+		EventHistogram h1 = new EventHistogram(es1);
+		EventHistogram h2 = new EventHistogram(es2);
 
-		long intersectioncount = 0;
-		long unioncount;
-
-		for (int i = 0; i < es1.size(); i++) {
-			h1.add(es1.eventAt(i));
-		}
-
-		for (int i = 0; i < es2.size(); i++) {
-			h2.add(es2.eventAt(i));
-		}
+		double intersectioncount = 0;
+		double unioncount;
 
 		unioncount = h1.getNTypes();
 		// unioncount now has the number of distinct types in h1
@@ -94,7 +82,7 @@ public class IntersectionDistance extends DistanceFunction {
 		 * System.out.println("distance is " + (1.0 -
 		 * (1.0*intersectioncount)/unioncount) ); System.out.println("");
 		 */
-		return 1.0 - (1.0 * intersectioncount) / unioncount;
+		return 1.0 - intersectioncount / unioncount;
 	}
 
     public double distance(Vector<Double> v1, Vector<Double> v2) {
