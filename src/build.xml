@@ -57,7 +57,7 @@
 	</target>
 
 	<target name="build" depends="init">
-		<javac sourcepath="" srcdir="." destdir="../bin" debug="true" encoding="GB2312">
+		<javac sourcepath="" srcdir="." destdir="../bin" debug="true" includeantruntime="false">
 			<classpath refid="classpath" />
 
 			<include name="WordSegment/*.java" />
@@ -85,7 +85,7 @@
 	</target>
 
 	<target name="compile-tests">
-		<javac srcdir="../unittests" destdir="../bin" debug="true">
+		<javac srcdir="../unittests" destdir="../bin" debug="true" includeantruntime="false">
 			<classpath refid="test-classpath" />
 		</javac>
 	</target>
