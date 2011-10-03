@@ -25,7 +25,7 @@ import WordSegment.*;
 
 /**
  * 
- * A Chinese representation that uses GB2123 and forwards word matching.
+ * A Chinese representation that uses GB2312 and forwards word matching.
  * 
  * @author Michael Ryan
  *
@@ -33,7 +33,7 @@ import WordSegment.*;
 public class ChineseFMM extends Language {
 
 	public ChineseFMM() {
-		super("Chinese FMM (GB2123)", "chinese", "GB2123");
+		super("Chinese FMM (GB2312)", "chinese", "GB2312");
 		super.setParseable(true);
 	}
 
