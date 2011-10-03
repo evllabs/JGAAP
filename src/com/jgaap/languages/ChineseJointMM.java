@@ -34,7 +34,7 @@ import WordSegment.*;
 public class ChineseJointMM extends Language {
 
 	public ChineseJointMM() {
-		super("Chinese JointMM", "chinese", "GB2123");
+		super("Chinese JointMM (GB2123)", "chinese", "GB2123");
 		super.setParseable(true);
 	}
 

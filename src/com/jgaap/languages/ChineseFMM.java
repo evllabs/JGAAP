@@ -33,7 +33,7 @@ import WordSegment.*;
 public class ChineseFMM extends Language {
 
 	public ChineseFMM() {
-		super("Chinese FMM", "chinese", "GB2123");
+		super("Chinese FMM (GB2123)", "chinese", "GB2123");
 		super.setParseable(true);
 	}
 

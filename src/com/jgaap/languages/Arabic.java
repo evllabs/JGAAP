@@ -27,7 +27,7 @@ import com.jgaap.generics.Language;
  */
 public class Arabic extends Language {
 	public Arabic() {
-		super("Arabic", "arabic", "ISO-8859-6");
+		super("Arabic (ISO-8859-6)", "arabic", "ISO-8859-6");
 	}
 
 	public boolean showInGUI() {
