@@ -15,7 +15,7 @@ public class WordSegment {
 	}
 
 	public WordSegment(SegStrategy strategy) {
-		setDic(getClass().getResourceAsStream("/WordSegment/recources/chinese_dictionary.dat"));
+		setDic(getClass().getResourceAsStream("/WordSegment/resources/chinese_dictionary.dat"));
 		setStrategy(strategy);
 	}
 
