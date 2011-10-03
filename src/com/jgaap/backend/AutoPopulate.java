@@ -92,7 +92,9 @@ public class AutoPopulate {
 			} catch (IOException e) {
 				logger.error("Faild to open " + jar.toString(), e);
 			}
-		} else {
+		} else {  
+			//This case was added to handle an error with ant 
+			//where it cannot use InputStream or any of its impls
 			InputStream is = com.jgaap.JGAAP.class.getResourceAsStream("/" + directory);
 			String packageName = directory.replace("/", ".") + ".";
 			if (is != null) {
