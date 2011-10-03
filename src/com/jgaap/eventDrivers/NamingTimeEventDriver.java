@@ -44,7 +44,7 @@ public class NamingTimeEventDriver extends NumericTransformationEventDriver {
     
     @Override
     public boolean showInGUI(){
-    	return API.getInstance().getLanguage().displayName().equalsIgnoreCase("english");
+    	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
     }
 
     @Override

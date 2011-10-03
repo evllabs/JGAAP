@@ -101,7 +101,7 @@ public class CoarsePOSTagger extends EventDriver {
 
 	@Override
 	public boolean showInGUI() {
-		return API.getInstance().getLanguage().displayName().equalsIgnoreCase("English");
+		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("English");
 	}
 
 	@Override
