@@ -21,7 +21,7 @@ import com.jgaap.generics.Language;
 
 /**
  * 
- * Representation of english in jgaap using unicode UTC-8
+ * Representation of english in jgaap using System default encoding
  * 
  * @author Michael Ryan
  *
