@@ -45,7 +45,7 @@ public class POSNGramEventDriver extends NGramEventDriver {
 
     @Override
     public boolean showInGUI(){
-    	return API.getInstance().getLanguage().displayName().equalsIgnoreCase("English");
+    	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("English");
     }
 
     @Override
