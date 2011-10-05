@@ -74,84 +74,12 @@ public class LDA extends AnalysisDriver {
 	double[][]         covarianceMatrix;
 	double[][]         covarianceInverse;
 	double[]           priorProbability;
-	//boolean            trainingComplete;
 	String[]           authors;
 	TreeSet<Event>     vocab;
 
 	public LDA() {
 		super();
-		//trainingComplete = false;
 	}
-
-	/*
-	@Override
-	public synchronized List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
-		KernelMethodMatrix matrixFactory = new KernelMethodMatrix();
-
-		// Train only once, then use the already-calculated discriminant function
-		if(trainingComplete) {
-			double[] unknownRow = matrixFactory.getRow(unknown, vocab);
-			double [] distArray = getClassification(unknownRow);
-			String [] authorArray = authors;
-			List<Pair<String,Double>>results = new ArrayList<Pair<String,Double>>();
-			for(int i=0; i<distArray.length-1; i++){
-				results.add(new Pair<String, Double>(authorArray[i], distArray[i], 2));
-			}
-			Collections.sort(results);
-			Collections.reverse(results);
-
-			return results;
-		}
-
-		int numGroups = 0;
-		authors = new String[50]; // This can be increased if we need
-		// more than 50 authors.
-		int[] tmpClassifications = new int[known.size()];
-		EventSet theEvent;
-		vocab = new TreeSet<Event>();
-		for (int i = 0; i < known.size(); i++) {
-			for (int j = 0; j < known.get(i).size(); j++) {
-				vocab.add(known.get(i).eventAt(j));
-			}
-		}
-		for (int i = 0; i < known.size(); i++) {
-			boolean found = false;
-			theEvent = known.get(i);
-			for (int j = 0; j < authors.length; j++) {
-				if (theEvent.getAuthor().equals(authors[j])) {
-					found = true;
-					tmpClassifications[i] = j;
-				}
-			}
-			if (!found) {
-				numGroups++;
-				authors[numGroups - 1] = theEvent.getAuthor();
-				tmpClassifications[i] = numGroups - 1;
-			}
-		}
-		double[][] knownMatrix = new double[known.size()][];
-
-		for (int i = 0; i < known.size(); i++) {
-			knownMatrix[i] = matrixFactory.getRow(known.get(i), vocab,1000);
-		}
-
-		generateTransformation(knownMatrix, tmpClassifications, numGroups);
-
-		trainingComplete = true;
-
-		double[] unknownRow = matrixFactory.getRow(unknown, vocab,1000);
-		double [] distArray = getClassification(unknownRow);
-		String [] authorArray = authors;
-		List<Pair<String,Double>>results = new ArrayList<Pair<String,Double>>();
-		for(int i=0; i<distArray.length-1; i++){
-			results.add(new Pair<String, Double>(authorArray[i], distArray[i], 2));
-		}
-		Collections.sort(results);
-		Collections.reverse(results);
-
-		return results;
-	}
-	*/
 
 	@Override
 	public synchronized List<List<Pair<String, Double>>> analyze(List<EventSet> unknownSet, List<EventSet> known) {
@@ -192,8 +120,6 @@ public class LDA extends AnalysisDriver {
 		}
 
 		generateTransformation(knownMatrix, tmpClassifications, numGroups);
-
-		//trainingComplete = true;
 
 		//Classification
 		List<List<Pair<String,Double>>> results = new ArrayList<List<Pair<String,Double>>>();
@@ -271,13 +197,12 @@ public class LDA extends AnalysisDriver {
 			}
 			endResults[i] = discriminantFunction(newGroupMean, newData,
 					priorProbability[i]);
-			System.out.println("Class " + i
-					+ " has discriminant function value: " + endResults[i]);
+			//System.out.println("Class " + i	+ " has discriminant function value: " + endResults[i]);
 			/*  if (endResults[i] > endResults[max]) {
                 max = i;
             }*/
 		}
-		System.out.println("");
+		//System.out.println("");
 		return endResults;
 	}
 
