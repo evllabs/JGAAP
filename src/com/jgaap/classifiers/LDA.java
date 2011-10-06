@@ -82,6 +82,10 @@ public class LDA extends AnalysisDriver {
 	}
 
 	@Override
+	/*
+	 * Method converted by AMK from previous method which took parameter of single
+	 * EventSet.
+	 */
 	public synchronized List<List<Pair<String, Double>>> analyze(List<EventSet> unknownSet, List<EventSet> known) {
 
 		KernelMethodMatrix matrixFactory = new KernelMethodMatrix();
