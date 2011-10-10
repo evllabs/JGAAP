@@ -42,10 +42,11 @@ public class LDATest {
 	 */
 	@Test
 	public void testAnalyze() {
+		//Test 1
 		EventSet known1 = new EventSet();
 		EventSet known2 = new EventSet();
 		EventSet unknown = new EventSet();
-		
+
 		known1.addEvent(new Event("Mary"));
 		known1.addEvent(new Event("had"));
 		known1.addEvent(new Event("a"));
@@ -58,8 +59,8 @@ public class LDATest {
 		known1.addEvent(new Event("as"));
 		known1.addEvent(new Event("snow."));
 		known1.setAuthor("Mary");
-		
-		
+
+
 		known2.addEvent(new Event("Peter"));
 		known2.addEvent(new Event("piper"));
 		known2.addEvent(new Event("picked"));
@@ -69,7 +70,7 @@ public class LDATest {
 		known2.addEvent(new Event("pickled"));
 		known2.addEvent(new Event("peppers."));
 		known2.setAuthor("Peter");
-		
+
 		unknown.addEvent(new Event("Mary"));
 		unknown.addEvent(new Event("had"));
 		unknown.addEvent(new Event("a"));
@@ -81,16 +82,48 @@ public class LDATest {
 		unknown.addEvent(new Event("white"));
 		unknown.addEvent(new Event("as"));
 		unknown.addEvent(new Event("snow."));
-		
+
 		Vector <EventSet> esv = new Vector<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
-		
-		List<Pair<String, Double>> t = new LDA().analyze(unknown, esv);
+		LDA classifier = new LDA();
+		List<Pair<String, Double>> t = classifier.analyze(unknown, esv);
 		String r = t.get(0).getFirst();
-		
 		String s = "Mary";
+		System.out.println("Test 1 Classified");
+		System.out.println("First : "+r+" "+t.get(0).getSecond());
+		if(t.size() > 1){
+			System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
+		}
+		System.out.println("Expected");
+		System.out.println("First : Mary");
+		System.out.println("Second: Peter");
+		assertTrue(r.equals(s));
+
+		//Test 2 - Same classifier
+		t = classifier.analyze(unknown,esv);
+		r = t.get(0).getFirst();
+		System.out.println("Test 2 Classified");
+		System.out.println("First : "+r+" "+t.get(0).getSecond());
+		if(t.size() > 1){
+			System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
+		}
+		System.out.println("Expected");
+		System.out.println("First : Mary");
+		System.out.println("Second: Peter");
+		assertTrue(r.equals(s));
 		
+		//Test 3 - Different instance of classifier
+		t = new LDA().analyze(unknown, esv);
+		r = t.get(0).getFirst();
+		System.out.println("Test 3 Classified");
+		System.out.println("First : "+r+" "+t.get(0).getSecond());
+		if(t.size() > 1){
+			System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
+		}
+		System.out.println("Expected");
+		System.out.println("First : Mary");
+		System.out.println("Second: Peter");
 		assertTrue(r.equals(s));
 	}
 
