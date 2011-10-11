@@ -94,6 +94,8 @@ public class LDA extends AnalysisDriver {
 		int numGroups = 0;
 		authors = new String[50]; // This can be increased if we need
 		// more than 50 authors.
+		// Why not make this the actual count of known authors?
+		// Or make this a List instead?
 		int[] tmpClassifications = new int[known.size()];
 		EventSet theEvent;
 		vocab = new TreeSet<Event>();
@@ -133,7 +135,7 @@ public class LDA extends AnalysisDriver {
 			double[] unknownRow = matrixFactory.getRow(unknown, vocab,1000);
 			double [] distArray = getClassification(unknownRow);
 			String [] authorArray = authors;
-			for(int i=0; i<distArray.length-1; i++){
+			for(int i=0; i<distArray.length; i++){
 				holder.add(new Pair<String, Double>(authorArray[i], distArray[i], 2));
 			}
 			Collections.sort(holder);
