@@ -44,43 +44,46 @@ public class KernelMethodMatrix {
         return transpose(newMatrix);
     }
 
+    /*
+     * Returns the normalized frequency of the vocab words 
+     *   based on the frequencies in the histogram constructed 
+     *   from the EventSet.
+     */
     public double[] getRow(EventSet es1, Set<Event> vocab) {
-        EventHistogram h1 = new EventHistogram();
-        Event theEvent;
-
-        for (int i = 0; i < es1.size(); i++) {
-            h1.add(es1.eventAt(i));
-        }
-
+    	//Convert EventSet to EventHistogram
+        EventHistogram h1 = new EventHistogram(es1);
+        
+        //Row of frequencies to be returned
         double[] row = new double[vocab.size()];
-             
-        h1.events();
+        
+        //For each Event in vocab, store the normalized
+        //  frequency of it in row
+        Event theEvent;
         Iterator<Event> it = vocab.iterator();
         for (int i = 0; it.hasNext(); i++) {
             theEvent = it.next();
             row[i] = h1.getNormalizedFrequency(theEvent);
         }
+        
         return row;
     }
     
-    // limit the number of row/cols returned by n
-    public double[] getRow(EventSet es1, Set<Event> vocab, int n) {
-        EventHistogram h1 = new EventHistogram();
+    /*
+     * Same as getRow(EventSet, Set<Event>), except limits
+     * the number of row/cols returned.
+     */
+    public double[] getRow(EventSet es1, Set<Event> vocab, int MAX_ELEMENTS) {
+        EventHistogram h1 = new EventHistogram(es1);
         Event theEvent;
-        int MAX_ELEMENTS = n;
-
-        for (int i = 0; i < es1.size(); i++) {
-            h1.add(es1.eventAt(i));
-        }
 
         double[] row = new double[((vocab.size() > MAX_ELEMENTS) ? MAX_ELEMENTS : vocab.size())];
 
-        h1.events();
         Iterator<Event> it = vocab.iterator();
         for (int i = 0; it.hasNext() && (i < MAX_ELEMENTS); i++) {
             theEvent = it.next();
             row[i] = h1.getNormalizedFrequency(theEvent);
         }
+        
         return row;
     }
 
