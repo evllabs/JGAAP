@@ -25,7 +25,7 @@ import WordSegment.*;
 
 /**
  * 
- * Representation of Chinese in jgaap using GB2123 and a joint matching technique for parsing it into words.
+ * Representation of Chinese in jgaap using GB2312 and a joint matching technique for parsing it into words.
  * Joint matching compares the results of forward matching and reverse matching and takes the more likely result.
  * 
  * @author Michael Ryan
@@ -34,7 +34,7 @@ import WordSegment.*;
 public class ChineseJointMM extends Language {
 
 	public ChineseJointMM() {
-		super("Chinese JointMM", "chinese", "GB2123");
+		super("Chinese JointMM (GB2312)", "chinese", "GB2312");
 		super.setParseable(true);
 	}
 

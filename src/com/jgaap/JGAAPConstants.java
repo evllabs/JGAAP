@@ -21,7 +21,6 @@ package com.jgaap;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Defines a whole slew of public static constants that can be used system-wide.
@@ -43,55 +42,31 @@ public class JGAAPConstants {
 	 */
 	public static final String JGAAP_BINDIR = path + "bin/";
 
-	public static String binDir() {
-		return JGAAP_BINDIR;
-	}
-
 	/**
 	 * Location for libraries such as word lists. 
 	 */
 	public static final String JGAAP_LIBDIR = path + "lib/";
-
-	public static String libDir() {
-		return JGAAP_LIBDIR;
-	}
 
 	/**
 	 * Location for source code for JGAAP project. 
 	 */
 	public static final String JGAAP_SRCDIR = path + "src/";
 
-	public static String srcDir() {
-		return JGAAP_SRCDIR;
-	}
-
 	/**
 	 * Location for documentation objects.
 	 */
 	public static final String JGAAP_DOCSDIR = path + "docs/";
-
-	public static String docsDir() {
-		return JGAAP_DOCSDIR;
-	}
 
 	/**
 	 * Location for utility programs. Not final but should not be changed.
 	 */
 	public static final String JGAAP_UTILDIR = path + "util/";
 
-	public static String utilDir() {
-		return JGAAP_UTILDIR;
-	}
-
 	/**
 	 * Location of the "tmp" directory - FIXME: I'm not sure that JGAAP should
 	 * be producing temporary files, but SVM needs this.
 	 */
 	public static final String JGAAP_TMPDIR = path + "tmp/";
-
-	public static String tmpDir() {
-		return JGAAP_TMPDIR;
-	}
 
 	private static String processPath(String path) {
 		path = path.replaceAll("bin$", "");
@@ -100,10 +75,6 @@ public class JGAAPConstants {
 			path+="/";
 		}
 		return path;
-	}
-
-	public static URL getLocation() {
-		return JGAAP.class.getResource("");
 	}
 
 	public static final String JGAAP_RESOURCE_PACKAGE = "/com/jgaap/resources/";

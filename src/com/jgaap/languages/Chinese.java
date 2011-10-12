@@ -29,7 +29,7 @@ import com.jgaap.generics.Language;
  */
 public class Chinese extends Language {
 	public Chinese() {
-		super("Chinese", "chinese", "GB2123");
+		super("Chinese (GB2123)", "chinese", "GB2123");
 	}
 
 	public boolean showInGUI() {

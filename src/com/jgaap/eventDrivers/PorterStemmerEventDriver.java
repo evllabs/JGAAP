@@ -56,7 +56,7 @@ public class PorterStemmerEventDriver extends EventDriver {
 	@Override
 	public boolean showInGUI() {
 		// only valid for English documents
-		return API.getInstance().getLanguage().displayName().equalsIgnoreCase("english");
+		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
 	}
 
 	// Peter - Changed Jan 21 2010

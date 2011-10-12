@@ -45,7 +45,7 @@ public abstract class Language implements Comparable<Language>, Displayable {
  * 
  * @param name - display name of language (user visable)
  * @param language - internal name of language (checked against valid languages list in event set and analysis)
- * @param charset - the character set to read documents in with (set to null for unicode UTC-8)
+ * @param charset - the character set to read documents in with (set to null to use system default)
  */
 	public Language(String name, String language, String charset) {
 		if (name != null)
