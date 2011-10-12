@@ -32,7 +32,7 @@ import com.jgaap.generics.EventSet;
  * @author Juola
  * @version 1.0
  */
-public class CamberraDistance extends DistanceFunction {
+public class CanberraDistance extends DistanceFunction {
 
 	public String displayName() {
 		return "Camberra Distance";
