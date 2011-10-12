@@ -16,7 +16,7 @@ public class WEKAJ48DecisionTree extends WEKAAnalysis {
 
 	@Override
 	public boolean showInGUI() {
-		return false;
+		return true;
 	}
 	
 	public Classifier getClassifier() {
