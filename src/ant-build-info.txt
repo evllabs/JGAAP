@@ -4,9 +4,6 @@
 
 # Then, run whichever of these commands suits you:
 
-# This will compile everything and build jgaap.jar
-ant jar
-
 # This will compile everything and launch the GUI
 ant run-gui
 

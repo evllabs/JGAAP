@@ -42,7 +42,7 @@ public class TruncatedFreqEventDriver extends EventDriver {
     
     @Override
     public boolean showInGUI(){
-    	return API.getInstance().getLanguage().displayName().equalsIgnoreCase("english");
+    	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
     }
 
     private EventDriver theDriver;

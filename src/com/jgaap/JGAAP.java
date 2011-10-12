@@ -38,17 +38,13 @@ public class JGAAP {
 	static Logger mainLogger = Logger.getLogger(JGAAP.class);
 	
 	public static boolean commandline = false;
-    public static final boolean DEBUG = true;
 
     /**
      * Launches the jgaap GUI.
      */
     private static void createAndShowGUI() {
-    	// Note that the GUI object is stored in the globalObjects HashMap
-    	// under the key "gui" so other objects can access it easily
     	JGAAP_UI_MainForm gui = new JGAAP_UI_MainForm();
     	gui.setVisible(true);
-//        jgaapConstants.globalObjects.put("gui", (gui));
     }
 
 /**

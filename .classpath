@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.1.5_jdk.jar"/>
 	<classpathentry kind="lib" path="lib/external/weka.jar"/>
 	<classpathentry kind="lib" path="lib/external/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/external/WordSegment.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

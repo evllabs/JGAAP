@@ -289,7 +289,7 @@ public class DefinitionsEventDriver extends EventDriver {
 	@Override
 	public boolean showInGUI() {
 		// TODO Auto-generated method stub
-		return API.getInstance().getLanguage().displayName().equalsIgnoreCase("English");
+		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("English");
 	}
 
 	@Override
