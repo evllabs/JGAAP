@@ -33,7 +33,7 @@ import com.jgaap.generics.EventSet;
  * @author Nicole
  *
  */
-public class CamberraDistanceTest {
+public class CanberraDistanceTest {
 
 	/**
 	 * Test method for {@link com.jgaap.distances.CamberraDistance#distance(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}.
@@ -55,7 +55,7 @@ public class CamberraDistanceTest {
 		test1.add(new Event("."));
 		es1.addEvents(test1);
 		es2.addEvents(test1);
-		assertTrue(new CamberraDistance().distance(es1, es2) == 0.00);
+		assertTrue(new CanberraDistance().distance(es1, es2) == 0.00);
 		
 		Vector<Event> test2 = new Vector<Event>();
 		test2.add(new Event("3"));
@@ -70,7 +70,7 @@ public class CamberraDistanceTest {
 		test2.add(new Event("33"));
 		es2 = new EventSet();
 		es2.addEvents(test2);
-		double result = new CamberraDistance().distance(es1, es2);
+		double result = new CanberraDistance().distance(es1, es2);
 		new Double(result).compareTo(20.0);
 		System.out.println(result);
 		assertTrue(DistanceTestHelper.inRange(result, 20.0, 0.0000000001));
