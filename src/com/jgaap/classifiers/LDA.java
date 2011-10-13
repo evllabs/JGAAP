@@ -96,31 +96,41 @@ public class LDA extends AnalysisDriver {
 		// more than 50 authors.
 		// Why not make this the actual count of known authors?
 		// Or make this a List instead?
+		
+		/* These classifications are simply integers such that classifications[i] denotes
+		 * the class to which the ith row of the features array belongs.*/
 		int[] tmpClassifications = new int[known.size()];
-		EventSet theEvent;
+		
+		//Collect all unique Events into vocab
 		vocab = new TreeSet<Event>();
 		for (int i = 0; i < known.size(); i++) {
 			for (int j = 0; j < known.get(i).size(); j++) {
 				vocab.add(known.get(i).eventAt(j));
 			}
 		}
+		
+		//Collect all unique known authors
+		//Also construct the array of classifications of each row
+		//  of the feature matrix.
+		EventSet theEvent;
+		boolean found;
 		for (int i = 0; i < known.size(); i++) {
-			boolean found = false;
+			found = false;
 			theEvent = known.get(i);
-			for (int j = 0; j < authors.length; j++) {
+			for (int j = 0; j < authors.length; j++) { //Maybe only go to numGroups here?
 				if (theEvent.getAuthor().equals(authors[j])) {
 					found = true;
 					tmpClassifications[i] = j;
 				}
 			}
 			if (!found) {
+				authors[numGroups] = theEvent.getAuthor();
+				tmpClassifications[i] = numGroups;
 				numGroups++;
-				authors[numGroups - 1] = theEvent.getAuthor();
-				tmpClassifications[i] = numGroups - 1;
 			}
 		}
+		
 		double[][] knownMatrix = new double[known.size()][];
-
 		for (int i = 0; i < known.size(); i++) {
 			knownMatrix[i] = matrixFactory.getRow(known.get(i), vocab,1000);
 		}
