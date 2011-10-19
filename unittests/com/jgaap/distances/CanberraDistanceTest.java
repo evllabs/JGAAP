@@ -36,7 +36,7 @@ import com.jgaap.generics.EventSet;
 public class CanberraDistanceTest {
 
 	/**
-	 * Test method for {@link com.jgaap.distances.CamberraDistance#distance(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}.
+	 * Test method for {@link com.jgaap.distances.CanberraDistance#distance(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}.
 	 */
 	@Test
 	public void testDistance() {
