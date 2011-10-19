@@ -35,11 +35,11 @@ import com.jgaap.generics.EventSet;
 public class CanberraDistance extends DistanceFunction {
 
 	public String displayName() {
-		return "Camberra Distance";
+		return "Canberra Distance";
 	}
 
 	public String tooltipText() {
-		return "Camberra Distance Nearest Neighbor Classifier";
+		return "Canberra Distance Nearest Neighbor Classifier";
 	}
 
 	public boolean showInGUI() {
@@ -47,13 +47,13 @@ public class CanberraDistance extends DistanceFunction {
 	}
 
 	/**
-	 * Returns Camberra distance between event sets es1 and es2
+	 * Returns Canberra distance between event sets es1 and es2
 	 * 
 	 * @param es1
 	 *            The first EventSet
 	 * @param es2
 	 *            The second EventSet
-	 * @return the Camberra distance between them
+	 * @return the Canberra distance between them
 	 */
 	@Override
 	public double distance(EventSet es1, EventSet es2) {
