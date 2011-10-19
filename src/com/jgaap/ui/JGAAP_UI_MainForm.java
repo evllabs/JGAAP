@@ -50,6 +50,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 import javax.swing.tree.TreePath;
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.log4j.Logger;
 //import java.awt.event.*;
 
 import com.jgaap.generics.*;
@@ -64,6 +66,8 @@ import java.io.IOException;
 public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 
+	static Logger logger = Logger.getLogger(JGAAP_UI_MainForm.class); 
+	
     JGAAP_UI_NotesDialog NotesPage = new JGAAP_UI_NotesDialog(JGAAP_UI_MainForm.this, true);
     JGAAP_UI_ResultsDialog ResultsPage = new JGAAP_UI_ResultsDialog(JGAAP_UI_MainForm.this, false);
     String[] Notes = new String [5];
@@ -2190,12 +2194,12 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         if (row >= 0) {
             DocumentList = JGAAP_API.getDocuments();
             Document temp = DocumentList.get(row);
-            temp.clearCanonicizers();
-            for (int i = 0; i < SelectedCanonicizerList.size(); i++) {
+            DocType docType = temp.getDocType();
+            for (Canonicizer canonicizer : SelectedCanonicizerList) {
                 try {
-                    JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName(),temp);
+                    JGAAP_API.addCanonicizer(canonicizer.displayName(), docType);
                 } catch (Exception e) {
-                	e.printStackTrace();
+                	logger.error("Problem Adding Canonicizer "+canonicizer.displayName()+" to DocType "+docType.toString(), e);
                 	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
