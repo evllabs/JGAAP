@@ -28,51 +28,53 @@ import java.io.IOException;
 public class JGAAPConstants {
 
 	private static String path;
+	
+	public static String separator = System.getProperty("path.separator");
 
 	static {
 		try {
 			path = processPath(new File(".").getCanonicalPath());
 		} catch (IOException e) {
-			path = "../";
+			path = ".."+separator;
 		}
 	}
 
 	/**
 	 * Location for binary (executable) objects. 
 	 */
-	public static final String JGAAP_BINDIR = path + "bin/";
+	public static final String JGAAP_BINDIR = path + "bin"+separator;
 
 	/**
 	 * Location for libraries such as word lists. 
 	 */
-	public static final String JGAAP_LIBDIR = path + "lib/";
+	public static final String JGAAP_LIBDIR = path + "lib"+separator;
 
 	/**
 	 * Location for source code for JGAAP project. 
 	 */
-	public static final String JGAAP_SRCDIR = path + "src/";
+	public static final String JGAAP_SRCDIR = path + "src"+separator;
 
 	/**
 	 * Location for documentation objects.
 	 */
-	public static final String JGAAP_DOCSDIR = path + "docs/";
+	public static final String JGAAP_DOCSDIR = path + "docs"+separator;
 
 	/**
 	 * Location for utility programs. Not final but should not be changed.
 	 */
-	public static final String JGAAP_UTILDIR = path + "util/";
+	public static final String JGAAP_UTILDIR = path + "util"+separator;
 
 	/**
 	 * Location of the "tmp" directory - FIXME: I'm not sure that JGAAP should
 	 * be producing temporary files, but SVM needs this.
 	 */
-	public static final String JGAAP_TMPDIR = path + "tmp/";
+	public static final String JGAAP_TMPDIR = path + "tmp"+separator;
 
 	private static String processPath(String path) {
 		path = path.replaceAll("bin$", "");
 		path = path.replaceAll("src$", "");
-		if(!path.endsWith("/")){
-			path+="/";
+		if(!path.endsWith(separator)){
+			path+=separator;
 		}
 		return path;
 	}
