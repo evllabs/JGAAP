@@ -22,6 +22,14 @@ package com.jgaap.backend;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
+
 import com.jgaap.JGAAP;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.AnalysisDriver;
@@ -37,16 +45,47 @@ import com.jgaap.generics.Displayable;
  * 
  * @author Michael Ryan
  */
+@SuppressWarnings("static-access")
 public class CLI {
 
+	static Options options = new Options();
+	static Option help = OptionBuilder.withArgName("command").withDescription("print this message.").withLongOpt("help").create('h');
+	static Option version = OptionBuilder.withDescription("print version information").withLongOpt("version").create('v');
+	static Option canonicizers = OptionBuilder.withArgName("canonicizer").hasArgs().withDescription("").withLongOpt("canonicizers").create('c');
+	static Option eventDriver = OptionBuilder.withArgName("event driver").hasArg().withDescription("").withLongOpt("eventset").create("es");
+	static Option eventCullers = OptionBuilder.withArgName("event culler").hasArgs().withDescription("").withLongOpt("eventcullers").create("ec");
+	static Option analysis = OptionBuilder.withArgName("analysis").hasArg().withDescription("").withLongOpt("analysis").create('a');
+	static Option distanceFunction = OptionBuilder.withArgName("distance function").hasArg().withDescription("").withLongOpt("distance").create('d');
+	static Option language = OptionBuilder.withArgName("language").hasArg().withDescription("").withLongOpt("language").create("lang");
+	static Option load = OptionBuilder.withArgName("file").hasArg().withDescription("").withLongOpt("load").create('l');
+	static Option save = OptionBuilder.withArgName("file").hasArg().withDescription("").withLongOpt("save").create('s');
+
+	static{
+		options.addOption(help);
+		options.addOption(version);
+		options.addOption(canonicizers);
+		options.addOption(eventDriver);
+		options.addOption(eventCullers);
+		options.addOption(analysis);
+		options.addOption(distanceFunction);
+		options.addOption(language);
+		options.addOption(load);
+		options.addOption(save);
+	}
+	
+	
 	/**
 	 * Parses the arguments passed to jgaap from the command line. Will either
 	 * display the help or run jgaap on an experiment.
 	 * 
 	 * @param args
 	 *            command line arguments
+	 * @throws ParseException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
+		CommandLineParser parser = new PosixParser();
+		CommandLine cmd = parser.parse(options, args);
+
 		if (args[0].equals("help")) {
 			if (args.length == 1) {
 				System.out
