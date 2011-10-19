@@ -25,7 +25,7 @@ import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
 
 /**
- * Camberra distance, defined as D(x,y) = sum (| (xi -yi)/(xi + yi) |). This is
+ * Canberra distance, defined as D(x,y) = sum (| (xi -yi)/(xi + yi) |). This is
  * YA distance for Nearest Neighbor algorithms, based on (Wilson & Martinez
  * 1997, JAIR).
  * 
