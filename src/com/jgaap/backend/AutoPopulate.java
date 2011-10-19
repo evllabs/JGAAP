@@ -41,7 +41,9 @@ import com.jgaap.generics.*;
  * Preprocessors and populate the GUI with them automatically, eliminating the
  * need to recompile JGAAP every time you add a new canonicizer.
  * 
- * @author Juola/Noecker
+ * @author Michael Ryan
+ * @author John Noecker
+ * @author Patrick Juola
  * @version 4.0
  */
 public class AutoPopulate {
