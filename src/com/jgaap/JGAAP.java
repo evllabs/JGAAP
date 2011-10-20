@@ -65,7 +65,11 @@ public class JGAAP {
             });
         } else {
         	mainLogger.info("Starting CLI");
-            CLI.main(args);
+            try {
+				CLI.main(args);
+			} catch (Exception e) {
+				mainLogger.fatal("Command Line Failure", e);
+			}
         }
     }
 }
