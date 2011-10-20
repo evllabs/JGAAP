@@ -76,7 +76,7 @@ public class CLI {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		CommandLineParser parser = new PosixParser();
+		CommandLineParser parser = new GnuParser();
 		CommandLine cmd = parser.parse(options, args);
 		if (cmd.hasOption('h')) {
 			String command = cmd.getOptionValue('h');
@@ -127,12 +127,8 @@ public class CLI {
 			for (Document document : documents) {
 				api.addDocument(document);
 			}
-			String language = cmd.getOptionValue("lang");
-			if (language != null) {
-				api.setLanguage(language);
-			} else {
-				api.setLanguage("english");
-			}
+			String language = cmd.getOptionValue("lang", "english");
+			api.setLanguage(language);
 			String[] canonicizers = cmd.getOptionValues('c');
 			if (canonicizers != null) {
 				for (String canonicizer : canonicizers) {
