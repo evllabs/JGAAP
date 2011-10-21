@@ -40,19 +40,19 @@ import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
 
 /*
- * LDA class performs linear discriminant analysis on a set of data. NOTE: We
- * are using regularized LDA. To do this, we are adding the appropriately sized
+ * OldLDA class performs linear discriminant analysis on a set of data. NOTE: We
+ * are using regularized OldLDA. To do this, we are adding the appropriately sized
  * identity matrix to the covariant matrix in order to guarantee that it is
  * invertible (nonsingular). Please see
  * "Linear Discriminant Analysis Numerical Example" by Dr. Kardi Teknomo for the
  * algorithm used within. At the time of writing, this article was available at
- * http://people.revoledu.com/kardi/tutorial/LDA/Numerical%20Example.html
+ * http://people.revoledu.com/kardi/tutorial/OldLDA/Numerical%20Example.html
  *
  * @author John Noecker Jr.
  */
-public class LDA extends AnalysisDriver {
+public class OldLDA extends AnalysisDriver {
 	public String displayName(){
-		return "LDA";
+		return "OldLDA";
 	}
 
 	public String tooltipText(){
@@ -77,7 +77,7 @@ public class LDA extends AnalysisDriver {
 	String[]           authors;
 	TreeSet<Event>     vocab;
 
-	public LDA() {
+	public OldLDA() {
 		super();
 	}
 
@@ -170,7 +170,7 @@ public class LDA extends AnalysisDriver {
 	}
 
 	/**
-	 * The LDA class should be fed an array of features, where each row
+	 * The OldLDA class should be fed an array of features, where each row
 	 * represents one object from the training data, and each column is a single
 	 * feature. An array of classifications must also be passed. These
 	 * classifications are simply integers such that classifications[i] denotes
@@ -190,7 +190,7 @@ public class LDA extends AnalysisDriver {
 	}
 
 	/**
-	 * Get the classification assigned by LDA to a given set of features (a
+	 * Get the classification assigned by OldLDA to a given set of features (a
 	 * datapoint). Notice that, because the JMathTools package only works with
 	 * double[][] matrices, we need to do some funky things (have double[1][x]
 	 * matrices) to convert our data into the appropriate form needed to process
@@ -223,8 +223,8 @@ public class LDA extends AnalysisDriver {
 	}
 
 	/**
-	 * Provides the preliminary setup for the LDA by setting up the
-	 * various variables which will be used in LDA.
+	 * Provides the preliminary setup for the OldLDA by setting up the
+	 * various variables which will be used in OldLDA.
 	 */
 	@SuppressWarnings("unchecked")
 	void prelim() {
@@ -307,7 +307,7 @@ public class LDA extends AnalysisDriver {
 	}
 
 	/**
-	 *  Print out various variables used internally in the LDA
+	 *  Print out various variables used internally in the OldLDA
 	 *  class for testing purposes.
 	 */
 	void printInfo() {
