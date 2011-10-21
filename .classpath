@@ -33,5 +33,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/trunk/lib/external/commons-cli-1.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/jscience-mathematics-5.0-20110719.131022-3-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
