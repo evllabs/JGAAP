@@ -1,6 +1,8 @@
 package com.jgaap.backend;
 
 import java.util.LinkedList;
+
+import org.apache.log4j.Logger;
 /**
  * 
  * Work is queued up and workers being as it comes in
@@ -11,6 +13,8 @@ import java.util.LinkedList;
 @SuppressWarnings("rawtypes")
 public final class WorkQueue {
 
+	static Logger logger = Logger.getLogger(WorkQueue.class);
+	
 	private final int nThreads;
 	private final PoolWorker[] threads;
 	private final LinkedList queue;
@@ -67,7 +71,7 @@ public final class WorkQueue {
 				try {
 					r.run();
 				} catch (RuntimeException e) {
-					// You might want to log something here
+					logger.error("Error starting worker", e);
 				}
 			}
 		}
