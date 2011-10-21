@@ -125,17 +125,19 @@ public class LDA extends AnalysisDriver {
 				fValue = fValue + Math.log(priorProbabilities.get(i));
 				discriminantValues.add(fValue);
 			}
-		}
+			
+			/**
+			 * 
+			 * Dear Michael,
+			 * 
+			 * Please insert code here to make LDA useful.
+			 * 
+			 * Love your dear friend John
+			 * 
+			 */
 
-		/**
-		 * 
-		 * Dear Michael,
-		 * 
-		 * Please insert code here to make LDA useful.
-		 * 
-		 * Love your dear friend John
-		 * 
-		 */
+		
+		}
 
 		return null;
 	}
