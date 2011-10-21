@@ -41,7 +41,7 @@ import com.jgaap.generics.*;
 public class CLI {
 
 	static Options options = new Options();
-	static Option help = OptionBuilder.withArgName("command").withDescription("print this message.").withLongOpt("help").create('h');
+	static Option help = OptionBuilder.withArgName("command").hasOptionalArg().withDescription("print this message.").withLongOpt("help").create('h');
 	static Option version = OptionBuilder.withDescription("print version information").withLongOpt("version").create('v');
 	static Option canonicizers = OptionBuilder.withArgName("canonicizer").hasArgs().withDescription("").withLongOpt("canonicizers").create('c');
 	static Option eventDriver = OptionBuilder.withArgName("event driver").hasArg().withDescription("").withLongOpt("eventset").create("es");
