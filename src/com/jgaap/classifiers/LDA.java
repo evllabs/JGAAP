@@ -28,6 +28,13 @@ public class LDA extends AnalysisDriver {
 		return true;
 	}
 	
+	private HashMap<Integer, String> authorNumberMap;
+	
+	public LDA() {
+		super();
+		authorNumberMap = new HashMap<Integer, String>();
+	}
+	
 	@Override
 	public synchronized List<List<Pair<String, Double>>> analyze(List<EventSet> unknownSet, List<EventSet> knownSet) {
 		
@@ -133,7 +140,9 @@ public class LDA extends AnalysisDriver {
 		int i = 0;
 		for(EventSet es : eventSets) {
 			if(authors.get(es.getAuthor()) == null) {
-				authors.put(es.getAuthor(), authorNumber++);
+				authors.put(es.getAuthor(), authorNumber);
+				authorNumberMap.put(authorNumber, es.getAuthor());
+				authorNumber++;
 			}
 			authorVector[i++] = authors.get(es.getAuthor());
 		}
