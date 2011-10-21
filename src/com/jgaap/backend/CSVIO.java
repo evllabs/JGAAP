@@ -20,19 +20,8 @@
 
 package com.jgaap.backend;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 /*
  * MVR 8/1/2008 This class will handle all IO for CSV files. readCSV- Input:
@@ -43,206 +32,209 @@ import java.util.List;
  */
 /**
  * 
- * This class is the prettiest in all of jgaap.
- * This class handles the parsing and creation of CSV files.
+ * This class is the prettiest in all of jgaap. This class handles the parsing
+ * and creation of CSV files.
  * 
- * @author Michael Ryan 
+ * @author Michael Ryan
  */
 public class CSVIO {
 
-
-    /**
-     * This method creates and writes to a csv file and releases the Vectors back to memory.
-     * @param informationMatrix contains the information you want in each cell and where you want the cells
-     * @param fileName name of the csv file that will be created
-     */
-    public static void altWriteCSV(List<List<String>> informationMatrix,
-            String fileName) {
-        File file = new File(fileName);
-        try {
-            Writer output = new BufferedWriter(new FileWriter(file));
-            while (!informationMatrix.isEmpty()) {
-                List<String> currentRow = informationMatrix.remove(0);
-                StringBuffer row = new StringBuffer();
-                while (!currentRow.isEmpty()) {
-                    String entry = currentRow.remove(0);
-                    StringBuffer thisEntry = new StringBuffer();
-                    boolean quoteFlag = false;
-                    for (int i = 0; i < entry.length(); i++) {
-                        if (entry.charAt(i) == '"') {
-                            quoteFlag = true;
-                            thisEntry.append("\"\"");
-                        } else if (entry.charAt(i) == ',') {
-                            quoteFlag = true;
-                            thisEntry.append(',');
-                        } else {
-                            thisEntry.append(entry.charAt(i));
-                        }
-                    }
-                    if (quoteFlag) {
-                        row.append('"');
-                        row.append(thisEntry);
-                        row.append("\",");
-                    } else {
-                        row.append(thisEntry);
-                        row.append(',');
-                    }
-                    if (currentRow.isEmpty()) {
-                        row.replace(row.length() - 1, row.length(), "\n");
-                    }
-                }
-                output.write(row.toString());
-            }
-            output.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-/**
- * This method prints the the current matrix to the terminal in a similar way 
- * to how it will appear in the csv. This is for testing purposes.
- * @param csvMatrix contains the information you want in each cell and where you want the cells
- */
-    public static void printCSV(List<List<String>> csvMatrix) {
-        for (List<String> line : csvMatrix) {
-            System.out.println(line);
-        }
-    }
-    /**
-     * parses a csv document and places it in a representation of columns and rows using vectors
-     * @param file the csv file
-     * @return a vector of vectors of strings this gives a representation of information in string within the vectors  
-     */
-    public static List<List<String>> readCSV(InputStream is) {
-        List<List<String>> rows = new ArrayList<List<String>>();
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            String rowText = "";
-            while ((rowText = br.readLine()) != null) {
-                List<String> column = new ArrayList<String>();
-                StringBuffer buffer = new StringBuffer();
-                int state = 1;
-                // loop through the row of test using a finite state machine to
-                // parse the input
-                for (int i = 0; i < rowText.length(); i++) {
-                    switch (state) {
-                        case 1:
-                            if (rowText.charAt(i) == ',') {
-                                column.add(buffer.toString());
-                                buffer = new StringBuffer();
-                            } else if (rowText.charAt(i) == '"') {
-                                state = 2;
-                            } else {
-                                buffer.append(rowText.charAt(i));
-                            }
-                            break;
-                        case 2:
-                            if (rowText.charAt(i) == '"') {
-                                state = 3;
-                            } else {
-                                buffer.append(rowText.charAt(i));
-                            }
-                            break;
-                        case 3:
-                            if (rowText.charAt(i) == ',') {
-                                column.add(buffer.toString());
-                                buffer = new StringBuffer();
-                                state = 1;
-                            } else if (rowText.charAt(i) == '"') {
-                                buffer.append('"');
-                                state = 2;
-                            } else {
-                                System.out.println("ERROR READING CSV");
-                                System.exit(-1);
-                            }
-                            break;
-                    }
-                }
-                column.add(buffer.toString());
-                if (column.size() > 0) {
-                    rows.add(column);
-                }
-            }
-            br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return rows;
-    }
-
-    public static List<List<String>> readCSV(String fileName) {
-        try {
-			return readCSV(new FileInputStream(fileName));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return Collections.emptyList();
+	/**
+	 * This method creates and writes to a csv file and releases the Vectors
+	 * back to memory.
+	 * 
+	 * @param informationMatrix
+	 *            contains the information you want in each cell and where you
+	 *            want the cells
+	 * @param fileName
+	 *            name of the csv file that will be created
+	 * @throws IOException
+	 */
+	public static void altWriteCSV(List<List<String>> informationMatrix,
+			String fileName) throws IOException {
+		File file = new File(fileName);
+		Writer output = new BufferedWriter(new FileWriter(file));
+		while (!informationMatrix.isEmpty()) {
+			List<String> currentRow = informationMatrix.remove(0);
+			StringBuffer row = new StringBuffer();
+			while (!currentRow.isEmpty()) {
+				String entry = currentRow.remove(0);
+				StringBuffer thisEntry = new StringBuffer();
+				boolean quoteFlag = false;
+				for (int i = 0; i < entry.length(); i++) {
+					if (entry.charAt(i) == '"') {
+						quoteFlag = true;
+						thisEntry.append("\"\"");
+					} else if (entry.charAt(i) == ',') {
+						quoteFlag = true;
+						thisEntry.append(',');
+					} else {
+						thisEntry.append(entry.charAt(i));
+					}
+				}
+				if (quoteFlag) {
+					row.append('"');
+					row.append(thisEntry);
+					row.append("\",");
+				} else {
+					row.append(thisEntry);
+					row.append(',');
+				}
+				if (currentRow.isEmpty()) {
+					row.replace(row.length() - 1, row.length(), "\n");
+				}
+			}
+			output.write(row.toString());
 		}
-    }
+		output.close();
+	}
 
-    
-    /**
-     * writes to the csv without releasing the Vector to memory 
-     * @param csvMatrix contains the information you want in each cell and where you want the cells
-     * @param file the csv file you want to create
-     */
-    public static void writeCSV(List<List<String>> csvMatrix, File file) {
-        try {
-            Writer output = new BufferedWriter(new FileWriter(file));
-            for (int i = 0; i < csvMatrix.size(); i++) {
-                List<String> row = csvMatrix.get(i);
-                StringBuffer rowBuffer = new StringBuffer();
-                boolean first = true;
-                for (int j = 0; j < row.size(); j++) {
-                    StringBuffer thisEntry = new StringBuffer();
-                    String entry = row.get(j);
-                    boolean quoteFlag = false;
-                    for (int k = 0; k < entry.length(); k++) {
-                        if (entry.charAt(k) == '"') {
-                            quoteFlag = true;
-                            thisEntry.append("\"\"");
-                        } else if (entry.charAt(k) == ',') {
-                            quoteFlag = true;
-                            thisEntry.append(',');
-                        } else {
-                            thisEntry.append(entry.charAt(k));
-                        }
-                    }
-                    if (quoteFlag) {
-                        if (first) {
-                            rowBuffer.append('"');
-                        } else {
-                            rowBuffer.append(",\"");
-                        }
-                        rowBuffer.append(thisEntry);
-                        rowBuffer.append('"');
-                    } else {
-                        if (!first) {
-                            rowBuffer.append(',');
-                        }
-                        rowBuffer.append(thisEntry);
-                    }
-                    if ((row.size() - 1) == j) {
-                        rowBuffer.append("\n");
-                    }
-                    first = false;
-                }
-                output.write(rowBuffer.toString());
-            }
-            output.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-/**
- * Creates and writes to a file in the csv format 
- * @param csvMatrix information to be writen to file
- * @param fileName name of the file to be creatd and writen
- */
-    public static void writeCSV(List<List<String>> csvMatrix,
-            String fileName) {
-        File file = new File(fileName);
-        writeCSV(csvMatrix, file);
-    }
+	/**
+	 * This method prints the the current matrix to the terminal in a similar
+	 * way to how it will appear in the csv. This is for testing purposes.
+	 * 
+	 * @param csvMatrix
+	 *            contains the information you want in each cell and where you
+	 *            want the cells
+	 */
+	public static void printCSV(List<List<String>> csvMatrix) {
+		for (List<String> line : csvMatrix) {
+			System.out.println(line);
+		}
+	}
+
+	/**
+	 * parses a csv document and places it in a representation of columns and
+	 * rows using vectors
+	 * 
+	 * @param file
+	 *            the csv file
+	 * @return a vector of vectors of strings this gives a representation of
+	 *         information in string within the vectors
+	 * @throws IOException 
+	 */
+	public static List<List<String>> readCSV(InputStream is) throws IOException {
+		List<List<String>> rows = new ArrayList<List<String>>();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		String rowText = "";
+		while ((rowText = br.readLine()) != null) {
+			List<String> column = new ArrayList<String>();
+			StringBuffer buffer = new StringBuffer();
+			int state = 1;
+			// loop through the row of test using a finite state machine to
+			// parse the input
+			for (int i = 0; i < rowText.length(); i++) {
+				switch (state) {
+				case 1:
+					if (rowText.charAt(i) == ',') {
+						column.add(buffer.toString());
+						buffer = new StringBuffer();
+					} else if (rowText.charAt(i) == '"') {
+						state = 2;
+					} else {
+						buffer.append(rowText.charAt(i));
+					}
+					break;
+				case 2:
+					if (rowText.charAt(i) == '"') {
+						state = 3;
+					} else {
+						buffer.append(rowText.charAt(i));
+					}
+					break;
+				case 3:
+					if (rowText.charAt(i) == ',') {
+						column.add(buffer.toString());
+						buffer = new StringBuffer();
+						state = 1;
+					} else if (rowText.charAt(i) == '"') {
+						buffer.append('"');
+						state = 2;
+					} else {
+						System.out.println("ERROR READING CSV");
+						System.exit(-1);
+					}
+					break;
+				}
+			}
+			column.add(buffer.toString());
+			if (column.size() > 0) {
+				rows.add(column);
+			}
+		}
+		br.close();
+		return rows;
+	}
+
+	public static List<List<String>> readCSV(String fileName) throws IOException , FileNotFoundException {
+			return readCSV(new FileInputStream(fileName));
+	}
+
+	/**
+	 * writes to the csv without releasing the Vector to memory
+	 * 
+	 * @param csvMatrix
+	 *            contains the information you want in each cell and where you want the cells
+	 * @param file
+	 *            the csv file you want to create
+	 * @throws IOException 
+	 */
+	public static void writeCSV(List<List<String>> csvMatrix, File file) throws IOException {
+			Writer output = new BufferedWriter(new FileWriter(file));
+			for (int i = 0; i < csvMatrix.size(); i++) {
+				List<String> row = csvMatrix.get(i);
+				StringBuffer rowBuffer = new StringBuffer();
+				boolean first = true;
+				for (int j = 0; j < row.size(); j++) {
+					StringBuffer thisEntry = new StringBuffer();
+					String entry = row.get(j);
+					boolean quoteFlag = false;
+					for (int k = 0; k < entry.length(); k++) {
+						if (entry.charAt(k) == '"') {
+							quoteFlag = true;
+							thisEntry.append("\"\"");
+						} else if (entry.charAt(k) == ',') {
+							quoteFlag = true;
+							thisEntry.append(',');
+						} else {
+							thisEntry.append(entry.charAt(k));
+						}
+					}
+					if (quoteFlag) {
+						if (first) {
+							rowBuffer.append('"');
+						} else {
+							rowBuffer.append(",\"");
+						}
+						rowBuffer.append(thisEntry);
+						rowBuffer.append('"');
+					} else {
+						if (!first) {
+							rowBuffer.append(',');
+						}
+						rowBuffer.append(thisEntry);
+					}
+					if ((row.size() - 1) == j) {
+						rowBuffer.append("\n");
+					}
+					first = false;
+				}
+				output.write(rowBuffer.toString());
+			}
+			output.close();
+	}
+
+	/**
+	 * Creates and writes to a file in the csv format
+	 * 
+	 * @param csvMatrix
+	 *            information to be writen to file
+	 * @param fileName
+	 *            name of the file to be creatd and writen
+	 * @throws IOException 
+	 */
+	public static void writeCSV(List<List<String>> csvMatrix, String fileName) throws IOException {
+		File file = new File(fileName);
+		writeCSV(csvMatrix, file);
+	}
 }
