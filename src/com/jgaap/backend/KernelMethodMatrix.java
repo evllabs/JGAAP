@@ -29,7 +29,7 @@ import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
 
 /**
- * KernelMethodDistance: Uses LDA, PCA, SVM as appropriate to classify unknowns
+ * KernelMethodDistance: Uses OldLDA, PCA, SVM as appropriate to classify unknowns
  * as appropriate.
  * This essentially calculates a histogram of the event set passed in, including only
  * those events from a specified vocabulary, and returns it as a vector to be used
