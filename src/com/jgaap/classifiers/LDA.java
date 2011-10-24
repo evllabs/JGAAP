@@ -1,10 +1,9 @@
 package com.jgaap.classifiers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventSet;
@@ -108,12 +107,14 @@ public class LDA extends AnalysisDriver {
 		
 		// Calculate discriminant functions
 		List<Double> discriminantValues = new ArrayList<Double>();
+		List<List<Pair<String,Double>>> results = new ArrayList<List<Pair<String, Double>>>();
 		for(int j = 0; j < unknownFeatures.length; j++) {
 			Float64Vector observation = Float64Vector.valueOf(unknownFeatures[j]);
 			observation = observation.minus(mu); // Mean correct test vector
 			Float64Matrix trainingMatrix = Float64Matrix.valueOf(observation);
 			Float64Matrix trainingMatrixTranspose = trainingMatrix.transpose();
 			
+			List<Pair<String, Double>> result = new ArrayList<Pair<String,Double>>();
 			for(int i = 0; i < numAuthors; i++) {
 				Matrix<Float64> mean = Float64Matrix.valueOf(Float64Vector.valueOf(averages.get(i)));
 				Matrix<Float64> meanTranspose = mean.transpose();
@@ -124,8 +125,12 @@ public class LDA extends AnalysisDriver {
 				double fValue = f.get(0, 0).doubleValue();
 				fValue = fValue + Math.log(priorProbabilities.get(i));
 				discriminantValues.add(fValue);
+
+				result.add(new Pair<String,Double>(authorNumberMap.get(i),fValue,2));
 			}
 			
+			Collections.sort(result);
+			results.add(result);
 			/**
 			 * 
 			 * Dear Michael,
@@ -135,11 +140,10 @@ public class LDA extends AnalysisDriver {
 			 * Love your dear friend John
 			 * 
 			 */
-
-		
+			
 		}
 
-		return null;
+		return results;
 	}
 	
 	// Return a vector of the author numbers for each known author.
