@@ -4,26 +4,7 @@
 	<classpathentry kind="src" path="unittests"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/external/abbot.jar"/>
-	<classpathentry kind="lib" path="lib/external/ant.jar"/>
-	<classpathentry kind="lib" path="lib/external/bcmail-jdk14-132.jar"/>
-	<classpathentry kind="lib" path="lib/external/bcprov-jdk14-132.jar"/>
-	<classpathentry kind="lib" path="lib/external/checkstyle-all-4.2.jar"/>
-	<classpathentry kind="lib" path="lib/external/fasttag_v2.jar"/>
-	<classpathentry kind="lib" path="lib/external/FontBox-0.1.0-dev.jar"/>
-	<classpathentry kind="lib" path="lib/external/jmatharray.jar"/>
-	<classpathentry kind="lib" path="lib/external/jmathio.jar"/>
-	<classpathentry kind="lib" path="lib/external/jmathplot.jar"/>
-	<classpathentry kind="lib" path="lib/external/junit.jar"/>
 	<classpathentry kind="lib" path="lib/external/libsvm.jar"/>
-	<classpathentry kind="lib" path="lib/external/lucene-core-2.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/external/lucene-demos-2.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/external/PDFBox-0.7.3.jar"/>
-	<classpathentry kind="lib" path="lib/external/poi-3.5-beta3-20080926.jar"/>
-	<classpathentry kind="lib" path="lib/external/poi-contrib-3.5-beta3-20080926.jar"/>
-	<classpathentry kind="lib" path="lib/external/poi-jdk14-3.5-beta3-20080926.jar"/>
-	<classpathentry kind="lib" path="lib/external/poi-ooxml-3.5-beta3-20080926.jar"/>
-	<classpathentry kind="lib" path="lib/external/poi-scratchpad-3.5-beta3-20080926.jar"/>
 	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.1.5_jdk.jar"/>
 	<classpathentry kind="lib" path="lib/external/weka.jar"/>
 	<classpathentry kind="lib" path="lib/external/log4j-1.2.16.jar"/>
@@ -33,5 +14,11 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/trunk/lib/external/commons-cli-1.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/fasttag_v2.jar"/>
+	<classpathentry kind="lib" path="lib/external/jmatharray.jar"/>
+	<classpathentry kind="lib" path="lib/external/jmathplot.jar"/>
+	<classpathentry kind="lib" path="lib/external/PDFBox-0.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/external/poi-jdk14-3.5-beta3-20080926.jar"/>
+	<classpathentry kind="lib" path="lib/external/poi-scratchpad-3.5-beta3-20080926.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
