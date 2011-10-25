@@ -28,10 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-import org.math.array.linearalgebra.EigenvalueDecomposition;
 import org.math.plot.FrameView;
 import org.math.plot.Plot2DPanel;
 import org.math.plot.PlotPanel;
+
+import Jama.EigenvalueDecomposition;
+import Jama.Matrix;
 
 import com.jgaap.backend.KernelMethodMatrix;
 import com.jgaap.generics.AnalysisDriver;
@@ -73,7 +75,7 @@ public class SPCA extends AnalysisDriver {
         double[][] basis;
         double[] eigenValue;
         double[] eigenValueDsort;
-        double[][] eigenVectors;
+        Matrix eigenVectors;
         EigenvalueDecomposition e;
         double[][] pBasis;
         double[][] finalMatrix;
@@ -169,7 +171,7 @@ public class SPCA extends AnalysisDriver {
         pBasis = new double[eigenValue.length][2];
 
         e = eigen(covarianceMatrix);
-        eigenValue = e.get1DRealD(); // covariance matrix is symetric, so only
+        eigenValue = e.getRealEigenvalues(); // covariance matrix is symetric, so only
         // real eigenvalues...
 
         /*
@@ -201,8 +203,8 @@ public class SPCA extends AnalysisDriver {
         for (int i = 0; i < eigenValue.length; i++) {
             for (int j = 0; j < eigenValue.length; j++) {
                 if (eigenValue[i] == eigenValueDsort[j]) {
-                    for (int r = 0; r < eigenVectors.length; r++) {
-                        basis[r][j] = eigenVectors[r][i];
+                    for (int r = 0; r < eigenVectors.getRowDimension(); r++) {
+                        basis[r][j] = eigenVectors.get(r, i);
                     }
                 }
             }
@@ -219,7 +221,7 @@ public class SPCA extends AnalysisDriver {
         // create matrix of 1st & 2nd principal components
         // to be used as a basis for projection
         // *****************************************
-        for (int i = 0; i < eigenVectors.length; i++) {
+        for (int i = 0; i < eigenVectors.getRowDimension(); i++) {
             for (int j = 0; j < 2; j++) {
                 pBasis[i][j] = basis[i][j];
             }
