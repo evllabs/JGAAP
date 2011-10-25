@@ -530,8 +530,8 @@ public class API {
 			}
 		}
 		for (AnalysisDriver analysisDriver : analysisDrivers){
-			for (Document unknownDocument : unknownDocuments) {
-				analysisDriver.analyze(unknownDocument, knownDocuments);
+			for(EventDriver eventDriver : eventDrivers){
+				analysisDriver.analyzeDocuments(unknownDocuments, knownDocuments, eventDriver);
 			}
 		}
 	}
