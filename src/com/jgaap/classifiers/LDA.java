@@ -110,7 +110,6 @@ public class LDA extends AnalysisDriver {
 		List<List<Pair<String,Double>>> results = new ArrayList<List<Pair<String, Double>>>();
 		for(int j = 0; j < unknownFeatures.length; j++) {
 			Float64Vector observation = Float64Vector.valueOf(unknownFeatures[j]);
-			observation = observation.minus(mu); // Mean correct test vector
 			Float64Matrix trainingMatrix = Float64Matrix.valueOf(observation);
 			Float64Matrix trainingMatrixTranspose = trainingMatrix.transpose();
 			
