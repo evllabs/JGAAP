@@ -1,6 +1,7 @@
 package com.jgaap.classifiers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -39,8 +40,11 @@ public class LDA extends AnalysisDriver {
 		
 		// Generate the feature vectors
 		Pair<double[][], double[][]> vectors = FeatureVectorFactory.getNormalizedFeatures(knownSet, unknownSet);
-		double[][] knownFeatures = vectors.getFirst();
-		double[][] unknownFeatures = vectors.getSecond();
+//		double[][] knownFeatures = vectors.getFirst();
+//		double[][] unknownFeatures = vectors.getSecond();
+		
+		double[][] knownFeatures = {{2.95, 6.63}, {2.53, 7.79}, {3.57, 5.65}, {3.16, 5.47}, {2.58, 4.46}, {2.16, 6.22}, {3.27, 3.52}};
+		double[][] unknownFeatures = { {3.57, 5.65}, {3.27, 3.52}, {2.81, 5.46}};
 		
 		// Some information for later
 		double numFeatures = knownFeatures[0].length;
@@ -49,7 +53,10 @@ public class LDA extends AnalysisDriver {
 		// Generate author list
 		Pair<Integer, int[]> authorListPair = getAuthorList(knownSet);
 		int numAuthors = authorListPair.getFirst();
-		int[] authorList = authorListPair.getSecond();
+		//int[] authorList = authorListPair.getSecond();
+		
+		numAuthors = 2;
+		int[] authorList = {0, 0, 0, 0, 1, 1, 1};
 		
 		// Generate the individual training author matrices
 		List<Matrix<Float64>> authorMatrices = new ArrayList<Matrix<Float64>>();
@@ -63,7 +70,7 @@ public class LDA extends AnalysisDriver {
 		// Find overall average
 		Matrix<Float64> allKnownMatrix = Float64Matrix.valueOf(knownFeatures);
 		Float64Vector mu = Float64Vector.valueOf(getAverage(allKnownMatrix));
-		
+
 		// Generate mean corrected training data
 		List<Matrix<Float64>> correctedAuthorMatrices = new ArrayList<Matrix<Float64>>();
 		for(Matrix<Float64> matrix : authorMatrices) {
@@ -73,7 +80,7 @@ public class LDA extends AnalysisDriver {
 			}
 			correctedAuthorMatrices.add(Float64Matrix.valueOf(rows));
 		}
-		
+
 		// Generate within-class covariance matrices
 		List<Matrix<Float64>> covarianceMatrices = new ArrayList<Matrix<Float64>>();
 		for(Matrix<Float64> matrix : correctedAuthorMatrices) {
@@ -91,6 +98,10 @@ public class LDA extends AnalysisDriver {
 					sum = sum + (numTrainingPointsThisAuthor / numTrainingPoints) * covarianceMatrices.get(k).get(i, j).doubleValue();
 				}
 				pooledCovarianceArray[i][j] = sum;
+				// Add an identity matrix to ensure that the covariance matrix is invertible.
+				if(i == j) {
+					//pooledCovarianceArray[i][j] += 0.00001;
+				}
 			}
 		}
 		Matrix<Float64> pooledCovarianceMatrix = Float64Matrix.valueOf(pooledCovarianceArray);
@@ -104,12 +115,13 @@ public class LDA extends AnalysisDriver {
 			double priorProbability = correctedAuthorMatrices.get(i).getNumberOfRows() / numTrainingPoints;
 			priorProbabilities.add(priorProbability);
 		}
-		
+
 		// Calculate discriminant functions
 		List<Double> discriminantValues = new ArrayList<Double>();
 		List<List<Pair<String,Double>>> results = new ArrayList<List<Pair<String, Double>>>();
 		for(int j = 0; j < unknownFeatures.length; j++) {
 			Float64Vector observation = Float64Vector.valueOf(unknownFeatures[j]);
+
 			Float64Matrix trainingMatrix = Float64Matrix.valueOf(observation);
 			Float64Matrix trainingMatrixTranspose = trainingMatrix.transpose();
 			
@@ -117,18 +129,19 @@ public class LDA extends AnalysisDriver {
 			for(int i = 0; i < numAuthors; i++) {
 				Matrix<Float64> mean = Float64Matrix.valueOf(Float64Vector.valueOf(averages.get(i)));
 				Matrix<Float64> meanTranspose = mean.transpose();
-			
+
 				Matrix<Float64> f = mean.times(inversePooledCovarianceMatrix).times(trainingMatrixTranspose);
-				f = f.minus(mean.times(Float64.valueOf(0.5)).times(inversePooledCovarianceMatrix).times(meanTranspose));
+				f = f.plus(mean.times(Float64.valueOf(-0.5)).times(inversePooledCovarianceMatrix).times(meanTranspose));
 				
 				double fValue = f.get(0, 0).doubleValue();
 				fValue = fValue + Math.log(priorProbabilities.get(i));
 				discriminantValues.add(fValue);
-
+				
 				result.add(new Pair<String,Double>(authorNumberMap.get(i),fValue,2));
 			}
-			
+
 			Collections.sort(result);
+			Collections.reverse(result);
 			results.add(result);
 			/**
 			 * 
