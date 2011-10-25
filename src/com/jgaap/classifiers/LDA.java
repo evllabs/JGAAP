@@ -40,12 +40,9 @@ public class LDA extends AnalysisDriver {
 		
 		// Generate the feature vectors
 		Pair<double[][], double[][]> vectors = FeatureVectorFactory.getNormalizedFeatures(knownSet, unknownSet);
-//		double[][] knownFeatures = vectors.getFirst();
-//		double[][] unknownFeatures = vectors.getSecond();
-		
-		double[][] knownFeatures = {{2.95, 6.63}, {2.53, 7.79}, {3.57, 5.65}, {3.16, 5.47}, {2.58, 4.46}, {2.16, 6.22}, {3.27, 3.52}};
-		double[][] unknownFeatures = { {3.57, 5.65}, {3.27, 3.52}, {2.81, 5.46}};
-		
+		double[][] knownFeatures = vectors.getFirst();
+		double[][] unknownFeatures = vectors.getSecond();
+
 		// Some information for later
 		double numFeatures = knownFeatures[0].length;
 		double numTrainingPoints = knownFeatures.length;
@@ -53,11 +50,8 @@ public class LDA extends AnalysisDriver {
 		// Generate author list
 		Pair<Integer, int[]> authorListPair = getAuthorList(knownSet);
 		int numAuthors = authorListPair.getFirst();
-		//int[] authorList = authorListPair.getSecond();
-		
-		numAuthors = 2;
-		int[] authorList = {0, 0, 0, 0, 1, 1, 1};
-		
+		int[] authorList = authorListPair.getSecond();
+
 		// Generate the individual training author matrices
 		List<Matrix<Float64>> authorMatrices = new ArrayList<Matrix<Float64>>();
 		for(int i = 0; i < numAuthors; i++) {
@@ -98,9 +92,10 @@ public class LDA extends AnalysisDriver {
 					sum = sum + (numTrainingPointsThisAuthor / numTrainingPoints) * covarianceMatrices.get(k).get(i, j).doubleValue();
 				}
 				pooledCovarianceArray[i][j] = sum;
+				
 				// Add an identity matrix to ensure that the covariance matrix is invertible.
 				if(i == j) {
-					//pooledCovarianceArray[i][j] += 0.00001;
+					pooledCovarianceArray[i][j] += 0.00001;
 				}
 			}
 		}
