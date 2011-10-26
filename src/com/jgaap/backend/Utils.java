@@ -63,7 +63,7 @@ public class Utils {
 		return writeToFile(filePath, data, true);
 	}
 	
-	public static void saveDocumentsToCSV(List<Document> documents, File file){
+	public static void saveDocumentsToCSV(List<Document> documents, File file) throws IOException{
 		List<List<String>> csvOfDocuments = new ArrayList<List<String>>();
 		for(Document document : documents){
 			List<String> current = new ArrayList<String>();

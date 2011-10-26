@@ -32,11 +32,14 @@ import javax.swing.text.EditorKit;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.pdfbox.pdmodel.PDDocument;
-import org.pdfbox.util.PDFTextStripper;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 
 /**
  * 
@@ -58,6 +61,8 @@ class DocumentHelper {
 			return loadPDF(filepath);
 		} else if (filepath.endsWith(".doc")) {
 			return loadMSWord(filepath);
+		} else if (filepath.endsWith(".docx")){
+			return loadMSWordDocx(filepath);
 		} else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
 			return loadHTML(filepath);
 		} else {
@@ -70,7 +75,7 @@ class DocumentHelper {
 			return DocType.URL;
 		} else if (filepath.endsWith(".pdf")) {
 			return DocType.PDF;
-		} else if (filepath.endsWith(".doc")) {
+		} else if (filepath.endsWith(".doc")||filepath.endsWith(".docx")) {
 			return DocType.DOC;
 		} else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
 			return DocType.HTML;
@@ -166,7 +171,6 @@ class DocumentHelper {
 	 */
 	static private char[] loadMSWord(InputStream filesInputStream)
 			throws IOException {
-		System.out.println("Word Document");
 		POIFSFileSystem fs = new POIFSFileSystem(filesInputStream);
 		HWPFDocument doc = new HWPFDocument(fs);
 		WordExtractor we = new WordExtractor(doc);
@@ -175,6 +179,16 @@ class DocumentHelper {
 		return origText;
 	}
 
+	static private char[] loadMSWordDocx(String filepath) throws IOException {
+		return loadMSWordDocx(new FileInputStream(filepath));
+	}
+	
+	static private char[] loadMSWordDocx(InputStream inputStream) throws IOException{
+		XWPFDocument docx = new XWPFDocument(inputStream);
+		XWPFWordExtractor extractor = new XWPFWordExtractor(docx);
+		return extractor.getText().toCharArray();
+	}
+	
 	/**
 	 * Reads text from a local file. Exceptions are not caught by name. Rather,
 	 * all exceptions are handled through just printing the error message to
@@ -234,21 +248,20 @@ class DocumentHelper {
 	 * @throws BadLocationException
 	 **/
 
-	static public char[] readURLText(String filepath) throws IOException,
-			BadLocationException {
-		char[] rawText;
+	static public char[] readURLText(String filepath) throws IOException, BadLocationException {
 		URL input = new URL(filepath);
 		InputStream is = input.openStream();
 		if (filepath.endsWith(".pdf")) {
-			rawText = loadPDF(is);
+			return loadPDF(is);
 		} else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
-			rawText = loadHTML(is);
+			return loadHTML(is);
 		} else if (filepath.endsWith(".doc")) {
-			rawText = loadMSWord(is);
+			return loadMSWord(is);
+		} else if (filepath.endsWith(".docx")) {
+			return loadMSWordDocx(is);
 		} else {
-			rawText = readText(is, null);
+			return readText(is, null);
 		}
-		return rawText;
 	}
 
 }

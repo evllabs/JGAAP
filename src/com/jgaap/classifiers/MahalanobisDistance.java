@@ -30,7 +30,7 @@ import com.jgaap.generics.Pair;
 import java.util.*;
 
 import static org.math.array.DoubleArray.identity;
-import static org.math.array.DoubleArray.columnVector;
+import static org.math.array.DoubleArray.rowVector;
 import static org.math.array.LinearAlgebra.inverse;
 import static org.math.array.LinearAlgebra.minus;
 import static org.math.array.LinearAlgebra.plus;
@@ -185,7 +185,7 @@ public class MahalanobisDistance extends AnalysisDriver {
 
 			vectX = minus(vectX, vectY);
 
-			double[][] tmpMatrix = times(columnVector(vectX),
+			double[][] tmpMatrix = times(rowVector(vectX),
 					covarMatrixInverse);
 
 			double[] sumMatrix = times(tmpMatrix, vectX);

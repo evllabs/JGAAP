@@ -51,7 +51,7 @@ public class CLI {
 	static Option language = OptionBuilder.withArgName("language").hasArg().withDescription("").withLongOpt("language").create("lang");
 	static Option load = OptionBuilder.withArgName("file").hasArg().withDescription("").withLongOpt("load").create('l');
 	static Option save = OptionBuilder.withArgName("file").hasArg().withDescription("").withLongOpt("save").create('s');
-	static Option experimentEngine = OptionBuilder.withArgName("file").withDescription("").withLongOpt("experimentengine").create("ee");
+	static Option experimentEngine = OptionBuilder.withArgName("file").hasArg().withDescription("").withLongOpt("experimentengine").create("ee");
 
 	static {
 		options.addOption(help);
