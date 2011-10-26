@@ -123,6 +123,8 @@ public class CLI {
 			String command = cmd.getOptionValue('h');
 			if (command == null) {
 				HelpFormatter helpFormatter = new HelpFormatter();
+				helpFormatter.setLeftPadding(5);
+				helpFormatter.setWidth(100);
 				helpFormatter.printHelp(
 								"jgaap -c [canon canon ...] -es [event] -ec [culler culler ...] -a [analysis] <-d [distance]> -l [file] <-s [file]>",
 								"Welcome to JGAAP the Java Graphical Authorship Attribution Program.\nMore information can be found at http://jgaap.com",
