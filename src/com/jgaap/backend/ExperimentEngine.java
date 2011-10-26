@@ -17,17 +17,14 @@
  */
 package com.jgaap.backend;
 
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.io.*;
+import java.text.*;
+import java.util.*;
+
+import org.apache.log4j.Logger;
 
 import com.jgaap.JGAAPConstants;
-import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.Document;
+import com.jgaap.generics.*;
 
 /**
  * Experiment Engine This class takes a csv file of experiments and then will
@@ -36,6 +33,8 @@ import com.jgaap.generics.Document;
  * @author Mike Ryan
  */
 public class ExperimentEngine {
+	
+	static Logger logger = Logger.getLogger(ExperimentEngine.class);
 	
 	private static final int workers = 2;
 	
@@ -103,7 +102,11 @@ public class ExperimentEngine {
 	 */
 
 	public static void runExperiment(String listPath) {
-		runExperiment(CSVIO.readCSV(listPath));
+		try {
+			runExperiment(CSVIO.readCSV(listPath));
+		} catch (IOException e) {
+			logger.fatal("Problem processing experiment file: "+listPath, e);
+		}
 
 	}
 
@@ -118,16 +121,14 @@ public class ExperimentEngine {
 						String number = experimentRow.get(0);
 						List<String> canons = new ArrayList<String>();
 						if (!"".equalsIgnoreCase(experimentRow.get(1).trim())) {
-							String[] canonicizers = experimentRow.get(1).split(
-									"\\|");
+							String[] canonicizers = experimentRow.get(1).split("\\|");
 							canons = new ArrayList<String>();
 							for (String current : canonicizers) {
 								canons.add(current.trim());
 							}
 						}
 						String eventDriver = experimentRow.get(2);
-						String[] eventCullers = experimentRow.get(3).split(
-								"\\|");
+						String[] eventCullers = experimentRow.get(3).split("\\|");
 						String analysis = experimentRow.get(4);
 						String distance = experimentRow.get(5).trim();
 						String documentsPath = experimentRow.get(6);
@@ -169,17 +170,13 @@ public class ExperimentEngine {
 							}
 							Utils.saveFile(fileName, buffer.toString());
 						} catch (Exception e) {
-							Utils.appendToFile(JGAAPConstants.JGAAP_TMPDIR
-									+ "/EEerrors",
-									Arrays.toString(experimentRow.toArray())
-											+ "\n" + e.getMessage()
-											+ "\n------------\n");
+							logger.error("Could not run experiment "+experimentRow.toString(),e);
 						}
 					}
 				};
 				experimentWorkQueue.execute(work);
 			} else {
-				System.out.println("Error wiht");
+				logger.error("Experiment "+experimentRow.toString()+" missing columns");
 			}
 		}
 		for(int i =0; i<workers;i++){
@@ -189,8 +186,7 @@ public class ExperimentEngine {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("Sleeping thread interrupted.", e);
 			}
 		}
 	}

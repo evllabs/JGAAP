@@ -321,7 +321,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 24));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("JGAAP 5.1");
+        jLabel11.setText("JGAAP 5.2");
 
         jLabel12.setText("<html> JGAAP, the Java Graphical Authorship Attribution Program, <br/>is an opensource author attribution / text classification tool <br/>Developed by the EVL lab (Evaluating Variation in Language Labratory) <br/> Released by Patrick Juola under the GPL v3.0");
 
@@ -1698,8 +1698,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             catch (Exception e)
             {
-            	e.printStackTrace();
-            	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+            	logger.error("Unable to save documents to csv", e);
+            	JOptionPane.showMessageDialog(this, "Unable to save documents to csv", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BatchSaveMenuItemActionPerformed
@@ -1758,8 +1758,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedAnalysisMethodListBox();
         } catch (Exception e){
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+        	logger.error("Problem adding all analysis drivers", e);
+        	JOptionPane.showMessageDialog(this, "Problem adding all anaysis drivers", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_AnalysisMethodPanel_AddAllAnalysisMethodsButtonActionPerformed
 
@@ -1823,8 +1823,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedAnalysisMethodListBox();
         } catch (Exception e){
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+        	logger.error("Error adding analysis", e);
+        	JOptionPane.showMessageDialog(this, "Error adding analysis", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -1887,8 +1887,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedEventCullingListBox();
         } catch (Exception e){
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+        	logger.error("Error adding all EventCullers", e);
+        	JOptionPane.showMessageDialog(this, "Error adding all EventCullers", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }        // TODO add your handling code here:
 }//GEN-LAST:event_EventCullingPanel_AddAllEventCullingButtonActionPerformed
 
@@ -1911,8 +1911,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             JGAAP_API.addEventCuller(EventCullingPanel_EventCullingListBox.getSelectedValue().toString());
             UpdateSelectedEventCullingListBox();
         } catch (Exception e){
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+        	logger.error("Error adding EventCuller "+EventCullingPanel_EventCullingListBox.getSelectedValue().toString(), e);
+        	JOptionPane.showMessageDialog(this, "Error adding EventCuller "+EventCullingPanel_EventCullingListBox.getSelectedValue().toString(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -1948,8 +1948,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedEventSetListBox();
         } catch (Exception e){
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+        	logger.error("Error adding all EventDrivers", e);
+        	JOptionPane.showMessageDialog(this, "Error adding all EventDrivers", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_EventSetsPanel_AddAllEventSetsButtonActionPerformed
 
@@ -1974,8 +1974,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             JGAAP_API.addEventDriver(EventSetsPanel_EventSetListBox.getSelectedValue().toString());
             UpdateSelectedEventSetListBox();
         } catch (Exception e){
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+        	logger.error("Error adding EventDriver "+EventSetsPanel_EventSetListBox.getSelectedValue().toString(), e);
+        	JOptionPane.showMessageDialog(this, "Error adding EventDriver "+EventSetsPanel_EventSetListBox.getSelectedValue().toString(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -2028,8 +2028,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             }
             UpdateSelectedCanonicizerListBox();
         } catch (Exception e){
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+        	logger.error("Error adding all Canonicizers", e);
+        	JOptionPane.showMessageDialog(this, "Error adding all Canonicizers", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_CanonicizersPanel_AddAllCanonicizersButtonActionPerformed
 
@@ -2057,7 +2057,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e){
-        	e.printStackTrace();
+        	logger.error("Error adding canonicizer "+CanonicizersPanel_CanonicizerListBox.getSelectedValue().toString(), e);
         	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -2105,8 +2105,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             SetEventCullingList();
             SetEventSetList();
         } catch (Exception e) {
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+        	logger.error("Error changing language", e);
+        	JOptionPane.showMessageDialog(this, "Error changing language", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_DocumentsPanel_LanguageComboBoxActionPerformed
 
@@ -2162,8 +2162,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                     JGAAP_API.addDocument(file.getCanonicalPath(), "","");
                     filepath = file.getCanonicalPath();
                 } catch (Exception e) {
-                	e.printStackTrace();
-                	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+                	logger.error("Error adding document(s)", e);
+                	JOptionPane.showMessageDialog(this, "Error adding document(s)", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
                 }
                 UpdateUnknownDocumentsTable();
             }
@@ -2180,8 +2180,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
                 try {
                     JGAAP_API.addCanonicizer(SelectedCanonicizerList.get(i).displayName(),temp);
                 } catch (Exception e) {
-                	e.printStackTrace();
-                	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+                	logger.error("Error adding Canonicizer to document", e);
+                	JOptionPane.showMessageDialog(this, "Error adding Canonicizer to document", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             UpdateCurrentCanonicizerBox();
