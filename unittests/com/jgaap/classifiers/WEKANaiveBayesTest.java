@@ -39,7 +39,7 @@ public class WEKANaiveBayesTest {
 
 	/**
 	 * Test method for {@link
-	 * com.jgaap.classifiers.NaiveBayes#analyze(com.jgaap.generics.EventSet,
+	 * com.jgaap.classifiers.WEKANaiveBayes#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
 	 */
 	@Test
