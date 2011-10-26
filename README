@@ -1,3 +1,9 @@
+JGAAP (Java Graphical Authorship Attribution Program)
+From the Evaluating Variation in Language (EVL) Lab http://evllabs.com
+
+JGAAP is released under the AGPL v3.0 a copy should be included 
+if not it can be found at http://www.gnu.org/licenses/agpl.html
+
 To run JGAAP in Windows, click on the jgaap.jar file in the bin directory.
 
 On Unix-based systems, or from the Windows command-line, you can also run:
@@ -16,10 +22,12 @@ from the bin directory.
 JGAAP also has a command line mode.  You can see the command 
 line options by running:
 
-java -jar jgaap.jar help
+java -jar jgaap.jar -h
+or
+java -jar jgaap.jar --help
 
 
-JGAAP also comes with a ant build file in the src and bin directories.  
+JGAAP also comes with a ant build file in the src directorie.  
 To compile the system:
 
 ant build
