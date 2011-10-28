@@ -27,6 +27,7 @@ import static org.math.array.LinearAlgebra.plus;
 import static org.math.array.LinearAlgebra.times;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
@@ -330,18 +331,18 @@ public class OldLDA extends AnalysisDriver {
 
 		System.out.println("\n\n\n");
 		for (int i = 0; i < numGroups; i++) {
-			System.out.println((groupCovarianceMatrix[i]) + "\n");
+			System.out.println(Arrays.toString(groupCovarianceMatrix[i]) + "\n");
 		}
 
 		System.out.println("\n\n\n\n");
-		System.out.println((covarianceMatrix));
+		System.out.println(Arrays.toString(covarianceMatrix));
 
 		System.out.println("\n\n");
 		for (int i = 0; i < numGroups; i++) {
 			System.out.println(priorProbability[i]);
 		}
 
-		System.out.println("\n\n" + (covarianceInverse) + "\n\n");
+		System.out.println("\n\n" + Arrays.toString(covarianceInverse) + "\n\n");
 	}
 
 }
