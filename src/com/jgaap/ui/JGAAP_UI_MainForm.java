@@ -1656,8 +1656,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
             ResultsPage.addResults(buffer.toString());
             ResultsPage.setVisible(true);
         } catch (Exception e){
-        	e.printStackTrace();
-        	JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
+        	logger.fatal("Experiment Failed", e);
+        	JOptionPane.showMessageDialog(this, "Experiment failed to complete.\nReview Error logs for more information.\n(Run JGAAP from the terminal to view logs using java -jar jgaap.jar or ant run-gui)", "JGAAP Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_ReviewPanel_ProcessButtonActionPerformed
 

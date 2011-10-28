@@ -18,6 +18,7 @@
 package com.jgaap.backend;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -461,8 +462,13 @@ public class API {
 		return language;
 	}
 
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	private void loadCanonicizeEventify() throws Exception{
 		loadCanonicizeEventifyWorkQueue= new WorkQueue(loadCanonicizeEventifyWorkers);
+		final Set<EventDriver> failedEventDrivers = Collections.synchronizedSet(new HashSet<EventDriver>());
 		for(final Document document : documents){
 			Runnable work = new Runnable() {
 				@Override
@@ -471,12 +477,25 @@ public class API {
 						document.setLanguage(language);
 						document.load();
 						document.processCanonicizers();
+						
 						for (EventDriver eventDriver : eventDrivers) {
-							document.addEventSet(eventDriver,eventDriver.createEventSet(document));
+							try{
+								document.addEventSet(eventDriver,eventDriver.createEventSet(document));
+							} catch (EventGenerationException e) {
+								logger.error("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
+								failedEventDrivers.add(eventDriver);
+							}
 						}
 						document.readStringText("");
+					} catch (LanguageParsingException e) {
+						logger.fatal("Could not Parse Language: "+language.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
+						document.failed();
+					} catch (CanonicizationException e) {
+						logger.fatal("Could not Canonicize File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
+						document.failed();
 					} catch (Exception e) {
-						logger.error("Problem with load/canonicize/eventify on document File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
+						logger.fatal("Could not load File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
+						document.failed();
 					}
 				}
 			};
@@ -488,13 +507,25 @@ public class API {
 		while(loadCanonicizeEventifyWorkQueue.isRunning()){
 			Thread.sleep(500);
 		}
+		for(EventDriver eventDriver : failedEventDrivers){
+			eventDrivers.remove(eventDriver);
+			logger.error("EventDriver "+eventDriver.displayName()+" has failed on one or more documents and is being removed from the rest of the experiment.");
+		}
+		if(eventDrivers.isEmpty()){
+			throw new Exception("All EventDrivers failed to eventify documents Experiment Failed.");
+		}
+		for(Document document : documents){
+			if(document.hasFailed()){
+				throw new Exception("One or more documents could not be read / parsed / canonicized Experiment Failed");
+			}
+		}
 	}
 	
 	/**
 	 * Events are culled from EventSets across all Documents on a per EventDriver basis
-	 * @throws InterruptedException
+	 * @throws EventCullingException 
 	 */
-	private void cull() {
+	private void cull() throws EventCullingException {
 		List<EventSet> eventSets = new ArrayList<EventSet>();
 		for (EventDriver eventDriver : eventDrivers) {
 			for (final Document document : documents) {
@@ -517,9 +548,8 @@ public class API {
 	/**
 	 * Threads are generated for every Unknown(sample) Document.
 	 * In each Thread all loaded AnalysisDrivers are run over All EventSets compairing the Unknown(sample) to the Known(training) Documents.
-	 * @throws InterruptedException
 	 */
-	private void analyze() throws InterruptedException {
+	private void analyze() throws AnalyzeException {
 		List<Document> knownDocuments = new ArrayList<Document>();
 		List<Document> unknownDocuments = new ArrayList<Document>();
 		for (Document document : documents) {

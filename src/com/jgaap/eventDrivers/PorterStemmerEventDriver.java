@@ -23,6 +23,7 @@ import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 
@@ -73,9 +74,10 @@ public class PorterStemmerEventDriver extends EventDriver {
 	// e = new NaiveWordEventDriver();
 	// }
 
-	/** Creates EventSet using Porter stemmer on underlying events */
+	/** Creates EventSet using Porter stemmer on underlying events 
+	 * @throws EventGenerationException */
 	@Override
-	public EventSet createEventSet(Document ds) {
+	public EventSet createEventSet(Document ds) throws EventGenerationException {
 		EventSet raw = e.createEventSet(ds);
 		EventSet cooked = new EventSet();
 		Stemmer theStemmer = new Stemmer();

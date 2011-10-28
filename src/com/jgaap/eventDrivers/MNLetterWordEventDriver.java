@@ -23,6 +23,7 @@ import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import javax.swing.*;
 
@@ -143,7 +144,7 @@ public class MNLetterWordEventDriver extends EventDriver {
 	public int N = 3;
 
 	@Override
-	public EventSet createEventSet(Document ds) {
+	public EventSet createEventSet(Document ds) throws EventGenerationException {
 
 		// Extract local field values based on parameter settings
 		String param;

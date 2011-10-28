@@ -65,7 +65,7 @@ public abstract class Language implements Comparable<Language>, Displayable {
 	 * @param document - The unparsed document
 	 * @return - the parsed document in the format required for storage and canonicization
 	 */
-	public char[] parseLanguage(String document) {
+	public char[] parseLanguage(String document) throws LanguageParsingException {
 		return null;
 	}
 

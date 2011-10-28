@@ -20,6 +20,7 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.generics.Document;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import javax.swing.*;
 
@@ -99,7 +100,7 @@ public class SyllableTransitionEventDriver extends NGramEventDriver {
     private NGramEventDriver theDriver;
 
     @Override
-    public EventSet createEventSet(Document ds) {
+    public EventSet createEventSet(Document ds) throws EventGenerationException {
         theDriver = new NGramEventDriver();
         // default value of N is 2 already
 	String temp = this.getParameter("N");
