@@ -14,6 +14,7 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/trunk/lib/external/commons-cli-1.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="lib/external/fasttag_v2.jar"/>
 	<classpathentry kind="lib" path="lib/external/jmatharray.jar"/>
 	<classpathentry kind="lib" path="lib/external/jmathplot.jar"/>
@@ -23,5 +24,8 @@
 	<classpathentry kind="lib" path="lib/external/poi-scratchpad-3.7-20101029.jar"/>
 	<classpathentry kind="lib" path="lib/external/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/external/pdfbox-1.6.0.jar"/>
+=======
+	<classpathentry kind="lib" path="lib/external/jscience.jar"/>
+>>>>>>> refs/remotes/origin/newLDA
 	<classpathentry kind="output" path="bin"/>
 </classpath>
