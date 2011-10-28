@@ -19,6 +19,7 @@ package com.jgaap.eventCullers;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCuller;
+import com.jgaap.generics.EventCullingException;
 import com.jgaap.generics.EventSet;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ import static org.junit.Assert.assertTrue;
 
 public class MostCommonEventsTest {
     @Test
-    public void testProcess() {
+    public void testProcess() throws EventCullingException {
         EventSet es1 = new EventSet();
         EventSet es2 = new EventSet();
 

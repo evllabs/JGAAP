@@ -22,6 +22,7 @@ package com.jgaap.eventDrivers;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.NumericEventSet;
 
 /**
@@ -48,7 +49,7 @@ public class NamingTimeEventDriver extends NumericTransformationEventDriver {
     }
 
     @Override
-    public NumericEventSet createEventSet(Document ds) {
+    public NumericEventSet createEventSet(Document ds) throws EventGenerationException {
         NumericTransformationEventDriver theDriver = new NumericTransformationEventDriver();
         // uses NaiveWordEventSet for now
         theDriver.setParameter("implicitWhitelist", "true");

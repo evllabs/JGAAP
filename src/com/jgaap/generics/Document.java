@@ -43,7 +43,8 @@ public class Document extends Parameterizable {
 	private List<Canonicizer> canonicizers;
 	private Map<EventDriver, EventSet> eventSets;
 	private Map<AnalysisDriver, Map<EventDriver, List<Pair<String, Double>>>> results;
-
+	private boolean failed = false;
+	
 	public Document() {
 		filepath = "";
 		title = "";
@@ -242,7 +243,7 @@ public class Document extends Parameterizable {
 	 * Take the list of canonicizers associated with this document and apply
 	 * them to the document one by one, in the same order they were added.
 	 */
-	public void processCanonicizers() {
+	public void processCanonicizers() throws LanguageParsingException, CanonicizationException {
 		if (language.isParseable()){
 			text = language.parseLanguage(stringify());
 		}
@@ -363,5 +364,13 @@ public class Document extends Parameterizable {
 
 	public void setLanguage(Language language) {
 		this.language = language;
+	}
+	
+	public void failed(){
+		failed = true;
+	}
+	
+	public boolean hasFailed(){
+		return failed;
 	}
 }

@@ -10,6 +10,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
@@ -26,6 +30,8 @@ import com.jgaap.generics.Pair;
  */
 public class CentroidDriver extends NeighborAnalysisDriver {
 
+	static private Logger logger = Logger.getLogger(CentroidDriver.class);
+	
 	@Override
 	public String displayName() {
 		return "Centroid Driver"+getDistanceName();
@@ -44,7 +50,7 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 	}
 	
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> knowns) {
+	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> knowns) throws AnalyzeException {
 		Map<String, List<EventHistogram>>knownHistograms=new HashMap<String, List<EventHistogram>>();
 		Set<Event> events = new HashSet<Event>();
 		for(EventSet known : knowns){
@@ -83,7 +89,12 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 				}
 				knownVector.add(frequency);
 			}
-			result.add(new Pair<String, Double>(knownEntry.getKey(), distance.distance(unknownVector, knownVector), 2));			
+			try {
+				result.add(new Pair<String, Double>(knownEntry.getKey(), distance.distance(unknownVector, knownVector), 2));
+			} catch (DistanceCalculationException e) {
+				logger.fatal("Distance "+distance.displayName()+" failed", e);
+				throw new AnalyzeException("Distance "+distance.displayName()+" failed");
+			}			
 		}
 		Collections.sort(result);
 		return result;
