@@ -26,6 +26,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
+import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -39,9 +40,10 @@ public class KullbackLeiblerDivergenceTest {
 	 * Test method for
 	 * {@link com.jgaap.distances.KullbackLeiblerDivergence#distance(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}
 	 * .
+	 * @throws DistanceCalculationException 
 	 */
 	@Test
-	public void testDistance() {
+	public void testDistance() throws DistanceCalculationException {
 		/*
 		 * n.b. The KL function uses logarithms, for which we use Java's
 		 * built-in Math.log() function. Math.log() returns the _natural_ (base

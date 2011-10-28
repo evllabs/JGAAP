@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
 
@@ -40,10 +41,11 @@ public class RareWordsEventDriverTest {
 
 	/**
 	 * Test method for {@link com.jgaap.eventDrivers.HDLegomenaEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * @throws EventGenerationException 
 	 */
 
 	@Test
-	    public void testCreateEventSetDocumentSet(){
+	    public void testCreateEventSetDocumentSet() throws EventGenerationException{
 
 	    /*Note: Default underlying event set is NaiveWordEventDriver*/
 	    /*HDLegomenaEventDriver - Returns only events that occurs once or twice*/

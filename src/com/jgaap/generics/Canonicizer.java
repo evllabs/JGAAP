@@ -92,7 +92,7 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
      * @return an array of characters containing the processed text
      */
 
-    abstract public char[] process(char[] procText);
+    abstract public char[] process(char[] procText) throws CanonicizationException;
 
 
     /**

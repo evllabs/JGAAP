@@ -25,6 +25,8 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
@@ -51,11 +53,17 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
+	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) throws AnalyzeException {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
 
 		for (int i = 0; i < known.size(); i++) {
-			double current = distance.distance(unknown, known.get(i));
+			double current;
+			try {
+				current = distance.distance(unknown, known.get(i));
+			} catch (DistanceCalculationException e) {
+				logger.error("Distance "+distance.displayName()+" failed", e);
+				throw new AnalyzeException("Distance "+distance.displayName()+" failed");
+			}
 			results.add(new Pair<String, Double>(known.get(i).getAuthor(),current,2));
 			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.get(i).getDocumentName()+"("+known.get(i).getAuthor()+") Distance:"+current);
 		}

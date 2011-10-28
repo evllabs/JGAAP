@@ -23,6 +23,7 @@ import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 
@@ -54,7 +55,7 @@ public class VowelInitialWordEventDriver extends EventDriver {
 	public EventDriver underlyingevents = new NaiveWordEventDriver();
 
 	@Override
-	public EventSet createEventSet(Document ds) {
+	public EventSet createEventSet(Document ds) throws EventGenerationException {
 
 		String vowels = "aeiouyAEIOUY";
 

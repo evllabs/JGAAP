@@ -35,6 +35,8 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.jgaap.JGAAPConstants;
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
@@ -67,7 +69,7 @@ public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
+	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) throws AnalyzeException {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
 		List<EventSet> knownCentroids = new ArrayList<EventSet>();
 		Map<String, List<EventSet>> knownAuthors = new HashMap<String, List<EventSet>>();
@@ -136,7 +138,13 @@ public class AuthorCentroidDriver extends NeighborAnalysisDriver {
 
 
 		for (int i = 0; i < knownCentroids.size(); i++) {
-			double current = distance.distance(unknown, knownCentroids.get(i));
+			double current;
+			try {
+				current = distance.distance(unknown, knownCentroids.get(i));
+			} catch (DistanceCalculationException e) {
+				e.printStackTrace();
+				throw new AnalyzeException("Distance "+distance.displayName()+" failed");
+			}
 			results.add(new Pair<String, Double>(knownCentroids.get(i).getAuthor(), current, 2));
 			logger.debug(unknown.getDocumentName()+"(Unknown):"+knownCentroids.get(i).getDocumentName()+"("+knownCentroids.get(i).getAuthor()+") Distance:"+current);
 		}

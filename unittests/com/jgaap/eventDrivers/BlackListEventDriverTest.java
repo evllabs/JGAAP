@@ -29,6 +29,7 @@ import org.junit.Test;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
 
@@ -40,9 +41,10 @@ public class BlackListEventDriverTest {
 
 	/**
 	 * Test method for {@link com.jgaap.eventDrivers.BlackListEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * @throws EventGenerationException 
 	 */
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		Document doc = new Document();
 		doc.readStringText("Humpty Dumpty sat on the wall. Humpty Dumpty had a great fall. An itsy bitsy spider ran up the water spout.");
 		EventDriver ed = new BlackListEventDriver();

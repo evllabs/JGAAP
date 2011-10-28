@@ -17,14 +17,7 @@
  */
 package com.jgaap.generics;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.URL;
 
 import javax.swing.text.BadLocationException;
@@ -51,29 +44,36 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 class DocumentHelper {
 
-	static char[] loadDocument(String filepath, String charset) throws IOException,
-			BadLocationException {
+	static char[] loadDocument(String filepath, String charset) throws IOException, BadLocationException {
+		InputStream is;
+		int fileSize = -1;
 		if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
-			return readURLText(filepath);
+			URL url = new URL(filepath);
+			is = url.openStream();
 		} else if (filepath.startsWith("/com/jgaap/resources")){
-			return readResourceText(filepath, charset);
-		}else if (filepath.endsWith(".pdf")) {
-			return loadPDF(filepath);
-		} else if (filepath.endsWith(".doc")) {
-			return loadMSWord(filepath);
-		} else if (filepath.endsWith(".docx")){
-			return loadMSWordDocx(filepath);
-		} else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
-			return loadHTML(filepath);
+			is = com.jgaap.JGAAP.class.getResourceAsStream(filepath);
 		} else {
-			return readLocalText(filepath, charset);
+			fileSize = (int) new File(filepath).length();
+			is = new FileInputStream(filepath);
+		} 
+		if (filepath.endsWith(".pdf")) {
+			return loadPDF(is);
+		} else if (filepath.endsWith(".doc")) {
+			return loadMSWord(is);
+		} else if (filepath.endsWith(".docx")){
+			return loadMSWordDocx(is);
+		} else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
+			return loadHTML(is);
+		} else {
+			if(fileSize==-1)
+				return readText(is, charset);
+			else
+				return readText(is, charset, fileSize);
 		}
 	}
 
 	static DocType getDocType(String filepath) {
-		if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
-			return DocType.URL;
-		} else if (filepath.endsWith(".pdf")) {
+		if (filepath.endsWith(".pdf")) {
 			return DocType.PDF;
 		} else if (filepath.endsWith(".doc")||filepath.endsWith(".docx")) {
 			return DocType.DOC;
@@ -105,31 +105,6 @@ class DocumentHelper {
 	}
 
 	/**
-	 * Extracts text from a PDF and stores it in the document.
-	 * 
-	 * @param filepath
-	 *            The filepath of the PDF to be read.
-	 * @throws IOException
-	 */
-	static private char[] loadPDF(String filepath) throws IOException {
-		return loadPDF(new FileInputStream(filepath));
-	}
-
-	/**
-	 * Extracts text from an HTML document and stores it in the document.
-	 * 
-	 * @param filepath
-	 *            The filepath of the HTML document to be read.
-	 * @throws BadLocationException
-	 * @throws IOException
-	 * @throws FileNotFoundException
-	 */
-	static private char[] loadHTML(String filepath)
-			throws FileNotFoundException, IOException, BadLocationException {
-		return loadHTML(new FileInputStream(filepath));
-	}
-
-	/**
 	 * Extracts text from an HTML document and stores it in the document.
 	 * 
 	 * @param filesInputStream
@@ -139,7 +114,6 @@ class DocumentHelper {
 	 */
 	static private char[] loadHTML(InputStream filesInputStream)
 			throws IOException, BadLocationException {
-		System.out.println("HTML Document");
 		EditorKit kit = new HTMLEditorKit();
 		HTMLDocument doc = (HTMLDocument) kit.createDefaultDocument();
 		doc.putProperty("IgnoreCharsetDirective", true);
@@ -152,37 +126,27 @@ class DocumentHelper {
 	/**
 	 * Extracts text from a Word document and stores it in the document.
 	 * 
-	 * @param filepath
-	 *            The filepath of the Word document to be read.
-	 * @throws IOException
-	 * @throws FileNotFoundException
-	 */
-	static private char[] loadMSWord(String filepath)
-			throws FileNotFoundException, IOException {
-		return loadMSWord(new FileInputStream(filepath));
-	}
-
-	/**
-	 * Extracts text from a Word document and stores it in the document.
-	 * 
-	 * @param filesInputStream
+	 * @param inputStream
 	 *            An input stream pointing to the Word document to be read.
 	 * @throws IOException
 	 */
-	static private char[] loadMSWord(InputStream filesInputStream)
+	static private char[] loadMSWord(InputStream inputStream)
 			throws IOException {
-		POIFSFileSystem fs = new POIFSFileSystem(filesInputStream);
+		POIFSFileSystem fs = new POIFSFileSystem(inputStream);
 		HWPFDocument doc = new HWPFDocument(fs);
 		WordExtractor we = new WordExtractor(doc);
 		char[] origText = we.getText().toCharArray();
 
 		return origText;
 	}
-
-	static private char[] loadMSWordDocx(String filepath) throws IOException {
-		return loadMSWordDocx(new FileInputStream(filepath));
-	}
 	
+	/**
+	 * Extracts text from a Word document and stores it in the document.
+	 * 
+	 * @param inputStream
+	 *            An input stream pointing to the Word document to be read.
+	 * @throws IOException
+	 */
 	static private char[] loadMSWordDocx(InputStream inputStream) throws IOException{
 		XWPFDocument docx = new XWPFDocument(inputStream);
 		XWPFWordExtractor extractor = new XWPFWordExtractor(docx);
@@ -190,24 +154,13 @@ class DocumentHelper {
 	}
 	
 	/**
-	 * Reads text from a local file. Exceptions are not caught by name. Rather,
-	 * all exceptions are handled through just printing the error message to
-	 * stdout. This should probably be changed for robustness. The raw text of
+	 * Reads text from a local file. The raw text of
 	 * the file is stored for quick access in an array.
 	 * 
 	 * @throws IOException
 	 **/
-	static public char[] readLocalText(String filepath, String charset) throws IOException {
-		File file = new File(filepath);
-		return readText(new FileInputStream(file), charset, (int)file.length());
-	}
-
-	static public char[] readResourceText(String filepath, String charset) throws IOException {
-		InputStream is = com.jgaap.JGAAP.class.getResourceAsStream(filepath);
-		return readText(is, charset);
-	}
 	
-	static public char[] readText(InputStream is, String charset, int length) throws IOException{
+	static private char[] readText(InputStream is, String charset, int length) throws IOException{
 		Reader reader;
 		if(charset==null || charset.isEmpty()){
 			reader = new InputStreamReader(is);
@@ -222,46 +175,26 @@ class DocumentHelper {
 		return text;
 	}
 	
-	static public char[] readText(InputStream is, String charset) throws IOException {
-		int c;
-		StringBuilder stringBuilder = new StringBuilder();
-		BufferedReader br;
-		if (charset==null||charset.isEmpty()) {
-			br = new BufferedReader(new InputStreamReader(is));
-		} else {
-			br = new BufferedReader(new InputStreamReader(is,charset));
-		}
-		while ((c = br.read()) != -1) {
-			stringBuilder.append((char)c);
-		}
-		return stringBuilder.toString().toCharArray();
-	}
-
 	/**
-	 * Reads text from a local file. Exceptions are not caught by name. Rather,
-	 * all exceptions are handled through just printing the error message to
-	 * stdout. This should probably be changed for robustness. The raw text of
-	 * the file is stored for quick access in an array. Modeled from
-	 * readLocalText PMJ 10/25/08
+	 * Reads text from a local file. The raw text of
+	 * the file is stored for quick access in an array.
 	 * 
 	 * @throws IOException
-	 * @throws BadLocationException
 	 **/
-
-	static public char[] readURLText(String filepath) throws IOException, BadLocationException {
-		URL input = new URL(filepath);
-		InputStream is = input.openStream();
-		if (filepath.endsWith(".pdf")) {
-			return loadPDF(is);
-		} else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
-			return loadHTML(is);
-		} else if (filepath.endsWith(".doc")) {
-			return loadMSWord(is);
-		} else if (filepath.endsWith(".docx")) {
-			return loadMSWordDocx(is);
+	static private char[] readText(InputStream is, String charset) throws IOException {
+		int c;
+		StringBuilder stringBuilder = new StringBuilder();
+		BufferedReader reader;
+		if (charset==null||charset.isEmpty()) {
+			reader = new BufferedReader(new InputStreamReader(is));
 		} else {
-			return readText(is, null);
+			reader = new BufferedReader(new InputStreamReader(is,charset));
 		}
+		while ((c = reader.read()) != -1) {
+			stringBuilder.append((char)c);
+		}
+		reader.close();
+		return stringBuilder.toString().toCharArray();
 	}
 
 }

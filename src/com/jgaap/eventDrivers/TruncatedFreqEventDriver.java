@@ -21,6 +21,7 @@ package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
 
@@ -48,7 +49,7 @@ public class TruncatedFreqEventDriver extends EventDriver {
     private EventDriver theDriver;
 
     @Override
-    public EventSet createEventSet(Document ds) {
+    public EventSet createEventSet(Document ds) throws EventGenerationException {
         theDriver = new TruncatedEventDriver();
         theDriver.setParameter("length", "3");
         theDriver.setParameter("underlyingEvents", "Lexical Frequencies");

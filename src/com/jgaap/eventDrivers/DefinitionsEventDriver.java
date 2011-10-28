@@ -17,6 +17,7 @@
  */
 package com.jgaap.eventDrivers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,13 +26,19 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
 import com.jgaap.canonicizers.StripPunctuation;
+import com.jgaap.generics.CanonicizationException;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.LanguageParsingException;
+
 import edu.mit.jwi.*;
 import edu.mit.jwi.item.IIndexWord;
 import edu.mit.jwi.item.IWord;
@@ -53,6 +60,8 @@ import com.knowledgebooks.nlp.fasttag.*;
  */
 public class DefinitionsEventDriver extends EventDriver {
 
+	private static Logger logger = Logger.getLogger(DefinitionsEventDriver.class);
+	
 	private static Hashtable<String, Integer> table;
 	private static Set<String> stopWords;
 	private static Hashtable<String, String> nouns;
@@ -182,7 +191,7 @@ public class DefinitionsEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc) {
+	public EventSet createEventSet(Document doc) throws EventGenerationException {
 
 		EventSet eventSet = new EventSet(doc.getAuthor());
 		PorterStemmerWithIrregularEventDriver port = new PorterStemmerWithIrregularEventDriver();
@@ -194,7 +203,12 @@ public class DefinitionsEventDriver extends EventDriver {
 		
 		// construct the dictionary object and open it
 		IDictionary dict = new Dictionary(url);
-		dict.open();
+		try {
+			dict.open();
+		} catch (IOException e) {
+			logger.error("Could not open WordNet Dictionary", e);
+			throw new EventGenerationException("DefinitionsEventDriver failed to eventify "+doc.getFilePath());
+		}
 		
 		String current = doc.stringify();
 
@@ -268,7 +282,16 @@ public class DefinitionsEventDriver extends EventDriver {
 		StripPunctuation strip = new StripPunctuation();
 		
 		outDoc.addCanonicizer(strip);
-		outDoc.processCanonicizers();
+		
+		try {
+			outDoc.processCanonicizers();
+		} catch (LanguageParsingException e) {
+			logger.fatal("Could not process Language on Defintion Returned from WordNet");
+			throw new EventGenerationException("Could not process Language on Defintion Returned from WordNet");
+		} catch (CanonicizationException e) {
+			logger.fatal("Could not Canonicize WordNet Definition");
+			throw new EventGenerationException("Could not Canonicize WordNet Definition");
+		}
 		
 		String [] eventArray = outDoc.stringify().split("\\s");
 		for(int i=0; i<eventArray.length; i++){
