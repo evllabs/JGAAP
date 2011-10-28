@@ -20,7 +20,6 @@
 package com.jgaap.classifiers;
 
 import static org.math.array.DoubleArray.identity;
-import static org.math.array.DoubleArray.tostring;
 import static org.math.array.DoubleArray.transpose;
 import static org.math.array.LinearAlgebra.inverse;
 import static org.math.array.LinearAlgebra.minus;
@@ -326,23 +325,23 @@ public class OldLDA extends AnalysisDriver {
 		}
 
 		for (int i = 0; i < numGroups; i++) {
-			System.out.println(tostring(correctedFeatures.get(i)) + "\n\n");
+			System.out.println((correctedFeatures.get(i)) + "\n\n");
 		}
 
 		System.out.println("\n\n\n");
 		for (int i = 0; i < numGroups; i++) {
-			System.out.println(tostring(groupCovarianceMatrix[i]) + "\n");
+			System.out.println((groupCovarianceMatrix[i]) + "\n");
 		}
 
 		System.out.println("\n\n\n\n");
-		System.out.println(tostring(covarianceMatrix));
+		System.out.println((covarianceMatrix));
 
 		System.out.println("\n\n");
 		for (int i = 0; i < numGroups; i++) {
 			System.out.println(priorProbability[i]);
 		}
 
-		System.out.println("\n\n" + tostring(covarianceInverse) + "\n\n");
+		System.out.println("\n\n" + (covarianceInverse) + "\n\n");
 	}
 
 }
