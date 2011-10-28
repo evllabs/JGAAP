@@ -29,6 +29,7 @@ import org.junit.Test;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -39,9 +40,10 @@ public class POSBiGramEventDriverTest {
 
 	/**
 	 * Test method for {@link com.jgaap.eventDrivers.POSBiGramEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * @throws EventGenerationException 
 	 */
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 			System.out.println("Test Started");
 		 	Document doc = new Document();
 			/* Note space separation of punctuation */

@@ -23,6 +23,7 @@ import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 
@@ -69,9 +70,10 @@ public class NGramEventDriver extends EventDriver {
      * Put together the events in groups of N, using string concatenation For
      * now, the format is "(event1)-(event2)-(event3)-...(eventN) This may be
      * inefficient (high overhead), but it should be easily parsable.
+     * @throws EventGenerationException 
      */
     @Override
-    public EventSet createEventSet(Document ds) {
+    public EventSet createEventSet(Document ds) throws EventGenerationException {
 
         // Extract local field values based on parameter settings
         String param;

@@ -26,11 +26,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 
+import org.apache.log4j.Logger;
+
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -41,6 +44,8 @@ import com.jgaap.generics.EventSet;
  */
 public class BlackListEventDriver extends EventDriver {
 
+	private static Logger logger = Logger.getLogger(BlackListEventDriver.class);
+	
     @Override
     public String displayName(){
     	return "Black-List";
@@ -66,7 +71,7 @@ public class BlackListEventDriver extends EventDriver {
     private String      filename;
 
     @Override
-    public EventSet createEventSet(Document ds) {
+    public EventSet createEventSet(Document ds) throws EventGenerationException {
         String param;
         HashSet<String> blacklist = new HashSet<String>();
 
@@ -76,8 +81,7 @@ public class BlackListEventDriver extends EventDriver {
         	try {
                 underlyingEvents = EventDriverFactory.getEventDriver(param);
             } catch (Exception e) {
-                System.out.println("Error: cannot create EventDriver " + param);
-                System.out.println(" -- Using NaiveWordEventSet");
+                logger.error("Error: cannot create EventDriver " + param+" Using NaiveWordEventSet",e);
                 underlyingEvents = new NaiveWordEventDriver();
             }
         } else { // no underlyingEventsParameter, use NaiveWordEventSet

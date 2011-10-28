@@ -23,6 +23,7 @@ import java.util.Vector;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 import org.junit.Test;
@@ -31,7 +32,7 @@ import org.junit.Test;
 public class TumblingNGramEventDriverTest {
 
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		Document doc = new Document();
 		
 		doc.readStringText("Testing sentence. My name is Joe. run jump, game-start?  Hello!");

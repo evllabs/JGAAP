@@ -28,6 +28,8 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
@@ -58,7 +60,7 @@ public class AuthorNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> knowns) {
+	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> knowns) throws AnalyzeException {
 
 		List<String> authors = new ArrayList<String>();
 		List<Double> distances = new ArrayList<Double>();
@@ -66,7 +68,13 @@ public class AuthorNeighborDriver extends NeighborAnalysisDriver {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
 
 		for (EventSet known : knowns) {
-			double current = distance.distance(unknown, known);
+			double current;
+			try{
+				current = distance.distance(unknown, known);
+			} catch (DistanceCalculationException e){
+				e.printStackTrace();
+				throw new AnalyzeException("Distance "+distance.displayName()+" failed");
+			}
 			authors.add(known.getAuthor());
 			distances.add(current);
 			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.getDocumentName()+"("+known.getAuthor()+") Distance:"+current);
