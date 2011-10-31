@@ -30,7 +30,7 @@ import java.util.List;
 public abstract class EventCuller extends Parameterizable implements Comparable<EventCuller>, Displayable {
 
 
-    public abstract List<EventSet> cull(List<EventSet> eventSets); 
+    public abstract List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException; 
 
     public abstract String displayName();
     public abstract String tooltipText();

@@ -66,7 +66,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * First entry point for singleton EventSet; makes 1-place list and calls
 	 * second entry point.
 	 */
-	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
+	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) throws AnalyzeException {
 		List<EventSet> ukl = new ArrayList<EventSet>();
 		ukl.add(unknown);
 		return analyze(ukl, known).get(0);
@@ -88,7 +88,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * Second entry point for List<EventSet>; calls on individual list elements
 	 * using first entry point and staples results together
 	 */
-	public List<List<Pair<String, Double>>> analyze(List<EventSet> unknownList, List<EventSet> known) {
+	public List<List<Pair<String, Double>>> analyze(List<EventSet> unknownList, List<EventSet> known) throws AnalyzeException {
 		List<List<Pair<String, Double>>> retVal = new ArrayList<List<Pair<String, Double>>>();
 		for (EventSet unknown : unknownList) {
 			retVal.add(analyze(unknown, known));
@@ -96,7 +96,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 		return retVal;
 	}
 
-	public void analyzeDocuments(List<Document> unknownDocuments, List<Document> knownDocuments, EventDriver eventDriver) {
+	public void analyzeDocuments(List<Document> unknownDocuments, List<Document> knownDocuments, EventDriver eventDriver) throws AnalyzeException {
 		List<EventSet> unknownEventSets = new ArrayList<EventSet>(unknownDocuments.size());
 		List<EventSet> knownEventSets = new ArrayList<EventSet>(knownDocuments.size());
 		for (Document document : unknownDocuments) {

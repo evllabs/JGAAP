@@ -46,7 +46,7 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
      * @return the EventSet containing the Events from the document(s)
      */
 
-    abstract public EventSet createEventSet(Document doc);
+    abstract public EventSet createEventSet(Document doc) throws EventGenerationException;
 
     
     public int compareTo(EventDriver o){

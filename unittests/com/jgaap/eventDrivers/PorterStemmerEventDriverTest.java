@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -49,9 +50,10 @@ public class PorterStemmerEventDriverTest {
 
 	/**
 	 * Test method for {@link com.jgaap.eventDrivers.PorterStemmerEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * @throws EventGenerationException 
 	 */
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
 		Document doc = new Document();
 		doc.readStringText(

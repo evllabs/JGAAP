@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
 
@@ -39,9 +40,10 @@ public class TruncatedNamingTimeEventDriverTest {
 
 	/**
 	 * Test method for {@link com.jgaap.eventDrivers.TruncatedNamingTimeEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * @throws EventGenerationException 
 	 */
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
 		Document doc = new Document();
 		// test just first and last few words rathre than

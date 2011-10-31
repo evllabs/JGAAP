@@ -29,6 +29,7 @@ import org.junit.Test;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -39,9 +40,10 @@ public class V24LetterWordEventDriverTest {
 
 	/**
 	 * Test method for {@link com.jgaap.eventDrivers.V24LetterWordEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * @throws EventGenerationException 
 	 */
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
 		Document doc = new Document();
 		doc.readStringText(

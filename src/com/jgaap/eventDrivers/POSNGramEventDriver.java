@@ -21,6 +21,7 @@ package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
 import com.jgaap.generics.Document;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import javax.swing.*;
 
@@ -98,7 +99,7 @@ public class POSNGramEventDriver extends NGramEventDriver {
 
 
     @Override
-    public EventSet createEventSet(Document ds) {
+    public EventSet createEventSet(Document ds) throws EventGenerationException {
         theDriver = new NGramEventDriver();
         String temp = this.getParameter("N");
         if (temp.equals(""))

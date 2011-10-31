@@ -18,6 +18,7 @@
 package com.jgaap.eventCullers;
 
 import com.jgaap.generics.EventCuller;
+import com.jgaap.generics.EventCullingException;
 import com.jgaap.generics.EventSet;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class MostCommonEvents extends EventCuller {
     }
 
     @Override
-    public List<EventSet> cull(List<EventSet> eventSets) {
+    public List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException {
 
         EventCuller underlyingCuller = new FrequencyRangeCuller();
         underlyingCuller.setParameter("minPos", 0);

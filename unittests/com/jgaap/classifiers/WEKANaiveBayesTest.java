@@ -27,6 +27,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -41,9 +42,10 @@ public class WEKANaiveBayesTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKANaiveBayes#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//Test 1
 		

@@ -28,6 +28,7 @@ import java.util.HashMap;
 import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
 
@@ -71,7 +72,7 @@ public class NumericTransformationEventDriver extends NumericEventDriver {
 	private String filename;
 
 	@Override
-	public NumericEventSet createEventSet(Document ds) {
+	public NumericEventSet createEventSet(Document ds) throws EventGenerationException {
 		String param;
 		HashMap<String, String> transform = new HashMap<String, String>();
 		boolean whitelist = true;

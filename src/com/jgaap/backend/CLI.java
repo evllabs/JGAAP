@@ -41,17 +41,58 @@ import com.jgaap.generics.*;
 public class CLI {
 
 	static Options options = new Options();
-	static Option help = OptionBuilder.withArgName("command").withDescription("print this message.").withLongOpt("help").create('h');
-	static Option version = OptionBuilder.withDescription("print version information").withLongOpt("version").create('v');
-	static Option canonicizers = OptionBuilder.withArgName("canonicizer").hasArgs().withDescription("").withLongOpt("canonicizers").create('c');
-	static Option eventDriver = OptionBuilder.withArgName("event driver").hasArg().withDescription("").withLongOpt("eventset").create("es");
-	static Option eventCullers = OptionBuilder.withArgName("event culler").hasArgs().withDescription("").withLongOpt("eventcullers").create("ec");
-	static Option analysis = OptionBuilder.withArgName("analysis").hasArg().withDescription("").withLongOpt("analysis").create('a');
-	static Option distanceFunction = OptionBuilder.withArgName("distance function").hasArg().withDescription("").withLongOpt("distance").create('d');
-	static Option language = OptionBuilder.withArgName("language").hasArg().withDescription("").withLongOpt("language").create("lang");
-	static Option load = OptionBuilder.withArgName("file").hasArg().withDescription("").withLongOpt("load").create('l');
-	static Option save = OptionBuilder.withArgName("file").hasArg().withDescription("").withLongOpt("save").create('s');
-	static Option experimentEngine = OptionBuilder.withArgName("file").hasArg().withDescription("").withLongOpt("experimentengine").create("ee");
+	static Option help = OptionBuilder
+						.withArgName("command")
+						.hasOptionalArg()
+						.withDescription("print this message.")
+						.withLongOpt("help").create('h');
+	static Option version = OptionBuilder
+						.withDescription("print version information")
+						.withLongOpt("version").create('v');
+	static Option canonicizers = OptionBuilder
+						.withArgName("canonicizer")
+						.hasArgs()
+						.withDescription("A list of the canonicizers to use")
+						.withLongOpt("canonicizers").create('c');
+	static Option eventDriver = OptionBuilder
+						.withArgName("event-driver")
+						.hasArg()
+						.withDescription("The method of dividing the document into quantifyable features")
+						.withLongOpt("eventset").create("es");
+	static Option eventCullers = OptionBuilder
+						.withArgName("event-culler")
+						.hasArgs()
+						.withDescription("A list of the EventCullers to use")
+						.withLongOpt("eventcullers").create("ec");
+	static Option analysis = OptionBuilder
+						.withArgName("analysis")
+						.hasArg()
+						.withDescription("Method of Statistical analysis of the document")
+						.withLongOpt("analysis").create('a');
+	static Option distanceFunction = OptionBuilder
+						.withArgName("distancefunction")
+						.hasArg()
+						.withDescription("A method of wuantifying distance between documents, required for some analysis methods")
+						.withLongOpt("distance").create('d');
+	static Option language = OptionBuilder.withArgName("language")
+						.hasArg()
+						.withDescription("The language the working documents are in, also set the charset files will be read in")
+						.withLongOpt("language").create("lang");
+	static Option load = OptionBuilder
+						.withArgName("file")
+						.hasArg()
+						.withDescription("A csv file of the documents to operate on. The file use the columns Author,FilePath,Title")
+						.withLongOpt("load").create('l');
+	static Option save = OptionBuilder
+						.withArgName("file")
+						.hasArg()
+						.withDescription("Write JGAAP's output to a specified file")
+						.withLongOpt("save").create('s');
+	static Option experimentEngine = OptionBuilder
+						.withArgName("file")
+						.hasArg()
+						.withDescription("Batch processing, pass in a csv file of experiments")
+						.withLongOpt("experimentengine").create("ee");
 
 	static {
 		options.addOption(help);
@@ -82,6 +123,8 @@ public class CLI {
 			String command = cmd.getOptionValue('h');
 			if (command == null) {
 				HelpFormatter helpFormatter = new HelpFormatter();
+				helpFormatter.setLeftPadding(5);
+				helpFormatter.setWidth(100);
 				helpFormatter.printHelp(
 								"jgaap -c [canon canon ...] -es [event] -ec [culler culler ...] -a [analysis] <-d [distance]> -l [file] <-s [file]>",
 								"Welcome to JGAAP the Java Graphical Authorship Attribution Program.\nMore information can be found at http://jgaap.com",
