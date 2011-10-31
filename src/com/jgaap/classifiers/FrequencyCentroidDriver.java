@@ -21,6 +21,10 @@ package com.jgaap.classifiers;
 
 import java.util.*;
 
+import org.apache.log4j.Logger;
+
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
@@ -38,6 +42,8 @@ import com.jgaap.generics.Pair;
 
 public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
 
+	Logger logger = Logger.getLogger(FrequencyCentroidDriver.class);
+	
 	public String displayName() {
 		return "Frequency Centroid Driver" + getDistanceName();
 	}
@@ -51,9 +57,9 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
+	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) throws AnalyzeException {
 
-        System.out.println("Now analyzing: " + unknown.getDocumentName());
+        logger.info("Now analyzing: " + unknown.getDocumentName());
 
         List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
 //        if(!jgaapConstants.globalObjects.containsKey("orderedEvents")) {
@@ -121,36 +127,16 @@ public class FrequencyCentroidDriver extends NeighborAnalysisDriver {
                     }
                 }
 
-                results.add(new Pair<String, Double>(author, distance.distance(unknownVector, authorCentroid), 2));
-//                jgaapConstants.globalObjects.put("authorFrequencies", authorFrequencies);
-//                jgaapConstants.globalObjects.put((author + "Vector"), authorCentroid);
+                try {
+					results.add(new Pair<String, Double>(author, distance.distance(unknownVector, authorCentroid), 2));
+				} catch (DistanceCalculationException e) {
+					logger.fatal("Distance "+distance.displayName()+" failed");
+					throw new AnalyzeException("Distance "+distance.displayName()+" failed");
+				}
 
             }
-
-//            jgaapConstants.globalObjects.put("orderedEvents", (Object)orderedEvents);
-//            jgaapConstants.globalObjects.put("authorFrequencies", (Object)authorFrequencies);
             Collections.sort(results);
             return results;
-//        }
-
-//        else {
-//            List<Event> orderedEvents = (List<Event>)jgaapConstants.globalObjects.get("orderedEvents");
-//            Vector<Double> unknownVector = new Vector<Double>();
-//            EventHistogram unknownHS = new EventHistogram();
-//            for(Event e : unknown) {
-//                unknownHS.add(e);
-//            }
-//            for(Event event : orderedEvents) {
-//                unknownVector.add(unknownHS.getRelativeFrequency(event));
-//            }
-//            Map<String, Map<Event, Double>> authorFrequencies = (Map<String, Map<Event, Double>>)jgaapConstants.globalObjects.get("authorFrequencies");
-//
-//            for (String author : authorFrequencies.keySet()) {
-//                results.add(new Pair<String, Double>(author, distance.distance(unknownVector, (Vector<Double>)jgaapConstants.globalObjects.get(author + "Vector"))));
-//            }
-//
-//            return results;
-//        }
 	}
 
 }

@@ -23,6 +23,7 @@ import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
 
@@ -56,7 +57,7 @@ public class SuffixEventDriver extends EventDriver {
 	private int minimumlength;
 
 	@Override
-	public EventSet createEventSet(Document ds) {
+	public EventSet createEventSet(Document ds) throws EventGenerationException {
 		String param;
 
 		if (!(param = (getParameter("underlyingEvents"))).equals("")) {

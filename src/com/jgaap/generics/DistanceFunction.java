@@ -49,9 +49,9 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
      *            The first EventSet
      * @return a double precision number (ideally a distance) btw es1 and es2
      */
-    abstract public double distance(EventSet es1, EventSet es2);
+    abstract public double distance(EventSet es1, EventSet es2) throws DistanceCalculationException;
 
-    public double distance(Vector<Double> v1, Vector<Double> v2) {
+    public double distance(Vector<Double> v1, Vector<Double> v2) throws DistanceCalculationException {
         EventSet es1 = new EventSet();
         EventSet es2 = new EventSet();
         int max = 0;

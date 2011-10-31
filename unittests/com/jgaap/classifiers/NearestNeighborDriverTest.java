@@ -26,6 +26,7 @@ import org.junit.Test;
 
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.distances.CosineDistance;
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -43,9 +44,10 @@ public class NearestNeighborDriverTest {
 	 * Test method for {@link
 	 * com.jgaap.generics.NearestNeighborDriver#analyze(com.jgaap.generics.
 	 * EventSet, List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		NearestNeighborDriver nearest = new NearestNeighborDriver();
 		CosineDistance cosine = new CosineDistance();
 		nearest.setDistance(cosine);

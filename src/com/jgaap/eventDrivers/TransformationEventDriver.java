@@ -29,6 +29,7 @@ import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 
@@ -60,7 +61,7 @@ public class TransformationEventDriver extends EventDriver {
 	private String filename;
 
 	@Override
-	public EventSet createEventSet(Document ds) {
+	public EventSet createEventSet(Document ds) throws EventGenerationException {
 		String param;
 		HashMap<String, String> transform = new HashMap<String, String>();
 		boolean whitelist = false;

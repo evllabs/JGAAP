@@ -32,7 +32,7 @@ public abstract class DivergenceFunction extends DistanceFunction {
 	abstract public String displayName();
 
 	@Override
-	public double distance(EventSet es1, EventSet es2) {
+	public double distance(EventSet es1, EventSet es2) throws DistanceCalculationException {
 		double dist;
 		double first;
 		double second;
@@ -98,7 +98,7 @@ public abstract class DivergenceFunction extends DistanceFunction {
 		return result;
 	}
 
-	abstract protected double divergence(EventSet es1, EventSet es2);
+	abstract protected double divergence(EventSet es1, EventSet es2) throws DistanceCalculationException;
 
 	@Override
 	abstract public boolean showInGUI();
