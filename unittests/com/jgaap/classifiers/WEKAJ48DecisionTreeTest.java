@@ -52,6 +52,8 @@ public class WEKAJ48DecisionTreeTest {
 		//Create known texts
 		EventSet known1 = new EventSet();
 		EventSet known2 = new EventSet();
+		EventSet known3 = new EventSet();
+		EventSet known4 = new EventSet();
 
 		known1.addEvent(new Event("mary"));
 		known1.addEvent(new Event("had"));
@@ -59,6 +61,13 @@ public class WEKAJ48DecisionTreeTest {
 		known1.addEvent(new Event("little"));
 		known1.addEvent(new Event("lamb"));
 		known1.setAuthor("Mary");
+		
+		known3.addEvent(new Event("mary"));
+		known3.addEvent(new Event("had"));
+		known3.addEvent(new Event("a"));
+		known3.addEvent(new Event("small"));
+		known3.addEvent(new Event("lamb"));
+		known3.setAuthor("Mary");
 
 		known2.addEvent(new Event("peter"));
 		known2.addEvent(new Event("piper"));
@@ -66,10 +75,19 @@ public class WEKAJ48DecisionTreeTest {
 		known2.addEvent(new Event("a"));
 		known2.addEvent(new Event("peck"));
 		known2.setAuthor("Peter");
+		
+		known4.addEvent(new Event("peter"));
+		known4.addEvent(new Event("piper"));
+		known4.addEvent(new Event("collected"));
+		known4.addEvent(new Event("a"));
+		known4.addEvent(new Event("peck"));
+		known4.setAuthor("Peter");
 
 		Vector<EventSet> esv = new Vector<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
+		esv.add(known3);
+		esv.add(known4);
 
 		//Create unknown text
 		EventSet unknown1 = new EventSet();
@@ -98,15 +116,25 @@ public class WEKAJ48DecisionTreeTest {
 		
 		//Test 2 - Add in third known author
 
-		EventSet known3 = new EventSet();
-		known3.addEvent(new Event("she"));
-		known3.addEvent(new Event("sells"));
-		known3.addEvent(new Event("seashells"));
-		known3.addEvent(new Event("by"));
-		known3.addEvent(new Event("seashore"));
-		known3.setAuthor("Susie");
+		EventSet known5 = new EventSet();
+		EventSet known6 = new EventSet();
+		
+		known5.addEvent(new Event("she"));
+		known5.addEvent(new Event("sells"));
+		known5.addEvent(new Event("seashells"));
+		known5.addEvent(new Event("by"));
+		known5.addEvent(new Event("seashore"));
+		known5.setAuthor("Susie");
 
-		esv.add(known3);
+		known6.addEvent(new Event("susie"));
+		known6.addEvent(new Event("sells"));
+		known6.addEvent(new Event("shells"));
+		known6.addEvent(new Event("by"));
+		known6.addEvent(new Event("seashore"));
+		known6.setAuthor("Susie");
+
+		esv.add(known5);
+		esv.add(known6);
 
 		t = tree.analyze(uesv, esv);
 		System.out.println(t.toString());
