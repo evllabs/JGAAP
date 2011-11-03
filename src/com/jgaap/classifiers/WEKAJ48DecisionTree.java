@@ -3,6 +3,10 @@ package com.jgaap.classifiers;
 import weka.classifiers.Classifier;
 
 public class WEKAJ48DecisionTree extends WEKAAnalysis {
+	
+	//TODO Decision Tree needs more than one document from
+	//  each author for training, otherwise the results are
+	//  funny.
 
 	@Override
 	public String displayName() {

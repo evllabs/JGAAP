@@ -112,6 +112,23 @@ public class WEKALinearRegressionTest {
 
 		//Assert that the authors match
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		
+		// Test 2 - Test equal likelihood
+		
+		EventSet unknown2 = new EventSet();
+		
+		unknown2.addEvent(new Event("mary"));
+		unknown2.addEvent(new Event("had"));
+		unknown2.addEvent(new Event("a"));
+		unknown2.addEvent(new Event("peter"));
+		unknown2.addEvent(new Event("piper"));
+		
+		uesv = new Vector<EventSet>();
+		uesv.add(unknown2);
+		
+		t = classifier.analyze(uesv, esv);
+		System.out.println(t.toString());
+		assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.1 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.1);
 
 
 	}
