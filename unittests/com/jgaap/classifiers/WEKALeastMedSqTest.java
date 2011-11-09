@@ -46,7 +46,14 @@ public class WEKALeastMedSqTest {
 	 */
 	@Test
 	public void testAnalyze() {
-
+		
+		//Note: Need at least two documents per author, otherwise get the error:
+		//r must be less that or equal to n
+		//Currently fails at test 2 with some errors:
+		//rls regression unbuilt
+		//  and results
+		//[[[Susie:0.0], [Peter:0.0], [Mary:0.0]]]
+		
 		//Test 1
 
 		//Create known texts
@@ -131,6 +138,8 @@ public class WEKALeastMedSqTest {
 		//Test 2 - Add in third known author
 
 		EventSet known5 = new EventSet();
+		EventSet known6 = new EventSet();
+		
 		known5.addEvent(new Event("she"));
 		known5.addEvent(new Event("sells"));
 		known5.addEvent(new Event("seashells"));
@@ -138,11 +147,20 @@ public class WEKALeastMedSqTest {
 		known5.addEvent(new Event("seashore"));
 		known5.setAuthor("Susie");
 
+		known6.addEvent(new Event("she"));
+		known6.addEvent(new Event("sells"));
+		known6.addEvent(new Event("shells"));
+		known6.addEvent(new Event("by"));
+		known6.addEvent(new Event("sea"));
+		known6.setAuthor("Susie");
+
 		esv.add(known5);
+		esv.add(known6);
 		
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
 
+		classifier = new WEKALeastMedSq();
 		t = classifier.analyze(uesv, esv);
 		System.out.println(t.toString());
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
