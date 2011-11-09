@@ -45,71 +45,152 @@ public class WEKADecisionStumpTest {
 	@Test
 	public void testAnalyze() {
 		
-		//Test 1
+		//Note, Decision Stumps have only one node, so only one decision is made.
 		
+		//Test 1
+
+		//Create known texts
 		EventSet known1 = new EventSet();
 		EventSet known2 = new EventSet();
 		EventSet known3 = new EventSet();
 		EventSet known4 = new EventSet();
-		EventSet unknown1 = new EventSet();
-		EventSet unknown2 = new EventSet();
 
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("betta"));
+		known1.addEvent(new Event("mary"));
+		known1.addEvent(new Event("had"));
+		known1.addEvent(new Event("a"));
+		known1.addEvent(new Event("little"));
+		known1.addEvent(new Event("lamb"));
 		known1.setAuthor("Mary");
 		
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("betta"));
-		known3.addEvent(new Event("betta"));
+		known3.addEvent(new Event("mary"));
+		known3.addEvent(new Event("had"));
+		known3.addEvent(new Event("a"));
+		known3.addEvent(new Event("small"));
+		known3.addEvent(new Event("lamb"));
 		known3.setAuthor("Mary");
 
-		known2.addEvent(new Event("alpha"));
-		known2.addEvent(new Event("betta"));
-		known2.addEvent(new Event("betta"));
-		known2.addEvent(new Event("betta"));
-		known2.addEvent(new Event("betta"));
+		known2.addEvent(new Event("peter"));
+		known2.addEvent(new Event("piper"));
+		known2.addEvent(new Event("picked"));
+		known2.addEvent(new Event("a"));
+		known2.addEvent(new Event("peck"));
 		known2.setAuthor("Peter");
 		
-		known4.addEvent(new Event("alpha"));
-		known4.addEvent(new Event("alpha"));
-		known4.addEvent(new Event("betta"));
-		known4.addEvent(new Event("betta"));
-		known4.addEvent(new Event("betta"));
+		known4.addEvent(new Event("peter"));
+		known4.addEvent(new Event("piper"));
+		known4.addEvent(new Event("collected"));
+		known4.addEvent(new Event("a"));
+		known4.addEvent(new Event("peck"));
 		known4.setAuthor("Peter");
 
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("betta"));
-		unknown1.addEvent(new Event("alpha"));
-		
-		unknown2.addEvent(new Event("alpha"));
-		unknown2.addEvent(new Event("betta"));
-		unknown2.addEvent(new Event("betta"));
-		unknown2.addEvent(new Event("betta"));
-		unknown2.addEvent(new Event("betta"));
-		
 		Vector<EventSet> esv = new Vector<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
 		esv.add(known3);
 		esv.add(known4);
+
+		//Create unknown texts
+		EventSet unknown1 = new EventSet();
+		EventSet unknown2 = new EventSet();
+
+		unknown1.addEvent(new Event("mary"));
+		unknown1.addEvent(new Event("had"));
+		unknown1.addEvent(new Event("a"));
+		unknown1.addEvent(new Event("little"));
+		unknown1.addEvent(new Event("beta"));
 		
+		unknown2.addEvent(new Event("peter"));
+		unknown2.addEvent(new Event("piper"));
+		unknown2.addEvent(new Event("picked"));
+		unknown2.addEvent(new Event("a"));
+		unknown2.addEvent(new Event("shells"));
+
 		Vector<EventSet> uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
 		uesv.add(unknown2);
 
-		List<List<Pair<String, Double>>> t = new WEKADecisionStump().analyze(uesv, esv);
-		System.out.println(t.toString());
+		//Classify unknown based on the knowns
+		WEKADecisionStump classifier = new WEKADecisionStump();
+		List<List<Pair<String, Double>>> t = classifier.analyze(uesv, esv);
+		//System.out.println(t.toString());
+		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
 		//Assert that the authors match
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
-		//assertTrue(true);
+
+		
+		//Test 2 - Different documents
+		
+		//Redefine known documents
+		known1 = new EventSet();
+		known2 = new EventSet();
+		known3 = new EventSet();
+		known4 = new EventSet();
+		
+		known1.addEvent(new Event("alpha"));
+		known1.addEvent(new Event("alpha"));
+		known1.addEvent(new Event("alpha"));
+		known1.addEvent(new Event("alpha"));
+		known1.addEvent(new Event("beta"));
+		known1.setAuthor("Mary");
+		
+		known3.addEvent(new Event("alpha"));
+		known3.addEvent(new Event("alpha"));
+		known3.addEvent(new Event("alpha"));
+		known3.addEvent(new Event("beta"));
+		known3.addEvent(new Event("beta"));
+		known3.setAuthor("Mary");
+
+		known2.addEvent(new Event("alpha"));
+		known2.addEvent(new Event("beta"));
+		known2.addEvent(new Event("beta"));
+		known2.addEvent(new Event("beta"));
+		known2.addEvent(new Event("beta"));
+		known2.setAuthor("Peter");
+		
+		known4.addEvent(new Event("alpha"));
+		known4.addEvent(new Event("alpha"));
+		known4.addEvent(new Event("beta"));
+		known4.addEvent(new Event("beta"));
+		known4.addEvent(new Event("beta"));
+		known4.setAuthor("Peter");
+		
+		esv = new Vector<EventSet>();
+		esv.add(known1);
+		esv.add(known2);
+		esv.add(known3);
+		esv.add(known4);
+
+		//Create unknown texts
+		unknown1 = new EventSet();
+		unknown2 = new EventSet();
+
+		unknown1.addEvent(new Event("alpha"));
+		unknown1.addEvent(new Event("alpha"));
+		unknown1.addEvent(new Event("alpha"));
+		unknown1.addEvent(new Event("alpha"));
+		unknown1.addEvent(new Event("alpha"));
+		
+		unknown2.addEvent(new Event("beta"));
+		unknown2.addEvent(new Event("beta"));
+		unknown2.addEvent(new Event("beta"));
+		unknown2.addEvent(new Event("beta"));
+		unknown2.addEvent(new Event("beta"));
+
+		uesv = new Vector<EventSet>();
+		uesv.add(unknown1);
+		uesv.add(unknown2);
+		
+		//Classify unknown based on the knowns
+		classifier = new WEKADecisionStump();
+		t = classifier.analyze(uesv, esv);
+		//System.out.println(classifier.classifier.toString());
+		//System.out.println(t.toString());
+		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
+
+		//Assert that the authors match
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+
 	}
 
 }

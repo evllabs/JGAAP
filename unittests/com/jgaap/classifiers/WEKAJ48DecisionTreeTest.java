@@ -46,6 +46,8 @@ public class WEKAJ48DecisionTreeTest {
 	 */
 	@Test
 	public void testAnalyze() {
+		
+		//Note: Needs at least two documents per author, otherwise answers become strange
 
 		//Test 1
 
