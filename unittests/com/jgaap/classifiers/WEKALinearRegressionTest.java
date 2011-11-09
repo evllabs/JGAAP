@@ -47,6 +47,8 @@ public class WEKALinearRegressionTest {
 	 */
 	@Test
 	public void testAnalyze() {
+		
+		//Notes: Needs at least two docs per author, otherwise results become strange
 
 		//Test 1
 
@@ -117,11 +119,11 @@ public class WEKALinearRegressionTest {
 		
 		EventSet unknown2 = new EventSet();
 		
+		unknown2.addEvent(new Event("piper"));
 		unknown2.addEvent(new Event("mary"));
-		unknown2.addEvent(new Event("had"));
 		unknown2.addEvent(new Event("a"));
 		unknown2.addEvent(new Event("peter"));
-		unknown2.addEvent(new Event("piper"));
+		unknown2.addEvent(new Event("had"));
 		
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown2);
@@ -130,7 +132,34 @@ public class WEKALinearRegressionTest {
 		System.out.println(t.toString());
 		assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.1 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.1);
 
+		// Test 3 - more training documents
+		
+		EventSet known5 = new EventSet();
+		EventSet known6 = new EventSet();
+		
+		known5.addEvent(new Event("she"));
+		known5.addEvent(new Event("sells"));
+		known5.addEvent(new Event("seashells"));
+		known5.addEvent(new Event("by"));
+		known5.addEvent(new Event("seashore"));
+		known5.setAuthor("Susie");
 
+		known6.addEvent(new Event("susie"));
+		known6.addEvent(new Event("sells"));
+		known6.addEvent(new Event("shells"));
+		known6.addEvent(new Event("by"));
+		known6.addEvent(new Event("seashore"));
+		known6.setAuthor("Susie");
+
+		esv.add(known5);
+		esv.add(known6);
+
+		uesv = new Vector<EventSet>();
+		uesv.add(unknown1);
+		
+		t = classifier.analyze(uesv, esv);
+		System.out.println(t.toString());
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 	}
 
 }
