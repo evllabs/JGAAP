@@ -184,5 +184,13 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 
 		return results;
 	}
+	
+	public String toString(){
+		if(classifier != null){
+			return classifier.toString();
+		}else{
+			return "WEKAAnalysis. No classifier set.";
+		}
+	}
 
 }
