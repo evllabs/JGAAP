@@ -28,7 +28,6 @@ import java.util.Vector;
 import org.junit.Test;
 
 import weka.classifiers.Classifier;
-import weka.classifiers.trees.J48;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
