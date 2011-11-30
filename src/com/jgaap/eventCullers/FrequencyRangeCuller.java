@@ -73,8 +73,8 @@ public class FrequencyRangeCuller extends EventCuller {
         }
         
         // If the user attempts to return too many events
-        if(minPos + numEvents >= eventFrequencies.size()) {
-        	throw new EventCullingException("The requested frequency range is too broad.  This event set contains only " + eventFrequencies.size() + " elements");
+        if(minPos + numEvents > eventFrequencies.size()) {
+        	throw new EventCullingException("The requested frequency range is too broad.  This event set contains only " + eventFrequencies.size() + " elements\nYou requested elements " + (minPos + 1) + " through " + (minPos + numEvents + 1));
         }
 
         // TODO: This is likely not the best way to do this, as it means for N most common events, we go through each event set N times.
