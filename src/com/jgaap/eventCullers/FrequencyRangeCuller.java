@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class FrequencyRangeCuller extends EventCuller {
     @Override
-    public List<EventSet> cull(List<EventSet> eventSets) {
+    public List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException {
 
         List<EventSet> results = new ArrayList<EventSet>();
         int minPos, numEvents;
@@ -70,6 +70,11 @@ public class FrequencyRangeCuller extends EventCuller {
 
         if(minPos < 0) {
             minPos = eventFrequencies.size() + minPos;
+        }
+        
+        // If the user attempts to return too many events
+        if(minPos + numEvents > eventFrequencies.size()) {
+        	throw new EventCullingException("The requested frequency range is too broad.  This event set contains only " + eventFrequencies.size() + " elements\nYou requested elements " + (minPos + 1) + " through " + (minPos + numEvents + 1));
         }
 
         // TODO: This is likely not the best way to do this, as it means for N most common events, we go through each event set N times.
