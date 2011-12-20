@@ -22,8 +22,8 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 
@@ -95,14 +95,16 @@ public class WEKANaiveBayesTest {
 		//R code : pnorm(80,30,sqrt(200),lower.tail=FALSE)*pnorm(20,70,sqrt(200))*.5
 		probs[1] = 2.070124e-08; //Peter
 		weka.core.Utils.normalize(probs);
-
-		Vector<EventSet> esv = new Vector<EventSet>();
+		
+		List<EventSet> unknownList = new ArrayList<EventSet>(1);
+		unknownList.add(unknown);
+		List<EventSet> esv = new ArrayList<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
 		esv.add(known3);
 		esv.add(known4);
 
-		List<Pair<String, Double>> t = new WEKANaiveBayes().analyze(unknown, esv);
+		List<Pair<String, Double>> t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
 		String r = t.get(0).getFirst();
 		/*System.out.println("Classified");
 		System.out.println("First : "+r+" "+t.get(0).getSecond());
@@ -131,13 +133,16 @@ public class WEKANaiveBayesTest {
 		unknown.addEvent(new Event("alpha"));
 		unknown.addEvent(new Event("betta"));
 		
+		unknownList.clear();
+		unknownList.add(unknown);
+		
 		//R code : pnorm(60,70,sqrt(200))*pnorm(40,30,sqrt(200),lower.tail=FALSE)*.5
 		probs[0] = 0.02874005; //Mary
 		//R code : pnorm(60,30,sqrt(200),lower.tail=FALSE)*pnorm(40,70,sqrt(200))*.5
 		probs[1] = 0.0001436076; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
+		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
 		
 		/*System.out.println("Classified");
 		System.out.println("First : "+t.get(0).getFirst()+" "+t.get(0).getSecond());
@@ -160,10 +165,13 @@ public class WEKANaiveBayesTest {
 		unknown.addEvent(new Event("betta"));
 		unknown.addEvent(new Event("betta"));
 		
+		unknownList.clear();
+		unknownList.add(unknown);
+		
 		probs[0] = .5; //Mary
 		probs[1] = .5; //Peter
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
+		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
 		
 		if(t.get(0).getFirst().equals("Mary")){
 			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
@@ -180,13 +188,16 @@ public class WEKANaiveBayesTest {
 		unknown.addEvent(new Event("betta"));
 		unknown.addEvent(new Event("betta"));
 		
+		unknownList.clear();
+		unknownList.add(unknown);
+		
 		//R code : pnorm(40,70,sqrt(200))*pnorm(60,30,sqrt(200),lower.tail=FALSE)*.5
 		probs[0] = 0.0001436076; //Mary
 		//R code : pnorm(40,30,sqrt(200),lower.tail=FALSE)*pnorm(60,70,sqrt(200))*.5
 		probs[1] = 0.02874005; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
+		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
 		
 		/*System.out.println("Classified");
 		System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
@@ -210,13 +221,16 @@ public class WEKANaiveBayesTest {
 		unknown.addEvent(new Event("betta"));
 		unknown.addEvent(new Event("betta"));
 		
+		unknownList.clear();
+		unknownList.add(unknown);
+		
 		//R code : pnorm(0,70,sqrt(200))*pnorm(100,30,sqrt(200),lower.tail=FALSE)*.5
 		probs[0] = 6.90244e-14; //Mary
 		//R code : pnorm(0,30,sqrt(200))*pnorm(100,70,sqrt(200),lower.tail=FALSE)*.5
 		probs[1] = 0.0001436076; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
+		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
 		
 		System.out.println("Classified");
 		System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
@@ -240,13 +254,16 @@ public class WEKANaiveBayesTest {
 		unknown.addEvent(new Event("gamma"));
 		unknown.addEvent(new Event("betta"));
 		
+		unknownList.clear();
+		unknownList.add(unknown);
+		
 		//R code : pnorm(0,70,sqrt(200))*pnorm(80,30,sqrt(200),lower.tail=FALSE)*.5*1e-50
 		probs[0] = 3.780067e-61; //Mary
 		//R code : pnorm(0,30,sqrt(200))*pnorm(80,70,sqrt(200),lower.tail=FALSE)*.5*1e-50
 		probs[1] = 2.031573e-53; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
+		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
 		
 		System.out.println("Classified");
 		System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
