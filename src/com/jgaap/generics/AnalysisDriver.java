@@ -39,10 +39,11 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	public abstract boolean showInGUI();
 
 	/**
+	 * @deprecated use analyze(List<EventSet> unknown, List<EventSet> known)
+	 * 
 	 * Generic statistical analysis method. Analyze a given unknown EventSet in
 	 * terms of its similarity (broadly defined) to elements of a List of
-	 * EventSets of known authorship. Legacy code from WAY back. We should
-	 * probably add a verify() method as well once the technology improves.
+	 * EventSets of known authorship. 
 	 * 
 	 * @param unknown
 	 *            the EventSet to be analyzed
@@ -66,17 +67,19 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * First entry point for singleton EventSet; makes 1-place list and calls
 	 * second entry point.
 	 */
+	@Deprecated
 	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) throws AnalyzeException {
 		List<EventSet> ukl = new ArrayList<EventSet>();
 		ukl.add(unknown);
-		return analyze(ukl, known).get(0);
+		List<Pair<String, Double>> result = analyze(ukl, known).get(0);
+		unknown.addResults(this, result);
+		return result;
 	}
 
 	/**
 	 * Generic statistical analysis method. Analyze a group of unknown EventSet
 	 * in terms of their similarity (broadly defined) to elements of a Vector of
-	 * EventSets of known authorship. Legacy code from WAY back. We should
-	 * probably add a verify() method as well once the technology improves.
+	 * EventSets of known authorship. 
 	 * 
 	 * @param unknown
 	 *            the list of EventSets to be analyzed
@@ -91,6 +94,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	public List<List<Pair<String, Double>>> analyze(List<EventSet> unknownList, List<EventSet> known) throws AnalyzeException {
 		List<List<Pair<String, Double>>> retVal = new ArrayList<List<Pair<String, Double>>>();
 		for (EventSet unknown : unknownList) {
+			unknown.addResults(this, analyze(unknown, known));
 			retVal.add(analyze(unknown, known));
 		}
 		return retVal;
@@ -107,7 +111,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 		}
 		List<List<Pair<String, Double>>> results = analyze(unknownEventSets, knownEventSets);
 		for (int i = 0; i < results.size(); i++) {
-			unknownDocuments.get(i).addResult(this, eventDriver, results.get(i));
+			unknownEventSets.get(i).addResults(this, results.get(i));
 		}
 	}
 

@@ -19,7 +19,7 @@
  **/
 package com.jgaap.generics;
 
-import java.util.Vector;
+import java.util.List;
 import javax.swing.*;
 
 /**
@@ -30,13 +30,10 @@ import javax.swing.*;
 abstract public class DistanceFunction extends Parameterizable implements Comparable<DistanceFunction>, Displayable{
 
 	public abstract String displayName();
-	
 
 	public abstract String tooltipText();
 
-        public String longDescription() { return tooltipText(); }
-
-
+    public String longDescription() { return tooltipText(); }
 
 	public abstract boolean showInGUI();
 
@@ -51,7 +48,7 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
      */
     abstract public double distance(EventSet es1, EventSet es2) throws DistanceCalculationException;
 
-    public double distance(Vector<Double> v1, Vector<Double> v2) throws DistanceCalculationException {
+    public double distance(List<Double> v1, List<Double> v2) throws DistanceCalculationException {
         EventSet es1 = new EventSet();
         EventSet es2 = new EventSet();
         int max = 0;
@@ -65,14 +62,14 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
 
         for(Integer i = 0; i < max; i++) {
             Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(1000 * v1.elementAt(i)); j++) {
+            for(int j = 0; j < Math.round(1000 * v1.get(i)); j++) {
                 es1.addEvent(e);
             }
         }
 
         for(Integer i = 0; i < max; i++) {
             Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(1000 * v2.elementAt(i)); j++) {
+            for(int j = 0; j < Math.round(1000 * v2.get(i)); j++) {
                 es2.addEvent(e);
             }
         }
@@ -85,8 +82,7 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
     	return displayName().compareTo(o.displayName());
     }
 
-    public GroupLayout getGUILayout(JPanel panel)
-    {
+    public GroupLayout getGUILayout(JPanel panel){
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
         return layout;
     }
