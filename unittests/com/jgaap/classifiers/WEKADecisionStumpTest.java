@@ -27,6 +27,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -111,14 +112,20 @@ public class WEKADecisionStumpTest {
 
 		//Classify unknown based on the knowns
 		WEKADecisionStump classifier = new WEKADecisionStump();
-		List<List<Pair<String, Double>>> t = classifier.analyze(uesv, esv);
-		//System.out.println(t.toString());
-		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
+		List<List<Pair<String, Double>>> t;
+		try {
+			t = classifier.analyze(uesv, esv);
+			//System.out.println(t.toString());
+			//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
-		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+			//Assert that the authors match
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
 
-		
 		//Test 2 - Different documents
 		
 		//Redefine known documents
@@ -183,14 +190,19 @@ public class WEKADecisionStumpTest {
 		
 		//Classify unknown based on the knowns
 		classifier = new WEKADecisionStump();
-		t = classifier.analyze(uesv, esv);
-		//System.out.println(classifier.classifier.toString());
-		//System.out.println(t.toString());
-		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
+		try {
+			t = classifier.analyze(uesv, esv);
+			//System.out.println(classifier.classifier.toString());
+			//System.out.println(t.toString());
+			//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
-		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+			//Assert that the authors match
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
 
 	}
-
+	
 }
