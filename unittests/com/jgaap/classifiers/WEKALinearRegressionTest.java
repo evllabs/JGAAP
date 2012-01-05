@@ -29,6 +29,7 @@ import org.junit.Test;
 
 import weka.classifiers.Classifier;
 
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -105,14 +106,22 @@ public class WEKALinearRegressionTest {
 
 		//Classify unknown based on the knowns
 		WEKALinearRegression classifier = new WEKALinearRegression();
-		List<List<Pair<String, Double>>> t = classifier.analyze(uesv, esv);
-		System.out.println(t.toString());
-		Classifier stuff = classifier.classifier;
-		if(stuff != null)
-			System.out.println(stuff.toString());
+		List<List<Pair<String, Double>>> t;
+		try {
+			t = classifier.analyze(uesv, esv);
+			System.out.println(t.toString());
+			Classifier stuff = classifier.classifier;
+			if(stuff != null)
+				System.out.println(stuff.toString());
 
-		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+			//Assert that the authors match
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
+
 		
 		// Test 2 - Test equal likelihood
 		
@@ -127,9 +136,16 @@ public class WEKALinearRegressionTest {
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown2);
 		
-		t = classifier.analyze(uesv, esv);
-		System.out.println(t.toString());
-		assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.1 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.1);
+		try {
+			t = classifier.analyze(uesv, esv);
+			System.out.println(t.toString());
+			assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.1 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.1);
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
+
 
 		// Test 3 - more training documents
 		
@@ -156,9 +172,17 @@ public class WEKALinearRegressionTest {
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
 		
-		t = classifier.analyze(uesv, esv);
-		System.out.println(t.toString());
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		try {
+			t = classifier.analyze(uesv, esv);
+			System.out.println(t.toString());
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
+
 	}
 
+	//TODO: Test 4 - test documents/author requirements and exception handling
 }

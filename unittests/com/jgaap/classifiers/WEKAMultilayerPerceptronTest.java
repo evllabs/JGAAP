@@ -27,6 +27,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -83,11 +84,18 @@ public class WEKAMultilayerPerceptronTest {
 
 		//Classify unknown based on the knowns
 		WEKAMultilayerPerceptron tree = new WEKAMultilayerPerceptron();
-		List<List<Pair<String, Double>>> t = tree.analyze(uesv, esv);
-		System.out.println(t.toString());
+		List<List<Pair<String, Double>>> t;
+		try {
+			t = tree.analyze(uesv, esv);
+			System.out.println(t.toString());
 
-		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+			//Assert that the authors match
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
 		
 		//Test 2 - Add in third known author
@@ -103,10 +111,16 @@ public class WEKAMultilayerPerceptronTest {
 
 		esv.add(known5);
 
-		t = tree.analyze(uesv, esv);
-		System.out.println(t.toString());
+		try {
+			t = tree.analyze(uesv, esv);
+			System.out.println(t.toString());
 
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
 
 		//Test 3 - Add in another unknown
@@ -121,10 +135,17 @@ public class WEKAMultilayerPerceptronTest {
 
 		uesv.add(unknown2);
 
-		t = tree.analyze(uesv, esv);
-		System.out.println(t.toString());
+		try {
+			t = tree.analyze(uesv, esv);
+			System.out.println(t.toString());
 
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
+
 		
 		// Test 6 - Test unknown that is almost equally likely to be of two authors
 		
@@ -141,10 +162,17 @@ public class WEKAMultilayerPerceptronTest {
 		
 		//t = tree.analyze(uesv, esv);
 		tree = new WEKAMultilayerPerceptron();
-		t = tree.analyze(uesv, esv);
-		System.out.println(t.toString());
-		
-		assertTrue(t.get(0).get(0).getSecond()-.5 < .1 && t.get(0).get(1).getSecond()-.5 < .1);
+		try {
+			t = tree.analyze(uesv, esv);
+			System.out.println(t.toString());
+			
+			assertTrue(t.get(0).get(0).getSecond()-.5 < .1 && t.get(0).get(1).getSecond()-.5 < .1);
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
+
 		
 		// Test 5 - Add in more known documents for existing authors
 		EventSet known3 = new EventSet();
@@ -180,10 +208,17 @@ public class WEKAMultilayerPerceptronTest {
 		uesv.add(unknown1);
 		uesv.add(unknown2);
 		
-		t = tree.analyze(uesv, esv);
-		System.out.println(t.toString());
-		
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		try {
+			t = tree.analyze(uesv, esv);
+			System.out.println(t.toString());
+			
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
+
 
 	}
 

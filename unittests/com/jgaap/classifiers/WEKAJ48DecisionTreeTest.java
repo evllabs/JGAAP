@@ -29,6 +29,7 @@ import org.junit.Test;
 
 import weka.classifiers.trees.J48;
 
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -48,6 +49,7 @@ public class WEKAJ48DecisionTreeTest {
 	public void testAnalyze() {
 		
 		//Note: Needs at least two documents per author, otherwise answers become strange
+		//  This has been incorporated into WEKAJ48DecisionTree
 
 		//Test 1
 
@@ -105,15 +107,23 @@ public class WEKAJ48DecisionTreeTest {
 
 		//Classify unknown based on the knowns
 		WEKAJ48DecisionTree tree = new WEKAJ48DecisionTree();
-		List<List<Pair<String, Double>>> t = tree.analyze(uesv, esv);
-		System.out.println(t.toString());
-		J48 classifier = (J48)tree.classifier;
-		if(classifier != null){
-			System.out.println(classifier.toString());
-		}
+		J48 classifier;
+		List<List<Pair<String, Double>>> t;
+		try {
+			t = tree.analyze(uesv, esv);
+			System.out.println(t.toString());
+			classifier = (J48)tree.classifier;
+			if(classifier != null){
+				System.out.println(classifier.toString());
+			}
 
-		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+			//Assert that the authors match
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
 		
 		//Test 2 - Add in third known author
@@ -138,15 +148,21 @@ public class WEKAJ48DecisionTreeTest {
 		esv.add(known5);
 		esv.add(known6);
 
-		t = tree.analyze(uesv, esv);
-		System.out.println(t.toString());
-		classifier = (J48)tree.classifier;
-		if(classifier != null){
-			System.out.println(classifier.toString());
+		try {
+			t = tree.analyze(uesv, esv);
+			System.out.println(t.toString());
+			classifier = (J48)tree.classifier;
+			if(classifier != null){
+				System.out.println(classifier.toString());
+			}
+
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
 		}
 
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		
 
 		//Test 3 - Add in another unknown
 
@@ -160,14 +176,23 @@ public class WEKAJ48DecisionTreeTest {
 
 		uesv.add(unknown2);
 
-		t = tree.analyze(uesv, esv);
-		System.out.println(t.toString());
-		classifier = (J48)tree.classifier;
-		if(classifier != null){
-			System.out.println(classifier.toString());
+		try {
+			t = tree.analyze(uesv, esv);
+			System.out.println(t.toString());
+			classifier = (J48)tree.classifier;
+			if(classifier != null){
+				System.out.println(classifier.toString());
+			}
+
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
 		}
 
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		
+		//TODO: Test 4 - test documents/author requirements and exception handling
 	}
 
 }
