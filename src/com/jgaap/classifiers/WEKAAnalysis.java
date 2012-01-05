@@ -13,6 +13,7 @@ import weka.core.Instance;
 import weka.core.Instances;
 
 import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
@@ -41,15 +42,21 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 
 	public abstract Classifier getClassifier();
 	
+	public abstract void testRequirements(List<EventSet> knownList) throws AnalyzeException;
+	
 	
 	/**
 	 * Convert from the JGAAP event framework to the WEKA instance framework to
 	 * perform analysis.
+	 * @throws AnalyzeException 
 	 */
 	public List<List<Pair<String, Double>>> analyze(List<EventSet> unknownList,
-			List<EventSet> knownList) {
+			List<EventSet> knownList) throws AnalyzeException {
 		classifier = getClassifier();
 		List<List<Pair<String, Double>>> results = new ArrayList<List<Pair<String, Double>>>();
+		
+		//Test requirements
+		testRequirements(knownList);
 
 		/*
 		 * Generate event histograms, unique event list, and unique author list.
