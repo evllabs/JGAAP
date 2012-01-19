@@ -53,6 +53,7 @@ public class WEKAPaceRegressionTest {
 
 		//Create known texts
 		//Not enough training instances with class labels (required: 52, provided: 30)!
+		//What the heck??
 		/*EventSet known1 = new EventSet();
 		EventSet known2 = new EventSet();
 		EventSet known3 = new EventSet();
@@ -330,6 +331,7 @@ public class WEKAPaceRegressionTest {
 		esv.add(known215);*/
 		
 		//weka.core.WekaException: weka.classifiers.functions.PaceRegression: Not enough training instances with class labels (required: 31, provided: 4)!
+		// >:{
 		EventSet known1 = new EventSet();
 
 		known1.addEvent(new Event("mary"));
