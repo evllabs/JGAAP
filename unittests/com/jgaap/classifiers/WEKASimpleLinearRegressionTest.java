@@ -46,6 +46,9 @@ public class WEKASimpleLinearRegressionTest {
 	public void testAnalyze() {
 		
 		//"weka.classifiers.functions.SimpleLinearRegression: Cannot handle multi-valued nominal class!"
+		//Tried the following: putting only events which are the exact same strings, but different quantities
+		//  : putting only one string per event
+		//Still get error
 		
 		//Test 1
 
