@@ -55,7 +55,7 @@ public class PartOfSpeechEventDriver extends EventDriver {
 
 		EventSet es = new EventSet(doc.getAuthor());
 
-		char[] text = doc.getProcessedText();
+		char[] text = doc.getText();
 
 		text = new PunctuationSeparator().process(text);
 
