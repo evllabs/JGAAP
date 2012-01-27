@@ -104,11 +104,13 @@ public class Document extends Parameterizable {
 		this.canonicizers = new ArrayList<Canonicizer>();
 	}
 	
-	public void load() throws Exception{
-		this.text = DocumentHelper.loadDocument(filepath, language.getCharset());
-		this.size = this.text.length;
-		if (this.size == 0) {
-			throw new Exception("Empty Document Error");
+	public void load() throws Exception {
+		if (this.docType != DocType.DATABASE) {
+			this.text = DocumentHelper.loadDocument(filepath, language.getCharset());
+			this.size = this.text.length;
+			if (this.size == 0) {
+				throw new Exception("Empty Document Error");
+			}
 		}
 	}
 
@@ -134,6 +136,10 @@ public class Document extends Parameterizable {
 		size = text.length;
 	}
 
+	/**
+	 * Prints the text of the document to std out
+	 * 
+	 */
 	public void print() {
 		System.out.println(stringify());
 	}
@@ -152,13 +158,33 @@ public class Document extends Parameterizable {
 	public String getFilePath() {
 		return filepath;
 	}
-
+	
 	/**
+	 * Sets the filepath of the current document
+	 */
+	public void setFilePath(String filePath) {
+		this.filepath = filePath;
+	}
+	
+	/**
+	 * @deprecated use getText()
 	 * Returns text with preprocessing done. Preprocessing can include stripping
 	 * whitespace or normalizing the case
 	 **/
+	@Deprecated
 	public char[] getProcessedText() {
 			return Arrays.copyOf(text, text.length);
+	}
+	
+	/**
+	 * The text of the document as a character array
+	 * 
+	 * This is only preprocessed if processCanonicizers() has been run
+	 * 
+	 * @return 
+	 */
+	public char[] getText() {
+		return text;
 	}
 
 	/**
