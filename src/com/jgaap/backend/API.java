@@ -561,7 +561,22 @@ public class API {
 		}
 		for (AnalysisDriver analysisDriver : analysisDrivers){
 			for(EventDriver eventDriver : eventDrivers){
-				analysisDriver.analyzeDocuments(unknownDocuments, knownDocuments, eventDriver);
+				List<EventSet> knownEventSets = new ArrayList<EventSet>(knownDocuments.size());
+				for(Document knownDocument : knownDocuments){
+					knownEventSets.add(knownDocument.getEventSet(eventDriver));
+				}
+				analysisDriver.train(knownEventSets);
+				if (analysisDriver instanceof ValidationDriver) {
+					for(Document knownDocument : knownDocuments){
+						knownDocument.addResult(analysisDriver, eventDriver, 
+								analysisDriver.analyze(knownDocument.getEventSet(eventDriver)));
+					}
+				} else {
+					for (Document unknownDocument : unknownDocuments) {
+						unknownDocument.addResult(analysisDriver, eventDriver,
+								analysisDriver.analyze(unknownDocument.getEventSet(eventDriver)));
+					}
+				}
 			}
 		}
 	}
