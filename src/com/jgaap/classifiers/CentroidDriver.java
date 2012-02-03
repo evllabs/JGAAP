@@ -32,6 +32,10 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 
 	static private Logger logger = Logger.getLogger(CentroidDriver.class);
 	
+	private Map<String, List<EventHistogram>> knownHistograms;
+
+	private Set<Event> events;
+	
 	@Override
 	public String displayName() {
 		return "Centroid Driver"+getDistanceName();
@@ -50,9 +54,9 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 	}
 	
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> knowns) throws AnalyzeException {
-		Map<String, List<EventHistogram>>knownHistograms=new HashMap<String, List<EventHistogram>>();
-		Set<Event> events = new HashSet<Event>();
+	public void train(List<EventSet> knowns){
+		knownHistograms=new HashMap<String, List<EventHistogram>>();
+		events = new HashSet<Event>();
 		for(EventSet known : knowns){
 			EventHistogram histogram = new EventHistogram();
 			for(Event event : known){
@@ -68,6 +72,10 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 				knownHistograms.put(known.getAuthor(), histograms);
 			}
 		}
+	}
+	
+	@Override
+	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
 		EventHistogram unknownHistogram = new EventHistogram();
 		for(Event event : unknown){
 			events.add(event);

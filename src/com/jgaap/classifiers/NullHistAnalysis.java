@@ -44,38 +44,25 @@ public class NullHistAnalysis extends AnalysisDriver {
 	    return true;
 	}
 
+	public void train(List<EventSet> knowns){
+		int count = 0;
+		for(EventSet known : knowns){
+			count++;
+			EventHistogram histogram = new EventHistogram(known);
+			System.out.println("--- Known Event Set #" + count + " ---");
+            for(Event event : histogram){
+            	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+histogram.getRelativeFrequency(event)+"',");
+            }
+		}
+	}
+	
     @Override
-    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
-        int i;
-
-        EventHistogram h1 = new EventHistogram();
-        EventHistogram h2;
-
-        for (i = 0; i < unknown.size(); i++) {
-            h1.add(unknown.eventAt(i));
-        }
-
-        // for (Event e : unknown)
-        // h1.add(e);
+    public List<Pair<String, Double>> analyze(EventSet unknown) {
+        EventHistogram h1 = new EventHistogram(unknown);
 
         System.out.println("--- Unknown Event Set ---");
-        //System.out.println("%hash = (");
         for(Event event : h1){
         	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+h1.getRelativeFrequency(event)+"',");
-        }
-        //System.out.println(h1);
-
-        for (i = 0; i < known.size(); i++) {
-            h2 = new EventHistogram();
-            for (int j = 0; j < known.get(i).size(); j++) {
-                h2.add(known.get(i).eventAt(j));
-            }
-            // for(Event e : known.elementAt(i))
-            // h2.add(e);
-            System.out.println("--- Known Event Set #" + i + " ---");
-            for(Event event : h2){
-            	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+h1.getRelativeFrequency(event)+"',");
-            }
         }
 
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
