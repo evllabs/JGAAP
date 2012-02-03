@@ -41,7 +41,9 @@ import com.jgaap.generics.Pair;
  */
 public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
-	static Logger logger = Logger.getLogger(KNearestNeighborDriver.class);
+	static private Logger logger = Logger.getLogger(KNearestNeighborDriver.class);
+	
+	private List<EventSet> knowns;
 	
     private static final int DEFAULT_K = 5;
     private static final String DEFAULT_TIE = "lastPicked";
@@ -57,9 +59,13 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 	public boolean showInGUI() {
 		return false;
 	}
+	
+	public void train(List<EventSet> knowns){
+		this.knowns = knowns;
+	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) throws AnalyzeException {
+	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
 
         Ballot<String> ballot = new Ballot<String>();
 
@@ -80,16 +86,16 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
 		List<Pair<String, Double>> rawResults = new ArrayList<Pair<String,Double>>();
 
-		for (int i = 0; i < known.size(); i++) {
+		for (int i = 0; i < knowns.size(); i++) {
 			double current;
 			try {
-				current = distance.distance(unknown, known.get(i));
+				current = distance.distance(unknown, knowns.get(i));
 			} catch (DistanceCalculationException e) {
 				logger.error("Distance "+distance.displayName()+" failed", e);
 				throw new AnalyzeException("Distance "+distance.displayName()+" failed");
 			}
-            rawResults.add(new Pair<String, Double>(known.get(i).getAuthor(), current, 2));
-			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.get(i).getDocumentName()+"("+known.get(i).getAuthor()+") Distance:"+current);
+            rawResults.add(new Pair<String, Double>(knowns.get(i).getAuthor(), current, 2));
+			logger.debug(unknown.getDocumentName()+"(Unknown):"+knowns.get(i).getDocumentName()+"("+knowns.get(i).getAuthor()+") Distance:"+current);
 		}
 		Collections.sort(rawResults);
         for(int i = 0; i < Math.min(k, rawResults.size()); i++) {

@@ -25,6 +25,7 @@ import java.util.*;
 
 import com.jgaap.backend.KernelMethodMatrix;
 import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
 
@@ -40,6 +41,14 @@ import com.jgaap.generics.Pair;
  
 public class SVM extends AnalysisDriver {
 
+	private svm_model model;
+	
+	private Set<Event> vocab;
+	
+	private Map<String, Integer> authorMap;
+	
+	private Map<Integer, String> groupMap;
+	
 	public String displayName(){
 	    return "Linear SVM";
 	}
@@ -64,19 +73,17 @@ public class SVM extends AnalysisDriver {
         kernelType = t;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-    public List<Pair<String,Double>> analyze(EventSet unknown, List<EventSet> known) {
-		
-		int i;
+    
+    public void train(List<EventSet> knowns){
+    	//int i;
 		
 		// Each known author is assigned a unique group ID, which is mapped in groupsMap
-		HashMap<String, Integer> authorMap = new HashMap<String, Integer>();
-        HashMap<Integer, String> groupMap = new HashMap<Integer, String>();
+		authorMap = new HashMap<String, Integer>();
+        groupMap = new HashMap<Integer, String>();
 		
 		// Iterate over all known authors, and build groupsMap
-		for (i=0; i < known.size(); i++) {
-			String author = known.get(i).getAuthor();
+		for (int i=0; i < knowns.size(); i++) {
+			String author = knowns.get(i).getAuthor();
 			if (!authorMap.containsKey(author)) {
 				Integer gid = (authorMap.size() + 1);
 				authorMap.put(author, gid);
@@ -86,29 +93,27 @@ public class SVM extends AnalysisDriver {
 			
 			
 		// Build a set of all known documents' events
-		TreeSet vocab = new TreeSet();
-		for (i=0; i < known.size(); i++) {
-            for (int j = 0; j < known.get(i).size(); j++) {
-                vocab.add(known.get(i).eventAt(j));
+		vocab = new HashSet<Event>();
+		for (int i=0; i < knowns.size(); i++) {
+            for (int j = 0; j < knowns.get(i).size(); j++) {
+                vocab.add(knowns.get(i).eventAt(j));
             }
         }
 		
 		// Do whatever the original SVM implementation did... (?)
 		// This a slightly more space-optimized implementation, merged with
 		// the internals of svm_train, to generate a svm_problem object.
-		
-		KernelMethodMatrix matrixFactory = new KernelMethodMatrix();
-		
+				
 		svm_problem prob = new svm_problem();
-		prob.l = known.size(); // the number of known documents
+		prob.l = knowns.size(); // the number of known documents
 		prob.x = new svm_node[prob.l][];
 		prob.y = new double[prob.l];
 		
-        for (i = 0; i < known.size(); i++) {
-            String author = known.get(i).getAuthor();
+        for (int i = 0; i < knowns.size(); i++) {
+            String author = knowns.get(i).getAuthor();
             int groupID = authorMap.get(author);
 
-			double knownMatrix[] = matrixFactory.getRow(known.get(i), vocab, 1000);
+			double knownMatrix[] = KernelMethodMatrix.getRow(knowns.get(i), vocab, 1000);
 			
 			prob.y[i] = (double)groupID;
 			prob.x[i] = new svm_node[knownMatrix.length];
@@ -140,11 +145,14 @@ public class SVM extends AnalysisDriver {
 		param.weight = new double[0];
 		
 		// Run svm_train (finally)
-		svm_model model = svm.svm_train(prob, param);
+		model = svm.svm_train(prob, param);
 		// We get back a svm_model which we can feed into svm_predict
-
+    }
+    
+	@Override
+    public List<Pair<String,Double>> analyze(EventSet unknown) {
 		// Run the unknown eventset through matrixFactory, and build another svm_node[] 
-		double[] unknownRow = matrixFactory.getRow(unknown, vocab, 1000);
+		double[] unknownRow = KernelMethodMatrix.getRow(unknown, vocab, 1000);
 		svm_node[] x = new svm_node[unknownRow.length];
 		for (int j=0; j<unknownRow.length; j++) {
 			x[j] = new svm_node();
@@ -161,72 +169,7 @@ public class SVM extends AnalysisDriver {
 
 		// whose author we lookup in groupsMap and return.
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
-		results.add(new Pair((String)groupMap.get(Integer.valueOf(decision)),v));
+		results.add(new Pair<String, Double>(groupMap.get(decision),v));
         return results;
 	}
-/*
-    JLabel NLabel = new JLabel();
-    JComboBox NBox = new JComboBox();
-
-    JLabel NLabel2 = new JLabel();
-    JComboBox NBox2 = new JComboBox();
-
-    @Override
-    public GroupLayout getGUILayout(JPanel panel){
-
-    	NLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    	NLabel.setText("N");
-
-    	NBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }));
-        NBox.setEditable(true);
-        String temp = this.getParameter("numEvents");
-        if (temp.equals(""))
-        {
-            this.setParameter("numEvents", 50);
-        }
-        NBox.setSelectedItem(this.getParameter("numEvents"));
-        NBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NBoxActionPerformed(evt);
-            }
-        });
-
-        NLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    	NLabel2.setText("N");
-
-    	NBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }));
-        NBox2.setEditable(true);
-        if (temp.equals(""))
-        {
-            this.setParameter("numEvents", 50);
-        }
-        NBox2.setSelectedItem(this.getParameter("numEvents"));
-        NBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NBoxActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
-
-        GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
-        hGroup.addGroup(layout.createParallelGroup().addComponent(NLabel).addComponent(NLabel2));
-        hGroup.addGroup(layout.createParallelGroup().addComponent(NBox).addComponent(NBox2));
-        layout.setHorizontalGroup(hGroup);
-
-        GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
-        vGroup.addGroup(layout.createParallelGroup().addComponent(NLabel).addComponent(NBox));
-        vGroup.addGroup(layout.createParallelGroup().addComponent(NLabel2).addComponent(NBox2));
-        layout.setVerticalGroup(vGroup);
-
-        return layout;
-    }
-
-    private void NBoxActionPerformed(java.awt.event.ActionEvent evt) {
-        this.setParameter("numEvents", (String)NBox.getSelectedItem());
-    }
-
-*/
 }

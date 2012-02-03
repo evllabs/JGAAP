@@ -50,9 +50,9 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * @return a list of (name,numeric-result) pairs
 	 */
 	
-	abstract public void train(List<EventSet> knownEventSets);
+	abstract public void train(List<EventSet> knownEventSets) throws AnalyzeException;
 	
-	abstract public List<Pair<String, Double>> analyze(EventSet unknownEventSet);
+	abstract public List<Pair<String, Double>> analyze(EventSet unknownEventSet) throws AnalyzeException;
 
 	public int compareTo(AnalysisDriver o) {
 		return displayName().compareTo(o.displayName());

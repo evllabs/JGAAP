@@ -13,6 +13,7 @@ import weka.core.Instance;
 import weka.core.Instances;
 
 import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
@@ -29,6 +30,12 @@ import com.jgaap.generics.Pair;
 public abstract class WEKAAnalysis extends AnalysisDriver {
 
 	public Classifier classifier;
+	
+	private Set<String> allAuthorNames;
+	private Set<Event> allEvents;
+	private FastVector attributeList;
+	private FastVector authorNames;
+	private Instances trainingSet;
 
 	@Override
 	public abstract String displayName(); 
@@ -41,22 +48,14 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 
 	public abstract Classifier getClassifier();
 	
-	
-	/**
-	 * Convert from the JGAAP event framework to the WEKA instance framework to
-	 * perform analysis.
-	 */
-	public List<List<Pair<String, Double>>> analyze(List<EventSet> unknownList,
-			List<EventSet> knownList) {
+	public void train(List<EventSet> knownList) throws AnalyzeException{
 		classifier = getClassifier();
-		List<List<Pair<String, Double>>> results = new ArrayList<List<Pair<String, Double>>>();
-
 		/*
 		 * Generate event histograms, unique event list, and unique author list.
 		 */
 		List<EventHistogram> knownHistograms = new ArrayList<EventHistogram>();
-		Set<String> allAuthorNames = new HashSet<String>();
-		Set<Event> allEvents = new HashSet<Event>();
+		allAuthorNames = new HashSet<String>();
+		allEvents = new HashSet<Event>();
 		for (EventSet eventSet : knownList) {
 			allAuthorNames.add(eventSet.getAuthor());
 			EventHistogram currentKnownHistogram = new EventHistogram();
@@ -71,9 +70,9 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 		 * Put together WEKA "Instances" object, which defines the attributes
 		 * (aka "events" or "features").
 		 */
-		FastVector attributeList = new FastVector(allEvents.size() + 1);
+		attributeList = new FastVector(allEvents.size() + 1);
 
-		FastVector authorNames = new FastVector(allAuthorNames.size());
+		authorNames = new FastVector(allAuthorNames.size());
 		for (String currentAuthorName : allAuthorNames) {
 			authorNames.addElement(currentAuthorName);
 		}
@@ -91,7 +90,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 		 * Create the training "Instances" object, which is essentially the set
 		 * of feature vectors for the training data.
 		 */
-		Instances trainingSet = new Instances("JGAAP", attributeList,
+		trainingSet = new Instances("JGAAP", attributeList,
 				knownList.size());
 		trainingSet.setClassIndex(0); // The label (author name) is in position
 										// 0.
@@ -124,19 +123,20 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 			classifier.buildClassifier(trainingSet);
 		} catch (Exception e) {
 			e.printStackTrace();
-			List<Pair<String, Double>> errorResults = new ArrayList<Pair<String, Double>>();
-			Pair<String, Double> errorResult = new Pair<String, Double>(
-					"Error training classifier", 0.0);
-			errorResults.add(errorResult);
-			results.add(errorResults);
-			return results;
+			throw new AnalyzeException("WEKA classifier not trained");
 		}
-
+	}
+	
+	/**
+	 * Convert from the JGAAP event framework to the WEKA instance framework to
+	 * perform analysis.
+	 * @throws AnalyzeException 
+	 */
+	public List<Pair<String, Double>> analyze(EventSet unknownEventSet) throws AnalyzeException {
 		/*
 		 * Generate the test sets, classifying each one as we go
 		 */
-		for (EventSet unknownEventSet : unknownList) {
-			List<Pair<String, Double>> oneResult = new ArrayList<Pair<String, Double>>();
+			List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>();
 			EventHistogram currentUnknownHistogram = new EventHistogram();
 			for (Event event : unknownEventSet) {
 				currentUnknownHistogram.add(event);
@@ -160,12 +160,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 						.distributionForInstance(currentTest);
 			} catch (Exception e) {
 				e.printStackTrace();
-				List<Pair<String, Double>> errorResults = new ArrayList<Pair<String, Double>>();
-				Pair<String, Double> errorResult = new Pair<String, Double>(
-						"Error training classifier", 0.0);
-				errorResults.add(errorResult);
-				results.add(errorResults);
-				return results;
+				throw new AnalyzeException("Could not classify with WEKA");
 			}
 			
 			/*
@@ -174,15 +169,14 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 			 */
 			int j = 0;
 			for(String authorName : allAuthorNames) {
-				oneResult.add(new Pair<String, Double>(authorName, probDistribution[j], 2));
+				result.add(new Pair<String, Double>(authorName, probDistribution[j], 2));
 				j++;
 			}
-			Collections.sort(oneResult);
-			Collections.reverse(oneResult); // Reverse since we want higher probabilities first
-			results.add(oneResult);
-		}
+			Collections.sort(result);
+			Collections.reverse(result); // Reverse since we want higher probabilities first
+			
 
-		return results;
+		return result;
 	}
 
 }
