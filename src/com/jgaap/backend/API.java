@@ -34,6 +34,22 @@ import com.jgaap.languages.English;
  * This class provides a simple interface into jgaap for use in 
  * other software packages and for development of any human interfaces.
  * 
+ * Instructions for using the JGAAP API:
+ * 
+ * First add documents both known and unknown
+ * 
+ * All other settings can be performed in any order which are setLanguage, addCanonicizer,
+ * addEventDriver, addEventCuller, addAnalysisDriver, addDistanceFunction
+ * Note: of the settings only one EventDriver and one AnalysisDriver are required to run an experiment
+ * 
+ * The execute method is then used to start the experiment running
+ * 
+ * Results are placed in unknown documents to access them simple use the getUnknownDocuments method in the API
+ * The results can be retrieved as a List<Pair<String, Double>> this is a sorted list 
+ * from most likely to least likely author followed by a score generated based on your settings using the getRawResult method
+ * You can also get a Map of Maps of the raw results (Map<EventDriver, Map<AnalysisDriver, List<String, Double>>>) with the getRawResults method
+ * They can also be retrieved as a string using either the getFormattedResult or getResult methods.
+ * 
  * For examples of how to use the API class see the com.jgaap.ui package for a GUI example
  * or the com.jgaap.backend.CLI class for a command line example
  * 
@@ -63,10 +79,25 @@ public class API {
 		analysisDrivers = new ArrayList<AnalysisDriver>();
 	}
 	
+	/**
+	 * This allows a singleton of the api to be used in the gui 
+	 * or any program that needs to access a single copy of JGAAP 
+	 * from multiple classes
+	 * 
+	 * @return a reference to the singleton API
+	 */
 	public static API getInstance(){
 		return INSTANCE;
 	}
 	
+	/**
+	 * This is a unique instance of the api to be used when running
+	 * bulk experiments and you want to reset everything or if you 
+	 * want to thread running more than one experiment at a time 
+	 * as in the class com.jgaap.backend.ExperimentEngine
+	 * 
+	 * @return a unique API instance
+	 */
 	public static API getPrivateInstance(){
 		return new API();
 	}
@@ -74,9 +105,9 @@ public class API {
 	/**
 	 * 
 	 * This allows for the addition of documents to the system.
-	 * Both Training (known) and Sample (unknown) documents must be provided before runing an experiment.
+	 * Both Training (known) and Sample (unknown) documents must be provided before running an experiment.
 	 * Training Documents are added by providing an author(tag) for them.
-	 * Sample documents are added when no auythor(tag) is given.
+	 * Sample documents are added when no author(tag) is given.
 	 * 
 	 * @param filepath - the system file path or URL to a document 
 	 * @param author - the author of this document or the tag being applied to this document, if null or the empty string this document is considered unknown and is one of those classified
@@ -96,7 +127,7 @@ public class API {
 	 * Adds a previously generated document to the jgaap system.
 	 * 
 	 * @param document - a file that has already been loaded as a Document
-	 * @return - a refence to the document generated
+	 * @return - a reference to the document generated
 	 */
 	public Document addDocument(Document document) {
 		documents.add(document);
@@ -428,7 +459,7 @@ public class API {
 	 * @param action - unique identifier for the DistanceFunction you want to add
 	 * @param analysisDriver - a reference to the AnalysisDriver you want the distance added to
 	 * @return - a reference to the generated DistanceFunction
-	 * @throws Exception - if the AnalysisDriver does not extend NeighborAnalysisDriver if the DistanceFunction cannot be found if the DistanceFunction cannot be instanced
+	 * @throws Exception - if the AnalysisDriver does not extend NeighborAnalysisDriver or if the DistanceFunction cannot be found the DistanceFunction cannot be instanced
 	 */
 	public DistanceFunction addDistanceFunction(String action,
 			AnalysisDriver analysisDriver) throws Exception {
@@ -446,6 +477,10 @@ public class API {
 		return analysisDrivers;
 	}
 
+	/**
+	 * Get the current Language JGAAP is set to be working on
+	 * @return
+	 */
 	public Language getLanguage(){
 		return language;
 	}
@@ -463,6 +498,12 @@ public class API {
 	}
 
 	/**
+	 * Pipelines the independent aspects of loading and processing a document into separate threads
+	 *  
+	 * Load the text from disk or the web
+	 * Take into account any special treatment based on the language currently selected
+	 * Place the text into canonical form using the Canonicizers 
+	 * Use the EventDrivers to transform the text into EventSets 
 	 * 
 	 * @throws Exception
 	 */
@@ -528,7 +569,7 @@ public class API {
 	private void cull() throws EventCullingException {
 		List<EventSet> eventSets = new ArrayList<EventSet>();
 		for (EventDriver eventDriver : eventDrivers) {
-			for (final Document document : documents) {
+			for (Document document : documents) {
 				if (document.getEventSets().containsKey(eventDriver)) {
 					eventSets.add(document.getEventSet(eventDriver));
 				}
@@ -582,19 +623,21 @@ public class API {
 	}
 
 	/**
-	 * Preforms the canonicize eventify cull and analyze methods since a strict order has to be enforced when using them 
+	 * Performs the canonicize eventify cull and analyze methods since a strict order has to be enforced when using them 
 	 * @throws Exception 
 	 */
 	public void execute() throws Exception {
 		loadCanonicizeEventify();
 		cull();
 		analyze();
-		clearEventSets();
+		clearData();
 	}
 
 	/**
+	 * @deprecated Use clearData()
 	 * Removes all results generated by the analysis methods 
 	 */
+	@Deprecated
 	public void clearResults() {
 		List<Document> documents = getUnknownDocuments();
 		for (Document document : documents) {
@@ -603,9 +646,20 @@ public class API {
 	}
 	
 	/**
+	 * @deprecated User clearData() 
 	 * Removes all EventSets generated by EventDriver
 	 */
+	@Deprecated
 	public void clearEventSets() {
+		for(Document document : documents){
+			document.clearEventSets();
+		}
+	}
+	
+	/**
+	 * Removes all Generated data from a run but leaves all settings untouched
+	 */
+	public void clearData() {
 		for(Document document : documents){
 			document.clearEventSets();
 		}
@@ -658,5 +712,4 @@ public class API {
 	public List<Language> getAllLanguages() {
 		return AutoPopulate.getLanguages();
 	}
-
 }

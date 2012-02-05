@@ -22,8 +22,8 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 
@@ -85,11 +85,13 @@ public class LDATest {
 		unknown.addEvent(new Event("as"));
 		unknown.addEvent(new Event("snow."));
 
-		Vector <EventSet> esv = new Vector<EventSet>();
+		List <EventSet> esv = new ArrayList<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
+		List<EventSet> unknownList = new ArrayList<EventSet>(1);
+		unknownList.add(unknown);
 		LDA classifier = new LDA();
-		List<Pair<String, Double>> t = classifier.analyze(unknown, esv);
+		List<Pair<String, Double>> t = classifier.analyze(unknownList, esv).get(0);
 		String author1 = t.get(0).getFirst();
 		String author2 = t.get(1).getFirst();
 		Double val1 = t.get(0).getSecond();
@@ -104,7 +106,7 @@ public class LDATest {
 
 		//Test 2 - Same classifier
 		//Testing for persistence
-		t = classifier.analyze(unknown,esv);
+		t = classifier.analyze(unknownList,esv).get(0);
 		/*System.out.println("Test 2 Classified");
 		System.out.println("First : "+t.get(0).getFirst()+" "+t.get(0).getSecond());
 		System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
@@ -116,7 +118,7 @@ public class LDATest {
 		
 		//Test 3 - Different instance of classifier
 		//Again testing for persistence
-		t = new LDA().analyze(unknown, esv);
+		t = new LDA().analyze(unknownList, esv).get(0);
 		//String r = t.get(0).getFirst();
 		/*System.out.println("Test 3 Classified");
 		System.out.println("First : "+r+" "+t.get(0).getSecond());
@@ -138,7 +140,7 @@ public class LDATest {
 		unknown2.addEvent(new Event("pickled"));
 		unknown2.addEvent(new Event("potatoes."));
 		
-		Vector <EventSet> uesv = new Vector<EventSet>();
+		List <EventSet> uesv = new ArrayList<EventSet>();
 		uesv.add(unknown);
 		uesv.add(unknown2);
 		
