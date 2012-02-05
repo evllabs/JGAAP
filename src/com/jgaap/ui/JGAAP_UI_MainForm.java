@@ -1645,12 +1645,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
     private void ReviewPanel_ProcessButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReviewPanel_ProcessButtonActionPerformed
         try {
-            JGAAP_API.clearResults();
+            JGAAP_API.clearData();
             JGAAP_API.execute();
             List<Document> unknowns = JGAAP_API.getUnknownDocuments();
             StringBuffer buffer = new StringBuffer();
             for (Document unknown : unknowns) {
-                buffer.append(unknown.getResult());
+            	for(AnalysisDriver analysisDriver : JGAAP_API.getAnalysisDrivers())
+            		for(EventDriver eventDriver : JGAAP_API.getEventDrivers())
+            			buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
             }
             //ResultsPage.DisplayResults(buffer.toString());
             ResultsPage.addResults(buffer.toString());

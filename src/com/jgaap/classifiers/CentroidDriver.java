@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
@@ -81,13 +80,13 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 			events.add(event);
 			unknownHistogram.add(event);
 		}
-		Vector<Double> unknownVector = new Vector<Double>(events.size());
+		List<Double> unknownVector = new ArrayList<Double>(events.size());
 		for(Event event : events){
 			unknownVector.add(unknownHistogram.getRelativeFrequency(event));
 		}
 		List<Pair<String, Double>> result = new ArrayList<Pair<String,Double>>(knownHistograms.size());
 		for(Entry<String, List<EventHistogram>> knownEntry : knownHistograms.entrySet()){
-			Vector<Double> knownVector = new Vector<Double>(events.size());
+			List<Double> knownVector = new ArrayList<Double>(events.size());
 			List<EventHistogram> currentKnownHistogram = knownEntry.getValue();
 			for(Event event : events){
 				double frequency = 0.0;
