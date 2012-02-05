@@ -315,16 +315,13 @@ public class Document extends Parameterizable {
 		eventSets.clear();
 	}
 
-	/**
-	 * @deprecated results are now added to EventSets
-	 * 
+	/** 
 	 * add the result of an analysis to the document
 	 * 
 	 * @param analysisDriver
 	 * @param eventDriver
 	 * @param list
 	 */
-	@Deprecated
 	public void addResult(AnalysisDriver analysisDriver,
 			EventDriver eventDriver, List<Pair<String, Double>> list) {
 		eventSets.get(eventDriver).addResults(analysisDriver, list);
