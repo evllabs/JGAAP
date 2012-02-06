@@ -15,10 +15,10 @@ import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
+import com.jgaap.generics.ValidationDriver;
 
-public class LeaveOneOutCentroidDriver extends NeighborAnalysisDriver {
+public class LeaveOneOutCentroidDriver extends ValidationDriver {
 
 	private Map<String, Map<Event, Double>> knownCentroids;
 	private Map<String, List<EventSet>> knownEventSets;
