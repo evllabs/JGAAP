@@ -21,9 +21,11 @@ package com.jgaap.generics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *  A set of Events
@@ -196,6 +198,10 @@ public class EventSet implements Iterable<Event> {
     @Override
     public int hashCode(){
     	return events.hashCode();
+    }
+    
+    public Set<Event> uniqueEvents(){
+    	return new HashSet<Event>(events);
     }
 
 	public Iterator<Event> iterator() {
