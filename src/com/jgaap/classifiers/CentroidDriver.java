@@ -104,7 +104,6 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 			}			
 		}
 		Collections.sort(result);
-		Collections.reverse(result);
 		return result;
 	}
 

@@ -74,7 +74,6 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.getDocumentName()+"("+known.getAuthor()+") Distance:"+current);
 		}
 		Collections.sort(results);
-		Collections.reverse(results);
 		return results;
 	}
 
