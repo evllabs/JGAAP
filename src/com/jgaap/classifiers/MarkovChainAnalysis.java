@@ -62,14 +62,13 @@ public class MarkovChainAnalysis extends AnalysisDriver {
 
 	public void train(List<EventSet> known) {
 		Iterator<EventSet> setIt = known.iterator();
-		Map<Event, Map<Event, Double>> probMatrix = new HashMap<Event, Map<Event, Double>>();
-
+		knownProbabilityMatacies = new HashMap<EventSet, Map<Event,Map<Event,Double>>>();
 		// loop throught the known and assign a probability to the unknown set
 		// using
 		// a transition probability matrix built from each known event set.
 		while (setIt.hasNext()) {
 			Map<Event, Map<Event, Double>> matrix = new HashMap<Event, Map<Event, Double>>();
-
+			Map<Event, Map<Event, Double>> probMatrix = new HashMap<Event, Map<Event, Double>>();
 			EventSet ev = setIt.next();
 
 			// Iterate over events to create a matrix with
