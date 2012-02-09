@@ -104,7 +104,9 @@ public class WEKANaiveBayesTest {
 		esv.add(known3);
 		esv.add(known4);
 
-		List<Pair<String, Double>> t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
+		WEKANaiveBayes classifier = new WEKANaiveBayes();
+		classifier.train(esv);
+		List<Pair<String, Double>> t = classifier.analyze(unknown);
 		String r = t.get(0).getFirst();
 		/*System.out.println("Classified");
 		System.out.println("First : "+r+" "+t.get(0).getSecond());
@@ -142,7 +144,9 @@ public class WEKANaiveBayesTest {
 		probs[1] = 0.0001436076; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
+		classifier = new WEKANaiveBayes();
+		classifier.train(esv);
+		t = classifier.analyze(unknown);
 		
 		/*System.out.println("Classified");
 		System.out.println("First : "+t.get(0).getFirst()+" "+t.get(0).getSecond());
@@ -171,7 +175,9 @@ public class WEKANaiveBayesTest {
 		probs[0] = .5; //Mary
 		probs[1] = .5; //Peter
 		
-		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
+		classifier = new WEKANaiveBayes();
+		classifier.train(esv);
+		t = classifier.analyze(unknown);
 		
 		if(t.get(0).getFirst().equals("Mary")){
 			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
@@ -197,7 +203,9 @@ public class WEKANaiveBayesTest {
 		probs[1] = 0.02874005; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
+		classifier = new WEKANaiveBayes();
+		classifier.train(esv);
+		t = classifier.analyze(unknown);
 		
 		/*System.out.println("Classified");
 		System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
@@ -230,7 +238,9 @@ public class WEKANaiveBayesTest {
 		probs[1] = 0.0001436076; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
+		classifier = new WEKANaiveBayes();
+		classifier.train(esv);
+		t = classifier.analyze(unknown);
 		
 		System.out.println("Classified");
 		System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
@@ -263,7 +273,9 @@ public class WEKANaiveBayesTest {
 		probs[1] = 2.031573e-53; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknownList, esv).get(0);
+		classifier = new WEKANaiveBayes();
+		classifier.train(esv);
+		t = classifier.analyze(unknown);
 		
 		System.out.println("Classified");
 		System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());

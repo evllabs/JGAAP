@@ -22,11 +22,13 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -41,9 +43,10 @@ public class WEKADecisionStumpTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKADecisionStump#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//Note, Decision Stumps have only one node, so only one decision is made.
 		
@@ -111,7 +114,10 @@ public class WEKADecisionStumpTest {
 
 		//Classify unknown based on the knowns
 		WEKADecisionStump classifier = new WEKADecisionStump();
-		List<List<Pair<String, Double>>> t = classifier.analyze(uesv, esv);
+		classifier.train(esv);
+		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
+		for(EventSet unknown : uesv)		
+			t.add(classifier.analyze(unknown));
 		//System.out.println(t.toString());
 		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
@@ -183,7 +189,10 @@ public class WEKADecisionStumpTest {
 		
 		//Classify unknown based on the knowns
 		classifier = new WEKADecisionStump();
-		t = classifier.analyze(uesv, esv);
+		classifier.train(esv);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		for(EventSet unknown : uesv)		
+			t.add(classifier.analyze(unknown));
 		//System.out.println(classifier.classifier.toString());
 		//System.out.println(t.toString());
 		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
