@@ -102,7 +102,7 @@ public class RandomAnalysisTest {
 		}
 
 		RandomAnalysis thing = new RandomAnalysis();
-
+		thing.train(esv);
 		int goodTest = 0; // hold the number of times Confidence interval covers
 							// Prob of Mary = .62
 
@@ -110,7 +110,7 @@ public class RandomAnalysisTest {
 			int j = 0; // hold number of marys
 
 			for (int i = 1; i <= 1000; i = i + 1) {
-				List<Pair<String,Double>> t = thing.analyze(unknownMary, esv);
+				List<Pair<String,Double>> t = thing.analyze(unknownMary);
 				String r = t.get(0).getFirst();
 				if (r.equals("Mary")) {
 					j = j + 1;

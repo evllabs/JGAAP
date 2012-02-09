@@ -22,11 +22,13 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -41,9 +43,10 @@ public class WEKAMultilayerPerceptronTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKAJ48DecisionTree#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//Test 1
 
@@ -83,7 +86,11 @@ public class WEKAMultilayerPerceptronTest {
 
 		//Classify unknown based on the knowns
 		WEKAMultilayerPerceptron tree = new WEKAMultilayerPerceptron();
-		List<List<Pair<String, Double>>> t = tree.analyze(uesv, esv);
+		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
+		}
 		System.out.println(t.toString());
 
 		//Assert that the authors match
@@ -103,7 +110,11 @@ public class WEKAMultilayerPerceptronTest {
 
 		esv.add(known5);
 
-		t = tree.analyze(uesv, esv);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
+		}
 		System.out.println(t.toString());
 
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
@@ -121,7 +132,11 @@ public class WEKAMultilayerPerceptronTest {
 
 		uesv.add(unknown2);
 
-		t = tree.analyze(uesv, esv);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
+		}
 		System.out.println(t.toString());
 
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
@@ -141,7 +156,11 @@ public class WEKAMultilayerPerceptronTest {
 		
 		//t = tree.analyze(uesv, esv);
 		tree = new WEKAMultilayerPerceptron();
-		t = tree.analyze(uesv, esv);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
+		}
 		System.out.println(t.toString());
 		
 		assertTrue(t.get(0).get(0).getSecond()-.5 < .1 && t.get(0).get(1).getSecond()-.5 < .1);
@@ -180,7 +199,11 @@ public class WEKAMultilayerPerceptronTest {
 		uesv.add(unknown1);
 		uesv.add(unknown2);
 		
-		t = tree.analyze(uesv, esv);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
+		}
 		System.out.println(t.toString());
 		
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));

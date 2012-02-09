@@ -61,7 +61,9 @@ public class NullHistAnalysisTest {
 		
 		Vector<EventSet> test = new Vector<EventSet>();
 		test.add(known1);
-		List<Pair<String, Double>> t = new NullHistAnalysis().analyze(unknown, test);
+		NullHistAnalysis nullHistAnalysis = new NullHistAnalysis();
+		nullHistAnalysis.train(test);
+		List<Pair<String, Double>> t = nullHistAnalysis.analyze(unknown);
 		String r = t.get(0).getFirst();
 		String s = "No analysis performed.\n";
 		assertTrue(r.equals(s));

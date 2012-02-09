@@ -102,8 +102,8 @@ public class NearestNeighborDriverTest {
 		esv.add(known2);
 
 		System.out.println("There once was a lass from Nantucket");
-
-		List<Pair<String, Double>> t = nearest.analyze(unknown, esv);
+		nearest.train(esv);
+		List<Pair<String, Double>> t = nearest.analyze(unknown);
 		String r = t.get(0).getFirst();
 
 		String s = "Mary";
