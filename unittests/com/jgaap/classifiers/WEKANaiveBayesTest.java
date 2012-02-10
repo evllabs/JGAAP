@@ -45,7 +45,7 @@ public class WEKANaiveBayesTest {
 	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() throws AnalyzeException {
+	public void testAnalyze(){
 		
 		//Test 1
 		
@@ -102,25 +102,33 @@ public class WEKANaiveBayesTest {
 		esv.add(known3);
 		esv.add(known4);
 
-		List<Pair<String, Double>> t = new WEKANaiveBayes().analyze(unknown, esv);
-		String r = t.get(0).getFirst();
-		/*System.out.println("Classified");
-		System.out.println("First : "+r+" "+t.get(0).getSecond());
-		System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
-		System.out.println("Expected");
-		System.out.println("First : Mary "+probs[0]);
-		System.out.println("Second: Peter "+probs[1]);*/
-		String s = "Mary";
+		List<Pair<String, Double>> t;
+		try {
+			t = new WEKANaiveBayes().analyze(unknown, esv);
+			String r = t.get(0).getFirst();
+			/*System.out.println("Classified");
+			System.out.println("First : "+r+" "+t.get(0).getSecond());
+			System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
+			System.out.println("Expected");
+			System.out.println("First : Mary "+probs[0]);
+			System.out.println("Second: Peter "+probs[1]);*/
+			String s = "Mary";
 
-		//Assert that the probability for each author match within a threshold
-		if(t.get(0).getFirst().equals("Mary")){
-			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
-		}else{
-			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+			//Assert that the probability for each author match within a threshold
+			if(t.get(0).getFirst().equals("Mary")){
+				assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
+			}else{
+				assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+			}
+			
+			//Assert that the authors match
+			assertTrue(r.equals(s));
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
 		}
-		
-		//Assert that the authors match
-		assertTrue(r.equals(s));
+
 		
 		//Test 2
 		unknown = new EventSet();
@@ -137,20 +145,27 @@ public class WEKANaiveBayesTest {
 		probs[1] = 0.0001436076; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
-		
-		/*System.out.println("Classified");
-		System.out.println("First : "+t.get(0).getFirst()+" "+t.get(0).getSecond());
-		System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
-		System.out.println("Expected");
-		System.out.println("First : Mary "+probs[0]);
-		System.out.println("Second: Peter "+probs[1]);*/
-		
-		if(t.get(0).getFirst().equals("Mary")){
-			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
-		}else{
-			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+		try {
+			t = new WEKANaiveBayes().analyze(unknown, esv);
+			
+			/*System.out.println("Classified");
+			System.out.println("First : "+t.get(0).getFirst()+" "+t.get(0).getSecond());
+			System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
+			System.out.println("Expected");
+			System.out.println("First : Mary "+probs[0]);
+			System.out.println("Second: Peter "+probs[1]);*/
+			
+			if(t.get(0).getFirst().equals("Mary")){
+				assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
+			}else{
+				assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+			}
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
 		}
+
 		
 		//Test 3
 		unknown = new EventSet();
@@ -163,13 +178,20 @@ public class WEKANaiveBayesTest {
 		probs[0] = .5; //Mary
 		probs[1] = .5; //Peter
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
-		
-		if(t.get(0).getFirst().equals("Mary")){
-			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
-		}else{
-			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+		try {
+			t = new WEKANaiveBayes().analyze(unknown, esv);
+			
+			if(t.get(0).getFirst().equals("Mary")){
+				assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
+			}else{
+				assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+			}
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
 		}
+
 		
 		//Test 4
 		unknown = new EventSet();
@@ -186,20 +208,27 @@ public class WEKANaiveBayesTest {
 		probs[1] = 0.02874005; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
-		
-		/*System.out.println("Classified");
-		System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
-		System.out.println(t.get(1).getFirst()+" "+t.get(1).getSecond());
-		System.out.println("Expected");
-		System.out.println("Mary "+probs[0]);
-		System.out.println("Peter "+probs[1]);*/
-		
-		if(t.get(0).getFirst().equals("Mary")){
-			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
-		}else{
-			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+		try {
+			t = new WEKANaiveBayes().analyze(unknown, esv);
+			
+			/*System.out.println("Classified");
+			System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
+			System.out.println(t.get(1).getFirst()+" "+t.get(1).getSecond());
+			System.out.println("Expected");
+			System.out.println("Mary "+probs[0]);
+			System.out.println("Peter "+probs[1]);*/
+			
+			if(t.get(0).getFirst().equals("Mary")){
+				assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
+			}else{
+				assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+			}
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
 		}
+
 		
 		//Test 5
 		unknown = new EventSet();
@@ -216,20 +245,27 @@ public class WEKANaiveBayesTest {
 		probs[1] = 0.0001436076; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
-		
-		System.out.println("Classified");
-		System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
-		System.out.println(t.get(1).getFirst()+" "+t.get(1).getSecond());
-		System.out.println("Expected");
-		System.out.println("Mary "+probs[0]);
-		System.out.println("Peter "+probs[1]);
-		
-		if(t.get(0).getFirst().equals("Mary")){
-			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
-		}else{
-			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+		try {
+			t = new WEKANaiveBayes().analyze(unknown, esv);
+			
+			/*System.out.println("Classified");
+			System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
+			System.out.println(t.get(1).getFirst()+" "+t.get(1).getSecond());
+			System.out.println("Expected");
+			System.out.println("Mary "+probs[0]);
+			System.out.println("Peter "+probs[1]);*/
+			
+			if(t.get(0).getFirst().equals("Mary")){
+				assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
+			}else{
+				assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+			}
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
 		}
+
 		
 		//Test 6
 		unknown = new EventSet();
@@ -246,20 +282,27 @@ public class WEKANaiveBayesTest {
 		probs[1] = 2.031573e-53; //Peter
 		weka.core.Utils.normalize(probs);
 		
-		t = new WEKANaiveBayes().analyze(unknown, esv);
-		
-		System.out.println("Classified");
-		System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
-		System.out.println(t.get(1).getFirst()+" "+t.get(1).getSecond());
-		System.out.println("Expected");
-		System.out.println("Mary "+probs[0]);
-		System.out.println("Peter "+probs[1]);
-		
-		if(t.get(0).getFirst().equals("Mary")){
-			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
-		}else{
-			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+		try {
+			t = new WEKANaiveBayes().analyze(unknown, esv);
+			
+			/*System.out.println("Classified");
+			System.out.println(t.get(0).getFirst()+" "+t.get(0).getSecond());
+			System.out.println(t.get(1).getFirst()+" "+t.get(1).getSecond());
+			System.out.println("Expected");
+			System.out.println("Mary "+probs[0]);
+			System.out.println("Peter "+probs[1]);*/
+			
+			if(t.get(0).getFirst().equals("Mary")){
+				assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
+			}else{
+				assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+			}
+		} catch (AnalyzeException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			assertTrue(false);
 		}
+
 	}
 
 }
