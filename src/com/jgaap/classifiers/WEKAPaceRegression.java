@@ -1,5 +1,10 @@
 package com.jgaap.classifiers;
 
+import java.util.List;
+
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.EventSet;
+
 import weka.classifiers.Classifier;
 import weka.classifiers.meta.ClassificationViaRegression;
 
@@ -31,5 +36,11 @@ public class WEKAPaceRegression extends WEKAAnalysis {
 		c.setClassifier(new weka.classifiers.functions.PaceRegression());
 		return (Classifier)c;
 	}
+	
+	public void testRequirements(List<EventSet> knownList) throws AnalyzeException{
+		//TODO: Need to figure out requirements using WEKAPaceRegressionTest
+		return;
+	}
+
 
 }

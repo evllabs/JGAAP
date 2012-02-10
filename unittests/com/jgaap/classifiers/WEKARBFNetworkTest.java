@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
@@ -26,6 +23,8 @@ import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
+
+import weka.classifiers.trees.J48;
 
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
@@ -36,22 +35,20 @@ import com.jgaap.generics.Pair;
  * @author Amanda Kroft
  * 
  */
-public class WEKALeastMedSqTest {
+public class WEKARBFNetworkTest {
 
 	/**
 	 * Test method for {@link
-	 * com.jgaap.classifiers.WEKAJ48DecisionTree#analyze(com.jgaap.generics.EventSet,
+	 * com.jgaap.classifiers.WEKAARBFNetwork#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
 	 */
 	@Test
 	public void testAnalyze() {
 		
-		//Note: Need at least two documents per author, otherwise get the error:
-		//r must be less that or equal to n
-		//Currently fails at test 2 with some errors:
-		//rls regression unbuilt
-		//  and results
-		//[[[Susie:0.0], [Peter:0.0], [Mary:0.0]]]
+		//"Can't normalize array. Sum is NaN"
+		//  When only one document per author
+		
+		//Getting 50% for each author; should not be getting this
 		
 		//Test 1
 
@@ -68,13 +65,6 @@ public class WEKALeastMedSqTest {
 		known1.addEvent(new Event("lamb"));
 		known1.setAuthor("Mary");
 		
-		known3.addEvent(new Event("mary"));
-		known3.addEvent(new Event("had"));
-		known3.addEvent(new Event("a"));
-		known3.addEvent(new Event("small"));
-		known3.addEvent(new Event("lamb"));
-		known3.setAuthor("Mary");
-
 		known2.addEvent(new Event("peter"));
 		known2.addEvent(new Event("piper"));
 		known2.addEvent(new Event("picked"));
@@ -82,13 +72,20 @@ public class WEKALeastMedSqTest {
 		known2.addEvent(new Event("peck"));
 		known2.setAuthor("Peter");
 		
+		known3.addEvent(new Event("mary"));
+		known3.addEvent(new Event("had"));
+		known3.addEvent(new Event("a"));
+		known3.addEvent(new Event("small"));
+		known3.addEvent(new Event("lamb"));
+		known3.setAuthor("Mary");
+
 		known4.addEvent(new Event("peter"));
 		known4.addEvent(new Event("piper"));
 		known4.addEvent(new Event("collected"));
 		known4.addEvent(new Event("a"));
 		known4.addEvent(new Event("peck"));
 		known4.setAuthor("Peter");
-
+		
 		Vector<EventSet> esv = new Vector<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
@@ -100,18 +97,18 @@ public class WEKALeastMedSqTest {
 
 		unknown1.addEvent(new Event("mary"));
 		unknown1.addEvent(new Event("had"));
-		unknown1.addEvent(new Event("a"));
+		unknown1.addEvent(new Event("owned"));
 		unknown1.addEvent(new Event("little"));
-		unknown1.addEvent(new Event("beta"));
+		unknown1.addEvent(new Event("lamb"));
 
 		Vector<EventSet> uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
 
 		//Classify unknown based on the knowns
-		WEKALeastMedSq classifier = new WEKALeastMedSq();
+		WEKARBFNetwork tree = new WEKARBFNetwork();
 		List<List<Pair<String, Double>>> t;
 		try {
-			t = classifier.analyze(uesv, esv);
+			t = tree.analyze(uesv, esv);
 			System.out.println(t.toString());
 
 			//Assert that the authors match
@@ -121,36 +118,12 @@ public class WEKALeastMedSqTest {
 			e.printStackTrace();
 			assertTrue(false);
 		}
+
 		
-		
-		// Test 1b - Test equal likelihood
-		
-		EventSet unknown2 = new EventSet();
-		
-		unknown2.addEvent(new Event("mary"));
-		unknown2.addEvent(new Event("had"));
-		unknown2.addEvent(new Event("a"));
-		unknown2.addEvent(new Event("peter"));
-		unknown2.addEvent(new Event("piper"));
-		
-		uesv = new Vector<EventSet>();
-		uesv.add(unknown2);
-		
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
-			assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.0001 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.0001);
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
-		}
-		
-		
+		/*
 		//Test 2 - Add in third known author
 
 		EventSet known5 = new EventSet();
-		EventSet known6 = new EventSet();
 		
 		known5.addEvent(new Event("she"));
 		known5.addEvent(new Event("sells"));
@@ -159,55 +132,76 @@ public class WEKALeastMedSqTest {
 		known5.addEvent(new Event("seashore"));
 		known5.setAuthor("Susie");
 
-		known6.addEvent(new Event("she"));
-		known6.addEvent(new Event("sells"));
-		known6.addEvent(new Event("shells"));
-		known6.addEvent(new Event("by"));
-		known6.addEvent(new Event("sea"));
-		known6.setAuthor("Susie");
-
 		esv.add(known5);
-		esv.add(known6);
-		
-		uesv = new Vector<EventSet>();
-		uesv.add(unknown1);
 
-		classifier = new WEKALeastMedSq();
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
-		}
+		t = tree.analyze(uesv, esv);
+		System.out.println(t.toString());
+
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 		
 
 		//Test 3 - Add in another unknown
 
-		EventSet unknown3 = new EventSet();
+		EventSet unknown2 = new EventSet();
 
+		unknown2.addEvent(new Event("peter"));
+		unknown2.addEvent(new Event("piper"));
+		unknown2.addEvent(new Event("picked"));
+		unknown2.addEvent(new Event("a"));
+		unknown2.addEvent(new Event("shells"));
+
+		uesv.add(unknown2);
+
+		t = tree.analyze(uesv, esv);
+		System.out.println(t.toString());
+
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		
+		// Test 6 - Test unknown that is almost equally likely to be of two authors
+		
+		EventSet unknown3 = new EventSet();
+		
 		unknown3.addEvent(new Event("peter"));
 		unknown3.addEvent(new Event("piper"));
-		unknown3.addEvent(new Event("picked"));
 		unknown3.addEvent(new Event("a"));
-		unknown3.addEvent(new Event("shells"));
-
+		unknown3.addEvent(new Event("little"));
+		unknown3.addEvent(new Event("lamb"));
+		
+		uesv = new Vector<EventSet>();
 		uesv.add(unknown3);
+		
+		//t = tree.analyze(uesv, esv);
+		tree = new WEKAPaceRegression();
+		t = tree.analyze(uesv, esv);
+		System.out.println(t.toString());
+		
+		assertTrue(t.get(0).get(0).getSecond()-.5 < .1 && t.get(0).get(1).getSecond()-.5 < .1);
+		
+		// Test 5 - Add in more known documents for existing authors
 
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
+		EventSet known6 = new EventSet();
+		
 
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
-		}
+		
+		known6.addEvent(new Event("susie"));
+		known6.addEvent(new Event("sells"));
+		known6.addEvent(new Event("shells"));
+		known6.addEvent(new Event("by"));
+		known6.addEvent(new Event("seashore"));
+		known6.setAuthor("Susie");
 
+
+		esv.add(known6);
+		
+		uesv = new Vector<EventSet>();
+		uesv.add(unknown1);
+		uesv.add(unknown2);
+		
+		t = tree.analyze(uesv, esv);
+		System.out.println(t.toString());
+		
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		 */
 	}
 
-	//TODO: Test 4 - test documents/author requirements and exception handling
 }
