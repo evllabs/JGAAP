@@ -31,8 +31,7 @@ public class WaveHedgesDistance extends DistanceFunction {
 
 	@Override
 	public boolean showInGUI() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
