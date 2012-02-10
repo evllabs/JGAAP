@@ -614,8 +614,8 @@ public class API {
 					}
 				} else {
 					for (Document unknownDocument : unknownDocuments) {
-						unknownDocument.addResult(analysisDriver, eventDriver,
-								analysisDriver.analyze(unknownDocument.getEventSet(eventDriver)));
+						List<Pair<String, Double>> tmp =analysisDriver.analyze(unknownDocument.getEventSet(eventDriver));
+						unknownDocument.addResult(analysisDriver, eventDriver,tmp);
 					}
 				}
 			}
@@ -627,10 +627,10 @@ public class API {
 	 * @throws Exception 
 	 */
 	public void execute() throws Exception {
+		clearData();
 		loadCanonicizeEventify();
 		cull();
 		analyze();
-		clearData();
 	}
 
 	/**
