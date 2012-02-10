@@ -108,7 +108,7 @@ public class BurrowsDelta extends AnalysisDriver {
 					}
 					delta += Math.abs((unknownHistogram.getRelativeFrequency(event) - knownFrequency) / eventStddev.get(event));
 				}
-				results.add(new Pair<String, Double>(entry.getKey(), delta));
+				results.add(new Pair<String, Double>(entry.getKey(), delta,2));
 			}
 		} else {
 			for (Entry<String, List<EventHistogram>> entry : knownHistograms.entrySet()) {
@@ -117,7 +117,7 @@ public class BurrowsDelta extends AnalysisDriver {
 					for (Event event : events) {
 						delta += Math.abs((unknownHistogram.getRelativeFrequency(event) - histogram.getRelativeFrequency(event)) / eventStddev.get(event));
 					}
-					results.add(new Pair<String, Double>(entry.getKey(), delta));
+					results.add(new Pair<String, Double>(entry.getKey(), delta,2));
 				}
 			}
 		}
