@@ -191,6 +191,7 @@ public class WEKALeastMedSqTest {
 
 		uesv.add(unknown3);
 
+		classifier = new WEKALeastMedSq();
 		t = new ArrayList<List<Pair<String,Double>>>(); 
 		classifier.train(esv);
 		for(EventSet unknown : uesv){
