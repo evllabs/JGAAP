@@ -176,4 +176,5 @@ public class WEKALinearRegressionTest {
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 	}
 
+	//TODO: Test 4 - test documents/author requirements and exception handling
 }

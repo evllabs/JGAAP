@@ -202,4 +202,5 @@ public class WEKALeastMedSqTest {
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
 	}
 
+	//TODO: Test 4 - test documents/author requirements and exception handling
 }

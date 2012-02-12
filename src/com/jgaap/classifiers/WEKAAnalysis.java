@@ -30,7 +30,7 @@ import com.jgaap.generics.Pair;
 public abstract class WEKAAnalysis extends AnalysisDriver {
 
 	public Classifier classifier;
-	
+
 	private Set<String> allAuthorNames;
 	private Set<Event> allEvents;
 	private FastVector attributeList;
@@ -38,7 +38,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 	private Instances trainingSet;
 
 	@Override
-	public abstract String displayName(); 
+	public abstract String displayName();
 
 	@Override
 	public abstract String tooltipText();
@@ -47,9 +47,16 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 	public abstract boolean showInGUI();
 
 	public abstract Classifier getClassifier();
-	
-	public void train(List<EventSet> knownList) throws AnalyzeException{
+
+	public abstract void testRequirements(List<EventSet> knownList) throws AnalyzeException;
+
+	public void train(List<EventSet> knownList) throws AnalyzeException {
+
 		classifier = getClassifier();
+
+		// Test requirements
+		testRequirements(knownList);
+
 		/*
 		 * Generate event histograms, unique event list, and unique author list.
 		 */
@@ -90,8 +97,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 		 * Create the training "Instances" object, which is essentially the set
 		 * of feature vectors for the training data.
 		 */
-		trainingSet = new Instances("JGAAP", attributeList,
-				knownList.size());
+		trainingSet = new Instances("JGAAP", attributeList, knownList.size());
 		trainingSet.setClassIndex(0); // The label (author name) is in position
 										// 0.
 
@@ -126,57 +132,66 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 			throw new AnalyzeException("WEKA classifier not trained");
 		}
 	}
-	
+
 	/**
 	 * Convert from the JGAAP event framework to the WEKA instance framework to
 	 * perform analysis.
-	 * @throws AnalyzeException 
+	 * 
+	 * @throws AnalyzeException
 	 */
-	public List<Pair<String, Double>> analyze(EventSet unknownEventSet) throws AnalyzeException {
+	public List<Pair<String, Double>> analyze(EventSet unknownEventSet)
+			throws AnalyzeException {
 		/*
 		 * Generate the test sets, classifying each one as we go
 		 */
-			List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>();
-			EventHistogram currentUnknownHistogram = new EventHistogram();
-			for (Event event : unknownEventSet) {
-				currentUnknownHistogram.add(event);
-			}
+		List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>();
+		EventHistogram currentUnknownHistogram = new EventHistogram();
+		for (Event event : unknownEventSet) {
+			currentUnknownHistogram.add(event);
+		}
 
-			Instance currentTest = new Instance(allEvents.size() + 1);
+		Instance currentTest = new Instance(allEvents.size() + 1);
 
-			currentTest.setValue((Attribute) attributeList.elementAt(0),
-					"Unknown");
-			int i = 1; // Start at 1, again
-			for (Event event : allEvents) {
-				currentTest.setValue((Attribute) attributeList.elementAt(i),
-						currentUnknownHistogram.getNormalizedFrequency(event));
-				i++;
-			}
-			currentTest.setDataset(trainingSet);
+		currentTest.setValue((Attribute) attributeList.elementAt(0), "Unknown");
+		int i = 1; // Start at 1, again
+		for (Event event : allEvents) {
+			currentTest.setValue((Attribute) attributeList.elementAt(i),
+					currentUnknownHistogram.getNormalizedFrequency(event));
+			i++;
+		}
+		currentTest.setDataset(trainingSet);
 
-			double[] probDistribution;
-			try {
-				probDistribution = classifier
-						.distributionForInstance(currentTest);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new AnalyzeException("Could not classify with WEKA");
-			}
-			
-			/*
-			 * Loop through the probability distributions (by author), and add results
-			 * as pairs (author, probability).
-			 */
-			int j = 0;
-			for(String authorName : allAuthorNames) {
-				result.add(new Pair<String, Double>(authorName, probDistribution[j], 2));
-				j++;
-			}
-			Collections.sort(result);
-			Collections.reverse(result); // Reverse since we want higher probabilities first
-			
+		double[] probDistribution;
+		try {
+			probDistribution = classifier.distributionForInstance(currentTest);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AnalyzeException("Could not classify with WEKA");
+		}
+
+		/*
+		 * Loop through the probability distributions (by author), and add
+		 * results as pairs (author, probability).
+		 */
+		int j = 0;
+		for (String authorName : allAuthorNames) {
+			result.add(new Pair<String, Double>(authorName,
+					probDistribution[j], 2));
+			j++;
+		}
+		Collections.sort(result);
+		Collections.reverse(result); // Reverse since we want higher
+										// probabilities first
 
 		return result;
+	}
+
+	public String toString() {
+		if (classifier != null) {
+			return classifier.toString();
+		} else {
+			return "WEKAAnalysis. No classifier set.";
+		}
 	}
 
 }
