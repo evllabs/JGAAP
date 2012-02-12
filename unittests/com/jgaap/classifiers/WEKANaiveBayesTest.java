@@ -45,7 +45,7 @@ public class WEKANaiveBayesTest {
 	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() throws AnalyzeException {
+	public void testAnalyze() throws AnalyzeException{
 		
 		//Test 1
 		
@@ -107,24 +107,16 @@ public class WEKANaiveBayesTest {
 		WEKANaiveBayes classifier = new WEKANaiveBayes();
 		classifier.train(esv);
 		List<Pair<String, Double>> t = classifier.analyze(unknown);
-		String r = t.get(0).getFirst();
-		/*System.out.println("Classified");
-		System.out.println("First : "+r+" "+t.get(0).getSecond());
-		System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
-		System.out.println("Expected");
-		System.out.println("First : Mary "+probs[0]);
-		System.out.println("Second: Peter "+probs[1]);*/
-		String s = "Mary";
 
-		//Assert that the probability for each author match within a threshold
-		if(t.get(0).getFirst().equals("Mary")){
-			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
-		}else{
-			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+
+		// Assert that the probability for each author match within a threshold
+		if (t.get(0).getFirst().equals("Mary")) {
+			assertTrue(Math.abs(t.get(0).getSecond() - probs[0]) < .005
+					&& Math.abs(t.get(1).getSecond() - probs[1]) < .005);
+		} else {
+			assertTrue(Math.abs(t.get(1).getSecond() - probs[0]) < .005
+					&& Math.abs(t.get(0).getSecond() - probs[1]) < .005);
 		}
-		
-		//Assert that the authors match
-		assertTrue(r.equals(s));
 		
 		//Test 2
 		unknown = new EventSet();
@@ -160,6 +152,7 @@ public class WEKANaiveBayesTest {
 		}else{
 			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
 		}
+
 		
 		//Test 3
 		unknown = new EventSet();
@@ -183,7 +176,9 @@ public class WEKANaiveBayesTest {
 			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
 		}else{
 			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+
 		}
+
 		
 		//Test 4
 		unknown = new EventSet();
@@ -219,6 +214,7 @@ public class WEKANaiveBayesTest {
 		}else{
 			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
 		}
+
 		
 		//Test 5
 		unknown = new EventSet();
@@ -253,7 +249,9 @@ public class WEKANaiveBayesTest {
 			assertTrue(Math.abs(t.get(0).getSecond()-probs[0])<.005 && Math.abs(t.get(1).getSecond()-probs[1])<.005);
 		}else{
 			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
+
 		}
+
 		
 		//Test 6
 		unknown = new EventSet();
@@ -289,6 +287,7 @@ public class WEKANaiveBayesTest {
 		}else{
 			assertTrue(Math.abs(t.get(1).getSecond()-probs[0])<.005 && Math.abs(t.get(0).getSecond()-probs[1])<.005);
 		}
+
 	}
 
 }

@@ -121,10 +121,12 @@ public class WEKADecisionStumpTest {
 		//System.out.println(t.toString());
 		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
-		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+			//System.out.println(t.toString());
+			//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
-		
+			//Assert that the authors match
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+
 		//Test 2 - Different documents
 		
 		//Redefine known documents
@@ -197,9 +199,10 @@ public class WEKADecisionStumpTest {
 		//System.out.println(t.toString());
 		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
-		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+
+			//Assert that the authors match
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
 
 	}
-
+	
 }

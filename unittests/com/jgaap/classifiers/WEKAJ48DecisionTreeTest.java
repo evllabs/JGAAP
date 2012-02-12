@@ -51,6 +51,7 @@ public class WEKAJ48DecisionTreeTest {
 	public void testAnalyze() throws AnalyzeException {
 		
 		//Note: Needs at least two documents per author, otherwise answers become strange
+		//  This has been incorporated into WEKAJ48DecisionTree
 
 		//Test 1
 
@@ -119,8 +120,9 @@ public class WEKAJ48DecisionTreeTest {
 			System.out.println(classifier.toString());
 		}
 
-		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+
+			//Assert that the authors match
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 		
 		
 		//Test 2 - Add in third known author
@@ -155,9 +157,9 @@ public class WEKAJ48DecisionTreeTest {
 		if(classifier != null){
 			System.out.println(classifier.toString());
 		}
-
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		
+
+
 
 		//Test 3 - Add in another unknown
 
@@ -181,8 +183,12 @@ public class WEKAJ48DecisionTreeTest {
 		if(classifier != null){
 			System.out.println(classifier.toString());
 		}
-
+		
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+
+
+		
+		//TODO: Test 4 - test documents/author requirements and exception handling
 	}
 
 }
