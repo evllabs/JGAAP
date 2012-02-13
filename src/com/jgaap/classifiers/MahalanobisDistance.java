@@ -60,7 +60,7 @@ public class MahalanobisDistance extends AnalysisDriver {
 	}
 
 	public boolean showInGUI() {
-		return false; // doesnt pass test yet
+		return true; 
 	}
 
 	public void train(List<EventSet> knowns){
