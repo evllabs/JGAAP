@@ -64,8 +64,8 @@ public class KendallCorrelationDistance extends DistanceFunction {
     @Override
     public double distance(EventSet es1, EventSet es2) {
 
-		EventHistogram h1 = new EventHistogram();
-		EventHistogram h2 = new EventHistogram();
+		EventHistogram h1 = es1.getHistogram();
+		EventHistogram h2 = es2.getHistogram();
 
 		Set<Event> s = new HashSet<Event>();
 
@@ -79,17 +79,8 @@ public class KendallCorrelationDistance extends DistanceFunction {
 
 		double correlation = 0.0;
 
-		/* make two histograms */
-		/* also make set for union of two histograms */
-		for (int i = 0; i < es1.size(); i++) {
-			h1.add(es1.eventAt(i));
-			s.add(es1.eventAt(i));
-		}
-
-		for (int i = 0; i < es2.size(); i++) {
-			h2.add(es2.eventAt(i));
-			s.add(es2.eventAt(i));
-		}
+		s.addAll(es1.uniqueEvents());
+		s.addAll(es2.uniqueEvents());
 
 		//System.out.println(h1.toString());
 		//System.out.println(h2.toString());

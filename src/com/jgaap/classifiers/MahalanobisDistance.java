@@ -68,7 +68,7 @@ public class MahalanobisDistance extends AnalysisDriver {
 		knownHistograms = new HashMap<EventSet, EventHistogram>();
 		List<EventHistogram> histograms = new ArrayList<EventHistogram>(knowns.size());
 		for(EventSet known : knowns){
-			EventHistogram histogram = new EventHistogram(known);
+			EventHistogram histogram = known.getHistogram();
 			events.addAll(histogram.events());
 			histograms.add(histogram);
 			knownHistograms.put(known, histogram);
@@ -97,7 +97,7 @@ public class MahalanobisDistance extends AnalysisDriver {
 	@Override
 	public List<Pair<String, Double>> analyze(EventSet unknown) {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
-		EventHistogram histogram = new EventHistogram(unknown);
+		EventHistogram histogram = unknown.getHistogram();
 		for(Entry<EventSet, EventHistogram> entry : knownHistograms.entrySet()){
 			double[][] tmp = new double[events.size()][1];
 			int i = 0;

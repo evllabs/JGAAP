@@ -48,7 +48,7 @@ public class NullHistAnalysis extends AnalysisDriver {
 		int count = 0;
 		for(EventSet known : knowns){
 			count++;
-			EventHistogram histogram = new EventHistogram(known);
+			EventHistogram histogram = known.getHistogram();
 			System.out.println("--- Known Event Set #" + count + " ---");
             for(Event event : histogram){
             	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+histogram.getRelativeFrequency(event)+"',");
@@ -58,7 +58,7 @@ public class NullHistAnalysis extends AnalysisDriver {
 	
     @Override
     public List<Pair<String, Double>> analyze(EventSet unknown) {
-        EventHistogram h1 = new EventHistogram(unknown);
+        EventHistogram h1 = unknown.getHistogram();
 
         System.out.println("--- Unknown Event Set ---");
         for(Event event : h1){

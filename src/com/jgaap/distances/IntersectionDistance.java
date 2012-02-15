@@ -54,8 +54,8 @@ public class IntersectionDistance extends DistanceFunction{
 
 	@Override
 	public double distance(EventSet es1, EventSet es2) {
-		EventHistogram h1 = new EventHistogram(es1);
-		EventHistogram h2 = new EventHistogram(es2);
+		EventHistogram h1 = es1.getHistogram();
+		EventHistogram h2 = es2.getHistogram();
 
 		double intersectioncount = 0;
 		double unioncount;

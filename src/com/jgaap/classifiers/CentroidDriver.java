@@ -57,11 +57,8 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 		knownHistograms=new HashMap<String, List<EventHistogram>>();
 		events = new HashSet<Event>();
 		for(EventSet known : knowns){
-			EventHistogram histogram = new EventHistogram();
-			for(Event event : known){
-				events.add(event);
-				histogram.add(event);
-			}
+			EventHistogram histogram = known.getHistogram();
+			events.addAll(known.uniqueEvents());
 			List<EventHistogram> histograms = knownHistograms.get(known.getAuthor());
 			if(histograms != null){
 				histograms.add(histogram);
@@ -75,11 +72,10 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 	
 	@Override
 	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
-		EventHistogram unknownHistogram = new EventHistogram();
-		for(Event event : unknown){
-			events.add(event);
-			unknownHistogram.add(event);
-		}
+		EventHistogram unknownHistogram = unknown.getHistogram();
+		Set<Event> events = new HashSet<Event>();
+		events.addAll(this.events);
+		events.addAll(unknown.uniqueEvents());
 		List<Double> unknownVector = new ArrayList<Double>(events.size());
 		for(Event event : events){
 			unknownVector.add(unknownHistogram.getRelativeFrequency(event));

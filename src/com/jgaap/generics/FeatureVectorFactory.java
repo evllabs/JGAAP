@@ -39,7 +39,7 @@ public class FeatureVectorFactory {
 		// Construct the known vector
 		double[][] knownSet = new double[known.size()][vocab.size()];
 		for(int i = 0; i < known.size(); i++) {
-			EventHistogram histogram = new EventHistogram(known.get(i));
+			EventHistogram histogram = known.get(i).getHistogram();
 			int j = 0;
 			for(Event event : vocab) {
 				knownSet[i][j] = (double)histogram.getAbsoluteFrequency(event);
@@ -50,7 +50,7 @@ public class FeatureVectorFactory {
 		// Construct the unknown vector
 		double[][] unknownSet = new double[unknown.size()][vocab.size()];
 		for(int i = 0; i < unknown.size(); i++) {
-			EventHistogram histogram = new EventHistogram(unknown.get(i));
+			EventHistogram histogram = unknown.get(i).getHistogram();
 			int j = 0;
 			for(Event event : vocab) {
 				unknownSet[i][j] = (double)histogram.getAbsoluteFrequency(event);
@@ -87,7 +87,7 @@ public class FeatureVectorFactory {
 		// Construct the known vector
 		double[][] knownSet = new double[known.size()][vocab.size()];
 		for(int i = 0; i < known.size(); i++) {
-			EventHistogram histogram = new EventHistogram(known.get(i));
+			EventHistogram histogram = known.get(i).getHistogram();
 			int j = 0;
 			for(Event event : vocab) {
 				knownSet[i][j] = (double)histogram.getRelativeFrequency(event);
@@ -98,7 +98,7 @@ public class FeatureVectorFactory {
 		// Construct the unknown vector
 		double[][] unknownSet = new double[unknown.size()][vocab.size()];
 		for(int i = 0; i < unknown.size(); i++) {
-			EventHistogram histogram = new EventHistogram(unknown.get(i));
+			EventHistogram histogram = unknown.get(i).getHistogram();
 			int j = 0;
 			for(Event event : vocab) {
 				unknownSet[i][j] = (double)histogram.getRelativeFrequency(event);
@@ -135,7 +135,7 @@ public class FeatureVectorFactory {
 		// Construct the known vector
 		double[][] knownSet = new double[known.size()][vocab.size()];
 		for(int i = 0; i < known.size(); i++) {
-			EventHistogram histogram = new EventHistogram(known.get(i));
+			EventHistogram histogram = known.get(i).getHistogram();
 			int j = 0;
 			for(Event event : vocab) {
 				knownSet[i][j] = (double)histogram.getNormalizedFrequency(event);
@@ -146,7 +146,7 @@ public class FeatureVectorFactory {
 		// Construct the unknown vector
 		double[][] unknownSet = new double[unknown.size()][vocab.size()];
 		for(int i = 0; i < unknown.size(); i++) {
-			EventHistogram histogram = new EventHistogram(unknown.get(i));
+			EventHistogram histogram = unknown.get(i).getHistogram();
 			int j = 0;
 			for(Event event : vocab) {
 				unknownSet[i][j] = (double)histogram.getNormalizedFrequency(event);
