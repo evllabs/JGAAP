@@ -21,7 +21,6 @@ package com.jgaap.generics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +46,8 @@ public class EventSet implements Iterable<Event> {
     
     private Map<AnalysisDriver, List<Pair<String,Double>>> results = new HashMap<AnalysisDriver, List<Pair<String,Double>>>();
 
+    private EventHistogram histogram = new EventHistogram();
+    
     /** Creates a new, empty list of events. Will also include unique ID */
     public EventSet() {
         events = new ArrayList<Event>();
@@ -69,6 +70,9 @@ public class EventSet implements Iterable<Event> {
         events = new ArrayList<Event>(evts);
         setAuthor("default");
         setNewEventSetID("default");
+        for(Event event : events){
+        	histogram.add(event);
+        }
     }
 
     /**
@@ -96,14 +100,14 @@ public class EventSet implements Iterable<Event> {
     
     public void addEvent(Event event){
     	events.add(event);
+    	histogram.add(event);
     }
     
     public void addEvents(List<Event> events){
     	this.events.addAll(events);
-    }
-    
-    public boolean removeEvent(Event event){
-    	return events.remove(event);
+    	for(Event event : events){
+    		histogram.add(event);
+    	}
     }
 
     /** return the Author associated with any EventSet */
@@ -201,7 +205,11 @@ public class EventSet implements Iterable<Event> {
     }
     
     public Set<Event> uniqueEvents(){
-    	return new HashSet<Event>(events);
+    	return histogram.events();
+    }
+    
+    public EventHistogram getHistogram(){
+    	return histogram;
     }
 
 	public Iterator<Event> iterator() {
