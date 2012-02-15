@@ -65,11 +65,8 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 		allEvents = new HashSet<Event>();
 		for (EventSet eventSet : knownList) {
 			allAuthorNames.add(eventSet.getAuthor());
-			EventHistogram currentKnownHistogram = new EventHistogram();
-			for (Event event : eventSet) {
-				allEvents.add(event);
-				currentKnownHistogram.add(event);
-			}
+			EventHistogram currentKnownHistogram = eventSet.getHistogram();
+			allEvents.addAll(eventSet.uniqueEvents());
 			knownHistograms.add(currentKnownHistogram);
 		}
 
@@ -145,10 +142,7 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 		 * Generate the test sets, classifying each one as we go
 		 */
 		List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>();
-		EventHistogram currentUnknownHistogram = new EventHistogram();
-		for (Event event : unknownEventSet) {
-			currentUnknownHistogram.add(event);
-		}
+		EventHistogram currentUnknownHistogram = unknownEventSet.getHistogram();
 
 		Instance currentTest = new Instance(allEvents.size() + 1);
 

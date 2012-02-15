@@ -65,7 +65,7 @@ public class VectorOutputAnalysis extends AnalysisDriver {
 
 	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
 
-		EventHistogram hist = new EventHistogram(unknown);
+		EventHistogram hist = unknown.getHistogram();
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
 
 		FileOutputStream fsOut;

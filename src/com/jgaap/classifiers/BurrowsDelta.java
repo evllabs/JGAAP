@@ -48,7 +48,7 @@ public class BurrowsDelta extends AnalysisDriver {
 		events = new HashSet<Event>();
 		knownHistograms = new HashMap<String, List<EventHistogram>>();
 		for (EventSet known : knowns) {
-			EventHistogram histogram = new EventHistogram(known);
+			EventHistogram histogram = known.getHistogram();
 			events.addAll(histogram.events());
 			List<EventHistogram> histograms = knownHistograms.get(known.getAuthor());
 			if (histograms == null) {
@@ -97,7 +97,7 @@ public class BurrowsDelta extends AnalysisDriver {
 	 */
 	public List<Pair<String, Double>> analyze(EventSet unknown) {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
-		EventHistogram unknownHistogram = new EventHistogram(unknown);
+		EventHistogram unknownHistogram = unknown.getHistogram();
 		if (useCentroid) {
 			for (Entry<String, Map<Event, Double>> entry : knownCentroids.entrySet()) {
 				double delta = 0.0;

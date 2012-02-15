@@ -57,14 +57,8 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 	@Override
 	public double distance(EventSet es1, EventSet es2) {
 		
-		EventHistogram unknownHistogram = new EventHistogram();
-		EventHistogram knownHistogram = new EventHistogram();
-		for(Event e : es1){
-			unknownHistogram.add(e);
-		}
-		for(Event e : es2){
-			knownHistogram.add(e);
-		}
+		EventHistogram unknownHistogram = es1.getHistogram();
+		EventHistogram knownHistogram = es2.getHistogram();
 		//System.err.println("1");
 		List<Pair<String, Double>> unknownList = new ArrayList<Pair<String, Double>>(unknownHistogram.getNTypes());
 		List<Pair<String, Double>> knownList = new ArrayList<Pair<String, Double>>(knownHistogram.getNTypes());

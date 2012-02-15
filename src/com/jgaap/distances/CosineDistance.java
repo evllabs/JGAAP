@@ -58,19 +58,11 @@ public class CosineDistance extends DistanceFunction {
      */
     @Override
     public double distance(EventSet es1, EventSet es2) {
-        EventHistogram h1 = new EventHistogram();
-        EventHistogram h2 = new EventHistogram();
+        EventHistogram h1 = es1.getHistogram();
+        EventHistogram h2 = es2.getHistogram();
         double distance = 0.0;
         double h1Magnitude = 0.0;
         double h2Magnitude = 0.0;
-
-        for (int i = 0; i < es1.size(); i++) {
-            h1.add(es1.eventAt(i));
-        }
-
-        for (int i = 0; i < es2.size(); i++) {
-            h2.add(es2.eventAt(i));
-        }
 
         for (Event event: h1) {
             distance += (h1.getAbsoluteFrequency(event) * h2

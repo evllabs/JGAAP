@@ -47,11 +47,8 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 		events = new HashSet<Event>();
 		knownEventSets = new HashMap<String, List<EventSet>>();
 		for (EventSet known : knowns) {
-			EventHistogram histogram = new EventHistogram();
-			for (Event event : known) {
-				events.add(event);
-				histogram.add(event);
-			}
+			EventHistogram histogram = known.getHistogram();
+			events.addAll(known.uniqueEvents());
 			List<EventHistogram> histograms = knownHistograms.get(known.getAuthor());
 			if (histograms != null) {
 				histograms.add(histogram);
@@ -83,11 +80,11 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 		List<EventHistogram> currentAuthorHistograms = new ArrayList<EventHistogram>();
 		for (EventSet eventSet : knownEventSets.get(currentAuthor)) {
 			if (eventSet != known)
-				currentAuthorHistograms.add(new EventHistogram(eventSet));
+				currentAuthorHistograms.add(eventSet.getHistogram());
 		}
 		Map<Event, Double> currentAuthorCentroid = Utils.makeRelativeCentroid(currentAuthorHistograms);
 		List<Double> currentAuthorFeatureVector = generateFeatureVector(currentAuthorCentroid, events);
-		List<Double> currentFeatureVector = generateFeatureVector(new EventHistogram(known), events);
+		List<Double> currentFeatureVector = generateFeatureVector(known.getHistogram(), events);
 		try {
 			results.add(new Pair<String, Double>(currentAuthor,distance.distance(currentFeatureVector,currentAuthorFeatureVector), 2));
 			for (Entry<String, Map<Event, Double>> entry : knownCentroids.entrySet()) {

@@ -57,8 +57,8 @@ public class ManhattanDistance extends DistanceFunction {
 
     @Override
     public double distance(EventSet es1, EventSet es2) {
-        EventHistogram h1 = new EventHistogram(es1);
-        EventHistogram h2 = new EventHistogram(es2);
+        EventHistogram h1 = es1.getHistogram();
+        EventHistogram h2 = es2.getHistogram();
         Set<Event> events = new HashSet<Event>();
         double distance = 0.0;
         

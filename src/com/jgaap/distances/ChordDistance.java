@@ -37,8 +37,8 @@ public class ChordDistance extends DistanceFunction {
 	@Override
 	public double distance(EventSet unknownEventSet, EventSet knownEventSet)
 			throws DistanceCalculationException {
-		EventHistogram unknownHistogram = new EventHistogram(unknownEventSet);
-		EventHistogram knownHistogram = new EventHistogram(knownEventSet);
+		EventHistogram unknownHistogram = unknownEventSet.getHistogram();
+		EventHistogram knownHistogram = knownEventSet.getHistogram();
 
 		Set<Event> events = new HashSet<Event>();
 		events.addAll(unknownHistogram.events());
@@ -46,8 +46,7 @@ public class ChordDistance extends DistanceFunction {
 
 		double distance = 0.0, sumNumer = 0.0, sumUnknown = 0.0, sumKnown = 0.0;
 		
-		for(Event event : events)
-		{
+		for(Event event : events){
 			sumNumer += unknownHistogram.getRelativeFrequency(event) * knownHistogram.getRelativeFrequency(event);
 			sumUnknown += unknownHistogram.getRelativeFrequency(event);
 			sumKnown += knownHistogram.getRelativeFrequency(event);
