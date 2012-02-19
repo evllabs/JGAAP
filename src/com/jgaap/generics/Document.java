@@ -44,6 +44,7 @@ public class Document extends Parameterizable {
 	private List<Canonicizer> canonicizers;
 	private Map<EventDriver, EventSet> eventSets;
 	private boolean failed = false;
+	private boolean processed = false;
 	
 	public Document() {
 		filepath = "";
@@ -313,6 +314,15 @@ public class Document extends Parameterizable {
 	 */
 	public void clearEventSets() {
 		eventSets.clear();
+		processed=false;
+	}
+	
+	public void processed(){
+		this.processed = true;
+	}
+	
+	public boolean isProcessed(){
+		return this.processed;
 	}
 
 	/** 
