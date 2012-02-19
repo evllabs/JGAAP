@@ -19,6 +19,7 @@ package com.jgaap.backend;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -64,9 +65,8 @@ public class API {
 	private List<EventDriver> eventDrivers;
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
-	private WorkQueue loadCanonicizeEventifyWorkQueue;
 	
-	private static final int loadCanonicizeEventifyWorkers = 50;
+	private final int loadCanonicizeEventifyWorkers = 50;
 
 	private static final API INSTANCE = new API();
 	
@@ -507,7 +507,7 @@ public class API {
 	 * @throws Exception
 	 */
 	private void loadCanonicizeEventify() throws Exception{
-		loadCanonicizeEventifyWorkQueue= new WorkQueue(loadCanonicizeEventifyWorkers);
+		WorkQueue loadCanonicizeEventifyWorkQueue= new WorkQueue(loadCanonicizeEventifyWorkers);
 		for(final Document document : documents){
 			Runnable work = new Runnable() {
 				@Override
@@ -516,7 +516,6 @@ public class API {
 						document.setLanguage(language);
 						document.load();
 						document.processCanonicizers();
-						
 						for (EventDriver eventDriver : eventDrivers) {
 							try{
 								document.addEventSet(eventDriver,eventDriver.createEventSet(document));
@@ -536,6 +535,7 @@ public class API {
 						logger.fatal("Could not load File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
 					}
+					document.processed();
 				}
 			};
 			loadCanonicizeEventifyWorkQueue.execute(work);
@@ -543,12 +543,22 @@ public class API {
 		for(int i =0; i<loadCanonicizeEventifyWorkers;i++){
 			loadCanonicizeEventifyWorkQueue.execute(-1);
 		}
-		while(loadCanonicizeEventifyWorkQueue.isRunning()){
-			Thread.sleep(500);
-		}
-		for(Document document : documents){
-			if(document.hasFailed()){
-				throw new Exception("One or more documents could not be read / parsed / canonicized Experiment Failed");
+		List<Document> documentsProcessing = new ArrayList<Document>(documents);
+		while(true){
+			if(documentsProcessing.size()==0){
+				break;
+			}else {
+				Iterator<Document> documentIterator = documentsProcessing.iterator();
+				while(documentIterator.hasNext()){
+					Document document = documentIterator.next();
+					if(document.isProcessed()){
+						if(document.hasFailed()){
+							throw new Exception("One or more documents could not be read / parsed / canonicized Experiment Failed");
+						}
+						logger.info("Document: "+document.getTitle()+" has finish proccesting.");
+						documentIterator.remove();
+					}
+				}
 			}
 		}
 	}
@@ -591,21 +601,20 @@ public class API {
 				unknownDocuments.add(document);
 			}
 		}
-		for (AnalysisDriver analysisDriver : analysisDrivers){
-			for(EventDriver eventDriver : eventDrivers){
-				List<EventSet> knownEventSets = new ArrayList<EventSet>(knownDocuments.size());
-				for(Document knownDocument : knownDocuments){
-					knownEventSets.add(knownDocument.getEventSet(eventDriver));
-				}
+		for (EventDriver eventDriver : eventDrivers) {
+			List<EventSet> knownEventSets = new ArrayList<EventSet>(knownDocuments.size());
+			for (Document knownDocument : knownDocuments) {
+				knownEventSets.add(knownDocument.getEventSet(eventDriver));
+			}
+			for (AnalysisDriver analysisDriver : analysisDrivers) {
 				analysisDriver.train(knownEventSets);
 				if (analysisDriver instanceof ValidationDriver) {
-					for(Document knownDocument : knownDocuments){
-						knownDocument.addResult(analysisDriver, eventDriver, 
-								analysisDriver.analyze(knownDocument.getEventSet(eventDriver)));
+					for (Document knownDocument : knownDocuments) {
+						knownDocument.addResult(analysisDriver, eventDriver,analysisDriver.analyze(knownDocument.getEventSet(eventDriver)));
 					}
 				} else {
 					for (Document unknownDocument : unknownDocuments) {
-						List<Pair<String, Double>> tmp =analysisDriver.analyze(unknownDocument.getEventSet(eventDriver));
+						List<Pair<String, Double>> tmp = analysisDriver.analyze(unknownDocument.getEventSet(eventDriver));
 						unknownDocument.addResult(analysisDriver, eventDriver,tmp);
 					}
 				}
