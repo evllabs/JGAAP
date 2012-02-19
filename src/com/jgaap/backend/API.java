@@ -568,20 +568,17 @@ public class API {
 	 * @throws EventCullingException 
 	 */
 	private void cull() throws EventCullingException {
-		List<EventSet> eventSets = new ArrayList<EventSet>();
+		if(eventCullers.isEmpty()) return;
+		List<EventSet> eventSets = new ArrayList<EventSet>(documents.size());
 		for (EventDriver eventDriver : eventDrivers) {
 			for (Document document : documents) {
-				if (document.getEventSets().containsKey(eventDriver)) {
-					eventSets.add(document.getEventSet(eventDriver));
-				}
+				eventSets.add(document.getEventSet(eventDriver));
 			}
 			for (EventCuller culler : eventCullers) {
 				eventSets = culler.cull(eventSets);
 			}
 			for (Document document : documents) {
-				if (document.getEventSets().containsKey(eventDriver)) {
-					document.addEventSet(eventDriver, eventSets.remove(0));
-				}
+				document.addEventSet(eventDriver, eventSets.remove(0));
 			}
 			eventSets.clear();
 		}
