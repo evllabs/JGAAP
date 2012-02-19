@@ -18,7 +18,6 @@
 package com.jgaap.backend;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -509,7 +508,6 @@ public class API {
 	 */
 	private void loadCanonicizeEventify() throws Exception{
 		loadCanonicizeEventifyWorkQueue= new WorkQueue(loadCanonicizeEventifyWorkers);
-		final Set<EventDriver> failedEventDrivers = Collections.synchronizedSet(new HashSet<EventDriver>());
 		for(final Document document : documents){
 			Runnable work = new Runnable() {
 				@Override
@@ -524,7 +522,7 @@ public class API {
 								document.addEventSet(eventDriver,eventDriver.createEventSet(document));
 							} catch (EventGenerationException e) {
 								logger.error("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
-								failedEventDrivers.add(eventDriver);
+								throw new Exception("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 							}
 						}
 						document.readStringText("");
@@ -547,13 +545,6 @@ public class API {
 		}
 		while(loadCanonicizeEventifyWorkQueue.isRunning()){
 			Thread.sleep(500);
-		}
-		for(EventDriver eventDriver : failedEventDrivers){
-			eventDrivers.remove(eventDriver);
-			logger.error("EventDriver "+eventDriver.displayName()+" has failed on one or more documents and is being removed from the rest of the experiment.");
-		}
-		if(eventDrivers.isEmpty()){
-			throw new Exception("All EventDrivers failed to eventify documents Experiment Failed.");
 		}
 		for(Document document : documents){
 			if(document.hasFailed()){
