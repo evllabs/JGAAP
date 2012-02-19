@@ -18,7 +18,6 @@
 /**
  **/
 package com.jgaap.generics;
-import javax.swing.*;
 
 /**
  * Class for EventSet factories. As an abstract class, can only be instantiated
@@ -51,12 +50,6 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
     
     public int compareTo(EventDriver o){
     	return displayName().compareTo(o.displayName());
-    }
-    
-    public GroupLayout getGUILayout(JPanel panel)
-    {
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-        return layout;
     }
 }
 
