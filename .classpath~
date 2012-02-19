@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="unittests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/external/libsvm.jar"/>
+	<classpathentry kind="lib" path="lib/external/weka.jar"/>
+	<classpathentry kind="lib" path="lib/external/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/external/WordSegment.jar"/>
+	<classpathentry kind="lib" path="lib/external/commons-cli-1.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/trunk/lib/external/commons-cli-1.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/fasttag_v2.jar"/>
+	<classpathentry kind="lib" path="lib/external/jmatharray.jar"/>
+	<classpathentry kind="lib" path="lib/external/jmathplot.jar"/>
+	<classpathentry kind="lib" path="lib/external/poi-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="lib/external/poi-ooxml-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="lib/external/poi-ooxml-schemas-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="lib/external/poi-scratchpad-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="lib/external/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/external/pdfbox-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/external/jscience-4.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.2.1.jar"/>
+<<<<<<< HEAD
+	<classpathentry kind="lib" path="lib/external/mysql-connector-java-5.1.18-bin.jar"/>
+=======
+	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-01-06.jar"/>
+>>>>>>> master
+	<classpathentry kind="output" path="bin"/>
+</classpath>
