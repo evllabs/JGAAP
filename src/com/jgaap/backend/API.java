@@ -555,7 +555,7 @@ public class API {
 						if(document.hasFailed()){
 							throw new Exception("One or more documents could not be read / parsed / canonicized Experiment Failed");
 						}
-						logger.info("Document: "+document.getTitle()+" has finish proccesting.");
+						logger.info("Document: "+document.getTitle()+" has finished processing.");
 						documentIterator.remove();
 					}
 				}
