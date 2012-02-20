@@ -6,6 +6,11 @@ import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
+/**
+ * 
+ * @author Michael Ryan
+ *
+ */
 public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
 
 	private EventDriver stanfordPOS = new StanfordPartOfSpeechEventDriver();
