@@ -33,7 +33,11 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 		addParams("tagginModel", "Model", "english-bidirectional-distsim", 
 				new String[] { "arabic-accurate","arabic-fast.tagger","chinese",
 				"english-bidirectional-distsim","english-left3words-distsim",
-				"french","german-dewac","german-fast","german-hgc"}, false);
+				"french",
+				//"german-dewac",
+				"german-fast"
+				//,"german-hgc"
+				}, false);
 	}
 	
 	@Override
