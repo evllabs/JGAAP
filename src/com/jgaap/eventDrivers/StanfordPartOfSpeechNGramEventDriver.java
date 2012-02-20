@@ -26,7 +26,7 @@ public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
 	
 	@Override
 	public String displayName() {
-		return "Stanford Part of Speech "+getParameter("N")+"Grams";
+		return "Stanford Part of Speech NGrams";
 	}
 
 	@Override
