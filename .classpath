@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/external/libsvm.jar"/>
-	<classpathentry kind="lib" path="lib/external/weka.jar" sourcepath="lib/external/weka.jar"/>
+	<classpathentry kind="lib" path="lib/external/weka.jar"/>
 	<classpathentry kind="lib" path="lib/external/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="lib/external/WordSegment.jar"/>
 	<classpathentry kind="lib" path="lib/external/commons-cli-1.2.jar">
@@ -24,5 +24,6 @@
 	<classpathentry kind="lib" path="lib/external/pdfbox-1.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/external/jscience-4.3.1.jar"/>
 	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-01-06.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
