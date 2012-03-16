@@ -29,7 +29,7 @@ public class JGAAPConstants {
 
 	private static String path;
 	
-	public static String separator = System.getProperty("path.separator");
+	public static String separator = System.getProperty("file.separator");
 
 	static {
 		try {
