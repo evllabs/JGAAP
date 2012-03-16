@@ -169,8 +169,8 @@ class DocumentHelper {
 		}
 		char[] text = new char[length];
 		int status = reader.read(text);
-		if(status < length || reader.read() != -1)
-			throw new IOException("Document too large to load for processing");
+		if(status != length || reader.read() != -1)
+			throw new IOException("Document too large to load for processing (atempted read length "+length+" actual read length "+status);
 		reader.close();
 		return text;
 	}

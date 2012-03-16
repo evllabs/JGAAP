@@ -29,7 +29,7 @@ public class JGAAPConstants {
 
 	private static String path;
 	
-	public static String separator = System.getProperty("path.separator");
+	public static String separator = System.getProperty("file.separator");
 
 	static {
 		try {
@@ -80,7 +80,7 @@ public class JGAAPConstants {
 	}
 
 	public static final String JGAAP_RESOURCE_PACKAGE = "/com/jgaap/resources/";
-
+	
 	/**
 	 * Java Prefix for different types of object collections
 	 */
