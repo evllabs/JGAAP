@@ -40,7 +40,7 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 	@Override
 	public String tooltipText() {
 		return "Computes one centroid per Author.\n" +
-				"Centroids are the average relitive frequency of events over all docuents provided.\n" +
+				"Centroids are the average relative frequency of events over all docuents provided.\n" +
 				"i=1 to n \u03A3frequencyIn_i(event)/n";
 	}
 
