@@ -39,7 +39,7 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 	 */
 	@Override
 	public boolean showInGUI() {
-		return true;
+		return false;
 	}
 
 	public void train(List<EventSet> knowns) {
@@ -66,7 +66,7 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 				knownEventSets.put(known.getAuthor(), eventSets);
 			}
 		}
-		Map<String, Map<Event, Double>> knownCentroids = new HashMap<String, Map<Event, Double>>(knownHistograms.size());
+		knownCentroids = new HashMap<String, Map<Event, Double>>(knownHistograms.size());
 		for (Entry<String, List<EventHistogram>> entry : knownHistograms.entrySet()) {
 			knownCentroids.put(entry.getKey(),Utils.makeRelativeCentroid(entry.getValue()));
 		}
@@ -79,7 +79,7 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 		String currentAuthor = known.getAuthor();
 		List<EventHistogram> currentAuthorHistograms = new ArrayList<EventHistogram>();
 		for (EventSet eventSet : knownEventSets.get(currentAuthor)) {
-			if (eventSet != known)
+			if (!eventSet.equals(known))
 				currentAuthorHistograms.add(eventSet.getHistogram());
 		}
 		Map<Event, Double> currentAuthorCentroid = Utils.makeRelativeCentroid(currentAuthorHistograms);
@@ -104,7 +104,7 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 		Double zero = 0.0;
 		for (Event event : events) {
 			Double current = histogram.get(event);
-			if (event == null) {
+			if (current == null) {
 				featureVector.add(zero);
 			} else {
 				featureVector.add(current);
