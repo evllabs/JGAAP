@@ -1647,12 +1647,11 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         try {
             JGAAP_API.clearData();
             JGAAP_API.execute();
-            List<Document> unknowns = JGAAP_API.getUnknownDocuments();
+            List<Document> documents = JGAAP_API.getDocuments();
             StringBuffer buffer = new StringBuffer();
-            for (Document unknown : unknowns) {
-            	for(AnalysisDriver analysisDriver : JGAAP_API.getAnalysisDrivers())
-            		for(EventDriver eventDriver : JGAAP_API.getEventDrivers())
-            			buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
+            for (Document document : documents) {
+            	String result = document.getResult();
+            	buffer.append(result);
             }
             //ResultsPage.DisplayResults(buffer.toString());
             ResultsPage.addResults(buffer.toString());
@@ -2706,7 +2705,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
         DocumentsPanel_UnknownAuthorsTable.getModel().addTableModelListener(new TableModelListener() {
             public void tableChanged(TableModelEvent e)
             {
-                System.out.println("Unknown Documents Table Row: " + e.getFirstRow() + ", Column: " + e.getColumn());
+                //System.out.println("Unknown Documents Table Row: " + e.getFirstRow() + ", Column: " + e.getColumn());
                 if ((e.getColumn() >= 0) && (e.getFirstRow() >= 0))
                 {
                     UnknownDocumentList = JGAAP_API.getUnknownDocuments();
