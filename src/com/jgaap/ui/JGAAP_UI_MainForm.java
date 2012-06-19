@@ -146,6 +146,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		SelectedAnalysisDriverList.clear();
 		CheckMinimumRequirements();
 		UpdateCanonicizerDocTypeComboBox();
+		updateDistanceListUseability();
 
 		// DefaultMutableTreeNode top = new
 		// DefaultMutableTreeNode("The Java Series");
@@ -1746,6 +1747,29 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 						AnalysisMethodPanel_AnalysisMethodsListBoxMouseMoved(evt);
 					}
 				});
+		AnalysisMethodPanel_AnalysisMethodsListBox.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusGained(java.awt.event.FocusEvent evt){
+				updateDistanceListUseability();
+			}
+		});
+		AnalysisMethodPanel_AnalysisMethodsListBox.addKeyListener(new java.awt.event.KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				//do nothing
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				updateDistanceListUseability();
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// do nothing
+			}
+			
+		});
 		jScrollPane18
 				.setViewportView(AnalysisMethodPanel_AnalysisMethodsListBox);
 
@@ -2703,6 +2727,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		if (evt.getClickCount() == 2) {
 			AddAnalysisMethodSelection();
 		}
+		updateDistanceListUseability();
 	}// GEN-LAST:event_AnalysisMethodPanel_AnalysisMethodsListBoxMouseClicked
 
 	private void AnalysisMethodPanel_RemoveAllAnalysisMethodsButtonActionPerformed(
@@ -3732,6 +3757,15 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		DocumentsPanel_KnownAuthorsTree.getSelectionModel().setSelectionMode(
 				TreeSelectionModel.SINGLE_TREE_SELECTION);
 		DocumentsPanel_KnownAuthorsTree.setShowsRootHandles(true);
+	}
+	
+	private void updateDistanceListUseability() {
+		int i = AnalysisMethodPanel_AnalysisMethodsListBox.getSelectedIndex();
+		if(AnalysisDriverMasterList.get(i) instanceof NeighborAnalysisDriver){
+			this.AnalysisMethodPanel_DistanceFunctionsListBox.setEnabled(true);
+		} else {
+			this.AnalysisMethodPanel_DistanceFunctionsListBox.setEnabled(false);
+		}
 	}
 
 	/**
