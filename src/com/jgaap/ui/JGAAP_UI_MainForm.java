@@ -2095,7 +2095,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 		ReviewPanel_DocumentsLabel.setFont(new java.awt.Font(
 				"Microsoft Sans Serif", 0, 24)); // NOI18N
-		ReviewPanel_DocumentsLabel.setText("Documents");
+		ReviewPanel_DocumentsLabel.setText("Canonicizers");
 		ReviewPanel_DocumentsLabel
 				.addMouseListener(new java.awt.event.MouseAdapter() {
 					public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2747,12 +2747,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void CheckMinimumRequirements() {
 		boolean OK = true;
-		if (DocumentList.isEmpty()) {
-			OK = false;
-			ReviewPanel_DocumentsLabel.setForeground(Color.RED);
-		} else {
-			ReviewPanel_DocumentsLabel.setForeground(Color.GREEN.darker());
-		}
+		
+		ReviewPanel_DocumentsLabel.setForeground(Color.GREEN.darker());
 
 		if (SelectedEventDriverList.isEmpty()) {
 			OK = false;
@@ -3394,7 +3390,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void ReviewPanel_DocumentsLabelMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_ReviewPanel_DocumentsLabelMouseClicked
-		JGAAP_TabbedPane.setSelectedIndex(0);
+		JGAAP_TabbedPane.setSelectedIndex(1);
 	}// GEN-LAST:event_ReviewPanel_DocumentsLabelMouseClicked
 
 	private void ReviewPanel_DocumentsTableMouseClicked(
