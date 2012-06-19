@@ -654,6 +654,11 @@ public class API {
 	}
 	
 	/**
+	 * Removes canonicizors from all documents
+	 */
+	
+	
+	/**
 	 * Removes all Generated data from a run but leaves all settings untouched
 	 */
 	public void clearData() {

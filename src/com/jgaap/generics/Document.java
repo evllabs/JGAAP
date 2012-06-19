@@ -460,12 +460,13 @@ public class Document extends Parameterizable {
 
 	@Override
 	public String toString() {
-		String t;
-		t = "Title:  " + title + "\n";
-		t += "Path:   " + filepath + "\n";
-		t += "Author: " + author + "\n";
-		t += "Canons: " + getCanonicizers() + "\n";
-		return t;
+		String string = this.getTitle()+" [";
+		if(isAuthorKnown()){
+			string += this.getAuthor()+"]";
+		} else {
+			string += "unknown]";
+		}
+		return string;
 	}
 
 	public Language getLanguage() {
