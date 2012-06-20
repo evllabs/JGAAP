@@ -41,6 +41,7 @@ public class Document extends Parameterizable {
 	private int size;
 	private DocType docType;
 	private Language language;
+	private List<EventCuller> eventCullers;
 	private List<Canonicizer> canonicizers;
 	private Map<EventDriver, EventSet> eventSets;
 	private boolean failed = false;
@@ -52,6 +53,7 @@ public class Document extends Parameterizable {
 		size = 0;
 		canonicizers = new ArrayList<Canonicizer>();
 		eventSets = new HashMap<EventDriver, EventSet>();
+		eventCullers = new ArrayList<EventCuller>();
 		docType = DocType.GENERIC;
 		this.language = new English();
 	}
@@ -70,6 +72,7 @@ public class Document extends Parameterizable {
 	public Document(Document document) {
 		this.author = document.author;
 		this.canonicizers = new ArrayList<Canonicizer>(document.canonicizers);
+		this.eventCullers = new ArrayList<EventCuller>(document.eventCullers);
 		this.docType = document.docType;
 		this.eventSets = new HashMap<EventDriver, EventSet>(document.eventSets);
 		this.filepath = document.filepath;
@@ -103,6 +106,7 @@ public class Document extends Parameterizable {
 		this.language = new English();
 		this.eventSets = new HashMap<EventDriver, EventSet>();
 		this.canonicizers = new ArrayList<Canonicizer>();
+		this.eventCullers = new ArrayList<EventCuller>();
 	}
 	
 	public void load() throws Exception {
@@ -366,8 +370,10 @@ public class Document extends Parameterizable {
 			}
 		}
 		buffer.append("\n");
-		buffer.append("Analyzed by " + analysisDriver.displayName() + " using "
-				+ eventDriver.displayName() + " as events\n");
+		buffer.append("EventDriver: ").append(eventDriver.displayName()).append(" ").append(eventDriver.getParameters());
+		buffer.append("\n");
+		buffer.append("Analysis: ").append(analysisDriver.displayName()).append(" ").append(analysisDriver.getParameters());
+		buffer.append("\n");
 		int count = 0; // Keeps a relative count (adjusted for ties)
 		int fullCount = 0; // Keeps the absolute count (does not count ties)
 		Double lastResult = Double.NaN;

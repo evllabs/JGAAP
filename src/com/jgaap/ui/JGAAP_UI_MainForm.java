@@ -2993,6 +2993,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 				.removeEventDriver(SelectedEventDriverList
 						.get(EventSetsPanel_SelectedEventSetListBox
 								.getSelectedIndex()));
+		EventSetsPanel_ParametersPanel.removeAll();
+		EventSetsPanel_ParametersPanel.updateUI();
 		UpdateSelectedEventSetListBox();
 	}
 
@@ -3031,16 +3033,19 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void EventSetsPanel_SelectedEventSetListBoxMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_EventSetsPanel_SelectedEventSetListBoxMouseClicked
-		EventSetsPanel_ParametersPanel.removeAll();
-		EventSetsPanel_ParametersPanel.setLayout(SelectedEventDriverList.get(
-				EventSetsPanel_SelectedEventSetListBox.getSelectedIndex())
-				.getGUILayout(EventSetsPanel_ParametersPanel));
-		EventSetsPanel_EventSetDescriptionTextBox
-				.setText(SelectedEventDriverList.get(
-						EventSetsPanel_SelectedEventSetListBox
-								.getSelectedIndex()).longDescription());
-		if (evt != null && evt.getClickCount() == 2) {
-			RemoveEventSetSelection();
+		if (!SelectedEventDriverList.isEmpty()) {
+			EventSetsPanel_ParametersPanel.removeAll();
+			EventSetsPanel_ParametersPanel.setLayout(SelectedEventDriverList
+					.get(EventSetsPanel_SelectedEventSetListBox
+							.getSelectedIndex()).getGUILayout(
+							EventSetsPanel_ParametersPanel));
+			EventSetsPanel_EventSetDescriptionTextBox
+					.setText(SelectedEventDriverList.get(
+							EventSetsPanel_SelectedEventSetListBox
+									.getSelectedIndex()).longDescription());
+			if (evt != null && evt.getClickCount() == 2) {
+				RemoveEventSetSelection();
+			}
 		}
 	}// GEN-LAST:event_EventSetsPanel_SelectedEventSetListBoxMouseClicked
 
@@ -3773,18 +3778,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		} else {
 			this.AnalysisMethodPanel_DistanceFunctionsListBox.setEnabled(false);
 		}
-	}
-
-	/**
-	 * @param args
-	 *            the command line arguments
-	 */
-	public static void main(String args[]) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new JGAAP_UI_MainForm().setVisible(true);
-			}
-		});
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
