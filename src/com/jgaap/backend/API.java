@@ -656,7 +656,11 @@ public class API {
 	/**
 	 * Removes canonicizors from all documents
 	 */
-	
+	public void clearCanonicizers() {
+		for(Document document : documents){
+			document.clearCanonicizers();
+		}
+	}
 	
 	/**
 	 * Removes all Generated data from a run but leaves all settings untouched
