@@ -862,16 +862,21 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																														.createParallelGroup(
 																																javax.swing.GroupLayout.Alignment.LEADING,
 																																false)
-																														.addComponent(
-																																CanonicizersPanel_AddCanonicizerButton,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																Short.MAX_VALUE)
-																														.addComponent(
+																														.addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+																																
+																														
+																																.addComponent(
 																																CanonicizersPanel_DocTypeComboBox,
 																																javax.swing.GroupLayout.DEFAULT_SIZE,
 																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																Short.MAX_VALUE)
+																																Short.MAX_VALUE)	
+																																
+																																.addComponent(
+																																CanonicizersPanel_AddCanonicizerButton,
+																																javax.swing.GroupLayout.DEFAULT_SIZE,
+																																javax.swing.GroupLayout.DEFAULT_SIZE,
+																																Short.MAX_VALUE))
+																																
 																														.addComponent(
 																																CanonicizersPanel_RemoveCanonicizerButton,
 																																javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -894,7 +899,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								jScrollPane13,
 																								javax.swing.GroupLayout.Alignment.TRAILING,
 																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								153,
+																								600,
 																								Short.MAX_VALUE))
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -979,12 +984,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																						.addGroup(
 																								JGAAP_CanonicizerPanelLayout
 																										.createSequentialGroup()
-																										.addComponent(
-																												CanonicizersPanel_AddCanonicizerButton)
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																										.addComponent(
-																												CanonicizersPanel_DocTypeComboBox)
+																										.addGroup(JGAAP_CanonicizerPanelLayout.createBaselineGroup(true, false)
+																												.addComponent(
+																												CanonicizersPanel_DocTypeComboBox)	
+																												.addComponent(
+																												CanonicizersPanel_AddCanonicizerButton))
+//																										.addComponent(
+//																												CanonicizersPanel_AddCanonicizerButton)
+//																										
+//																										.addComponent(
+//																												CanonicizersPanel_DocTypeComboBox)
 																										.addPreferredGap(
 																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																										.addComponent(
