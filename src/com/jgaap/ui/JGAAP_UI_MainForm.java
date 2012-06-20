@@ -2600,6 +2600,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ReviewPanel_ProcessButtonActionPerformed
 		try {
 			JGAAP_API.clearData();
+			JGAAP_API.clearCanonicizers();
 			for(Pair<Canonicizer, Object> canonicizerPair : SelectedCanonicizerList){
 				if(canonicizerPair.getSecond() instanceof DocType){
 					JGAAP_API.addCanonicizer(canonicizerPair.getFirst().displayName(), (DocType)canonicizerPair.getSecond());
@@ -2827,28 +2828,30 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked
-		AnalysisDriver temp = SelectedAnalysisDriverList
-				.get(AnalysisMethodPanel_SelectedAnalysisMethodsListBox
-						.getSelectedIndex());
-		AnalysisMethodPanel_AMParametersPanel.removeAll();
-		AnalysisMethodPanel_DFParametersPanel.removeAll();
-		AnalysisMethodPanel_AMParametersPanel.setLayout(temp
-				.getGUILayout(AnalysisMethodPanel_AMParametersPanel));
-		if (temp instanceof NeighborAnalysisDriver) {
-			AnalysisMethodPanel_DFParametersPanel
-					.setLayout(((NeighborAnalysisDriver) temp)
-							.getDistanceFunction().getGUILayout(
-									AnalysisMethodPanel_DFParametersPanel));
-		}
-		AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setText(temp
-				.longDescription());
-		if (temp instanceof NeighborAnalysisDriver) {
-			AnalysisMethodPanel_DistanceFunctionDescriptionTextBox
-					.setText(((NeighborAnalysisDriver) temp)
-							.getDistanceFunction().longDescription());
-		}
-		if (evt != null && evt.getClickCount() == 2) {
-			RemoveAnalysisMethodSelection();
+		if (!SelectedAnalysisDriverList.isEmpty()) {
+			AnalysisDriver temp = SelectedAnalysisDriverList
+					.get(AnalysisMethodPanel_SelectedAnalysisMethodsListBox
+							.getSelectedIndex());
+			AnalysisMethodPanel_AMParametersPanel.removeAll();
+			AnalysisMethodPanel_DFParametersPanel.removeAll();
+			AnalysisMethodPanel_AMParametersPanel.setLayout(temp
+					.getGUILayout(AnalysisMethodPanel_AMParametersPanel));
+			if (temp instanceof NeighborAnalysisDriver) {
+				AnalysisMethodPanel_DFParametersPanel
+						.setLayout(((NeighborAnalysisDriver) temp)
+								.getDistanceFunction().getGUILayout(
+										AnalysisMethodPanel_DFParametersPanel));
+			}
+			AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setText(temp
+					.longDescription());
+			if (temp instanceof NeighborAnalysisDriver) {
+				AnalysisMethodPanel_DistanceFunctionDescriptionTextBox
+						.setText(((NeighborAnalysisDriver) temp)
+								.getDistanceFunction().longDescription());
+			}
+			if (evt != null && evt.getClickCount() == 2) {
+				RemoveAnalysisMethodSelection();
+			}
 		}
 	}// GEN-LAST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked
 
@@ -3016,11 +3019,13 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void EventSetsPanel_SelectedEventSetListBoxMouseMoved(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_EventSetsPanel_SelectedEventSetListBoxMouseMoved
-		JList theList = (JList) evt.getSource();
-		int index = theList.locationToIndex(evt.getPoint());
-		if (index > -1) {
-			String text = SelectedEventDriverList.get(index).tooltipText();
-			theList.setToolTipText(text);
+		if (!SelectedEventDriverList.isEmpty()) {
+			JList theList = (JList) evt.getSource();
+			int index = theList.locationToIndex(evt.getPoint());
+			if (index > -1) {
+				String text = SelectedEventDriverList.get(index).tooltipText();
+				theList.setToolTipText(text);
+			}
 		}
 	}// GEN-LAST:event_EventSetsPanel_SelectedEventSetListBoxMouseMoved
 
@@ -3113,13 +3118,15 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void CanonicizersPanel_SelectedCanonicizerListBoxMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_CanonicizersPanel_SelectedCanonicizerListBoxMouseClicked
-		CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox
-				.setText(SelectedCanonicizerList
-						.get(CanonicizersPanel_SelectedCanonicizerListBox
-								.getSelectedIndex()).getFirst()
-						.longDescription());
-		if (evt != null && evt.getClickCount() == 2) {
-			RemoveCanonicizerSelection();
+		if (!SelectedCanonicizerList.isEmpty()) {
+			CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox
+					.setText(SelectedCanonicizerList
+							.get(CanonicizersPanel_SelectedCanonicizerListBox
+									.getSelectedIndex()).getFirst()
+							.longDescription());
+			if (evt != null && evt.getClickCount() == 2) {
+				RemoveCanonicizerSelection();
+			}
 		}
 	}// GEN-LAST:event_CanonicizersPanel_SelectedCanonicizerListBoxMouseClicked
 
