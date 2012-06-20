@@ -467,11 +467,11 @@ public class Document extends Parameterizable {
 
 	@Override
 	public String toString() {
-		String string = this.getTitle()+" [";
+		String string = this.getTitle()+" (";
 		if(isAuthorKnown()){
-			string += this.getAuthor()+"]";
+			string += this.getAuthor()+")";
 		} else {
-			string += "unknown]";
+			string += "unknown)";
 		}
 		return string;
 	}
