@@ -24,6 +24,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * A class of things-that-can-take-(label:value)-parameters.
@@ -73,6 +75,17 @@ public class Parameterizable {
         } else {
             return "";
         }
+    }
+    
+    public String getParameters() {
+    	StringBuilder builder = new StringBuilder();
+    	Set<Entry<String,String>> entries = Parameters.entrySet();
+    	for(Entry<String, String> entry : entries){
+    		builder.append(entry.getKey()).append(" : ").append(entry.getValue()).append(", ");
+    	}
+    	if(builder.length()>0)
+    		builder.delete(builder.length()-2, builder.length()-1);
+    	return builder.toString();
     }
 
     /**
