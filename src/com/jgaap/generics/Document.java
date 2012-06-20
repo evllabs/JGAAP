@@ -366,8 +366,9 @@ public class Document extends Parameterizable {
 			buffer.append("none");
 		} else {
 			for (Canonicizer canonicizer : canonicizers) {
-				buffer.append(canonicizer.displayName() + " ");
+				buffer.append(canonicizer.displayName() + ", ");
 			}
+			buffer.delete(buffer.length()-2, buffer.length()-1);
 		}
 		buffer.append("\n");
 		buffer.append("EventDriver: ").append(eventDriver.displayName()).append(" ").append(eventDriver.getParameters());
