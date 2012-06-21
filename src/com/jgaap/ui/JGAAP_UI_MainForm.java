@@ -99,14 +99,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			}
 		}
 	};
-	DefaultTableModel DocumentsTable_Model = new DefaultTableModel() {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isCellEditable(int row, int column) {
-			return false;
-		}
-	};
 
 	API JGAAP_API = API.getInstance();
 
@@ -265,7 +257,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		ReviewPanel_ProcessButton = new javax.swing.JButton();
 		ReviewPanel_DocumentsLabel = new javax.swing.JLabel();
 		jScrollPane24 = new javax.swing.JScrollPane();
-		ReviewPanel_DocumentsTable = new javax.swing.JTable();
+		ReviewPanel_CanonicizersListBox = new javax.swing.JList();
 		ReviewPanel_SelectedEventSetLabel = new javax.swing.JLabel();
 		ReviewPanel_SelectedEventCullingLabel = new javax.swing.JLabel();
 		ReviewPanel_SelectedAnalysisMethodsLabel = new javax.swing.JLabel();
@@ -2136,16 +2128,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 					}
 				});
 
-		ReviewPanel_DocumentsTable.setModel(DocumentsTable_Model);
-		ReviewPanel_DocumentsTable.setEnabled(false);
-		ReviewPanel_DocumentsTable
-				.addMouseListener(new java.awt.event.MouseAdapter() {
-					public void mouseClicked(java.awt.event.MouseEvent evt) {
-						ReviewPanel_DocumentsTableMouseClicked(evt);
-					}
-				});
-		jScrollPane24.setViewportView(ReviewPanel_DocumentsTable);
-
+		ReviewPanel_CanonicizersListBox.setModel(SelectedCanonicizerListBox_Model);
+		jScrollPane24.setViewportView(ReviewPanel_CanonicizersListBox);
+		
 		ReviewPanel_SelectedEventSetLabel.setFont(new java.awt.Font(
 				"Microsoft Sans Serif", 0, 24)); // NOI18N
 		ReviewPanel_SelectedEventSetLabel.setText("Event Driver");
@@ -3439,11 +3424,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		JGAAP_TabbedPane.setSelectedIndex(1);
 	}// GEN-LAST:event_ReviewPanel_DocumentsLabelMouseClicked
 
-	private void ReviewPanel_DocumentsTableMouseClicked(
-			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_ReviewPanel_DocumentsTableMouseClicked
-		// JGAAP_TabbedPane.setSelectedIndex(0);
-	}// GEN-LAST:event_ReviewPanel_DocumentsTableMouseClicked
-
 	private void ReviewPanel_SelectedEventSetLabelMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_ReviewPanel_SelectedEventSetLabelMouseClicked
 		JGAAP_TabbedPane.setSelectedIndex(2);
@@ -3606,22 +3586,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	}
 
 	private void UpdateDocumentsTable() {
-		String CanonPresent = "No";
-		DocumentsTable_Model.setRowCount(0);
-		DocumentList = JGAAP_API.getDocuments();
-		for (int i = 0; i < DocumentList.size(); i++) {
-			if (DocumentList.get(i).getCanonicizers().isEmpty()) {
-				CanonPresent = "No";
-			} else {
-				CanonPresent = "Yes";
-			}
-
-			Object RowData[] = { DocumentList.get(i).getTitle(),
-					DocumentList.get(i).isAuthorKnown(),
-					DocumentList.get(i).getAuthor(),
-					DocumentList.get(i).getDocType(), CanonPresent };
-			DocumentsTable_Model.addRow(RowData);
-		}
 		UpdateCanonicizerDocTypeComboBox();
 		CheckMinimumRequirements();
 	}
@@ -3862,7 +3826,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JMenuItem ProblemLMenuItem;
 	private javax.swing.JMenuItem ProblemMMenuItem;
 	private javax.swing.JLabel ReviewPanel_DocumentsLabel;
-	private javax.swing.JTable ReviewPanel_DocumentsTable;
 	private javax.swing.JButton ReviewPanel_ProcessButton;
 	private javax.swing.JLabel ReviewPanel_SelectedAnalysisMethodsLabel;
 	private javax.swing.JList ReviewPanel_SelectedAnalysisMethodsListBox;
@@ -3870,6 +3833,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JList ReviewPanel_SelectedEventCullingListBox;
 	private javax.swing.JLabel ReviewPanel_SelectedEventSetLabel;
 	private javax.swing.JList ReviewPanel_SelectedEventSetListBox;
+	private javax.swing.JList ReviewPanel_CanonicizersListBox;
 	private javax.swing.JButton Review_Button;
 	private javax.swing.JMenuItem aboutMenuItem;
 	private javax.swing.JMenuItem exitMenuItem;
