@@ -27,7 +27,7 @@ or
 java -jar jgaap.jar --help
 
 
-JGAAP also comes with a ant build file in the src directorie.  
+JGAAP also comes with a ant build file in the src directory.  
 To compile the system:
 
 ant build
