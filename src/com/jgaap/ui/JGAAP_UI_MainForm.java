@@ -305,11 +305,11 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 		jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 24));
 		jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabel11.setText("JGAAP 5.2");
+		jLabel11.setText("JGAAP 6.0");
 
 		jLabel12.setText("<html> JGAAP, the Java Graphical Authorship Attribution Program, <br/>is an opensource author attribution / text classification tool <br/>Developed by the EVL lab (Evaluating Variation in Language Labratory) <br/> Released by Patrick Juola under the GPL v3.0");
 
-		jLabel13.setText("\u00A92011 EVL lab");
+		jLabel13.setText("\u00A92012 EVL lab");
 
 		jLabel23.setForeground(new java.awt.Color(0, 0, 255));
 		jLabel23.setText("http://evllabs.com");
