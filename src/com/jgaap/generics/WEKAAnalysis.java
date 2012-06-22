@@ -1,4 +1,4 @@
-package com.jgaap.classifiers;
+package com.jgaap.generics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,12 +12,6 @@ import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 
-import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
 
 /**
  * Generic WEKA classifier. In theory, WEKA classifiers can extend this and set

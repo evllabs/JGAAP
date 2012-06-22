@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.WEKAAnalysis;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.meta.MultiClassClassifier;
