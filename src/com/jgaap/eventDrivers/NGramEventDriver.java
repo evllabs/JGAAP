@@ -123,7 +123,6 @@ public class NGramEventDriver extends EventDriver {
         newEs.setAuthor(es.getAuthor());
         newEs.setNewEventSetID(es.getAuthor());
         String s;
-//        String theEvent;
 
         /**
          * Start at event N-1, then put the previous N together as a string. s
@@ -132,15 +131,12 @@ public class NGramEventDriver extends EventDriver {
         // watch off-by-one error at end of event stream
         for (int i = N; i <= es.size(); i++) {
 
-//            theEvent = "";
             StringBuilder stringBuilder = new StringBuilder();
             // watch off-by-one error at end of event stream
             for (int j = i - N; j < i; j++) {
                 s = es.eventAt(j).getEvent();
-//                theEvent += opendelim + s + closedelim;
                 stringBuilder.append(opendelim).append(s).append(closedelim);
                 if (j != i - 1) {
-//                    theEvent += separator;
                     stringBuilder.append(separator);
                 }
             }

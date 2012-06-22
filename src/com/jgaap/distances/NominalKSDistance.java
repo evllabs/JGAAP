@@ -19,6 +19,9 @@
  **/
 package com.jgaap.distances;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
@@ -45,29 +48,19 @@ public class NominalKSDistance extends DistanceFunction {
 	 */
 	@Override
     public double distance(EventSet es1, EventSet es2) {
-        EventHistogram h1 = new EventHistogram();
-        EventHistogram h2 = new EventHistogram();
+        EventHistogram h1 = es1.getHistogram();
+        EventHistogram h2 = es2.getHistogram();
         double distance = 0.0;
+        Set<Event> events = new HashSet<Event>();
+        
+        events.addAll(es1.uniqueEvents());
+        events.addAll(es2.uniqueEvents());
 
-        for (int i = 0; i < es1.size(); i++) {
-            h1.add(es1.eventAt(i));
-        }
-
-        for (int i = 0; i < es2.size(); i++) {
-            h2.add(es2.eventAt(i));
-        }
-
-        for (Event event : h1) {
+        for (Event event : events) {
             distance += Math.abs(h1.getRelativeFrequency(event)
                     - h2.getRelativeFrequency(event));
         }
 
-        for (Event event : h2) {
-            if (h1.getAbsoluteFrequency(event) == 0) {
-                distance += Math.abs(h1.getRelativeFrequency(event)
-                        - h2.getRelativeFrequency(event));
-            }
-        }
         return (1.0 / 2.0) * distance;
     }
 }

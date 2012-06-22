@@ -52,7 +52,7 @@ public class JGAAP {
  * @param args the command line arguments
  */
     public static void main(String[] args) {
-
+    	
     	BasicConfigurator.configure();
     	logger.setLevel(Level.INFO);
     	

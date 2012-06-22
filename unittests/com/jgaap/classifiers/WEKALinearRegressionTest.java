@@ -22,6 +22,7 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -44,9 +45,10 @@ public class WEKALinearRegressionTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKAJ48DecisionTree#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//Notes: Needs at least two docs per author, otherwise results become strange
 
@@ -106,22 +108,18 @@ public class WEKALinearRegressionTest {
 
 		//Classify unknown based on the knowns
 		WEKALinearRegression classifier = new WEKALinearRegression();
-		List<List<Pair<String, Double>>> t;
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
-			Classifier stuff = classifier.classifier;
-			if(stuff != null)
-				System.out.println(stuff.toString());
-
-			//Assert that the authors match
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
+		classifier.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(classifier.analyze(unknown));
 		}
+		System.out.println(t.toString());
+		Classifier stuff = classifier.classifier;
+		if(stuff != null)
+			System.out.println(stuff.toString());
 
+		//Assert that the authors match
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 		
 		// Test 2 - Test equal likelihood
 		
@@ -136,16 +134,13 @@ public class WEKALinearRegressionTest {
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown2);
 		
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
-			assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.1 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.1);
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		classifier.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(classifier.analyze(unknown));
 		}
-
+		System.out.println(t.toString());
+		assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.1 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.1);
 
 		// Test 3 - more training documents
 		
@@ -172,16 +167,13 @@ public class WEKALinearRegressionTest {
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
 		
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		classifier.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(classifier.analyze(unknown));
 		}
-
+		System.out.println(t.toString());
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 	}
 
 	//TODO: Test 4 - test documents/author requirements and exception handling

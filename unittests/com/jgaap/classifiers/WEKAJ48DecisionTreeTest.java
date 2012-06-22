@@ -22,6 +22,7 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -44,9 +45,10 @@ public class WEKAJ48DecisionTreeTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKAJ48DecisionTree#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//Note: Needs at least two documents per author, otherwise answers become strange
 		//  This has been incorporated into WEKAJ48DecisionTree
@@ -107,23 +109,20 @@ public class WEKAJ48DecisionTreeTest {
 
 		//Classify unknown based on the knowns
 		WEKAJ48DecisionTree tree = new WEKAJ48DecisionTree();
-		J48 classifier;
-		List<List<Pair<String, Double>>> t;
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
-			classifier = (J48)tree.classifier;
-			if(classifier != null){
-				System.out.println(classifier.toString());
-			}
+		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
+		}
+		System.out.println(t.toString());
+		J48 classifier = (J48)tree.classifier;
+		if(classifier != null){
+			System.out.println(classifier.toString());
+		}
+
 
 			//Assert that the authors match
 			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
-		}
 		
 		
 		//Test 2 - Add in third known author
@@ -148,20 +147,18 @@ public class WEKAJ48DecisionTreeTest {
 		esv.add(known5);
 		esv.add(known6);
 
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
-			classifier = (J48)tree.classifier;
-			if(classifier != null){
-				System.out.println(classifier.toString());
-			}
-
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
 		}
+		System.out.println(t.toString());
+		classifier = (J48)tree.classifier;
+		if(classifier != null){
+			System.out.println(classifier.toString());
+		}
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+
 
 
 		//Test 3 - Add in another unknown
@@ -176,20 +173,19 @@ public class WEKAJ48DecisionTreeTest {
 
 		uesv.add(unknown2);
 
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
-			classifier = (J48)tree.classifier;
-			if(classifier != null){
-				System.out.println(classifier.toString());
-			}
-
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
 		}
+		System.out.println(t.toString());
+		classifier = (J48)tree.classifier;
+		if(classifier != null){
+			System.out.println(classifier.toString());
+		}
+		
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+
 
 		
 		//TODO: Test 4 - test documents/author requirements and exception handling

@@ -19,7 +19,6 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -62,16 +61,17 @@ public class ExtremeCuller extends EventCuller {
 				extremeEvents.add(event);
 			}
 		}
+		List<EventSet> culledEventSets = new ArrayList<EventSet>(eventSets.size());
 		for(EventSet eventSet : eventSets){
-			Iterator<Event> eventIterator = eventSet.iterator();
-			while(eventIterator.hasNext()){
-				Event event = eventIterator.next();
-				if(!extremeEvents.contains(event.getEvent())){
-					eventIterator.remove();
+			EventSet culledEventSet = new EventSet();
+			for(Event event : eventSet){
+				if(extremeEvents.contains(event.getEvent())){
+					culledEventSet.addEvent(event);
 				}
 			}
+			culledEventSets.add(culledEventSet);
 		}
-		return eventSets;
+		return culledEventSets;
 	}
 
 	@Override

@@ -22,8 +22,8 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 
@@ -85,11 +85,14 @@ public class LDATest {
 		unknown.addEvent(new Event("as"));
 		unknown.addEvent(new Event("snow."));
 
-		Vector <EventSet> esv = new Vector<EventSet>();
+		List <EventSet> esv = new ArrayList<EventSet>();
 		esv.add(known1);
 		esv.add(known2);
+		List<EventSet> unknownList = new ArrayList<EventSet>(1);
+		unknownList.add(unknown);
 		LDA classifier = new LDA();
-		List<Pair<String, Double>> t = classifier.analyze(unknown, esv);
+		classifier.train(esv);
+		List<Pair<String, Double>> t = classifier.analyze(unknown);
 		String author1 = t.get(0).getFirst();
 		String author2 = t.get(1).getFirst();
 		Double val1 = t.get(0).getSecond();
@@ -104,7 +107,7 @@ public class LDATest {
 
 		//Test 2 - Same classifier
 		//Testing for persistence
-		t = classifier.analyze(unknown,esv);
+		t = classifier.analyze(unknown);
 		/*System.out.println("Test 2 Classified");
 		System.out.println("First : "+t.get(0).getFirst()+" "+t.get(0).getSecond());
 		System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
@@ -116,7 +119,9 @@ public class LDATest {
 		
 		//Test 3 - Different instance of classifier
 		//Again testing for persistence
-		t = new LDA().analyze(unknown, esv);
+		LDA lda = new LDA();
+		lda.train(esv);
+		t = lda.analyze(unknown);
 		//String r = t.get(0).getFirst();
 		/*System.out.println("Test 3 Classified");
 		System.out.println("First : "+r+" "+t.get(0).getSecond());
@@ -138,11 +143,13 @@ public class LDATest {
 		unknown2.addEvent(new Event("pickled"));
 		unknown2.addEvent(new Event("potatoes."));
 		
-		Vector <EventSet> uesv = new Vector<EventSet>();
+		List <EventSet> uesv = new ArrayList<EventSet>();
 		uesv.add(unknown);
 		uesv.add(unknown2);
 		
-		List<List<Pair<String, Double>>> t2 = classifier.analyze(uesv, esv);
+		List<List<Pair<String, Double>>> t2 = new ArrayList<List<Pair<String,Double>>>();
+		t2.add(lda.analyze(unknown));
+		t2.add(lda.analyze(unknown2));
 		/*for(int i = 0; i < t2.size(); i++){
 			System.out.println("Classification of unknown #"+(i+1));
 			for(int j =0; j < t2.get(i).size(); j++){
