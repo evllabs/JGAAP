@@ -20,11 +20,15 @@
  */
 package com.jgaap.classifiers;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
+import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -39,7 +43,7 @@ public class MahalanobisDistanceTest {
 	//This test currently fails because the method is broken and needs work
 	
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		EventSet known1 = new EventSet();
 		EventSet known2 = new EventSet();
 		EventSet unknown = new EventSet();
@@ -181,15 +185,16 @@ public class MahalanobisDistanceTest {
 		esv.add(known1);
 		esv.add(known2);
 
-		List<Pair<String, Double>> t = new MahalanobisDistance().analyze(
-				unknown, esv);
+		AnalysisDriver analysisDriver = new MahalanobisDistance();
+		analysisDriver.train(esv);
+		List<Pair<String, Double>> t = analysisDriver.analyze(unknown);
 		for(Pair<String, Double> element : t){
 			System.out.println(element.toString());
 		}
-		//String r = t.get(0).getFirst();
+		String r = t.get(0).getFirst();
 
-		//String s = "Mary";
+		String s = "Mary";
 		//TODO: this test has been neutered until someone fixes this distance 
-		//assertTrue(r.equals(s));
+		assertTrue(r.equals(s));
 	}
 }

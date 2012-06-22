@@ -35,6 +35,10 @@ import com.jgaap.generics.Pair;
  *
  */
 public class RandomAnalysis extends AnalysisDriver {
+	
+	private List<EventSet> knowns;
+	private Random random;
+	
 	public String displayName(){
 	    return "Random Analysis";
 	}
@@ -46,11 +50,15 @@ public class RandomAnalysis extends AnalysisDriver {
 	public boolean showInGUI(){
 	    return false;
 	}
+	
+	public void train(List<EventSet> knowns){
+		random = new Random();
+		this.knowns = knowns;
+	}
+	
     @Override
-    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
-    	Random random = new Random();
-        int numChoices = known.size();
-        EventSet s = known.get(random.nextInt(numChoices));
+    public List<Pair<String, Double>> analyze(EventSet unknown) {
+        EventSet s = knowns.get(random.nextInt(knowns.size()));
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
         results.add(new Pair<String, Double>(s.getAuthor(), 0.0));
         return results;

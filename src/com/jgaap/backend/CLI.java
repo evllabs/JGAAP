@@ -178,11 +178,11 @@ public class CLI {
 					api.addCanonicizer(canonicizer);
 				}
 			}
-			String eventDriver = cmd.getOptionValue("es");
-			if (eventDriver == null) {
+			String event = cmd.getOptionValue("es");
+			if (event == null) {
 				throw new Exception("No EventDriver specified");
 			}
-			api.addEventDriver(eventDriver);
+			EventDriver eventDriver = api.addEventDriver(event);
 			String[] eventCullers = cmd.getOptionValues("ec");
 			if (eventCullers != null) {
 				for (String eventCuller : eventCullers) {
@@ -202,7 +202,7 @@ public class CLI {
 			List<Document> unknowns = api.getUnknownDocuments();
 			StringBuffer buffer = new StringBuffer();
 			for (Document unknown : unknowns) {
-				buffer.append(unknown.getResult());
+				buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
 			}
 			String saveFile = cmd.getOptionValue('s');
 			if (saveFile == null) {

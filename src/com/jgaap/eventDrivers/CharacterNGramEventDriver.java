@@ -117,7 +117,7 @@ public class CharacterNGramEventDriver extends NGramEventDriver {
 
 	@Override
 	public EventSet createEventSet(Document document) {
-		char[] text = document.getProcessedText();
+		char[] text = document.getText();
 		int n;
 		try {
 			n = Integer.parseInt(getParameter("N"));

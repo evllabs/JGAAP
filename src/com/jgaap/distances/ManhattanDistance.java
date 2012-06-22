@@ -15,9 +15,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- **/
 package com.jgaap.distances;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
@@ -56,37 +57,18 @@ public class ManhattanDistance extends DistanceFunction {
 
     @Override
     public double distance(EventSet es1, EventSet es2) {
-        EventHistogram h1 = new EventHistogram();
-        EventHistogram h2 = new EventHistogram();
-        double distance = 0.0, increment;
-
-        for (int i = 0; i < es1.size(); i++) {
-            h1.add(es1.eventAt(i));
+        EventHistogram h1 = es1.getHistogram();
+        EventHistogram h2 = es2.getHistogram();
+        Set<Event> events = new HashSet<Event>();
+        double distance = 0.0;
+        
+        events.addAll(h1.events());
+        events.addAll(h2.events());
+        
+        for(Event event : events){
+        	distance += Math.abs(h1.getRelativeFrequency(event)-h2.getRelativeFrequency(event));
         }
 
-        for (int i = 0; i < es2.size(); i++) {
-            h2.add(es2.eventAt(i));
-        }
-
-        for (Event event : h1) {
-            increment = h1.getRelativeFrequency(event)
-                    - h2.getRelativeFrequency(event);
-            if (increment < 0) {
-                increment = increment * -1;
-            }
-            distance += increment;
-        }
-
-        for (Event event : h2) {
-            if (h1.getAbsoluteFrequency(event) == 0) {
-                increment = h1.getRelativeFrequency(event)
-                        - h2.getRelativeFrequency(event);
-                if (increment < 0) {
-                    increment = increment * -1;
-                }
-                distance += increment;
-            }
-        }
         return distance;
     }
 }

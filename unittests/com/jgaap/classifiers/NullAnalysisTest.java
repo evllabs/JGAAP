@@ -61,7 +61,9 @@ public class NullAnalysisTest {
 		
 		Vector<EventSet> test = new Vector<EventSet>();
 		test.add(known1);
-		List<Pair<String,Double>> t = new NullAnalysis().analyze(unknown, test);
+		NullAnalysis nullAnalysis = new NullAnalysis();
+		nullAnalysis.train(test);
+		List<Pair<String,Double>> t = nullAnalysis.analyze(unknown);
 		String r = t.get(0).getFirst();
 		String s = "No analysis performed.\n";
 		assertTrue(r.equals(s));

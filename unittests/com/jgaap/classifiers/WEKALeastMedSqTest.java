@@ -22,6 +22,7 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -42,9 +43,10 @@ public class WEKALeastMedSqTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKAJ48DecisionTree#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//Note: Need at least two documents per author, otherwise get the error:
 		//r must be less that or equal to n
@@ -109,18 +111,15 @@ public class WEKALeastMedSqTest {
 
 		//Classify unknown based on the knowns
 		WEKALeastMedSq classifier = new WEKALeastMedSq();
-		List<List<Pair<String, Double>>> t;
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
-
-			//Assert that the authors match
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
+		classifier.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(classifier.analyze(unknown));
 		}
+		System.out.println(t.toString());
+
+		//Assert that the authors match
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 		
 		
 		// Test 1b - Test equal likelihood
@@ -136,15 +135,13 @@ public class WEKALeastMedSqTest {
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown2);
 		
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
-			assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.0001 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.0001);
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		classifier.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(classifier.analyze(unknown));
 		}
+		System.out.println(t.toString());
+		assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.0001 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.0001);
 		
 		
 		//Test 2 - Add in third known author
@@ -173,15 +170,13 @@ public class WEKALeastMedSqTest {
 		uesv.add(unknown1);
 
 		classifier = new WEKALeastMedSq();
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		classifier.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(classifier.analyze(unknown));
 		}
+		System.out.println(t.toString());
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 		
 
 		//Test 3 - Add in another unknown
@@ -196,17 +191,15 @@ public class WEKALeastMedSqTest {
 
 		uesv.add(unknown3);
 
-		try {
-			t = classifier.analyze(uesv, esv);
-			System.out.println(t.toString());
-
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		classifier = new WEKALeastMedSq();
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		classifier.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(classifier.analyze(unknown));
 		}
+		System.out.println(t.toString());
 
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
 	}
 
 	//TODO: Test 4 - test documents/author requirements and exception handling

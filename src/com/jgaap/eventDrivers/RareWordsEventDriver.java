@@ -180,10 +180,7 @@ public class RareWordsEventDriver extends EventDriver {
 		/**
 		 * Create histogram with all events from stream
 		 */
-		EventHistogram hist = new EventHistogram();
-		for (int i = 0; i < es.size(); i++) {
-			hist.add(es.eventAt(i));
-		}
+		EventHistogram hist = es.getHistogram();
 
 		/**
 		 * Re-search event stream for rare events as measured by histogram

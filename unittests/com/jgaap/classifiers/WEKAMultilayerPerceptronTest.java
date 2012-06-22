@@ -22,6 +22,7 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -42,9 +43,10 @@ public class WEKAMultilayerPerceptronTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKAJ48DecisionTree#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//Test 1
 
@@ -84,18 +86,15 @@ public class WEKAMultilayerPerceptronTest {
 
 		//Classify unknown based on the knowns
 		WEKAMultilayerPerceptron tree = new WEKAMultilayerPerceptron();
-		List<List<Pair<String, Double>>> t;
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
-
-			//Assert that the authors match
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
 		}
+		System.out.println(t.toString());
+
+		//Assert that the authors match
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 		
 		
 		//Test 2 - Add in third known author
@@ -111,16 +110,14 @@ public class WEKAMultilayerPerceptronTest {
 
 		esv.add(known5);
 
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
-
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
 		}
+		System.out.println(t.toString());
+
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 		
 
 		//Test 3 - Add in another unknown
@@ -135,17 +132,14 @@ public class WEKAMultilayerPerceptronTest {
 
 		uesv.add(unknown2);
 
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
-
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
 		}
+		System.out.println(t.toString());
 
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
 		
 		// Test 6 - Test unknown that is almost equally likely to be of two authors
 		
@@ -162,17 +156,14 @@ public class WEKAMultilayerPerceptronTest {
 		
 		//t = tree.analyze(uesv, esv);
 		tree = new WEKAMultilayerPerceptron();
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
-			
-			assertTrue(t.get(0).get(0).getSecond()-.5 < .1 && t.get(0).get(1).getSecond()-.5 < .1);
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
 		}
-
+		System.out.println(t.toString());
+		
+		assertTrue(t.get(0).get(0).getSecond()-.5 < .1 && t.get(0).get(1).getSecond()-.5 < .1);
 		
 		// Test 5 - Add in more known documents for existing authors
 		EventSet known3 = new EventSet();
@@ -208,17 +199,15 @@ public class WEKAMultilayerPerceptronTest {
 		uesv.add(unknown1);
 		uesv.add(unknown2);
 		
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
-			
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
+		tree = new WEKAMultilayerPerceptron();
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		tree.train(esv);
+		for(EventSet unknown : uesv){
+			t.add(tree.analyze(unknown));
 		}
-
+		System.out.println(t.toString());
+		
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
 
 	}
 

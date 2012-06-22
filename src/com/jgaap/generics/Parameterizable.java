@@ -20,9 +20,12 @@
 package com.jgaap.generics;
 
 import javax.swing.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * A class of things-that-can-take-(label:value)-parameters.
@@ -41,7 +44,7 @@ public class Parameterizable {
     /** Construct new Parameterizable with empty set */
     public Parameterizable() {
         Parameters = new HashMap<String, String>();
-        paramGUI = new Vector<Pair<JLabel, JComboBox>>();
+        paramGUI = new ArrayList<Pair<JLabel, JComboBox>>();
     }
 
     /** Removes all label and their associated values */
@@ -72,6 +75,17 @@ public class Parameterizable {
         } else {
             return "";
         }
+    }
+    
+    public String getParameters() {
+    	StringBuilder builder = new StringBuilder();
+    	Set<Entry<String,String>> entries = Parameters.entrySet();
+    	for(Entry<String, String> entry : entries){
+    		builder.append(entry.getKey()).append(" : ").append(entry.getValue()).append(", ");
+    	}
+    	if(builder.length()>0)
+    		builder.delete(builder.length()-2, builder.length()-1);
+    	return builder.toString();
     }
 
     /**

@@ -59,8 +59,8 @@ public class HistogramDistance extends DistanceFunction {
 
 	@Override
 	public double distance(EventSet unknownEventSet, EventSet knownEventSet) {
-		EventHistogram unknownHistogram = new EventHistogram(unknownEventSet);
-		EventHistogram knownHistogram = new EventHistogram(knownEventSet);
+		EventHistogram unknownHistogram = unknownEventSet.getHistogram();
+		EventHistogram knownHistogram = knownEventSet.getHistogram();
 		double distance = 0.0;
 
 		Set<Event> events = new HashSet<Event>();
