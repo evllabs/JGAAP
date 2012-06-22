@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.WEKAAnalysis;
 
 import weka.classifiers.Classifier;
 
@@ -12,21 +13,21 @@ public class WEKASMO extends WEKAAnalysis {
 
 	public WEKASMO() {
 		//complexity constant
-		addParams("c", "Complexity constant C", "1", new String[]{"0","1","2","3","4","5","6","7","8","9","10"}, true);
+		addParams("c", "Complexity constant", "1", new String[]{"0","1","2","3","4","5","6","7","8","9","10"}, true);
 		//exponent for the polynomial kernel
-		addParams("e", "Exponent (polynomial kernel) E", "1", new String[]{"0","1","2","3","4","5","6","7","8","9","10"}, true);
+		addParams("e", "Exponent (polynomial)", "1", new String[]{"0","1","2","3","4","5","6","7","8","9","10"}, true);
 		//Gamma for the RBF kernel
-		addParams("g", "Gamma (RBF kernel) G", "0.01", new String[]{"0","0.01","0.02","0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.001"}, true);
+		addParams("g", "Gamma (RBF)", "0.01", new String[]{"0","0.01","0.02","0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.001"}, true);
 		//N
 		addParams("n", "N", "normalize", new String[] {"normalize", "standardize", "neither"},false);
 		//Feature space Normalization
-		addParams("f", "Feature-space normalization (polynomial kernel)", "false", new String[]{"true","false"},false);
+		addParams("f", "Feature-space normalization (polynomial)", "false", new String[]{"true","false"},false);
 		//Use lower-order terms
-		addParams("o", "Use lower-order terms (polynomial kernel)", "false", new String[]{"true", "false"},false);
+		addParams("o", "Use lower-order terms (polynomial)", "false", new String[]{"true", "false"},false);
 		//kernel
 		addParams("r", "Kernel", "Polynomial", new String[]{"Polynomial", "RBF"},false);
 		//folds of cross-validation used
-		addParams("v", "Cross-validation folds to generate models (-1 use training data)", "-1", new String[]{"-1","1","2","3","4","5","6","7","8","9","10"}, false);
+		addParams("v", "Cross-validation folds (-1 use training data)", "-1", new String[]{"-1","1","2","3","4","5","6","7","8","9","10"}, false);
 		
 	}
 	
