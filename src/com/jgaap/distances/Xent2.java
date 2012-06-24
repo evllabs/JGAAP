@@ -37,69 +37,30 @@ class XEDictionary {
 
 	XEDictionary() {
 		root = new XEDictionaryNode();
-	}
-
-	public void build(EventSet e) {
-		for (int i = 0; i < e.size(); i++) {
-			Event start = e.eventAt(i);
-			if (!root.isEventInLevel(start)) {
-				insertAtRoot(start, e, i);
-			} else {
-				insertBelowRoot(start, e, i);
-			}
-
-		}
 		root.key = null;
 	}
 
-	public int find(EventSet e) {
+	public int find(EventSet eventSet) {
 		int matchlength = 0;
-		boolean matched = false;
 		XEDictionaryNode node = root;
-		while ((matchlength < e.size()) && !matched) {
-			if (node.isEventInLevel(e.eventAt(matchlength))) {
-				node = node.get(e.eventAt(matchlength));
+		for (Event event : eventSet) {
+			if (node.isEventInLevel(event)) {
 				matchlength++;
+				node = node.get(event);
 			} else {
-				matched = true;
+				break;
 			}
 		}
 		return matchlength;
 	}
 
-	private void insertAtRoot(Event start, EventSet e, int offset) {
-		root.addEventToLevel(start);
-		XEDictionaryNode node;
-		node = root;
-		int j = offset;
-		while (j < e.size() - 1) {
-			node = node.get(e.eventAt(j));
-			j++;
-			// System.out.println("Adding Event: " + e.eventAt(j));
-			node.addEventToLevel(e.eventAt(j));
-		}
-	}
-
-	private void insertBelowRoot(Event start, EventSet e, int offset) {
-		XEDictionaryNode node;
-		node = root;
-		// System.out.println("Event at offset: " + e.eventAt(offset));
-		node = node.get(e.eventAt(offset));
-		int j = offset;
-		boolean matches = true; // match the events up to a given level
-		while (matches && (j < e.size() - 1)) {
-			j++;
-			if (node.isEventInLevel(e.eventAt(j))) {
-				// System.out.println("Match at level: " + e.eventAt(j));
-				node = node.get(e.eventAt(j));
-			} else {
-				matches = false;
+	public void add(EventSet eventSet) {
+		XEDictionaryNode node = root;
+		for (Event event : eventSet) {
+			if (!node.isEventInLevel(event)) {
+				node.addEventToLevel(event);
 			}
-		}
-		for (int i = j; i < e.size(); i++) {
-			// System.out.println("Adding Event: " + e.eventAt(i));
-			node.addEventToLevel(e.eventAt(i));
-			node = node.get(e.eventAt(i));
+			node = node.get(event);
 		}
 	}
 
@@ -173,38 +134,42 @@ class XEDictionaryNode {
 }
 
 public class Xent2 extends DivergenceFunction {
+
+	public Xent2() {
+		addParams("windowSize", "Window Size", "15", new String[] { "1", "2",
+				"3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
+				"14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
+				"24", "25" }, false);
+	}
+
 	public String displayName() {
 		return "JW Cross Entropy";
 	}
 
 	public String tooltipText() {
-		return "Juola-Wyner Cross Entropy (Slower)";
+		return "Juola-Wyner Cross Entropy";
 	}
 
 	public boolean showInGUI() {
 		return true;
 	}
 
-	private int windowSize = 500;
+	private int windowSize = 15;
 
 	@Override
 	public double divergence(EventSet e1, EventSet e2) {
 		if (!getParameter("windowSize").equals("")) {
 			windowSize = Integer.parseInt(getParameter("windowSize"));
 		}
-		return distance(e1, e2, windowSize);
+		return distance(e1, e2);
 	}
 
-	public double distance(EventSet e1, EventSet e2, int windowSize) {
+	public double distance(EventSet e1, EventSet e2) {
 
 		double me = meanEntropy(e1, e2, windowSize);
 		double hhat = (Math.log(1.0 * windowSize) / Math.log(2.0)) / me;
 
 		return hhat;
-	}
-
-	public int getWindowSize() {
-		return windowSize;
 	}
 
 	private double meanEntropy(EventSet e1, EventSet e2, int windowSize) {
@@ -216,27 +181,21 @@ public class Xent2 extends DivergenceFunction {
 			windowSize = e1.size();
 		}
 
-//		for (int j = 0; j <= e1.size() - windowSize; j++) {
-			XEDictionary xed = new XEDictionary();
-			EventSet dictionary;
-			dictionary = window(e1, 0, windowSize);
-			xed.build(dictionary);
+		XEDictionary xed = new XEDictionary();
 
-			for (int i = 0; i <= e2.size()-windowSize; i++) {
-				totalEntropy += xed.find(window(e2,i,windowSize));
-				trials++;
-			}
-//		}
+		for (int j = 0; j < e1.size() - windowSize; j++) {
+			EventSet dictionary;
+			dictionary = window(e1, j, windowSize);
+			xed.add(dictionary);
+		}
+		for (int i = 0; i <= e2.size() - windowSize; i++) {
+			totalEntropy += xed.find(window(e2, i, windowSize));
+			trials++;
+		}
 		return totalEntropy / trials;
 	}
 
-	public void setWindowSize(int windowSize) {
-		this.windowSize = windowSize;
-	}
-
 	private EventSet window(EventSet e1, int offset, int windowSize) {
-
 		return e1.subset(offset, offset + windowSize);
 	}
-
 }
