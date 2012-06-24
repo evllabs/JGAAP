@@ -19,119 +19,9 @@
  **/
 package com.jgaap.distances;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jgaap.generics.DivergenceFunction;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
-
-/**
- * Methods for building and manipulating a Cross Entropy Dictionary. A Cross
- * Entropy Dictionary is a hashtable where the keys are Events and the values
- * are Cross Entropy Dictionary Nodes
- **/
-class XEDictionary {
-
-	XEDictionaryNode root;
-
-	XEDictionary() {
-		root = new XEDictionaryNode();
-		root.key = null;
-	}
-
-	public int find(EventSet eventSet) {
-		int matchlength = 0;
-		XEDictionaryNode node = root;
-		for (Event event : eventSet) {
-			if (node.isEventInLevel(event)) {
-				matchlength++;
-				node = node.get(event);
-			} else {
-				break;
-			}
-		}
-		return matchlength;
-	}
-
-	public void add(EventSet eventSet) {
-		XEDictionaryNode node = root;
-		for (Event event : eventSet) {
-			if (!node.isEventInLevel(event)) {
-				node.addEventToLevel(event);
-			}
-			node = node.get(event);
-		}
-	}
-
-	@Override
-	public String toString() {
-		return root.toString();
-	}
-}
-
-/**
- * Cross Entropy Dictionary Node Each node contains a single event and a
- * hashtable containing Events as keys and Cross Entropy Dictionary Nodes as
- * values to the keys. The hashtable can be of any size. When this node is
- * placed in a tree structure, a generalized Trie is created
- **/
-class XEDictionaryNode {
-	Event key;
-	Map<Event, XEDictionaryNode> child = new HashMap<Event, XEDictionaryNode>();
-
-	XEDictionaryNode() {
-		key = null;
-	}
-
-	XEDictionaryNode(Event key) {
-		this.key = key;
-	}
-
-	void addEventToLevel(Event e) {
-		XEDictionaryNode node = new XEDictionaryNode();
-		node.key = e;
-		child.put(e, node);
-	}
-
-	/**
-	 * Shows the events at this level of the tree. Used mainly for debugging
-	 * purposes
-	 **/
-	String eventsAtThisLevel() {
-		StringBuilder stringBuilder = new StringBuilder();
-		for (Event event : child.keySet()) {
-			stringBuilder.append(event);
-		}
-		return stringBuilder.toString();
-	}
-
-	XEDictionaryNode get(Event e) {
-		return child.get(e);
-	}
-
-	boolean isEventInLevel(Event e) {
-		return child.containsKey(e);
-	}
-
-	void setKey(Event key) {
-		this.key = key;
-	}
-
-	@Override
-	public String toString() {
-		String t = "";
-		if (key != null) {
-			t = key.toString();
-		}
-		if (child != null) {
-			t += eventsAtThisLevel();
-			t += child;
-		}
-		return t;
-	}
-
-}
+import com.jgaap.generics.EventTrie;
 
 public class Xent2 extends DivergenceFunction {
 
@@ -166,13 +56,13 @@ public class Xent2 extends DivergenceFunction {
 
 	public double distance(EventSet e1, EventSet e2) {
 
-		double me = meanEntropy(e1, e2, windowSize);
+		double me = meanEntropy(e1, e2);
 		double hhat = (Math.log(1.0 * windowSize) / Math.log(2.0)) / me;
 
 		return hhat;
 	}
 
-	private double meanEntropy(EventSet e1, EventSet e2, int windowSize) {
+	private double meanEntropy(EventSet e1, EventSet e2) {
 
 		double totalEntropy = 0;
 		int trials = 0;
@@ -181,7 +71,7 @@ public class Xent2 extends DivergenceFunction {
 			windowSize = e1.size();
 		}
 
-		XEDictionary xed = new XEDictionary();
+		EventTrie xed = new EventTrie();
 
 		for (int j = 0; j < e1.size() - windowSize; j++) {
 			EventSet dictionary;
