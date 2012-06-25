@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * This is an abstract class for distance functions. It is used, for example, in
- * variations of nearest-neighbor algorihms.
+ * variations of nearest-neighbor algorithms.
  * 
  */
 abstract public class DistanceFunction extends Parameterizable implements Comparable<DistanceFunction>, Displayable{
