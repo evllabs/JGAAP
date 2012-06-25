@@ -72,7 +72,7 @@ public class Xent2 extends AnalysisDriver {
 		double totalEntropy = 0;
 		int trials = 0;
 
-		for (int i = 0; i <= eventSet.size() - windowSize; i++) {
+		for (int i = 0; i < eventSet.size(); i++) {
 			totalEntropy += eventTrie.find(window(eventSet, i, windowSize));
 			trials++;
 		}
@@ -98,7 +98,7 @@ public class Xent2 extends AnalysisDriver {
 				eventTrie = new EventTrie();
 				eventTries.put(identifier(eventSet), eventTrie);
 			}
-			for (int i = 0; i < eventSet.size() - windowSize; i++) {
+			for (int i = 0; i < eventSet.size(); i++) {
 				EventSet dictionary;
 				dictionary = window(eventSet, i, windowSize);
 				eventTrie.add(dictionary);

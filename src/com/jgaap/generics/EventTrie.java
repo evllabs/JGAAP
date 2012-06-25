@@ -38,6 +38,7 @@ public class EventTrie {
 				node.addEventToLevel(event);
 			}
 			node = node.get(event);
+			node.increment();
 		}
 	}
 
@@ -56,6 +57,7 @@ public class EventTrie {
 class EventTrieNode {
 	Event key;
 	Map<Event, EventTrieNode> child = new HashMap<Event, EventTrieNode>();
+	int occurances = 0;
 
 	EventTrieNode() {
 		key = null;
@@ -93,6 +95,14 @@ class EventTrieNode {
 
 	void setKey(Event key) {
 		this.key = key;
+	}
+
+	void increment() {
+		occurances++;
+	}
+
+	int getOccurances() {
+		return occurances;
 	}
 
 	@Override
