@@ -166,7 +166,12 @@ public class CLI {
 			if (documentsFilePath == null) {
 				throw new Exception("No Documents CSV specified");
 			}
-			List<Document> documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(documentsFilePath));
+			List<Document> documents;
+			if (documentsFilePath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)){
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(documentsFilePath)));
+			} else {
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(documentsFilePath));
+			}
 			for (Document document : documents) {
 				api.addDocument(document);
 			}
