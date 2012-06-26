@@ -116,9 +116,9 @@ public class API {
 	 */
 	public Document addDocument(String filepath, String author, String title)
 			throws Exception {
-		System.out.println("Adding Document :" + filepath);
 		Document document = new Document(filepath, author, title);
 		documents.add(document);
+		logger.info("Adding Document "+document.toString());
 		return document;
 	}
 
@@ -130,6 +130,7 @@ public class API {
 	 */
 	public Document addDocument(Document document) {
 		documents.add(document);
+		logger.info("Adding Document "+document.toString());
 		return document;
 	}
 
@@ -140,6 +141,7 @@ public class API {
 	 * @return - true on success false on failure
 	 */
 	public Boolean removeDocument(Document document) {
+		logger.info("Removing Document "+document.toString());
 		return documents.remove(document);
 	}
 
@@ -271,6 +273,7 @@ public class API {
 			throws Exception {
 		Canonicizer canonicizer = CanonicizerFactory.getCanonicizer(action);
 		document.addCanonicizer(canonicizer);
+		logger.info("Adding Canonicizer "+canonicizer.displayName()+" to Document "+document.toString());
 		return canonicizer;
 	}
 
@@ -342,6 +345,7 @@ public class API {
 	public EventDriver addEventDriver(String action) throws Exception {
 		EventDriver eventDriver = EventDriverFactory.getEventDriver(action);
 		eventDrivers.add(eventDriver);
+		logger.info("Adding EventDriver "+eventDriver.displayName());
 		return eventDriver;
 	}
 
@@ -351,6 +355,7 @@ public class API {
 	 * @return - true if successful false if failure 
 	 */
 	public Boolean removeEventDriver(EventDriver eventDriver) {
+		logger.info("Removing EventDriver "+eventDriver.displayName());
 		return eventDrivers.remove(eventDriver);
 	}
 
@@ -382,6 +387,7 @@ public class API {
 	public EventCuller addEventCuller(String action) throws Exception {
 		EventCuller eventCuller = EventCullerFactory.getEventCuller(action);
 		eventCullers.add(eventCuller);
+		logger.info("Adding EventCuller "+eventCuller.displayName());
 		return eventCuller;
 	}
 
@@ -392,6 +398,7 @@ public class API {
 	 * @return - true if success false if failure
 	 */
 	public Boolean removeEventCuller(EventCuller eventCuller) {
+		logger.info("Removing EventCuller "+eventCuller.displayName());
 		return eventCullers.remove(eventCuller);
 	}
 
@@ -431,6 +438,7 @@ public class API {
 			analysisDriver = new NearestNeighborDriver();
 			addDistanceFunction(action, analysisDriver);
 		}
+		logger.info("Adding AnalysisDriver "+analysisDriver.displayName());
 		analysisDrivers.add(analysisDriver);
 		return analysisDriver;
 	}
@@ -441,6 +449,7 @@ public class API {
 	 * @return True if success false if failure
 	 */
 	public Boolean removeAnalysisDriver(AnalysisDriver analysisDriver) {
+		logger.info("Removing AnalysisDriver "+analysisDriver.displayName());
 		return analysisDrivers.remove(analysisDriver);
 	}
 
@@ -604,13 +613,16 @@ public class API {
 				knownEventSets.add(knownDocument.getEventSet(eventDriver));
 			}
 			for (AnalysisDriver analysisDriver : analysisDrivers) {
+				logger.info("Training "+analysisDriver.displayName());
 				analysisDriver.train(knownEventSets);
 				if (analysisDriver instanceof ValidationDriver) {
 					for (Document knownDocument : knownDocuments) {
+						logger.info("Analyzing "+knownDocument.toString());
 						knownDocument.addResult(analysisDriver, eventDriver,analysisDriver.analyze(knownDocument.getEventSet(eventDriver)));
 					}
 				} else {
 					for (Document unknownDocument : unknownDocuments) {
+						logger.info("Analyzing "+unknownDocument.toString());
 						List<Pair<String, Double>> tmp = analysisDriver.analyze(unknownDocument.getEventSet(eventDriver));
 						unknownDocument.addResult(analysisDriver, eventDriver,tmp);
 					}
