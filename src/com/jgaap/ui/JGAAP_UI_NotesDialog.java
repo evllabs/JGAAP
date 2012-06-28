@@ -118,23 +118,6 @@ public class JGAAP_UI_NotesDialog extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_Cancel_ButtonActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JGAAP_UI_NotesDialog dialog = new JGAAP_UI_NotesDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     public void displayNote(String note){
         SavedNote= null;
         Notes_TextArea.setText(note);
