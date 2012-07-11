@@ -320,7 +320,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		});
 
 		jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-				"/com/jgaap/ui/resources/jgaap_icon.png"))); // NOI18N
+				"/com/jgaap/resources/ui/jgaap_icon.png"))); // NOI18N
 
 		jLabel25.setForeground(new java.awt.Color(0, 0, 255));
 		jLabel25.setText("http://jgaap.com");
@@ -331,7 +331,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		});
 
 		jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-				"/com/jgaap/ui/resources/EVLlab_icon.png"))); // NOI18N
+				"/com/jgaap/resources/ui/EVLlab_icon.png"))); // NOI18N
 
 		javax.swing.GroupLayout helpDialogLayout = new javax.swing.GroupLayout(
 				helpDialog.getContentPane());
