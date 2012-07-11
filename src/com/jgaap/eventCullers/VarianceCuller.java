@@ -2,7 +2,6 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.jgaap.generics.Event;
@@ -74,7 +73,7 @@ public class VarianceCuller extends EventCuller{
 			mean = Mean(tmp,0.0,0.0);
 			VAR.add(new Pair<Event, Double>(event, (1/(total))*VAR(frequencies, mean, 0.0), 2));
 		}		
-		Collections.sort(VAR, new SortByVAR());
+		Collections.sort(VAR);
 		if(informative.equals("Most")){
 			Collections.reverse(VAR);
 		}
@@ -129,9 +128,4 @@ public class VarianceCuller extends EventCuller{
 		return VAR(frequencies, mean, sum);
 	}
 
-}
-class SortByVAR implements Comparator<Pair<Event, Double>> {
-	public int compare(Pair<Event, Double> p1, Pair<Event, Double> p2) {
-		return p1.getSecond().compareTo(p2.getSecond());
-	}
 }

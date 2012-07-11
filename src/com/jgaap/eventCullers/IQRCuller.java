@@ -2,7 +2,6 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.jgaap.generics.Event;
@@ -95,9 +94,9 @@ public class IQRCuller extends EventCuller {
 				Q3 = (frequencies.get((int) Q3Index) + frequencies.get((int) (Q3Index-1)))/2;
 			}
 			IQR = Q3 - Q1;  //Calculate the Interquartile Range
-			rangeList.add(new Pair<Event, Double>(event, IQR));
+			rangeList.add(new Pair<Event, Double>(event, IQR,2));
 		}
-		Collections.sort(rangeList, new SortBySecond());
+		Collections.sort(rangeList);
 		if(informative.equals("Most")){
 			Collections.reverse(rangeList);
 		}
@@ -137,12 +136,4 @@ public class IQRCuller extends EventCuller {
 				+ "\nIQR = Q3 - Q1";
 	}
 
-}
-/*
- * Sort the list based on the value of the second item of the pair
- */
-class SortBySecond implements Comparator<Pair<Event, Double>> {
-	public int compare(Pair<Event, Double> p1, Pair<Event, Double> p2) {
-		return p1.getSecond().compareTo(p2.getSecond());
-	}
 }

@@ -2,7 +2,6 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.jgaap.generics.Event;
@@ -71,11 +70,11 @@ public class MeanAbsoluteDeviation extends EventCuller {
 			List<Integer> tmp = new ArrayList<Integer>();
 			tmp.addAll(frequencies);
 			mean = Mean(tmp,0.0,0.0);
-			MAD.add(new Pair<Event, Double>(event, (1/total) * MAD(frequencies, mean, 0.0)));
+			MAD.add(new Pair<Event, Double>(event, (1/total) * MAD(frequencies, mean, 0.0),2));
 		}
 
 		
-		Collections.sort(MAD, new SortByMAD());
+		Collections.sort(MAD);
 		if(informative.equals("Most")){
 			Collections.reverse(MAD);
 		}
@@ -134,9 +133,4 @@ public class MeanAbsoluteDeviation extends EventCuller {
 		return MAD(frequencies, mean, sum);
 	}
 
-}
-class SortByMAD implements Comparator<Pair<Event, Double>> {
-	public int compare(Pair<Event, Double> p1, Pair<Event, Double> p2) {
-		return p1.getSecond().compareTo(p2.getSecond());
-	}
 }

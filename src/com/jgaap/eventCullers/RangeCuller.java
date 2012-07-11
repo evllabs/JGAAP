@@ -2,7 +2,6 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.jgaap.generics.Event;
@@ -71,9 +70,9 @@ public class RangeCuller extends EventCuller {
 			}
 			Collections.sort(frequencies);
 			range = frequencies.get(frequencies.size()-1) - frequencies.get(0);
-			rangeList.add(new Pair<Event, Integer>(event, range));
+			rangeList.add(new Pair<Event, Integer>(event, range,2));
 		}
-		Collections.sort(rangeList, new SortByRange());
+		Collections.sort(rangeList);
 		if(informative.equals("Most")){
 			Collections.reverse(rangeList);
 		}
@@ -112,10 +111,5 @@ public class RangeCuller extends EventCuller {
 	@Override
 	public String longDescription(){
 		return "Analyze N events with the highest frequency range";
-	}
-}
-class SortByRange implements Comparator<Pair<Event, Integer>> {
-	public int compare(Pair<Event, Integer> p1, Pair<Event, Integer> p2) {
-		return p1.getSecond().compareTo(p2.getSecond());
 	}
 }
