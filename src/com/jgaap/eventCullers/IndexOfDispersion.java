@@ -2,7 +2,6 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.jgaap.backend.Utils;
@@ -79,9 +78,9 @@ public class IndexOfDispersion extends EventCuller {
 			/*
 			 * Add Standard deviation^2 / mean to the list of Index of Dispersion
 			 */
-			IoD.add(new Pair<Event,Double>(event, Math.pow(stddev,2)/mean));
+			IoD.add(new Pair<Event,Double>(event, Math.pow(stddev,2)/mean,2));
 		}
-		Collections.sort(IoD, new SortByIoD());
+		Collections.sort(IoD);
 		if(informative.equals("Most")){
 			Collections.reverse(IoD);
 		}
@@ -130,13 +129,5 @@ public class IndexOfDispersion extends EventCuller {
 		mean+=frequencies.remove(0);
 		count++;
 		return mean(frequencies,count, mean);
-	}
-}
-/* 
- * Sort the IoD list based on the second item in each pair
- */
-class SortByIoD implements Comparator<Pair<Event, Double>> {
-	public int compare(Pair<Event, Double> p1, Pair<Event, Double> p2) {
-		return p1.getSecond().compareTo(p2.getSecond());
 	}
 }

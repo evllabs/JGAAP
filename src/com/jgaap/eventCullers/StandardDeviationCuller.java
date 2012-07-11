@@ -2,7 +2,6 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.jgaap.backend.Utils;
@@ -70,10 +69,10 @@ public class StandardDeviationCuller extends EventCuller {
 			for (EventHistogram eventHistogram : eventHistograms) {
 				frequencies.add((double) eventHistogram.getAbsoluteFrequency(event));
 			} 
-			var.add(new Pair<Event,Double>(event, Utils.stddev(frequencies)));
+			var.add(new Pair<Event,Double>(event, Utils.stddev(frequencies),2));
 		}
 		
-		Collections.sort(var, new SortByStdDev());
+		Collections.sort(var);
 		if(informative.equals("Most")){
 			Collections.reverse(var);
 		}
@@ -109,11 +108,6 @@ public class StandardDeviationCuller extends EventCuller {
 	@Override
 	public String longDescription(){
 		return "Analyze N events with highest standard deviation";
-	}
-	class SortByStdDev implements Comparator<Pair<Event, Double>> {
-		public int compare(Pair<Event, Double> p1, Pair<Event, Double> p2) {
-			return p1.getSecond().compareTo(p2.getSecond());
-		}
 	}
 
 }

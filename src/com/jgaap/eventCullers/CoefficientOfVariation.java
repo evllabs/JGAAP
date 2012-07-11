@@ -2,7 +2,6 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.jgaap.backend.Utils;
@@ -74,9 +73,9 @@ public class CoefficientOfVariation extends EventCuller{
 			}
 			stddev = Utils.stddev(frequencies);
 			mean = mean(frequencies,0.0,0.0);
-			CoV.add(new Pair<Event,Double>(event, (stddev/mean)*100));
+			CoV.add(new Pair<Event,Double>(event, (stddev/mean)*100,2));
 		}
-		Collections.sort(CoV, new SortByCoV());
+		Collections.sort(CoV);
 		if(informative.equals("Most")){
 			Collections.reverse(CoV);
 		}
@@ -123,10 +122,5 @@ public class CoefficientOfVariation extends EventCuller{
 		mean+=frequencies.remove(0);
 		count++;
 		return mean(frequencies,count, mean);
-	}
-}
-class SortByCoV implements Comparator<Pair<Event, Double>> {
-	public int compare(Pair<Event, Double> p1, Pair<Event, Double> p2) {
-		return p1.getSecond().compareTo(p2.getSecond());
 	}
 }

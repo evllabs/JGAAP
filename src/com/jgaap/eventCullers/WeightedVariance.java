@@ -2,7 +2,6 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.jgaap.generics.Event;
@@ -83,10 +82,10 @@ public class WeightedVariance extends EventCuller {
 			for(int i : frequencies){
 				var += percentage * Math.pow(i - mean, 2);
 			}
-			WVar.add(new Pair<Event, Double>(event, var));
+			WVar.add(new Pair<Event, Double>(event, var, 2));
 		}
 				
-		Collections.sort(WVar, new SortByWVar());
+		Collections.sort(WVar);
 		if(informative.equals("Most")){
 			Collections.reverse(WVar);
 		}
@@ -128,9 +127,4 @@ public class WeightedVariance extends EventCuller {
 				"\u03BC = \u03A3 for i = 1 to n Pi*xi";
 	}
 
-}
-class SortByWVar implements Comparator<Pair<Event, Double>> {
-	public int compare(Pair<Event, Double> p1, Pair<Event, Double> p2) {
-		return p1.getSecond().compareTo(p2.getSecond());
-	}
 }
