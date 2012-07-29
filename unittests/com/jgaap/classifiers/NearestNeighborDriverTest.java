@@ -108,7 +108,7 @@ public class NearestNeighborDriverTest {
 
 		String s = "Mary";
 
-		assertTrue(r.equals(s));
+		assertTrue(r.startsWith(s));
 
 	}
 
