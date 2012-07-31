@@ -22,7 +22,6 @@
 	<target name="clean">
 		<delete dir="unittest_logs" />
 		<delete dir="../bin/com" />
-		<delete dir="../bin/WordSegment" />
 	</target>
 
 	<target name="init">
@@ -33,7 +32,6 @@
 		<javac sourcepath="" srcdir="." destdir="../bin" debug="true" includeantruntime="false">
 			<classpath refid="classpath" />
 
-			<include name="WordSegment/*.java" />
 			<include name="com/jgaap/*.java" />
 			<include name="com/jgaap/generics/*.java" />
 			<include name="com/jgaap/eventDrivers/*.java" />

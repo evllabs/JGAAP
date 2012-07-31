@@ -143,29 +143,7 @@ public class WEKALeastMedSqTest {
 		System.out.println(t.toString());
 		assertTrue(Math.abs(t.get(0).get(0).getSecond()-0.5)<.0001 && Math.abs(t.get(0).get(1).getSecond()-0.5)<.0001);
 		
-		
-		//Test 2 - Add in third known author
-
-		EventSet known5 = new EventSet();
-		EventSet known6 = new EventSet();
-		
-		known5.addEvent(new Event("she"));
-		known5.addEvent(new Event("sells"));
-		known5.addEvent(new Event("seashells"));
-		known5.addEvent(new Event("by"));
-		known5.addEvent(new Event("seashore"));
-		known5.setAuthor("Susie");
-
-		known6.addEvent(new Event("she"));
-		known6.addEvent(new Event("sells"));
-		known6.addEvent(new Event("shells"));
-		known6.addEvent(new Event("by"));
-		known6.addEvent(new Event("sea"));
-		known6.setAuthor("Susie");
-
-		esv.add(known5);
-		esv.add(known6);
-		
+				
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
 
