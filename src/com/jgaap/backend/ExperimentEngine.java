@@ -114,7 +114,7 @@ public class ExperimentEngine {
 		final String experimentName = experimentTable.remove(0).get(0);
 		WorkQueue experimentWorkQueue = new WorkQueue(workers);
 		for (final List<String> experimentRow : experimentTable) {
-			if (experimentRow.size() >= 6) {
+			if (experimentRow.size() >= 7) {
 				Runnable work = new Runnable() {
 					@Override
 					public void run() {
@@ -176,7 +176,7 @@ public class ExperimentEngine {
 				};
 				experimentWorkQueue.execute(work);
 			} else {
-				logger.error("Experiment "+experimentRow.toString()+" missing columns");
+				logger.error("Experiment "+experimentRow.toString()+" missing "+(7-experimentRow.size())+" column(s)");
 			}
 		}
 		for(int i =0; i<workers;i++){
