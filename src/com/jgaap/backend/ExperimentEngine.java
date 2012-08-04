@@ -114,7 +114,9 @@ public class ExperimentEngine {
 		final String experimentName = experimentTable.remove(0).get(0);
 		WorkQueue experimentWorkQueue = new WorkQueue(workers);
 		for (final List<String> experimentRow : experimentTable) {
-			if (experimentRow.size() >= 7) {
+			if(experimentRow.isEmpty()){
+				continue;
+			}else if (experimentRow.size() >= 7) {
 				Runnable work = new Runnable() {
 					@Override
 					public void run() {
