@@ -114,7 +114,7 @@ public class Document extends Parameterizable {
 			this.text = DocumentHelper.loadDocument(filepath, language.getCharset());
 			this.size = this.text.length;
 			if (this.size == 0) {
-				throw new Exception("Empty Document Error");
+				throw new Exception("Document: "+this.filepath+" was empty.");
 			}
 		}
 	}
