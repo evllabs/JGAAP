@@ -26,7 +26,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-01-06.jar"/>
+	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-01-06.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://nlp.stanford.edu/nlp/javadoc/javanlp/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/poi-3.8-20120326.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://poi.apache.org/apidocs/"/>
