@@ -19,7 +19,6 @@
 	<classpathentry kind="lib" path="lib/external/fasttag_v2.jar"/>
 	<classpathentry kind="lib" path="lib/external/jmatharray.jar"/>
 	<classpathentry kind="lib" path="lib/external/jmathplot.jar"/>
-	<classpathentry kind="lib" path="lib/external/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/external/jscience-4.3.1.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://jscience.org/api/"/>
@@ -63,5 +62,22 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/external/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="lib/external/resolver.jar"/>
+	<classpathentry kind="lib" path="lib/external/saxon9-dom.jar"/>
+	<classpathentry kind="lib" path="lib/external/saxon9.jar"/>
+	<classpathentry kind="lib" path="lib/external/xbean_xpath.jar"/>
+	<classpathentry kind="lib" path="lib/external/xbean-2.6.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlbeans.apache.org/docs/2.6.0/reference/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/xmlbeans-qname.jar"/>
+	<classpathentry kind="lib" path="lib/external/xmlpublic.jar"/>
+	<classpathentry kind="lib" path="lib/external/dom4j-1.6.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://dom4j.sourceforge.net/dom4j-1.6.1/apidocs/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
