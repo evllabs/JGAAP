@@ -18,6 +18,7 @@
 package com.jgaap.backend;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -221,7 +222,9 @@ public class API {
 				authors.add(document.getAuthor());
 			}
 		}
-		return new ArrayList<String>(authors);
+		List<String> authorsList = new ArrayList<String>(authors);
+		Collections.sort(authorsList);
+		return authorsList;
 	}
 	
 	/**
