@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.WEKAAnalysis;
+import com.jgaap.generics.WEKAAnalysisDriver;
 
 import weka.classifiers.Classifier;
 
-public class WEKAMultilayerPerceptron extends WEKAAnalysis {
+public class WEKAMultilayerPerceptron extends WEKAAnalysisDriver {
 
 	@Override
 	public String displayName() {

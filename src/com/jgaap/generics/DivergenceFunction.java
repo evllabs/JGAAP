@@ -17,6 +17,10 @@
  */
 package com.jgaap.generics;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.jgaap.generics.DivergenceType;
 
 /**
@@ -29,6 +33,8 @@ import com.jgaap.generics.DivergenceType;
 
 public abstract class DivergenceFunction extends DistanceFunction {
 
+	private static List<DivergenceFunction> DIVERGENCE_FUNCTIONS;
+	
 	abstract public String displayName();
 
 	@Override
@@ -105,5 +111,29 @@ public abstract class DivergenceFunction extends DistanceFunction {
 
 	@Override
 	abstract public String tooltipText();
+	
+	/**
+	 * a read-only list of the DivergenceFunctions 
+	 */
+	public static List<DivergenceFunction> getDivergenceFunctions() { 
+		if (DIVERGENCE_FUNCTIONS == null){
+			DIVERGENCE_FUNCTIONS =  Collections.unmodifiableList(loadDivergenceFunctions());
+		}
+		return DIVERGENCE_FUNCTIONS;
+	}
+	
+	private static List<DivergenceFunction> loadDivergenceFunctions() {
+		List<DivergenceFunction> divergenceFunctions = new ArrayList<DivergenceFunction>();
+		List<DistanceFunction> distanceFunctions = DistanceFunction.getDistanceFunctions();
+		synchronized (distanceFunctions) {
+			for(DistanceFunction distanceFunction : distanceFunctions){
+				if(distanceFunction instanceof DivergenceFunction){
+					divergenceFunctions.add((DivergenceFunction) distanceFunction);
+				}
+			}
+			Collections.sort(divergenceFunctions);
+		}
+		return divergenceFunctions;
+	}
 
 }

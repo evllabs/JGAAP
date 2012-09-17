@@ -21,8 +21,10 @@ import weka.core.Instances;
  * @author John Noecker Jr.
  * 
  */
-public abstract class WEKAAnalysis extends AnalysisDriver {
+public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 
+	private static List<WEKAAnalysisDriver> WEKA_ANALYSIS_DRIVERS;
+	
 	public Classifier classifier;
 
 	private Set<String> allAuthorNames;
@@ -181,5 +183,23 @@ public abstract class WEKAAnalysis extends AnalysisDriver {
 			return "WEKAAnalysis. No classifier set.";
 		}
 	}
+	
+	public static List<WEKAAnalysisDriver> getWekaAnalysisDrivers() {
+		if (WEKA_ANALYSIS_DRIVERS == null) {
+			WEKA_ANALYSIS_DRIVERS = Collections.unmodifiableList(loadWekaAnalysisDrivers());
+		}
+		return WEKA_ANALYSIS_DRIVERS;
+	}
 
+	private static List<WEKAAnalysisDriver> loadWekaAnalysisDrivers() {
+		List<WEKAAnalysisDriver> wekaAnalysisDrivers = new ArrayList<WEKAAnalysisDriver>();
+		List<AnalysisDriver> analysisDrivers = new ArrayList<AnalysisDriver>();
+		for (AnalysisDriver analysisDriver : analysisDrivers) {
+			if (analysisDriver instanceof WEKAAnalysisDriver) {
+				wekaAnalysisDrivers.add((WEKAAnalysisDriver) analysisDriver);
+			}
+		}
+		Collections.sort(wekaAnalysisDrivers);
+		return wekaAnalysisDrivers;
+	}
 }
