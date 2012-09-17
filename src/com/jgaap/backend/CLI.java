@@ -132,17 +132,17 @@ public class CLI {
 			} else {
 				List<Displayable> list = new ArrayList<Displayable>();
 				if (command.equalsIgnoreCase("c")) {
-					list.addAll(AutoPopulate.getCanonicizers());
+					list.addAll(Canonicizer.getCanonicizers());
 				} else if (command.equalsIgnoreCase("es")) {
-					list.addAll(AutoPopulate.getEventDrivers());
+					list.addAll(EventDriver.getEventDrivers());
 				} else if (command.equalsIgnoreCase("ec")) {
-					list.addAll(AutoPopulate.getEventCullers());
+					list.addAll(EventCuller.getEventCullers());
 				} else if (command.equalsIgnoreCase("a")) {
-					list.addAll(AutoPopulate.getAnalysisDrivers());
+					list.addAll(AnalysisDriver.getAnalysisDrivers());
 				} else if (command.equalsIgnoreCase("d")) {
-					list.addAll(AutoPopulate.getDistanceFunctions());
+					list.addAll(DistanceFunction.getDistanceFunctions());
 				} else if (command.equalsIgnoreCase("lang")) {
-					list.addAll(AutoPopulate.getLanguages());
+					list.addAll(Language.getLanguages());
 				}
 				for (Displayable display : list) {
 					if (display.showInGUI())

@@ -38,7 +38,7 @@ public class EventDriverFactory {
 	private static Map<String, EventDriver> loadEventDrivers() {
 		// Load the event drivers dynamically
 		Map<String, EventDriver> eventDrivers = new HashMap<String, EventDriver>();
-		for(EventDriver eventDriver : AutoPopulate.getEventDrivers()){
+		for(EventDriver eventDriver : EventDriver.getEventDrivers()){
 			eventDrivers.put(eventDriver.displayName().toLowerCase().trim(), eventDriver);
 		}
 		return eventDrivers;

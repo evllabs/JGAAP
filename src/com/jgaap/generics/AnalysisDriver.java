@@ -19,7 +19,11 @@
  **/
 package com.jgaap.generics;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import com.jgaap.backend.AutoPopulate;
 
 /**
  * Class for statistical analysis methods. As an abstract class, can only be
@@ -30,6 +34,8 @@ import java.util.List;
  */
 public abstract class AnalysisDriver extends Parameterizable implements
 		Comparable<AnalysisDriver>, Displayable {
+
+	private static final List<AnalysisDriver> ANALYSIS_DRIVERS = Collections.unmodifiableList(loadAnalysisDrivers());
 
 	public String longDescription() {
 		return tooltipText();
@@ -56,5 +62,23 @@ public abstract class AnalysisDriver extends Parameterizable implements
 
 	public int compareTo(AnalysisDriver o) {
 		return displayName().compareTo(o.displayName());
+	}
+	
+	/**
+	 * A read-only list of the AnalysisDrivers
+	 */
+	public static List<AnalysisDriver> getAnalysisDrivers() {
+		return ANALYSIS_DRIVERS;
+	}
+
+	private static List<AnalysisDriver> loadAnalysisDrivers() {
+		List<AnalysisDriver> analysisDrivers = new ArrayList<AnalysisDriver>();
+		for (Object tmpA : AutoPopulate.findClasses("com.jgaap.classifiers",
+				com.jgaap.generics.AnalysisDriver.class)) {
+			AnalysisDriver method = (AnalysisDriver) tmpA;
+			analysisDrivers.add(method);
+		}
+		Collections.sort(analysisDrivers);
+		return analysisDrivers;
 	}
 }

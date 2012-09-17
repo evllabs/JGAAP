@@ -19,6 +19,12 @@
  **/
 package com.jgaap.generics;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.jgaap.backend.AutoPopulate;
+
 /**
  * Class for EventSet factories. As an abstract class, can only be instantiated
  * through subclasses. Legacy code inherited from WAY back.
@@ -28,11 +34,13 @@ package com.jgaap.generics;
  */
 public abstract class EventDriver extends Parameterizable implements Comparable<EventDriver>, Displayable {
 	
+	private static final List<EventDriver> EVENT_DRIVERS = Collections.unmodifiableList(loadEventDrivers());
+	
 	public abstract String displayName();
 
 	public abstract String tooltipText();
 
-        public String longDescription() { return tooltipText(); }
+	public String longDescription() { return tooltipText(); }
 
 	public abstract boolean showInGUI();
 
@@ -51,6 +59,24 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
     public int compareTo(EventDriver o){
     	return displayName().compareTo(o.displayName());
     }
+
+	/**
+	 * A read-only list of the EventDrivers
+	 */
+	public static List<EventDriver> getEventDrivers() {
+		return EVENT_DRIVERS;
+	}
+
+	private static List<EventDriver> loadEventDrivers() {
+		List<EventDriver> eventDrivers = new ArrayList<EventDriver>();
+		for (Object tmpE : AutoPopulate.findClasses("com.jgaap.eventDrivers",
+				com.jgaap.generics.EventDriver.class)) {
+			EventDriver event = (EventDriver) tmpE;
+			eventDrivers.add(event);
+		}
+		Collections.sort(eventDrivers);
+		return eventDrivers;
+	}
 }
 
 
