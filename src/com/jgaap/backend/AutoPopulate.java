@@ -17,25 +17,16 @@
  */
 package com.jgaap.backend;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
-
-import com.jgaap.JGAAPConstants;
+import org.reflections.Reflections;
 
 /**
  * This class dynamically locates subclasses of a given named superclass within
- * a specific directory. You can use it, for example, to find all (e.g.)
+ * a specific package. You can use it, for example, to find all (e.g.)
  * Preprocessors and populate the GUI with them automatically, eliminating the
  * need to recompile JGAAP every time you add a new canonicizer.
  * 
@@ -60,68 +51,16 @@ public class AutoPopulate {
 	 *         subclasses of the class.
 	 */
 	public static List<Object> findClasses(String packageName, Class<?> superClass) {
-
 		List<Object> classes = new ArrayList<Object>();
-		List<String> list = new ArrayList<String>();
-
-		String directory = packageName.replace(".", "/");		
-		
-		CodeSource src = com.jgaap.JGAAP.class.getProtectionDomain()
-				.getCodeSource();
-		URL jar = src.getLocation();
-
-		if (jar.toString().endsWith(".jar")) {
-			try {
-				ZipInputStream zip = new ZipInputStream(jar.openStream());
-				ZipEntry ze = null;
-				while ((ze = zip.getNextEntry()) != null) {
-					String entryName = ze.getName();
-					if (entryName.startsWith(directory)
-							&& entryName.endsWith(".class") && !entryName.contains("$")) {
-						list.add(entryName.substring(0, entryName.length() - 6)
-								.replace("/", "."));
-					}
-				}
-				zip.close();
-			} catch (IOException e) {
-				logger.error("Faild to open " + jar.toString(), e);
-			}
-		} else {  
-			//This case was added to handle an error with ant 
-			//where it cannot use InputStream or any of its impls
-			InputStream is = com.jgaap.JGAAP.class.getResourceAsStream("/" + directory);
-			if (is != null) {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-				String line;
+		Reflections reflections = new Reflections(packageName);
+		Set<?> allClasses = reflections.getSubTypesOf(superClass);
+		for(Object obj : allClasses) {
+			if(superClass.isAssignableFrom(((Class<?>)obj))){
 				try {
-					while ((line = reader.readLine()) != null) {
-						if (line.endsWith(".class") && !line.contains("$")) {
-							list.add(packageName +"."+ line.substring(0, line.length() - 6));
-						}
-					}
-					reader.close();
-				} catch (IOException e) {
-					logger.error("Failed to open " + directory, e);
+					classes.add(((Class<?>)obj).newInstance());
+				}  catch (Exception e) {
+					logger.warn("Problem instancing object "+obj, e);
 				}
-			} else {
-				File file = new File(JGAAPConstants.JGAAP_BINDIR + directory);
-				String[] files = file.list();
-				for (String line : files) {
-					if (line.endsWith(".class") && !line.contains("$")) {
-						list.add(packageName +"."+ line.substring(0, line.length() - 6));
-					}
-				}
-			}
-
-		}
-		for (String current : list) {
-			try {
-				logger.debug(current);
-				Object o = Class.forName(current).newInstance();
-				if (superClass.isInstance(o))
-					classes.add(o);
-			} catch (Exception e) {
-				logger.warn("Problem instancing object "+current, e);
 			}
 		}
 		return classes;

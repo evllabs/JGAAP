@@ -54,7 +54,7 @@ public class JGAAP {
     public static void main(String[] args) {
     	
     	BasicConfigurator.configure();
-    	logger.setLevel(Level.INFO);
+    	logger.setLevel(Level.ERROR);
     	
     	if (args.length == 0) {
     		mainLogger.info("Starting GUI");
