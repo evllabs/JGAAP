@@ -64,7 +64,7 @@ public class AutoPopulate {
 		List<Object> classes = new ArrayList<Object>();
 		List<String> list = new ArrayList<String>();
 
-		String directory = packageName.replace(".", "/");
+		String directory = packageName.replace(".", "/");		
 		
 		CodeSource src = com.jgaap.JGAAP.class.getProtectionDomain()
 				.getCodeSource();
@@ -90,7 +90,6 @@ public class AutoPopulate {
 			//This case was added to handle an error with ant 
 			//where it cannot use InputStream or any of its impls
 			InputStream is = com.jgaap.JGAAP.class.getResourceAsStream("/" + directory);
-			//String packageName = directory.replace("/", ".") + ".";
 			if (is != null) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 				String line;
@@ -121,11 +120,7 @@ public class AutoPopulate {
 				Object o = Class.forName(current).newInstance();
 				if (superClass.isInstance(o))
 					classes.add(o);
-			} catch (InstantiationException e) {
-				logger.warn("Problem instancing object "+current, e);
-			} catch (IllegalAccessException e) {
-				logger.warn("Problem instancing object "+current, e);
-			} catch (ClassNotFoundException e) {
+			} catch (Exception e) {
 				logger.warn("Problem instancing object "+current, e);
 			}
 		}
