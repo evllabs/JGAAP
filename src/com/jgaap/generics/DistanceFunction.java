@@ -19,7 +19,11 @@
  **/
 package com.jgaap.generics;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import com.jgaap.backend.AutoPopulate;
 
 /**
  * This is an abstract class for distance functions. It is used, for example, in
@@ -28,6 +32,8 @@ import java.util.List;
  */
 abstract public class DistanceFunction extends Parameterizable implements Comparable<DistanceFunction>, Displayable{
 
+	private static final List<DistanceFunction> DISTANCE_FUNCTIONS = Collections.unmodifiableList(loadDistanceFunctions());
+	
 	public abstract String displayName();
 
 	public abstract String tooltipText();
@@ -80,5 +86,24 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
     public int compareTo(DistanceFunction o){
     	return displayName().compareTo(o.displayName());
     }
+    
+	/**
+	 * A read-only list of the DistanceFunctions
+	 */
+	public static List<DistanceFunction> getDistanceFunctions() {
+		return DISTANCE_FUNCTIONS;
+	}
+
+	private static List<DistanceFunction> loadDistanceFunctions() {
+		List<DistanceFunction> distances = new ArrayList<DistanceFunction>();
+		for (Object tmpD : AutoPopulate.findClasses("com.jgaap.distances",
+				com.jgaap.generics.DistanceFunction.class)) {
+			DistanceFunction method = (DistanceFunction) tmpD;
+			distances.add(method);
+		}
+		Collections.sort(distances);
+
+		return distances;
+	}
 
 }
