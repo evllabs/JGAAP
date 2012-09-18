@@ -22,6 +22,7 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -42,9 +43,10 @@ public class WEKADecisionStumpTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKADecisionStump#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//Note, Decision Stumps have only one node, so only one decision is made.
 		
@@ -112,19 +114,18 @@ public class WEKADecisionStumpTest {
 
 		//Classify unknown based on the knowns
 		WEKADecisionStump classifier = new WEKADecisionStump();
-		List<List<Pair<String, Double>>> t;
-		try {
-			t = classifier.analyze(uesv, esv);
+		classifier.train(esv);
+		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
+		for(EventSet unknown : uesv)		
+			t.add(classifier.analyze(unknown));
+		//System.out.println(t.toString());
+		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
+
 			//System.out.println(t.toString());
 			//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
 			//Assert that the authors match
 			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
-		}
 
 		//Test 2 - Different documents
 		
@@ -190,18 +191,17 @@ public class WEKADecisionStumpTest {
 		
 		//Classify unknown based on the knowns
 		classifier = new WEKADecisionStump();
-		try {
-			t = classifier.analyze(uesv, esv);
-			//System.out.println(classifier.classifier.toString());
-			//System.out.println(t.toString());
-			//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
+		classifier.train(esv);
+		t = new ArrayList<List<Pair<String,Double>>>(); 
+		for(EventSet unknown : uesv)		
+			t.add(classifier.analyze(unknown));
+		//System.out.println(classifier.classifier.toString());
+		//System.out.println(t.toString());
+		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
+
 
 			//Assert that the authors match
 			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-		}
 
 	}
 	

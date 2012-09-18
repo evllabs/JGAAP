@@ -19,24 +19,26 @@
  **/
 package com.jgaap.generics;
 
-import java.util.Vector;
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.jgaap.backend.AutoPopulate;
 
 /**
  * This is an abstract class for distance functions. It is used, for example, in
- * variations of nearest-neighbor algorihms.
+ * variations of nearest-neighbor algorithms.
  * 
  */
 abstract public class DistanceFunction extends Parameterizable implements Comparable<DistanceFunction>, Displayable{
 
-	public abstract String displayName();
+	private static final List<DistanceFunction> DISTANCE_FUNCTIONS = Collections.unmodifiableList(loadDistanceFunctions());
 	
+	public abstract String displayName();
 
 	public abstract String tooltipText();
 
-        public String longDescription() { return tooltipText(); }
-
-
+    public String longDescription() { return tooltipText(); }
 
 	public abstract boolean showInGUI();
 
@@ -51,7 +53,7 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
      */
     abstract public double distance(EventSet es1, EventSet es2) throws DistanceCalculationException;
 
-    public double distance(Vector<Double> v1, Vector<Double> v2) throws DistanceCalculationException {
+    public double distance(List<Double> v1, List<Double> v2) throws DistanceCalculationException {
         EventSet es1 = new EventSet();
         EventSet es2 = new EventSet();
         int max = 0;
@@ -65,14 +67,14 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
 
         for(Integer i = 0; i < max; i++) {
             Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(1000 * v1.elementAt(i)); j++) {
+            for(int j = 0; j < Math.round(1000 * v1.get(i)); j++) {
                 es1.addEvent(e);
             }
         }
 
         for(Integer i = 0; i < max; i++) {
             Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(1000 * v2.elementAt(i)); j++) {
+            for(int j = 0; j < Math.round(1000 * v2.get(i)); j++) {
                 es2.addEvent(e);
             }
         }
@@ -84,11 +86,24 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
     public int compareTo(DistanceFunction o){
     	return displayName().compareTo(o.displayName());
     }
+    
+	/**
+	 * A read-only list of the DistanceFunctions
+	 */
+	public static List<DistanceFunction> getDistanceFunctions() {
+		return DISTANCE_FUNCTIONS;
+	}
 
-    public GroupLayout getGUILayout(JPanel panel)
-    {
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-        return layout;
-    }
+	private static List<DistanceFunction> loadDistanceFunctions() {
+		List<DistanceFunction> distances = new ArrayList<DistanceFunction>();
+		for (Object tmpD : AutoPopulate.findClasses("com.jgaap.distances",
+				com.jgaap.generics.DistanceFunction.class)) {
+			DistanceFunction method = (DistanceFunction) tmpD;
+			distances.add(method);
+		}
+		Collections.sort(distances);
+
+		return distances;
+	}
 
 }

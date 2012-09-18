@@ -28,8 +28,8 @@ public class StamatatosDistance extends DistanceFunction {
 	@Override
 	public double distance(EventSet es1, EventSet es2) {
 
-		EventHistogram unknown = new EventHistogram(es1);
-		EventHistogram known = new EventHistogram(es2);
+		EventHistogram unknown = es1.getHistogram();
+		EventHistogram known = es2.getHistogram();
 		
 		Set<Event> events = new HashSet<Event>();
 		events.addAll(unknown.events());

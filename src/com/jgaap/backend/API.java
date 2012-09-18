@@ -20,6 +20,7 @@ package com.jgaap.backend;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +34,22 @@ import com.jgaap.languages.English;
  * 
  * This class provides a simple interface into jgaap for use in 
  * other software packages and for development of any human interfaces.
+ * 
+ * Instructions for using the JGAAP API:
+ * 
+ * First add documents both known and unknown
+ * 
+ * All other settings can be performed in any order which are setLanguage, addCanonicizer,
+ * addEventDriver, addEventCuller, addAnalysisDriver, addDistanceFunction
+ * Note: of the settings only one EventDriver and one AnalysisDriver are required to run an experiment
+ * 
+ * The execute method is then used to start the experiment running
+ * 
+ * Results are placed in unknown documents to access them simple use the getUnknownDocuments method in the API
+ * The results can be retrieved as a List<Pair<String, Double>> this is a sorted list 
+ * from most likely to least likely author followed by a score generated based on your settings using the getRawResult method
+ * You can also get a Map of Maps of the raw results (Map<EventDriver, Map<AnalysisDriver, List<String, Double>>>) with the getRawResults method
+ * They can also be retrieved as a string using either the getFormattedResult or getResult methods.
  * 
  * For examples of how to use the API class see the com.jgaap.ui package for a GUI example
  * or the com.jgaap.backend.CLI class for a command line example
@@ -49,9 +66,8 @@ public class API {
 	private List<EventDriver> eventDrivers;
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
-	private WorkQueue loadCanonicizeEventifyWorkQueue;
 	
-	private static final int loadCanonicizeEventifyWorkers = 50;
+	private final int loadCanonicizeEventifyWorkers = Runtime.getRuntime().availableProcessors();
 
 	private static final API INSTANCE = new API();
 	
@@ -63,10 +79,25 @@ public class API {
 		analysisDrivers = new ArrayList<AnalysisDriver>();
 	}
 	
+	/**
+	 * This allows a singleton of the api to be used in the gui 
+	 * or any program that needs to access a single copy of JGAAP 
+	 * from multiple classes
+	 * 
+	 * @return a reference to the singleton API
+	 */
 	public static API getInstance(){
 		return INSTANCE;
 	}
 	
+	/**
+	 * This is a unique instance of the api to be used when running
+	 * bulk experiments and you want to reset everything or if you 
+	 * want to thread running more than one experiment at a time 
+	 * as in the class com.jgaap.backend.ExperimentEngine
+	 * 
+	 * @return a unique API instance
+	 */
 	public static API getPrivateInstance(){
 		return new API();
 	}
@@ -74,9 +105,9 @@ public class API {
 	/**
 	 * 
 	 * This allows for the addition of documents to the system.
-	 * Both Training (known) and Sample (unknown) documents must be provided before runing an experiment.
+	 * Both Training (known) and Sample (unknown) documents must be provided before running an experiment.
 	 * Training Documents are added by providing an author(tag) for them.
-	 * Sample documents are added when no auythor(tag) is given.
+	 * Sample documents are added when no author(tag) is given.
 	 * 
 	 * @param filepath - the system file path or URL to a document 
 	 * @param author - the author of this document or the tag being applied to this document, if null or the empty string this document is considered unknown and is one of those classified
@@ -86,9 +117,9 @@ public class API {
 	 */
 	public Document addDocument(String filepath, String author, String title)
 			throws Exception {
-		System.out.println("Adding Document :" + filepath);
 		Document document = new Document(filepath, author, title);
 		documents.add(document);
+		logger.info("Adding Document "+document.toString());
 		return document;
 	}
 
@@ -96,10 +127,11 @@ public class API {
 	 * Adds a previously generated document to the jgaap system.
 	 * 
 	 * @param document - a file that has already been loaded as a Document
-	 * @return - a refence to the document generated
+	 * @return - a reference to the document generated
 	 */
 	public Document addDocument(Document document) {
 		documents.add(document);
+		logger.info("Adding Document "+document.toString());
 		return document;
 	}
 
@@ -110,6 +142,7 @@ public class API {
 	 * @return - true on success false on failure
 	 */
 	public Boolean removeDocument(Document document) {
+		logger.info("Removing Document "+document.toString());
 		return documents.remove(document);
 	}
 
@@ -189,7 +222,9 @@ public class API {
 				authors.add(document.getAuthor());
 			}
 		}
-		return new ArrayList<String>(authors);
+		List<String> authorsList = new ArrayList<String>(authors);
+		Collections.sort(authorsList);
+		return authorsList;
 	}
 	
 	/**
@@ -241,6 +276,7 @@ public class API {
 			throws Exception {
 		Canonicizer canonicizer = CanonicizerFactory.getCanonicizer(action);
 		document.addCanonicizer(canonicizer);
+		logger.info("Adding Canonicizer "+canonicizer.displayName()+" to Document "+document.toString());
 		return canonicizer;
 	}
 
@@ -312,6 +348,7 @@ public class API {
 	public EventDriver addEventDriver(String action) throws Exception {
 		EventDriver eventDriver = EventDriverFactory.getEventDriver(action);
 		eventDrivers.add(eventDriver);
+		logger.info("Adding EventDriver "+eventDriver.displayName());
 		return eventDriver;
 	}
 
@@ -321,6 +358,7 @@ public class API {
 	 * @return - true if successful false if failure 
 	 */
 	public Boolean removeEventDriver(EventDriver eventDriver) {
+		logger.info("Removing EventDriver "+eventDriver.displayName());
 		return eventDrivers.remove(eventDriver);
 	}
 
@@ -352,6 +390,7 @@ public class API {
 	public EventCuller addEventCuller(String action) throws Exception {
 		EventCuller eventCuller = EventCullerFactory.getEventCuller(action);
 		eventCullers.add(eventCuller);
+		logger.info("Adding EventCuller "+eventCuller.displayName());
 		return eventCuller;
 	}
 
@@ -362,6 +401,7 @@ public class API {
 	 * @return - true if success false if failure
 	 */
 	public Boolean removeEventCuller(EventCuller eventCuller) {
+		logger.info("Removing EventCuller "+eventCuller.displayName());
 		return eventCullers.remove(eventCuller);
 	}
 
@@ -401,6 +441,7 @@ public class API {
 			analysisDriver = new NearestNeighborDriver();
 			addDistanceFunction(action, analysisDriver);
 		}
+		logger.info("Adding AnalysisDriver "+analysisDriver.displayName());
 		analysisDrivers.add(analysisDriver);
 		return analysisDriver;
 	}
@@ -411,6 +452,7 @@ public class API {
 	 * @return True if success false if failure
 	 */
 	public Boolean removeAnalysisDriver(AnalysisDriver analysisDriver) {
+		logger.info("Removing AnalysisDriver "+analysisDriver.displayName());
 		return analysisDrivers.remove(analysisDriver);
 	}
 
@@ -428,7 +470,7 @@ public class API {
 	 * @param action - unique identifier for the DistanceFunction you want to add
 	 * @param analysisDriver - a reference to the AnalysisDriver you want the distance added to
 	 * @return - a reference to the generated DistanceFunction
-	 * @throws Exception - if the AnalysisDriver does not extend NeighborAnalysisDriver if the DistanceFunction cannot be found if the DistanceFunction cannot be instanced
+	 * @throws Exception - if the AnalysisDriver does not extend NeighborAnalysisDriver or if the DistanceFunction cannot be found the DistanceFunction cannot be instanced
 	 */
 	public DistanceFunction addDistanceFunction(String action,
 			AnalysisDriver analysisDriver) throws Exception {
@@ -446,6 +488,10 @@ public class API {
 		return analysisDrivers;
 	}
 
+	/**
+	 * Get the current Language JGAAP is set to be working on
+	 * @return
+	 */
 	public Language getLanguage(){
 		return language;
 	}
@@ -463,12 +509,17 @@ public class API {
 	}
 
 	/**
+	 * Pipelines the independent aspects of loading and processing a document into separate threads
+	 *  
+	 * Load the text from disk or the web
+	 * Take into account any special treatment based on the language currently selected
+	 * Place the text into canonical form using the Canonicizers 
+	 * Use the EventDrivers to transform the text into EventSets 
 	 * 
 	 * @throws Exception
 	 */
 	private void loadCanonicizeEventify() throws Exception{
-		loadCanonicizeEventifyWorkQueue= new WorkQueue(loadCanonicizeEventifyWorkers);
-		final Set<EventDriver> failedEventDrivers = Collections.synchronizedSet(new HashSet<EventDriver>());
+		WorkQueue loadCanonicizeEventifyWorkQueue= new WorkQueue(loadCanonicizeEventifyWorkers);
 		for(final Document document : documents){
 			Runnable work = new Runnable() {
 				@Override
@@ -477,13 +528,12 @@ public class API {
 						document.setLanguage(language);
 						document.load();
 						document.processCanonicizers();
-						
 						for (EventDriver eventDriver : eventDrivers) {
 							try{
 								document.addEventSet(eventDriver,eventDriver.createEventSet(document));
 							} catch (EventGenerationException e) {
 								logger.error("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
-								failedEventDrivers.add(eventDriver);
+								throw new Exception("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 							}
 						}
 						document.readStringText("");
@@ -497,6 +547,7 @@ public class API {
 						logger.fatal("Could not load File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
 					}
+					document.processed();
 				}
 			};
 			loadCanonicizeEventifyWorkQueue.execute(work);
@@ -504,19 +555,22 @@ public class API {
 		for(int i =0; i<loadCanonicizeEventifyWorkers;i++){
 			loadCanonicizeEventifyWorkQueue.execute(-1);
 		}
-		while(loadCanonicizeEventifyWorkQueue.isRunning()){
-			Thread.sleep(500);
-		}
-		for(EventDriver eventDriver : failedEventDrivers){
-			eventDrivers.remove(eventDriver);
-			logger.error("EventDriver "+eventDriver.displayName()+" has failed on one or more documents and is being removed from the rest of the experiment.");
-		}
-		if(eventDrivers.isEmpty()){
-			throw new Exception("All EventDrivers failed to eventify documents Experiment Failed.");
-		}
-		for(Document document : documents){
-			if(document.hasFailed()){
-				throw new Exception("One or more documents could not be read / parsed / canonicized Experiment Failed");
+		List<Document> documentsProcessing = new ArrayList<Document>(documents);
+		while(true){
+			if(documentsProcessing.size()==0){
+				break;
+			}else {
+				Iterator<Document> documentIterator = documentsProcessing.iterator();
+				while(documentIterator.hasNext()){
+					Document document = documentIterator.next();
+					if(document.isProcessed()){
+						if(document.hasFailed()){
+							throw new Exception("One or more documents could not be read / parsed / canonicized Experiment Failed");
+						}
+						logger.info("Document: "+document.getTitle()+" has finished processing.");
+						documentIterator.remove();
+					}
+				}
 			}
 		}
 	}
@@ -526,28 +580,24 @@ public class API {
 	 * @throws EventCullingException 
 	 */
 	private void cull() throws EventCullingException {
-		List<EventSet> eventSets = new ArrayList<EventSet>();
+		if(eventCullers.isEmpty()) return;
+		List<EventSet> eventSets = new ArrayList<EventSet>(documents.size());
 		for (EventDriver eventDriver : eventDrivers) {
-			for (final Document document : documents) {
-				if (document.getEventSets().containsKey(eventDriver)) {
-					eventSets.add(document.getEventSet(eventDriver));
-				}
+			for (Document document : documents) {
+				eventSets.add(document.getEventSet(eventDriver));
 			}
 			for (EventCuller culler : eventCullers) {
 				eventSets = culler.cull(eventSets);
 			}
 			for (Document document : documents) {
-				if (document.getEventSets().containsKey(eventDriver)) {
-					document.addEventSet(eventDriver, eventSets.remove(0));
-				}
+				document.addEventSet(eventDriver, eventSets.remove(0));
 			}
 			eventSets.clear();
 		}
 	}
 
 	/**
-	 * Threads are generated for every Unknown(sample) Document.
-	 * In each Thread all loaded AnalysisDrivers are run over All EventSets compairing the Unknown(sample) to the Known(training) Documents.
+	 * All loaded AnalysisDrivers are run over All EventSets comparing the Unknown(sample) to the Known(training) Documents.
 	 */
 	private void analyze() throws AnalyzeException {
 		List<Document> knownDocuments = new ArrayList<Document>();
@@ -559,27 +609,46 @@ public class API {
 				unknownDocuments.add(document);
 			}
 		}
-		for (AnalysisDriver analysisDriver : analysisDrivers){
-			for(EventDriver eventDriver : eventDrivers){
-				analysisDriver.analyzeDocuments(unknownDocuments, knownDocuments, eventDriver);
+		for (EventDriver eventDriver : eventDrivers) {
+			List<EventSet> knownEventSets = new ArrayList<EventSet>(knownDocuments.size());
+			for (Document knownDocument : knownDocuments) {
+				knownEventSets.add(knownDocument.getEventSet(eventDriver));
+			}
+			for (AnalysisDriver analysisDriver : analysisDrivers) {
+				logger.info("Training "+analysisDriver.displayName());
+				analysisDriver.train(knownEventSets);
+				if (analysisDriver instanceof ValidationDriver) {
+					for (Document knownDocument : knownDocuments) {
+						logger.info("Analyzing "+knownDocument.toString());
+						knownDocument.addResult(analysisDriver, eventDriver,analysisDriver.analyze(knownDocument.getEventSet(eventDriver)));
+					}
+				} else {
+					for (Document unknownDocument : unknownDocuments) {
+						logger.info("Analyzing "+unknownDocument.toString());
+						List<Pair<String, Double>> tmp = analysisDriver.analyze(unknownDocument.getEventSet(eventDriver));
+						unknownDocument.addResult(analysisDriver, eventDriver,tmp);
+					}
+				}
 			}
 		}
 	}
 
 	/**
-	 * Preforms the canonicize eventify cull and analyze methods since a strict order has to be enforced when using them 
+	 * Performs the canonicize eventify cull and analyze methods since a strict order has to be enforced when using them 
 	 * @throws Exception 
 	 */
 	public void execute() throws Exception {
+		clearData();
 		loadCanonicizeEventify();
 		cull();
 		analyze();
-		clearEventSets();
 	}
 
 	/**
+	 * @deprecated Use clearData()
 	 * Removes all results generated by the analysis methods 
 	 */
+	@Deprecated
 	public void clearResults() {
 		List<Document> documents = getUnknownDocuments();
 		for (Document document : documents) {
@@ -588,9 +657,29 @@ public class API {
 	}
 	
 	/**
+	 * @deprecated User clearData() 
 	 * Removes all EventSets generated by EventDriver
 	 */
+	@Deprecated
 	public void clearEventSets() {
+		for(Document document : documents){
+			document.clearEventSets();
+		}
+	}
+	
+	/**
+	 * Removes canonicizors from all documents
+	 */
+	public void clearCanonicizers() {
+		for(Document document : documents){
+			document.clearCanonicizers();
+		}
+	}
+	
+	/**
+	 * Removes all Generated data from a run but leaves all settings untouched
+	 */
+	public void clearData() {
 		for(Document document : documents){
 			document.clearEventSets();
 		}
@@ -601,7 +690,7 @@ public class API {
 	 * @return List of All Canonicizers
 	 */
 	public List<Canonicizer> getAllCanonicizers() {
-		return AutoPopulate.getCanonicizers();
+		return Canonicizer.getCanonicizers();
 	}
 
 	/**
@@ -609,7 +698,7 @@ public class API {
 	 * @return List of All EventDrivers
 	 */
 	public List<EventDriver> getAllEventDrivers() {
-		return AutoPopulate.getEventDrivers();
+		return EventDriver.getEventDrivers();
 	}
 
 	/**
@@ -617,7 +706,7 @@ public class API {
 	 * @return List of All EventCullers
 	 */
 	public List<EventCuller> getAllEventCullers() {
-		return AutoPopulate.getEventCullers();
+		return EventCuller.getEventCullers();
 	}
 
 	/**
@@ -625,7 +714,7 @@ public class API {
 	 * @return List of All AnalysisDrivers
 	 */
 	public List<AnalysisDriver> getAllAnalysisDrivers() {
-		return AutoPopulate.getAnalysisDrivers();
+		return AnalysisDriver.getAnalysisDrivers();
 	}
 
 	/**
@@ -633,7 +722,7 @@ public class API {
 	 * @return List of All DistanceFunctions
 	 */
 	public List<DistanceFunction> getAllDistanceFunctions() {
-		return AutoPopulate.getDistanceFunctions();
+		return DistanceFunction.getDistanceFunctions();
 	}
 
 	/**
@@ -641,7 +730,6 @@ public class API {
 	 * @return List of All Languages
 	 */
 	public List<Language> getAllLanguages() {
-		return AutoPopulate.getLanguages();
+		return Language.getLanguages();
 	}
-
 }

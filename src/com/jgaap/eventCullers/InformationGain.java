@@ -11,7 +11,6 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -102,14 +101,14 @@ public class InformationGain extends EventCuller {
 			denom1 = denom1.multiply(denom2);
 			numerator = numerator.divide(denom1, RoundingMode.UP);
 			Double res = Math.log(numerator.doubleValue());
-			infoGain.add(new Pair<Event, Double>(event, res));
+			infoGain.add(new Pair<Event, Double>(event, res, 2));
 			BigDecimal Temp1 = new BigDecimal(1.0);
 			BigDecimal Temp0 = new BigDecimal(0.0);
 			numerator = Temp1;
 			denom1 = Temp0;
 			denom2 = Temp1;
 		}
-		Collections.sort(infoGain, new SortByIG());
+		Collections.sort(infoGain);
 		if (informative.equals("Most")) {
 			Collections.reverse(infoGain);
 		}
@@ -179,11 +178,5 @@ public class InformationGain extends EventCuller {
 			}
 		}
 		return result;
-	}
-}
-
-class SortByIG implements Comparator<Pair<Event, Double>> {
-	public int compare(Pair<Event, Double> p1, Pair<Event, Double> p2) {
-		return p1.getSecond().compareTo(p2.getSecond());
 	}
 }

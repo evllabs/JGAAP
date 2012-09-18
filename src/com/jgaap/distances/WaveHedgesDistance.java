@@ -37,8 +37,8 @@ public class WaveHedgesDistance extends DistanceFunction {
 	@Override
 	public double distance(EventSet unknownEventSet, EventSet knownEventSet)
 			throws DistanceCalculationException {
-		EventHistogram unknownHistogram = new EventHistogram(unknownEventSet);
-		EventHistogram knownHistogram = new EventHistogram(knownEventSet);
+		EventHistogram unknownHistogram = unknownEventSet.getHistogram();
+		EventHistogram knownHistogram = knownEventSet.getHistogram();
 
 		Set<Event> events = new HashSet<Event>();
 		events.addAll(unknownHistogram.events());

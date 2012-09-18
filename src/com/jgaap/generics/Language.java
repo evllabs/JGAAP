@@ -17,6 +17,12 @@
  */
 package com.jgaap.generics;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.jgaap.backend.AutoPopulate;
+
 
 /**
  * This class was designed to make the implementation of languages in jgaap as
@@ -35,6 +41,9 @@ package com.jgaap.generics;
  * @since 4.x
  */
 public abstract class Language implements Comparable<Language>, Displayable {
+	
+	private static final List<Language> LANGUAGES = Collections.unmodifiableList(loadLanguages());
+
 	private String name = "Generic";
 	private String language = "generic";
 	private String charset = "";
@@ -100,5 +109,23 @@ public abstract class Language implements Comparable<Language>, Displayable {
 	public int compareTo(Language o){
     	return name.compareTo(o.name);
     }
+	
+	/**
+	 * A read-only list of the Languages
+	 */
+	public static List<Language> getLanguages() {
+		return LANGUAGES;
+	}
+
+	private static List<Language> loadLanguages() {
+		List<Language> languages = new ArrayList<Language>();
+		for (Object tmpA : AutoPopulate.findClasses("com.jgaap.languages",
+				com.jgaap.generics.Language.class)) {
+			Language lang = (Language) tmpA;
+			languages.add(lang);
+		}
+		Collections.sort(languages);
+		return languages;
+	}
 
 }

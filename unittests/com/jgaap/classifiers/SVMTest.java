@@ -92,7 +92,9 @@ public class SVMTest {
 		esv.add(known1);
 		esv.add(known2);
 		
-		List<Pair<String,Double>> t = new SVM().analyze(unknown, esv);
+		SVM svm = new SVM();
+		svm.train(esv);
+		List<Pair<String,Double>> t = svm.analyze(unknown);
 		String r = t.get(0).getFirst();
 		String s = "Mary";
 		

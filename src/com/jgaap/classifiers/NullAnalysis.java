@@ -43,19 +43,20 @@ public class NullAnalysis extends AnalysisDriver {
 	    return true;
 	}
 
+	public void train(List<EventSet> knowns) {
+		for (int i = 0; i < knowns.size(); i++) {
+			System.out.println("--- Known Event Set #" + i + " ---");
+			System.out.println(knowns.get(i).toString());
+		}
+	}
+	
     @Override
-    public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
-        int i;
+    public List<Pair<String, Double>> analyze(EventSet unknown) {
 
         // When we start using a useful logging function, change the
         // print(ln) lines below.
         System.out.println("--- Unknown Event Set ---");
-        System.out.println(unknown.toString());
-
-        for (i = 0; i < known.size(); i++) {
-            System.out.println("--- Known Event Set #" + i + " ---");
-            System.out.println(known.get(i).toString());
-        }
+        System.out.println(unknown.toString());       
 
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
         results.add(new Pair<String, Double>("No analysis performed.\n", 0.0));

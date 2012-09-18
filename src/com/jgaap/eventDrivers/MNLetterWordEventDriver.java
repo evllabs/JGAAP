@@ -25,8 +25,6 @@ import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
-import javax.swing.*;
-
 
 /**
  * This event set is all "words" (NaiveWordEventDriver) with M <= length <= N (M
@@ -36,16 +34,24 @@ import javax.swing.*;
  **/
 public class MNLetterWordEventDriver extends EventDriver {
 
-	JLabel MLabel = new JLabel();
-        JComboBox MBox = new JComboBox();
-        JLabel NLabel = new JLabel();
-        JComboBox NBox = new JComboBox();
+	public MNLetterWordEventDriver() {
+		addParams("M", "M", "1", new String[] { "1", "2", "3", "4", "5", "6",
+				"7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
+				"18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
+				"28", "29", "30", "31", "32", "33", "34", "35", "36", "37",
+				"38", "39", "40", "41", "42", "43", "44", "45", "46", "47",
+				"48", "49", "50" }, false);
+		addParams("N", "N", "2", new String[] { "1", "2", "3", "4", "5", "6",
+				"7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
+				"18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
+				"28", "29", "30", "31", "32", "33", "34", "35", "36", "37",
+				"38", "39", "40", "41", "42", "43", "44", "45", "46", "47",
+				"48", "49", "50" }, false);
+	}
 
-        @Override
+	@Override
 	public String displayName() {
-        	String m = (getParameter("M").isEmpty() ? "M" : getParameter("M"));
-        	String n = (getParameter("N").isEmpty() ? "N" : getParameter("N"));
-        	return m+"--"+n+" letter Words";
+		return "M--N letter Words";
 	}
 
 	@Override
@@ -62,79 +68,6 @@ public class MNLetterWordEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
-
-        @Override
-        public GroupLayout getGUILayout(JPanel panel){
-
-            MLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            MLabel.setText("M");
-
-            MBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50" }));
-            String temp = this.getParameter("M");
-            if (temp.equals(""))
-            {
-                this.setParameter("M", 2);
-            }
-            MBox.setSelectedIndex(Integer.parseInt(this.getParameter("M")) - 1);
-            MBox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MBoxActionPerformed(evt);
-                }
-            });
-            
-            NLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            NLabel.setText("N");
-
-            NBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50" }));
-            temp = this.getParameter("N");
-            if (temp.equals(""))
-            {
-                this.setParameter("N", 3);
-            }
-            NBox.setSelectedIndex(Integer.parseInt(this.getParameter("N")) - 1);
-            NBox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    NBoxActionPerformed(evt);
-                }
-            });
-
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
-
-            layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(MLabel)
-                        .addComponent(MBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(NLabel)
-                        .addComponent(NBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(423, Short.MAX_VALUE))
-            );
-
-            layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(MLabel)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(MBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(NLabel)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(NBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(366, Short.MAX_VALUE))
-            );
-            return layout;
-        }
-
-        private void NBoxActionPerformed(java.awt.event.ActionEvent evt) {
-            this.setParameter("N", NBox.getSelectedIndex()+1);
-        }
-
-        private void MBoxActionPerformed(java.awt.event.ActionEvent evt) {
-            this.setParameter("M", MBox.getSelectedIndex()+1);
-        }
 
 	/** Underlying EventDriver from which Events are drawn. */
 	public EventDriver underlyingevents = new NaiveWordEventDriver();
@@ -198,7 +131,7 @@ public class MNLetterWordEventDriver extends EventDriver {
 		 */
 		for (Event e : es) {
 			s = e.toString();
-// System.out.println("Event: "+s);
+			// System.out.println("Event: "+s);
 			if (s.length() >= M && s.length() <= N) {
 				// should we clone event before adding? PMJ
 				newEs.addEvent(e);

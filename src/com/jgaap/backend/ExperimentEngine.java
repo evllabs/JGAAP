@@ -114,7 +114,9 @@ public class ExperimentEngine {
 		final String experimentName = experimentTable.remove(0).get(0);
 		WorkQueue experimentWorkQueue = new WorkQueue(workers);
 		for (final List<String> experimentRow : experimentTable) {
-			if (experimentRow.size() >= 6) {
+			if(experimentRow.isEmpty()){
+				continue;
+			}else if (experimentRow.size() >= 7) {
 				Runnable work = new Runnable() {
 					@Override
 					public void run() {
@@ -127,12 +129,12 @@ public class ExperimentEngine {
 								canons.add(current.trim());
 							}
 						}
-						String eventDriver = experimentRow.get(2);
+						String event = experimentRow.get(2);
 						String[] eventCullers = experimentRow.get(3).split("\\|");
 						String analysis = experimentRow.get(4);
 						String distance = experimentRow.get(5).trim();
 						String documentsPath = experimentRow.get(6);
-						String fileName = fileNameGen(canons, eventDriver,
+						String fileName = fileNameGen(canons, event,
 								eventCullers, analysis+(distance.isEmpty()?"":"-"+distance), experimentName, number);
 						API experiment = API.getPrivateInstance();
 						try {
@@ -149,7 +151,7 @@ public class ExperimentEngine {
 							for (String canonicizer : canons) {
 								experiment.addCanonicizer(canonicizer);
 							}
-							experiment.addEventDriver(eventDriver);
+							EventDriver eventDriver = experiment.addEventDriver(event);
 							for (String eventCuller : eventCullers) {
 								if (eventCuller != null
 										&& !"".equalsIgnoreCase(eventCuller))
@@ -166,7 +168,7 @@ public class ExperimentEngine {
 									.getUnknownDocuments();
 							StringBuffer buffer = new StringBuffer();
 							for (Document unknown : unknowns) {
-								buffer.append(unknown.getResult());
+								buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
 							}
 							Utils.saveFile(fileName, buffer.toString());
 						} catch (Exception e) {
@@ -176,7 +178,7 @@ public class ExperimentEngine {
 				};
 				experimentWorkQueue.execute(work);
 			} else {
-				logger.error("Experiment "+experimentRow.toString()+" missing columns");
+				logger.error("Experiment "+experimentRow.toString()+" missing "+(7-experimentRow.size())+" column(s)");
 			}
 		}
 		for(int i =0; i<workers;i++){

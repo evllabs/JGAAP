@@ -24,8 +24,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import weka.classifiers.trees.J48;
-
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
@@ -41,9 +39,10 @@ public class WEKARBFNetworkTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKAARBFNetwork#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//"Can't normalize array. Sum is NaN"
 		//  When only one document per author
@@ -106,18 +105,13 @@ public class WEKARBFNetworkTest {
 
 		//Classify unknown based on the knowns
 		WEKARBFNetwork tree = new WEKARBFNetwork();
-		List<List<Pair<String, Double>>> t;
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
+		List<Pair<String, Double>> t;
+		tree.train(esv);
+		t = tree.analyze(unknown1);
+		System.out.println(t.toString());
 
-			//Assert that the authors match
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
-		}
+		// Assert that the authors match
+		assertTrue(t.get(0).getFirst().equals("Mary"));
 
 		
 		/*

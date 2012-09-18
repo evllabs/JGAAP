@@ -1,6 +1,6 @@
 package com.jgaap.generics;
 
-public class AnalyzeException extends Exception {
+public class AnalyzeException extends JGAAPException {
 
 	public AnalyzeException(String string) {
 		super(string);

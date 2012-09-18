@@ -49,9 +49,9 @@ public class KernelMethodMatrix {
      *   based on the frequencies in the histogram constructed 
      *   from the EventSet.
      */
-    public double[] getRow(EventSet es1, Set<Event> vocab) {
+    public static double[] getRow(EventSet es1, Set<Event> vocab) {
     	//Convert EventSet to EventHistogram
-        EventHistogram h1 = new EventHistogram(es1);
+        EventHistogram h1 = es1.getHistogram();
         
         //Row of frequencies to be returned
         double[] row = new double[vocab.size()];
@@ -72,8 +72,8 @@ public class KernelMethodMatrix {
      * Same as getRow(EventSet, Set<Event>), except limits
      * the number of row/cols returned.
      */
-    public double[] getRow(EventSet es1, Set<Event> vocab, int MAX_ELEMENTS) {
-        EventHistogram h1 = new EventHistogram(es1);
+    public static double[] getRow(EventSet es1, Set<Event> vocab, int MAX_ELEMENTS) {
+        EventHistogram h1 = es1.getHistogram();
         Event theEvent;
 
         double[] row = new double[((vocab.size() > MAX_ELEMENTS) ? MAX_ELEMENTS : vocab.size())];
