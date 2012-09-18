@@ -77,8 +77,8 @@ public class MarkovChainAnalysisTest {
 		esv.add(known2);
 		
 		MarkovChainAnalysis gandolf = new MarkovChainAnalysis();
-		
-		List<Pair<String, Double>> t = gandolf.analyze(unknown, esv);
+		gandolf.train(esv);
+		List<Pair<String, Double>> t = gandolf.analyze(unknown);
 		for(int i=0; i<t.size(); i++){
 			System.out.println(t.get(i).getFirst()+" "+t.get(i).getSecond());
 		}

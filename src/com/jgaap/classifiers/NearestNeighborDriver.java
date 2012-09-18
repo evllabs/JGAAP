@@ -38,7 +38,9 @@ import com.jgaap.generics.Pair;
  */
 public class NearestNeighborDriver extends NeighborAnalysisDriver {
 
-	Logger logger = Logger.getLogger(NearestNeighborDriver.class);
+	private Logger logger = Logger.getLogger(NearestNeighborDriver.class);
+	
+	private List<EventSet> knowns;
 	
 	public String displayName() {
 		return "Nearest Neighbor Driver" + getDistanceName();
@@ -51,21 +53,25 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+	
+	public void train(List<EventSet> knowns){
+		this.knowns = knowns;
+	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) throws AnalyzeException {
+	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
 
-		for (int i = 0; i < known.size(); i++) {
+		for (EventSet known : knowns){
 			double current;
 			try {
-				current = distance.distance(unknown, known.get(i));
+				current = distance.distance(unknown, known);
 			} catch (DistanceCalculationException e) {
 				logger.error("Distance "+distance.displayName()+" failed", e);
 				throw new AnalyzeException("Distance "+distance.displayName()+" failed");
 			}
-			results.add(new Pair<String, Double>(known.get(i).getAuthor(),current,2));
-			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.get(i).getDocumentName()+"("+known.get(i).getAuthor()+") Distance:"+current);
+			results.add(new Pair<String, Double>(known.getAuthor() + "-" + known.getDocumentName(),current,2));
+			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.getDocumentName()+"("+known.getAuthor()+") Distance:"+current);
 		}
 		Collections.sort(results);
 		return results;

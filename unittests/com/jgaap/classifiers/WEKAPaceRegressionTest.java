@@ -24,8 +24,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import weka.classifiers.trees.J48;
-
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
@@ -41,9 +39,10 @@ public class WEKAPaceRegressionTest {
 	 * Test method for {@link
 	 * com.jgaap.classifiers.WEKAJ48DecisionTree#analyze(com.jgaap.generics.EventSet,
 	 * List<EventSet>)}.
+	 * @throws AnalyzeException 
 	 */
 	@Test
-	public void testAnalyze() {
+	public void testAnalyze() throws AnalyzeException {
 		
 		//weka.classifiers.functions.PaceRegression: Not enough training instances with class labels (required: 30, provided: 2)!
 		// So need 15 documents per author?
@@ -359,18 +358,14 @@ public class WEKAPaceRegressionTest {
 
 		//Classify unknown based on the knowns
 		WEKAPaceRegression tree = new WEKAPaceRegression();
-		List<List<Pair<String, Double>>> t;
-		try {
-			t = tree.analyze(uesv, esv);
-			System.out.println(t.toString());
+		List<Pair<String, Double>> t;
+		tree.train(esv);
+		t = tree.analyze(unknown1);
+		System.out.println(t.toString());
 
-			//Assert that the authors match
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
-		} catch (AnalyzeException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-			assertTrue(false);
-		}
+		// Assert that the authors match
+		assertTrue(t.get(0).getFirst().equals("Mary"));
+		
 
 		
 		/*

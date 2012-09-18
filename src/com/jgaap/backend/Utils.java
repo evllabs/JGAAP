@@ -23,11 +23,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.jgaap.generics.Displayable;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
@@ -91,20 +89,6 @@ public class Utils {
 			documents.add(document);
 		}
 		return documents;
-	}
-	/**
-	 * This method edits the list of Displayable objects you pass it so that it only contains ones with the showInGUI flag set to true
-	 * @param displayElements  List of Displayables to be edited 
-	 * @return Only showInGUI true Displayables
-	 */
-	public static List<Displayable> sanatizeShowInGUI(List<Displayable> displayElements){
-		Iterator<Displayable> iterator = displayElements.iterator();
-		while(iterator.hasNext()){
-			if(!iterator.next().showInGUI()){
-				iterator.remove();
-			}
-		}
-		return displayElements;
 	}
 	
 	public static List<String[]> getParameters(String input){

@@ -37,7 +37,7 @@ public class AnalysisDriverFactory {
 	private static Map<String, AnalysisDriver> loadAnalysisDrivers() {
 		// Load the classifiers dynamically
 		Map<String, AnalysisDriver>analysisDrivers = new HashMap<String, AnalysisDriver>();
-		for(AnalysisDriver analysisDriver: AutoPopulate.getAnalysisDrivers()){
+		for(AnalysisDriver analysisDriver: AnalysisDriver.getAnalysisDrivers()){
 			analysisDrivers.put(analysisDriver.displayName().toLowerCase(), analysisDriver);
 		}
 		return analysisDrivers;

@@ -17,7 +17,11 @@
  */
 package com.jgaap.generics;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import com.jgaap.backend.AutoPopulate;
 
 /**
  * Event Culling abstract parent class.
@@ -29,6 +33,7 @@ import java.util.List;
  */
 public abstract class EventCuller extends Parameterizable implements Comparable<EventCuller>, Displayable {
 
+	private static final List<EventCuller> EVENT_CULLERS = Collections.unmodifiableList(loadEventCullers());
 
     public abstract List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException; 
 
@@ -37,9 +42,25 @@ public abstract class EventCuller extends Parameterizable implements Comparable<
     public abstract boolean showInGUI();
     public String longDescription() { return tooltipText(); }
 
-
-
     public int compareTo(EventCuller o){
     	return displayName().compareTo(o.displayName());
     }
+    
+	/**
+	 * A read-only list of the EventCullers
+	 */
+	public static List<EventCuller> getEventCullers() {
+		return EVENT_CULLERS;
+	}
+
+	private static List<EventCuller> loadEventCullers() {
+		List<EventCuller> cullers = new ArrayList<EventCuller>();
+		for (Object tmpA : AutoPopulate.findClasses("com.jgaap.eventCullers",
+				com.jgaap.generics.EventCuller.class)) {
+			EventCuller lang = (EventCuller) tmpA;
+			cullers.add(lang);
+		}
+		Collections.sort(cullers);
+		return cullers;
+	}
 }

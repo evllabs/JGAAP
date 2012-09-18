@@ -21,7 +21,7 @@ package com.jgaap.distances;
 
 import com.jgaap.generics.*;
 
-import java.util.Vector;
+import java.util.List;
 
 /**
  * Given two event type-sets, A,B, calculate 1 - ||A intereset B|| // ||A union B||
@@ -54,8 +54,8 @@ public class IntersectionDistance extends DistanceFunction{
 
 	@Override
 	public double distance(EventSet es1, EventSet es2) {
-		EventHistogram h1 = new EventHistogram(es1);
-		EventHistogram h2 = new EventHistogram(es2);
+		EventHistogram h1 = es1.getHistogram();
+		EventHistogram h2 = es2.getHistogram();
 
 		double intersectioncount = 0;
 		double unioncount;
@@ -85,7 +85,7 @@ public class IntersectionDistance extends DistanceFunction{
 		return 1.0 - intersectioncount / unioncount;
 	}
 
-    public double distance(Vector<Double> v1, Vector<Double> v2) {
+    public double distance(List<Double> v1, List<Double> v2) {
         double intersectionCount = 0.0;
         double unionCount = v1.size();
         for(int i = 0; i < unionCount; i++) {

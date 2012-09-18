@@ -36,7 +36,7 @@ public class CanonicizerFactory {
 	private static Map<String, Canonicizer> loadCanonicizers() {
 		// Load the canonicizers dynamically
 		Map<String, Canonicizer> canonicizers = new HashMap<String, Canonicizer>();
-		for(Canonicizer canon : AutoPopulate.getCanonicizers()){
+		for(Canonicizer canon : Canonicizer.getCanonicizers()){
 			canonicizers.put(canon.displayName().toLowerCase().trim(), canon);
 		}	
 		return canonicizers;

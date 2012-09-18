@@ -20,7 +20,7 @@
  */
 package com.jgaap.classifiers;
 
-import com.jgaap.backend.KernelMethodMatrix;
+import com.jgaap.backend.Utils;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
@@ -28,14 +28,10 @@ import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
 
 import java.util.*;
+import java.util.Map.Entry;
 
-import static org.math.array.DoubleArray.identity;
-import static org.math.array.DoubleArray.rowVector;
-import static org.math.array.LinearAlgebra.inverse;
-import static org.math.array.LinearAlgebra.minus;
-import static org.math.array.LinearAlgebra.plus;
-import static org.math.array.LinearAlgebra.times;
-import static org.math.array.StatisticSample.covariance;
+import org.jscience.mathematics.number.*;
+import org.jscience.mathematics.vector.*;
 
 /**
  * MahalanobisDistance class does the generalized squared interpoint distance.
@@ -46,11 +42,15 @@ import static org.math.array.StatisticSample.covariance;
  * eventsets.
  * 
  * 
- * @author darrenvescovi
+ * @author Micahel Ryan
  * 
  */
 public class MahalanobisDistance extends AnalysisDriver {
 
+	private Set<Event> events;
+	private Matrix<Float64> inverseCovarianceMatrix;
+	private Map<EventSet, EventHistogram> knownHistograms;
+	
 	public String displayName() {
 		return "Mahalanobis Distance";
 	}
@@ -60,138 +60,55 @@ public class MahalanobisDistance extends AnalysisDriver {
 	}
 
 	public boolean showInGUI() {
-		return false; // doesnt pass test yet
+		return true; 
 	}
 
+	public void train(List<EventSet> knowns){
+		events = new HashSet<Event>();
+		knownHistograms = new HashMap<EventSet, EventHistogram>();
+		List<EventHistogram> histograms = new ArrayList<EventHistogram>(knowns.size());
+		for(EventSet known : knowns){
+			EventHistogram histogram = known.getHistogram();
+			events.addAll(histogram.events());
+			histograms.add(histogram);
+			knownHistograms.put(known, histogram);
+		}
+		Map<Event, Double> mu = Utils.makeRelativeCentroid(histograms);
+		double[][] s = new double[events.size()][events.size()];
+		int i = 0;
+		for(Event x : events){
+			int j =0;
+			for(Event y : events){
+				double tmp = 0;
+				for(EventHistogram histogram : histograms){
+					tmp += (histogram.getRelativeFrequency(x)-mu.get(x))*(histogram.getRelativeFrequency(y)-mu.get(y));
+				}
+				s[i][j] = tmp/(events.size()-1);
+				if(i == j) {
+					s[i][j] += 0.00001;
+				}
+				j++;
+			}
+			i++;
+		}
+		inverseCovarianceMatrix = Float64Matrix.valueOf(s).pseudoInverse();
+	}
+	
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown,
-			List<EventSet> known) {
-
-		/*
-		 * start of spears code
-		 */
-
-		TreeSet<Event> vocab = new TreeSet<Event>(); // list of all events
-		// (known & unknown)
-		KernelMethodMatrix matrixFactory = new KernelMethodMatrix(); //
-		double[][] eventMatrix;
-		double totalSum = 0.0;
-		double[] empiricalMean;
-		double[][] covarianceMatrix;
-		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
-		// *****************************************
-		// create TreeSet of events
-		// *****************************************
-		for (int i = 0; i < known.size(); i++) {
-			for (int j = 0; j < known.get(i).size(); j++) {
-				vocab.add(known.get(i).eventAt(j));
+	public List<Pair<String, Double>> analyze(EventSet unknown) {
+		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
+		EventHistogram histogram = unknown.getHistogram();
+		for(Entry<EventSet, EventHistogram> entry : knownHistograms.entrySet()){
+			double[][] tmp = new double[events.size()][1];
+			int i = 0;
+			for(Event event : events){
+				tmp[i][0] = histogram.getRelativeFrequency(event)-entry.getValue().getRelativeFrequency(event);
+				i++;
 			}
-		}
-		for (int j = 0; j < unknown.size(); j++) {
-			vocab.add(unknown.eventAt(j));
-		}
-
-		// System.out.println("vocab size = " + vocab.size() +
-		// "   known size = "+ known.size());
-		// *****************************************
-		// create relative freq matrix [document][event]
-		// *****************************************
-		eventMatrix = new double[known.size() + 1][vocab.size()];
-
-		for (int i = 0; i < known.size(); i++) {
-			eventMatrix[i] = matrixFactory.getRow(known.get(i), vocab);
-		}
-		eventMatrix[known.size()] = matrixFactory.getRow(unknown, vocab);
-		/***************************************************************
-		 * System.out.println("Event Matrix" ); for(int i=0;
-		 * i<eventMatrix.length; i++){ for(int j=0; j<eventMatrix[0].length;
-		 * j++){ System.out.print(eventMatrix[i][j] +" "); }
-		 * System.out.println(); } System.out.println(); /
-		 **************************************************************/
-		// *****************************************
-		// create mean vectors
-		// *****************************************
-		empiricalMean = new double[eventMatrix.length];
-
-		for (int i = 0; i < eventMatrix.length; i++) {
-			for (int j = 0; j < eventMatrix[i].length; j++) {
-				totalSum += eventMatrix[i][j];
-			}
-			empiricalMean[i] = totalSum / eventMatrix[0].length;
-			totalSum = 0.0;
-		}
-
-		/***************************************************************
-		 * System.out.println("Mean Vector  -- orig data matrix" ); for(int i=0;
-		 * i<empiricalMean.length; i++){ System.out.println(empiricalMean[i]
-		 * +" "); } System.out.println(); /
-		 **************************************************************/
-
-		// *****************************************
-		// create deviations from means matrix
-		// *****************************************
-		for (int i = 0; i < eventMatrix.length; i++) {
-			for (int j = 0; j < eventMatrix[i].length; j++) {
-				eventMatrix[i][j] = eventMatrix[i][j] - empiricalMean[i];
-			}
-		}
-		/***************************************************************
-		 * System.out.println("Event Matrix  -- MEAN ADJ matrix" ); for(int i=0;
-		 * i<eventMatrix.length; i++){ for(int j=0; j<eventMatrix[0].length;
-		 * j++){ System.out.print(eventMatrix[i][j] +" "); }
-		 * System.out.println(); } System.out.println(); /
-		 **************************************************************/
-
-		// *****************************************
-		// create covariance matrix
-		// *****************************************
-
-		covarianceMatrix = covariance(eventMatrix);
-
-		// System.out.println(tostring(eventMatrix));
-		// System.out.println("------------------------");
-		// System.out.println(tostring(covarianceMatrix));
-
-		/*
-		 * end spears code
-		 */
-
-		// make sure the covariance matrix is nonsingular by adding the
-		// appropriate identity matrix
-		covarianceMatrix = plus(covarianceMatrix,
-				identity(covarianceMatrix.length));
-
-		double[][] covarMatrixInverse = inverse(covarianceMatrix);
-
-		// do the analysis
-		/*
-		 * pre processing info
-		 * 
-		 * need covariance matrix vector for X unknown (histogram) vector for Y
-		 * known.(i) (histogram)
-		 */
-
-		// create a vector for y
-		double[] vectY;
-		vectY = matrixFactory.getRow(unknown, vocab);
-		for (int i = 0; i < known.size(); i++) {
-			EventHistogram hist = new EventHistogram();
-
-			for (int j = 0; j < known.get(i).size(); j++) {
-				hist.add(known.get(i).eventAt(j));
-			}
-
-			double[] vectX = matrixFactory.getRow(known.get(i), vocab);
-
-			vectX = minus(vectX, vectY);
-
-			double[][] tmpMatrix = times(rowVector(vectX),
-					covarMatrixInverse);
-
-			double[] sumMatrix = times(tmpMatrix, vectX);
-
-			results.add(new Pair<String, Double>(known.get(i).getAuthor(), Math.sqrt(sumMatrix[0]), 2));
-
+			Matrix<Float64> difference = Float64Matrix.valueOf(tmp);
+			Matrix<Float64> radicand = difference.transpose().times(inverseCovarianceMatrix).times(difference);
+			double result = radicand.get(0, 0).sqrt().doubleValue();
+			results.add(new Pair<String, Double>(entry.getKey().getAuthor(), result, 2));
 		}
 		
 		Collections.sort(results);

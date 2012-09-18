@@ -25,76 +25,75 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by IntelliJ IDEA.
- * User: jnoecker
- * Date: Feb 2, 2011
- * Time: 11:53:53 AM
+ * Created by IntelliJ IDEA. User: jnoecker Date: Feb 2, 2011 Time: 11:53:53 AM
  * To change this template use File | Settings | File Templates.
  */
 public class VectorOutputAnalysis extends AnalysisDriver {
-    	public String displayName() {
-	    return "Vector Output";
+
+	private List<Event> key;
+
+	public String displayName() {
+		return "Vector Output";
 	}
 
-	public String tooltipText(){
-	    return "Generates vectors from unknowns using a key (experimental)";
+	public String tooltipText() {
+		return "Generates vectors from unknowns using a key (experimental)";
 	}
 
-	public boolean showInGUI(){
-	    return false;
+	public boolean showInGUI() {
+		return false;
 	}
 
-        public List<Pair<String, Double>> analyze(EventSet unknown, List<EventSet> known) {
+	public void train(List<EventSet> knowns) throws AnalyzeException {
+		key = new ArrayList<Event>();
+		String keyFile = JGAAPConstants.JGAAP_LIBDIR + "l1.key";
+		Scanner input;
+		try {
+			input = new Scanner(new File(keyFile));
+		} catch (FileNotFoundException e) {
+			throw new AnalyzeException("Problem Opening Key file");
+		}
+		while (input.hasNextLine()) {
+			key.add(new Event(input.nextLine()));
+		}
+		input.close();
+	}
 
-        EventHistogram hist = new EventHistogram();
-        List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
-        String keyFile = JGAAPConstants.JGAAP_LIBDIR + "l1.key";
-            Scanner keyIn = null;
-            try {
-                keyIn = new Scanner(new File(keyFile));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                return results;
-            }
+	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
 
-            FileOutputStream fsOut;
-        PrintStream writer = null;
-        try {
-            String docPath = unknown.getDocumentName();
-            String[] docPathArray = docPath.split("/");
-            System.out.println(Arrays.toString(docPathArray));
-            String unknownFileName = docPathArray[docPathArray.length - 1];
-            fsOut = new FileOutputStream(JGAAPConstants.JGAAP_TMPDIR + unknownFileName);
-            writer = new PrintStream(fsOut);
+		EventHistogram hist = unknown.getHistogram();
+		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return results;
-        }
+		FileOutputStream fsOut;
+		PrintStream writer = null;
+		String docPath = unknown.getDocumentName();
+		String[] docPathArray = docPath.split("/");
+		String unknownFileName = docPathArray[docPathArray.length - 1];
+		try {
+			fsOut = new FileOutputStream(JGAAPConstants.JGAAP_TMPDIR
+					+ unknownFileName);
+			writer = new PrintStream(fsOut);
 
-        for(Event e : unknown) {
-            hist.add(e);
-        }
+		} catch (FileNotFoundException e) {
+			throw new AnalyzeException("Problem opening "+JGAAPConstants.JGAAP_TMPDIR
+					+ unknownFileName +" for output vector");
+		}
 
-        while(keyIn.hasNextLine()) {
-            String next = keyIn.nextLine();
-            double freq = hist.getRelativeFrequency(new Event(next));
-            if(freq > 0) {
-                writer.println(freq);
-            }
-            else {
-                writer.println("0");
-            }
-        }
+		for (Event event : key) {
+			double freq = hist.getRelativeFrequency(event);
+			if (freq > 0) {
+				writer.println(freq);
+			} else {
+				writer.println("0");
+			}
+		}
+		writer.close();
 
-        writer.close();
-
-        results.add(new Pair<String, Double>("No analysis performed.\n", 0.0));
-        return results;
-    }
+		results.add(new Pair<String, Double>("No analysis performed.\n", 0.0));
+		return results;
+	}
 }

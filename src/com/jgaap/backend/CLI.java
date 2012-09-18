@@ -132,17 +132,17 @@ public class CLI {
 			} else {
 				List<Displayable> list = new ArrayList<Displayable>();
 				if (command.equalsIgnoreCase("c")) {
-					list.addAll(AutoPopulate.getCanonicizers());
+					list.addAll(Canonicizer.getCanonicizers());
 				} else if (command.equalsIgnoreCase("es")) {
-					list.addAll(AutoPopulate.getEventDrivers());
+					list.addAll(EventDriver.getEventDrivers());
 				} else if (command.equalsIgnoreCase("ec")) {
-					list.addAll(AutoPopulate.getEventCullers());
+					list.addAll(EventCuller.getEventCullers());
 				} else if (command.equalsIgnoreCase("a")) {
-					list.addAll(AutoPopulate.getAnalysisDrivers());
+					list.addAll(AnalysisDriver.getAnalysisDrivers());
 				} else if (command.equalsIgnoreCase("d")) {
-					list.addAll(AutoPopulate.getDistanceFunctions());
+					list.addAll(DistanceFunction.getDistanceFunctions());
 				} else if (command.equalsIgnoreCase("lang")) {
-					list.addAll(AutoPopulate.getLanguages());
+					list.addAll(Language.getLanguages());
 				}
 				for (Displayable display : list) {
 					if (display.showInGUI())
@@ -166,7 +166,12 @@ public class CLI {
 			if (documentsFilePath == null) {
 				throw new Exception("No Documents CSV specified");
 			}
-			List<Document> documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(documentsFilePath));
+			List<Document> documents;
+			if (documentsFilePath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)){
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(documentsFilePath)));
+			} else {
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(documentsFilePath));
+			}
 			for (Document document : documents) {
 				api.addDocument(document);
 			}
@@ -178,11 +183,11 @@ public class CLI {
 					api.addCanonicizer(canonicizer);
 				}
 			}
-			String eventDriver = cmd.getOptionValue("es");
-			if (eventDriver == null) {
+			String event = cmd.getOptionValue("es");
+			if (event == null) {
 				throw new Exception("No EventDriver specified");
 			}
-			api.addEventDriver(eventDriver);
+			EventDriver eventDriver = api.addEventDriver(event);
 			String[] eventCullers = cmd.getOptionValues("ec");
 			if (eventCullers != null) {
 				for (String eventCuller : eventCullers) {
@@ -202,7 +207,7 @@ public class CLI {
 			List<Document> unknowns = api.getUnknownDocuments();
 			StringBuffer buffer = new StringBuffer();
 			for (Document unknown : unknowns) {
-				buffer.append(unknown.getResult());
+				buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
 			}
 			String saveFile = cmd.getOptionValue('s');
 			if (saveFile == null) {

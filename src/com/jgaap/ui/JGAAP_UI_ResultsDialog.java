@@ -97,23 +97,6 @@ public class JGAAP_UI_ResultsDialog extends javax.swing.JDialog {
         Results_TabbedPane.removeAll();
     }//GEN-LAST:event_ClearTabs_ButtonActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JGAAP_UI_ResultsDialog dialog = new JGAAP_UI_ResultsDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     public static String now()
     {
         Calendar cal = Calendar.getInstance();

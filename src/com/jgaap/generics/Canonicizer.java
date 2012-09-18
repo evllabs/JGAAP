@@ -19,6 +19,12 @@
  **/
 package com.jgaap.generics;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.jgaap.backend.AutoPopulate;
+
 /**
  * Class for canonicizers. As an abstract class, can only be instantiated
  * through subclasses. Legacy code inherited from WAY back.
@@ -27,6 +33,8 @@ package com.jgaap.generics;
  * @since 1.0
  */
 public abstract class Canonicizer extends Parameterizable implements Comparable<Canonicizer>, Displayable {
+	
+	private static final List<Canonicizer> CANONICIZERS = Collections.unmodifiableList(loadCanonicizers());
 	
 	/**
 	 * Simple method to return the display name of this Canonicizer, to be used in the GUI.
@@ -108,4 +116,22 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
     public int compareTo(Canonicizer o){
     	return displayName().compareTo(o.displayName());
     }
+
+	/**
+	 * A read-only list of the Canonicizers
+	 */
+	public static List<Canonicizer> getCanonicizers() {
+		return CANONICIZERS;
+	}
+
+	private static List<Canonicizer> loadCanonicizers() {
+		List<Canonicizer> canonicizers = new ArrayList<Canonicizer>();
+		for (Object tmpC : AutoPopulate.findClasses("com.jgaap.canonicizers",
+				com.jgaap.generics.Canonicizer.class)) {
+			Canonicizer canon = (Canonicizer) tmpC;
+			canonicizers.add(canon);
+		}
+		Collections.sort(canonicizers);
+		return canonicizers;
+	}
 }
