@@ -118,11 +118,13 @@ public abstract class Language implements Comparable<Language>, Displayable {
 	}
 
 	private static List<Language> loadLanguages() {
-		List<Language> languages = new ArrayList<Language>();
-		for (Object tmpA : AutoPopulate.findClasses("com.jgaap.languages",
-				com.jgaap.generics.Language.class)) {
-			Language lang = (Language) tmpA;
-			languages.add(lang);
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.languages", Language.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", Language.class)){
+			objects.add(tmp);
+		}
+		List<Language> languages = new ArrayList<Language>(objects.size());
+		for (Object tmp : objects) {
+			languages.add((Language)tmp);
 		}
 		Collections.sort(languages);
 		return languages;

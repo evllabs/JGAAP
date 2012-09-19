@@ -72,11 +72,13 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	}
 
 	private static List<AnalysisDriver> loadAnalysisDrivers() {
-		List<AnalysisDriver> analysisDrivers = new ArrayList<AnalysisDriver>();
-		for (Object tmpA : AutoPopulate.findClasses("com.jgaap.classifiers",
-				com.jgaap.generics.AnalysisDriver.class)) {
-			AnalysisDriver method = (AnalysisDriver) tmpA;
-			analysisDrivers.add(method);
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.classifiers", AnalysisDriver.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", AnalysisDriver.class)){
+			objects.addAll( AutoPopulate.findObjects("com.jgaap.classifiers", (Class<?>)tmp));
+		}
+		List<AnalysisDriver> analysisDrivers = new ArrayList<AnalysisDriver>(objects.size());
+		for (Object tmp : objects) {
+			analysisDrivers.add((AnalysisDriver) tmp);
 		}
 		Collections.sort(analysisDrivers);
 		return analysisDrivers;
