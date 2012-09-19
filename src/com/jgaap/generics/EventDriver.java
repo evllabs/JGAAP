@@ -68,11 +68,13 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 	}
 
 	private static List<EventDriver> loadEventDrivers() {
-		List<EventDriver> eventDrivers = new ArrayList<EventDriver>();
-		for (Object tmpE : AutoPopulate.findClasses("com.jgaap.eventDrivers",
-				com.jgaap.generics.EventDriver.class)) {
-			EventDriver event = (EventDriver) tmpE;
-			eventDrivers.add(event);
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.eventDrivers", EventDriver.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", EventDriver.class)){
+			objects.addAll(AutoPopulate.findObjects("com.jgaap.eventDrivers", (Class<?>) tmp));
+		}
+		List<EventDriver> eventDrivers = new ArrayList<EventDriver>(objects.size());
+		for (Object tmp : objects) {
+			eventDrivers.add((EventDriver) tmp);
 		}
 		Collections.sort(eventDrivers);
 		return eventDrivers;

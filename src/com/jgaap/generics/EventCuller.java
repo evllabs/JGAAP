@@ -54,11 +54,13 @@ public abstract class EventCuller extends Parameterizable implements Comparable<
 	}
 
 	private static List<EventCuller> loadEventCullers() {
-		List<EventCuller> cullers = new ArrayList<EventCuller>();
-		for (Object tmpA : AutoPopulate.findClasses("com.jgaap.eventCullers",
-				com.jgaap.generics.EventCuller.class)) {
-			EventCuller lang = (EventCuller) tmpA;
-			cullers.add(lang);
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.eventCullers", EventCuller.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", EventCuller.class)){
+			objects.addAll(AutoPopulate.findObjects("com.jgaap.eventCullers", (Class<?>)tmp));
+		}
+		List<EventCuller> cullers = new ArrayList<EventCuller>(objects.size());
+		for (Object tmp : objects) {
+			cullers.add((EventCuller) tmp);
 		}
 		Collections.sort(cullers);
 		return cullers;
