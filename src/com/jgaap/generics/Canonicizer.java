@@ -125,11 +125,13 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
 	}
 
 	private static List<Canonicizer> loadCanonicizers() {
-		List<Canonicizer> canonicizers = new ArrayList<Canonicizer>();
-		for (Object tmpC : AutoPopulate.findClasses("com.jgaap.canonicizers",
-				com.jgaap.generics.Canonicizer.class)) {
-			Canonicizer canon = (Canonicizer) tmpC;
-			canonicizers.add(canon);
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.canonicizers", Canonicizer.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", Canonicizer.class)){
+			objects.addAll(AutoPopulate.findObjects("com.jgaap.canonicizers", (Class<?>)tmp));
+		}
+		List<Canonicizer> canonicizers = new ArrayList<Canonicizer>(objects.size());
+		for (Object tmp : objects) {
+			canonicizers.add((Canonicizer)tmp);
 		}
 		Collections.sort(canonicizers);
 		return canonicizers;

@@ -95,14 +95,15 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
 	}
 
 	private static List<DistanceFunction> loadDistanceFunctions() {
-		List<DistanceFunction> distances = new ArrayList<DistanceFunction>();
-		for (Object tmpD : AutoPopulate.findClasses("com.jgaap.distances",
-				com.jgaap.generics.DistanceFunction.class)) {
-			DistanceFunction method = (DistanceFunction) tmpD;
-			distances.add(method);
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.distances", DistanceFunction.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", DistanceFunction.class)){
+			objects.addAll(AutoPopulate.findObjects("com.jgaap.distances", (Class<?>)tmp));
+		}
+		List<DistanceFunction> distances = new ArrayList<DistanceFunction>(objects.size());
+		for (Object tmpD : objects) {
+			distances.add((DistanceFunction) tmpD);
 		}
 		Collections.sort(distances);
-
 		return distances;
 	}
 
