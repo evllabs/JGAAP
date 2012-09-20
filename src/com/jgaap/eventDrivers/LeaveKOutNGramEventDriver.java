@@ -33,10 +33,10 @@ public class LeaveKOutNGramEventDriver extends EventDriver {
 	public EventSet createEventSet(Document doc)
 			throws EventGenerationException {
 		String eventDriverString = getParameter("underlyingEventDriver", "Words");
-		String nString = getParameter("N");
-		int n = Integer.getInteger(nString, 3);
-		String kString = getParameter("K");
-		int k = Integer.getInteger(kString, 1);
+		String nString = getParameter("N", "3");
+		int n = Integer.parseInt(nString);
+		String kString = getParameter("K", "1");
+		int k = Integer.parseInt(kString);
 		EventDriver underlyingEventDriver = null;
 		try {
 			underlyingEventDriver = EventDriverFactory.getEventDriver(eventDriverString);
@@ -78,7 +78,7 @@ public class LeaveKOutNGramEventDriver extends EventDriver {
 			for (int j = 0; j < i; j++) {
 				current.add(list.get(j));
 			}
-			for (int j = i + 1; j < i; j++) {
+			for (int j = i + 1; j < list.size(); j++) {
 				current.add(list.get(j));
 			}
 			results.add(current);

@@ -42,6 +42,7 @@ public class LeaveKOutCharacterNGramEventDriver extends EventDriver {
 			throws EventGenerationException {
 		EventDriver driver = new LeaveKOutNGramEventDriver();
 		driver.setParameter("N", getParameter("N"));
+		driver.setParameter("K", getParameter("K"));
 		driver.setParameter("underlyingEventDriver", "Characters");
 		return driver.createEventSet(doc);
 	}
