@@ -91,7 +91,7 @@
 	<classpathentry kind="lib" path="lib/external/slf4j-simple-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/external/reflections-0.9.8.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="http://reflections.googlecode.com/svn/trunk/reflections/javadoc/apidocs"/>
+			<attribute name="javadoc_location" value="http://reflections.googlecode.com/svn-history/r142/trunk/reflections/javadoc/apidocs/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/xml-apis-1.0.b2.jar"/>

@@ -50,7 +50,7 @@ public class AutoPopulate {
 	 * @return A List containing instantiations of all classes that are
 	 *         subclasses of the class.
 	 */
-	public static List<Object> findClasses(String packageName, Class<?> superClass) {
+	public static List<Object> findObjects(String packageName, Class<?> superClass) {
 		List<Object> classes = new ArrayList<Object>();
 		Reflections reflections = new Reflections(packageName);
 		Set<?> allClasses = reflections.getSubTypesOf(superClass);
@@ -64,5 +64,21 @@ public class AutoPopulate {
 			}
 		}
 		return classes;
+	}
+	
+	/**
+	 * Search named directory for all instantiations of the type.
+	 * 
+	 * @param packageName
+	 *            The package to search for the implementing classes of the
+	 *            super class
+	 * @param superClass
+	 *            The (super)class for finding all subclasses of
+	 * @return A Set of all classes that are subclasses of the class.
+	 */
+	public static Set<?> findClasses(String packageName, Class<?> superClass) {
+		Reflections reflections = new Reflections(packageName);
+		Set<?> allClasses = reflections.getSubTypesOf(superClass);
+		return allClasses;
 	}
 }
