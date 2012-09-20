@@ -41,6 +41,7 @@ public class LeaveKOutWordNGramEventDriver extends EventDriver {
 	public EventSet createEventSet(Document doc)
 			throws EventGenerationException {
 		EventDriver driver = new LeaveKOutNGramEventDriver();
+		driver.setParameter("K", getParameter("K"));
 		driver.setParameter("N", getParameter("N"));
 		return driver.createEventSet(doc);
 	}

@@ -40,8 +40,8 @@ public class SortedNGramEventDriver extends EventDriver {
 	@Override
 	public EventSet createEventSet(Document doc) throws EventGenerationException {
 		String eventDriverString = getParameter("underlyingEventDriver", "Words");
-		String nString = getParameter("N");
-		int n = Integer.getInteger(nString, 3);
+		String nString = getParameter("N","2");
+		int n = Integer.parseInt(nString);
 		EventDriver underlyingEventDriver = null;
 		try {
 			underlyingEventDriver = EventDriverFactory.getEventDriver(eventDriverString);
