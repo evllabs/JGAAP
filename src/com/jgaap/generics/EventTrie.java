@@ -66,8 +66,7 @@ class EventTrieNode {
 	}
 
 	void addEventToLevel(Event e) {
-		EventTrieNode node = new EventTrieNode();
-		node.key = e;
+		EventTrieNode node = new EventTrieNode(e);
 		child.put(e, node);
 	}
 

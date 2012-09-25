@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.WEKAAnalysis;
+import com.jgaap.generics.WEKAAnalysisDriver;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.meta.ClassificationViaRegression;
 
-public class WEKALinearRegression extends WEKAAnalysis {
+public class WEKALinearRegression extends WEKAAnalysisDriver {
 
 	@Override
 	public String displayName() {

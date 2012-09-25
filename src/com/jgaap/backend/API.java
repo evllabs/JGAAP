@@ -18,6 +18,7 @@
 package com.jgaap.backend;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -66,7 +67,7 @@ public class API {
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 	
-	private final int loadCanonicizeEventifyWorkers = 50;
+	private final int loadCanonicizeEventifyWorkers = Runtime.getRuntime().availableProcessors();
 
 	private static final API INSTANCE = new API();
 	
@@ -221,7 +222,9 @@ public class API {
 				authors.add(document.getAuthor());
 			}
 		}
-		return new ArrayList<String>(authors);
+		List<String> authorsList = new ArrayList<String>(authors);
+		Collections.sort(authorsList);
+		return authorsList;
 	}
 	
 	/**
@@ -594,8 +597,7 @@ public class API {
 	}
 
 	/**
-	 * Threads are generated for every Unknown(sample) Document.
-	 * In each Thread all loaded AnalysisDrivers are run over All EventSets compairing the Unknown(sample) to the Known(training) Documents.
+	 * All loaded AnalysisDrivers are run over All EventSets comparing the Unknown(sample) to the Known(training) Documents.
 	 */
 	private void analyze() throws AnalyzeException {
 		List<Document> knownDocuments = new ArrayList<Document>();
@@ -688,7 +690,7 @@ public class API {
 	 * @return List of All Canonicizers
 	 */
 	public List<Canonicizer> getAllCanonicizers() {
-		return AutoPopulate.getCanonicizers();
+		return Canonicizer.getCanonicizers();
 	}
 
 	/**
@@ -696,7 +698,7 @@ public class API {
 	 * @return List of All EventDrivers
 	 */
 	public List<EventDriver> getAllEventDrivers() {
-		return AutoPopulate.getEventDrivers();
+		return EventDriver.getEventDrivers();
 	}
 
 	/**
@@ -704,7 +706,7 @@ public class API {
 	 * @return List of All EventCullers
 	 */
 	public List<EventCuller> getAllEventCullers() {
-		return AutoPopulate.getEventCullers();
+		return EventCuller.getEventCullers();
 	}
 
 	/**
@@ -712,7 +714,7 @@ public class API {
 	 * @return List of All AnalysisDrivers
 	 */
 	public List<AnalysisDriver> getAllAnalysisDrivers() {
-		return AutoPopulate.getAnalysisDrivers();
+		return AnalysisDriver.getAnalysisDrivers();
 	}
 
 	/**
@@ -720,7 +722,7 @@ public class API {
 	 * @return List of All DistanceFunctions
 	 */
 	public List<DistanceFunction> getAllDistanceFunctions() {
-		return AutoPopulate.getDistanceFunctions();
+		return DistanceFunction.getDistanceFunctions();
 	}
 
 	/**
@@ -728,6 +730,6 @@ public class API {
 	 * @return List of All Languages
 	 */
 	public List<Language> getAllLanguages() {
-		return AutoPopulate.getLanguages();
+		return Language.getLanguages();
 	}
 }
