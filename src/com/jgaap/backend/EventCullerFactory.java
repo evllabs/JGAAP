@@ -38,7 +38,7 @@ public class EventCullerFactory {
 	private static Map<String, EventCuller> loadEventCullers() {
 		// Load the classifiers dynamically
 		Map<String, EventCuller> eventCullers = new HashMap<String, EventCuller>();
-		for(EventCuller eventCuller: AutoPopulate.getEventCullers()){
+		for(EventCuller eventCuller: EventCuller.getEventCullers()){
 			eventCullers.put(eventCuller.displayName().toLowerCase().trim(), eventCuller);
 		}
 		return eventCullers;

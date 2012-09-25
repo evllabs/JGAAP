@@ -47,9 +47,10 @@ class DocumentHelper {
 	
 	static Logger logger = Logger.getLogger(com.jgaap.generics.DocumentHelper.class);
 
-	static char[] loadDocument(String filepath, String charset) throws IOException, BadLocationException {
+	static char[] loadDocument(String filepath, String charset) throws Exception {
 		InputStream is;
 		int fileSize = -1;
+		char [] text;
 		if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
 			URL url = new URL(filepath);
 			is = url.openStream();
@@ -60,19 +61,20 @@ class DocumentHelper {
 			is = new FileInputStream(filepath);
 		} 
 		if (filepath.endsWith(".pdf")) {
-			return loadPDF(is);
+			text = loadPDF(is);
 		} else if (filepath.endsWith(".doc")) {
-			return loadMSWord(is);
+			text = loadMSWord(is);
 		} else if (filepath.endsWith(".docx")){
-			return loadMSWordDocx(is);
+			text = loadMSWordDocx(is);
 		} else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
-			return loadHTML(is);
+			text = loadHTML(is);
 		} else {
 			if(fileSize==-1)
-				return readText(is, charset);
+				text = readText(is, charset);
 			else
-				return readText(is, charset, fileSize);
+				text = readText(is, charset, fileSize);
 		}
+		return text;
 	}
 
 	static DocType getDocType(String filepath) {
@@ -97,8 +99,7 @@ class DocumentHelper {
 	 */
 	static private char[] loadPDF(InputStream filesInputStream)
 			throws IOException {
-		PDDocument doc;
-		doc = PDDocument.load(filesInputStream);
+		PDDocument doc = PDDocument.load(filesInputStream);
 		PDFTextStripper pdfStripper = new PDFTextStripper();
 		pdfStripper.setSortByPosition(false);
 		char[] origText = pdfStripper.getText(doc).toCharArray();

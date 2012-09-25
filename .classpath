@@ -5,26 +5,96 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/external/libsvm.jar"/>
-	<classpathentry kind="lib" path="lib/external/weka.jar"/>
-	<classpathentry kind="lib" path="lib/external/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/external/weka.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://weka.sourceforge.net/doc.stable/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/WordSegment.jar"/>
 	<classpathentry kind="lib" path="lib/external/commons-cli-1.2.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/trunk/lib/external/commons-cli-1.2-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="http://commons.apache.org/cli/api-release/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/fasttag_v2.jar"/>
 	<classpathentry kind="lib" path="lib/external/jmatharray.jar"/>
 	<classpathentry kind="lib" path="lib/external/jmathplot.jar"/>
-	<classpathentry kind="lib" path="lib/external/poi-3.7-20101029.jar"/>
-	<classpathentry kind="lib" path="lib/external/poi-ooxml-3.7-20101029.jar"/>
-	<classpathentry kind="lib" path="lib/external/poi-ooxml-schemas-3.7-20101029.jar"/>
-	<classpathentry kind="lib" path="lib/external/poi-scratchpad-3.7-20101029.jar"/>
-	<classpathentry kind="lib" path="lib/external/xmlbeans-2.3.0.jar"/>
-	<classpathentry kind="lib" path="lib/external/pdfbox-1.6.0.jar"/>
-	<classpathentry kind="lib" path="lib/external/jscience-4.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/external/jscience-4.3.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://jscience.org/api/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-01-06.jar"/>
+	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-01-06.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://nlp.stanford.edu/nlp/javadoc/javanlp/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/poi-3.8-20120326.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://poi.apache.org/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/poi-excelant-3.8-20120326.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://poi.apache.org/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/poi-ooxml-3.8-20120326.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://poi.apache.org/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/poi-ooxml-schemas-3.8-20120326.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://poi.apache.org/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/poi-scratchpad-3.8-20120326.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://poi.apache.org/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/external/pdfbox-1.7.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://pdfbox.apache.org/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/log4j-1.2.17.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://logging.apache.org/log4j/1.2/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="lib/external/resolver.jar"/>
+	<classpathentry kind="lib" path="lib/external/saxon9-dom.jar"/>
+	<classpathentry kind="lib" path="lib/external/saxon9.jar"/>
+	<classpathentry kind="lib" path="lib/external/xbean_xpath.jar"/>
+	<classpathentry kind="lib" path="lib/external/xbean-2.6.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlbeans.apache.org/docs/2.6.0/reference/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/xmlbeans-qname.jar"/>
+	<classpathentry kind="lib" path="lib/external/xmlpublic.jar"/>
+	<classpathentry kind="lib" path="lib/external/dom4j-1.6.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://dom4j.sourceforge.net/dom4j-1.6.1/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/gson-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/external/guava-11.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/external/javassist-3.12.1.GA.jar"/>
+	<classpathentry kind="lib" path="lib/external/jsr305-1.3.9.jar"/>
+	<classpathentry kind="lib" path="lib/external/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/external/slf4j-simple-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/external/reflections-0.9.8.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://reflections.googlecode.com/svn-history/r142/trunk/reflections/javadoc/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/xml-apis-1.0.b2.jar"/>
 	<classpathentry kind="lib" path="lib/external/stanford-ner-2012-07-09.jar" sourcepath="lib/external/stanford-ner-src-2012-07-09.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

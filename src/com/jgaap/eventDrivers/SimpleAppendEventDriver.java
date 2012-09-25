@@ -72,7 +72,7 @@ public class SimpleAppendEventDriver extends EventDriver {
 		if ((param = (getParameter("underlyingEvents"))).equals("")) {
 			// Just for testing purposes, we'll use words, lengths,
 			// and bigrams
-			param = "Words,Word Lengths,Word Grams|N:2";
+			param = "Words,Word Lengths,Word NGrams|N:2";
 		}
 
 		System.out.println("Starting processing " + param);

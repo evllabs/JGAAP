@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.WEKAAnalysis;
+import com.jgaap.generics.WEKAAnalysisDriver;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.meta.ClassificationViaRegression;
@@ -15,7 +15,7 @@ import weka.classifiers.meta.ClassificationViaRegression;
  * @author jnoecker
  *
  */
-public class WEKAPaceRegression extends WEKAAnalysis {
+public class WEKAPaceRegression extends WEKAAnalysisDriver {
 
 	@Override
 	public String displayName() {

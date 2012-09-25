@@ -38,7 +38,7 @@ public class DistanceFunctionFactory {
 	private static Map<String, DistanceFunction> loadDistanceFunctions() {
 		// Load the distance functions dynamically
 		Map<String, DistanceFunction>distanceFunctions = new HashMap<String, DistanceFunction>();
-		for(DistanceFunction distanceFunction: AutoPopulate.getDistanceFunctions()){
+		for(DistanceFunction distanceFunction: DistanceFunction.getDistanceFunctions()){
 			distanceFunctions.put(distanceFunction.displayName().toLowerCase().trim(), distanceFunction);
 		}
 		return distanceFunctions;
