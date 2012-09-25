@@ -2,13 +2,10 @@ package com.jgaap.eventDrivers;
 
 import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.*;
-import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.ling.CoreAnnotations.AnswerAnnotation;
 
-import java.util.List;
 import java.io.IOException;
-import java.io.StringReader;
+import java.util.List;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
@@ -35,18 +32,25 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 		return false;
 	}
 
+
 	@Override
-	public EventSet createEventSet(Document doc) {
+	public EventSet createEventSet(Document doc) throws EventGenerationException {
 		EventSet eventSet = new EventSet();
-		String serializedClassifier = "com/jgaap/resources/models/ner/english.all.3class.distsim.crf.ser.gz";
-		AbstractSequenceClassifier<CoreLabel> classifier = CRFClassifier.getClassifierNoExceptions(serializedClassifier);
+		String serializedClassifier = "com/jgaap/resources/models/ner/english.conll.4class.distsim.crf.ser.gz";
+		AbstractSequenceClassifier<CoreLabel> classifier;
+		try {
+			classifier = CRFClassifier.getClassifier(com.jgaap.JGAAP.class.getResourceAsStream(serializedClassifier));
+		} catch (Exception e) {
+			throw new EventGenerationException("Classifier failed to load");
+		}
 		String fileContents = doc.stringify();
 		List<List<CoreLabel>> out = classifier.classify(fileContents);
 		for (List<CoreLabel> sentence : out) {
 			for (CoreLabel word : sentence) {
 				if (word.ner() != null) {
 					eventSet.addEvent(new Event(word.word()));
-					System.out.println(word.toString()+"\t"+word.word()+"\t"+word.ner());
+					System.out.println(word.toString() + "\t" + word.word()
+							+ "\t" + word.ner());
 				}
 			}
 		}
