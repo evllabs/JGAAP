@@ -541,10 +541,10 @@ public class API {
 						logger.fatal("Could not Parse Language: "+language.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
 					} catch (CanonicizationException e) {
-						logger.fatal("Could not Canonicize File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
+						logger.fatal("Could not Canonicize File: "+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
 					} catch (Exception e) {
-						logger.fatal("Could not load File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
+						logger.fatal("Could not load File: "+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
 					}
 					document.processed();
