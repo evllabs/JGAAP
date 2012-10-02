@@ -17,9 +17,7 @@
  */
 package com.jgaap.eventDrivers;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -28,6 +26,9 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
 import com.jgaap.canonicizers.StripPunctuation;
@@ -195,9 +196,7 @@ public class DefinitionsEventDriver extends EventDriver {
 
 		EventSet eventSet = new EventSet(doc.getAuthor());
 		PorterStemmerWithIrregularEventDriver port = new PorterStemmerWithIrregularEventDriver();
-		//PorterStemmerEventDriver port = new PorterStemmerEventDriver();
 		EventSet tmpevent;
-		//System.out.println(tmpevent+"\n\n\n");
 		
 		URL url = getClass().getResource(JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"wordnet");
 		
@@ -205,7 +204,7 @@ public class DefinitionsEventDriver extends EventDriver {
 		IDictionary dict = new Dictionary(url);
 		try {
 			dict.open();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error("Could not open WordNet Dictionary", e);
 			throw new EventGenerationException("DefinitionsEventDriver failed to eventify "+doc.getFilePath());
 		}
@@ -213,33 +212,27 @@ public class DefinitionsEventDriver extends EventDriver {
 		String current = doc.stringify();
 
 		FastTag tagger = new FastTag();
+		
+		List<String> words = Lists.newArrayList(Splitter.on(CharMatcher.WHITESPACE).trimResults().omitEmptyStrings().split(current));
 
-		List<String> tmp = new ArrayList<String>();
-
-		String[] tmpArray = current.split("\\s");
-
-		for (int j = 0; j < tmpArray.length; j++) {
-			tmp.add(tmpArray[j]);
-		}
-
-		List<String> tagged = tagger.tag(tmp);
+		List<String> tagged = tagger.tag(words);
 		IIndexWord idxWord;
 		List<IWordID> wordID;
 		IWord word;
 		StringBuilder outDef= new StringBuilder();	
 		
-		for(int i=0; i<tmpArray.length; i++){
+		for(int i=0; i<words.size(); i++){
 			//System.out.println(i);
 			String definition = "";
 			if(table.containsKey(tagged.get(i))){
-				if(nouns.containsKey(tmpArray[i])){
-					tmpArray[i]=nouns.get(tmpArray[i]);
+				if(nouns.containsKey(words.get(i))){
+					words.set(i, nouns.get(words.get(i)));
 				}
-				
+				try { 
 				switch(table.get(tagged.get(i))){
 				case(1):
 					
-					idxWord = dict.getIndexWord(tmpArray[i], POS.NOUN);
+					idxWord = dict.getIndexWord(words.get(i), POS.NOUN);
 					if(idxWord == null)break;
 					wordID = idxWord.getWordIDs();
 					word = dict.getWord(wordID.get(0));
@@ -247,7 +240,7 @@ public class DefinitionsEventDriver extends EventDriver {
 					break;
 				case(2):
 					Document tmpDoc = new Document();
-					tmpDoc.readStringText(tmpArray[i]);
+					tmpDoc.readStringText(words.get(i));
 					tmpevent = port.createEventSet(tmpDoc);
 					idxWord = dict.getIndexWord(tmpevent.eventAt(0).getEvent(), POS.VERB);
 					if(idxWord==null)break;
@@ -256,19 +249,23 @@ public class DefinitionsEventDriver extends EventDriver {
 			   		definition = word.getSynset().getGloss();
 			   		break;
 				case(3):
-					idxWord = dict.getIndexWord(tmpArray[i], POS.ADJECTIVE);
+					idxWord = dict.getIndexWord(words.get(i), POS.ADJECTIVE);
 					if(idxWord == null)break;
 			   		wordID = idxWord.getWordIDs();
 			   		word = dict.getWord(wordID.get(0));
 			   		definition = word.getSynset().getGloss();
 			   		break;
 				case(4):
-					idxWord = dict.getIndexWord(tmpArray[i], POS.ADVERB);
+					idxWord = dict.getIndexWord(words.get(i), POS.ADVERB);
 					if(idxWord == null)break;
 			   		wordID = idxWord.getWordIDs();
 			   		word = dict.getWord(wordID.get(0));
 			   		definition = word.getSynset().getGloss();
 			   		break;
+				}
+				
+				} catch (IllegalArgumentException e){
+					logger.debug("Problem with possibly empty word: '"+words.get(i)+"'",e);
 				}
 				
 				String [] tmpDef = definition.split(";");
@@ -293,7 +290,7 @@ public class DefinitionsEventDriver extends EventDriver {
 			throw new EventGenerationException("Could not Canonicize WordNet Definition");
 		}
 		
-		String [] eventArray = outDoc.stringify().split("\\s");
+		String [] eventArray = outDoc.stringify().split("\\s+");
 		for(int i=0; i<eventArray.length; i++){
 			if(!stopWords.contains(eventArray[i]))
 				eventSet.addEvent(new Event(eventArray[i]));
