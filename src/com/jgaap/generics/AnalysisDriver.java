@@ -35,7 +35,7 @@ import com.jgaap.backend.AutoPopulate;
 public abstract class AnalysisDriver extends Parameterizable implements
 		Comparable<AnalysisDriver>, Displayable {
 
-	private static final List<AnalysisDriver> ANALYSIS_DRIVERS = Collections.unmodifiableList(loadAnalysisDrivers());
+	private static List<AnalysisDriver> ANALYSIS_DRIVERS;
 
 	public String longDescription() {
 		return tooltipText();
@@ -68,6 +68,9 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * A read-only list of the AnalysisDrivers
 	 */
 	public static List<AnalysisDriver> getAnalysisDrivers() {
+		if(ANALYSIS_DRIVERS==null){
+			 ANALYSIS_DRIVERS = Collections.unmodifiableList(loadAnalysisDrivers());
+		}
 		return ANALYSIS_DRIVERS;
 	}
 

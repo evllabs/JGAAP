@@ -33,7 +33,7 @@ import com.jgaap.backend.AutoPopulate;
  */
 public abstract class EventCuller extends Parameterizable implements Comparable<EventCuller>, Displayable {
 
-	private static final List<EventCuller> EVENT_CULLERS = Collections.unmodifiableList(loadEventCullers());
+	private static List<EventCuller> EVENT_CULLERS;
 
     public abstract List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException; 
 
@@ -50,6 +50,9 @@ public abstract class EventCuller extends Parameterizable implements Comparable<
 	 * A read-only list of the EventCullers
 	 */
 	public static List<EventCuller> getEventCullers() {
+		if(EVENT_CULLERS == null){
+			 EVENT_CULLERS = Collections.unmodifiableList(loadEventCullers());
+		}
 		return EVENT_CULLERS;
 	}
 
