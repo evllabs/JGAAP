@@ -4,7 +4,6 @@ import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.*;
 import edu.stanford.nlp.ling.CoreLabel;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.jgaap.generics.Document;
@@ -15,7 +14,8 @@ import com.jgaap.generics.Event;
 
 public class StanfordNamedEntityRecognizer extends EventDriver {
 
-	String serializedClassifier = "com.jgaap.generics.Document";
+	AbstractSequenceClassifier<CoreLabel> classifier;
+	Boolean semaphore = true;
 
 	@Override
 	public String displayName() {
@@ -29,20 +29,27 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 
 	@Override
 	public boolean showInGUI() {
-		return false;
+		return true;
 	}
 
-
+	@SuppressWarnings("unchecked")
 	@Override
-	public EventSet createEventSet(Document doc) throws EventGenerationException {
+	synchronized public EventSet createEventSet(Document doc)
+			throws EventGenerationException {
 		EventSet eventSet = new EventSet();
-		String serializedClassifier = "com/jgaap/resources/models/ner/english.conll.4class.distsim.crf.ser.gz";
-		AbstractSequenceClassifier<CoreLabel> classifier;
-		try {
-			classifier = CRFClassifier.getClassifier(com.jgaap.JGAAP.class.getResourceAsStream(serializedClassifier));
-		} catch (Exception e) {
-			throw new EventGenerationException("Classifier failed to load");
-		}
+		String serializedClassifier = "/com/jgaap/resources/models/ner/english.all.3class.distsim.crf.ser.gz";
+		if (classifier == null)
+			synchronized (semaphore) {
+				if (classifier == null) {
+					try {
+						classifier = CRFClassifier.getClassifier(com.jgaap.JGAAP.class.getResourceAsStream(serializedClassifier));
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new EventGenerationException(
+								"Classifier failed to load");
+					}
+				}
+			}
 		String fileContents = doc.stringify();
 		List<List<CoreLabel>> out = classifier.classify(fileContents);
 		for (List<CoreLabel> sentence : out) {
