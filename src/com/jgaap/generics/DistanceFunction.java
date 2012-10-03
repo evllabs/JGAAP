@@ -82,6 +82,22 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
         return distance(es1, es2);
 
     }
+    
+    public double distance(EventHistogram histogram1, EventHistogram histogram2) throws DistanceCalculationException {
+    	EventSet es1 = new EventSet(histogram1.getNTokens());
+    	for(Event event : histogram1){
+    		for(int i = 0; i < histogram1.getAbsoluteFrequency(event);i++){
+    			es1.addEvent(event);
+    		}
+    	}
+    	EventSet es2 = new EventSet(histogram2.getNTokens());
+    	for(Event event : histogram2){
+    		for(int i = 0; i < histogram2.getAbsoluteFrequency(event);i++){
+    			es2.addEvent(event);
+    		}
+    	}
+    	return distance(es1, es2);
+    }
 
     public int compareTo(DistanceFunction o){
     	return displayName().compareTo(o.displayName());
