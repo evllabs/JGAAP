@@ -34,7 +34,7 @@ import com.jgaap.backend.AutoPopulate;
  */
 public abstract class Canonicizer extends Parameterizable implements Comparable<Canonicizer>, Displayable {
 	
-	private static final List<Canonicizer> CANONICIZERS = Collections.unmodifiableList(loadCanonicizers());
+	private static List<Canonicizer> CANONICIZERS;
 	
 	/**
 	 * Simple method to return the display name of this Canonicizer, to be used in the GUI.
@@ -121,6 +121,9 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
 	 * A read-only list of the Canonicizers
 	 */
 	public static List<Canonicizer> getCanonicizers() {
+		if(CANONICIZERS==null){
+			CANONICIZERS = Collections.unmodifiableList(loadCanonicizers());
+		}
 		return CANONICIZERS;
 	}
 

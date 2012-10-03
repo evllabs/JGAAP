@@ -32,7 +32,7 @@ import com.jgaap.backend.AutoPopulate;
  */
 abstract public class DistanceFunction extends Parameterizable implements Comparable<DistanceFunction>, Displayable{
 
-	private static final List<DistanceFunction> DISTANCE_FUNCTIONS = Collections.unmodifiableList(loadDistanceFunctions());
+	private static List<DistanceFunction> DISTANCE_FUNCTIONS;
 	
 	public abstract String displayName();
 
@@ -107,6 +107,9 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
 	 * A read-only list of the DistanceFunctions
 	 */
 	public static List<DistanceFunction> getDistanceFunctions() {
+		if(DISTANCE_FUNCTIONS == null){
+			DISTANCE_FUNCTIONS = Collections.unmodifiableList(loadDistanceFunctions());
+		}
 		return DISTANCE_FUNCTIONS;
 	}
 
