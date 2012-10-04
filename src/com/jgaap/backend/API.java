@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
@@ -519,7 +521,7 @@ public class API {
 	 * @throws Exception
 	 */
 	private void loadCanonicizeEventify() throws Exception{
-		WorkQueue loadCanonicizeEventifyWorkQueue= new WorkQueue(loadCanonicizeEventifyWorkers);
+		ExecutorService loadCanonicizeEventifyExecutor = Executors.newFixedThreadPool(loadCanonicizeEventifyWorkers);
 		for(final Document document : documents){
 			Runnable work = new Runnable() {
 				@Override
@@ -550,11 +552,9 @@ public class API {
 					document.processed();
 				}
 			};
-			loadCanonicizeEventifyWorkQueue.execute(work);
+			loadCanonicizeEventifyExecutor.execute(work);
 		}
-		for(int i =0; i<loadCanonicizeEventifyWorkers;i++){
-			loadCanonicizeEventifyWorkQueue.execute(-1);
-		}
+		loadCanonicizeEventifyExecutor.shutdown();
 		List<Document> documentsProcessing = new ArrayList<Document>(documents);
 		while(true){
 			if(documentsProcessing.size()==0){

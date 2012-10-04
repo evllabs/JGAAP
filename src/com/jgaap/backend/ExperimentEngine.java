@@ -20,6 +20,9 @@ package com.jgaap.backend;
 import java.io.*;
 import java.text.*;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
@@ -112,7 +115,7 @@ public class ExperimentEngine {
 
 	public static void runExperiment(List<List<String>> experimentTable) {
 		final String experimentName = experimentTable.remove(0).get(0);
-		WorkQueue experimentWorkQueue = new WorkQueue(workers);
+		ExecutorService experimentExecutor = Executors.newFixedThreadPool(workers);
 		for (final List<String> experimentRow : experimentTable) {
 			if(experimentRow.isEmpty()){
 				continue;
@@ -176,21 +179,18 @@ public class ExperimentEngine {
 						}
 					}
 				};
-				experimentWorkQueue.execute(work);
+				experimentExecutor.execute(work);
 			} else {
 				logger.error("Experiment "+experimentRow.toString()+" missing "+(7-experimentRow.size())+" column(s)");
 			}
 		}
-		for(int i =0; i<workers;i++){
-			experimentWorkQueue.execute(-1);
+		experimentExecutor.shutdown();
+		try {
+			experimentExecutor.awaitTermination(30, TimeUnit.DAYS);
+		} catch (InterruptedException e) {
+			logger.error("Experiment Executor interrupted", e);
 		}
-		while (experimentWorkQueue.isRunning()){
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				logger.warn("Sleeping thread interrupted.", e);
-			}
-		}
+		
 	}
 
 }
