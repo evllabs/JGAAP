@@ -272,7 +272,7 @@ public class DefinitionsEventDriver extends EventDriver {
 				}
 				
 				String [] tmpDef = definition.split(";");
-				if(tmpDef[0]!="")
+				if(!tmpDef[0].equalsIgnoreCase(""))
 					outDef.append(tmpDef[0]).append(" ");
 				}
 				
