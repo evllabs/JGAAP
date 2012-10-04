@@ -99,6 +99,6 @@
 			<attribute name="javadoc_location" value="http://projects.csail.mit.edu/jwi/api/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-01-06.jar"/>
+	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-07-09.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
