@@ -23,8 +23,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.log4j.Logger;
 
@@ -522,10 +524,11 @@ public class API {
 	 */
 	private void loadCanonicizeEventify() throws Exception{
 		ExecutorService loadCanonicizeEventifyExecutor = Executors.newFixedThreadPool(loadCanonicizeEventifyWorkers);
+		List<Future<Document>> documentsProcessing = new ArrayList<Future<Document>>(documents.size());
 		for(final Document document : documents){
-			Runnable work = new Runnable() {
+			Callable<Document> work = new Callable<Document>() {
 				@Override
-				public void run() {
+				public Document call() throws Exception {
 					try {
 						document.setLanguage(language);
 						document.load();
@@ -549,21 +552,23 @@ public class API {
 						logger.fatal("Could not load File: "+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
 					}
-					document.processed();
+					return document;
 				}
+
 			};
-			loadCanonicizeEventifyExecutor.execute(work);
+			documentsProcessing.add(loadCanonicizeEventifyExecutor.submit(work));
 		}
 		loadCanonicizeEventifyExecutor.shutdown();
-		List<Document> documentsProcessing = new ArrayList<Document>(documents);
+
 		while(true){
 			if(documentsProcessing.size()==0){
 				break;
 			}else {
-				Iterator<Document> documentIterator = documentsProcessing.iterator();
+				Iterator<Future<Document>> documentIterator = documentsProcessing.iterator();
 				while(documentIterator.hasNext()){
-					Document document = documentIterator.next();
-					if(document.isProcessed()){
+					Future<Document> futureDocument = documentIterator.next();
+					if(futureDocument.isDone()){
+						Document document = futureDocument.get();
 						if(document.hasFailed()){
 							throw new Exception("One or more documents could not be read / parsed / canonicized Experiment Failed");
 						}
