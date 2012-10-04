@@ -24,11 +24,6 @@
 			<attribute name="javadoc_location" value="http://jscience.org/api/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.2.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://projects.csail.mit.edu/jwi/api/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-01-06.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://nlp.stanford.edu/nlp/javadoc/javanlp/"/>
@@ -102,6 +97,11 @@
 	<classpathentry kind="lib" path="lib/external/guava-13.0.1.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.2.3.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://projects.csail.mit.edu/jwi/api/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
