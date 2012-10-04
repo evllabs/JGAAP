@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
@@ -13,6 +15,8 @@ import com.jgaap.generics.EventSet;
 
 public class SortedNGramEventDriver extends EventDriver {
 
+	private static Logger logger = Logger.getLogger("com.jgaap.eventDrivers.SortedNGramEventDriver");
+	
 	public SortedNGramEventDriver(){
 		addParams("N", "N", "2", new String[] { "1", "2", "3", "4", "5", "6",
 				"7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
@@ -46,7 +50,8 @@ public class SortedNGramEventDriver extends EventDriver {
 		try {
 			underlyingEventDriver = EventDriverFactory.getEventDriver(eventDriverString);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Problem loading underlying EventDriver "+eventDriverString+".",e);
+			throw new EventGenerationException("Problem loading underlying EventDriver "+eventDriverString+".");
 		}
 		EventSet underlyingEventSet = underlyingEventDriver.createEventSet(doc);
 		EventSet eventSet = new EventSet(underlyingEventSet.size()-n);

@@ -14,8 +14,7 @@ import com.jgaap.generics.Event;
 
 public class StanfordNamedEntityRecognizer extends EventDriver {
 
-	AbstractSequenceClassifier<CoreLabel> classifier;
-	Boolean semaphore = true;
+	private volatile AbstractSequenceClassifier<CoreLabel> classifier;
 
 	@Override
 	public String displayName() {
@@ -39,7 +38,7 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 		EventSet eventSet = new EventSet();
 		String serializedClassifier = "/com/jgaap/resources/models/ner/english.all.3class.distsim.crf.ser.gz";
 		if (classifier == null)
-			synchronized (semaphore) {
+			synchronized (this) {
 				if (classifier == null) {
 					try {
 						classifier = CRFClassifier.getClassifier(com.jgaap.JGAAP.class.getResourceAsStream(serializedClassifier));
