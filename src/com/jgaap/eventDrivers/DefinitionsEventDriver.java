@@ -199,13 +199,16 @@ public class DefinitionsEventDriver extends EventDriver {
 		EventSet tmpevent;
 		
 		URL url = getClass().getResource(JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"wordnet");
-		
-		// construct the dictionary object and open it
-		IDictionary dict = new Dictionary(url);
+		IDictionary dict;
+		if (url.getProtocol().equalsIgnoreCase("jar")) {
+			throw new EventGenerationException("DefinitionsEventDriver is current not able to run using the jar.  Please use ant with the source distrodution.");
+		} else {
+			dict = new Dictionary(url);
+		}
 		try {
 			dict.open();
 		} catch (Exception e) {
-			logger.error("Could not open WordNet Dictionary", e);
+			logger.error("Could not open WordNet Dictionary "+url, e);
 			throw new EventGenerationException("DefinitionsEventDriver failed to eventify "+doc.getFilePath());
 		}
 		
