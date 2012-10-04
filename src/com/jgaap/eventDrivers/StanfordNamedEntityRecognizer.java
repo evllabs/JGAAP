@@ -31,7 +31,6 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	synchronized public EventSet createEventSet(Document doc)
 			throws EventGenerationException {
@@ -41,7 +40,7 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 			synchronized (this) {
 				if (classifier == null) {
 					try {
-						classifier = CRFClassifier.getClassifier(com.jgaap.JGAAP.class.getResourceAsStream(serializedClassifier));
+						classifier = CRFClassifier.getJarClassifier(serializedClassifier, null);
 					} catch (Exception e) {
 						e.printStackTrace();
 						throw new EventGenerationException(
