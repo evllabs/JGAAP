@@ -20,11 +20,7 @@ package com.jgaap.backend;
 import java.io.*;
 import java.text.*;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 import org.apache.log4j.Logger;
 
@@ -64,28 +60,23 @@ public class ExperimentEngine {
 			String[] eventCullers, String analysis, String experimentName,
 			String number) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = new java.util.Date();
+		Date date = new Date();
 		Iterator<String> iterator = canons.iterator();
 		StringBuilder canonNameBuilder = new StringBuilder();
-		canonNameBuilder
-				.append((iterator.hasNext() ? iterator.next() : "none"));
 		while (iterator.hasNext()) {
-			canonNameBuilder.append(" ").append(iterator.next().trim());
+			canonNameBuilder.append(iterator.next().trim()).append(" ");
 		}
-		String canonName = canonNameBuilder.toString();
-		boolean first = true;
+		String canonName = canonNameBuilder.toString().trim();
+		if(canonName.isEmpty())
+			canonName = "none";
+		iterator = Arrays.asList(eventCullers).iterator();
 		StringBuilder cullerNameBuilder = new StringBuilder();
-		for (String eventCuller : eventCullers) {
-			if (!first) {
-				cullerNameBuilder.append(" ");
-			}
-			cullerNameBuilder.append(eventCuller.trim());
-			first = false;
+		while (iterator.hasNext()) {
+			cullerNameBuilder.append(iterator.next().trim()).append(" ");
 		}
-		String cullerName = cullerNameBuilder.toString();
-		if ("".equals(cullerName)) {
+		String cullerName = cullerNameBuilder.toString().trim();
+		if(cullerName.isEmpty())
 			cullerName = "none";
-		}
 		String path = JGAAPConstants.JGAAP_TMPDIR
 				+ canonName.replace("/", "\\/") + "/"
 				+ event.trim().replace("/", "\\/") + "/"
