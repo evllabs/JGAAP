@@ -199,7 +199,8 @@ public class ExperimentEngine {
 					experiment.addDocument(document);
 				}
 				for (String canonicizer : canonicizers) {
-					experiment.addCanonicizer(canonicizer);
+					if(!canonicizer.isEmpty())
+						experiment.addCanonicizer(canonicizer);
 				}
 				EventDriver eventDriver = experiment.addEventDriver(event);
 				for (String eventCuller : eventCullers) {
