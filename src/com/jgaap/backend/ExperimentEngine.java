@@ -20,9 +20,11 @@ package com.jgaap.backend;
 import java.io.*;
 import java.text.*;
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Future;
 
 import org.apache.log4j.Logger;
 
@@ -116,13 +118,14 @@ public class ExperimentEngine {
 	public static void runExperiment(List<List<String>> experimentTable) {
 		final String experimentName = experimentTable.remove(0).get(0);
 		ExecutorService experimentExecutor = Executors.newFixedThreadPool(workers);
+		List<Future<List<String>>> runningExperiments = new ArrayList<Future<List<String>>>(experimentTable.size());
 		for (final List<String> experimentRow : experimentTable) {
 			if(experimentRow.isEmpty()){
 				continue;
 			}else if (experimentRow.size() >= 7) {
-				Runnable work = new Runnable() {
+				Callable<List<String>> work = new Callable<List<String>>() {
 					@Override
-					public void run() {
+					public List<String> call() {
 						String number = experimentRow.get(0);
 						List<String> canons = new ArrayList<String>();
 						if (!"".equalsIgnoreCase(experimentRow.get(1).trim())) {
@@ -177,20 +180,32 @@ public class ExperimentEngine {
 						} catch (Exception e) {
 							logger.error("Could not run experiment "+experimentRow.toString(),e);
 						}
+						return experimentRow;
 					}
 				};
-				experimentExecutor.execute(work);
+				runningExperiments.add(experimentExecutor.submit(work));
 			} else {
 				logger.error("Experiment "+experimentRow.toString()+" missing "+(7-experimentRow.size())+" column(s)");
 			}
 		}
 		experimentExecutor.shutdown();
-		try {
-			experimentExecutor.awaitTermination(30, TimeUnit.DAYS);
-		} catch (InterruptedException e) {
-			logger.error("Experiment Executor interrupted", e);
-		}
 		
+		while(!experimentExecutor.isTerminated()){
+			Iterator<Future<List<String>>> iterator = runningExperiments.iterator(); 
+			while(iterator.hasNext()){
+				Future<List<String>> current = iterator.next();
+				if(current.isDone()){
+					try {
+						logger.info("Experiment: "+current.get()+" has finished.");
+					} catch (InterruptedException e) {
+						logger.error("Problem printing experiment completion", e);
+					} catch (ExecutionException e) {
+						logger.error("Problem printing experiment completion", e);
+					}
+					iterator.remove();
+				}
+			}
+		}
 	}
 
 }
