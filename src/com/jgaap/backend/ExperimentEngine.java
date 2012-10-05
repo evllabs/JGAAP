@@ -38,11 +38,11 @@ import com.jgaap.generics.*;
  * @author Mike Ryan
  */
 public class ExperimentEngine {
-	
+
 	static Logger logger = Logger.getLogger(ExperimentEngine.class);
-	
+
 	private static final int workers = 2;
-	
+
 	/**
 	 * This method generates unique file names and a directory structure to save
 	 * the results of an experiment run
@@ -67,7 +67,8 @@ public class ExperimentEngine {
 		java.util.Date date = new java.util.Date();
 		Iterator<String> iterator = canons.iterator();
 		StringBuilder canonNameBuilder = new StringBuilder();
-		canonNameBuilder.append((iterator.hasNext() ? iterator.next() : "none"));
+		canonNameBuilder
+				.append((iterator.hasNext() ? iterator.next() : "none"));
 		while (iterator.hasNext()) {
 			canonNameBuilder.append(" ").append(iterator.next().trim());
 		}
@@ -86,14 +87,15 @@ public class ExperimentEngine {
 			cullerName = "none";
 		}
 		String path = JGAAPConstants.JGAAP_TMPDIR
-		+ canonName.replace("/", "\\/") + "/"
-		+ event.trim().replace("/", "\\/") + "/"
-		+ cullerName.replace("/", "\\/") + "/"
-		+ analysis.trim().replace("/", "\\/") + "/";
+				+ canonName.replace("/", "\\/") + "/"
+				+ event.trim().replace("/", "\\/") + "/"
+				+ cullerName.replace("/", "\\/") + "/"
+				+ analysis.trim().replace("/", "\\/") + "/";
 		File file = new File(path);
 		boolean newDirs = file.mkdirs();
-		if(!newDirs) {
-			; // Nothing (check added to satisfy static analysis / show we are aware of this)
+		if (!newDirs) {
+			; // Nothing (check added to satisfy static analysis / show we are
+				// aware of this)
 		}
 		return (path + experimentName + number + dateFormat.format(date) + ".txt");
 	}
@@ -110,7 +112,7 @@ public class ExperimentEngine {
 		try {
 			runExperiment(CSVIO.readCSV(listPath));
 		} catch (IOException e) {
-			logger.fatal("Problem processing experiment file: "+listPath, e);
+			logger.fatal("Problem processing experiment file: " + listPath, e);
 		}
 
 	}
@@ -118,85 +120,37 @@ public class ExperimentEngine {
 	public static void runExperiment(List<List<String>> experimentTable) {
 		final String experimentName = experimentTable.remove(0).get(0);
 		ExecutorService experimentExecutor = Executors.newFixedThreadPool(workers);
-		List<Future<List<String>>> runningExperiments = new ArrayList<Future<List<String>>>(experimentTable.size());
+		List<Future<String>> runningExperiments = new ArrayList<Future<String>>(experimentTable.size());
 		for (final List<String> experimentRow : experimentTable) {
-			if(experimentRow.isEmpty()){
+			if (experimentRow.isEmpty()) {
 				continue;
-			}else if (experimentRow.size() >= 7) {
-				Callable<List<String>> work = new Callable<List<String>>() {
-					@Override
-					public List<String> call() {
-						String number = experimentRow.get(0);
-						List<String> canons = new ArrayList<String>();
-						if (!"".equalsIgnoreCase(experimentRow.get(1).trim())) {
-							String[] canonicizers = experimentRow.get(1).split("\\|");
-							canons = new ArrayList<String>();
-							for (String current : canonicizers) {
-								canons.add(current.trim());
-							}
-						}
-						String event = experimentRow.get(2);
-						String[] eventCullers = experimentRow.get(3).split("\\|");
-						String analysis = experimentRow.get(4);
-						String distance = experimentRow.get(5).trim();
-						String documentsPath = experimentRow.get(6);
-						String fileName = fileNameGen(canons, event,
-								eventCullers, analysis+(distance.isEmpty()?"":"-"+distance), experimentName, number);
-						API experiment = API.getPrivateInstance();
-						try {
-							List<List<String>> tmp;
-							if(documentsPath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)){
-								tmp = CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(documentsPath));
-							} else {
-								tmp = CSVIO.readCSV(documentsPath);
-							}
-							List<Document> documents = Utils.getDocumentsFromCSV(tmp);
-							for (Document document : documents) {
-								experiment.addDocument(document);
-							}
-							for (String canonicizer : canons) {
-								experiment.addCanonicizer(canonicizer);
-							}
-							EventDriver eventDriver = experiment.addEventDriver(event);
-							for (String eventCuller : eventCullers) {
-								if (eventCuller != null
-										&& !"".equalsIgnoreCase(eventCuller))
-									experiment.addEventCuller(eventCuller
-											.trim());
-							}
-							AnalysisDriver analysisDriver = experiment
-									.addAnalysisDriver(analysis);
-							if(!distance.isEmpty()){
-								experiment.addDistanceFunction(distance, analysisDriver);
-							}
-							experiment.execute();
-							List<Document> unknowns = experiment
-									.getUnknownDocuments();
-							StringBuffer buffer = new StringBuffer();
-							for (Document unknown : unknowns) {
-								buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
-							}
-							Utils.saveFile(fileName, buffer.toString());
-						} catch (Exception e) {
-							logger.error("Could not run experiment "+experimentRow.toString(),e);
-						}
-						return experimentRow;
-					}
-				};
-				runningExperiments.add(experimentExecutor.submit(work));
+			} else if (experimentRow.size() >= 7) {
+				String number = experimentRow.get(0);
+				String[] canonicizers = experimentRow.get(1).trim().split("\\s*\\|\\s*");
+				String event = experimentRow.get(2).trim();
+				String[] eventCullers = experimentRow.get(3).trim().split("\\s*\\|\\s*");
+				String analysis = experimentRow.get(4).trim();
+				String distance = experimentRow.get(5).trim();
+				String documentsPath = experimentRow.get(6).trim();
+				String fileName = fileNameGen(Arrays.asList(canonicizers), event, eventCullers, analysis + (distance.isEmpty() ? "" : "-" + distance), experimentName, number);
+
+				runningExperiments.add(experimentExecutor.submit(new Experiment(canonicizers, event, eventCullers, analysis, distance, documentsPath, fileName)));
 			} else {
-				logger.error("Experiment "+experimentRow.toString()+" missing "+(7-experimentRow.size())+" column(s)");
+				logger.error("Experiment " + experimentRow.toString()
+						+ " missing " + (7 - experimentRow.size())
+						+ " column(s)");
 			}
 		}
 		experimentExecutor.shutdown();
-		
-		while(!experimentExecutor.isTerminated()){
-			Iterator<Future<List<String>>> iterator = runningExperiments.iterator(); 
-			while(iterator.hasNext()){
-				Future<List<String>> current = iterator.next();
-				if(current.isDone()){
+
+		while (!experimentExecutor.isTerminated()) {
+			Iterator<Future<String>> iterator = runningExperiments
+					.iterator();
+			while (iterator.hasNext()) {
+				Future<String> current = iterator.next();
+				if (current.isDone()) {
 					try {
-						logger.info("Experiment: "+current.get()+" has finished.");
+						logger.info("Experiment: " + current.get() + " has finished.");
 					} catch (InterruptedException e) {
 						logger.error("Problem printing experiment completion", e);
 					} catch (ExecutionException e) {
@@ -206,6 +160,70 @@ public class ExperimentEngine {
 				}
 			}
 		}
+	}
+
+	private static class Experiment implements Callable<String> {
+
+		private String[] canonicizers;
+		private String event;
+		private String[] eventCullers;
+		private String analysis;
+		private String distance;
+		private String documentsPath;
+		private String fileName;
+
+		public Experiment(String[] canonicizers, String event,
+				String[] eventCullers, String analysis, String distance,
+				String documentsPath, String fileName) {
+			this.canonicizers = canonicizers;
+			this.event = event;
+			this.eventCullers = eventCullers;
+			this.analysis = analysis;
+			this.distance = distance;
+			this.documentsPath = documentsPath;
+			this.fileName = fileName;
+		}
+
+		@Override
+		public String call() throws Exception {
+			API experiment = API.getPrivateInstance();
+			try {
+				List<List<String>> tmp;
+				if (documentsPath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)) {
+					tmp = CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(documentsPath));
+				} else {
+					tmp = CSVIO.readCSV(documentsPath);
+				}
+				List<Document> documents = Utils.getDocumentsFromCSV(tmp);
+				for (Document document : documents) {
+					experiment.addDocument(document);
+				}
+				for (String canonicizer : canonicizers) {
+					experiment.addCanonicizer(canonicizer);
+				}
+				EventDriver eventDriver = experiment.addEventDriver(event);
+				for (String eventCuller : eventCullers) {
+					if (eventCuller != null && !"".equalsIgnoreCase(eventCuller))
+						experiment.addEventCuller(eventCuller.trim());
+				}
+				AnalysisDriver analysisDriver = experiment
+						.addAnalysisDriver(analysis);
+				if (!distance.isEmpty()) {
+					experiment.addDistanceFunction(distance, analysisDriver);
+				}
+				experiment.execute();
+				List<Document> unknowns = experiment.getUnknownDocuments();
+				StringBuffer buffer = new StringBuffer();
+				for (Document unknown : unknowns) {
+					buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
+				}
+				Utils.saveFile(fileName, buffer.toString());
+			} catch (Exception e) {
+				logger.error("Could not run experiment " + fileName, e);
+			}
+			return fileName;
+		}
+
 	}
 
 }
