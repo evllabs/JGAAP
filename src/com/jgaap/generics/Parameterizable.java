@@ -93,6 +93,48 @@ public class Parameterizable {
         }
     }
     
+    /**
+     * return the value associated with label
+     * 
+     * @param label
+     *            the label to set
+     * @param val the default value
+     * @return the appropriate value stored in the parameter set
+     */
+    public int getParameter(String label, int val) {
+    	if (Parameters.containsKey(label.toLowerCase())) {
+            String tmp = Parameters.get(label.toLowerCase());
+            try{
+            	return Integer.parseInt(tmp);
+            } catch(NumberFormatException e) {
+            	return val;
+            }
+        } else {
+            return val;
+        }
+    }
+    
+    /**
+     * return the value associated with label
+     * 
+     * @param label
+     *            the label to set
+     * @param val the default value
+     * @return the appropriate value stored in the parameter set
+     */
+    public double getParameter(String label, double val) {
+    	if (Parameters.containsKey(label.toLowerCase())) {
+            String tmp = Parameters.get(label.toLowerCase());
+            try{
+            	return Double.parseDouble(tmp);
+            } catch(NumberFormatException e) {
+            	return val;
+            }
+        } else {
+            return val;
+        }
+    }
+    
     public String getParameters() {
     	StringBuilder builder = new StringBuilder();
     	Set<Entry<String,String>> entries = Parameters.entrySet();
