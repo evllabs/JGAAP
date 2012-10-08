@@ -18,6 +18,7 @@
 package com.jgaap.distances;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
@@ -61,7 +62,8 @@ public class ManhattanDistance extends DistanceFunction {
         EventHistogram h2 = es2.getHistogram();
         return distance(h1, h2);
     }
-    public double distance(EventHistogram h1, EventHistogram h2){
+    
+    public double distance(EventHistogram h1, EventHistogram h2) {
         Set<Event> events = new HashSet<Event>();
         double distance = 0.0;
         
@@ -73,5 +75,13 @@ public class ManhattanDistance extends DistanceFunction {
         }
 
         return distance;
+    }
+    
+    public double distance(List<Double> e1, List<Double> e2) {
+    	double distance = 0.0;
+    	for(int i = 0; i < e1.size();i++){
+    		distance += Math.abs(e1.get(i)-e2.get(i));
+    	}
+    	return distance;
     }
 }
