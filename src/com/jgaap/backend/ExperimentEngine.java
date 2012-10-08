@@ -117,9 +117,9 @@ public class ExperimentEngine {
 				continue;
 			} else if (experimentRow.size() >= 7) {
 				String number = experimentRow.get(0);
-				String[] canonicizers = experimentRow.get(1).trim().split("\\s*\\|\\s*");
+				String[] canonicizers = experimentRow.get(1).trim().split("\\s*&\\s*");
 				String event = experimentRow.get(2).trim();
-				String[] eventCullers = experimentRow.get(3).trim().split("\\s*\\|\\s*");
+				String[] eventCullers = experimentRow.get(3).trim().split("\\s*&\\s*");
 				String analysis = experimentRow.get(4).trim();
 				String distance = experimentRow.get(5).trim();
 				String documentsPath = experimentRow.get(6).trim();
