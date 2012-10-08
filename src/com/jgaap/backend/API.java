@@ -71,7 +71,7 @@ public class API {
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 	
-	private final int loadCanonicizeEventifyWorkers = Runtime.getRuntime().availableProcessors();
+	private final int workers = Runtime.getRuntime().availableProcessors();
 
 	private static final API INSTANCE = new API();
 	
@@ -523,7 +523,7 @@ public class API {
 	 * @throws Exception
 	 */
 	private void loadCanonicizeEventify() throws Exception{
-		ExecutorService loadCanonicizeEventifyExecutor = Executors.newFixedThreadPool(loadCanonicizeEventifyWorkers);
+		ExecutorService loadCanonicizeEventifyExecutor = Executors.newFixedThreadPool(workers);
 		List<Future<Document>> documentsProcessing = new ArrayList<Future<Document>>(documents.size());
 		for(final Document document : documents){
 			Callable<Document> work = new Callable<Document>() {
@@ -622,13 +622,16 @@ public class API {
 			for (AnalysisDriver analysisDriver : analysisDrivers) {
 				logger.info("Training "+analysisDriver.displayName());
 				analysisDriver.train(knownEventSets);
+				//ExecutorService analysisExecutor = Executors.newFixedThreadPool(workers);
 				if (analysisDriver instanceof ValidationDriver) {
 					for (Document knownDocument : knownDocuments) {
+						//TODO: change to threaded here
 						logger.info("Analyzing "+knownDocument.toString());
 						knownDocument.addResult(analysisDriver, eventDriver,analysisDriver.analyze(knownDocument.getEventSet(eventDriver)));
 					}
 				} else {
 					for (Document unknownDocument : unknownDocuments) {
+						//TODO: change to threaded here 
 						logger.info("Analyzing "+unknownDocument.toString());
 						List<Pair<String, Double>> tmp = analysisDriver.analyze(unknownDocument.getEventSet(eventDriver));
 						unknownDocument.addResult(analysisDriver, eventDriver,tmp);
