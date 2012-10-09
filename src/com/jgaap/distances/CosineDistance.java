@@ -24,7 +24,9 @@ import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Cosine Distance or normalized dot product. This is YA distance for Nearest
@@ -60,30 +62,22 @@ public class CosineDistance extends DistanceFunction {
     public double distance(EventSet es1, EventSet es2) {
         EventHistogram h1 = es1.getHistogram();
         EventHistogram h2 = es2.getHistogram();
+        return distance(h1, h2);
+    }
+    
+    public double distance(EventHistogram h1, EventHistogram h2) {
+        
         double distance = 0.0;
         double h1Magnitude = 0.0;
         double h2Magnitude = 0.0;
 
-        for (Event event: h1) {
-            distance += (h1.getAbsoluteFrequency(event) * h2
-                    .getAbsoluteFrequency(event));
-
-            h1Magnitude += h1.getAbsoluteFrequency(event)
-                    * h1.getAbsoluteFrequency(event);
-            h2Magnitude += h2.getAbsoluteFrequency(event)
-                    * h2.getAbsoluteFrequency(event);
-        }
-
-        for (Event event : h2) {
-            if (h1.getAbsoluteFrequency(event) == 0) {
-                distance += (h1.getAbsoluteFrequency(event) * h2
-                        .getAbsoluteFrequency(event));
-
-                h1Magnitude += h1.getAbsoluteFrequency(event)
-                        * h1.getAbsoluteFrequency(event);
-                h2Magnitude += h2.getAbsoluteFrequency(event)
-                        * h2.getAbsoluteFrequency(event);
-            }
+        Set<Event> events = new HashSet<Event>(h1.events());
+        events.addAll(h2.events());
+        
+        for(Event event : events){
+        	distance += h1.getAbsoluteFrequency(event) * h2.getAbsoluteFrequency(event);
+            h1Magnitude += h1.getAbsoluteFrequency(event) * h1.getAbsoluteFrequency(event);
+            h2Magnitude += h2.getAbsoluteFrequency(event) * h2.getAbsoluteFrequency(event);
         }
 
         return Math.abs((distance / (Math.sqrt(h1Magnitude) * Math
@@ -104,9 +98,9 @@ public class CosineDistance extends DistanceFunction {
         }
 
         for(int i = 0; i < max; i++) {
-            distance += (v1.get(i) * v2.get(i));
-            h1Magnitude += (v1.get(i) * v1.get(i));
-            h2Magnitude += (v2.get(i) * v2.get(i));
+        	 distance += (v1.get(i) * v2.get(i));
+             h1Magnitude += (v1.get(i) * v1.get(i));
+             h2Magnitude += (v2.get(i) * v2.get(i));
         }
 
         return Math.abs((distance / (Math.sqrt(h1Magnitude) * Math
