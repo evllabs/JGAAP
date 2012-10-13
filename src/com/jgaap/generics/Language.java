@@ -42,7 +42,7 @@ import com.jgaap.backend.AutoPopulate;
  */
 public abstract class Language implements Comparable<Language>, Displayable {
 	
-	private static final List<Language> LANGUAGES = Collections.unmodifiableList(loadLanguages());
+	private static List<Language> LANGUAGES;
 
 	private String name = "Generic";
 	private String language = "generic";
@@ -114,6 +114,9 @@ public abstract class Language implements Comparable<Language>, Displayable {
 	 * A read-only list of the Languages
 	 */
 	public static List<Language> getLanguages() {
+		if(LANGUAGES == null){
+			LANGUAGES = Collections.unmodifiableList(loadLanguages());
+		}
 		return LANGUAGES;
 	}
 

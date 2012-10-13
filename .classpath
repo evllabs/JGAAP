@@ -24,12 +24,6 @@
 			<attribute name="javadoc_location" value="http://jscience.org/api/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-01-06.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://nlp.stanford.edu/nlp/javadoc/javanlp/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/poi-3.8-20120326.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://poi.apache.org/apidocs/"/>
@@ -84,7 +78,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/gson-1.4.jar"/>
-	<classpathentry kind="lib" path="lib/external/guava-11.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/external/javassist-3.12.1.GA.jar"/>
 	<classpathentry kind="lib" path="lib/external/jsr305-1.3.9.jar"/>
 	<classpathentry kind="lib" path="lib/external/slf4j-api-1.6.1.jar"/>
@@ -95,5 +88,25 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/xml-apis-1.0.b2.jar"/>
+	<classpathentry kind="lib" path="lib/external/stanford-ner-2012-07-09.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www-nlp.stanford.edu/nlp/javadoc/javanlp/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/guava-13.0.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/edu.mit.jwi_2.2.3.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://projects.csail.mit.edu/jwi/api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/stanford-postagger-2012-07-09.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www-nlp.stanford.edu/nlp/javadoc/javanlp/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

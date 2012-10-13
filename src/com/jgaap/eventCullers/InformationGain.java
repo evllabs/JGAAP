@@ -171,7 +171,7 @@ public class InformationGain extends EventCuller {
 	public BigDecimal factorial(BigDecimal n) {
 		BigDecimal result = new BigDecimal(1.0);
 		BigDecimal tmp = new BigDecimal(1.0);
-		if (!n.equals(0)) {
+		if (n.intValue() != 0) {
 			for (int i = n.intValue(); i > 0; i--) {
 				result = result.multiply(n);
 				n = n.subtract(tmp);

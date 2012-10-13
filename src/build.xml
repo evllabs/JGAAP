@@ -45,9 +45,24 @@
 		</javac>
 		<copy todir="../bin">
 			<fileset dir="../src">
-				<include name="com/jgaap/ui/resources/*" />
+				<include name="com/jgaap/resources/ui/*" />
 				<include name="com/jgaap/resources/*" />
 				<include name="com/jgaap/resources/wordnet/*" />
+				<include name="com/jgaap/resources/models/postagger/*"/>
+				<include name="com/jgaap/resources/models/ner/*"/>
+				<include name="com/jgaap/resources/aaac/problemA/*"/>
+				<include name="com/jgaap/resources/aaac/problemB/*"/>
+				<include name="com/jgaap/resources/aaac/problemC/*"/>
+				<include name="com/jgaap/resources/aaac/problemD/*"/>
+				<include name="com/jgaap/resources/aaac/problemE/*"/>
+				<include name="com/jgaap/resources/aaac/problemF/*"/>
+				<include name="com/jgaap/resources/aaac/problemG/*"/>
+				<include name="com/jgaap/resources/aaac/problemH/*"/>
+				<include name="com/jgaap/resources/aaac/problemI/*"/>
+				<include name="com/jgaap/resources/aaac/problemJ/*"/>
+				<include name="com/jgaap/resources/aaac/problemK/*"/>
+				<include name="com/jgaap/resources/aaac/problemL/*"/>
+				<include name="com/jgaap/resources/aaac/problemM/*"/>
 			</fileset>
 			<fileset dir="../unittests">
 				<include name="com/jgaap/resources/*" />

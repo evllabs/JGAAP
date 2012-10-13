@@ -25,10 +25,8 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 	static private Logger logger = Logger.getLogger(
 			com.jgaap.eventDrivers.StanfordPartOfSpeechEventDriver.class);
 	
-	private MaxentTagger tagger = null;
-	
-	private Boolean semaphore = true;
-	
+	private volatile MaxentTagger tagger = null;
+		
 	public StanfordPartOfSpeechEventDriver() {
 		addParams("tagginModel", "Model", "english-bidirectional-distsim", 
 				new String[] { "arabic-accurate","arabic-fast.tagger","chinese",
@@ -59,7 +57,7 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 	public EventSet createEventSet(Document doc)
 			throws EventGenerationException {
 		if (tagger == null)
-			synchronized (semaphore) {
+			synchronized (this) {
 				if (tagger == null) {
 					String taggingModel = getParameter("taggingModel");
 					if ("".equals(taggingModel)){

@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
@@ -14,6 +16,8 @@ import com.jgaap.generics.EventSet;
 
 public class LeaveKOutNGramEventDriver extends EventDriver {
 
+	private static Logger logger = Logger.getLogger("com.jgaap.eventDrivers.LeaveKOutNGramEventDriver");
+	
 	@Override
 	public String displayName() {
 		return "Leave KOut NGrams";
@@ -41,7 +45,8 @@ public class LeaveKOutNGramEventDriver extends EventDriver {
 		try {
 			underlyingEventDriver = EventDriverFactory.getEventDriver(eventDriverString);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Problem loading underlying EventDriver "+eventDriverString+".",e);
+			throw new EventGenerationException("Problem loading underlying EventDriver "+eventDriverString+".");
 		}
 		EventSet underlyingEventSet = underlyingEventDriver.createEventSet(doc);
 		EventSet eventSet = new EventSet();

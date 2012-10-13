@@ -34,8 +34,6 @@ import com.jgaap.generics.Canonicizer;
  */
 public class AddErrors extends Canonicizer {
 
-	private int percentErrors;
-
 	@Override
 	public String displayName() {
 		return "Add Errors";
@@ -62,36 +60,8 @@ public class AddErrors extends Canonicizer {
 	 * replace with errors.
 	 */
 	public AddErrors() {
-		super();
-		/*
-		 * percentErrors = Integer.parseInt((String)
-		 * JOptionPane.showInputDialog( null,
-		 * "What percentage of characters should be modified?", "Percent Error",
-		 * JOptionPane.PLAIN_MESSAGE, null, null, "5"));
-		 */
+		addParams("percenterror", "Percent Error", "0", new String[] {"0","1","2","3","4","5","10","15","20","50"}, false);
 
-	}
-
-	/**
-	 * Create a new canonicizer to add random transcription errors to a document
-	 * with a specified error rate on a per-character basis.
-	 * 
-	 * @param perc
-	 *            The percentage of characters which should be altered.
-	 */
-	public AddErrors(int perc) {
-		super();
-		percentErrors = perc;
-	}
-
-	/**
-	 * Return a string representing the percentage of characters which we
-	 * replaced with errors.
-	 * 
-	 * @return Formatted string representing percentage of errors added.
-	 */
-	public String getExtraInfo() {
-		return ("(" + percentErrors + "%)");
 	}
 
 	/**
@@ -104,7 +74,7 @@ public class AddErrors extends Canonicizer {
 	 */
 	public char[] process(char[] procText) {
 		Random random = new Random();
-
+		int percentErrors = getParameter("percenterror", 0);
 		int numChanges = (int) ((percentErrors / 100.0) * procText.length);
 
 		System.out.println("Introducing errors to " + percentErrors
