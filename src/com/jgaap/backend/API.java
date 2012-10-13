@@ -23,6 +23,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.log4j.Logger;
 
@@ -67,7 +71,7 @@ public class API {
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 	
-	private final int loadCanonicizeEventifyWorkers = Runtime.getRuntime().availableProcessors();
+	private final int workers = Runtime.getRuntime().availableProcessors();
 
 	private static final API INSTANCE = new API();
 	
@@ -519,11 +523,12 @@ public class API {
 	 * @throws Exception
 	 */
 	private void loadCanonicizeEventify() throws Exception{
-		WorkQueue loadCanonicizeEventifyWorkQueue= new WorkQueue(loadCanonicizeEventifyWorkers);
+		ExecutorService loadCanonicizeEventifyExecutor = Executors.newFixedThreadPool(workers);
+		List<Future<Document>> documentsProcessing = new ArrayList<Future<Document>>(documents.size());
 		for(final Document document : documents){
-			Runnable work = new Runnable() {
+			Callable<Document> work = new Callable<Document>() {
 				@Override
-				public void run() {
+				public Document call() throws Exception {
 					try {
 						document.setLanguage(language);
 						document.load();
@@ -541,29 +546,29 @@ public class API {
 						logger.fatal("Could not Parse Language: "+language.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
 					} catch (CanonicizationException e) {
-						logger.fatal("Could not Canonicize File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
+						logger.fatal("Could not Canonicize File: "+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
 					} catch (Exception e) {
-						logger.fatal("Could not load File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
+						logger.fatal("Could not load File: "+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
 					}
-					document.processed();
+					return document;
 				}
+
 			};
-			loadCanonicizeEventifyWorkQueue.execute(work);
+			documentsProcessing.add(loadCanonicizeEventifyExecutor.submit(work));
 		}
-		for(int i =0; i<loadCanonicizeEventifyWorkers;i++){
-			loadCanonicizeEventifyWorkQueue.execute(-1);
-		}
-		List<Document> documentsProcessing = new ArrayList<Document>(documents);
+		loadCanonicizeEventifyExecutor.shutdown();
+
 		while(true){
 			if(documentsProcessing.size()==0){
 				break;
 			}else {
-				Iterator<Document> documentIterator = documentsProcessing.iterator();
+				Iterator<Future<Document>> documentIterator = documentsProcessing.iterator();
 				while(documentIterator.hasNext()){
-					Document document = documentIterator.next();
-					if(document.isProcessed()){
+					Future<Document> futureDocument = documentIterator.next();
+					if(futureDocument.isDone()){
+						Document document = futureDocument.get();
 						if(document.hasFailed()){
 							throw new Exception("One or more documents could not be read / parsed / canonicized Experiment Failed");
 						}
@@ -617,13 +622,16 @@ public class API {
 			for (AnalysisDriver analysisDriver : analysisDrivers) {
 				logger.info("Training "+analysisDriver.displayName());
 				analysisDriver.train(knownEventSets);
+				//ExecutorService analysisExecutor = Executors.newFixedThreadPool(workers);
 				if (analysisDriver instanceof ValidationDriver) {
 					for (Document knownDocument : knownDocuments) {
+						//TODO: change to threaded here
 						logger.info("Analyzing "+knownDocument.toString());
 						knownDocument.addResult(analysisDriver, eventDriver,analysisDriver.analyze(knownDocument.getEventSet(eventDriver)));
 					}
 				} else {
 					for (Document unknownDocument : unknownDocuments) {
+						//TODO: change to threaded here 
 						logger.info("Analyzing "+unknownDocument.toString());
 						List<Pair<String, Double>> tmp = analysisDriver.analyze(unknownDocument.getEventSet(eventDriver));
 						unknownDocument.addResult(analysisDriver, eventDriver,tmp);

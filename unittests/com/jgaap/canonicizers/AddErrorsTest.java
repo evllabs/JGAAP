@@ -49,7 +49,8 @@ public class AddErrorsTest {
 			}
 			
 			
-			AddErrors thing = new AddErrors(25);
+			AddErrors thing = new AddErrors();
+			thing.setParameter("percenterror", 25);
 			int notChanged = 0;
 			char[] test2 = thing.process(test1.toString().toCharArray());
 			for (int j=0; j<test2.length; j++)
@@ -102,7 +103,8 @@ public class AddErrorsTest {
 				}
 				
 				
-				AddErrors thing = new AddErrors(100);
+				AddErrors thing = new AddErrors();
+				thing.setParameter("percenterror", 100);
 				
 				char[] test2 = thing.process(test1.toString().toCharArray());
 				for (int j=0; j<test2.length; j++)

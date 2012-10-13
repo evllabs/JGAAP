@@ -73,8 +73,7 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 	@Override
 	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
 		EventHistogram unknownHistogram = unknown.getHistogram();
-		Set<Event> events = new HashSet<Event>();
-		events.addAll(this.events);
+		Set<Event> events = new HashSet<Event>(this.events);
 		events.addAll(unknown.uniqueEvents());
 		List<Double> unknownVector = new ArrayList<Double>(events.size());
 		for(Event event : events){

@@ -2,7 +2,9 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCuller;
@@ -28,38 +30,22 @@ public class IQRCuller extends EventCuller {
 	public List<EventSet> cull(List<EventSet> eventSets)
 			throws EventCullingException {
 		List<EventSet> results = new ArrayList<EventSet>();
-		int minPos, numEvents;
-		String informative;
+		int numEvents = getParameter("numEvents", 50);
+		String informative = getParameter("informative", "Most");
 
-		if (!getParameter("minPos").equals("")) {
-			minPos = Integer.parseInt(getParameter("minPos"));
-		} else {
-			minPos = 0;
-		}
-
-		if (!getParameter("numEvents").equals("")) {
-			numEvents = Integer.parseInt(getParameter("numEvents"));
-		} else {
-			numEvents = 50;
-		}
-		if (!getParameter("Informative").equals("")) {
-			informative = getParameter("Informative");
-		} else {
-			informative = "Most";
-		}
-		EventHistogram hist = new EventHistogram();
-
+		Set<Event> events = new HashSet<Event>();
+		
 		for (EventSet oneSet : eventSets) {
 			for (Event e : oneSet) {
-				hist.add(e);
+				events.add(e);
 			}
 		}
-		List<Pair<Event,Double>> rangeList = new ArrayList<Pair<Event,Double>>(); 
+		List<Pair<Event,Double>> rangeList = new ArrayList<Pair<Event,Double>>(events.size()); 
 		List<EventHistogram> eventHistograms = new ArrayList<EventHistogram>(eventSets.size());
 		for (EventSet eventSet : eventSets) {
 			eventHistograms.add(new EventHistogram(eventSet));
 		}
-		for (Event event : hist) {
+		for (Event event : events) {
 			List<Double>frequencies = new ArrayList<Double>();
 			double IQR = 0;
 			double med= 0;
@@ -101,7 +87,7 @@ public class IQRCuller extends EventCuller {
 			Collections.reverse(rangeList);
 		}
 		List<Event> rangeSet = new ArrayList<Event>();
-		for (int i = minPos; i < minPos + numEvents; i++) {
+		for (int i = 0; i < numEvents; i++) {
 			rangeSet.add(rangeList.get(i).getFirst());
 		}
 		for (EventSet oneSet : eventSets) {

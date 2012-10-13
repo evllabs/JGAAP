@@ -34,7 +34,7 @@ import com.jgaap.backend.AutoPopulate;
  */
 public abstract class EventDriver extends Parameterizable implements Comparable<EventDriver>, Displayable {
 	
-	private static final List<EventDriver> EVENT_DRIVERS = Collections.unmodifiableList(loadEventDrivers());
+	private static List<EventDriver> EVENT_DRIVERS;
 	
 	public abstract String displayName();
 
@@ -64,6 +64,9 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 	 * A read-only list of the EventDrivers
 	 */
 	public static List<EventDriver> getEventDrivers() {
+		if(EVENT_DRIVERS == null){
+			EVENT_DRIVERS = Collections.unmodifiableList(loadEventDrivers());
+		}
 		return EVENT_DRIVERS;
 	}
 
