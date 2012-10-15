@@ -45,7 +45,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 
 	@Override
 	public boolean showInGUI() {
-		return true;
+		return false;
 	}
 
 	@Override

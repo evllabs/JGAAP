@@ -26,7 +26,7 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 
 	@Override
 	public String displayName() {
-		return "Leave One Out Centroid";
+		return "Leave One Out Centroid"+this.getDistanceName();
 	}
 
 	@Override
