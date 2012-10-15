@@ -84,7 +84,7 @@ public class Xent2 extends AnalysisDriver {
 	}
 	
 	private String identifier(EventSet eventSet){
-		return (authorModel? eventSet.getAuthor() : eventSet.getAuthor()+"-"+eventSet.getDocumentName());
+		return (authorModel? eventSet.getAuthor() : eventSet.getAuthor()+" -"+eventSet.getDocumentName());
 	}
 
 	@Override
