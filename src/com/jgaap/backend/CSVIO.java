@@ -107,8 +107,8 @@ public class CSVIO {
 	 * parses a csv document and places it in a representation of columns and
 	 * rows using vectors
 	 * 
-	 * @param file
-	 *            the csv file
+	 * @param is
+	 *            inputstream to the csv file
 	 * @return a vector of vectors of strings this gives a representation of
 	 *         information in string within the vectors
 	 * @throws IOException 

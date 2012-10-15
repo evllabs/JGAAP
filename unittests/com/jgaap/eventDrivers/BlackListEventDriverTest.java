@@ -40,7 +40,7 @@ import com.jgaap.generics.EventDriver;
 public class BlackListEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.BlackListEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.BlackListEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test

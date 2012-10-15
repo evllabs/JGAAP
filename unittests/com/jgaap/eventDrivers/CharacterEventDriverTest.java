@@ -37,7 +37,7 @@ import com.jgaap.generics.EventSet;
 public class CharacterEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.CharacterEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.CharacterEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() {

@@ -34,7 +34,7 @@ public class StripNonPuncTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.StripNonPunc#process(java.util.Vector)}.
+	 * {@link com.jgaap.canonicizers.StripNonPunc#process(char[])}.
 	 */
 	@Test
 	public void testProcess() {

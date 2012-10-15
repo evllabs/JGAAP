@@ -30,12 +30,6 @@ import com.jgaap.generics.EventSet;
  * preprocessing applied in the previous stage.
  **/
 public class CharacterEventDriver extends EventDriver {
-	/**
-	 * test using files named on command line
-	 * 
-	 * @param args
-	 *            files to process
-	 */
 
 	@Override
 	public String displayName() {

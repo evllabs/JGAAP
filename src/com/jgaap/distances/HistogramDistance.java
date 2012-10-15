@@ -50,9 +50,9 @@ public class HistogramDistance extends DistanceFunction {
 	/**
 	 * Returns histogram distance between event sets es1 and es2.
 	 * 
-	 * @param es1
+	 * @param unknownEventSet
 	 *            The first EventSet
-	 * @param es2
+	 * @param knownEventSet
 	 *            The second EventSet
 	 * @return the (Euclidean) histogram distance between them
 	 */

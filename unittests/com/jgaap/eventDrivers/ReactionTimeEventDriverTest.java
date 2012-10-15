@@ -39,7 +39,7 @@ import com.jgaap.generics.NumericEventSet;
 public class ReactionTimeEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.ReactionTimeEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.ReactionTimeEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test

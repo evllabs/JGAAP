@@ -38,7 +38,7 @@ import com.jgaap.generics.EventSet;
 public class MWFunctionWordsEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.MWFunctionWordsEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.MWFunctionWordsEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test

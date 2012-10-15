@@ -27,15 +27,17 @@ import java.util.Arrays;
 import org.junit.Test;
 
 /**
+ * 
+ * Test ability to reduce text to contain only Characters found in ASCII  
+ * 
  * @author juola
- * @date 9 Mar 2011
  * 
  */
 public class NormalizeASCIITest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.NormalizeASCII#process(java.util.Vector)}
+	 * {@link com.jgaap.canonicizers.NormalizeASCII#process(char[])}
 	 * .
 	 */
 	@Test

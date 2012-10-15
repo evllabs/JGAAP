@@ -39,7 +39,7 @@ import com.jgaap.generics.EventSet;
 public class CharacterBiGramEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.CharacterBiGramEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.CharacterNGramEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test

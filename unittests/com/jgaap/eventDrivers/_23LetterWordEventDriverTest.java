@@ -39,7 +39,7 @@ import com.jgaap.generics.EventSet;
 public class _23LetterWordEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers._23LetterWordEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.MNLetterWordEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test
