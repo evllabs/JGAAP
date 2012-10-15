@@ -34,7 +34,7 @@ public class StripPunctuationTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.StripPunctuation#process(java.util.Vector)}
+	 * {@link com.jgaap.canonicizers.StripPunctuation#process(char[])}
 	 * .
 	 */
 	@Test

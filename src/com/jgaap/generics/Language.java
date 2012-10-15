@@ -100,7 +100,7 @@ public abstract class Language implements Comparable<Language>, Displayable {
 
 	/**
 	 * Checks if there has been a parse method defined for this language.
-	 * @return
+	 * @return True if the language requires further parsing
 	 */
 	public Boolean isParseable() {
 		return this.parseable;

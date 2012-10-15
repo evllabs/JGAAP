@@ -44,20 +44,23 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	public abstract boolean showInGUI();
 
 	/**
-	 * Generic statistical analysis method. Analyze a given unknown EventSet in
-	 * terms of its similarity (broadly defined) to elements of a List of
-	 * EventSets of known authorship. Legacy code from WAY back. We should
-	 * probably add a verify() method as well once the technology improves.
+	 * Pass in samples of known author's writing
+	 * Generate the models that unknown documents will be tested against
 	 * 
-	 * @param unknown
-	 *            the EventSet to be analyzed
-	 * @param known
-	 *            a vector of EventSets of known authorship
-	 * @return a list of (name,numeric-result) pairs
+	 * @param knownEventSets Samples of known authors writing
 	 */
 	
 	abstract public void train(List<EventSet> knownEventSets) throws AnalyzeException;
 	
+	/**
+	 * Compare the current document to the trained models
+	 * 
+	 * Only to be used after train()
+	 * 
+	 * @param unknownEventSet - sample of unknown authors work
+	 * @return Sorted list of possible authors, sorted based on likelyhood they authored the document
+	 * @throws AnalyzeException
+	 */
 	abstract public List<Pair<String, Double>> analyze(EventSet unknownEventSet) throws AnalyzeException;
 
 	public int compareTo(AnalysisDriver o) {

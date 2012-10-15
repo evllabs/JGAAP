@@ -34,7 +34,7 @@ public class StripNumbersTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.JGAAP#process(java.util.Vector)}.
+	 * {@link com.jgaap.canonicizers.StripNumbers#process(char[])}.
 	 */
 	@Test
 	public void testProcess() {

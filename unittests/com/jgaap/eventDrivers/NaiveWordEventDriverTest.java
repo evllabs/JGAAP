@@ -37,7 +37,7 @@ import com.jgaap.generics.EventSet;
 public class NaiveWordEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.NaiveWordEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.NaiveWordEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() {

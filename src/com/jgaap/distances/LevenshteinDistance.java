@@ -54,9 +54,9 @@ public class LevenshteinDistance extends DistanceFunction {
      * Levenshtein distance is sequence-dependent, unlike many of the
      * histogram-based distances used elsewhere in JGAAP.
      * 
-     * @param es1
+     * @param s
      *            The first EventSet
-     * @param es2
+     * @param t
      *            The second EventSet
      * @return the Levenshtein distance between them
      */

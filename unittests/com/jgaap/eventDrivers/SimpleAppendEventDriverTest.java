@@ -38,7 +38,7 @@ import com.jgaap.generics.EventSet;
 public class SimpleAppendEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.SimpleAppendEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.SimpleAppendEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test

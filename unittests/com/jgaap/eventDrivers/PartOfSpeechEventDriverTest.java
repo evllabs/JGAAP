@@ -37,7 +37,7 @@ import com.jgaap.generics.EventSet;
 public class PartOfSpeechEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.PartOfSpeechEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.PartOfSpeechEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() {

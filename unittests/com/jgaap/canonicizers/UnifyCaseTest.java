@@ -34,7 +34,7 @@ public class UnifyCaseTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.UnifyCase#process(java.util.Vector)}.
+	 * {@link com.jgaap.canonicizers.UnifyCase#process(char[])}.
 	 */
 	@Test
 	public void testProcess() {

@@ -34,7 +34,7 @@ public class StripCommentsTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.StripComments#process(java.util.Vector)}
+	 * {@link com.jgaap.canonicizers.StripComments#process(char[])}
 	 * .
 	 */
 	@Test
