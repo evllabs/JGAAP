@@ -84,5 +84,4 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 		return result;
 	}
 
-
 }
