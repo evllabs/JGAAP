@@ -3,7 +3,7 @@ package com.jgaap.classifiers;
 import java.util.List;
 
 import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.WEKAAnalysisDriver;
 
 import weka.classifiers.Classifier;
@@ -29,7 +29,7 @@ public class WEKARBFNetwork extends WEKAAnalysisDriver {
 		return (Classifier)(new weka.classifiers.functions.RBFNetwork());
 	}
 
-	public void testRequirements(List<EventSet> knownList) throws AnalyzeException{
+	public void testRequirements(List<Document> knownList) throws AnalyzeException{
 		//TODO: Need to figure out requirements using WEKARBFNetworkTest
 		return;
 	}

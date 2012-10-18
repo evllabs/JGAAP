@@ -111,7 +111,7 @@ public class PorterStemmerEventDriver extends EventDriver {
 
 			// and, finally, add result to new EventSet
 			cooked.addEvent(new Event(new String(b, 0, theStemmer
-					.getResultLength())));
+					.getResultLength()), this));
 		}
 		return cooked;
 	}

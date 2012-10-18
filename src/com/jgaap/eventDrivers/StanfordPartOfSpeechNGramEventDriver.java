@@ -67,7 +67,7 @@ public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
                     stringBuilder.append("-");
                 }
             }
-            eventSet.addEvent(new Event(stringBuilder.toString()));
+            eventSet.addEvent(new Event(stringBuilder.toString(), this));
         }
 		return eventSet;
 	}

@@ -74,7 +74,7 @@ public class WordSyllablesEventDriver extends NumericEventDriver {
 			if (l == 0) {
 				l = 1; // handle words like "Dr" by setting to 1
 			}
-			newEs.addEvent(new Event(String.valueOf(l)));
+			newEs.addEvent(new Event(String.valueOf(l), this));
 		}
 		return newEs;
 	}

@@ -102,7 +102,7 @@ public class SuffixEventDriver extends EventDriver {
 			if (s.length() >= minimumlength) {
 				try {
 					newEs.addEvent(new Event(s.substring(
-						s.length()-length)));
+						s.length()-length), this));
 				} catch (Exception e) {
 					System.out.println("Error in truncating " + s);
 				}

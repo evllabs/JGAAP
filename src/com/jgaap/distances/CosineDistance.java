@@ -21,11 +21,9 @@ package com.jgaap.distances;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -58,49 +56,20 @@ public class CosineDistance extends DistanceFunction {
      *            The second EventSet
      * @return the cosine distance between them
      */
-    @Override
-    public double distance(EventSet es1, EventSet es2) {
-        EventHistogram h1 = es1.getHistogram();
-        EventHistogram h2 = es2.getHistogram();
-        return distance(h1, h2);
-    }
-    
-    public double distance(EventHistogram h1, EventHistogram h2) {
+    @Override    
+    public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
         
         double distance = 0.0;
         double h1Magnitude = 0.0;
         double h2Magnitude = 0.0;
 
-        Set<Event> events = new HashSet<Event>(h1.events());
-        events.addAll(h2.events());
+        Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
+        events.addAll(knownEventMap.uniqueEvents());
         
         for(Event event : events){
-        	distance += h1.getAbsoluteFrequency(event) * h2.getAbsoluteFrequency(event);
-            h1Magnitude += h1.getAbsoluteFrequency(event) * h1.getAbsoluteFrequency(event);
-            h2Magnitude += h2.getAbsoluteFrequency(event) * h2.getAbsoluteFrequency(event);
-        }
-
-        return Math.abs((distance / (Math.sqrt(h1Magnitude) * Math
-                .sqrt(h2Magnitude))) - 1);
-    }
-
-    public double distance(List<Double> v1, List<Double> v2) {
-        int max = 0;
-        double distance = 0.0;
-        double h1Magnitude = 0.0;
-        double h2Magnitude = 0.0;
-
-        if(v1.size() > v2.size()) {
-            max = v1.size();
-        }
-        else {
-            max = v2.size();
-        }
-
-        for(int i = 0; i < max; i++) {
-        	 distance += (v1.get(i) * v2.get(i));
-             h1Magnitude += (v1.get(i) * v1.get(i));
-             h2Magnitude += (v2.get(i) * v2.get(i));
+        	distance += unknownEventMap.normalizedFrequency(event) * knownEventMap.normalizedFrequency(event);
+            h1Magnitude += unknownEventMap.normalizedFrequency(event) * unknownEventMap.normalizedFrequency(event);
+            h2Magnitude += knownEventMap.normalizedFrequency(event) * knownEventMap.normalizedFrequency(event);
         }
 
         return Math.abs((distance / (Math.sqrt(h1Magnitude) * Math

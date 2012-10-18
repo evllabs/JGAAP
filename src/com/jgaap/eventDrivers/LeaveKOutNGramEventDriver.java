@@ -55,7 +55,7 @@ public class LeaveKOutNGramEventDriver extends EventDriver {
 			}
 			Set<List<String>> reducedEvents = getSubList(currentEvents, k);
 			for (List<String> current : reducedEvents) {
-				eventSet.addEvent(new Event(current.toString()));
+				eventSet.addEvent(new Event(current.toString(), this));
 			}
 		}
 		return eventSet;

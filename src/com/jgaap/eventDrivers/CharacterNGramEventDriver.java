@@ -69,7 +69,7 @@ public class CharacterNGramEventDriver extends NGramEventDriver {
 		}
 		EventSet eventSet = new EventSet(text.length);
 		for (int i = 0; i <= text.length - n; i++) {
-			eventSet.addEvent(new Event(new String(text, i, n)));
+			eventSet.addEvent(new Event(new String(text, i, n), this));
 		}
 		return eventSet;
 	}

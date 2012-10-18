@@ -9,19 +9,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import com.jgaap.backend.Utils;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.Pair;
 import com.jgaap.generics.ValidationDriver;
 
 public class LeaveOneOutCentroidDriver extends ValidationDriver {
 
-	private Map<String, Map<Event, Double>> knownCentroids;
-	private Map<String, List<EventSet>> knownEventSets;
+	private Map<String, EventMap> knownCentroids;
+	private Map<String, List<Document>> knownDocuments;
 	private Set<Event> events;
 
 	@Override
@@ -42,54 +41,52 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 		return false;
 	}
 
-	public void train(List<EventSet> knowns) {
-		Map<String, List<EventHistogram>> knownHistograms = new HashMap<String, List<EventHistogram>>();
+	public void train(List<Document> knowns) {
+		Map<String, List<EventMap>> knownHistograms = new HashMap<String, List<EventMap>>();
 		events = new HashSet<Event>();
-		knownEventSets = new HashMap<String, List<EventSet>>();
-		for (EventSet known : knowns) {
-			EventHistogram histogram = known.getHistogram();
-			events.addAll(known.uniqueEvents());
-			List<EventHistogram> histograms = knownHistograms.get(known.getAuthor());
+		knownDocuments = new HashMap<String, List<Document>>();
+		for (Document known : knowns) {
+			EventMap eventMap = new EventMap(known);
+			events.addAll(eventMap.uniqueEvents());
+			List<EventMap> histograms = knownHistograms.get(known.getAuthor());
 			if (histograms != null) {
-				histograms.add(histogram);
+				histograms.add(eventMap);
 			} else {
-				histograms = new ArrayList<EventHistogram>();
-				histograms.add(histogram);
+				histograms = new ArrayList<EventMap>();
+				histograms.add(eventMap);
 				knownHistograms.put(known.getAuthor(), histograms);
 			}
-			List<EventSet> eventSets = knownEventSets.get(known.getAuthor());
-			if (eventSets != null) {
-				eventSets.add(known);
+			List<Document> documents = knownDocuments.get(known.getAuthor());
+			if (documents != null) {
+				documents.add(known);
 			} else {
-				eventSets = new ArrayList<EventSet>();
-				eventSets.add(known);
-				knownEventSets.put(known.getAuthor(), eventSets);
+				documents = new ArrayList<Document>();
+				documents.add(known);
+				knownDocuments.put(known.getAuthor(), documents);
 			}
 		}
-		knownCentroids = new HashMap<String, Map<Event, Double>>(knownHistograms.size());
-		for (Entry<String, List<EventHistogram>> entry : knownHistograms.entrySet()) {
-			knownCentroids.put(entry.getKey(),Utils.makeRelativeCentroid(entry.getValue()));
+		knownCentroids = new HashMap<String, EventMap>(knownHistograms.size());
+		for (Entry<String, List<EventMap>> entry : knownHistograms.entrySet()) {
+			knownCentroids.put(entry.getKey(), EventMap.centroid(entry.getValue()));
 		}
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet known)
-			throws AnalyzeException {
+	public List<Pair<String, Double>> analyze(Document known) throws AnalyzeException {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
 		String currentAuthor = known.getAuthor();
-		List<EventHistogram> currentAuthorHistograms = new ArrayList<EventHistogram>();
-		for (EventSet eventSet : knownEventSets.get(currentAuthor)) {
-			if (!eventSet.equals(known))
-				currentAuthorHistograms.add(eventSet.getHistogram());
+		List<EventMap> currentAuthorHistograms = new ArrayList<EventMap>();
+		for (Document document : knownDocuments.get(currentAuthor)) {
+			if (!document.equals(known))
+				currentAuthorHistograms.add(new EventMap(document));
 		}
-		Map<Event, Double> currentAuthorCentroid = Utils.makeRelativeCentroid(currentAuthorHistograms);
-		List<Double> currentAuthorFeatureVector = generateFeatureVector(currentAuthorCentroid, events);
-		List<Double> currentFeatureVector = generateFeatureVector(known.getHistogram(), events);
+		EventMap currentAuthorCentroid = EventMap.centroid(currentAuthorHistograms);
+		EventMap currentEventMap = new EventMap(known);
 		try {
-			results.add(new Pair<String, Double>(currentAuthor,distance.distance(currentFeatureVector,currentAuthorFeatureVector), 2));
-			for (Entry<String, Map<Event, Double>> entry : knownCentroids.entrySet()) {
+			results.add(new Pair<String, Double>(currentAuthor,distance.distance(currentEventMap, currentAuthorCentroid), 2));
+			for (Entry<String, EventMap> entry : knownCentroids.entrySet()) {
 				if (!entry.getKey().equals(currentAuthor)) {
-					results.add(new Pair<String, Double>(entry.getKey(),distance.distance(currentFeatureVector, generateFeatureVector(entry.getValue(), events)), 2));
+					results.add(new Pair<String, Double>(entry.getKey(),distance.distance(currentEventMap, entry.getValue()), 2));
 				}
 			}
 		} catch (DistanceCalculationException e) {
@@ -97,28 +94,6 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 		}
 		Collections.sort(results);
 		return results;
-	}
-
-	private List<Double> generateFeatureVector(Map<Event, Double> histogram, Set<Event> events) {
-		List<Double> featureVector = new ArrayList<Double>(events.size());
-		Double zero = 0.0;
-		for (Event event : events) {
-			Double current = histogram.get(event);
-			if (current == null) {
-				featureVector.add(zero);
-			} else {
-				featureVector.add(current);
-			}
-		}
-		return featureVector;
-	}
-
-	private List<Double> generateFeatureVector(EventHistogram histogram, Set<Event> events) {
-		List<Double> featureVector = new ArrayList<Double>(events.size());
-		for (Event event : events) {
-			featureVector.add(histogram.getRelativeFrequency(event));
-		}
-		return featureVector;
 	}
 
 }

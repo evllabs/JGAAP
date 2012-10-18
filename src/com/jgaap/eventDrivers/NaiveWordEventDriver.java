@@ -54,7 +54,7 @@ public class NaiveWordEventDriver extends EventDriver {
             String[] result = current.split("\\s+");
             for (int j = 0; j < result.length; j++) {
                 if (result[j].length() > 0) {
-                    es.addEvent(new Event(result[j]));
+                    es.addEvent(new Event(result[j], this));
                 }
             }
             // mark edges between documents

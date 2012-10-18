@@ -33,19 +33,30 @@ package com.jgaap.generics;
 public class Event implements Comparable<Object> {
 
     private String data;
+    private EventDriver eventDriver;
 
-    public Event() {
-        data = "";
+    /** Create a new event given a character representation of the event **/
+    public Event(char data, EventDriver eventDriver) {
+        this.data = Character.toString(data);
+        this.eventDriver = eventDriver;
     }
 
     /** Create a new event given a character representation of the event **/
     public Event(char data) {
         this.data = Character.toString(data);
+        this.eventDriver = null;
     }
-
+    
+    /** Create a new event given a string representation of this event **/
+    public Event(String data, EventDriver eventDriver) {
+        this.data = data;
+        this.eventDriver = eventDriver;
+    }
+    
     /** Create a new event given a string representation of this event **/
     public Event(String data) {
         this.data = data;
+        this.eventDriver = null;
     }
 
     /**
@@ -63,7 +74,11 @@ public class Event implements Comparable<Object> {
     @Override
     public boolean equals(Object o) {
         if(o instanceof Event) {
-            return data.equals(((Event) o).data);
+        	Event event = ((Event) o);
+        	if(eventDriver != null)
+        		return data.equals(event.data)&&eventDriver.equals(event.eventDriver);
+        	else 
+        		return data.equals(event.data)&&(event.eventDriver==null);
         }
         return false;
     }
@@ -82,7 +97,10 @@ public class Event implements Comparable<Object> {
      **/
     @Override
     public int hashCode() {
-        return data.hashCode();
+    	if(eventDriver != null)
+    		return data.hashCode()*eventDriver.hashCode();
+    	else 
+    		return data.hashCode();
     }
 
     @Override

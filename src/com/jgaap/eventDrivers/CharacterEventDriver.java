@@ -63,7 +63,7 @@ public class CharacterEventDriver extends EventDriver {
 		EventSet es = new EventSet(document.getAuthor());
 		char[] cd = document.getText();
 		for (int j = 0; j < cd.length; j++) {
-			es.addEvent(new Event(cd[j]));
+			es.addEvent(new Event(cd[j], this));
 		}
 		return es;
 	}

@@ -51,53 +51,8 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
      *            The first EventSet
      * @return a double precision number (ideally a distance) btw es1 and es2
      */
-    abstract public double distance(EventSet es1, EventSet es2) throws DistanceCalculationException;
+    abstract public double distance(EventMap eventMap1, EventMap eventMap2) throws DistanceCalculationException;
 
-    public double distance(List<Double> v1, List<Double> v2) throws DistanceCalculationException {
-        EventSet es1 = new EventSet();
-        EventSet es2 = new EventSet();
-        int max = 0;
-
-        if(v1.size() > v2.size()) {
-            max = v1.size();
-        }
-        else {
-            max = v2.size();
-        }
-
-        for(Integer i = 0; i < max; i++) {
-            Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(1000 * v1.get(i)); j++) {
-                es1.addEvent(e);
-            }
-        }
-
-        for(Integer i = 0; i < max; i++) {
-            Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(1000 * v2.get(i)); j++) {
-                es2.addEvent(e);
-            }
-        }
-
-        return distance(es1, es2);
-
-    }
-    
-    public double distance(EventHistogram histogram1, EventHistogram histogram2) throws DistanceCalculationException {
-    	EventSet es1 = new EventSet(histogram1.getNTokens());
-    	for(Event event : histogram1){
-    		for(int i = 0; i < histogram1.getAbsoluteFrequency(event);i++){
-    			es1.addEvent(event);
-    		}
-    	}
-    	EventSet es2 = new EventSet(histogram2.getNTokens());
-    	for(Event event : histogram2){
-    		for(int i = 0; i < histogram2.getAbsoluteFrequency(event);i++){
-    			es2.addEvent(event);
-    		}
-    	}
-    	return distance(es1, es2);
-    }
 
     public int compareTo(DistanceFunction o){
     	return displayName().compareTo(o.displayName());

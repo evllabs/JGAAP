@@ -296,7 +296,7 @@ public class DefinitionsEventDriver extends EventDriver {
 		String [] eventArray = outDoc.stringify().split("\\s+");
 		for(int i=0; i<eventArray.length; i++){
 			if(!stopWords.contains(eventArray[i]))
-				eventSet.addEvent(new Event(eventArray[i]));
+				eventSet.addEvent(new Event(eventArray[i], this));
 		}
 		
 		

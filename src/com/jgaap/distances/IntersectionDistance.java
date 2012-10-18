@@ -21,8 +21,6 @@ package com.jgaap.distances;
 
 import com.jgaap.generics.*;
 
-import java.util.List;
-
 /**
  * Given two event type-sets, A,B, calculate 1 - ||A intereset B|| // ||A union B||
  * 
@@ -53,18 +51,16 @@ public class IntersectionDistance extends DistanceFunction{
 	 */
 
 	@Override
-	public double distance(EventSet es1, EventSet es2) {
-		EventHistogram h1 = es1.getHistogram();
-		EventHistogram h2 = es2.getHistogram();
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
 
 		double intersectioncount = 0;
 		double unioncount;
 
-		unioncount = h1.getNTypes();
+		unioncount = unknownEventMap.uniqueEvents().size();
 		// unioncount now has the number of distinct types in h1
 
-		for (Event event : h2) {
-			if (h1.getAbsoluteFrequency(event) == 0) {
+		for (Event event : knownEventMap.uniqueEvents()) {
+			if (unknownEventMap.absoluteFrequency(event) == 0) {
 				// present in h2, not in h1, so add to union count
 				unioncount++;
 			} else {
@@ -74,27 +70,6 @@ public class IntersectionDistance extends DistanceFunction{
 
 			}
 		}
-		/*
-		 * FOR DEBUGGING ONLY System.out.println("intersection count is " +
-		 * intersectioncount); System.out.println("unioncount is " +
-		 * unioncount); System.out.println("ratio is " +
-		 * (1.0*intersectioncount)/unioncount);
-		 * System.out.println("distance is " + (1.0 -
-		 * (1.0*intersectioncount)/unioncount) ); System.out.println("");
-		 */
 		return 1.0 - intersectioncount / unioncount;
 	}
-
-    public double distance(List<Double> v1, List<Double> v2) {
-        double intersectionCount = 0.0;
-        double unionCount = v1.size();
-        for(int i = 0; i < unionCount; i++) {
-            if(v1.get(i) > 0 && v2.get(i) > 0) {
-                intersectionCount++;
-            }
-        }
-
-        return 1.0 - intersectionCount / unionCount;
-    }
-
 }

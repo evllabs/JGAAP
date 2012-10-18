@@ -91,13 +91,13 @@ public class TruncatedEventDriver extends EventDriver {
 
 			if (s.length() > length) {
 				try {
-					newEs.addEvent(new Event(s.substring(0, length)));
+					newEs.addEvent(new Event(s.substring(0, length), this));
 				} catch (Exception e) {
 					System.out.println("Error in truncating " + s);
-					newEs.addEvent(new Event(s));
+					newEs.addEvent(new Event(s, this));
 				}
 			} else
-				newEs.addEvent(new Event(s));
+				newEs.addEvent(new Event(s, this));
 
 		}
 		return newEs;

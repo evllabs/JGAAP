@@ -21,8 +21,7 @@ package com.jgaap.distances;
 
 import com.jgaap.generics.DivergenceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 /**
  * Kullback-Leibler divergence, to be treated as YA distance for
@@ -57,14 +56,12 @@ public class KullbackLeiblerDivergence extends DivergenceFunction {
      */
 
     @Override
-    public double divergence(EventSet es1, EventSet es2) {
-        EventHistogram h1 = es1.getHistogram();
-        EventHistogram h2 = es2.getHistogram();
+    public double divergence(EventMap unknownEventMap, EventMap knownEventMap) {
         double distance = 0;
 
-        for(Event event : h1) {
-            if(h2.getRelativeFrequency(event)!=0){
-             distance += h1.getRelativeFrequency(event) * Math.log(h1.getRelativeFrequency(event)/h2.getRelativeFrequency(event)); 
+        for(Event event : unknownEventMap.uniqueEvents()) {
+            if(knownEventMap.absoluteFrequency(event)!=0){
+             distance += unknownEventMap.relativeFrequency(event) * Math.log(unknownEventMap.relativeFrequency(event)/knownEventMap.relativeFrequency(event)); 
             }
         }
         return Math.abs(distance);

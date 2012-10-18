@@ -49,7 +49,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	@Override
-	public void train(List<EventSet> knownEventSets) throws AnalyzeException {
+	public void train(List<Document> knownEventSets) throws AnalyzeException {
 		Map<String, EventBagging> authorBags = new HashMap<String, EventBagging>();
 		for (EventSet eventSet : knownEventSets) {
 			EventBagging eventBag = authorBags.get(eventSet.getAuthor());
@@ -77,7 +77,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknownEventSet)
+	public List<Pair<String, Double>> analyze(Document unknownEventSet)
 			throws AnalyzeException {
 		List<Pair<String, Double>> rawResults = new ArrayList<Pair<String, Double>>();
 		EventHistogram unknownHistogram = new EventHistogram(unknownEventSet);

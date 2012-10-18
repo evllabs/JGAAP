@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Pair;
 
 /**
@@ -43,20 +43,20 @@ public class NullAnalysis extends AnalysisDriver {
 	    return true;
 	}
 
-	public void train(List<EventSet> knowns) {
+	public void train(List<Document> knowns) {
 		for (int i = 0; i < knowns.size(); i++) {
 			System.out.println("--- Known Event Set #" + i + " ---");
-			System.out.println(knowns.get(i).toString());
+			System.out.println(knowns.get(i).getEventSets().toString());
 		}
 	}
 	
     @Override
-    public List<Pair<String, Double>> analyze(EventSet unknown) {
+    public List<Pair<String, Double>> analyze(Document unknown) {
 
         // When we start using a useful logging function, change the
         // print(ln) lines below.
         System.out.println("--- Unknown Event Set ---");
-        System.out.println(unknown.toString());       
+        System.out.println(unknown.getEventSets().toString());       
 
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
         results.add(new Pair<String, Double>("No analysis performed.\n", 0.0));

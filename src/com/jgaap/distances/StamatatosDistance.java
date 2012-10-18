@@ -5,8 +5,7 @@ import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 public class StamatatosDistance extends DistanceFunction {
 
@@ -26,20 +25,15 @@ public class StamatatosDistance extends DistanceFunction {
 	}
 
 	@Override
-	public double distance(EventSet es1, EventSet es2) {
-
-		EventHistogram unknown = es1.getHistogram();
-		EventHistogram known = es2.getHistogram();
-		
-		Set<Event> events = new HashSet<Event>();
-		events.addAll(unknown.events());
-		events.addAll(known.events());
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+		Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
+		events.addAll(knownEventMap.uniqueEvents());
 		
 		double distance = 0.0;
 		
 		for(Event event : events){
-			double unknownValue = unknown.getRelativeFrequency(event);
-			double knownValue = known.getRelativeFrequency(event);
+			double unknownValue = unknownEventMap.relativeFrequency(event);
+			double knownValue = knownEventMap.relativeFrequency(event);
 			distance += Math.pow(2*(unknownValue-knownValue)/(unknownValue+knownValue), 2);
 		}
 		

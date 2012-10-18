@@ -21,8 +21,7 @@ package com.jgaap.distances;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 /**
  * Histogram distance as weighted by Keselj (2003).
@@ -55,16 +54,15 @@ public class KeseljWeightedDistance extends DistanceFunction {
 	 */
 
 	@Override
-	public double distance(EventSet es1, EventSet es2) {
-		EventHistogram h1 = es1.getHistogram();
-		EventHistogram h2 = es2.getHistogram();
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+
 		double distance = 0.0;
 
-		for (Event event : h1) {
+		for (Event event : unknownEventMap.uniqueEvents()) {
 			double fa, fx;
 
-			fa = h1.getRelativeFrequency(event);
-			fx = h2.getRelativeFrequency(event);
+			fa = unknownEventMap.relativeFrequency(event);
+			fx = knownEventMap.relativeFrequency(event);
 
 			// note denominator for Keselj-weighting
 			distance += ( (fa-fx)*(fa-fx) )/
@@ -76,11 +74,11 @@ public class KeseljWeightedDistance extends DistanceFunction {
 			//System.out.println("distance is " + distance);
 		}
 
-		for (Event event : h2) {
+		for (Event event : knownEventMap.uniqueEvents()) {
 
 			//  note that if fx == 0, the formula above == 1
 
-			if (h1.getAbsoluteFrequency(event) == 0) {
+			if (unknownEventMap.absoluteFrequency(event) == 0) {
 				// so we simplify a bit
 				distance += 1.0;
 			}

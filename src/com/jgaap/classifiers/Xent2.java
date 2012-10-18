@@ -29,6 +29,7 @@ import java.util.Set;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventTrie;
 import com.jgaap.generics.Pair;
@@ -59,22 +60,24 @@ public class Xent2 extends AnalysisDriver {
 		return true;
 	}
 
-	public double distance(EventTrie eventTrie, EventSet eventSet) {
+	public double distance(EventTrie eventTrie, Document document) {
 
-		double me = meanEntropy(eventTrie, eventSet);
+		double me = meanEntropy(eventTrie, document);
 		double hhat = (Math.log(1.0 * windowSize) / Math.log(2.0)) / me;
 
 		return hhat;
 	}
 
-	private double meanEntropy(EventTrie eventTrie, EventSet eventSet) {
+	private double meanEntropy(EventTrie eventTrie, Document document) {
 
 		double totalEntropy = 0;
 		int trials = 0;
 
-		for (int i = 0; i < eventSet.size(); i++) {
-			totalEntropy += eventTrie.find(window(eventSet, i, windowSize));
-			trials++;
+		for(EventSet eventSet : document.getEventSets().values()){
+			for (int i = 0; i < eventSet.size(); i++) {
+				totalEntropy += eventTrie.find(window(eventSet, i, windowSize));
+				trials++;
+			}
 		}
 		return totalEntropy / trials;
 	}
@@ -83,36 +86,38 @@ public class Xent2 extends AnalysisDriver {
 		return e1.subset(offset, offset + windowSize);
 	}
 	
-	private String identifier(EventSet eventSet){
-		return (authorModel? eventSet.getAuthor() : eventSet.getAuthor()+" -"+eventSet.getDocumentName());
+	private String identifier(Document document){
+		return (authorModel? document.getAuthor() : document.getAuthor()+" -"+document.getFilePath());
 	}
 
 	@Override
-	public void train(List<EventSet> knownEventSets) throws AnalyzeException {
+	public void train(List<Document> knownDocuments) throws AnalyzeException {
 		windowSize = Integer.parseInt(getParameter("windowSize"));
 		authorModel = getParameter("model").equalsIgnoreCase("author");
 		eventTries = new HashMap<String, EventTrie>();
-		for(EventSet eventSet : knownEventSets){
-			EventTrie eventTrie = eventTries.get(identifier(eventSet));
+		for(Document document : knownDocuments){
+			EventTrie eventTrie = eventTries.get(identifier(document));
 			if(eventTrie == null){
 				eventTrie = new EventTrie();
-				eventTries.put(identifier(eventSet), eventTrie);
+				eventTries.put(identifier(document), eventTrie);
 			}
-			for (int i = 0; i < eventSet.size(); i++) {
-				EventSet dictionary;
-				dictionary = window(eventSet, i, windowSize);
-				eventTrie.add(dictionary);
+			for(EventSet eventSet : document.getEventSets().values()) {
+				for (int i = 0; i < eventSet.size(); i++) {
+					EventSet dictionary;
+					dictionary = window(eventSet, i, windowSize);
+					eventTrie.add(dictionary);
+				}
 			}
 		}
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknownEventSet)
+	public List<Pair<String, Double>> analyze(Document unknownDocument)
 			throws AnalyzeException {
 		Set<Entry<String,EventTrie>> entrySet = eventTries.entrySet();
 		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>(entrySet.size());
 		for(Entry<String,EventTrie> entry : entrySet){
-			results.add(new Pair<String, Double>(entry.getKey(), distance(entry.getValue(), unknownEventSet), 2));
+			results.add(new Pair<String, Double>(entry.getKey(), distance(entry.getValue(), unknownDocument), 2));
 		}
 		Collections.sort(results);
 		return results;

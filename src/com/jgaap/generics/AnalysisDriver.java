@@ -50,7 +50,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * @param knownEventSets Samples of known authors writing
 	 */
 	
-	abstract public void train(List<EventSet> knownEventSets) throws AnalyzeException;
+	abstract public void train(List<Document> knownDocuments) throws AnalyzeException;
 	
 	/**
 	 * Compare the current document to the trained models
@@ -61,7 +61,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * @return Sorted list of possible authors, sorted based on likelyhood they authored the document
 	 * @throws AnalyzeException
 	 */
-	abstract public List<Pair<String, Double>> analyze(EventSet unknownEventSet) throws AnalyzeException;
+	abstract public List<Pair<String, Double>> analyze(Document unknownDocument) throws AnalyzeException;
 
 	public int compareTo(AnalysisDriver o) {
 		return displayName().compareTo(o.displayName());

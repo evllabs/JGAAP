@@ -614,31 +614,26 @@ public class API {
 				unknownDocuments.add(document);
 			}
 		}
-		for (EventDriver eventDriver : eventDrivers) {
-			List<EventSet> knownEventSets = new ArrayList<EventSet>(knownDocuments.size());
-			for (Document knownDocument : knownDocuments) {
-				knownEventSets.add(knownDocument.getEventSet(eventDriver));
-			}
-			for (AnalysisDriver analysisDriver : analysisDrivers) {
-				logger.info("Training "+analysisDriver.displayName());
-				analysisDriver.train(knownEventSets);
-				//ExecutorService analysisExecutor = Executors.newFixedThreadPool(workers);
-				if (analysisDriver instanceof ValidationDriver) {
-					for (Document knownDocument : knownDocuments) {
-						//TODO: change to threaded here
-						logger.info("Analyzing "+knownDocument.toString());
-						knownDocument.addResult(analysisDriver, eventDriver,analysisDriver.analyze(knownDocument.getEventSet(eventDriver)));
-					}
-				} else {
-					for (Document unknownDocument : unknownDocuments) {
-						//TODO: change to threaded here 
-						logger.info("Analyzing "+unknownDocument.toString());
-						List<Pair<String, Double>> tmp = analysisDriver.analyze(unknownDocument.getEventSet(eventDriver));
-						unknownDocument.addResult(analysisDriver, eventDriver,tmp);
-					}
+
+		for (AnalysisDriver analysisDriver : analysisDrivers) {
+			logger.info("Training " + analysisDriver.displayName());
+			analysisDriver.train(knownDocuments);
+			// ExecutorService analysisExecutor = Executors.newFixedThreadPool(workers);
+			if (analysisDriver instanceof ValidationDriver) {
+				for (Document knownDocument : knownDocuments) {
+					// TODO: change to threaded here
+					logger.info("Analyzing " + knownDocument.toString());
+					knownDocument.addResult(analysisDriver, analysisDriver.analyze(knownDocument));
+				}
+			} else {
+				for (Document unknownDocument : unknownDocuments) {
+					// TODO: change to threaded here
+					logger.info("Analyzing " + unknownDocument.toString());
+					unknownDocument.addResult(analysisDriver, analysisDriver.analyze(unknownDocument));
 				}
 			}
 		}
+
 	}
 
 	/**

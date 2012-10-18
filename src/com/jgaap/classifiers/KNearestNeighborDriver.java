@@ -30,7 +30,8 @@ import org.apache.log4j.Logger;
 import com.jgaap.backend.Ballot;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Document;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
 
@@ -43,7 +44,7 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
 	static private Logger logger = Logger.getLogger(KNearestNeighborDriver.class);
 	
-	private List<EventSet> knowns;
+	private List<Pair<Document, EventMap>> knowns;
 	
     private static final int DEFAULT_K = 5;
     private static final String DEFAULT_TIE = "lastPicked";
@@ -60,12 +61,15 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 		return false;
 	}
 	
-	public void train(List<EventSet> knowns){
-		this.knowns = knowns;
+	public void train(List<Document> knowns){
+		this.knowns = new ArrayList<Pair<Document,EventMap>>(knowns.size());
+		for(Document known : knowns) {
+			this.knowns.add(new Pair<Document, EventMap>(known, new EventMap(known)));
+		}
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
+	public List<Pair<String, Double>> analyze(Document unknown) throws AnalyzeException {
 
         Ballot<String> ballot = new Ballot<String>();
 
@@ -89,13 +93,13 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 		for (int i = 0; i < knowns.size(); i++) {
 			double current;
 			try {
-				current = distance.distance(unknown, knowns.get(i));
+				current = distance.distance(new EventMap(unknown), knowns.get(i).getSecond());
 			} catch (DistanceCalculationException e) {
 				logger.error("Distance "+distance.displayName()+" failed", e);
 				throw new AnalyzeException("Distance "+distance.displayName()+" failed");
 			}
-            rawResults.add(new Pair<String, Double>(knowns.get(i).getAuthor(), current, 2));
-			logger.debug(unknown.getDocumentName()+"(Unknown):"+knowns.get(i).getDocumentName()+"("+knowns.get(i).getAuthor()+") Distance:"+current);
+            rawResults.add(new Pair<String, Double>(knowns.get(i).getFirst().getAuthor(), current, 2));
+			logger.debug(unknown.getFilePath()+"(Unknown):"+knowns.get(i).getFirst().getFilePath()+"("+knowns.get(i).getFirst().getAuthor()+") Distance:"+current);
 		}
 		Collections.sort(rawResults);
         for(int i = 0; i < Math.min(k, rawResults.size()); i++) {

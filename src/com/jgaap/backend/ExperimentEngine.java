@@ -56,7 +56,7 @@ public class ExperimentEngine {
 	 *            the identifier given to this experiment
 	 * @return the location of where the file will be written
 	 */
-	public static String fileNameGen(List<String> canons, String event,
+	public static String fileNameGen(List<String> canons, String[] events,
 			String[] eventCullers, String analysis, String experimentName,
 			String number) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -75,11 +75,17 @@ public class ExperimentEngine {
 			cullerNameBuilder.append(iterator.next().trim()).append(" ");
 		}
 		String cullerName = cullerNameBuilder.toString().trim();
+		iterator = Arrays.asList(events).iterator();
+		StringBuilder eventNameBuilder = new StringBuilder();
+		while (iterator.hasNext()) {
+			eventNameBuilder.append(iterator.next().trim()).append(" ");
+		}
+		String eventName = eventNameBuilder.toString().trim();
 		if(cullerName.isEmpty())
 			cullerName = "none";
 		String path = JGAAPConstants.JGAAP_TMPDIR
 				+ canonName.replace("/", "\\/") + "/"
-				+ event.trim().replace("/", "\\/") + "/"
+				+ eventName.trim().replace("/", "\\/") + "/"
 				+ cullerName.replace("/", "\\/") + "/"
 				+ analysis.trim().replace("/", "\\/") + "/";
 		File file = new File(path);
@@ -118,14 +124,14 @@ public class ExperimentEngine {
 			} else if (experimentRow.size() >= 7) {
 				String number = experimentRow.get(0);
 				String[] canonicizers = experimentRow.get(1).trim().split("\\s*&\\s*");
-				String event = experimentRow.get(2).trim();
+				String[] events = experimentRow.get(2).trim().split("\\s*&\\s*");
 				String[] eventCullers = experimentRow.get(3).trim().split("\\s*&\\s*");
 				String analysis = experimentRow.get(4).trim();
 				String distance = experimentRow.get(5).trim();
 				String documentsPath = experimentRow.get(6).trim();
-				String fileName = fileNameGen(Arrays.asList(canonicizers), event, eventCullers, analysis + (distance.isEmpty() ? "" : "-" + distance), experimentName, number);
+				String fileName = fileNameGen(Arrays.asList(canonicizers), events, eventCullers, analysis + (distance.isEmpty() ? "" : "-" + distance), experimentName, number);
 
-				runningExperiments.add(experimentExecutor.submit(new Experiment(canonicizers, event, eventCullers, analysis, distance, documentsPath, fileName)));
+				runningExperiments.add(experimentExecutor.submit(new Experiment(canonicizers, events, eventCullers, analysis, distance, documentsPath, fileName)));
 			} else {
 				logger.error("Experiment " + experimentRow.toString()
 						+ " missing " + (7 - experimentRow.size())
@@ -156,18 +162,18 @@ public class ExperimentEngine {
 	private static class Experiment implements Callable<String> {
 
 		private String[] canonicizers;
-		private String event;
+		private String[] events;
 		private String[] eventCullers;
 		private String analysis;
 		private String distance;
 		private String documentsPath;
 		private String fileName;
 
-		public Experiment(String[] canonicizers, String event,
+		public Experiment(String[] canonicizers, String[] events,
 				String[] eventCullers, String analysis, String distance,
 				String documentsPath, String fileName) {
 			this.canonicizers = canonicizers;
-			this.event = event;
+			this.events = events;
 			this.eventCullers = eventCullers;
 			this.analysis = analysis;
 			this.distance = distance;
@@ -193,7 +199,9 @@ public class ExperimentEngine {
 					if(!canonicizer.isEmpty())
 						experiment.addCanonicizer(canonicizer);
 				}
-				EventDriver eventDriver = experiment.addEventDriver(event);
+				for (String event : events) {
+					experiment.addEventDriver(event);
+				}
 				for (String eventCuller : eventCullers) {
 					if (eventCuller != null && !"".equalsIgnoreCase(eventCuller))
 						experiment.addEventCuller(eventCuller.trim());
@@ -207,7 +215,7 @@ public class ExperimentEngine {
 				List<Document> unknowns = experiment.getUnknownDocuments();
 				StringBuffer buffer = new StringBuffer();
 				for (Document unknown : unknowns) {
-					buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
+					buffer.append(unknown.getFormattedResult(analysisDriver));
 				}
 				Utils.saveFile(fileName, buffer.toString());
 			} catch (Exception e) {

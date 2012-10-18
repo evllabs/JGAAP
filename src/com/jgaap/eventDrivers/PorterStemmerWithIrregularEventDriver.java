@@ -374,9 +374,9 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 		while(it.hasNext()){
 			Event event = it.next();
 			if(verbs.containsKey(event.getEvent())){
-				returnEv.addEvent(new Event(verbs.get(event.getEvent())));
+				returnEv.addEvent(new Event(verbs.get(event.getEvent()), this));
 			}else if(nouns.containsKey(event.getEvent())){
-				returnEv.addEvent(new Event(nouns.get(event.getEvent())));
+				returnEv.addEvent(new Event(nouns.get(event.getEvent()), this));
 			}
 			else{
 				returnEv.addEvent(event);

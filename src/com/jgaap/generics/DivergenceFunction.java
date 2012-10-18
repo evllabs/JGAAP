@@ -32,7 +32,7 @@ public abstract class DivergenceFunction extends DistanceFunction {
 	abstract public String displayName();
 
 	@Override
-	public double distance(EventSet es1, EventSet es2) throws DistanceCalculationException {
+	public double distance(EventMap eventMap1, EventMap eventMap2) throws DistanceCalculationException {
 		double dist;
 		double first;
 		double second;
@@ -40,29 +40,29 @@ public abstract class DivergenceFunction extends DistanceFunction {
 				"divergenceType", "STANDARD").toUpperCase());
 		switch (divergenceType.ordinal()) {
 		case 1:
-			dist = (divergence(es1, es2) + divergence(es2, es1)) / 2.0;
+			dist = (divergence(eventMap1, eventMap2) + divergence(eventMap2, eventMap1)) / 2.0;
 			break;
 		case 2:
-			first = divergence(es1, es2);
-			second = divergence(es1, es2);
+			first = divergence(eventMap1, eventMap2);
+			second = divergence(eventMap1, eventMap2);
 			dist = (first > second ? first : second);
 			break;
 		case 3:
-			first = divergence(es1, es2);
-			second = divergence(es1, es2);
+			first = divergence(eventMap1, eventMap2);
+			second = divergence(eventMap1, eventMap2);
 			dist = (first < second ? first : second);
 			break;
 		case 4:
-			dist = divergence(es2, es1);
+			dist = divergence(eventMap2, eventMap1);
 			break;
 		case 5:
-			first = divergence(es1, es2);
-			second = divergence(es1, es2);
+			first = divergence(eventMap1, eventMap2);
+			second = divergence(eventMap1, eventMap2);
 			dist = first * second;
             break;
 		case 0:
 		default:
-			dist = divergence(es1, es2);
+			dist = divergence(eventMap1, eventMap2);
 			break;
 		}
 		return dist;
@@ -94,7 +94,7 @@ public abstract class DivergenceFunction extends DistanceFunction {
 		return result;
 	}
 
-	abstract protected double divergence(EventSet es1, EventSet es2) throws DistanceCalculationException;
+	abstract protected double divergence(EventMap eventMap1, EventMap eventMap2) throws DistanceCalculationException;
 
 	@Override
 	abstract public boolean showInGUI();

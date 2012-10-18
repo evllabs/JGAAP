@@ -24,8 +24,7 @@ import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 /**
  * Nominal Kolmogorov-Smirnov distance for Nearest Neighbor algorithm
@@ -47,18 +46,14 @@ public class NominalKSDistance extends DistanceFunction {
 	 * @return The nominal KS distance between two event sets.
 	 */
 	@Override
-    public double distance(EventSet es1, EventSet es2) {
-        EventHistogram h1 = es1.getHistogram();
-        EventHistogram h2 = es2.getHistogram();
+    public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
         double distance = 0.0;
-        Set<Event> events = new HashSet<Event>();
-        
-        events.addAll(es1.uniqueEvents());
-        events.addAll(es2.uniqueEvents());
+        Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
+        events.addAll(knownEventMap.uniqueEvents());
 
         for (Event event : events) {
-            distance += Math.abs(h1.getRelativeFrequency(event)
-                    - h2.getRelativeFrequency(event));
+            distance += Math.abs(unknownEventMap.relativeFrequency(event)
+                    - knownEventMap.relativeFrequency(event));
         }
 
         return (1.0 / 2.0) * distance;

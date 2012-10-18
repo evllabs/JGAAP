@@ -60,7 +60,7 @@ public class NullEventDriver extends EventDriver {
 	    // System.out.println("--- Document #" + i + " --- ");
 	    // System.out.println(ds.getDocument(i).stringify());
 
-            es.addEvent(new Event(doc.stringify()));
+            es.addEvent(new Event(doc.stringify(), this));
         //}
 
         return es;
