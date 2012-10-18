@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.EventBagging;
 import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
