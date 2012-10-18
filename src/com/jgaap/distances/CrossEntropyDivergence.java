@@ -21,8 +21,7 @@ package com.jgaap.distances;
 
 import com.jgaap.generics.DivergenceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 /**
  * Cross-entropy "divergence" for Nearest Neighbor. It's actually a rather poor
@@ -31,7 +30,7 @@ import com.jgaap.generics.EventSet;
  * 
  * Note: This is a faster implementation of Cross Entropy than the built-in version.
  * 
- * @author Ryan
+ * @author Michael Ryan
  * @version 1.0
  */
 public class CrossEntropyDivergence extends DivergenceFunction {
@@ -56,13 +55,11 @@ public class CrossEntropyDivergence extends DivergenceFunction {
      * @return the cross-entropy H(es1,es2)
      */
     @Override
-    public double divergence(EventSet es1, EventSet es2) {
-        EventHistogram h1 = es1.getHistogram();
-        EventHistogram h2 = es2.getHistogram();
+    public double divergence(EventMap unknownEventMap, EventMap knownEventMap) {
         double distance = 0.0;
 
-       for(Event event : h2) {
-    	   distance += -1 * (h1.getRelativeFrequency(event) * Math.log(h2.getRelativeFrequency(event))) ;            		
+       for(Event event : knownEventMap.uniqueEvents()) {
+    	   distance += -1 * (unknownEventMap.relativeFrequency(event) * Math.log(knownEventMap.relativeFrequency(event))) ;            		
         }
         return distance;
     }

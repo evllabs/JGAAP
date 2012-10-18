@@ -66,7 +66,7 @@ public class WordLengthEventDriver extends NumericEventDriver {
 			String s = (es.eventAt(i)).toString();
 			if (s.equals("JGAAP:DOCUMENTBOUNDARY") == false) {
 				int l = s.length();
-				newEs.addEvent(new Event(String.valueOf(l)));
+				newEs.addEvent(new Event(String.valueOf(l), this));
 			}
 		}
 		return newEs;

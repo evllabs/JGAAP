@@ -6,8 +6,7 @@ import java.util.Set;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 /**
  * Histogram Intersection Distance
@@ -35,21 +34,18 @@ public class HistogramIntersectionDistance extends DistanceFunction {
 	}
 
 	@Override
-	public double distance(EventSet unknownEventSet, EventSet knownEventSet)
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap)
 			throws DistanceCalculationException{
-		EventHistogram unknownHistogram = unknownEventSet.getHistogram();
-		EventHistogram knownHistogram = knownEventSet.getHistogram();
 
-		Set<Event> events = new HashSet<Event>();
-		events.addAll(unknownHistogram.events());
-		events.addAll(knownHistogram.events());
+		Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
+		events.addAll(knownEventMap.uniqueEvents());
 		
 		double distance = 0.0, sumNumer = 0.0, sumUnknown = 0.0, sumKnown = 0.0;
 
 		for(Event event: events){
-			sumNumer += Math.min(unknownHistogram.getRelativeFrequency(event), knownHistogram.getRelativeFrequency(event));
-			sumUnknown += unknownHistogram.getRelativeFrequency(event);
-			sumKnown += knownHistogram.getRelativeFrequency(event);
+			sumNumer += Math.min(unknownEventMap.relativeFrequency(event), knownEventMap.relativeFrequency(event));
+			sumUnknown += unknownEventMap.relativeFrequency(event);
+			sumKnown += knownEventMap.relativeFrequency(event);
 		}
 
 		distance = 1 - (sumNumer / Math.min(sumUnknown, sumKnown));

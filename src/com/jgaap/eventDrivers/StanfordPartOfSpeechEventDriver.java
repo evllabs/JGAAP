@@ -78,7 +78,7 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 		EventSet eventSet = new EventSet(taggedSentences.size());
 		for (ArrayList<TaggedWord> sentence : taggedSentences) {
 			for (TaggedWord taggedWord : sentence) {
-				eventSet.addEvent(new Event(taggedWord.tag()));
+				eventSet.addEvent(new Event(taggedWord.tag(), this));
 			}
 		}
 		return eventSet;

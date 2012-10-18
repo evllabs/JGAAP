@@ -25,6 +25,8 @@ import java.util.*;
 
 import com.jgaap.backend.KernelMethodMatrix;
 import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -74,7 +76,7 @@ public class SVM extends AnalysisDriver {
     }
 
     
-    public void train(List<EventSet> knowns){
+    public void train(List<Document> knowns){
     	//int i;
 		
 		// Each known author is assigned a unique group ID, which is mapped in groupsMap
@@ -150,7 +152,7 @@ public class SVM extends AnalysisDriver {
     }
     
 	@Override
-    public List<Pair<String,Double>> analyze(EventSet unknown) {
+    public List<Pair<String,Double>> analyze(Document unknown) {
 		// Run the unknown eventset through matrixFactory, and build another svm_node[] 
 		double[] unknownRow = KernelMethodMatrix.getRow(unknown, vocab, 1000);
 		svm_node[] x = new svm_node[unknownRow.length];

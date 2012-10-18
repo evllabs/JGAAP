@@ -55,7 +55,7 @@ public class FirstWordInSentenceEventDriver extends EventDriver {
 		for(Event sentence : sentences){
 			String[] words = sentence.getEvent().split("\\s+");
 			if(words.length>0)
-				eventSet.addEvent(new Event(words[0]));
+				eventSet.addEvent(new Event(words[0], this));
 		}
 		return eventSet;
     }

@@ -145,7 +145,7 @@ public class TransformationEventDriver extends EventDriver {
 			} else if (transform.containsKey(s)) {
 				String newS = transform.get(s);
 				if (newS.length() > 0) {
-					newEs.addEvent(new Event(newS));
+					newEs.addEvent(new Event(newS, this));
 				}
 			} else // s is not in transformation list
 			if (whitelist == false) {

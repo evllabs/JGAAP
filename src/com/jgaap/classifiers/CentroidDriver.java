@@ -3,19 +3,16 @@ package com.jgaap.classifiers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Document;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
 
@@ -30,10 +27,8 @@ import com.jgaap.generics.Pair;
 public class CentroidDriver extends NeighborAnalysisDriver {
 
 	static private Logger logger = Logger.getLogger(CentroidDriver.class);
-	
-	private Map<String, List<EventHistogram>> knownHistograms;
-
-	private Set<Event> events;
+		
+	private Map<String, EventMap> knownCentroids;
 	
 	@Override
 	public String displayName() {
@@ -53,46 +48,33 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 	}
 	
 	@Override
-	public void train(List<EventSet> knowns){
-		knownHistograms=new HashMap<String, List<EventHistogram>>();
-		events = new HashSet<Event>();
-		for(EventSet known : knowns){
-			EventHistogram histogram = known.getHistogram();
-			events.addAll(known.uniqueEvents());
-			List<EventHistogram> histograms = knownHistograms.get(known.getAuthor());
+	public void train(List<Document> knowns){
+		 Map<String, List<EventMap>> knownHistograms=new HashMap<String, List<EventMap>>();
+		for(Document known : knowns){
+			EventMap eventMap = new EventMap(known);
+			List<EventMap> histograms = knownHistograms.get(known.getAuthor());
 			if(histograms != null){
-				histograms.add(histogram);
+				histograms.add(eventMap);
 			} else {
-				histograms = new ArrayList<EventHistogram>();
-				histograms.add(histogram);
+				histograms = new ArrayList<EventMap>();
+				histograms.add(eventMap);
 				knownHistograms.put(known.getAuthor(), histograms);
 			}
 		}
+		knownCentroids = new HashMap<String, EventMap>(knownHistograms.size());
+		for(Entry<String, List<EventMap>> entry : knownHistograms.entrySet()){
+			knownCentroids.put(entry.getKey(), EventMap.centroid(entry.getValue()));
+		}
+		
 	}
 	
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
-		EventHistogram unknownHistogram = unknown.getHistogram();
-		Set<Event> events = new HashSet<Event>(this.events);
-		events.addAll(unknown.uniqueEvents());
-		List<Double> unknownVector = new ArrayList<Double>(events.size());
-		for(Event event : events){
-			unknownVector.add(unknownHistogram.getRelativeFrequency(event));
-		}
-		List<Pair<String, Double>> result = new ArrayList<Pair<String,Double>>(knownHistograms.size());
-		for(Entry<String, List<EventHistogram>> knownEntry : knownHistograms.entrySet()){
-			List<Double> knownVector = new ArrayList<Double>(events.size());
-			List<EventHistogram> currentKnownHistogram = knownEntry.getValue();
-			for(Event event : events){
-				double frequency = 0.0;
-				double size = currentKnownHistogram.size();
-				for(EventHistogram known : currentKnownHistogram){
-					frequency += known.getRelativeFrequency(event)/size;
-				}
-				knownVector.add(frequency);
-			}
+	public List<Pair<String, Double>> analyze(Document unknown) throws AnalyzeException {
+		EventMap unknownEventMap = new EventMap(unknown);
+		List<Pair<String, Double>> result = new ArrayList<Pair<String,Double>>(knownCentroids.size());
+		for(Entry<String, EventMap> knownEntry : knownCentroids.entrySet()){
 			try {
-				result.add(new Pair<String, Double>(knownEntry.getKey(), distance.distance(unknownVector, knownVector), 2));
+				result.add(new Pair<String, Double>(knownEntry.getKey(), distance.distance(unknownEventMap, knownEntry.getValue()), 2));
 			} catch (DistanceCalculationException e) {
 				logger.fatal("Distance "+distance.displayName()+" failed", e);
 				throw new AnalyzeException("Distance "+distance.displayName()+" failed");

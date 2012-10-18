@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.WEKAAnalysisDriver;
 
 import weka.classifiers.Classifier;
@@ -81,7 +81,7 @@ public class WEKASMO extends WEKAAnalysisDriver {
 		return classifier;
 	}
 	
-	public void testRequirements(List<EventSet> knownList) throws AnalyzeException{
+	public void testRequirements(List<Document> knownList) throws AnalyzeException{
 		//TODO: WEKASMOTest not yet created to find requirements
 		return;
 	}

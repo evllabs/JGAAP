@@ -110,7 +110,7 @@ public class CoarsePOSTagger extends EventDriver {
 		EventSet eventSet = new EventSet(doc.getAuthor());
 		for (Event event : preprocessEventSet) {
 			if(translationTable.containsKey(event.getEvent()))
-				eventSet.addEvent(new Event(translationTable.get(event.getEvent())));
+				eventSet.addEvent(new Event(translationTable.get(event.getEvent()), this));
 			else
 				eventSet.addEvent(event);
 		}

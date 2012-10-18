@@ -82,7 +82,7 @@ public class SentenceEventDriver extends EventDriver {
 		for (String sentence : sentences) {
 			eventBuilder.append(sentence);
 			if(!sentence.matches(regex)){
-				eventSet.addEvent(new Event(eventBuilder.toString()));
+				eventSet.addEvent(new Event(eventBuilder.toString(), this));
 				eventBuilder = new StringBuilder();
 			} else {
 				eventBuilder.append(" ");
@@ -90,7 +90,7 @@ public class SentenceEventDriver extends EventDriver {
 		}
 		String edgeCase = eventBuilder.toString();
 		if(!edgeCase.isEmpty()){
-			eventSet.addEvent(new Event(edgeCase));
+			eventSet.addEvent(new Event(edgeCase, this));
 		}
 		return eventSet;
 	}

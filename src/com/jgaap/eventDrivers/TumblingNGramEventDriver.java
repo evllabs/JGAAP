@@ -159,7 +159,7 @@ public class TumblingNGramEventDriver extends EventDriver {
                 	eventBuilder.append(separator);
                 }
             }
-            newEs.addEvent(new Event(eventBuilder.toString()));
+            newEs.addEvent(new Event(eventBuilder.toString(), this));
         }
         return newEs;
     }

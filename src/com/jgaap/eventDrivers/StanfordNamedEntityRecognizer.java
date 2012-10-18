@@ -52,8 +52,9 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 		List<List<CoreLabel>> out = classifier.classify(fileContents);
 		for (List<CoreLabel> sentence : out) {
 			for (CoreLabel word : sentence) {
+				System.out.println(word.originalText()+" ner:"+word.ner()+" word:"+word.word()+" tag:"+word.tag());
 				if (word.ner() != null) {
-					eventSet.addEvent(new Event(word.word()));
+					eventSet.addEvent(new Event(word.word(), this));
 					System.out.println(word.toString() + "\t" + word.word()
 							+ "\t" + word.ner());
 				}

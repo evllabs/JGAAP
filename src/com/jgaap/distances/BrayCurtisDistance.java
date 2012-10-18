@@ -6,8 +6,7 @@ import java.util.Set;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 /**
  * Bray Curtis Distance
@@ -35,20 +34,17 @@ public class BrayCurtisDistance extends DistanceFunction {
 	}
 
 	@Override
-	public double distance(EventSet unknownEventSet, EventSet knownEventSet)
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap)
 			throws DistanceCalculationException {
-		EventHistogram unknownHistogram = unknownEventSet.getHistogram();
-		EventHistogram knownHistogram = knownEventSet.getHistogram();
 
-		Set<Event> events = new HashSet<Event>();
-		events.addAll(unknownHistogram.events());
-		events.addAll(knownHistogram.events());
+		Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
+		events.addAll(knownEventMap.uniqueEvents());
 		
 		double distance = 0.0, sumNumer = 0.0, sumDenom = 0.0;
 		
 		for(Event event: events){
-			sumNumer += Math.abs(unknownHistogram.getRelativeFrequency(event) - knownHistogram.getRelativeFrequency(event));
-			sumDenom += unknownHistogram.getRelativeFrequency(event) + knownHistogram.getRelativeFrequency(event);
+			sumNumer += Math.abs(unknownEventMap.relativeFrequency(event) - knownEventMap.relativeFrequency(event));
+			sumDenom += unknownEventMap.relativeFrequency(event) + knownEventMap.relativeFrequency(event);
 		}
 		distance = sumNumer / sumDenom;
 		return distance;

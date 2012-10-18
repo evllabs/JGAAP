@@ -35,7 +35,7 @@ public class NewLineEventDriver extends EventDriver {
 		String [] events = text.split("[\n]+");
 		EventSet eventSet = new EventSet(events.length);
 		for(String event : events){
-			eventSet.addEvent(new Event(event));
+			eventSet.addEvent(new Event(event, this));
 		}
 		
 		return eventSet;

@@ -72,7 +72,7 @@ public class PartOfSpeechEventDriver extends EventDriver {
 			List<String> tagged = tagger.tag(tmp);
 
 			for (int j = 0; j < tagged.size(); j++) {
-				es.addEvent(new Event(tagged.get(j)));
+				es.addEvent(new Event(tagged.get(j), this));
 			}
 		}
 		return es;

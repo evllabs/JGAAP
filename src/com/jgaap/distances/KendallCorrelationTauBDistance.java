@@ -12,8 +12,7 @@ import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.Pair;
 
 /**
@@ -42,49 +41,36 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 	public boolean showInGUI() {
 		return true;
 	}
-
-	@Override
-	public double distance(List<Double> v1, List<Double> v2){
-		List<Pair<String, Double>> unknownList = new ArrayList<Pair<String,Double>>();
-		List<Pair<String, Double>> knownList = new ArrayList<Pair<String,Double>>();
-		for(int i=0; i<v1.size();i++){
-			unknownList.add(new Pair<String, Double>(Integer.toString(i), v1.get(i), 2));
-			knownList.add(new Pair<String, Double>(Integer.toString(i), v2.get(i), 2));
-		}
-		return tauDistance(unknownList, knownList);
-	}
 	
 	@Override
-	public double distance(EventSet es1, EventSet es2) {
-		
-		EventHistogram unknownHistogram = es1.getHistogram();
-		EventHistogram knownHistogram = es2.getHistogram();
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+
 		//System.err.println("1");
-		List<Pair<String, Double>> unknownList = new ArrayList<Pair<String, Double>>(unknownHistogram.getNTypes());
-		List<Pair<String, Double>> knownList = new ArrayList<Pair<String, Double>>(knownHistogram.getNTypes());
-		for(Event e : unknownHistogram){
-			unknownList.add(new Pair<String, Double>(e.getEvent(), unknownHistogram.getRelativeFrequency(e),2));
+		List<Pair<Event, Double>> unknownList = new ArrayList<Pair<Event, Double>>(unknownEventMap.uniqueEvents().size());
+		List<Pair<Event, Double>> knownList = new ArrayList<Pair<Event, Double>>(knownEventMap.uniqueEvents().size());
+		for(Event e : unknownEventMap.uniqueEvents()){
+			unknownList.add(new Pair<Event, Double>(e, unknownEventMap.relativeFrequency(e),2));
 		}
-		for(Event e : knownHistogram){
-			knownList.add(new Pair<String, Double>(e.getEvent(), knownHistogram.getRelativeFrequency(e), 2));
+		for(Event e : knownEventMap.uniqueEvents()){
+			knownList.add(new Pair<Event, Double>(e, knownEventMap.relativeFrequency(e), 2));
 		}
 		return tauDistance(unknownList, knownList);
 	}
-	private double tauDistance(List<Pair<String, Double>> unknownList, List<Pair<String, Double>>knownList){
+	private double tauDistance(List<Pair<Event, Double>> unknownList, List<Pair<Event, Double>>knownList){
 		//System.err.println("2");
 		Collections.sort(unknownList);
 		Collections.reverse(unknownList);
 		Collections.sort(knownList);
 		Collections.reverse(knownList);
 		//System.err.println("3");
-		Map<String, Integer> unknownRanks = new HashMap<String, Integer>(unknownList.size());
+		Map<Event, Integer> unknownRanks = new HashMap<Event, Integer>(unknownList.size());
 		//ti
 		List<Integer> unknownTies = new ArrayList<Integer>();
 		int rank = 0;
 		int count = 0;
 		int ties = 0;
 		double previousFrequency = 0.0;
-		for (Pair<String, Double> current : unknownList) {
+		for (Pair<Event, Double> current : unknownList) {
 			count++;
 			if (!current.getSecond().equals(previousFrequency)) {
 				if(ties!=0){
@@ -99,14 +85,14 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 			unknownRanks.put(current.getFirst(), rank);
 		}
 		
-		Map<String, Integer> knownRanks = new HashMap<String, Integer>(knownList.size());
+		Map<Event, Integer> knownRanks = new HashMap<Event, Integer>(knownList.size());
 		//ui
 		List<Integer> knownTies = new ArrayList<Integer>();
 		rank = 0;
 		count = 0;
 		ties = 0;
 		previousFrequency = 0.0;
-		for (Pair<String, Double> current : knownList) {
+		for (Pair<Event, Double> current : knownList) {
 			count++;
 			if (!current.getSecond().equals(previousFrequency)) {
 				if(ties !=0 ){
@@ -123,11 +109,11 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 		
 		//System.err.println("4");
 		
-		Set<String> allEvents = new LinkedHashSet<String>(unknownList.size());
-		for(Pair<String, Double> element : unknownList){
+		Set<Event> allEvents = new LinkedHashSet<Event>(unknownList.size());
+		for(Pair<Event, Double> element : unknownList){
 			allEvents.add(element.getFirst());
 		}
-		for(Pair<String, Double> element : knownList){
+		for(Pair<Event, Double> element : knownList){
 			allEvents.add(element.getFirst());
 		}
 		
@@ -136,7 +122,7 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 		Integer knownDefault = knownRanks.size()+1;
 		Integer tmp;
 		Integer tmp2;
-		for(String event : allEvents){
+		for(Event event : allEvents){
 			
 			ranks.add(new Pair<Integer, Integer>((tmp=unknownRanks.get(event))==null ? unknownDefault : tmp, 
 					(tmp2=knownRanks.get(event))==null ? knownDefault : tmp2,

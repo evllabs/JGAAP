@@ -140,7 +140,7 @@ public class NGramEventDriver extends EventDriver {
                     stringBuilder.append(separator);
                 }
             }
-            newEs.addEvent(new Event(stringBuilder.toString()));
+            newEs.addEvent(new Event(stringBuilder.toString(), this));
         }
         return newEs;
     }
