@@ -52,7 +52,7 @@ public class EventMap {
 		return 100000 * relativeFrequency(event);
 	}
 
-	public int absoluteFrequency(Event event) {
+	public long absoluteFrequency(Event event) {
 		Node node = histogram.get(event);
 		if (node == null) {
 			return 0;
@@ -79,29 +79,30 @@ public class EventMap {
 					nodes.add(node);
 				}
 			}
-			int occurrences = 0;
-			int numEvents = 1;
-			for(Node node : nodes) {
-				int tmp = node.occurrences;
-				for(Node node2 : nodes) {
-					if(!node2.equals(node)) {
-						tmp *= node2.numEvents;
+			long occurrences = 0;
+			long numEvents = 1;
+			for (int i = 0; i < nodes.size(); i++) {
+				long tmp = nodes.get(i).occurrences;
+				for (int j = 0; j < nodes.size(); j++) {
+					if (j != i) {
+						tmp *= nodes.get(j).numEvents;
 					}
 				}
 				occurrences += tmp;
-				numEvents *= node.numEvents;
+				numEvents *= nodes.get(i).numEvents;
+				
 			}
-			numEvents *= nodes.size();
+			numEvents *= eventMaps.size();
 			centroidEventMap.histogram.put(event, new Node(occurrences, numEvents));
 		}
 		return centroidEventMap;
 	}
 
 	private static class Node {
-		int occurrences;
-		double numEvents;
+		long occurrences;
+		long numEvents;
 
-		Node(int occurrences, int numEvents) {
+		Node(long occurrences, long numEvents) {
 			this.occurrences = occurrences;
 			this.numEvents = numEvents;
 		}
@@ -111,7 +112,7 @@ public class EventMap {
 		}
 
 		double relativeFrequency() {
-			return occurrences / numEvents;
+			return occurrences / (double)numEvents;
 		}
 	}
 }
