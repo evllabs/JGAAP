@@ -13,7 +13,7 @@ import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.EventBagging;
-import com.jgaap.generics.EventHistogram;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
@@ -23,7 +23,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 	private static Logger logger = Logger
 			.getLogger("com.jgaap.classifiers.BaggingNearestNeighborDriver");
 
-	private Map<String, List<EventHistogram>> authorHistograms;
+	private Map<String,List<EventMap>> authorHistograms;
 
 	public BaggingNearestNeighborDriver() {
 		addParams("Samples", "Samples", "5", new String[] { "1", "5", "10",
@@ -50,27 +50,30 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	@Override
-	public void train(List<Document> knownEventSets) throws AnalyzeException {
+	public void train(List<Document> knownDocuments) throws AnalyzeException {
 		Map<String, EventBagging> authorBags = new HashMap<String, EventBagging>();
-		for (EventSet eventSet : knownEventSets) {
-			EventBagging eventBag = authorBags.get(eventSet.getAuthor());
-			if (eventBag == null) {
-				eventBag = new EventBagging(eventSet);
-			} else {
-				eventBag.addAll(eventSet);
+		for(Document knownDocument : knownDocuments)
+			for (EventSet eventSet : knownDocument.getEventSets().values()) {
+				EventBagging eventBag = authorBags.get(eventSet.getAuthor());
+				if (eventBag == null) {
+					eventBag = new EventBagging(eventSet);
+				} else {
+					eventBag.addAll(eventSet);
+				}
+				authorBags.put(eventSet.getAuthor(), eventBag);
 			}
-			authorBags.put(eventSet.getAuthor(), eventBag);
-		}
 		int samples = getParameter("samples", 5);
 		int sampleSize = getParameter("sampleSize", 500);
-		authorHistograms = new HashMap<String, List<EventHistogram>>();
+		authorHistograms = new HashMap<String, List<EventMap>>();
 		for (Entry<String, EventBagging> entry : authorBags.entrySet()) {
-			List<EventHistogram> histograms = new ArrayList<EventHistogram>(samples);
+			List<EventMap> histograms = new ArrayList<EventMap>(samples);
 			for (int i = 0; i < samples; i++) {
-				EventHistogram histogram = new EventHistogram(sampleSize);
+				EventSet eventSet = new EventSet(sampleSize);
 				for (int j = 0; j < sampleSize; j++) {
-					histogram.add(entry.getValue().next());
+					eventSet.addEvent(entry.getValue().next());
 				}
+				EventMap histogram = new EventMap();
+				histogram.add(eventSet);
 				histograms.add(histogram);
 			}
 			authorHistograms.put(entry.getKey(), histograms);
@@ -78,12 +81,17 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(Document unknownEventSet)
+	public List<Pair<String, Double>> analyze(Document unknownDocument)
 			throws AnalyzeException {
 		List<Pair<String, Double>> rawResults = new ArrayList<Pair<String, Double>>();
-		EventHistogram unknownHistogram = new EventHistogram(unknownEventSet);
-		for (Entry<String, List<EventHistogram>> entry : authorHistograms.entrySet()) {
-			for (EventHistogram knownHistogram : entry.getValue()) {
+		EventSet unknownEventSet = new EventSet();
+		for(EventSet eventSet : unknownDocument.getEventSets().values()){
+			unknownEventSet.addEvents(eventSet);
+		}
+		EventMap unknownHistogram = new EventMap();
+		unknownHistogram.add(unknownEventSet);
+		for (Entry<String, List<EventMap>> entry : authorHistograms.entrySet()) {
+			for (EventMap knownHistogram : entry.getValue()) {
 				try {
 					rawResults.add(new Pair<String, Double>(entry.getKey(), distance.distance(unknownHistogram, knownHistogram), 2));
 				} catch (DistanceCalculationException e) {
