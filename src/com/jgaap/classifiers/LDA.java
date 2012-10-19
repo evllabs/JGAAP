@@ -8,8 +8,8 @@ import java.util.Set;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventSet;
 import com.jgaap.generics.FeatureVectorFactory;
 import com.jgaap.generics.Pair;
 
@@ -43,18 +43,18 @@ public class LDA extends AnalysisDriver {
 	}
 
 	// Return a vector of the author numbers for each known author.
-	private Pair<Integer, int[]> getAuthorList(List<EventSet> eventSets) {
+	private Pair<Integer, int[]> getAuthorList(List<Document> documents) {
 		HashMap<String, Integer> authors = new HashMap<String, Integer>();
 		int authorNumber = 0;
-		int[] authorVector = new int[eventSets.size()];
+		int[] authorVector = new int[documents.size()];
 		int i = 0;
-		for (EventSet es : eventSets) {
-			if (authors.get(es.getAuthor()) == null) {
-				authors.put(es.getAuthor(), authorNumber);
-				authorNumberMap.put(authorNumber, es.getAuthor());
+		for (Document document : documents) {
+			if (authors.get(document.getAuthor()) == null) {
+				authors.put(document.getAuthor(), authorNumber);
+				authorNumberMap.put(authorNumber, document.getAuthor());
 				authorNumber++;
 			}
-			authorVector[i++] = authors.get(es.getAuthor());
+			authorVector[i++] = authors.get(document.getAuthor());
 		}
 
 		return new Pair<Integer, int[]>(authorNumber, authorVector);
@@ -109,11 +109,11 @@ public class LDA extends AnalysisDriver {
 	}
 
 	@Override
-	public void train(List<EventSet> knownEventSets) throws AnalyzeException {
+	public void train(List<Document> knownDocuments) throws AnalyzeException {
 
 		// Generate the feature vectors
 		Pair<double[][], Set<Event>> vectors = FeatureVectorFactory
-				.getNormalizedFeatures(knownEventSets);
+				.getNormalizedFeatures(knownDocuments);
 		double[][] knownFeatures = vectors.getFirst();
 		vocab = vectors.getSecond();
 
@@ -122,7 +122,7 @@ public class LDA extends AnalysisDriver {
 		double numTrainingPoints = knownFeatures.length;
 
 		// Generate author list
-		Pair<Integer, int[]> authorListPair = getAuthorList(knownEventSets);
+		Pair<Integer, int[]> authorListPair = getAuthorList(knownDocuments);
 		numAuthors = authorListPair.getFirst(); // *
 		int[] authorList = authorListPair.getSecond();
 
@@ -196,11 +196,11 @@ public class LDA extends AnalysisDriver {
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknownEventSet)
+	public List<Pair<String, Double>> analyze(Document unknownDocument)
 			throws AnalyzeException {
 		// Calculate discriminant functions
 		List<Double> discriminantValues = new ArrayList<Double>();
-		Float64Vector observation = Float64Vector.valueOf(FeatureVectorFactory.getNormalizedFeatures(unknownEventSet, vocab));
+		Float64Vector observation = Float64Vector.valueOf(FeatureVectorFactory.getNormalizedFeatures(unknownDocument, vocab));
 
 		Float64Matrix trainingMatrix = Float64Matrix.valueOf(observation);
 		Float64Matrix trainingMatrixTranspose = trainingMatrix.transpose();
