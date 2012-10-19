@@ -20,6 +20,7 @@
 package com.jgaap.distances;
 
 import com.jgaap.generics.DistanceFunction;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
 
@@ -52,6 +53,11 @@ public class MeanDistance extends DistanceFunction {
 	 * @return the mean distance between them
 	 */
 	@Override
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+		double sum = 0.0;
+		
+	}
+	
 	public double distance(EventSet es1, EventSet es2) {
 
 		double sum1 = 0.0;
