@@ -57,7 +57,7 @@ public class ThinXent extends AnalysisDriver {
 	}
 
 	public boolean showInGUI() {
-		return false;
+		return true;
 	}
 
 	public double distance(EventGraph eventGraph, Document document) {

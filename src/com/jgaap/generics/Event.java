@@ -85,7 +85,7 @@ public class Event implements Comparable<Object> {
 
     /** Returns the String representation of this event **/
     public String getEvent() {
-        return data;
+        return data+eventDriver;
     }
 
     /**
