@@ -61,8 +61,8 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 			}
 			authorBags.put(eventSet.getAuthor(), eventBag);
 		}
-		int samples = Integer.parseInt(getParameter("samples"));
-		int sampleSize = Integer.parseInt(getParameter("sampleSize"));
+		int samples = getParameter("samples", 5);
+		int sampleSize = getParameter("sampleSize", 500);
 		authorHistograms = new HashMap<String, List<EventHistogram>>();
 		for (Entry<String, EventBagging> entry : authorBags.entrySet()) {
 			List<EventHistogram> histograms = new ArrayList<EventHistogram>(samples);
