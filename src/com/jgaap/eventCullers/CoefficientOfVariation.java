@@ -31,8 +31,8 @@ public class CoefficientOfVariation extends EventCuller{
 	public List<EventSet> cull(List<EventSet> eventSets)
 			throws EventCullingException {
 		List<EventSet> results = new ArrayList<EventSet>();
-		int minPos = Integer.parseInt(getParameter("minPos","0"));
-		int numEvents = Integer.parseInt(getParameter("numEvents","50"));
+		int minPos = getParameter("minPos", 0);
+		int numEvents = getParameter("numEvents",50);
 		String informative = getParameter("Informative","Least");
 		EventHistogram hist = new EventHistogram();
 

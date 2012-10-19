@@ -42,21 +42,8 @@ public class FrequencyRangeCuller extends EventCuller {
     public List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException {
 
         List<EventSet> results = new ArrayList<EventSet>();
-        int minPos, numEvents;
-
-        if(!getParameter("minPos").equals("")) {
-            minPos = Integer.parseInt(getParameter("minPos"));
-        }
-        else {
-            minPos = 0;
-        }
-
-        if(!getParameter("numEvents").equals("")) {
-            numEvents = Integer.parseInt(getParameter("numEvents"));
-        }
-        else {
-            numEvents = 50;
-        }
+        int minPos = getParameter("minPos", 0);
+        int numEvents = getParameter("numEvents", 50);
 
         EventHistogram hist = new EventHistogram();
 

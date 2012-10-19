@@ -32,16 +32,9 @@ public class LeastCommonEvents extends EventCuller {
     public List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException {
 
         EventCuller underlyingCuller = new FrequencyRangeCuller();
-        underlyingCuller.setParameter("minPos", -1);
 
-        if(getParameter("numEvents").equals("")) {
-            underlyingCuller.setParameter("minPos", -50);
-            underlyingCuller.setParameter("numEvents", 50);
-        }
-        else {
-            underlyingCuller.setParameter("minPos", -Integer.parseInt(getParameter("numEvents")));
-            underlyingCuller.setParameter("numEvents", getParameter("numEvents"));
-        }
+        underlyingCuller.setParameter("minPos", -getParameter("numEvents", 50));
+        underlyingCuller.setParameter("numEvents", getParameter("numEvents", "50"));
 
         return underlyingCuller.cull(eventSets);
     }
