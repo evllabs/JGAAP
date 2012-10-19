@@ -95,6 +95,10 @@ public class EventSet implements Iterable<Event> {
     public void addEvents(List<Event> events){
     	this.events.addAll(events);
     }
+    
+    public void addEvents(EventSet eventSet) {
+    	this.events.addAll(eventSet.events);
+    }
 
     /** return the Author associated with any EventSet */
     public String getAuthor() {
