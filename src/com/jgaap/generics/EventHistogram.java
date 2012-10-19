@@ -128,26 +128,6 @@ public class EventHistogram implements Iterable<Event> {
 	}
 
 	/**
-	 * Revised 9/5/09 by PMJ Some distances (esp KL-distance) can't handle zero
-	 * probability well; they return infinite distances. So we cheat : how
-	 * infrequent an event would have been ROUNDED DOWN to zero if we were
-	 * sampling from a much larger sample?
-	 * 
-	 * Answer : half of the relative frequency of an event with absolute
-	 * frequency 1. So we simply return 1.0 / (numTokens*2)
-	 */
-	public double getRelativeFrequencySmoothing() {
-		double result = 0.000001;
-		int i = 1;
-		if (numTokens != 0) {
-			while ((result = (i / numTokens * 2)) == 0.0) {
-				i *= 10;
-			}
-		}
-		return result;
-	}
-
-	/**
 	 * Calculate the relative frequency of a given Event
 	 * 
 	 * @param e
