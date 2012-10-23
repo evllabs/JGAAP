@@ -31,7 +31,7 @@ import org.junit.Test;
 public class AddErrorsTest {
 
 	/**
-	 * Test method for {@link com.jgaap.canonicizers.AddErrors#process(java.util.Vector)}.
+	 * Test method for {@link com.jgaap.canonicizers.AddErrors#process(char[])}.
 	 */
 	@Test
 	public void testProcess() {

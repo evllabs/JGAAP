@@ -34,7 +34,7 @@ public class NormalizeWhitespaceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.NormalizeWhitespace#process(java.util.Vector)}
+	 * {@link com.jgaap.canonicizers.NormalizeWhitespace#process(char[])}
 	 * .
 	 */
 	@Test

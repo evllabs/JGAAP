@@ -38,7 +38,7 @@ import com.jgaap.generics.EventSet;
 public class WordSyllablesEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.WordSyllablesEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.WordSyllablesEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test

@@ -39,7 +39,7 @@ import com.jgaap.generics.Pair;
 public class LDATest {
 
 	/**
-	 * Test method for {@link com.jgaap.classifiers.LDA#analyze(com.jgaap.generics.EventSet, List<EventSet>)}.
+	 * Test method for {@link com.jgaap.classifiers.LDA#analyze(com.jgaap.generics.EventSet)}.
 	 * @throws AnalyzeException 
 	 */
 	@Test
