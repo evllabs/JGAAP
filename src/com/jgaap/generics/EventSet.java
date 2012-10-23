@@ -188,7 +188,10 @@ public class EventSet implements Iterable<Event> {
         for(Event event : events){
         	builder.append(event).append(", ");
         }
-        return builder.substring(0, builder.length()-2);
+        if(builder.length() > 1)
+        	return builder.substring(0, builder.length()-2);
+        else
+        	return builder.toString();
     }
     
     @Override
