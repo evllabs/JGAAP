@@ -160,7 +160,7 @@ public class PercentageRangeCullerTest {
 		try {
 			events = p.cull(events);
 			//System.out.println(p.toString());
-			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent 0.75\nmaxPercent 1.0"));
+			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.75\nmaxPercent = 1.0"));
 		} catch (EventCullingException e) {
 			assertTrue(false);
 		}
@@ -176,7 +176,7 @@ public class PercentageRangeCullerTest {
 		try {
 			events = p.cull(events);
 			//System.out.println(p.toString());
-			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent 0.0\nmaxPercent 0.25"));
+			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.0\nmaxPercent = 0.25"));
 		} catch (EventCullingException e) {
 			assertTrue(false);
 		}
@@ -193,7 +193,7 @@ public class PercentageRangeCullerTest {
 		try {
 			events = p.cull(events);
 			//System.out.println(p.toString());
-			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent 0.25\nmaxPercent 0.75"));
+			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.25\nmaxPercent = 0.75"));
 		} catch (EventCullingException e) {
 			assertTrue(false);
 		}

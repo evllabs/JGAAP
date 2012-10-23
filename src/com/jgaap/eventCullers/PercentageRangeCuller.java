@@ -23,7 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO: Describe culler here.
+ * Analyze only events whose relative frequency is in a percentage range across all documents.
+ * This function uses the total occurrences across the corpus. 
+ * 
+ * Paramaters: minPercent (The lower bound of the percentage range in Double form)
+ * 			   maxPercent (The upper bound of the percentage range in Double form)
+ * 
+ * If either parameter falls outside the 0.0 to 1.0 range, they are reduced or raised to either
+ *   0.0 or 1.0 depending on where they fall out of the range.
+ * If minPercent is greater than maxPercent, the two values are switched.
+ * 
+ * Default behaviour: The words whose relative frequency fall in the 25% to 75% range.
  * 
  * @author Amanda Kroft
  */
@@ -109,18 +119,17 @@ public class PercentageRangeCuller extends EventCuller{
     
     @Override
     public String tooltipText() {
-        return "Analyze only the words whose frequency is between X% and Y%";  //To change body of implemented methods use File | Settings | File Templates.
+        return "Analyze only the words whose relative frequency is between X% and Y%";  //To change body of implemented methods use File | Settings | File Templates.
     }
     
     @Override
     public String longDescription() {
-    	//TODO: This
-        return "Analyze only events in a percentage range across all documents " +
-          "(e.g., the 10% through 15% most common words in the corpus). " +
-          
-          "The parameter minPos is the first event position to be included e.g. 5th in the example above), " +
-          "while numEvents is the number of events to include (e.g. 95). " +
-          "If minPos is negative, the function returns numEvents events starting minPos positions from the least common event (where minPos = -1 indicates the least common event).";
+        return "Analyze only events whose relative frequency is in a percentage range across all documents " +
+          "(e.g., the words whose relative frequncy is between 10% and 15% in the corpus). " +
+          "The parameter minPercent is the lower bound of the events to be included, in Double form, (e.g. 0.10 in the example above), " +
+          "while maxPercent is the upper bound of the events to be included, in Double form, (e.g. 0.15). " +
+          "If either parameter falls outside the 0.0 to 1.0 range, they are reduced or raised to be either 0.0 or 1.0 depending on " +
+          "where they fall out of the range. If minPercent is greater than maxPercent, the two values are switched.";
     }
     
     @Override
@@ -129,6 +138,6 @@ public class PercentageRangeCuller extends EventCuller{
     }
     
     public String toString(){
-    	return "Percentage Range Culler with parameter values:\nminPercent " + getParameter("minPercent") + "\nmaxPercent " + getParameter("maxPercent");
+    	return "Percentage Range Culler with parameter values:\nminPercent = " + getParameter("minPercent") + "\nmaxPercent = " + getParameter("maxPercent");
     }
 }
