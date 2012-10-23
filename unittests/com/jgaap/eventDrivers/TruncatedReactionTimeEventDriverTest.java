@@ -39,7 +39,7 @@ import com.jgaap.generics.NumericEventSet;
 public class TruncatedReactionTimeEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.TruncatedReactionTimeEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.TruncatedReactionTimeEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test

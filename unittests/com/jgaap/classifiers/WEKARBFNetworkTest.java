@@ -37,8 +37,7 @@ public class WEKARBFNetworkTest {
 
 	/**
 	 * Test method for {@link
-	 * com.jgaap.classifiers.WEKAARBFNetwork#analyze(com.jgaap.generics.EventSet,
-	 * List<EventSet>)}.
+	 * com.jgaap.classifiers.WEKAARBFNetwork#analyze(com.jgaap.generics.EventSet)}.
 	 * @throws AnalyzeException 
 	 */
 	@Test

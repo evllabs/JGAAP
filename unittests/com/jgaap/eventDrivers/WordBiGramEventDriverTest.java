@@ -39,7 +39,7 @@ import com.jgaap.generics.EventSet;
 public class WordBiGramEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.WordBiGramEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.WordNGramEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test

@@ -40,7 +40,7 @@ import com.jgaap.generics.EventDriver;
 public class RareWordsEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.HDLegomenaEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.RareWordsEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 

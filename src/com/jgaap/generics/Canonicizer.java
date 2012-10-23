@@ -93,7 +93,6 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
      * stripping HTML, regularizing spelling, or normalizing whitespace. Legacy
      * code from WAY back.
      * 
-     * @author unknown
      * @since 1.0
      * @param procText
      *            the text (array of characters) to be processed

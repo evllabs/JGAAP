@@ -40,7 +40,7 @@ import com.jgaap.generics.EventSet;
 public class HapaxLegomenaEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.HapaxLegomenaEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.HapaxLegomenaEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 

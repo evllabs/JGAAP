@@ -38,7 +38,7 @@ import com.jgaap.generics.EventSet;
 public class SuffixEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.NaiveWordEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.SuffixEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test

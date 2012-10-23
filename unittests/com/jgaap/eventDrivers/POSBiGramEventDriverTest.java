@@ -39,7 +39,7 @@ import com.jgaap.generics.EventSet;
 public class POSBiGramEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.POSBiGramEventDriver#createEventSet(com.jgaap.generics.JGAAP)}.
+	 * Test method for {@link com.jgaap.eventDrivers.POSNGramEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
 	@Test
