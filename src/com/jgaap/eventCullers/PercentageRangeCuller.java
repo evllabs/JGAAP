@@ -26,14 +26,14 @@ import java.util.List;
  * Analyze only events whose relative frequency is in a percentage range across all documents.
  * This function uses the total occurrences across the corpus. 
  * 
- * Paramaters: minPercent (The lower bound of the percentage range in Double form)
+ * Parameters: minPercent (The lower bound of the percentage range in Double form)
  * 			   maxPercent (The upper bound of the percentage range in Double form)
  * 
  * If either parameter falls outside the 0.0 to 1.0 range, they are reduced or raised to either
  *   0.0 or 1.0 depending on where they fall out of the range.
  * If minPercent is greater than maxPercent, the two values are switched.
  * 
- * Default behaviour: The words whose relative frequency fall in the 25% to 75% range.
+ * Default behavior: The words whose relative frequency fall in the 0.25% to 0.75% range.
  * 
  * @author Amanda Kroft
  */
@@ -41,10 +41,10 @@ public class PercentageRangeCuller extends EventCuller{
 	
 	public PercentageRangeCuller() {
 		super();
-		addParams("minPercent", "min", "0.25", new String[] { "0.00", "0.01", "0.05", "0.10",
-				"0.25", "0.50", "0.75"}, true);
-		addParams("maxPercent", "max", "0.75", new String[] { "0.01", "0.05", "0.10",
-				"0.25", "0.50", "0.75", "1.00"}, true);
+		addParams("minPercent", "min", "0.0025", new String[] { "0.00", "0.0025", "0.005", "0.0075", 
+				"0.01", "0.05", "0.10"}, true);
+		addParams("maxPercent", "max", "0.0075", new String[] { "0.0025", "0.005", "0.0075", "0.01", 
+				"0.05", "0.10", "1.0"}, true);
 	}
 	
 	@Override
@@ -53,32 +53,10 @@ public class PercentageRangeCuller extends EventCuller{
         double minPercent, maxPercent;
         
         //Get/set minimum percentage
-        if(!getParameter("minPercent").equals("")) {
-        	try{
-        		minPercent = Math.min(Math.max(Double.parseDouble(getParameter("minPercent")),0.0),1.0);
-        		this.setParameter("minPercent", minPercent);
-        	}catch(NumberFormatException e){
-        		throw new EventCullingException("Paramater minPercent could not be parsed to a Double.");
-        	}
-        }
-        else {
-            minPercent = 0.25;
-            this.setParameter("minPercent", minPercent);
-        }
+        minPercent = Math.min(Math.max(getParameter("minPercent",0.0025),0.0),1.0);
 
         //Get/set maximum percentage
-        if(!getParameter("maxPercent").equals("")) {
-        	try{
-        		maxPercent = Math.max(Math.min(Double.parseDouble(getParameter("maxPercent")),1.0),0.0);
-        		this.setParameter("maxPercent", maxPercent);
-        	}catch(NumberFormatException e){
-        		throw new EventCullingException("Paramater maxPercent could not be parsed to a Double.");
-        	}
-        }
-        else {
-            maxPercent = 0.75;
-            this.setParameter("maxPercent",maxPercent);
-        }
+   		maxPercent = Math.max(Math.min(getParameter("maxPercent",0.0075),1.0),0.0);
         
         //Make sure percents are in correct order
         Double holder;
@@ -86,9 +64,11 @@ public class PercentageRangeCuller extends EventCuller{
         	holder = minPercent;
         	minPercent = maxPercent;
         	maxPercent = holder;
-        	this.setParameter("minPercent",minPercent);
-        	this.setParameter("maxPercent",maxPercent);
         }
+        
+        //Set global "variables" to new values
+        this.setParameter("minPercent", minPercent);
+        this.setParameter("maxPercent", maxPercent);
         
         //Create the histogram of frequencies of the events
         EventHistogram hist = new EventHistogram();
@@ -125,9 +105,10 @@ public class PercentageRangeCuller extends EventCuller{
     @Override
     public String longDescription() {
         return "Analyze only events whose relative frequency is in a percentage range across all documents " +
-          "(e.g., the words whose relative frequncy is between 10% and 15% in the corpus). " +
-          "The parameter minPercent is the lower bound of the events to be included, in Double form, (e.g. 0.10 in the example above), " +
-          "while maxPercent is the upper bound of the events to be included, in Double form, (e.g. 0.15). " +
+          "(e.g., the words whose relative frequncy is between 0.10% and 0.15% in the corpus). " +
+          "The parameter minPercent is the lower bound of the events to be included, in Double form, (e.g. 0.0010 in the example above), " +
+          "while maxPercent is the upper bound of the events to be included, in Double form, (e.g. 0.0015).\n" +
+          "Any floating point value can be entered which can be stored in the Java Double data type.\n" +
           "If either parameter falls outside the 0.0 to 1.0 range, they are reduced or raised to be either 0.0 or 1.0 depending on " +
           "where they fall out of the range. If minPercent is greater than maxPercent, the two values are switched.";
     }

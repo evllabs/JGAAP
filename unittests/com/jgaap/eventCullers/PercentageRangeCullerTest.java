@@ -160,7 +160,7 @@ public class PercentageRangeCullerTest {
 		try {
 			events = p.cull(events);
 			//System.out.println(p.toString());
-			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.75\nmaxPercent = 1.0"));
+			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.0075\nmaxPercent = 1.0"));
 		} catch (EventCullingException e) {
 			assertTrue(false);
 		}
@@ -176,7 +176,7 @@ public class PercentageRangeCullerTest {
 		try {
 			events = p.cull(events);
 			//System.out.println(p.toString());
-			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.0\nmaxPercent = 0.25"));
+			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.0\nmaxPercent = 0.0025"));
 		} catch (EventCullingException e) {
 			assertTrue(false);
 		}
@@ -200,7 +200,7 @@ public class PercentageRangeCullerTest {
 	}
 	
 	@Test
-	public void testMinDoubleParseError() {
+	public void testDoubleParseError() {
 		PercentageRangeCuller p = new PercentageRangeCuller();
 		p.setParameter("minPercent", "Test");
 		
@@ -209,25 +209,9 @@ public class PercentageRangeCullerTest {
 		try {
 			events = p.cull(events);
 			//System.out.println(p.toString());
-			assertTrue(false);
+			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.0025\nmaxPercent = 0.0075"));
 		} catch (EventCullingException e) {
-			assertTrue(e.getMessage().equals("Paramater minPercent could not be parsed to a Double."));
-		}
-	}
-	
-	@Test
-	public void testMaxDoubleParseError() {
-		PercentageRangeCuller p = new PercentageRangeCuller();
-		p.setParameter("maxPercent", "Test");
-		
-		List<EventSet> events = new ArrayList<EventSet>();
-		
-		try {
-			events = p.cull(events);
-			//System.out.println(p.toString());
 			assertTrue(false);
-		} catch (EventCullingException e) {
-			assertTrue(e.getMessage().equals("Paramater maxPercent could not be parsed to a Double."));
 		}
 	}
 }
