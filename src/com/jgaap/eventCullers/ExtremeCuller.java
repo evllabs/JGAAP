@@ -65,7 +65,7 @@ public class ExtremeCuller extends EventCuller {
 		for(EventSet eventSet : eventSets){
 			EventSet culledEventSet = new EventSet();
 			for(Event event : eventSet){
-				if(extremeEvents.contains(event.getEvent())){
+				if(extremeEvents.contains(event)){
 					culledEventSet.addEvent(event);
 				}
 			}
