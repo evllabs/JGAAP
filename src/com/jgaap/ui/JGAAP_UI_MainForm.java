@@ -3598,28 +3598,27 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		EventDriverMasterList = new ArrayList<EventDriver>();
 		LanguagesMasterList = new ArrayList<Language>();
 
-		for (AnalysisDriver analysisDriver : JGAAP_API.getAllAnalysisDrivers()) {
+		for (AnalysisDriver analysisDriver : AnalysisDriver.getAnalysisDrivers()) {
 			if (analysisDriver.showInGUI())
 				AnalysisDriverMasterList.add(analysisDriver);
 		}
-		for (Canonicizer canonicizer : JGAAP_API.getAllCanonicizers()) {
+		for (Canonicizer canonicizer : Canonicizer.getCanonicizers()) {
 			if (canonicizer.showInGUI())
 				CanonicizerMasterList.add(canonicizer);
 		}
-		for (DistanceFunction distanceFunction : JGAAP_API
-				.getAllDistanceFunctions()) {
+		for (DistanceFunction distanceFunction : DistanceFunction.getDistanceFunctions()) {
 			if (distanceFunction.showInGUI())
 				DistanceFunctionsMasterList.add(distanceFunction);
 		}
-		for (EventCuller eventCuller : JGAAP_API.getAllEventCullers()) {
+		for (EventCuller eventCuller : EventCuller.getEventCullers()) {
 			if (eventCuller.showInGUI())
 				EventCullersMasterList.add(eventCuller);
 		}
-		for (EventDriver eventDriver : JGAAP_API.getAllEventDrivers()) {
+		for (EventDriver eventDriver : EventDriver.getEventDrivers()) {
 			if (eventDriver.showInGUI())
 				EventDriverMasterList.add(eventDriver);
 		}
-		for (Language language : JGAAP_API.getAllLanguages()) {
+		for (Language language : Language.getLanguages()) {
 			if (language.showInGUI())
 				LanguagesMasterList.add(language);
 		}
