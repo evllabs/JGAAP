@@ -43,6 +43,8 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 	public String longDescription() { return tooltipText(); }
 
 	public abstract boolean showInGUI();
+	
+	private List<EventCuller> cullers;
 
     /**
      * Creates an EventSet from a given DocumentSet after preprocessing.
@@ -81,6 +83,24 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 		}
 		Collections.sort(eventDrivers);
 		return eventDrivers;
+	}
+	
+	public boolean addCuller(EventCuller eventCuller) {
+		if(cullers == null)
+			cullers = new ArrayList<EventCuller>();
+		return cullers.add(eventCuller);
+	}
+	
+	public boolean removeCuller(EventCuller eventCuller) {
+		return cullers.remove(eventCuller);
+	}
+	
+	public void clearCullers(){
+		cullers.clear();
+	}
+	
+	public List<EventCuller> getEventCullers() {
+		return cullers;
 	}
 }
 
