@@ -2,6 +2,7 @@ package com.jgaap.eventDrivers;
 
 import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.*;
+import edu.stanford.nlp.ling.CoreAnnotations.AnswerAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 
 import java.util.List;
@@ -35,10 +36,11 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 	synchronized public EventSet createEventSet(Document doc)
 			throws EventGenerationException {
 		EventSet eventSet = new EventSet();
-		String serializedClassifier = "/com/jgaap/resources/models/ner/english.all.3class.distsim.crf.ser.gz";
+		//		String serializedClassifier = "/com/jgaap/resources/models/ner/english.all.3class.distsim.crf.ser.gz";  original classifier
+		String serializedClassifier = "/com/jgaap/resources/models/ner/english.muc.7class.distsim.crf.ser.gz";  // Runs with this one too.  Still no output
 		if (classifier == null)
 			synchronized (this) {
-				if (classifier == null) {
+				if (classifier == null) {   
 					try {
 						classifier = CRFClassifier.getJarClassifier(serializedClassifier, null);
 					} catch (Exception e) {
@@ -48,18 +50,19 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 					}
 				}
 			}
+
 		String fileContents = doc.stringify();
 		List<List<CoreLabel>> out = classifier.classify(fileContents);
 		for (List<CoreLabel> sentence : out) {
 			for (CoreLabel word : sentence) {
-				if (word.ner() != null) {
+				System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));
+				if (!word.get(AnswerAnnotation.class).equals("0") || !word.get(AnswerAnnotation.class).equals("O")) {
 					eventSet.addEvent(new Event(word.word()));
-					System.out.println(word.toString() + "\t" + word.word()
-							+ "\t" + word.ner());
+				System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));
 				}
-			}
-		}
+			}	
+		}	
 		return eventSet;
-	}
+	}	
 
 }
