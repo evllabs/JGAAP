@@ -37,7 +37,7 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 			throws EventGenerationException {
 		EventSet eventSet = new EventSet();
 		//		String serializedClassifier = "/com/jgaap/resources/models/ner/english.all.3class.distsim.crf.ser.gz";  original classifier
-		String serializedClassifier = "/com/jgaap/resources/models/ner/english.muc.7class.distsim.crf.ser.gz";  // Runs with this one too.  Still no output
+		String serializedClassifier = "/com/jgaap/resources/models/ner/english.muc.7class.distsim.crf.ser.gz";  // Runs with this one too. Decide which to keep?!
 		if (classifier == null)
 			synchronized (this) {
 				if (classifier == null) {   
@@ -56,13 +56,12 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 		for (List<CoreLabel> sentence : out) {
 			for (CoreLabel word : sentence) {
 				System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));
-				if (!word.get(AnswerAnnotation.class).equals("0") || !word.get(AnswerAnnotation.class).equals("O")) {
+				if (!word.get(AnswerAnnotation.class).equals("O")) {
 					eventSet.addEvent(new Event(word.word()));
-				System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));
+					System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));  // This can be removed.  Just shows each word being analyzed.
 				}
-			}	
-		}	
+			}		
+		}		
 		return eventSet;
 	}	
-
-}
+	}
