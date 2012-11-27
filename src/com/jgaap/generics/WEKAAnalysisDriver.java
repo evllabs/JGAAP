@@ -122,7 +122,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			classifier.buildClassifier(trainingSet);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new AnalyzeException("WEKA classifier not trained");
+			throw new AnalyzeException("WEKA classifier not trained: "+e.getMessage() + "\n" + e.getStackTrace());
 		}
 	}
 
@@ -156,7 +156,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			probDistribution = classifier.distributionForInstance(currentTest);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new AnalyzeException("Could not classify with WEKA");
+			throw new AnalyzeException("Could not classify with WEKA: " + e.getMessage() + "\n" + e.getStackTrace());
 		}
 
 		/*
