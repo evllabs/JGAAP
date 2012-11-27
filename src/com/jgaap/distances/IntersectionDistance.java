@@ -22,7 +22,7 @@ package com.jgaap.distances;
 import com.jgaap.generics.*;
 
 /**
- * Given two event type-sets, A,B, calculate 1 - ||A intereset B|| // ||A union B||
+ * Given two event type-sets, A,B, calculate 1 - ||A intersect B|| // ||A union B||
  * 
  * @author Juola
  * @version 4.1
