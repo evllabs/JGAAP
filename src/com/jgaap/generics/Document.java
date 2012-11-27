@@ -355,8 +355,8 @@ public class Document extends Parameterizable {
 			for(EventCuller eventCuller : eventDriver.getEventCullers()){
 				buffer.append("\n\t").append(eventCuller.displayName()).append(" ").append(eventDriver.getParameters());
 			}
+			buffer.append("\n");
 		}
-		buffer.append("\n");
 		buffer.append("Analysis: \n").append(analysisDriver.displayName()).append(" ").append(analysisDriver.getParameters());
 		buffer.append("\n");
 		int count = 0; // Keeps a relative count (adjusted for ties)
