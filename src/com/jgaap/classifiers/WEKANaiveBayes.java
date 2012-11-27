@@ -12,7 +12,7 @@ public class WEKANaiveBayes extends WEKAAnalysisDriver {
 
 	@Override
 	public String displayName() {
-		return "WEKA Naive Bayes Classifier";
+		return "WEKA Naive Bayes";
 	}
 
 	@Override

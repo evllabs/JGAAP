@@ -12,7 +12,7 @@ public class WEKADecisionStump extends WEKAAnalysisDriver {
 
 	@Override
 	public String displayName() {
-		return "WEKA Decision Stump Classifier";
+		return "WEKA Decision Stump";
 	}
 
 	@Override

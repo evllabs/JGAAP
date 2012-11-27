@@ -17,7 +17,7 @@ public class WEKAJ48DecisionTree extends WEKAAnalysisDriver {
 
 	@Override
 	public String displayName() {
-		return "WEKA J48 Decision Tree Classifier";
+		return "WEKA J48 Decision Tree";
 	}
 
 	@Override
