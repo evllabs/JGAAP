@@ -100,7 +100,10 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 	}
 	
 	public List<EventCuller> getEventCullers() {
-		return cullers;
+		if(cullers != null)
+			return cullers;
+		else 
+			return Collections.emptyList();
 	}
 }
 
