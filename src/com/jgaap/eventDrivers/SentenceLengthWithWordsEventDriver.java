@@ -48,7 +48,7 @@ public class SentenceLengthWithWordsEventDriver extends EventDriver {
 		EventSet sentences = new SentenceEventDriver().createEventSet(text);
 		EventSet eventSet = new EventSet(sentences.size());
 		for(Event sentence : sentences){
-			String[] words = sentence.getEvent().split("\\s+");
+			String[] words = sentence.toString().split("\\s+");
 			eventSet.addEvent(new Event(Integer.toString(words.length), this));
 		}
 		return eventSet;
