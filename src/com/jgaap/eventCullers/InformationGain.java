@@ -11,7 +11,9 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Sort out the N most informative events across all documents. Uses smoothing
@@ -34,7 +36,6 @@ public class InformationGain extends EventCuller {
 	@Override
 	public List<EventSet> cull(List<EventSet> eventSets) {
 		List<EventSet> results = new ArrayList<EventSet>();
-		int minPos = getParameter("minPos", 0);
 		int numEvents = getParameter("numEvents", 50);
 		String informative = getParameter("Informative", "Most");
 
@@ -95,18 +96,18 @@ public class InformationGain extends EventCuller {
 		if (informative.equals("Most")) {
 			Collections.reverse(infoGain);
 		}
-		/*
-		 * IGSet holds the k first events in infoGain. infoGain is already
-		 * sorted by most or least informative
-		 */
-		List<Event> IGSet = new ArrayList<Event>();
-		for (int i = minPos; i < minPos + numEvents; i++) {
-			IGSet.add(infoGain.get(i).getFirst());
+		int counter = 0;
+		Set<Event> events = new HashSet<Event>(numEvents);
+		for(Pair<Event, Double> event : infoGain){
+			counter++;
+			events.add(event.getFirst());
+			if(counter == numEvents)
+				break;
 		}
 		for (EventSet oneSet : eventSets) {
 			EventSet newSet = new EventSet();
 			for (Event e : oneSet) {
-				if (IGSet.contains(e)) {
+				if (events.contains(e)) {
 					newSet.addEvent(e);
 				}
 			}

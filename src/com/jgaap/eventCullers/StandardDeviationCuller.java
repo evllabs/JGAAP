@@ -2,7 +2,9 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.jgaap.backend.Utils;
 import com.jgaap.generics.Event;
@@ -28,7 +30,6 @@ public class StandardDeviationCuller extends EventCuller {
 	public List<EventSet> cull(List<EventSet> eventSets)
 			throws EventCullingException {
 		List<EventSet> results = new ArrayList<EventSet>();
-		int minPos = getParameter("minPos", 0);
 		int numEvents = getParameter("numEvents", 50);
 		String informative = getParameter("Informative", "Most");
 		
@@ -61,14 +62,18 @@ public class StandardDeviationCuller extends EventCuller {
 			Collections.reverse(var);
 		}
 
-		List<Event> varSet = new ArrayList<Event>();
-		for (int i = minPos; i < minPos + numEvents; i++) {
-			varSet.add(var.get(i).getFirst());
+		int counter = 0;
+		Set<Event> events = new HashSet<Event>(numEvents);
+		for(Pair<Event, Double> event : var){
+			counter++;
+			events.add(event.getFirst());
+			if(counter == numEvents)
+				break;
 		}
 		for (EventSet oneSet : eventSets) {
 			EventSet newSet = new EventSet();
 			for (Event e : oneSet) {
-				if (varSet.contains(e)) {
+				if (events.contains(e)) {
 					newSet.addEvent(e);
 				}
 			}
