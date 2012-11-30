@@ -28,7 +28,6 @@ import java.util.HashSet;
 
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -63,7 +62,7 @@ public class WhiteListEventDriver extends EventDriver {
 	private String filename;
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		String param;
 		HashSet<String> whitelist = new HashSet<String>();
 
@@ -87,11 +86,9 @@ public class WhiteListEventDriver extends EventDriver {
 			filename = null;
 		}
 
-		EventSet es = underlyingEvents.createEventSet(ds);
+		EventSet es = underlyingEvents.createEventSet(text);
 
 		EventSet newEs = new EventSet();
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
 
 		BufferedReader br = null;
 
@@ -130,7 +127,7 @@ public class WhiteListEventDriver extends EventDriver {
 		for (Event e : es) {
 			String s = e.toString();
 			if ((whitelist == null) || whitelist.contains(s)) {
-				newEs.addEvent(e);
+				newEs.addEvent(new Event(s, this));
 			}
 		}
 		return newEs;

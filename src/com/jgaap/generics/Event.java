@@ -41,11 +41,11 @@ public class Event implements Comparable<Object> {
         this.eventDriver = eventDriver;
     }
 
-    /** Create a new event given a character representation of the event **/
-    public Event(char data) {
-        this.data = Character.toString(data);
-        this.eventDriver = null;
-    }
+//    /** Create a new event given a character representation of the event **/
+//    public Event(char data) {
+//        this.data = Character.toString(data);
+//        this.eventDriver = null;
+//    }
     
     /** Create a new event given a string representation of this event **/
     public Event(String data, EventDriver eventDriver) {
@@ -53,11 +53,11 @@ public class Event implements Comparable<Object> {
         this.eventDriver = eventDriver;
     }
     
-    /** Create a new event given a string representation of this event **/
-    public Event(String data) {
-        this.data = data;
-        this.eventDriver = null;
-    }
+//    /** Create a new event given a string representation of this event **/
+//    public Event(String data) {
+//        this.data = data;
+//        this.eventDriver = null;
+//    }
 
     /**
      * Overridden - from Comparable interface. Allows for comparison of two

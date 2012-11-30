@@ -17,14 +17,15 @@
  */
 package com.jgaap.eventDrivers;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.jgaap.backend.API;
 import com.jgaap.canonicizers.PunctuationSeparator;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
-import com.knowledgebooks.nlp.fasttag.*;
-import java.util.*;
+import com.knowledgebooks.nlp.fasttag.FastTag;
 
 /**
  * This changes words into their parts of speech in a document. This does not
@@ -51,11 +52,9 @@ public class PartOfSpeechEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc) {
+	public EventSet createEventSet(char[] text) {
 
-		EventSet es = new EventSet(doc.getAuthor());
-
-		char[] text = doc.getText();
+		EventSet es = new EventSet();
 
 		text = new PunctuationSeparator().process(text);
 

@@ -1,6 +1,5 @@
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -45,11 +44,11 @@ public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc)
+	public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
 		EventSet eventSet = new EventSet();
 		stanfordPOS.setParameter("taggingModel", getParameter("taggingModel"));
-		EventSet posEventSet = stanfordPOS.createEventSet(doc);
+		EventSet posEventSet = stanfordPOS.createEventSet(text);
 		String gramSize = getParameter("N");
 		int n;
 		if("".equals(gramSize)){

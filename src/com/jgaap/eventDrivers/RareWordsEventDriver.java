@@ -20,12 +20,11 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventHistogram;
+import com.jgaap.generics.EventSet;
 
 /**
  * This event set is all events occurring only once of an underlying event model
@@ -71,7 +70,7 @@ public class RareWordsEventDriver extends EventDriver {
 	public int M = 1, N = 2;
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 
 		String param;
 		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
@@ -107,10 +106,8 @@ public class RareWordsEventDriver extends EventDriver {
 				setM(2);
 			}
 		}
-		EventSet es = underlyingevents.createEventSet(ds);
+		EventSet es = underlyingevents.createEventSet(text);
 		EventSet newEs = new EventSet();
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
 
 		/**
 		 * Create histogram with all events from stream
@@ -124,9 +121,9 @@ public class RareWordsEventDriver extends EventDriver {
 		System.out.println("M = " + M + "; N = " + N);
 		for (Event e : es) {
 			int n = hist.getAbsoluteFrequency(e);
-			System.out.println(e.toString() + " " + n);
+			//System.out.println(e.toString() + " " + n);
 			if (n >= M && n <= N)
-				newEs.addEvent(e);
+				newEs.addEvent(new Event(e.toString(), this));
 		}
 		return newEs;
 	}

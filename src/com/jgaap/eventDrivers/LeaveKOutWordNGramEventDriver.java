@@ -1,6 +1,5 @@
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -38,12 +37,12 @@ public class LeaveKOutWordNGramEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc)
+	public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
 		EventDriver driver = new LeaveKOutNGramEventDriver();
 		driver.setParameter("K", getParameter("K"));
 		driver.setParameter("N", getParameter("N"));
-		return driver.createEventSet(doc);
+		return driver.createEventSet(text);
 	}
 
 }

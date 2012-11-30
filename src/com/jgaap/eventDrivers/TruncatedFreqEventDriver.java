@@ -20,10 +20,9 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.EventDriver;
 
 /**
  * Truncate lexical frequency for discrete binning 
@@ -46,13 +45,13 @@ public class TruncatedFreqEventDriver extends EventDriver {
     	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
     }
 
-    private EventDriver theDriver;
+    private EventDriver theDriver = new TruncatedEventDriver();
+
 
     @Override
-    public EventSet createEventSet(Document ds) throws EventGenerationException {
-        theDriver = new TruncatedEventDriver();
+    public EventSet createEventSet(char[] text) throws EventGenerationException {
         theDriver.setParameter("length", "3");
         theDriver.setParameter("underlyingEvents", "Lexical Frequencies");
-        return theDriver.createEventSet(ds);
+        return theDriver.createEventSet(text);
     }
 }

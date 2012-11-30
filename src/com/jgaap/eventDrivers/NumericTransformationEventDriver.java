@@ -30,18 +30,14 @@ import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.NumericEventDriver;
 import com.jgaap.generics.NumericEventSet;
-
-
-
 /**
  * TransformationEventSet where transformed events are numeric, such as
  * frequency data or reaction times
  * 
  * @see TransformationEventSet
  */
-
-import com.jgaap.generics.*;
 
 
 public class NumericTransformationEventDriver extends NumericEventDriver {
@@ -72,7 +68,7 @@ public class NumericTransformationEventDriver extends NumericEventDriver {
 	private String filename;
 
 	@Override
-	public NumericEventSet createEventSet(Document ds) throws EventGenerationException {
+	public NumericEventSet createEventSet(char[] text) throws EventGenerationException {
 		String param;
 		HashMap<String, String> transform = new HashMap<String, String>();
 		boolean whitelist = true;
@@ -106,11 +102,9 @@ public class NumericTransformationEventDriver extends NumericEventDriver {
 			whitelist = true;
 		}
 
-		EventSet es = underlyingEvents.createEventSet(ds);
+		EventSet es = underlyingEvents.createEventSet(text);
 
 		NumericEventSet newEs = new NumericEventSet();
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
 
 		BufferedReader br = null;
 
@@ -158,7 +152,7 @@ public class NumericTransformationEventDriver extends NumericEventDriver {
 		for (Event e : es) {
 			String s = e.toString();
 			if (transform == null) {
-				newEs.addEvent(e);
+				newEs.addEvent(new Event(s, this));
 			} else if (transform.containsKey(s)) {
 				String newS = transform.get(s);
 				if (newS.length() > 0) {
@@ -167,7 +161,7 @@ public class NumericTransformationEventDriver extends NumericEventDriver {
 			} else // s is not in transformation list
 			if (whitelist == false) {
 				// add only if no implicit whitelisting
-				newEs.addEvent(e);
+				newEs.addEvent(new Event(s,this));
 			} // otherwise add nothing
 		}
 		return newEs;

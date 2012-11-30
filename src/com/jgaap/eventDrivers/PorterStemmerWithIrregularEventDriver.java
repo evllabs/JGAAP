@@ -21,7 +21,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -39,7 +38,7 @@ import com.jgaap.generics.EventSet;
 public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 
 	@Override
-	public EventSet createEventSet(Document doc) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		Hashtable<String, String> verbs = new Hashtable<String, String>();
 		verbs.put("awoke", "awake");
 		verbs.put("awoken", "awake");
@@ -367,8 +366,8 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 		
 		PorterStemmerEventDriver stemmer = new PorterStemmerEventDriver();
 		
-		EventSet ev = stemmer.createEventSet(doc);
-		EventSet returnEv = new EventSet(ev.getAuthor());
+		EventSet ev = stemmer.createEventSet(text);
+		EventSet returnEv = new EventSet();
 		Iterator<Event> it = ev.iterator();
 		
 		while(it.hasNext()){

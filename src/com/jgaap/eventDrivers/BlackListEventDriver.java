@@ -30,7 +30,6 @@ import org.apache.log4j.Logger;
 
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -71,7 +70,7 @@ public class BlackListEventDriver extends EventDriver {
     private String      filename;
 
     @Override
-    public EventSet createEventSet(Document ds) throws EventGenerationException {
+    public EventSet createEventSet(char[] text) throws EventGenerationException {
         String param;
         HashSet<String> blacklist = new HashSet<String>();
 
@@ -94,11 +93,9 @@ public class BlackListEventDriver extends EventDriver {
             filename = null;
         }
 
-        EventSet es = underlyingEvents.createEventSet(ds);
+        EventSet es = underlyingEvents.createEventSet(text);
 
         EventSet newEs = new EventSet();
-        newEs.setAuthor(es.getAuthor());
-        newEs.setNewEventSetID(es.getAuthor());
 
         BufferedReader br = null;
 
@@ -134,9 +131,9 @@ public class BlackListEventDriver extends EventDriver {
         }
 
         for (Event event : es) {
-            String s = (event).toString();
+            String s = event.toString();
             if (!blacklist.contains(s)) {
-                newEs.addEvent(event);
+                newEs.addEvent(new Event(s, this));
             }
         }
         return newEs;

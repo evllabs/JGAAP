@@ -39,14 +39,14 @@ import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.LanguageParsingException;
+import com.knowledgebooks.nlp.fasttag.FastTag;
 
-import edu.mit.jwi.*;
+import edu.mit.jwi.Dictionary;
+import edu.mit.jwi.IDictionary;
 import edu.mit.jwi.item.IIndexWord;
 import edu.mit.jwi.item.IWord;
 import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
-
-import com.knowledgebooks.nlp.fasttag.*;
 
 /**
  * @author Darren Vescovi
@@ -192,9 +192,9 @@ public class DefinitionsEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 
-		EventSet eventSet = new EventSet(doc.getAuthor());
+		EventSet eventSet = new EventSet();
 		PorterStemmerWithIrregularEventDriver port = new PorterStemmerWithIrregularEventDriver();
 		EventSet tmpevent;
 		
@@ -209,10 +209,10 @@ public class DefinitionsEventDriver extends EventDriver {
 			dict.open();
 		} catch (Exception e) {
 			logger.error("Could not open WordNet Dictionary "+url, e);
-			throw new EventGenerationException("DefinitionsEventDriver failed to eventify "+doc.getFilePath());
+			throw new EventGenerationException("DefinitionsEventDriver failed to open WordNet");
 		}
 		
-		String current = doc.stringify();
+		String current = new String(text);
 
 		FastTag tagger = new FastTag();
 		
@@ -234,7 +234,6 @@ public class DefinitionsEventDriver extends EventDriver {
 				try { 
 				switch(table.get(tagged.get(i))){
 				case(1):
-					
 					idxWord = dict.getIndexWord(words.get(i), POS.NOUN);
 					if(idxWord == null)break;
 					wordID = idxWord.getWordIDs();
@@ -242,9 +241,7 @@ public class DefinitionsEventDriver extends EventDriver {
 					definition = word.getSynset().getGloss();
 					break;
 				case(2):
-					Document tmpDoc = new Document();
-					tmpDoc.readStringText(words.get(i));
-					tmpevent = port.createEventSet(tmpDoc);
+					tmpevent = port.createEventSet(words.get(i).toCharArray());
 					idxWord = dict.getIndexWord(tmpevent.eventAt(0).getEvent(), POS.VERB);
 					if(idxWord==null)break;
 			   		wordID = idxWord.getWordIDs();

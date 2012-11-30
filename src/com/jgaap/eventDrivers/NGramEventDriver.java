@@ -20,7 +20,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -73,7 +72,7 @@ public class NGramEventDriver extends EventDriver {
      * @throws EventGenerationException 
      */
     @Override
-    public EventSet createEventSet(Document ds) throws EventGenerationException {
+    public EventSet createEventSet(char[] text) throws EventGenerationException {
 
         // Extract local field values based on parameter settings
         String param;
@@ -118,10 +117,8 @@ public class NGramEventDriver extends EventDriver {
                 setEvents(new NaiveWordEventDriver());
             }
         }
-        EventSet es = underlyingevents.createEventSet(ds);
+        EventSet es = underlyingevents.createEventSet(text);
         EventSet newEs = new EventSet();
-        newEs.setAuthor(es.getAuthor());
-        newEs.setNewEventSetID(es.getAuthor());
         String s;
 
         /**
@@ -134,7 +131,7 @@ public class NGramEventDriver extends EventDriver {
             StringBuilder stringBuilder = new StringBuilder();
             // watch off-by-one error at end of event stream
             for (int j = i - N; j < i; j++) {
-                s = es.eventAt(j).getEvent();
+                s = es.eventAt(j).toString();
                 stringBuilder.append(opendelim).append(s).append(closedelim);
                 if (j != i - 1) {
                     stringBuilder.append(separator);

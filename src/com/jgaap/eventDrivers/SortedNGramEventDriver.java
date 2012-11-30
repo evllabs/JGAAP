@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -42,7 +41,7 @@ public class SortedNGramEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		String eventDriverString = getParameter("underlyingEventDriver", "Words");
 		String nString = getParameter("N","2");
 		int n = Integer.parseInt(nString);
@@ -53,7 +52,7 @@ public class SortedNGramEventDriver extends EventDriver {
 			logger.error("Problem loading underlying EventDriver "+eventDriverString+".",e);
 			throw new EventGenerationException("Problem loading underlying EventDriver "+eventDriverString+".");
 		}
-		EventSet underlyingEventSet = underlyingEventDriver.createEventSet(doc);
+		EventSet underlyingEventSet = underlyingEventDriver.createEventSet(text);
 		EventSet eventSet = new EventSet(underlyingEventSet.size()-n);
 		for(int i=0;i<underlyingEventSet.size()-n;i++){
 			List<String> currentEvents = new ArrayList<String>(n);

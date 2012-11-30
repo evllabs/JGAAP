@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -54,7 +53,7 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc)
+	public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
 		if (tagger == null)
 			synchronized (this) {
@@ -74,7 +73,7 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 				}
 			}
 		List<ArrayList<TaggedWord>> taggedSentences = tagger
-				.process(MaxentTagger.tokenizeText(new StringReader(doc.stringify())));
+				.process(MaxentTagger.tokenizeText(new StringReader(new String(text))));
 		EventSet eventSet = new EventSet(taggedSentences.size());
 		for (ArrayList<TaggedWord> sentence : taggedSentences) {
 			for (TaggedWord taggedWord : sentence) {

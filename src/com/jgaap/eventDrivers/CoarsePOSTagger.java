@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
@@ -105,9 +104,9 @@ public class CoarsePOSTagger extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc) {
-		EventSet preprocessEventSet = new PartOfSpeechEventDriver().createEventSet(doc);
-		EventSet eventSet = new EventSet(doc.getAuthor());
+	public EventSet createEventSet(char[] text) {
+		EventSet preprocessEventSet = new PartOfSpeechEventDriver().createEventSet(text);
+		EventSet eventSet = new EventSet();
 		for (Event event : preprocessEventSet) {
 			if(translationTable.containsKey(event.getEvent()))
 				eventSet.addEvent(new Event(translationTable.get(event.getEvent()), this));

@@ -44,6 +44,8 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 
 	public abstract boolean showInGUI();
 	
+	private List<Canonicizer> canonicizers;
+	
 	private List<EventCuller> cullers;
 
     /**
@@ -55,7 +57,7 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
      * @return the EventSet containing the Events from the document(s)
      */
 
-    abstract public EventSet createEventSet(Document doc) throws EventGenerationException;
+    abstract public EventSet createEventSet(char[] text) throws EventGenerationException;
 
     
     public int compareTo(EventDriver o){
@@ -85,6 +87,30 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 		return eventDrivers;
 	}
 	
+	public boolean addCanonicizer(Canonicizer canonicizer) {
+		if(canonicizers == null)
+			canonicizers = new ArrayList<Canonicizer>();
+		return canonicizers.add(canonicizer);
+	}
+	
+	public boolean removeCanonicizer(Canonicizer canonicizer) {
+		if(canonicizers != null)
+			return  canonicizers.remove(canonicizer);
+		else 
+			return false;
+	}
+	
+	public void clearCanonicizers() {
+		canonicizers.clear();
+	}
+	
+	public List<Canonicizer> getCanonicizers() {
+		if(canonicizers != null)
+			return canonicizers;
+		else 
+			return Collections.emptyList();
+	}
+	
 	public boolean addCuller(EventCuller eventCuller) {
 		if(cullers == null)
 			cullers = new ArrayList<EventCuller>();
@@ -92,11 +118,15 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 	}
 	
 	public boolean removeCuller(EventCuller eventCuller) {
-		return cullers.remove(eventCuller);
+		if(cullers != null)
+			return cullers.remove(eventCuller);
+		else 
+			return false;
 	}
 	
 	public void clearCullers(){
-		cullers.clear();
+		if(cullers != null)
+			cullers.clear();
 	}
 	
 	public List<EventCuller> getEventCullers() {

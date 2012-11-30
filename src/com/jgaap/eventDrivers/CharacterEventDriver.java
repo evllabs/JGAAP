@@ -19,7 +19,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
@@ -59,11 +58,10 @@ public class CharacterEventDriver extends EventDriver {
 	 *            document of interest
 	 */
 	@Override
-	public EventSet createEventSet(Document document) {
-		EventSet es = new EventSet(document.getAuthor());
-		char[] cd = document.getText();
-		for (int j = 0; j < cd.length; j++) {
-			es.addEvent(new Event(cd[j], this));
+	public EventSet createEventSet(char[] text) {
+		EventSet es = new EventSet();
+		for (int j = 0; j < text.length; j++) {
+			es.addEvent(new Event(text[j], this));
 		}
 		return es;
 	}

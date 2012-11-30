@@ -19,7 +19,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
@@ -62,11 +61,10 @@ public class VowelMNLetterWordEventDriver extends MNLetterWordEventDriver {
 		return true;
 	}
 
-	private MNLetterWordEventDriver theDriver;
+	private MNLetterWordEventDriver theDriver = new MNLetterWordEventDriver();
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
-		theDriver = new MNLetterWordEventDriver();
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		theDriver.setParameter("underlyingevents", "Vowel-initial Words");
 		String temp = this.getParameter("M");
 		if (temp.equals("")) {
@@ -78,6 +76,6 @@ public class VowelMNLetterWordEventDriver extends MNLetterWordEventDriver {
 			this.setParameter("N", 3);
 		}
 		theDriver.setParameter("N", this.getParameter("N"));
-		return theDriver.createEventSet(ds);
+		return theDriver.createEventSet(text);
 	}
 }

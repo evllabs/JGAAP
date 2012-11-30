@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -61,7 +60,7 @@ public class TransformationEventDriver extends EventDriver {
 	private String filename;
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		String param;
 		HashMap<String, String> transform = new HashMap<String, String>();
 		boolean whitelist = false;
@@ -95,11 +94,9 @@ public class TransformationEventDriver extends EventDriver {
 			whitelist = false;
 		}
 
-		EventSet es = underlyingEvents.createEventSet(ds);
+		EventSet es = underlyingEvents.createEventSet(text);
 
 		EventSet newEs = new EventSet();
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
 
 		BufferedReader br = null;
 
@@ -141,7 +138,7 @@ public class TransformationEventDriver extends EventDriver {
 		for (Event e : es) {
 			String s = e.toString();
 			if (transform == null) {
-				newEs.addEvent(e);
+				newEs.addEvent(new Event(e.toString(), this));
 			} else if (transform.containsKey(s)) {
 				String newS = transform.get(s);
 				if (newS.length() > 0) {
@@ -150,7 +147,7 @@ public class TransformationEventDriver extends EventDriver {
 			} else // s is not in transformation list
 			if (whitelist == false) {
 				// add only if no implicit whitelisting
-				newEs.addEvent(e);
+				newEs.addEvent(new Event(e.toString(), this));
 			} // otherwise add nothing
 		}
 		return newEs;

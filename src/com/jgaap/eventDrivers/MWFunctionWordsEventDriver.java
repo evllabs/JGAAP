@@ -20,7 +20,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.JGAAPConstants;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -54,12 +53,10 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     }
 
     /** Static field for efficiency */
-    // private static EventDriver e;
-    // Peter Jan 21 2010 ^ if this is static, then why are we setting it in the constructor?
     private EventDriver e;
 
+
     /** Default constructor. Sets parameters for WhiteList */
-    // Peter Jan 21 2010 - this needs to be public for autopopulator
     public MWFunctionWordsEventDriver() {
         e = new WhiteListEventDriver();
         e.setParameter("underlyingEvents", "Words");
@@ -70,8 +67,8 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     /** Creates EventSet using M-W function word list 
      * @throws EventGenerationException */
     @Override
-    public EventSet createEventSet(Document ds) throws EventGenerationException {
-        return e.createEventSet(ds);
+    public EventSet createEventSet(char[] text) throws EventGenerationException {
+        return e.createEventSet(text);
     }
 
 }

@@ -297,6 +297,12 @@ public class API {
 		logger.info("Adding Canonicizer "+canonicizer.displayName()+" to Document "+document.toString());
 		return canonicizer;
 	}
+	
+	public Canonicizer addCanonicizer(Canonicizer canonicizer, EventDriver eventDriver) {
+		eventDriver.addCanonicizer(canonicizer);
+		logger.info("Adding Canonicizer "+canonicizer.displayName()+" to EventDriver "+eventDriver.displayName());
+		return canonicizer;
+	}
 
 	/**
 	 * Removes the first instance of the canoniciser corresponding to the action(displayName()) 
@@ -307,6 +313,10 @@ public class API {
 	 */
 	public void removeCanonicizer(Canonicizer canonicizer, Document document) {
 		document.removeCanonicizer(canonicizer);
+	}
+	
+	public void removeCanonicizer(Canonicizer canonicizer, EventDriver eventDriver) {
+		eventDriver.removeCanonicizer(canonicizer);
 	}
 
 	/**
@@ -576,8 +586,12 @@ public class API {
 						document.load();
 						document.processCanonicizers();
 						for (EventDriver eventDriver : eventDrivers) {
+							char[] text = document.getText();
+							for(Canonicizer canonicizer : eventDriver.getCanonicizers()){
+								text = canonicizer.process(text);
+							}
 							try{
-								document.addEventSet(eventDriver,eventDriver.createEventSet(document));
+								document.addEventSet(eventDriver,eventDriver.createEventSet(text));
 							} catch (EventGenerationException e) {
 								logger.error("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 								throw new Exception("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
