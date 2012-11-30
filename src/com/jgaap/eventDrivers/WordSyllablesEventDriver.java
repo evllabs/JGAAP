@@ -19,7 +19,12 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.*;
+import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
+import com.jgaap.generics.EventSet;
+import com.jgaap.generics.NumericEventDriver;
+import com.jgaap.generics.NumericEventSet;
 
 
 /**
@@ -56,11 +61,9 @@ public class WordSyllablesEventDriver extends NumericEventDriver {
 	public String vowellist = "aeiouyAEIOUY";
 
 	@Override
-	public NumericEventSet createEventSet(Document ds) throws EventGenerationException {
-		EventSet es = wordtokenizer.createEventSet(ds);
+	public NumericEventSet createEventSet(char[] text) throws EventGenerationException {
+		EventSet es = wordtokenizer.createEventSet(text);
 		NumericEventSet newEs = new NumericEventSet();
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
 
 		for (int i = 0; i < es.size(); i++) {
 			String s = (es.eventAt(i)).toString();

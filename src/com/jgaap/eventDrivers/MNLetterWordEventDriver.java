@@ -20,7 +20,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -70,14 +69,14 @@ public class MNLetterWordEventDriver extends EventDriver {
 	}
 
 	/** Underlying EventDriver from which Events are drawn. */
-	public EventDriver underlyingevents = new NaiveWordEventDriver();
+	private EventDriver underlyingevents = new NaiveWordEventDriver();
 
 	/** Limits on characters per word */
 	public int M = 2;
 	public int N = 3;
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 
 		// Extract local field values based on parameter settings
 		String param;
@@ -116,10 +115,8 @@ public class MNLetterWordEventDriver extends EventDriver {
 				setEvents(new NaiveWordEventDriver());
 			}
 		}
-		EventSet es = underlyingevents.createEventSet(ds);
+		EventSet es = underlyingevents.createEventSet(text);
 		EventSet newEs = new EventSet();
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
 		String s;
 
 		/* Negative upper bounds mean no upper bound */
@@ -131,10 +128,8 @@ public class MNLetterWordEventDriver extends EventDriver {
 		 */
 		for (Event e : es) {
 			s = e.toString();
-			// System.out.println("Event: "+s);
 			if (s.length() >= M && s.length() <= N) {
-				// should we clone event before adding? PMJ
-				newEs.addEvent(e);
+				newEs.addEvent(new Event(s, this));
 			}
 		}
 		return newEs;

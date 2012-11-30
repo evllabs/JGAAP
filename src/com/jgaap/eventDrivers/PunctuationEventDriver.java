@@ -1,6 +1,5 @@
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -25,10 +24,10 @@ public class PunctuationEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc)
+	public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
 		EventSet eventSet = new EventSet();
-		for(char character: doc.getText()){
+		for(char character: text){
 			if(!(Character.isLetterOrDigit(character)||Character.isWhitespace(character))){
 				eventSet.addEvent(new Event(character, this));
 			}

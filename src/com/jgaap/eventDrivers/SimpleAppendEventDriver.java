@@ -20,7 +20,7 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -64,7 +64,7 @@ public class SimpleAppendEventDriver extends EventDriver {
 	 * @throws EventGenerationException 
      */
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 
 		// Extract local field values based on parameter settings
 		String param;
@@ -78,8 +78,6 @@ public class SimpleAppendEventDriver extends EventDriver {
 		System.out.println("Starting processing " + param);
 
 		EventSet es, newEs = new EventSet();
-		newEs.setAuthor(ds.getAuthor());
-		newEs.setNewEventSetID(ds.getAuthor());
 		String[] set = param.split(",");
 		for (int i = 0; i < set.length; i++) {
 			System.out.println("Processing " + set[i]);
@@ -92,10 +90,10 @@ public class SimpleAppendEventDriver extends EventDriver {
 				setEvents(new NaiveWordEventDriver());
 			}
 
-			es = underlyingevents.createEventSet(ds);
+			es = underlyingevents.createEventSet(text);
 
-			for (int j = 0; j < es.size(); j++)
-				newEs.addEvent(es.eventAt(j));
+			for (Event event : es)
+				newEs.addEvent(new Event(event.toString(), this));
 		}
 		return newEs;
 	}

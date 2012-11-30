@@ -20,7 +20,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
@@ -55,17 +54,17 @@ public class POSNGramEventDriver extends NGramEventDriver {
 				.equalsIgnoreCase("English");
 	}
 
-	private NGramEventDriver theDriver;
+	private NGramEventDriver theDriver = new NGramEventDriver();
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
-		theDriver = new NGramEventDriver();
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
+		//theDriver = new NGramEventDriver();
 		String temp = this.getParameter("N");
 		if (temp.equals("")) {
 			this.setParameter("N", 2);
 		}
 		theDriver.setParameter("N", this.getParameter("N"));
 		theDriver.setParameter("underlyingEvents", "POS");
-		return theDriver.createEventSet(ds);
+		return theDriver.createEventSet(text);
 	}
 }

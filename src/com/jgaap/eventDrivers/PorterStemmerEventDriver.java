@@ -20,7 +20,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -60,34 +59,18 @@ public class PorterStemmerEventDriver extends EventDriver {
 		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
 	}
 
-	// Peter - Changed Jan 21 2010
-	// This was causing havoc with the autopopulator
-	// (Also, why are we resetting the static EventDriver in the constructor?)
 	private EventDriver e = new NaiveWordEventDriver();
-
-	/** Static field for efficiency */
-	// private static EventDriver e = new NaiveWordEventDriver();
-
-	/** Default constructor. Sets parameters for WhiteList */
-	// PorterStemmerEventDriver() {
-	// Eventually we want to parameterize this for new underlying events
-	// e = new NaiveWordEventDriver();
-	// }
 
 	/** Creates EventSet using Porter stemmer on underlying events 
 	 * @throws EventGenerationException */
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
-		EventSet raw = e.createEventSet(ds);
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
+		EventSet raw = e.createEventSet(text);
 		EventSet cooked = new EventSet();
 		Stemmer theStemmer = new Stemmer();
 
 		String r, s;
 		char[] a, b;
-
-		// set identifying information
-		cooked.setAuthor(raw.getAuthor());
-		cooked.setNewEventSetID(raw.getAuthor());
 
 		// stem each "Event" in the set
 		for (int i = 0; i < raw.size(); i++) {

@@ -1,6 +1,5 @@
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -30,14 +29,15 @@ public class SortedCharacterNGramEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+	
+	private EventDriver driver = new SortedNGramEventDriver();
 
 	@Override
-	public EventSet createEventSet(Document doc)
+	public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
-		EventDriver driver = new SortedNGramEventDriver();
 		driver.setParameter("N", getParameter("N"));
 		driver.setParameter("underlyingEventDriver", "Characters");
-		return driver.createEventSet(doc);
+		return driver.createEventSet(text);
 	}
 
 }

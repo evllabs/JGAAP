@@ -8,7 +8,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -30,11 +29,11 @@ public class LeaveKOutNGramEventDriver extends EventDriver {
 
 	@Override
 	public boolean showInGUI() {
-		return true;
+		return false;
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc)
+	public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
 		String eventDriverString = getParameter("underlyingEventDriver", "Words");
 		int n = getParameter("N", 3);
@@ -46,12 +45,12 @@ public class LeaveKOutNGramEventDriver extends EventDriver {
 			logger.error("Problem loading underlying EventDriver "+eventDriverString+".",e);
 			throw new EventGenerationException("Problem loading underlying EventDriver "+eventDriverString+".");
 		}
-		EventSet underlyingEventSet = underlyingEventDriver.createEventSet(doc);
+		EventSet underlyingEventSet = underlyingEventDriver.createEventSet(text);
 		EventSet eventSet = new EventSet();
 		for (int i = 0; i < underlyingEventSet.size() - n; i++) {
 			List<String> currentEvents = new ArrayList<String>(n);
 			for (int j = 0; j < n; j++) {
-				currentEvents.add(underlyingEventSet.eventAt(i + j).getEvent());
+				currentEvents.add(underlyingEventSet.eventAt(i + j).toString());
 			}
 			Set<List<String>> reducedEvents = getSubList(currentEvents, k);
 			for (List<String> current : reducedEvents) {

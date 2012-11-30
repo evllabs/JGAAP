@@ -19,7 +19,12 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.*;
+import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
+import com.jgaap.generics.EventSet;
+import com.jgaap.generics.NumericEventDriver;
+import com.jgaap.generics.NumericEventSet;
 
 
 /**
@@ -53,10 +58,10 @@ public class WordLengthEventDriver extends NumericEventDriver {
 	private EventDriver wordTokenizer;
 
 	@Override
-	public NumericEventSet createEventSet(Document ds) throws EventGenerationException {
+	public NumericEventSet createEventSet(char[] text) throws EventGenerationException {
 
 		wordTokenizer = new NaiveWordEventDriver();
-		EventSet es = wordTokenizer.createEventSet(ds);
+		EventSet es = wordTokenizer.createEventSet(text);
 
 		NumericEventSet newEs = new NumericEventSet();
 		newEs.setAuthor(es.getAuthor());

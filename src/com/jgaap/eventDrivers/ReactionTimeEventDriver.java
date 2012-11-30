@@ -21,7 +21,6 @@ package com.jgaap.eventDrivers;
 
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.NumericEventSet;
 
@@ -49,16 +48,16 @@ public class ReactionTimeEventDriver extends NumericTransformationEventDriver {
     	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
     }
 
+    private NumericTransformationEventDriver theDriver = new NumericTransformationEventDriver();
 
     @Override
-    public NumericEventSet createEventSet(Document ds) throws EventGenerationException {
-        NumericTransformationEventDriver theDriver = new NumericTransformationEventDriver();
+    public NumericEventSet createEventSet(char[] text) throws EventGenerationException {
         // uses NaiveWordEventSet for now
         theDriver.setParameter("implicitWhitelist", "true");
         theDriver.setParameter("filename", JGAAPConstants.JGAAP_RESOURCE_PACKAGE
                 + "ELPrt.dat");
 
-        return theDriver.createEventSet(ds);
+        return theDriver.createEventSet(text);
     }
 
 }

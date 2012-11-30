@@ -1,16 +1,15 @@
 package com.jgaap.eventDrivers;
 
-import edu.stanford.nlp.ie.AbstractSequenceClassifier;
-import edu.stanford.nlp.ie.crf.*;
-import edu.stanford.nlp.ling.CoreLabel;
-
 import java.util.List;
 
-import com.jgaap.generics.Document;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Event;
+
+import edu.stanford.nlp.ie.AbstractSequenceClassifier;
+import edu.stanford.nlp.ie.crf.CRFClassifier;
+import edu.stanford.nlp.ling.CoreLabel;
 
 public class StanfordNamedEntityRecognizer extends EventDriver {
 
@@ -32,7 +31,7 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 	}
 
 	@Override
-	synchronized public EventSet createEventSet(Document doc)
+	synchronized public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
 		EventSet eventSet = new EventSet();
 		String serializedClassifier = "/com/jgaap/resources/models/ner/english.all.3class.distsim.crf.ser.gz";
@@ -48,7 +47,7 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 					}
 				}
 			}
-		String fileContents = doc.stringify();
+		String fileContents = new String(text);
 		List<List<CoreLabel>> out = classifier.classify(fileContents);
 		for (List<CoreLabel> sentence : out) {
 			for (CoreLabel word : sentence) {

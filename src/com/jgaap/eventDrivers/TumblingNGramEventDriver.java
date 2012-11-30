@@ -20,7 +20,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -79,7 +78,7 @@ public class TumblingNGramEventDriver extends EventDriver {
      * @throws EventGenerationException 
      */
     @Override
-    public EventSet createEventSet(Document ds) throws EventGenerationException {
+    public EventSet createEventSet(char[] text) throws EventGenerationException {
 
         // Extract local field values based on parameter settings
         String param;
@@ -137,10 +136,9 @@ public class TumblingNGramEventDriver extends EventDriver {
                 setEvents(new NaiveWordEventDriver());
             }
         }
-        EventSet es = underlyingevents.createEventSet(ds);
+        EventSet es = underlyingevents.createEventSet(text);
         EventSet newEs = new EventSet();
-        newEs.setAuthor(es.getAuthor());
-        newEs.setNewEventSetID(es.getAuthor());
+
         String s;
 
         /**
@@ -153,7 +151,7 @@ public class TumblingNGramEventDriver extends EventDriver {
             StringBuilder eventBuilder = new StringBuilder();
             // watch off-by-one error at end of event stream
             for (int j = i - N; j < i; j++) {
-                s = es.eventAt(j).getEvent();
+                s = es.eventAt(j).toString();
                 eventBuilder.append(opendelim).append(s).append(closedelim);
                 if (j != i - 1) {
                 	eventBuilder.append(separator);

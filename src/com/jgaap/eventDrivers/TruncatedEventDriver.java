@@ -20,7 +20,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -53,7 +52,7 @@ public class TruncatedEventDriver extends EventDriver {
 	private int length;
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		String param;
 
 		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
@@ -74,7 +73,7 @@ public class TruncatedEventDriver extends EventDriver {
 			length = 2;
 		}
 
-		EventSet es = underlyingEvents.createEventSet(ds);
+		EventSet es = underlyingEvents.createEventSet(text);
 		EventSet newEs;
 
 		// preserver "numeric"-ness
@@ -82,9 +81,6 @@ public class TruncatedEventDriver extends EventDriver {
 			newEs = new NumericEventSet();
 		else
 			newEs = new EventSet();
-
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
 
 		for (int i = 0; i < es.size(); i++) {
 			String s = (es.eventAt(i)).toString();
