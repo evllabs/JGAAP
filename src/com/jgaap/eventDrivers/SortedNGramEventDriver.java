@@ -57,7 +57,7 @@ public class SortedNGramEventDriver extends EventDriver {
 		for(int i=0;i<underlyingEventSet.size()-n;i++){
 			List<String> currentEvents = new ArrayList<String>(n);
 			for(int j=0;j<n;j++){
-				currentEvents.add(underlyingEventSet.eventAt(i+j).getEvent());
+				currentEvents.add(underlyingEventSet.eventAt(i+j).toString());
 			}
 			Collections.sort(currentEvents);
 			eventSet.addEvent(new Event(currentEvents.toString(), this));

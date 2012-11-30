@@ -242,7 +242,7 @@ public class DefinitionsEventDriver extends EventDriver {
 					break;
 				case(2):
 					tmpevent = port.createEventSet(words.get(i).toCharArray());
-					idxWord = dict.getIndexWord(tmpevent.eventAt(0).getEvent(), POS.VERB);
+					idxWord = dict.getIndexWord(tmpevent.eventAt(0).toString(), POS.VERB);
 					if(idxWord==null)break;
 			   		wordID = idxWord.getWordIDs();
 			   		word = dict.getWord(wordID.get(0));

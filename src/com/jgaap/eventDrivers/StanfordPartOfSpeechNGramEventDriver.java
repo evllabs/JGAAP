@@ -60,7 +60,7 @@ public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
 		for (int i = n; i <= posEventSet.size(); i++) {
             StringBuilder stringBuilder = new StringBuilder();
             for (int j = i - n; j < i; j++) {
-                s = posEventSet.eventAt(j).getEvent();
+                s = posEventSet.eventAt(j).toString();
                 stringBuilder.append("(").append(s).append(")");
                 if (j != i - 1) {
                     stringBuilder.append("-");
