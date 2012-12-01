@@ -20,7 +20,9 @@ package com.jgaap.eventCullers;
 import com.jgaap.generics.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Analyze only the Xth through Yth most common events across the entire corpus.
@@ -61,17 +63,20 @@ public class FrequencyRangeCuller extends EventCuller {
         
         // If the user attempts to return too many events
         if(minPos + numEvents > eventFrequencies.size()) {
-        	throw new EventCullingException("The requested frequency range is too broad.  This event set contains only " + eventFrequencies.size() + " elements\nYou requested elements " + (minPos + 1) + " through " + (minPos + numEvents + 1));
+        	//throw new EventCullingException("The requested frequency range is too broad.  This event set contains only " + eventFrequencies.size() + " elements\nYou requested elements " + (minPos + 1) + " through " + (minPos + numEvents + 1));
+        }
+        
+        Set<Event> events = new HashSet<Event>();
+        for(int i = minPos; i < minPos + numEvents && i < eventFrequencies.size(); i++) {
+            events.add(eventFrequencies.get(i).getFirst());
         }
 
         // TODO: This is likely not the best way to do this, as it means for N most common events, we go through each event set N times.
         for(EventSet oneSet : eventSets) {
             EventSet newSet = new EventSet();
             for(Event e : oneSet) {
-                for(int i = minPos; i < minPos + numEvents; i++) {
-                    if(e.equals(eventFrequencies.get(i).getFirst())) {
-                        newSet.addEvent(e);
-                    }
+            	if(events.contains(e)) {
+                    newSet.addEvent(e);
                 }
             }
             results.add(newSet);
