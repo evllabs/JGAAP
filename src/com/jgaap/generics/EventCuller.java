@@ -37,9 +37,6 @@ public abstract class EventCuller extends Parameterizable implements Comparable<
 
     public abstract List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException; 
 
-    public abstract String displayName();
-    public abstract String tooltipText();
-    public abstract boolean showInGUI();
     public String longDescription() { return tooltipText(); }
 
     public int compareTo(EventCuller o){
