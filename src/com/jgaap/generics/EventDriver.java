@@ -35,14 +35,8 @@ import com.jgaap.backend.AutoPopulate;
 public abstract class EventDriver extends Parameterizable implements Comparable<EventDriver>, Displayable {
 	
 	private static List<EventDriver> EVENT_DRIVERS;
-	
-	public abstract String displayName();
-
-	public abstract String tooltipText();
 
 	public String longDescription() { return tooltipText(); }
-
-	public abstract boolean showInGUI();
 	
 	private List<Canonicizer> canonicizers;
 	

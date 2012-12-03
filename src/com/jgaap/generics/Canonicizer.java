@@ -15,8 +15,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- **/
 package com.jgaap.generics;
 
 import java.util.ArrayList;
@@ -36,29 +34,7 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
 	
 	private static List<Canonicizer> CANONICIZERS;
 	
-	/**
-	 * Simple method to return the display name of this Canonicizer, to be used in the GUI.
-	 * 
-	 * @return The human-readable name of this Canonicizer
-	 */
-	public abstract String displayName();
-	
-	/**
-	 * Simple method to return the tooltip text of this Canonicizer, to be used in the GUI.
-	 * 
-	 * @return The human-readable tooltip text to display when this Canonicizer is moused over
-	 */
-	public abstract String tooltipText();
-
-        public String longDescription() { return tooltipText(); }
-
-
-	/**
-	 * Simple method to indicate whether this Canonicizer should be displayed in the GUI.
-	 * 
-	 * @return Boolean flag indicating whether this Canonicizer should appear in the GUI
-	 */
-	public abstract boolean showInGUI();
+    public String longDescription() { return tooltipText(); }
 	
 	/**
 	 * Overrides the equals method so that Canonicizer can be compared more easily. A

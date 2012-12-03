@@ -33,14 +33,8 @@ import com.jgaap.backend.AutoPopulate;
 abstract public class DistanceFunction extends Parameterizable implements Comparable<DistanceFunction>, Displayable{
 
 	private static List<DistanceFunction> DISTANCE_FUNCTIONS;
-	
-	public abstract String displayName();
-
-	public abstract String tooltipText();
 
     public String longDescription() { return tooltipText(); }
-
-	public abstract boolean showInGUI();
 
     /**
      * Returns (as double) the distance between two EventSets.
