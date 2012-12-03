@@ -78,14 +78,6 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
 	public int hashCode() {
 		return this.displayName().toLowerCase().hashCode();
 	}
-	
-    /**
-     * Generic method for getting information. As yet used only by AddErrors,
-     * and should use Parameterizable interface instead.
-     */
-    public String getExtraInfo() {
-        return "";
-    }
 
     /**
      * Generic canonicizer method (abstract). Process a document to convert it
