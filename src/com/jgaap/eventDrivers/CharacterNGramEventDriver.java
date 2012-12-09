@@ -62,7 +62,7 @@ public class CharacterNGramEventDriver extends EventDriver {
 	public EventSet createEventSet(char[] text) {
 		int n;
 		try {
-			n = Integer.parseInt(getParameter("N"));
+			n = getParameter("N", 2);
 		} catch (NumberFormatException e) {
 			n = 2;
 		}

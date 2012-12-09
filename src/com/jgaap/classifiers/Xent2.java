@@ -92,7 +92,7 @@ public class Xent2 extends AnalysisDriver {
 
 	@Override
 	public void train(List<Document> knownDocuments) throws AnalyzeException {
-		windowSize = Integer.parseInt(getParameter("windowSize"));
+		windowSize = getParameter("windowSize", 15);
 		authorModel = getParameter("model").equalsIgnoreCase("author");
 		eventTries = new HashMap<String, EventTrie>();
 		for(Document document : knownDocuments){

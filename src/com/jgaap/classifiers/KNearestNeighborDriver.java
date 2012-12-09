@@ -73,20 +73,9 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
         Ballot<String> ballot = new Ballot<String>();
 
-        int k = DEFAULT_K; // Default
-        // Set K
-        if(getParameter("K") != null) {
-            try {
-                k = Integer.parseInt(getParameter("K"));
-            } catch(Exception e) {
-                k = DEFAULT_K; // Default
-            }
-        }
+        int k = getParameter("k", DEFAULT_K);
 
-        String tieBreaker = DEFAULT_TIE; // Default
-        if(getParameter("tieBreaker") != null && !getParameter("tieBreaker").trim().equals("")) {
-            tieBreaker = getParameter("tieBreaker");
-        }
+        String tieBreaker = getParameter("tieBreaker", DEFAULT_TIE);
 
 		List<Pair<String, Double>> rawResults = new ArrayList<Pair<String,Double>>();
 
