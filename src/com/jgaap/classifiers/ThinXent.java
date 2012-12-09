@@ -92,7 +92,7 @@ public class ThinXent extends AnalysisDriver {
 
 	@Override
 	public void train(List<Document> knownDocuments) throws AnalyzeException {
-		windowSize = Integer.parseInt(getParameter("windowSize"));
+		windowSize = getParameter("windowSize", 15);
 		authorModel = getParameter("model").equalsIgnoreCase("author");
 		eventGraphs = new HashMap<String, EventGraph>();
 		for(Document document : knownDocuments){

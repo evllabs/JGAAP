@@ -104,7 +104,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 		
 		if(getParameter("score").equalsIgnoreCase("true")){
 			Map<String, Integer> authorScores = new HashMap<String, Integer>();
-			int samples = Integer.parseInt(getParameter("samples"));
+			int samples = getParameter("samples", 5);
 			for(int i = 0; i < samples; i++){
 				Integer current = authorScores.get(rawResults.get(i).getFirst());
 				if (current == null){
