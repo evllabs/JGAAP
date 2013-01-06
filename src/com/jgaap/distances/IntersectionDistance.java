@@ -60,7 +60,7 @@ public class IntersectionDistance extends DistanceFunction{
 		// unioncount now has the number of distinct types in h1
 
 		for (Event event : knownEventMap.uniqueEvents()) {
-			if (unknownEventMap.absoluteFrequency(event) == 0) {
+			if (!unknownEventMap.contains(event)) {
 				// present in h2, not in h1, so add to union count
 				unioncount++;
 			} else {
