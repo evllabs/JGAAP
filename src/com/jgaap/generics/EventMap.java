@@ -1,64 +1,72 @@
 package com.jgaap.generics;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.ImmutableMultiset;
+import com.google.common.collect.Multiset;
+import com.google.common.collect.Multiset.Entry;
+
+/**
+ * An Immutable mapping of Events to their relative frequencies
+ * 
+ * @author Michael Ryan
+ *
+ */
 public class EventMap {
 
-	private Map<Event, Node> histogram;
-
-	public EventMap() {
-		this(1001);
-	}
+	private final ImmutableMap<Event, Double> histogram;
 	
 	public EventMap(Document document) {
-		this();
-		for(EventSet eventSet : document.getEventSets().values()){
-			add(eventSet);
-		}
+		this(document.getEventSets().values());
 	}
-
-	public EventMap(int size) {
-		histogram = new HashMap<Event, EventMap.Node>(size);
-	}
-
-	public void add(EventSet eventSet) {
-		int numEvents = eventSet.size();
-		for (Event event : eventSet) {
-			Node node = histogram.get(event);
-			if (node == null) {
-				node = new Node(1, numEvents);
-				histogram.put(event, node);
-			} else {
-				node.increment();
+	
+	public EventMap(Iterable<EventSet> eventSets) {
+		Builder<Event, Double> histogramBuilder = ImmutableMap.builder();
+		for(EventSet eventSet : eventSets){
+			double numEvents = eventSet.size();
+			Multiset<Event> multiset = ImmutableMultiset.copyOf(eventSet); 
+			for (Entry<Event> eventEntry : multiset.entrySet()) {
+				histogramBuilder.put(eventEntry.getElement(), eventEntry.getCount()/numEvents);
 			}
 		}
+		histogram = histogramBuilder.build();
+	}
+	
+	public EventMap(EventSet eventSet) {
+		this(Collections.singleton(eventSet));
+	}
+	
+	public EventMap(Map<Event, Double> histogram){
+		this.histogram = ImmutableMap.copyOf(histogram);
 	}
 
 	public double relativeFrequency(Event event) {
-		Node node = histogram.get(event);
-		if (node == null) {
+		Double frequency = histogram.get(event);
+		if (frequency == null) {
 			return 0.0;
 		} else {
-			return node.relativeFrequency();
+			return frequency.doubleValue();
+		}
+	}
+		
+	public double normalizedFrequency(Event event) {
+		Double frequency = histogram.get(event);
+		if (frequency == null) {
+			return 0.0;
+		} else {
+			return frequency * 100000;
 		}
 	}
 	
-	public double normalizedFrequency(Event event) {
-		return 100000 * relativeFrequency(event);
-	}
-
-	public long absoluteFrequency(Event event) {
-		Node node = histogram.get(event);
-		if (node == null) {
-			return 0;
-		} else {
-			return node.occurrences;
-		}
+	public boolean contains(Event event) {
+		return histogram.containsKey(event);
 	}
 
 	public Set<Event> uniqueEvents() {
@@ -66,53 +74,23 @@ public class EventMap {
 	}
 	
 	public static EventMap centroid(List<EventMap> eventMaps) {
-		EventMap centroidEventMap = new EventMap();
-		Set<Event> events = new HashSet<Event>();
+		ImmutableMultimap.Builder<Event, Double> multiMapBuilder = ImmutableMultimap.builder();
 		for (EventMap eventMap : eventMaps) {
-			events.addAll(eventMap.histogram.keySet());
-		}
-		for (Event event : events) {
-			List<Node> nodes = new ArrayList<Node>(eventMaps.size());
-			for(EventMap eventMap : eventMaps) {
-				Node node = eventMap.histogram.get(event);
-				if(node != null){
-					nodes.add(node);
-				}
+			for(Map.Entry<Event, Double> entry : eventMap.histogram.entrySet()){
+				multiMapBuilder.put(entry.getKey(), entry.getValue());
 			}
-			long occurrences = 0;
-			long numEvents = 1;
-			for (int i = 0; i < nodes.size(); i++) {
-				long tmp = nodes.get(i).occurrences;
-				for (int j = 0; j < nodes.size(); j++) {
-					if (j != i) {
-						tmp *= nodes.get(j).numEvents;
-					}
-				}
-				occurrences += tmp;
-				numEvents *= nodes.get(i).numEvents;
-				
+		}
+		ImmutableMultimap<Event, Double> multimap = multiMapBuilder.build();
+		
+		double count = eventMaps.size();
+		Builder<Event, Double> builder = ImmutableMap.builder();
+		for (Map.Entry<Event, Collection<Double>> entry : multimap.asMap().entrySet()) {
+			double value = 0.0;
+			for(double current : entry.getValue()){
+				value += current;
 			}
-			numEvents *= eventMaps.size();
-			centroidEventMap.histogram.put(event, new Node(occurrences, numEvents));
+			builder.put(entry.getKey(), value/count);
 		}
-		return centroidEventMap;
-	}
-
-	private static class Node {
-		long occurrences;
-		long numEvents;
-
-		Node(long occurrences, long numEvents) {
-			this.occurrences = occurrences;
-			this.numEvents = numEvents;
-		}
-
-		void increment() {
-			this.occurrences++;
-		}
-
-		double relativeFrequency() {
-			return occurrences / (double)numEvents;
-		}
+		return new EventMap(builder.build());
 	}
 }

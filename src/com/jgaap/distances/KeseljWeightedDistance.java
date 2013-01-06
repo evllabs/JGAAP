@@ -78,7 +78,7 @@ public class KeseljWeightedDistance extends DistanceFunction {
 
 			//  note that if fx == 0, the formula above == 1
 
-			if (unknownEventMap.absoluteFrequency(event) == 0) {
+			if (!unknownEventMap.contains(event)) {
 				// so we simplify a bit
 				distance += 1.0;
 			}

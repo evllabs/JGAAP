@@ -72,8 +72,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 				for (int j = 0; j < sampleSize; j++) {
 					eventSet.addEvent(entry.getValue().next());
 				}
-				EventMap histogram = new EventMap();
-				histogram.add(eventSet);
+				EventMap histogram = new EventMap(eventSet);
 				histograms.add(histogram);
 			}
 			authorHistograms.put(entry.getKey(), histograms);
@@ -88,8 +87,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 		for(EventSet eventSet : unknownDocument.getEventSets().values()){
 			unknownEventSet.addEvents(eventSet);
 		}
-		EventMap unknownHistogram = new EventMap();
-		unknownHistogram.add(unknownEventSet);
+		EventMap unknownHistogram = new EventMap(unknownEventSet);
 		for (Entry<String, List<EventMap>> entry : authorHistograms.entrySet()) {
 			for (EventMap knownHistogram : entry.getValue()) {
 				try {

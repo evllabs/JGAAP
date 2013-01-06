@@ -38,7 +38,7 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 	 */
 	@Override
 	public boolean showInGUI() {
-		return false;
+		return true;
 	}
 
 	public void train(List<Document> knowns) {

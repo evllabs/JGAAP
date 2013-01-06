@@ -60,7 +60,7 @@ public class KullbackLeiblerDivergence extends DivergenceFunction {
         double distance = 0;
 
         for(Event event : unknownEventMap.uniqueEvents()) {
-            if(knownEventMap.absoluteFrequency(event)!=0){
+            if(knownEventMap.contains(event)){
              distance += unknownEventMap.relativeFrequency(event) * Math.log(unknownEventMap.relativeFrequency(event)/knownEventMap.relativeFrequency(event)); 
             }
         }
