@@ -670,23 +670,25 @@ public class API {
 				unknownDocuments.add(document);
 			}
 		}
-		// ExecutorService analysisExecutor = Executors.newFixedThreadPool(workers);
 		for (AnalysisDriver analysisDriver : analysisDrivers) {
+			ExecutorService analysisExecutor = Executors.newFixedThreadPool(workers);
 			logger.info("Training " + analysisDriver.displayName());
 			analysisDriver.train(knownDocuments);
+			logger.info("Finished Training "+analysisDriver.displayName());
 			if (analysisDriver instanceof ValidationDriver) {
 				for (Document knownDocument : knownDocuments) {
-					// TODO: change to threaded here
-					logger.info("Analyzing " + knownDocument.toString());
-					knownDocument.addResult(analysisDriver, analysisDriver.analyze(knownDocument));
+					analysisExecutor.submit(new AnalysisWorker(knownDocument, analysisDriver));
 				}
 			} else {
 				for (Document unknownDocument : unknownDocuments) {
-					// TODO: change to threaded here
-					logger.info("Analyzing " + unknownDocument.toString());
-					unknownDocument.addResult(analysisDriver, analysisDriver.analyze(unknownDocument));
+					analysisExecutor.submit(new AnalysisWorker(unknownDocument, analysisDriver));
 				}
 			}
+			analysisExecutor.shutdown();
+			while(!analysisExecutor.isTerminated()){
+				//await analysis to finish
+			}
+			logger.info("Finished Analysis with "+analysisDriver.displayName());
 		}
 
 	}
@@ -719,5 +721,25 @@ public class API {
 			document.clearEventSets();
 			document.clearResults();
 		}
+	}
+	
+	class AnalysisWorker implements Callable<Document> {
+
+		private Document document;
+		private AnalysisDriver analysisDriver;
+		
+		AnalysisWorker(Document document, AnalysisDriver analysisDriver){
+			this.document = document;
+			this.analysisDriver = analysisDriver;
+		}
+		
+		@Override
+		public Document call() throws Exception {
+			logger.info("Begining Analyzing: " + document.toString());
+			document.addResult(analysisDriver, analysisDriver.analyze(document));
+			logger.info("Finished Analyzing: "+document.toString());
+			return document;
+		}
+		
 	}
 }
