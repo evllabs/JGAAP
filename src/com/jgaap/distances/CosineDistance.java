@@ -67,12 +67,14 @@ public class CosineDistance extends DistanceFunction {
         events.addAll(knownEventMap.uniqueEvents());
         
         for(Event event : events){
-        	distance += unknownEventMap.normalizedFrequency(event) * knownEventMap.normalizedFrequency(event);
-            h1Magnitude += unknownEventMap.normalizedFrequency(event) * unknownEventMap.normalizedFrequency(event);
-            h2Magnitude += knownEventMap.normalizedFrequency(event) * knownEventMap.normalizedFrequency(event);
+        	double unknownNormalizedFrequencey = unknownEventMap.normalizedFrequency(event);
+        	double knownNormalizedFrequencey = knownEventMap.normalizedFrequency(event);
+        	
+        	distance += unknownNormalizedFrequencey * knownNormalizedFrequencey;
+            h1Magnitude += unknownNormalizedFrequencey * unknownNormalizedFrequencey;
+            h2Magnitude += knownNormalizedFrequencey * knownNormalizedFrequencey;
         }
 
-        return Math.abs((distance / (Math.sqrt(h1Magnitude) * Math
-                .sqrt(h2Magnitude))) - 1);
+        return Math.abs((distance / (Math.sqrt(h1Magnitude * h2Magnitude))) - 1);
     }
 }
