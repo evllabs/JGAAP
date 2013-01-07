@@ -341,14 +341,12 @@ public class Document extends Parameterizable {
 		buffer.append(getFilePath() + "\n");
 		buffer.append("Canonicizers: \n");
 		if (canonicizers.isEmpty()) {
-			buffer.append("none");
+			buffer.append("\tnone\n");
 		} else {
 			for (Canonicizer canonicizer : canonicizers) {
-				buffer.append(canonicizer.displayName()).append(", ");
+				buffer.append("\t").append(canonicizer.displayName()).append(" ").append(canonicizer.getParameters()).append("\n");
 			}
-			buffer.delete(buffer.length()-2, buffer.length()-1);
 		}
-		buffer.append("\n");
 		buffer.append("EventDrivers: \n");
 		for(EventDriver eventDriver : eventSets.keySet()){
 			buffer.append("\t").append(eventDriver.displayName()).append(" ").append(eventDriver.getParameters());
