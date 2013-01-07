@@ -39,6 +39,10 @@ public class AutoPopulate {
 
 	static Logger logger = Logger.getLogger(AutoPopulate.class);
 
+	static {
+		Reflections.log = null;
+	}
+	
 	/**
 	 * Search named directory for all instantiations of the type.
 	 * 
