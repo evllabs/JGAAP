@@ -3,16 +3,13 @@ package com.jgaap.classifiers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventMap;
 import com.jgaap.generics.Pair;
 import com.jgaap.generics.ValidationDriver;
@@ -21,7 +18,6 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 
 	private Map<String, EventMap> knownCentroids;
 	private Map<String, List<Document>> knownDocuments;
-	private Set<Event> events;
 
 	@Override
 	public String displayName() {
@@ -43,11 +39,9 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 
 	public void train(List<Document> knowns) {
 		Map<String, List<EventMap>> knownHistograms = new HashMap<String, List<EventMap>>();
-		events = new HashSet<Event>();
 		knownDocuments = new HashMap<String, List<Document>>();
 		for (Document known : knowns) {
 			EventMap eventMap = new EventMap(known);
-			events.addAll(eventMap.uniqueEvents());
 			List<EventMap> histograms = knownHistograms.get(known.getAuthor());
 			if (histograms != null) {
 				histograms.add(eventMap);
