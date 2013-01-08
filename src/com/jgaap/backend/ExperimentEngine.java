@@ -212,10 +212,15 @@ public class ExperimentEngine {
 					experiment.addDistanceFunction(distance, analysisDriver);
 				}
 				experiment.execute();
-				List<Document> unknowns = experiment.getUnknownDocuments();
+				List<Document> resultDocuments;
+				if(analysisDriver instanceof ValidationDriver){
+					resultDocuments = experiment.getDocuments();
+				} else {
+					resultDocuments = experiment.getUnknownDocuments();
+				}
 				StringBuffer buffer = new StringBuffer();
-				for (Document unknown : unknowns) {
-					buffer.append(unknown.getFormattedResult(analysisDriver));
+				for (Document resultDocument : resultDocuments) {
+					buffer.append(resultDocument.getFormattedResult(analysisDriver));
 				}
 				Utils.saveFile(fileName, buffer.toString());
 			} catch (Exception e) {
