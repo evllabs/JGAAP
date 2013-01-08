@@ -67,15 +67,14 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
 
 		for (Pair<Document, EventMap> known : knowns){
-			double current;
 			try {
-				current = distance.distance(new EventMap(unknown), known.getSecond());
+				double current = distance.distance(new EventMap(unknown), known.getSecond());
+				results.add(new Pair<String, Double>(known.getFirst().getAuthor() + " -" + known.getFirst().getFilePath(),current,2));
+				logger.info(unknown.getFilePath()+"(Unknown):"+known.getFirst().getFilePath()+"("+known.getFirst().getAuthor()+") Distance:"+current);
 			} catch (DistanceCalculationException e) {
 				logger.error("Distance "+distance.displayName()+" failed", e);
 				throw new AnalyzeException("Distance "+distance.displayName()+" failed");
 			}
-			results.add(new Pair<String, Double>(known.getFirst().getAuthor() + " -" + known.getFirst().getFilePath(),current,2));
-			logger.debug(unknown.getFilePath()+"(Unknown):"+known.getFirst().getFilePath()+"("+known.getFirst().getAuthor()+") Distance:"+current);
 		}
 		Collections.sort(results);
 		return results;
