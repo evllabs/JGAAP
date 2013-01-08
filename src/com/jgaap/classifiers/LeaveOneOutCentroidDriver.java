@@ -1,12 +1,15 @@
 package com.jgaap.classifiers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Document;
@@ -16,9 +19,10 @@ import com.jgaap.generics.ValidationDriver;
 
 public class LeaveOneOutCentroidDriver extends ValidationDriver {
 
-	private Map<String, EventMap> knownCentroids;
-	private Map<String, List<Document>> knownDocuments;
-
+	private ImmutableMap<String, EventMap> knownCentroids;
+	private ImmutableMultimap<String, Document> knownDocuments;
+	private ImmutableMap<Document, EventMap> knownEventMaps;
+	
 	@Override
 	public String displayName() {
 		return "Leave One Out Centroid"+this.getDistanceName();
@@ -38,31 +42,22 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 	}
 
 	public void train(List<Document> knowns) {
-		Map<String, List<EventMap>> knownHistograms = new HashMap<String, List<EventMap>>();
-		knownDocuments = new HashMap<String, List<Document>>();
-		for (Document known : knowns) {
+		ImmutableMap.Builder<Document, EventMap> knownEventMapsBuilder = ImmutableMap.builder();
+		ImmutableMultimap.Builder<String, Document> knownDocumentsBuilder = ImmutableMultimap.builder();
+		Multimap<String, EventMap> knownHistograms = HashMultimap.create();
+		for(Document known : knowns){
 			EventMap eventMap = new EventMap(known);
-			List<EventMap> histograms = knownHistograms.get(known.getAuthor());
-			if (histograms != null) {
-				histograms.add(eventMap);
-			} else {
-				histograms = new ArrayList<EventMap>();
-				histograms.add(eventMap);
-				knownHistograms.put(known.getAuthor(), histograms);
-			}
-			List<Document> documents = knownDocuments.get(known.getAuthor());
-			if (documents != null) {
-				documents.add(known);
-			} else {
-				documents = new ArrayList<Document>();
-				documents.add(known);
-				knownDocuments.put(known.getAuthor(), documents);
-			}
+			knownEventMapsBuilder.put(known, eventMap);
+			knownHistograms.put(known.getAuthor(), eventMap);
+			knownDocumentsBuilder.put(known.getAuthor(), known);
 		}
-		knownCentroids = new HashMap<String, EventMap>(knownHistograms.size());
-		for (Entry<String, List<EventMap>> entry : knownHistograms.entrySet()) {
-			knownCentroids.put(entry.getKey(), EventMap.centroid(entry.getValue()));
+		knownEventMaps = knownEventMapsBuilder.build();
+		knownDocuments = knownDocumentsBuilder.build();
+		ImmutableMap.Builder<String, EventMap> knownCentoidsBuilder = ImmutableMap.builder();
+		for(Map.Entry<String, Collection<EventMap>> entry : knownHistograms.asMap().entrySet()){
+			knownCentoidsBuilder.put(entry.getKey(), EventMap.centroid(entry.getValue()));
 		}
+		knownCentroids = knownCentoidsBuilder.build();
 	}
 
 	@Override
@@ -72,13 +67,13 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 		List<EventMap> currentAuthorHistograms = new ArrayList<EventMap>();
 		for (Document document : knownDocuments.get(currentAuthor)) {
 			if (!document.equals(known))
-				currentAuthorHistograms.add(new EventMap(document));
+				currentAuthorHistograms.add(knownEventMaps.get(document));
 		}
 		EventMap currentAuthorCentroid = EventMap.centroid(currentAuthorHistograms);
-		EventMap currentEventMap = new EventMap(known);
+		EventMap currentEventMap = knownEventMaps.get(known);
 		try {
 			results.add(new Pair<String, Double>(currentAuthor,distance.distance(currentEventMap, currentAuthorCentroid), 2));
-			for (Entry<String, EventMap> entry : knownCentroids.entrySet()) {
+			for (Map.Entry<String, EventMap> entry : knownCentroids.entrySet()) {
 				if (!entry.getKey().equals(currentAuthor)) {
 					results.add(new Pair<String, Double>(entry.getKey(),distance.distance(currentEventMap, entry.getValue()), 2));
 				}

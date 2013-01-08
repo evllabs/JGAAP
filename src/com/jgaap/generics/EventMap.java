@@ -2,7 +2,6 @@ package com.jgaap.generics;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -73,7 +72,7 @@ public class EventMap {
 		return histogram.keySet();
 	}
 	
-	public static EventMap centroid(List<EventMap> eventMaps) {
+	public static EventMap centroid(Collection<EventMap> eventMaps) {
 		ImmutableMultimap.Builder<Event, Double> multiMapBuilder = ImmutableMultimap.builder();
 		for (EventMap eventMap : eventMaps) {
 			for(Map.Entry<Event, Double> entry : eventMap.histogram.entrySet()){
