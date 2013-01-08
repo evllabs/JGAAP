@@ -9,7 +9,7 @@ import java.util.Set;
 import weka.classifiers.Classifier;
 import weka.core.Attribute;
 import weka.core.FastVector;
-import weka.core.Instance;
+import weka.core.SparseInstance;
 import weka.core.Instances;
 
 
@@ -99,7 +99,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 		 */
 		for (int i = 0; i < knownHistograms.size(); i++) {
 			EventHistogram knownHistogram = knownHistograms.get(i);
-			Instance currentTrainingDocument = new Instance(
+			SparseInstance currentTrainingDocument = new SparseInstance(
 					allEvents.size() + 1);
 			currentTrainingDocument.setValue((Attribute) attributeList
 					.elementAt(0), knownList.get(i).getAuthor());
@@ -140,7 +140,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 		List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>();
 		EventHistogram currentUnknownHistogram = unknownEventSet.getHistogram();
 
-		Instance currentTest = new Instance(allEvents.size() + 1);
+		SparseInstance currentTest = new SparseInstance(allEvents.size() + 1);
 
 		currentTest.setValue((Attribute) attributeList.elementAt(0), "Unknown");
 		int i = 1; // Start at 1, again
