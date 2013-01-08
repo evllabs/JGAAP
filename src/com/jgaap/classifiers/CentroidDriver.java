@@ -69,8 +69,9 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 		List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>(knownCentroids.size());
 		for (Entry<String, EventMap> knownEntry : knownCentroids.entrySet()) {
 			try {
-				result.add(new Pair<String, Double>(knownEntry.getKey(),
-						distance.distance(unknownEventMap, knownEntry.getValue()), 2));
+				double current = distance.distance(unknownEventMap, knownEntry.getValue());
+				logger.info(unknown.getTitle()+" ("+unknown.getFilePath()+")"+" -> "+knownEntry.getKey()+":"+current);
+				result.add(new Pair<String, Double>(knownEntry.getKey(), current, 2));
 			} catch (DistanceCalculationException e) {
 				logger.fatal("Distance " + distance.displayName() + " failed", e);
 				throw new AnalyzeException("Distance " + distance.displayName() + " failed");
