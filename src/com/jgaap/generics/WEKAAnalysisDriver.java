@@ -10,6 +10,7 @@ import weka.classifiers.Classifier;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.SparseInstance;
+import weka.core.Instance;
 import weka.core.Instances;
 
 
@@ -99,7 +100,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 		 */
 		for (int i = 0; i < knownHistograms.size(); i++) {
 			EventHistogram knownHistogram = knownHistograms.get(i);
-			SparseInstance currentTrainingDocument = new SparseInstance(
+			Instance currentTrainingDocument = new Instance(
 					allEvents.size() + 1);
 			currentTrainingDocument.setValue((Attribute) attributeList
 					.elementAt(0), knownList.get(i).getAuthor());
@@ -111,7 +112,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 						knownHistogram.getNormalizedFrequency(event));
 				j++;
 			}
-			trainingSet.add(currentTrainingDocument);
+			trainingSet.add(new SparseInstance(currentTrainingDocument));
 		}
 
 		/*
@@ -140,7 +141,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 		List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>();
 		EventHistogram currentUnknownHistogram = unknownEventSet.getHistogram();
 
-		SparseInstance currentTest = new SparseInstance(allEvents.size() + 1);
+		Instance currentTest = new Instance(allEvents.size() + 1);
 
 		currentTest.setValue((Attribute) attributeList.elementAt(0), "Unknown");
 		int i = 1; // Start at 1, again
