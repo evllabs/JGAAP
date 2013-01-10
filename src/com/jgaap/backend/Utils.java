@@ -29,6 +29,7 @@ import java.util.Map;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventHistogram;
+import com.jgaap.generics.EventSet;
 
 /**
  * Generic methods that will be reused throughout JGAAP
@@ -91,15 +92,6 @@ public class Utils {
 		return documents;
 	}
 	
-	public static List<String[]> getParameters(String input){
-		List<String[]> parameters = new ArrayList<String[]>();
-		String[] sets = input.split("\\|");
-		for(int i = 0; i<sets.length;i++){
-			parameters.add(sets[i].split(":"));
-		}
-		return parameters;
-	}
-	
 	/** Calculate sample deviation */
 	public static double stddev(List<Double> observations) {
 		
@@ -160,5 +152,14 @@ public class Utils {
 			}
 		}
 		return centroid;
+	}
+	
+	public static EventSet convertNGrams(EventSet eventSet, int n) {
+		EventSet newEventSet = new EventSet(eventSet.size()-(n-1));
+		for(int i = 0; i+n <= eventSet.size(); i++){
+			Event event = new Event(eventSet.subList(i, i+n));
+			newEventSet.addEvent(event);
+		}
+		return newEventSet;
 	}
 }

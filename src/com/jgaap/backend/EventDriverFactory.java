@@ -18,7 +18,6 @@
 package com.jgaap.backend;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.jgaap.generics.EventDriver;
@@ -46,15 +45,15 @@ public class EventDriverFactory {
 	
 	public static EventDriver getEventDriver(String action) throws Exception{
 		EventDriver eventDriver;
-		List<String[]> parameters = Utils.getParameters(action);
-		action = parameters.remove(0)[0].toLowerCase().trim();
+		String[] tmp = action.split("\\|", 2);
+		action = tmp[0].trim().toLowerCase();
 		if(eventDrivers.containsKey(action)){
 			eventDriver = eventDrivers.get(action).getClass().newInstance();
 		}else{
 			throw new Exception("Event Driver "+action+" not found!");
 		}
-		for(String[] parameter : parameters){
-			eventDriver.setParameter(parameter[0].trim(), parameter[1].trim());
+		if(tmp.length > 1){
+			eventDriver.setParameters(tmp[1]);
 		}
 		return eventDriver;
 	}

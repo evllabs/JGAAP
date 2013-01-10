@@ -64,8 +64,6 @@ public class WordLengthEventDriver extends NumericEventDriver {
 		EventSet es = wordTokenizer.createEventSet(text);
 
 		NumericEventSet newEs = new NumericEventSet();
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
 
 		for (int i = 0; i < es.size(); i++) {
 			String s = (es.eventAt(i)).toString();

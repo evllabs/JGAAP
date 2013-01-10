@@ -20,7 +20,6 @@ package com.jgaap.backend;
 import com.jgaap.generics.EventCuller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,15 +45,15 @@ public class EventCullerFactory {
 
 	public static EventCuller getEventCuller(String action) throws Exception{
 		EventCuller eventCuller;
-		List<String[]> parameters = Utils.getParameters(action);
-		action = parameters.remove(0)[0].toLowerCase().trim();
+		String[] tmp = action.split("\\|", 2);
+		action = tmp[0].trim().toLowerCase();
 		if(eventCullers.containsKey(action)){
 			eventCuller = eventCullers.get(action).getClass().newInstance();
 		}else{
 			throw new Exception("Event culler "+action+" not found!");
 		}
-		for(String[] parameter : parameters){
-			eventCuller.setParameter(parameter[0].trim(), parameter[1].trim());
+		if(tmp.length > 1){
+			eventCuller.setParameters(tmp[1]);
 		}
 		return eventCuller;
 	}

@@ -20,6 +20,8 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
+import com.jgaap.backend.Utils;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
@@ -27,7 +29,7 @@ import com.jgaap.generics.EventSet;
  * Extract POS N-grams as features.
  * 
  */
-public class POSNGramEventDriver extends NGramEventDriver {
+public class POSNGramEventDriver extends EventDriver {
 
 	public POSNGramEventDriver() {
 		addParams("N", "N", "2", new String[] { "1", "2", "3", "4", "5", "6",
@@ -54,17 +56,12 @@ public class POSNGramEventDriver extends NGramEventDriver {
 				.equalsIgnoreCase("English");
 	}
 
-	private NGramEventDriver theDriver = new NGramEventDriver();
+	private EventDriver theDriver = new PartOfSpeechEventDriver();
 
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
-		//theDriver = new NGramEventDriver();
-		String temp = this.getParameter("N");
-		if (temp.equals("")) {
-			this.setParameter("N", 2);
-		}
-		theDriver.setParameter("N", this.getParameter("N"));
-		theDriver.setParameter("underlyingEvents", "POS");
-		return theDriver.createEventSet(text);
+		int n = getParameter("N", 2);
+		EventSet eventSet = theDriver.createEventSet(text);
+		return Utils.convertNGrams(eventSet, n);
 	}
 }

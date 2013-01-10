@@ -19,6 +19,8 @@
  **/
 package com.jgaap.eventDrivers;
 
+import com.jgaap.backend.Utils;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
@@ -26,7 +28,7 @@ import com.jgaap.generics.EventSet;
  * Extract character N-grams as features.
  * 
  */
-public class WordNGramEventDriver extends NGramEventDriver {
+public class WordNGramEventDriver extends EventDriver {
 
 	public WordNGramEventDriver() {
 		addParams("N", "N", "2", new String[] { "1", "2", "3", "4", "5", "6",
@@ -57,15 +59,12 @@ public class WordNGramEventDriver extends NGramEventDriver {
 		return true;
 	}
 
-	private NGramEventDriver theDriver = new NGramEventDriver();
+	private EventDriver theDriver = new NaiveWordEventDriver();
 
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
-		String temp = this.getParameter("N");
-		if (temp.equals("")) {
-			this.setParameter("N", 2);
-		}
-		theDriver.setParameter("N", this.getParameter("N"));
-		return theDriver.createEventSet(text);
+		int n = getParameter("N", 2);
+		EventSet eventSet = theDriver.createEventSet(text);
+		return Utils.convertNGrams(eventSet, n);
 	}
 }

@@ -18,7 +18,6 @@
 package com.jgaap.backend;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.jgaap.generics.Canonicizer;
@@ -45,15 +44,15 @@ public class CanonicizerFactory {
 	
 	public static Canonicizer getCanonicizer(String action) throws Exception{
 		Canonicizer canonicizer;
-		List<String[]> parameters = Utils.getParameters(action);
-		action = parameters.remove(0)[0].toLowerCase().trim();
+		String[] tmp = action.split("\\|", 2);
+		action = tmp[0].trim().toLowerCase();
 		if(canonicizers.containsKey(action)){
 			canonicizer = canonicizers.get(action).getClass().newInstance();
 		}else{
 			throw new Exception("Canonicizer "+action+" not found!");
 		}
-		for(String[] parameter : parameters) {
-			canonicizer.setParameter(parameter[0].trim(), parameter[1].trim());
+		if(tmp.length > 1){
+			canonicizer.setParameters(tmp[1]);
 		}
 		return canonicizer;
 	}

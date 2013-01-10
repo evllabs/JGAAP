@@ -18,7 +18,6 @@
 package com.jgaap.backend;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.jgaap.generics.AnalysisDriver;
@@ -45,15 +44,15 @@ public class AnalysisDriverFactory {
 	
 	public static AnalysisDriver getAnalysisDriver(String action) throws Exception{
 		AnalysisDriver analysisDriver;
-		List<String[]> parameters = Utils.getParameters(action);
-		action = parameters.remove(0)[0].toLowerCase().trim();
+		String[] tmp = action.split("\\|", 2);
+		action = tmp[0].trim().toLowerCase();
 		if(analysisDrivers.containsKey(action)){
 			analysisDriver = analysisDrivers.get(action).getClass().newInstance();
 		}else{
 			throw new Exception("Analysis Driver "+action+" not found!");
 		}
-		for(String[] parameter : parameters){
-			analysisDriver.setParameter(parameter[0].trim(), parameter[1].trim());
+		if(tmp.length > 1){
+			analysisDriver.setParameters(tmp[1]);
 		}
 		return analysisDriver;
 	}
