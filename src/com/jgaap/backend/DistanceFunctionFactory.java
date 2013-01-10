@@ -18,7 +18,6 @@
 package com.jgaap.backend;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.jgaap.generics.DistanceFunction;
@@ -46,15 +45,15 @@ public class DistanceFunctionFactory {
 	
 	public static DistanceFunction getDistanceFunction(String action) throws Exception{
 		DistanceFunction distanceFunction;
-		List<String[]> parameters = Utils.getParameters(action);
-		action = parameters.remove(0)[0].toLowerCase().trim();
+		String[] tmp = action.split("\\|", 2);
+		action = tmp[0].trim().toLowerCase();
 		if(distanceFunctions.containsKey(action)){
 			distanceFunction= distanceFunctions.get(action).getClass().newInstance();
 		}else{
 			throw new Exception("Distance Function "+action+" was not found!");
 		}
-		for(String[] parameter : parameters){
-			distanceFunction.setParameter(parameter[0].trim(), parameter[1].trim());
+		if(tmp.length > 1) {
+			distanceFunction.setParameters(tmp[1]);
 		}
 		return distanceFunction;
 	}

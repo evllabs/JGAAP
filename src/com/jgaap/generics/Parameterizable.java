@@ -195,6 +195,14 @@ public class Parameterizable {
     public void setParameter(String label, String value) {
         Parameters.put(label.toLowerCase(), value);
     }
+    
+    public void setParameters(String parametersString) {
+    	String[] parameters = parametersString.split("\\|");
+    	for(String parameter : parameters){
+    		String[] tmp = parameter.split(":", 2);
+    		setParameter(tmp[0].trim(), tmp[1].trim());
+    	}
+    }
 
     public void addParams(String paramName, String displayName, String defaultValue, String[] possibleValues, boolean editable) {
         JLabel label = new JLabel();

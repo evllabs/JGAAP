@@ -70,7 +70,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 			try {
 				double current = distance.distance(new EventMap(unknown), known.getSecond());
 				results.add(new Pair<String, Double>(known.getFirst().getAuthor() + " -" + known.getFirst().getFilePath(),current,2));
-				logger.info(unknown.getFilePath()+"(Unknown):"+known.getFirst().getFilePath()+"("+known.getFirst().getAuthor()+") Distance:"+current);
+				logger.info(unknown.getFilePath()+"(Unknown) -> "+known.getFirst().getFilePath()+"("+known.getFirst().getAuthor()+") Distance:"+current);
 			} catch (DistanceCalculationException e) {
 				logger.error("Distance "+distance.displayName()+" failed", e);
 				throw new AnalyzeException("Distance "+distance.displayName()+" failed");

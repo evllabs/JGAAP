@@ -52,16 +52,17 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 	@Override
 	public void train(List<Document> knownDocuments) throws AnalyzeException {
 		Map<String, EventBagging> authorBags = new HashMap<String, EventBagging>();
-		for(Document knownDocument : knownDocuments)
+		for(Document knownDocument : knownDocuments){
 			for (EventSet eventSet : knownDocument.getEventSets().values()) {
-				EventBagging eventBag = authorBags.get(eventSet.getAuthor());
+				EventBagging eventBag = authorBags.get(knownDocument.getAuthor());
 				if (eventBag == null) {
 					eventBag = new EventBagging(eventSet);
 				} else {
 					eventBag.addAll(eventSet);
 				}
-				authorBags.put(eventSet.getAuthor(), eventBag);
+				authorBags.put(knownDocument.getAuthor(), eventBag);
 			}
+		}
 		int samples = getParameter("samples", 5);
 		int sampleSize = getParameter("sampleSize", 500);
 		authorHistograms = new HashMap<String, List<EventMap>>();

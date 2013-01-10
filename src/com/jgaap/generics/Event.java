@@ -19,6 +19,8 @@
  **/
 package com.jgaap.generics;
 
+import java.util.List;
+
 /*
  * Event.java Caleb Astey - 2007
  */
@@ -40,12 +42,6 @@ public class Event implements Comparable<Object> {
         this.data = Character.toString(data);
         this.eventDriver = eventDriver;
     }
-
-//    /** Create a new event given a character representation of the event **/
-//    public Event(char data) {
-//        this.data = Character.toString(data);
-//        this.eventDriver = null;
-//    }
     
     /** Create a new event given a string representation of this event **/
     public Event(String data, EventDriver eventDriver) {
@@ -53,12 +49,11 @@ public class Event implements Comparable<Object> {
         this.eventDriver = eventDriver;
     }
     
-//    /** Create a new event given a string representation of this event **/
-//    public Event(String data) {
-//        this.data = data;
-//        this.eventDriver = null;
-//    }
-
+    public Event(List<Event> events){
+    	this.data = events.toString();
+    	this.eventDriver = events.get(0).eventDriver;
+    }
+    
     /**
      * Overridden - from Comparable interface. Allows for comparison of two
      * events.

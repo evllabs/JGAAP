@@ -36,16 +36,11 @@ public class EventSet implements Iterable<Event> {
     private String       author;
     /** Name of document from which Events were derived. */
     private String       docName;
-    /** ID for debugging purposes */
-    private String       EventSetID;
-    /** static ID number for the next EventSet created */
-    private static int   gensym      = 0;
         
     /** Creates a new, empty list of events. Will also include unique ID */
     public EventSet() {
         events = new ArrayList<Event>();
         setAuthor("default");
-        setNewEventSetID("default");
     }
     
     /**
@@ -55,14 +50,12 @@ public class EventSet implements Iterable<Event> {
     public EventSet(int size) {
         events = new ArrayList<Event>(size);
         setAuthor("default");
-        setNewEventSetID("default");
     }
 
     /** Creates a new list of events given a previously created list of events **/
     public EventSet(List<Event> evts) {
         events = new ArrayList<Event>(evts);
         setAuthor("default");
-        setNewEventSetID("default");
     }
 
     /**
@@ -74,7 +67,6 @@ public class EventSet implements Iterable<Event> {
     public EventSet(String Author) {
         events = new ArrayList<Event>();
         setAuthor(Author);
-        setNewEventSetID(Author);
     }
 
     /**
@@ -110,11 +102,6 @@ public class EventSet implements Iterable<Event> {
         return docName;
     }
 
-    /** return the ID associated with any EventSet */
-    public String getEventSetID() {
-        return EventSetID;
-    }
-
     /**
      * Sets the author of the current event set. There should be a better way to
      * pass authors through the processing stages...
@@ -126,17 +113,6 @@ public class EventSet implements Iterable<Event> {
     /** Set (document) name associated with EventSet */
     public void setDocumentName(String s) {
         docName = s;
-    }
-
-    /** Duplicate EventSetID of a previous EventSet */
-    public void setEventSetID(String EventSetID) {
-        this.EventSetID = EventSetID;
-    }
-
-    /** Creates a new, unique EventSetID for this EventSet */
-    public void setNewEventSetID(String EventSetID) {
-        this.EventSetID = EventSetID + Integer.valueOf(gensym).toString();
-        gensym++;
     }
 
     /** Returns the total number of events in the set **/
@@ -168,6 +144,26 @@ public class EventSet implements Iterable<Event> {
         return new EventSet(events.subList(start, length));
     }
 
+    public List<Event> subList(int start, int length) {
+        /*
+         * JIN - 07/31/2008 : Added array bounds checking. If the requested
+         * subset would run beyond the end of the current list, only elements
+         * from start until the end of the list are returned. If start is beyond
+         * the end of the list, an empty list is returned If start > length, an
+         * empty list will be returned
+         */
+        if (length > events.size()) {
+            length = events.size();
+        }
+        if (start > events.size()) {
+            start = length; // subList() will now return an empty list
+        }
+        if (start > length) {
+            start = length; // subList() will now return an empty list
+        }
+        return events.subList(start, length);
+    }
+    
     /**
      * Returns the string representation of this event set, which is just a
      * comma separated list of each individual event

@@ -3,6 +3,7 @@ package com.jgaap.generics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.SparseInstance;
 
 
 /**
@@ -28,10 +30,11 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 	public Classifier classifier;
 
 	private Set<String> allAuthorNames;
-	private Set<Event> allEvents;
+	private LinkedHashSet<Event> allEvents;
 	private FastVector attributeList;
 	private FastVector authorNames;
 	private Instances trainingSet;
+	private Attribute authorNameAttribute;
 
 	@Override
 	public abstract String displayName();
@@ -58,12 +61,11 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 		 */
 		List<EventMap> knownEventMaps = new ArrayList<EventMap>();
 		allAuthorNames = new HashSet<String>();
-		allEvents = new HashSet<Event>();
+		allEvents = new LinkedHashSet<Event>();
 		for (Document document : knownDocuments) {
 			allAuthorNames.add(document.getAuthor());
 			EventMap eventMap = new EventMap(document);
 			
-			//EventHistogram currentKnownHistogram = eventSet.getHistogram();
 			allEvents.addAll(eventMap.uniqueEvents());
 			knownEventMaps.add(eventMap);
 		}
@@ -79,7 +81,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			authorNames.addElement(currentAuthorName);
 		}
 		authorNames.addElement("Unknown");
-		Attribute authorNameAttribute = new Attribute("authorName", authorNames);
+		authorNameAttribute = new Attribute("authorName", authorNames);
 		attributeList.addElement(authorNameAttribute);
 
 		for (Event event : allEvents) {
@@ -113,8 +115,8 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 						knownEventMap.normalizedFrequency(event));
 				j++;
 			}
-			trainingSet.add(currentTrainingDocument);
-		}
+			trainingSet.add(new SparseInstance(currentTrainingDocument));
+		}		
 
 		/*
 		 * Train the classifier N.B. The classifier should be set in the
@@ -150,6 +152,8 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 					eventMap.normalizedFrequency(event));
 			i++;
 		}
+		
+		currentTest = new SparseInstance(currentTest);
 		currentTest.setDataset(trainingSet);
 
 		double[] probDistribution;
