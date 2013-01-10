@@ -57,23 +57,23 @@ public class FreqEventDriverTest {
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("16.18"));
-		tmp.add(new Event("5.40"));
-		tmp.add(new Event("9.29"));
-		tmp.add(new Event("5.96"));
-		tmp.add(new Event("6.24"));
-		tmp.add(new Event("8.23"));
-		tmp.add(new Event("8.55"));
-		tmp.add(new Event("8.13"));
-		tmp.add(new Event("6.71"));
-		tmp.add(new Event("8.37"));
-		tmp.add(new Event("5.71"));
-		tmp.add(new Event("6.56"));
-		tmp.add(new Event("8.50"));
-		tmp.add(new Event("6.26"));
-		tmp.add(new Event("5.95"));
-		tmp.add(new Event("5.75"));
-		tmp.add(new Event("7.48"));
+		tmp.add(new Event("16.18", null));
+		tmp.add(new Event("5.40", null));
+		tmp.add(new Event("9.29", null));
+		tmp.add(new Event("5.96", null));
+		tmp.add(new Event("6.24", null));
+		tmp.add(new Event("8.23", null));
+		tmp.add(new Event("8.55", null));
+		tmp.add(new Event("8.13", null));
+		tmp.add(new Event("6.71", null));
+		tmp.add(new Event("8.37", null));
+		tmp.add(new Event("5.71", null));
+		tmp.add(new Event("6.56", null));
+		tmp.add(new Event("8.50", null));
+		tmp.add(new Event("6.26", null));
+		tmp.add(new Event("5.95", null));
+		tmp.add(new Event("5.75", null));
+		tmp.add(new Event("7.48", null));
 
 		expectedEventSet.addEvents(tmp);
 

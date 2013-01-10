@@ -57,23 +57,23 @@ public class TruncatedNamingTimeEventDriverTest {
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("66"));
-		tmp.add(new Event("64"));
-		tmp.add(new Event("68"));
-		tmp.add(new Event("59"));
-		tmp.add(new Event("79"));
-		tmp.add(new Event("62"));
-		tmp.add(new Event("63"));
-		tmp.add(new Event("59"));
-		tmp.add(new Event("69"));
-		tmp.add(new Event("66"));
-		tmp.add(new Event("73"));
-		tmp.add(new Event("68"));
-		tmp.add(new Event("63"));
-		tmp.add(new Event("67"));
-		tmp.add(new Event("61"));
-		tmp.add(new Event("75"));
-		tmp.add(new Event("82"));
+		tmp.add(new Event("66", null));
+		tmp.add(new Event("64", null));
+		tmp.add(new Event("68", null));
+		tmp.add(new Event("59", null));
+		tmp.add(new Event("79", null));
+		tmp.add(new Event("62", null));
+		tmp.add(new Event("63", null));
+		tmp.add(new Event("59", null));
+		tmp.add(new Event("69", null));
+		tmp.add(new Event("66", null));
+		tmp.add(new Event("73", null));
+		tmp.add(new Event("68", null));
+		tmp.add(new Event("63", null));
+		tmp.add(new Event("67", null));
+		tmp.add(new Event("61", null));
+		tmp.add(new Event("75", null));
+		tmp.add(new Event("82", null));
 
 		expectedEventSet.addEvents(tmp);
 

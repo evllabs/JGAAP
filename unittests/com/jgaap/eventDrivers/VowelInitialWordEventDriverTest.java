@@ -59,18 +59,18 @@ public class VowelInitialWordEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("alpha"));
-		tmp.add(new Event("echo"));
-		tmp.add(new Event("india"));
-		tmp.add(new Event("oscar"));
-		tmp.add(new Event("uniform"));
-		tmp.add(new Event("yankee"));
-		tmp.add(new Event("Alpha"));
-		tmp.add(new Event("Echo"));
-		tmp.add(new Event("India"));
-		tmp.add(new Event("Oscar"));
-		tmp.add(new Event("Uniform"));
-		tmp.add(new Event("Yankee"));
+		tmp.add(new Event("alpha", null));
+		tmp.add(new Event("echo", null));
+		tmp.add(new Event("india", null));
+		tmp.add(new Event("oscar", null));
+		tmp.add(new Event("uniform", null));
+		tmp.add(new Event("yankee", null));
+		tmp.add(new Event("Alpha", null));
+		tmp.add(new Event("Echo", null));
+		tmp.add(new Event("India", null));
+		tmp.add(new Event("Oscar", null));
+		tmp.add(new Event("Uniform", null));
+		tmp.add(new Event("Yankee", null));
 
 		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));

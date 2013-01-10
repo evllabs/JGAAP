@@ -62,18 +62,18 @@ public class _24LetterWordEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("bb"));
-		tmp.add(new Event("ccc"));
-		tmp.add(new Event("dddd"));
-		tmp.add(new Event("22"));
-		tmp.add(new Event("333"));
-		tmp.add(new Event("4444"));
-		tmp.add(new Event("@@"));
-		tmp.add(new Event("###"));
-		tmp.add(new Event("$$$$"));
-		tmp.add(new Event("BB"));
-		tmp.add(new Event("CCC"));
-		tmp.add(new Event("DDDD"));
+		tmp.add(new Event("bb", null));
+		tmp.add(new Event("ccc", null));
+		tmp.add(new Event("dddd", null));
+		tmp.add(new Event("22", null));
+		tmp.add(new Event("333", null));
+		tmp.add(new Event("4444", null));
+		tmp.add(new Event("@@", null));
+		tmp.add(new Event("###", null));
+		tmp.add(new Event("$$$$", null));
+		tmp.add(new Event("BB", null));
+		tmp.add(new Event("CCC", null));
+		tmp.add(new Event("DDDD", null));
 
 		expectedEventSet.addEvents(tmp);
 

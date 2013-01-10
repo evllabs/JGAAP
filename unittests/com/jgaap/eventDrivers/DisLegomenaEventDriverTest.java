@@ -62,8 +62,8 @@ public class DisLegomenaEventDriverTest {
 	    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
-	    tmp.add(new Event("The"));
-	    tmp.add(new Event("The"));
+	    tmp.add(new Event("The", null));
+	    tmp.add(new Event("The", null));
 	     expectedSet.addEvents(tmp);
 	     
 		    assertTrue(expectedSet.equals(sampleSet));

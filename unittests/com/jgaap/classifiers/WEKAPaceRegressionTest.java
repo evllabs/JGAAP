@@ -69,109 +69,109 @@ public class WEKAPaceRegressionTest {
 		EventSet known14 = new EventSet();
 		EventSet known15 = new EventSet();
 		
-		known1.addEvent(new Event("mary"));
-		known1.addEvent(new Event("had"));
-		known1.addEvent(new Event("a"));
-		known1.addEvent(new Event("little"));
-		known1.addEvent(new Event("lamb"));
+		known1.addEvent(new Event("mary", null));
+		known1.addEvent(new Event("had", null));
+		known1.addEvent(new Event("a", null));
+		known1.addEvent(new Event("little", null));
+		known1.addEvent(new Event("lamb", null));
 		known1.setAuthor("Mary");
 		
-		known2.addEvent(new Event("mary"));
-		known2.addEvent(new Event("owned"));
-		known2.addEvent(new Event("a"));
-		known2.addEvent(new Event("little"));
-		known2.addEvent(new Event("lamb"));
+		known2.addEvent(new Event("mary", null));
+		known2.addEvent(new Event("owned", null));
+		known2.addEvent(new Event("a", null));
+		known2.addEvent(new Event("little", null));
+		known2.addEvent(new Event("lamb", null));
 		known2.setAuthor("Mary");
 
-		known3.addEvent(new Event("mary"));
-		known3.addEvent(new Event("had"));
-		known3.addEvent(new Event("a"));
-		known3.addEvent(new Event("small"));
-		known3.addEvent(new Event("lamb"));
+		known3.addEvent(new Event("mary", null));
+		known3.addEvent(new Event("had", null));
+		known3.addEvent(new Event("a", null));
+		known3.addEvent(new Event("small", null));
+		known3.addEvent(new Event("lamb", null));
 		known3.setAuthor("Mary");
 		
-		known4.addEvent(new Event("mary"));
-		known4.addEvent(new Event("owned"));
-		known4.addEvent(new Event("a"));
-		known4.addEvent(new Event("small"));
-		known4.addEvent(new Event("lamb"));
+		known4.addEvent(new Event("mary", null));
+		known4.addEvent(new Event("owned", null));
+		known4.addEvent(new Event("a", null));
+		known4.addEvent(new Event("small", null));
+		known4.addEvent(new Event("lamb", null));
 		known4.setAuthor("Mary");
 
-		known5.addEvent(new Event("mary"));
-		known5.addEvent(new Event("had"));
-		known5.addEvent(new Event("a"));
-		known5.addEvent(new Event("little"));
-		known5.addEvent(new Event("lamb"));
+		known5.addEvent(new Event("mary", null));
+		known5.addEvent(new Event("had", null));
+		known5.addEvent(new Event("a", null));
+		known5.addEvent(new Event("little", null));
+		known5.addEvent(new Event("lamb", null));
 		known5.setAuthor("Mary");
 		
-		known6.addEvent(new Event("melissa"));
-		known6.addEvent(new Event("had"));
-		known6.addEvent(new Event("a"));
-		known6.addEvent(new Event("little"));
-		known6.addEvent(new Event("lamb"));
+		known6.addEvent(new Event("melissa", null));
+		known6.addEvent(new Event("had", null));
+		known6.addEvent(new Event("a", null));
+		known6.addEvent(new Event("little", null));
+		known6.addEvent(new Event("lamb", null));
 		known6.setAuthor("Mary");
 
-		known7.addEvent(new Event("mary"));
-		known7.addEvent(new Event("had"));
-		known7.addEvent(new Event("one"));
-		known7.addEvent(new Event("little"));
-		known7.addEvent(new Event("lamb"));
+		known7.addEvent(new Event("mary", null));
+		known7.addEvent(new Event("had", null));
+		known7.addEvent(new Event("one", null));
+		known7.addEvent(new Event("little", null));
+		known7.addEvent(new Event("lamb", null));
 		known7.setAuthor("Mary");
 		
-		known8.addEvent(new Event("mary"));
-		known8.addEvent(new Event("owned"));
-		known8.addEvent(new Event("one"));
-		known8.addEvent(new Event("little"));
-		known8.addEvent(new Event("lamb"));
+		known8.addEvent(new Event("mary", null));
+		known8.addEvent(new Event("owned", null));
+		known8.addEvent(new Event("one", null));
+		known8.addEvent(new Event("little", null));
+		known8.addEvent(new Event("lamb", null));
 		known8.setAuthor("Mary");
 
-		known9.addEvent(new Event("mary"));
-		known9.addEvent(new Event("had"));
-		known9.addEvent(new Event("two"));
-		known9.addEvent(new Event("little"));
-		known9.addEvent(new Event("lambs"));
+		known9.addEvent(new Event("mary", null));
+		known9.addEvent(new Event("had", null));
+		known9.addEvent(new Event("two", null));
+		known9.addEvent(new Event("little", null));
+		known9.addEvent(new Event("lambs", null));
 		known9.setAuthor("Mary");
 
-		known10.addEvent(new Event("melissa"));
-		known10.addEvent(new Event("had"));
-		known10.addEvent(new Event("a"));
-		known10.addEvent(new Event("small"));
-		known10.addEvent(new Event("lamb"));
+		known10.addEvent(new Event("melissa", null));
+		known10.addEvent(new Event("had", null));
+		known10.addEvent(new Event("a", null));
+		known10.addEvent(new Event("small", null));
+		known10.addEvent(new Event("lamb", null));
 		known10.setAuthor("Mary");
 
-		known11.addEvent(new Event("melissa"));
-		known11.addEvent(new Event("had"));
-		known11.addEvent(new Event("one"));
-		known11.addEvent(new Event("little"));
-		known11.addEvent(new Event("lamb"));
+		known11.addEvent(new Event("melissa", null));
+		known11.addEvent(new Event("had", null));
+		known11.addEvent(new Event("one", null));
+		known11.addEvent(new Event("little", null));
+		known11.addEvent(new Event("lamb", null));
 		known11.setAuthor("Mary");
 
-		known12.addEvent(new Event("mary"));
-		known12.addEvent(new Event("dismissed"));
-		known12.addEvent(new Event("a"));
-		known12.addEvent(new Event("little"));
-		known12.addEvent(new Event("lamb"));
+		known12.addEvent(new Event("mary", null));
+		known12.addEvent(new Event("dismissed", null));
+		known12.addEvent(new Event("a", null));
+		known12.addEvent(new Event("little", null));
+		known12.addEvent(new Event("lamb", null));
 		known12.setAuthor("Mary");
 		
-		known13.addEvent(new Event("mary"));
-		known13.addEvent(new Event("had"));
-		known13.addEvent(new Event("a"));
-		known13.addEvent(new Event("little"));
-		known13.addEvent(new Event("lambda"));
+		known13.addEvent(new Event("mary", null));
+		known13.addEvent(new Event("had", null));
+		known13.addEvent(new Event("a", null));
+		known13.addEvent(new Event("little", null));
+		known13.addEvent(new Event("lambda", null));
 		known13.setAuthor("Mary");
 		
-		known14.addEvent(new Event("melissa"));
-		known14.addEvent(new Event("had"));
-		known14.addEvent(new Event("two"));
-		known14.addEvent(new Event("little"));
-		known14.addEvent(new Event("lambs"));
+		known14.addEvent(new Event("melissa", null));
+		known14.addEvent(new Event("had", null));
+		known14.addEvent(new Event("two", null));
+		known14.addEvent(new Event("little", null));
+		known14.addEvent(new Event("lambs", null));
 		known14.setAuthor("Mary");
 
-		known15.addEvent(new Event("mary"));
-		known15.addEvent(new Event("had"));
-		known15.addEvent(new Event("a"));
-		known15.addEvent(new Event("little"));
-		known15.addEvent(new Event("lamb"));
+		known15.addEvent(new Event("mary", null));
+		known15.addEvent(new Event("had", null));
+		known15.addEvent(new Event("a", null));
+		known15.addEvent(new Event("little", null));
+		known15.addEvent(new Event("lamb", null));
 		known15.setAuthor("Mary");
 		
 		EventSet known21 = new EventSet();
@@ -190,109 +190,109 @@ public class WEKAPaceRegressionTest {
 		EventSet known214 = new EventSet();
 		EventSet known215 = new EventSet();
 		
-		known21.addEvent(new Event("peter"));
-		known21.addEvent(new Event("piper"));
-		known21.addEvent(new Event("picked"));
-		known21.addEvent(new Event("a"));
-		known21.addEvent(new Event("peck"));
+		known21.addEvent(new Event("peter", null));
+		known21.addEvent(new Event("piper", null));
+		known21.addEvent(new Event("picked", null));
+		known21.addEvent(new Event("a", null));
+		known21.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 		
-		known22.addEvent(new Event("peter"));
-		known22.addEvent(new Event("piper"));
-		known22.addEvent(new Event("had"));
-		known22.addEvent(new Event("a"));
-		known22.addEvent(new Event("peck"));
+		known22.addEvent(new Event("peter", null));
+		known22.addEvent(new Event("piper", null));
+		known22.addEvent(new Event("had", null));
+		known22.addEvent(new Event("a", null));
+		known22.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 
-		known23.addEvent(new Event("peter"));
-		known23.addEvent(new Event("piper"));
-		known23.addEvent(new Event("found"));
-		known23.addEvent(new Event("a"));
-		known23.addEvent(new Event("peck"));
+		known23.addEvent(new Event("peter", null));
+		known23.addEvent(new Event("piper", null));
+		known23.addEvent(new Event("found", null));
+		known23.addEvent(new Event("a", null));
+		known23.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 		
-		known24.addEvent(new Event("a"));
-		known24.addEvent(new Event("peck"));
-		known24.addEvent(new Event("peter"));
-		known24.addEvent(new Event("piper"));
-		known24.addEvent(new Event("picked"));
+		known24.addEvent(new Event("a", null));
+		known24.addEvent(new Event("peck", null));
+		known24.addEvent(new Event("peter", null));
+		known24.addEvent(new Event("piper", null));
+		known24.addEvent(new Event("picked", null));
 		known21.setAuthor("Peter");
 
-		known25.addEvent(new Event("charles"));
-		known25.addEvent(new Event("picked"));
-		known25.addEvent(new Event("a"));
-		known25.addEvent(new Event("pepper"));
-		known25.addEvent(new Event("peck"));
+		known25.addEvent(new Event("charles", null));
+		known25.addEvent(new Event("picked", null));
+		known25.addEvent(new Event("a", null));
+		known25.addEvent(new Event("pepper", null));
+		known25.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 		
-		known26.addEvent(new Event("peter"));
-		known26.addEvent(new Event("picker"));
-		known26.addEvent(new Event("picked"));
-		known26.addEvent(new Event("a"));
-		known26.addEvent(new Event("peck"));
+		known26.addEvent(new Event("peter", null));
+		known26.addEvent(new Event("picker", null));
+		known26.addEvent(new Event("picked", null));
+		known26.addEvent(new Event("a", null));
+		known26.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 
-		known27.addEvent(new Event("peck"));
-		known27.addEvent(new Event("was"));
-		known27.addEvent(new Event("picked"));
-		known27.addEvent(new Event("by"));
-		known27.addEvent(new Event("peter"));
+		known27.addEvent(new Event("peck", null));
+		known27.addEvent(new Event("was", null));
+		known27.addEvent(new Event("picked", null));
+		known27.addEvent(new Event("by", null));
+		known27.addEvent(new Event("peter", null));
 		known21.setAuthor("Peter");
 		
-		known28.addEvent(new Event("peter"));
-		known28.addEvent(new Event("piper"));
-		known28.addEvent(new Event("stole"));
-		known28.addEvent(new Event("pepper"));
-		known28.addEvent(new Event("peck"));
+		known28.addEvent(new Event("peter", null));
+		known28.addEvent(new Event("piper", null));
+		known28.addEvent(new Event("stole", null));
+		known28.addEvent(new Event("pepper", null));
+		known28.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 
-		known29.addEvent(new Event("pepper"));
-		known29.addEvent(new Event("peck"));
-		known29.addEvent(new Event("was"));
-		known29.addEvent(new Event("recently"));
-		known29.addEvent(new Event("stolen"));
+		known29.addEvent(new Event("pepper", null));
+		known29.addEvent(new Event("peck", null));
+		known29.addEvent(new Event("was", null));
+		known29.addEvent(new Event("recently", null));
+		known29.addEvent(new Event("stolen", null));
 		known21.setAuthor("Peter");
 
-		known210.addEvent(new Event("charles"));
-		known210.addEvent(new Event("piper"));
-		known210.addEvent(new Event("a"));
-		known210.addEvent(new Event("peck"));
-		known210.addEvent(new Event("picked"));
+		known210.addEvent(new Event("charles", null));
+		known210.addEvent(new Event("piper", null));
+		known210.addEvent(new Event("a", null));
+		known210.addEvent(new Event("peck", null));
+		known210.addEvent(new Event("picked", null));
 		known21.setAuthor("Peter");
 
-		known211.addEvent(new Event("piper"));
-		known211.addEvent(new Event("peter"));
-		known211.addEvent(new Event("picked"));
-		known211.addEvent(new Event("a"));
-		known211.addEvent(new Event("peck"));
+		known211.addEvent(new Event("piper", null));
+		known211.addEvent(new Event("peter", null));
+		known211.addEvent(new Event("picked", null));
+		known211.addEvent(new Event("a", null));
+		known211.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 
-		known212.addEvent(new Event("a"));
-		known212.addEvent(new Event("peck"));
-		known212.addEvent(new Event("charles"));
-		known212.addEvent(new Event("piper"));
-		known212.addEvent(new Event("picked"));
+		known212.addEvent(new Event("a", null));
+		known212.addEvent(new Event("peck", null));
+		known212.addEvent(new Event("charles", null));
+		known212.addEvent(new Event("piper", null));
+		known212.addEvent(new Event("picked", null));
 		known21.setAuthor("Peter");
 		
-		known213.addEvent(new Event("piper"));
-		known213.addEvent(new Event("peter"));
-		known213.addEvent(new Event("borrowed"));
-		known213.addEvent(new Event("a"));
-		known213.addEvent(new Event("peck"));
+		known213.addEvent(new Event("piper", null));
+		known213.addEvent(new Event("peter", null));
+		known213.addEvent(new Event("borrowed", null));
+		known213.addEvent(new Event("a", null));
+		known213.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 		
-		known214.addEvent(new Event("peter"));
-		known214.addEvent(new Event("piper"));
-		known214.addEvent(new Event("ate"));
-		known214.addEvent(new Event("pickled"));
-		known214.addEvent(new Event("peppers"));
+		known214.addEvent(new Event("peter", null));
+		known214.addEvent(new Event("piper", null));
+		known214.addEvent(new Event("ate", null));
+		known214.addEvent(new Event("pickled", null));
+		known214.addEvent(new Event("peppers", null));
 		known21.setAuthor("Peter");
 
-		known215.addEvent(new Event("charles"));
-		known215.addEvent(new Event("ate"));
-		known215.addEvent(new Event("a"));
-		known215.addEvent(new Event("whole"));
-		known215.addEvent(new Event("peck"));
+		known215.addEvent(new Event("charles", null));
+		known215.addEvent(new Event("ate", null));
+		known215.addEvent(new Event("a", null));
+		known215.addEvent(new Event("whole", null));
+		known215.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 
 		
@@ -333,14 +333,14 @@ public class WEKAPaceRegressionTest {
 		// >:{
 		EventSet known1 = new EventSet();
 
-		known1.addEvent(new Event("mary"));
-		known1.addEvent(new Event("lamb"));
+		known1.addEvent(new Event("mary", null));
+		known1.addEvent(new Event("lamb", null));
 		known1.setAuthor("Mary");
 		
 		EventSet known21 = new EventSet();
 		
-		known21.addEvent(new Event("peter"));
-		known21.addEvent(new Event("peck"));
+		known21.addEvent(new Event("peter", null));
+		known21.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 		
 		Vector<EventSet> esv = new Vector<EventSet>();
@@ -350,8 +350,8 @@ public class WEKAPaceRegressionTest {
 		//Create unknown text
 		EventSet unknown1 = new EventSet();
 
-		unknown1.addEvent(new Event("mary"));
-		unknown1.addEvent(new Event("beta"));
+		unknown1.addEvent(new Event("mary", null));
+		unknown1.addEvent(new Event("beta", null));
 
 		Vector<EventSet> uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
@@ -364,7 +364,7 @@ public class WEKAPaceRegressionTest {
 		System.out.println(t.toString());
 
 		// Assert that the authors match
-		assertTrue(t.get(0).getFirst().equals("Mary"));
+		assertTrue(t.get(0).getFirst().equals("Mary", null));
 		
 
 		
@@ -373,11 +373,11 @@ public class WEKAPaceRegressionTest {
 
 		EventSet known5 = new EventSet();
 		
-		known5.addEvent(new Event("she"));
-		known5.addEvent(new Event("sells"));
-		known5.addEvent(new Event("seashells"));
-		known5.addEvent(new Event("by"));
-		known5.addEvent(new Event("seashore"));
+		known5.addEvent(new Event("she", null));
+		known5.addEvent(new Event("sells", null));
+		known5.addEvent(new Event("seashells", null));
+		known5.addEvent(new Event("by", null));
+		known5.addEvent(new Event("seashore", null));
 		known5.setAuthor("Susie");
 
 		esv.add(known5);
@@ -385,35 +385,35 @@ public class WEKAPaceRegressionTest {
 		t = tree.analyze(uesv, esv);
 		System.out.println(t.toString());
 
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary", null));
 		
 
 		//Test 3 - Add in another unknown
 
 		EventSet unknown2 = new EventSet();
 
-		unknown2.addEvent(new Event("peter"));
-		unknown2.addEvent(new Event("piper"));
-		unknown2.addEvent(new Event("picked"));
-		unknown2.addEvent(new Event("a"));
-		unknown2.addEvent(new Event("shells"));
+		unknown2.addEvent(new Event("peter", null));
+		unknown2.addEvent(new Event("piper", null));
+		unknown2.addEvent(new Event("picked", null));
+		unknown2.addEvent(new Event("a", null));
+		unknown2.addEvent(new Event("shells", null));
 
 		uesv.add(unknown2);
 
 		t = tree.analyze(uesv, esv);
 		System.out.println(t.toString());
 
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter", null));
 		
 		// Test 6 - Test unknown that is almost equally likely to be of two authors
 		
 		EventSet unknown3 = new EventSet();
 		
-		unknown3.addEvent(new Event("peter"));
-		unknown3.addEvent(new Event("piper"));
-		unknown3.addEvent(new Event("a"));
-		unknown3.addEvent(new Event("little"));
-		unknown3.addEvent(new Event("lamb"));
+		unknown3.addEvent(new Event("peter", null));
+		unknown3.addEvent(new Event("piper", null));
+		unknown3.addEvent(new Event("a", null));
+		unknown3.addEvent(new Event("little", null));
+		unknown3.addEvent(new Event("lamb", null));
 		
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown3);
@@ -430,25 +430,25 @@ public class WEKAPaceRegressionTest {
 		EventSet known4 = new EventSet();
 		EventSet known6 = new EventSet();
 		
-		known3.addEvent(new Event("mary"));
-		known3.addEvent(new Event("had"));
-		known3.addEvent(new Event("a"));
-		known3.addEvent(new Event("small"));
-		known3.addEvent(new Event("lamb"));
+		known3.addEvent(new Event("mary", null));
+		known3.addEvent(new Event("had", null));
+		known3.addEvent(new Event("a", null));
+		known3.addEvent(new Event("small", null));
+		known3.addEvent(new Event("lamb", null));
 		known3.setAuthor("Mary");
 
-		known4.addEvent(new Event("peter"));
-		known4.addEvent(new Event("piper"));
-		known4.addEvent(new Event("collected"));
-		known4.addEvent(new Event("a"));
-		known4.addEvent(new Event("peck"));
+		known4.addEvent(new Event("peter", null));
+		known4.addEvent(new Event("piper", null));
+		known4.addEvent(new Event("collected", null));
+		known4.addEvent(new Event("a", null));
+		known4.addEvent(new Event("peck", null));
 		known4.setAuthor("Peter");
 		
-		known6.addEvent(new Event("susie"));
-		known6.addEvent(new Event("sells"));
-		known6.addEvent(new Event("shells"));
-		known6.addEvent(new Event("by"));
-		known6.addEvent(new Event("seashore"));
+		known6.addEvent(new Event("susie", null));
+		known6.addEvent(new Event("sells", null));
+		known6.addEvent(new Event("shells", null));
+		known6.addEvent(new Event("by", null));
+		known6.addEvent(new Event("seashore", null));
 		known6.setAuthor("Susie");
 
 		esv.add(known3);
@@ -462,7 +462,7 @@ public class WEKAPaceRegressionTest {
 		t = tree.analyze(uesv, esv);
 		System.out.println(t.toString());
 		
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter", null));
 		 */
 	}
 

@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.EventSet;
 
 public class MatusitaDistanceTest {
@@ -18,36 +19,36 @@ public class MatusitaDistanceTest {
 		EventSet set1 = new EventSet();
 		EventSet set2 = new EventSet();
 		Vector<Event> test1 = new Vector<Event>();
-		test1.add(new Event("one"));
-		test1.add(new Event("two"));
-		test1.add(new Event("three"));
-		test1.add(new Event("four"));
-		test1.add(new Event("five"));
-		test1.add(new Event("six"));
-		test1.add(new Event("seven"));
-		test1.add(new Event("eight"));
-		test1.add(new Event("nine"));
-		test1.add(new Event("ten"));			
+		test1.add(new Event("one", null));
+		test1.add(new Event("two", null));
+		test1.add(new Event("three", null));
+		test1.add(new Event("four", null));
+		test1.add(new Event("five", null));
+		test1.add(new Event("six", null));
+		test1.add(new Event("seven", null));
+		test1.add(new Event("eight", null));
+		test1.add(new Event("nine", null));
+		test1.add(new Event("ten", null));			
 		set1.addEvents(test1);
 		set2.addEvents(test1);
-		double result = new MatusitaDistance().distance(set1, set2);
+		double result = new MatusitaDistance().distance(new EventMap(set1), new EventMap(set2));
 		assertTrue(DistanceTestHelper.inRange(result, 0.0, 0.0000000001));
 		
 		
 		set2 = new EventSet();
 		Vector<Event> test2 = new Vector<Event>();
-		test2.add(new Event("1"));
-		test2.add(new Event("2"));
-		test2.add(new Event("3"));
-		test2.add(new Event("4"));
-		test2.add(new Event("5"));
-		test2.add(new Event("6"));
-		test2.add(new Event("7"));
-		test2.add(new Event("8"));
-		test2.add(new Event("9"));
-		test2.add(new Event("10"));
+		test2.add(new Event("1", null));
+		test2.add(new Event("2", null));
+		test2.add(new Event("3", null));
+		test2.add(new Event("4", null));
+		test2.add(new Event("5", null));
+		test2.add(new Event("6", null));
+		test2.add(new Event("7", null));
+		test2.add(new Event("8", null));
+		test2.add(new Event("9", null));
+		test2.add(new Event("10", null));
 		set2.addEvents(test2);
-		result = new MatusitaDistance().distance(set1, set2);
+		result = new MatusitaDistance().distance(new EventMap(set1), new EventMap(set2));
 		assertTrue(DistanceTestHelper.inRange(result, Math.sqrt(2), 0.0000000001));
 	}
 

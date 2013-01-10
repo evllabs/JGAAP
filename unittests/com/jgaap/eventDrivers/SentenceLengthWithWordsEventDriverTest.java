@@ -42,10 +42,10 @@ public class SentenceLengthWithWordsEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("3"));
-        tmp.add(new Event("4"));
-        tmp.add(new Event("5"));
-        tmp.add(new Event("6"));
+		tmp.add(new Event("3", null));
+        tmp.add(new Event("4", null));
+        tmp.add(new Event("5", null));
+        tmp.add(new Event("6", null));
 
 		expectedEventSet.addEvents(tmp);
 

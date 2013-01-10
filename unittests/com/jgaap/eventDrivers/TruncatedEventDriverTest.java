@@ -59,27 +59,27 @@ public class TruncatedEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("We"));
-		tmp.add(new Event("hol"));
-		tmp.add(new Event("the"));
-		tmp.add(new Event("tru"));
-		tmp.add(new Event("to"));
-		tmp.add(new Event("be"));
-		tmp.add(new Event("sel"));
-		tmp.add(new Event("\"My"));
-		tmp.add(new Event("pho"));
-		tmp.add(new Event("#"));
-		tmp.add(new Event("is"));
-		tmp.add(new Event("867"));
-		tmp.add(new Event("don"));
-		tmp.add(new Event("for"));
-		tmp.add(new Event("it!"));
-		tmp.add(new Event("she"));
-		tmp.add(new Event("sai"));
-		tmp.add(new Event("\"I"));
-		tmp.add(new Event("won"));
-		tmp.add(new Event("he"));
-		tmp.add(new Event("gru"));
+		tmp.add(new Event("We", null));
+		tmp.add(new Event("hol", null));
+		tmp.add(new Event("the", null));
+		tmp.add(new Event("tru", null));
+		tmp.add(new Event("to", null));
+		tmp.add(new Event("be", null));
+		tmp.add(new Event("sel", null));
+		tmp.add(new Event("\"My", null));
+		tmp.add(new Event("pho", null));
+		tmp.add(new Event("#", null));
+		tmp.add(new Event("is", null));
+		tmp.add(new Event("867", null));
+		tmp.add(new Event("don", null));
+		tmp.add(new Event("for", null));
+		tmp.add(new Event("it!", null));
+		tmp.add(new Event("she", null));
+		tmp.add(new Event("sai", null));
+		tmp.add(new Event("\"I", null));
+		tmp.add(new Event("won", null));
+		tmp.add(new Event("he", null));
+		tmp.add(new Event("gru", null));
 
 		expectedEventSet.addEvents(tmp);
 

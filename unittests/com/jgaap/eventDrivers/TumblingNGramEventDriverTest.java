@@ -42,15 +42,15 @@ public class TumblingNGramEventDriverTest {
 		
 		
 		
-		tmp.add(new Event("(Testing)-(sentence.)"));
-		//tmp.add(new Event("(sentence.)-(My)"));
-		tmp.add(new Event("(My)-(name)"));
-		//tmp.add(new Event("(name)-(is)"));
-		tmp.add(new Event("(is)-(Joe.)"));
-		//tmp.add(new Event("(Joe.)-(run)"));
-		tmp.add(new Event("(run)-(jump,)"));
-		//tmp.add(new Event("(jump,)-(game-start?)"));
-		tmp.add(new Event("(game-start?)-(Hello!)"));
+		tmp.add(new Event("(Testing)-(sentence.)", null));
+		//tmp.add(new Event("(sentence.)-(My)", null));
+		tmp.add(new Event("(My)-(name)", null));
+		//tmp.add(new Event("(name)-(is)", null));
+		tmp.add(new Event("(is)-(Joe.)", null));
+		//tmp.add(new Event("(Joe.)-(run)", null));
+		tmp.add(new Event("(run)-(jump,)", null));
+		//tmp.add(new Event("(jump,)-(game-start?)", null));
+		tmp.add(new Event("(game-start?)-(Hello!)", null));
 		
 		
 		

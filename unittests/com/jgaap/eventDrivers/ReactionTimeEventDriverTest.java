@@ -57,23 +57,23 @@ public class ReactionTimeEventDriverTest {
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("798.92"));
-		tmp.add(new Event("816.43"));
-		tmp.add(new Event("736.06"));
-		tmp.add(new Event("796.27"));
-		tmp.add(new Event("964.40"));
-		tmp.add(new Event("695.72"));
-		tmp.add(new Event("860.77"));
-		tmp.add(new Event("605.23"));
-		tmp.add(new Event("726.43"));
-		tmp.add(new Event("572.56"));
-		tmp.add(new Event("714.09"));
-		tmp.add(new Event("685.28"));
-		tmp.add(new Event("549.76"));
-		tmp.add(new Event("709.69"));
-		tmp.add(new Event("666.93"));
-		tmp.add(new Event("848.68"));
-		tmp.add(new Event("763.00"));
+		tmp.add(new Event("798.92", null));
+		tmp.add(new Event("816.43", null));
+		tmp.add(new Event("736.06", null));
+		tmp.add(new Event("796.27", null));
+		tmp.add(new Event("964.40", null));
+		tmp.add(new Event("695.72", null));
+		tmp.add(new Event("860.77", null));
+		tmp.add(new Event("605.23", null));
+		tmp.add(new Event("726.43", null));
+		tmp.add(new Event("572.56", null));
+		tmp.add(new Event("714.09", null));
+		tmp.add(new Event("685.28", null));
+		tmp.add(new Event("549.76", null));
+		tmp.add(new Event("709.69", null));
+		tmp.add(new Event("666.93", null));
+		tmp.add(new Event("848.68", null));
+		tmp.add(new Event("763.00", null));
 
 		expectedEventSet.addEvents(tmp);
 

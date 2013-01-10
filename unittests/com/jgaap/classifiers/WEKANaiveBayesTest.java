@@ -55,39 +55,39 @@ public class WEKANaiveBayesTest {
 		EventSet known4 = new EventSet();
 		EventSet unknown = new EventSet();
 
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("betta"));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("betta", null));
 		known1.setAuthor("Mary");
 		
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("betta"));
-		known3.addEvent(new Event("betta"));
+		known3.addEvent(new Event("alpha", null));
+		known3.addEvent(new Event("alpha", null));
+		known3.addEvent(new Event("alpha", null));
+		known3.addEvent(new Event("betta", null));
+		known3.addEvent(new Event("betta", null));
 		known3.setAuthor("Mary");
 
-		known2.addEvent(new Event("alpha"));
-		known2.addEvent(new Event("betta"));
-		known2.addEvent(new Event("betta"));
-		known2.addEvent(new Event("betta"));
-		known2.addEvent(new Event("betta"));
+		known2.addEvent(new Event("alpha", null));
+		known2.addEvent(new Event("betta", null));
+		known2.addEvent(new Event("betta", null));
+		known2.addEvent(new Event("betta", null));
+		known2.addEvent(new Event("betta", null));
 		known2.setAuthor("Peter");
 		
-		known4.addEvent(new Event("alpha"));
-		known4.addEvent(new Event("alpha"));
-		known4.addEvent(new Event("betta"));
-		known4.addEvent(new Event("betta"));
-		known4.addEvent(new Event("betta"));
+		known4.addEvent(new Event("alpha", null));
+		known4.addEvent(new Event("alpha", null));
+		known4.addEvent(new Event("betta", null));
+		known4.addEvent(new Event("betta", null));
+		known4.addEvent(new Event("betta", null));
 		known4.setAuthor("Peter");
 
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("alpha"));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("alpha", null));
 		
 		double[] probs = new double[2];
 		//R code : pnorm(80,70,sqrt(200),lower.tail=FALSE)*pnorm(20,30,sqrt(200))*.5
@@ -121,11 +121,11 @@ public class WEKANaiveBayesTest {
 		//Test 2
 		unknown = new EventSet();
 		
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("betta"));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("betta", null));
 		
 		unknownList.clear();
 		unknownList.add(unknown);
@@ -157,10 +157,10 @@ public class WEKANaiveBayesTest {
 		//Test 3
 		unknown = new EventSet();
 		
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("betta"));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("betta", null));
 		
 		unknownList.clear();
 		unknownList.add(unknown);
@@ -183,11 +183,11 @@ public class WEKANaiveBayesTest {
 		//Test 4
 		unknown = new EventSet();
 		
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("alpha"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("betta"));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("alpha", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("betta", null));
 		
 		unknownList.clear();
 		unknownList.add(unknown);
@@ -219,11 +219,11 @@ public class WEKANaiveBayesTest {
 		//Test 5
 		unknown = new EventSet();
 		
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("betta"));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("betta", null));
 		
 		unknownList.clear();
 		unknownList.add(unknown);
@@ -256,11 +256,11 @@ public class WEKANaiveBayesTest {
 		//Test 6
 		unknown = new EventSet();
 		
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("betta"));
-		unknown.addEvent(new Event("gamma"));
-		unknown.addEvent(new Event("betta"));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("betta", null));
+		unknown.addEvent(new Event("gamma", null));
+		unknown.addEvent(new Event("betta", null));
 		
 		unknownList.clear();
 		unknownList.add(unknown);

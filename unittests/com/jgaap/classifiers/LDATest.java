@@ -49,41 +49,41 @@ public class LDATest {
 		EventSet known2 = new EventSet();
 		EventSet unknown = new EventSet();
 
-		known1.addEvent(new Event("Mary"));
-		known1.addEvent(new Event("had"));
-		known1.addEvent(new Event("a"));
-		known1.addEvent(new Event("little"));
-		known1.addEvent(new Event("lamb"));
-		known1.addEvent(new Event("whose"));
-		known1.addEvent(new Event("fleece"));
-		known1.addEvent(new Event("was"));
-		known1.addEvent(new Event("white"));
-		known1.addEvent(new Event("as"));
-		known1.addEvent(new Event("snow."));
+		known1.addEvent(new Event("Mary", null));
+		known1.addEvent(new Event("had", null));
+		known1.addEvent(new Event("a", null));
+		known1.addEvent(new Event("little", null));
+		known1.addEvent(new Event("lamb", null));
+		known1.addEvent(new Event("whose", null));
+		known1.addEvent(new Event("fleece", null));
+		known1.addEvent(new Event("was", null));
+		known1.addEvent(new Event("white", null));
+		known1.addEvent(new Event("as", null));
+		known1.addEvent(new Event("snow.", null));
 		known1.setAuthor("Mary");
 
 
-		known2.addEvent(new Event("Peter"));
-		known2.addEvent(new Event("piper"));
-		known2.addEvent(new Event("picked"));
-		known2.addEvent(new Event("a"));
-		known2.addEvent(new Event("pack"));
-		known2.addEvent(new Event("of"));
-		known2.addEvent(new Event("pickled"));
-		known2.addEvent(new Event("peppers."));
+		known2.addEvent(new Event("Peter", null));
+		known2.addEvent(new Event("piper", null));
+		known2.addEvent(new Event("picked", null));
+		known2.addEvent(new Event("a", null));
+		known2.addEvent(new Event("pack", null));
+		known2.addEvent(new Event("of", null));
+		known2.addEvent(new Event("pickled", null));
+		known2.addEvent(new Event("peppers.", null));
 		known2.setAuthor("Peter");
 
-		unknown.addEvent(new Event("Mary"));
-		unknown.addEvent(new Event("had"));
-		unknown.addEvent(new Event("a"));
-		unknown.addEvent(new Event("little"));
-		unknown.addEvent(new Event("lambda"));
-		unknown.addEvent(new Event("whose"));
-		unknown.addEvent(new Event("syntax"));
-		unknown.addEvent(new Event("was"));
-		unknown.addEvent(new Event("white"));
-		unknown.addEvent(new Event("as"));
-		unknown.addEvent(new Event("snow."));
+		unknown.addEvent(new Event("Mary", null));
+		unknown.addEvent(new Event("had", null));
+		unknown.addEvent(new Event("a", null));
+		unknown.addEvent(new Event("little", null));
+		unknown.addEvent(new Event("lambda", null));
+		unknown.addEvent(new Event("whose", null));
+		unknown.addEvent(new Event("syntax", null));
+		unknown.addEvent(new Event("was", null));
+		unknown.addEvent(new Event("white", null));
+		unknown.addEvent(new Event("as", null));
+		unknown.addEvent(new Event("snow.", null));
 
 		List <EventSet> esv = new ArrayList<EventSet>();
 		esv.add(known1);
@@ -103,7 +103,7 @@ public class LDATest {
 		System.out.println("Expected");
 		System.out.println("First : Mary");
 		System.out.println("Second: Peter");*/
-		assertTrue(author1.equals("Mary"));
+		assertTrue(author1.equals("Mary", null));
 
 		//Test 2 - Same classifier
 		//Testing for persistence
@@ -134,14 +134,14 @@ public class LDATest {
 		
 		//Test 4 - two unknowns
 		EventSet unknown2 = new EventSet();
-		unknown2.addEvent(new Event("Peter"));
-		unknown2.addEvent(new Event("pumpkin"));
-		unknown2.addEvent(new Event("picked"));
-		unknown2.addEvent(new Event("a"));
-		unknown2.addEvent(new Event("pack"));
-		unknown2.addEvent(new Event("of"));
-		unknown2.addEvent(new Event("pickled"));
-		unknown2.addEvent(new Event("potatoes."));
+		unknown2.addEvent(new Event("Peter", null));
+		unknown2.addEvent(new Event("pumpkin", null));
+		unknown2.addEvent(new Event("picked", null));
+		unknown2.addEvent(new Event("a", null));
+		unknown2.addEvent(new Event("pack", null));
+		unknown2.addEvent(new Event("of", null));
+		unknown2.addEvent(new Event("pickled", null));
+		unknown2.addEvent(new Event("potatoes.", null));
 		
 		List <EventSet> uesv = new ArrayList<EventSet>();
 		uesv.add(unknown);
@@ -158,7 +158,7 @@ public class LDATest {
 			System.out.println();
 		}*/
 		
-		assertTrue(t2.get(0).get(0).getFirst().equals("Mary") && t2.get(1).get(0).getFirst().equals("Peter"));
+		assertTrue(t2.get(0).get(0).getFirst().equals("Mary") && t2.get(1).get(0).getFirst().equals("Peter", null));
 		
 	}
 }

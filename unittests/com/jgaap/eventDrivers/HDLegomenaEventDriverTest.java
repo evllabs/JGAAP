@@ -61,14 +61,14 @@ public class HDLegomenaEventDriverTest {
 	    EventSet sampleSet = eventDriver.createEventSet(doc);    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
-	    tmp.add(new Event("be"));
-	    tmp.add(new Event("nimble,"));
-	    tmp.add(new Event("be"));
-	    tmp.add(new Event("quick,"));
-	    tmp.add(new Event("jump"));
-	    tmp.add(new Event("over"));
-	    tmp.add(new Event("the"));
-	    tmp.add(new Event("candlestick."));
+	    tmp.add(new Event("be", null));
+	    tmp.add(new Event("nimble,", null));
+	    tmp.add(new Event("be", null));
+	    tmp.add(new Event("quick,", null));
+	    tmp.add(new Event("jump", null));
+	    tmp.add(new Event("over", null));
+	    tmp.add(new Event("the", null));
+	    tmp.add(new Event("candlestick.", null));
 	    expectedSet.addEvents(tmp);     
 	    assertTrue(expectedSet.equals(sampleSet));
 	    }

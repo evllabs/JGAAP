@@ -53,9 +53,9 @@ public class SuffixEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("ted"));
-		tmp.add(new Event("ers"));
-		tmp.add(new Event("est"));
+		tmp.add(new Event("ted", null));
+		tmp.add(new Event("ers", null));
+		tmp.add(new Event("est", null));
 
 		expectedEventSet.addEvents(tmp);
 		System.out.println(sampleEventSet.toString());
