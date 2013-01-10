@@ -58,23 +58,23 @@ public class NamingTimeEventDriverTest {
 		Vector<Event> tmp = new Vector<Event>();
 
 
-		tmp.add(new Event("662.09"));
-		tmp.add(new Event("646.40"));
-		tmp.add(new Event("686.11"));
-		tmp.add(new Event("596.54"));
-		tmp.add(new Event("792.69"));
-		tmp.add(new Event("623.96"));
-		tmp.add(new Event("635.16"));
-		tmp.add(new Event("590.08"));
-		tmp.add(new Event("694.85"));
-		tmp.add(new Event("662.57"));
-		tmp.add(new Event("732.70"));
-		tmp.add(new Event("687.12"));
-		tmp.add(new Event("639.86"));
-		tmp.add(new Event("672.37"));
-		tmp.add(new Event("613.83"));
-		tmp.add(new Event("756.00"));
-		tmp.add(new Event("822.64"));
+		tmp.add(new Event("662.09", null));
+		tmp.add(new Event("646.40", null));
+		tmp.add(new Event("686.11", null));
+		tmp.add(new Event("596.54", null));
+		tmp.add(new Event("792.69", null));
+		tmp.add(new Event("623.96", null));
+		tmp.add(new Event("635.16", null));
+		tmp.add(new Event("590.08", null));
+		tmp.add(new Event("694.85", null));
+		tmp.add(new Event("662.57", null));
+		tmp.add(new Event("732.70", null));
+		tmp.add(new Event("687.12", null));
+		tmp.add(new Event("639.86", null));
+		tmp.add(new Event("672.37", null));
+		tmp.add(new Event("613.83", null));
+		tmp.add(new Event("756.00", null));
+		tmp.add(new Event("822.64", null));
 
 		expectedEventSet.addEvents(tmp);
 

@@ -67,15 +67,15 @@ public class RareWordsEventDriverTest {
 
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
-	    tmp.add(new Event("four"));
-	    tmp.add(new Event("four"));
-	    tmp.add(new Event("four"));
-	    tmp.add(new Event("four"));
-	    tmp.add(new Event("five"));
-	    tmp.add(new Event("five"));
-	    tmp.add(new Event("five"));
-	    tmp.add(new Event("five"));
-	    tmp.add(new Event("five"));
+	    tmp.add(new Event("four", null));
+	    tmp.add(new Event("four", null));
+	    tmp.add(new Event("four", null));
+	    tmp.add(new Event("four", null));
+	    tmp.add(new Event("five", null));
+	    tmp.add(new Event("five", null));
+	    tmp.add(new Event("five", null));
+	    tmp.add(new Event("five", null));
+	    tmp.add(new Event("five", null));
 
 	    expectedSet.addEvents(tmp);     
 	    System.out.println(sampleSet.toString());

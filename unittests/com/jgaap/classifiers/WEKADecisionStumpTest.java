@@ -58,32 +58,32 @@ public class WEKADecisionStumpTest {
 		EventSet known3 = new EventSet();
 		EventSet known4 = new EventSet();
 
-		known1.addEvent(new Event("mary"));
-		known1.addEvent(new Event("had"));
-		known1.addEvent(new Event("a"));
-		known1.addEvent(new Event("little"));
-		known1.addEvent(new Event("lamb"));
+		known1.addEvent(new Event("mary", null));
+		known1.addEvent(new Event("had", null));
+		known1.addEvent(new Event("a", null));
+		known1.addEvent(new Event("little", null));
+		known1.addEvent(new Event("lamb", null));
 		known1.setAuthor("Mary");
 		
-		known3.addEvent(new Event("mary"));
-		known3.addEvent(new Event("had"));
-		known3.addEvent(new Event("a"));
-		known3.addEvent(new Event("small"));
-		known3.addEvent(new Event("lamb"));
+		known3.addEvent(new Event("mary", null));
+		known3.addEvent(new Event("had", null));
+		known3.addEvent(new Event("a", null));
+		known3.addEvent(new Event("small", null));
+		known3.addEvent(new Event("lamb", null));
 		known3.setAuthor("Mary");
 
-		known2.addEvent(new Event("peter"));
-		known2.addEvent(new Event("piper"));
-		known2.addEvent(new Event("picked"));
-		known2.addEvent(new Event("a"));
-		known2.addEvent(new Event("peck"));
+		known2.addEvent(new Event("peter", null));
+		known2.addEvent(new Event("piper", null));
+		known2.addEvent(new Event("picked", null));
+		known2.addEvent(new Event("a", null));
+		known2.addEvent(new Event("peck", null));
 		known2.setAuthor("Peter");
 		
-		known4.addEvent(new Event("peter"));
-		known4.addEvent(new Event("piper"));
-		known4.addEvent(new Event("collected"));
-		known4.addEvent(new Event("a"));
-		known4.addEvent(new Event("peck"));
+		known4.addEvent(new Event("peter", null));
+		known4.addEvent(new Event("piper", null));
+		known4.addEvent(new Event("collected", null));
+		known4.addEvent(new Event("a", null));
+		known4.addEvent(new Event("peck", null));
 		known4.setAuthor("Peter");
 
 		Vector<EventSet> esv = new Vector<EventSet>();
@@ -96,17 +96,17 @@ public class WEKADecisionStumpTest {
 		EventSet unknown1 = new EventSet();
 		EventSet unknown2 = new EventSet();
 
-		unknown1.addEvent(new Event("mary"));
-		unknown1.addEvent(new Event("had"));
-		unknown1.addEvent(new Event("a"));
-		unknown1.addEvent(new Event("little"));
-		unknown1.addEvent(new Event("beta"));
+		unknown1.addEvent(new Event("mary", null));
+		unknown1.addEvent(new Event("had", null));
+		unknown1.addEvent(new Event("a", null));
+		unknown1.addEvent(new Event("little", null));
+		unknown1.addEvent(new Event("beta", null));
 		
-		unknown2.addEvent(new Event("peter"));
-		unknown2.addEvent(new Event("piper"));
-		unknown2.addEvent(new Event("picked"));
-		unknown2.addEvent(new Event("a"));
-		unknown2.addEvent(new Event("shells"));
+		unknown2.addEvent(new Event("peter", null));
+		unknown2.addEvent(new Event("piper", null));
+		unknown2.addEvent(new Event("picked", null));
+		unknown2.addEvent(new Event("a", null));
+		unknown2.addEvent(new Event("shells", null));
 
 		Vector<EventSet> uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
@@ -125,7 +125,7 @@ public class WEKADecisionStumpTest {
 			//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
 			//Assert that the authors match
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter", null));
 
 		//Test 2 - Different documents
 		
@@ -135,32 +135,32 @@ public class WEKADecisionStumpTest {
 		known3 = new EventSet();
 		known4 = new EventSet();
 		
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("beta"));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("beta", null));
 		known1.setAuthor("Mary");
 		
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("beta"));
-		known3.addEvent(new Event("beta"));
+		known3.addEvent(new Event("alpha", null));
+		known3.addEvent(new Event("alpha", null));
+		known3.addEvent(new Event("alpha", null));
+		known3.addEvent(new Event("beta", null));
+		known3.addEvent(new Event("beta", null));
 		known3.setAuthor("Mary");
 
-		known2.addEvent(new Event("alpha"));
-		known2.addEvent(new Event("beta"));
-		known2.addEvent(new Event("beta"));
-		known2.addEvent(new Event("beta"));
-		known2.addEvent(new Event("beta"));
+		known2.addEvent(new Event("alpha", null));
+		known2.addEvent(new Event("beta", null));
+		known2.addEvent(new Event("beta", null));
+		known2.addEvent(new Event("beta", null));
+		known2.addEvent(new Event("beta", null));
 		known2.setAuthor("Peter");
 		
-		known4.addEvent(new Event("alpha"));
-		known4.addEvent(new Event("alpha"));
-		known4.addEvent(new Event("beta"));
-		known4.addEvent(new Event("beta"));
-		known4.addEvent(new Event("beta"));
+		known4.addEvent(new Event("alpha", null));
+		known4.addEvent(new Event("alpha", null));
+		known4.addEvent(new Event("beta", null));
+		known4.addEvent(new Event("beta", null));
+		known4.addEvent(new Event("beta", null));
 		known4.setAuthor("Peter");
 		
 		esv = new Vector<EventSet>();
@@ -173,17 +173,17 @@ public class WEKADecisionStumpTest {
 		unknown1 = new EventSet();
 		unknown2 = new EventSet();
 
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
+		unknown1.addEvent(new Event("alpha", null));
+		unknown1.addEvent(new Event("alpha", null));
+		unknown1.addEvent(new Event("alpha", null));
+		unknown1.addEvent(new Event("alpha", null));
+		unknown1.addEvent(new Event("alpha", null));
 		
-		unknown2.addEvent(new Event("beta"));
-		unknown2.addEvent(new Event("beta"));
-		unknown2.addEvent(new Event("beta"));
-		unknown2.addEvent(new Event("beta"));
-		unknown2.addEvent(new Event("beta"));
+		unknown2.addEvent(new Event("beta", null));
+		unknown2.addEvent(new Event("beta", null));
+		unknown2.addEvent(new Event("beta", null));
+		unknown2.addEvent(new Event("beta", null));
+		unknown2.addEvent(new Event("beta", null));
 
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
@@ -201,7 +201,7 @@ public class WEKADecisionStumpTest {
 
 
 			//Assert that the authors match
-			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+			assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter", null));
 
 	}
 	

@@ -46,16 +46,16 @@ public class NullAnalysisTest {
 		EventSet unknown = new EventSet();
 		
 		Vector<Event> test1 = new Vector<Event>();
-		test1.add(new Event("The"));
-		test1.add(new Event("quick"));
-		test1.add(new Event("brown"));
-		test1.add(new Event("fox"));
-		test1.add(new Event("jumps"));
-		test1.add(new Event("over"));
-		test1.add(new Event("the"));
-		test1.add(new Event("lazy"));
-		test1.add(new Event("dog"));
-		test1.add(new Event("."));
+		test1.add(new Event("The", null));
+		test1.add(new Event("quick", null));
+		test1.add(new Event("brown", null));
+		test1.add(new Event("fox", null));
+		test1.add(new Event("jumps", null));
+		test1.add(new Event("over", null));
+		test1.add(new Event("the", null));
+		test1.add(new Event("lazy", null));
+		test1.add(new Event("dog", null));
+		test1.add(new Event(".", null));
 		known1.addEvents(test1);
 		unknown.addEvents(test1);
 		

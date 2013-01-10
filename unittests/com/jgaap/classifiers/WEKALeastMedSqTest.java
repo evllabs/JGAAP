@@ -63,32 +63,32 @@ public class WEKALeastMedSqTest {
 		EventSet known3 = new EventSet();
 		EventSet known4 = new EventSet();
 
-		known1.addEvent(new Event("mary"));
-		known1.addEvent(new Event("had"));
-		known1.addEvent(new Event("a"));
-		known1.addEvent(new Event("little"));
-		known1.addEvent(new Event("lamb"));
+		known1.addEvent(new Event("mary", null));
+		known1.addEvent(new Event("had", null));
+		known1.addEvent(new Event("a", null));
+		known1.addEvent(new Event("little", null));
+		known1.addEvent(new Event("lamb", null));
 		known1.setAuthor("Mary");
 		
-		known3.addEvent(new Event("mary"));
-		known3.addEvent(new Event("had"));
-		known3.addEvent(new Event("a"));
-		known3.addEvent(new Event("small"));
-		known3.addEvent(new Event("lamb"));
+		known3.addEvent(new Event("mary", null));
+		known3.addEvent(new Event("had", null));
+		known3.addEvent(new Event("a", null));
+		known3.addEvent(new Event("small", null));
+		known3.addEvent(new Event("lamb", null));
 		known3.setAuthor("Mary");
 
-		known2.addEvent(new Event("peter"));
-		known2.addEvent(new Event("piper"));
-		known2.addEvent(new Event("picked"));
-		known2.addEvent(new Event("a"));
-		known2.addEvent(new Event("peck"));
+		known2.addEvent(new Event("peter", null));
+		known2.addEvent(new Event("piper", null));
+		known2.addEvent(new Event("picked", null));
+		known2.addEvent(new Event("a", null));
+		known2.addEvent(new Event("peck", null));
 		known2.setAuthor("Peter");
 		
-		known4.addEvent(new Event("peter"));
-		known4.addEvent(new Event("piper"));
-		known4.addEvent(new Event("collected"));
-		known4.addEvent(new Event("a"));
-		known4.addEvent(new Event("peck"));
+		known4.addEvent(new Event("peter", null));
+		known4.addEvent(new Event("piper", null));
+		known4.addEvent(new Event("collected", null));
+		known4.addEvent(new Event("a", null));
+		known4.addEvent(new Event("peck", null));
 		known4.setAuthor("Peter");
 
 		Vector<EventSet> esv = new Vector<EventSet>();
@@ -100,11 +100,11 @@ public class WEKALeastMedSqTest {
 		//Create unknown text
 		EventSet unknown1 = new EventSet();
 
-		unknown1.addEvent(new Event("mary"));
-		unknown1.addEvent(new Event("had"));
-		unknown1.addEvent(new Event("a"));
-		unknown1.addEvent(new Event("little"));
-		unknown1.addEvent(new Event("beta"));
+		unknown1.addEvent(new Event("mary", null));
+		unknown1.addEvent(new Event("had", null));
+		unknown1.addEvent(new Event("a", null));
+		unknown1.addEvent(new Event("little", null));
+		unknown1.addEvent(new Event("beta", null));
 
 		Vector<EventSet> uesv = new Vector<EventSet>();
 		uesv.add(unknown1);
@@ -119,18 +119,18 @@ public class WEKALeastMedSqTest {
 		System.out.println(t.toString());
 
 		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary", null));
 		
 		
 		// Test 1b - Test equal likelihood
 		
 		EventSet unknown2 = new EventSet();
 		
-		unknown2.addEvent(new Event("mary"));
-		unknown2.addEvent(new Event("had"));
-		unknown2.addEvent(new Event("a"));
-		unknown2.addEvent(new Event("peter"));
-		unknown2.addEvent(new Event("piper"));
+		unknown2.addEvent(new Event("mary", null));
+		unknown2.addEvent(new Event("had", null));
+		unknown2.addEvent(new Event("a", null));
+		unknown2.addEvent(new Event("peter", null));
+		unknown2.addEvent(new Event("piper", null));
 		
 		uesv = new Vector<EventSet>();
 		uesv.add(unknown2);
@@ -154,18 +154,18 @@ public class WEKALeastMedSqTest {
 			t.add(classifier.analyze(unknown));
 		}
 		System.out.println(t.toString());
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary", null));
 		
 
 		//Test 3 - Add in another unknown
 
 		EventSet unknown3 = new EventSet();
 
-		unknown3.addEvent(new Event("peter"));
-		unknown3.addEvent(new Event("piper"));
-		unknown3.addEvent(new Event("picked"));
-		unknown3.addEvent(new Event("a"));
-		unknown3.addEvent(new Event("shells"));
+		unknown3.addEvent(new Event("peter", null));
+		unknown3.addEvent(new Event("piper", null));
+		unknown3.addEvent(new Event("picked", null));
+		unknown3.addEvent(new Event("a", null));
+		unknown3.addEvent(new Event("shells", null));
 
 		uesv.add(unknown3);
 
@@ -177,7 +177,7 @@ public class WEKALeastMedSqTest {
 		}
 		System.out.println(t.toString());
 
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter", null));
 	}
 
 	//TODO: Test 4 - test documents/author requirements and exception handling

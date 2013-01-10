@@ -42,10 +42,10 @@ public class SentenceEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		List<Event> tmp = new ArrayList<Event>();
 
-		tmp.add(new Event("Hello, Dr. Jones!"));
-        tmp.add(new Event("I'm not.feeling.too well today."));
-        tmp.add(new Event("What's the matter Mr. Adams?"));
-        tmp.add(new Event("My stomach hurts, A.K.A, cramps."));
+		tmp.add(new Event("Hello, Dr. Jones!", null));
+        tmp.add(new Event("I'm not.feeling.too well today.", null));
+        tmp.add(new Event("What's the matter Mr. Adams?", null));
+        tmp.add(new Event("My stomach hurts, A.K.A, cramps.", null));
 
 		expectedEventSet.addEvents(tmp);
 

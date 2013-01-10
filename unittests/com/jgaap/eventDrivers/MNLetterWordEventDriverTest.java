@@ -70,22 +70,22 @@ public class MNLetterWordEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("aaa"));
-		tmp.add(new Event("bbb"));
-		tmp.add(new Event("ccc"));
-		tmp.add(new Event("aaaa"));
-		tmp.add(new Event("bbbb"));
-		tmp.add(new Event("cccc"));
-		tmp.add(new Event("AAA"));
-		tmp.add(new Event("BBB"));
-		tmp.add(new Event("CCC"));
-		tmp.add(new Event("AAAA"));
-		tmp.add(new Event("BBBB"));
-		tmp.add(new Event("CCCC"));
-		tmp.add(new Event("333"));
-		tmp.add(new Event("4444"));
-		tmp.add(new Event("###"));
-		tmp.add(new Event("$$$$"));
+		tmp.add(new Event("aaa", null));
+		tmp.add(new Event("bbb", null));
+		tmp.add(new Event("ccc", null));
+		tmp.add(new Event("aaaa", null));
+		tmp.add(new Event("bbbb", null));
+		tmp.add(new Event("cccc", null));
+		tmp.add(new Event("AAA", null));
+		tmp.add(new Event("BBB", null));
+		tmp.add(new Event("CCC", null));
+		tmp.add(new Event("AAAA", null));
+		tmp.add(new Event("BBBB", null));
+		tmp.add(new Event("CCCC", null));
+		tmp.add(new Event("333", null));
+		tmp.add(new Event("4444", null));
+		tmp.add(new Event("###", null));
+		tmp.add(new Event("$$$$", null));
 
 
 		expectedEventSet.addEvents(tmp);

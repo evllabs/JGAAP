@@ -57,23 +57,23 @@ public class TruncatedFreqEventDriverTest {
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("16."));
-		tmp.add(new Event("5.4"));
-		tmp.add(new Event("9.2"));
-		tmp.add(new Event("5.9"));
-		tmp.add(new Event("6.2"));
-		tmp.add(new Event("8.2"));
-		tmp.add(new Event("8.5"));
-		tmp.add(new Event("8.1"));
-		tmp.add(new Event("6.7"));
-		tmp.add(new Event("8.3"));
-		tmp.add(new Event("5.7"));
-		tmp.add(new Event("6.5"));
-		tmp.add(new Event("8.5"));
-		tmp.add(new Event("6.2"));
-		tmp.add(new Event("5.9"));
-		tmp.add(new Event("5.7"));
-		tmp.add(new Event("7.4"));
+		tmp.add(new Event("16.", null));
+		tmp.add(new Event("5.4", null));
+		tmp.add(new Event("9.2", null));
+		tmp.add(new Event("5.9", null));
+		tmp.add(new Event("6.2", null));
+		tmp.add(new Event("8.2", null));
+		tmp.add(new Event("8.5", null));
+		tmp.add(new Event("8.1", null));
+		tmp.add(new Event("6.7", null));
+		tmp.add(new Event("8.3", null));
+		tmp.add(new Event("5.7", null));
+		tmp.add(new Event("6.5", null));
+		tmp.add(new Event("8.5", null));
+		tmp.add(new Event("6.2", null));
+		tmp.add(new Event("5.9", null));
+		tmp.add(new Event("5.7", null));
+		tmp.add(new Event("7.4", null));
 
 		expectedEventSet.addEvents(tmp);
 
