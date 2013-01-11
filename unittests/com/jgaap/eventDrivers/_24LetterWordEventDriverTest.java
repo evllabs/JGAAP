@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -46,8 +45,7 @@ public class _24LetterWordEventDriverTest {
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "a bb ccc dddd eeeee " +
 "1 22 333 4444 55555 " +
 "! @@ ### $$$$ %%%%% " +
@@ -58,7 +56,7 @@ public class _24LetterWordEventDriverTest {
 		eventDriver.setParameter("M", 2);
 		eventDriver.setParameter("N", 4);
 		
-		EventSet sampleEventSet = eventDriver.createEventSet(doc);
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

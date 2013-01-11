@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -42,15 +41,14 @@ public class NaiveWordEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "We hold these truths to be self-evident,\n"+
 "\"My phone # is 867-5309; don't forget it!\" she said.\n"+
 "\t\t\"I won't,\" \t he grumbled.\n"
 
 		);
 
-		EventSet sampleEventSet = new NaiveWordEventDriver().createEventSet(doc);
+		EventSet sampleEventSet = new NaiveWordEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

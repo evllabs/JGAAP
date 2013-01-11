@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -51,8 +50,7 @@ public class RareWordsEventDriverTest {
 	    /*HDLegomenaEventDriver - Returns only events that occurs once or twice*/
 	    /*Test One - Normal Text w/ one or two events to return*/
 
-	    Document doc = new Document();
-	    doc.readStringText(
+		String text = (
 "one " +
 "two two  " +
 "three three three " +
@@ -63,7 +61,7 @@ public class RareWordsEventDriverTest {
 	    EventDriver ed  = new RareWordsEventDriver();
 	    ed.setParameter("M","4");
 	    ed.setParameter("N","5");
-	    EventSet sampleSet = ed.createEventSet(doc);    
+	    EventSet sampleSet = ed.createEventSet(text.toCharArray());    
 
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();

@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -45,12 +44,11 @@ public class DefinitionsEventDriverTest {
 	public void testCreateEventSet() throws EventGenerationException {
 		
 		System.out.println("Test Started");
-	 	Document doc = new Document();
-	    doc.readStringText("alumni Today the fox jumped over the lazy dog "
+		String text = ("alumni Today the fox jumped over the lazy dog "
 	    		+"While the fox jumped over the lazy dog a cat ran under a truck "
 	    		+"The truck missed the cat and the lazy dog was not so lazy and caught the cat");
 	    
-	    EventSet sampleSet = new DefinitionsEventDriver().createEventSet(doc);
+	    EventSet sampleSet = new DefinitionsEventDriver().createEventSet(text.toCharArray());
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
 	    

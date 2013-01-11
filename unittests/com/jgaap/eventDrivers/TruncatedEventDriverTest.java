@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -45,8 +44,7 @@ public class TruncatedEventDriverTest {
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
 		/* test 1 -- straight up */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "We hold these truths to be self-evident,\n"+
 "\"My phone # is 867-5309; don't forget it!\" she said.\n"+
 "\t\t\"I won't,\" \t he grumbled.\n"
@@ -55,7 +53,7 @@ public class TruncatedEventDriverTest {
 
 		TruncatedEventDriver n = new TruncatedEventDriver();
 		n.setParameter("length","3");
-		EventSet sampleEventSet = n.createEventSet(doc);
+		EventSet sampleEventSet = n.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -45,8 +44,7 @@ public class PorterStemmerWithIrregularEventDriverTest {
 	public void testCreateEventSet() throws EventGenerationException {
 		
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "tests Tested TESTING TeSt " +
 "867-5309 " +
 "a aaron abaissiez abandon abandoned abase abash abate abated abatement "+
@@ -69,7 +67,7 @@ public class PorterStemmerWithIrregularEventDriverTest {
 "accounted accounts accoutred accoutrement accoutrements accrue alumni caught");
 
 
-		EventSet sampleEventSet = new PorterStemmerWithIrregularEventDriver().createEventSet(doc);
+		EventSet sampleEventSet = new PorterStemmerWithIrregularEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

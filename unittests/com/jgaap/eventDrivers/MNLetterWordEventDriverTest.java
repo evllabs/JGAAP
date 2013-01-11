@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -45,8 +44,7 @@ public class MNLetterWordEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "a b c d e f g h i j k l m n o p q r s t u v w x y z " +
 "aa bb cc dd ee ff gg hh ii jj kk ll mm nn oo pp qq rr ss tt uu vv ww xx yy zz " +
 "aaa bbb ccc "+
@@ -66,7 +64,7 @@ public class MNLetterWordEventDriverTest {
 		ed.setParameter("M","3");
 		ed.setParameter("N","4");
 
-		EventSet sampleEventSet = ed.createEventSet(doc);
+		EventSet sampleEventSet = ed.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
