@@ -22,11 +22,13 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -59,11 +61,18 @@ public class NullHistAnalysisTest {
 		known1.addEvents(test1);
 		unknown.addEvents(test1);
 		
-		Vector<EventSet> test = new Vector<EventSet>();
-		test.add(known1);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+
+		
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown);
 		NullHistAnalysis nullHistAnalysis = new NullHistAnalysis();
-		nullHistAnalysis.train(test);
-		List<Pair<String, Double>> t = nullHistAnalysis.analyze(unknown);
+		nullHistAnalysis.train(knowns);
+		List<Pair<String, Double>> t = nullHistAnalysis.analyze(unknownDocument);
 		String r = t.get(0).getFirst();
 		String s = "No analysis performed.\n";
 		assertTrue(r.equals(s));

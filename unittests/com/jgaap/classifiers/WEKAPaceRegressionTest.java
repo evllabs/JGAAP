@@ -19,12 +19,13 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -343,9 +344,15 @@ public class WEKAPaceRegressionTest {
 		known21.addEvent(new Event("peck", null));
 		known21.setAuthor("Peter");
 		
-		Vector<EventSet> esv = new Vector<EventSet>();
-		esv.add(known1);
-		esv.add(known21);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		Document knownDocument21 = new Document();
+		knownDocument21.setAuthor(known21.getAuthor());
+		knownDocument21.addEventSet(null, known21);
+		knowns.add(knownDocument21);
 
 		//Create unknown text
 		EventSet unknown1 = new EventSet();
@@ -353,18 +360,18 @@ public class WEKAPaceRegressionTest {
 		unknown1.addEvent(new Event("mary", null));
 		unknown1.addEvent(new Event("beta", null));
 
-		Vector<EventSet> uesv = new Vector<EventSet>();
-		uesv.add(unknown1);
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown1);
 
 		//Classify unknown based on the knowns
 		WEKAPaceRegression tree = new WEKAPaceRegression();
 		List<Pair<String, Double>> t;
-		tree.train(esv);
-		t = tree.analyze(unknown1);
+		tree.train(knowns);
+		t = tree.analyze(unknownDocument);
 		System.out.println(t.toString());
 
 		// Assert that the authors match
-		assertTrue(t.get(0).getFirst().equals("Mary", null));
+		assertTrue(t.get(0).getFirst().equals("Mary"));
 		
 
 		

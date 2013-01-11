@@ -24,11 +24,11 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -68,9 +68,15 @@ public class WEKAMultilayerPerceptronTest {
 		known2.addEvent(new Event("peck", null));
 		known2.setAuthor("Peter");
 		
-		Vector<EventSet> esv = new Vector<EventSet>();
-		esv.add(known1);
-		esv.add(known2);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		Document knownDocument2 = new Document();
+		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.addEventSet(null, known2);
+		knowns.add(knownDocument2);
 
 		//Create unknown text
 		EventSet unknown1 = new EventSet();
@@ -81,20 +87,18 @@ public class WEKAMultilayerPerceptronTest {
 		unknown1.addEvent(new Event("little", null));
 		unknown1.addEvent(new Event("beta", null));
 
-		Vector<EventSet> uesv = new Vector<EventSet>();
-		uesv.add(unknown1);
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown1);
 
 		//Classify unknown based on the knowns
 		WEKAMultilayerPerceptron tree = new WEKAMultilayerPerceptron();
 		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument));
 		System.out.println(t.toString());
 
 		//Assert that the authors match
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary", null));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 		
 		
 		//Test 2 - Add in third known author
@@ -108,16 +112,17 @@ public class WEKAMultilayerPerceptronTest {
 		known5.addEvent(new Event("seashore", null));
 		known5.setAuthor("Susie");
 
-		esv.add(known5);
-
+		Document knownDocument5 = new Document();
+		knownDocument5.setAuthor(known5.getAuthor());
+		knownDocument5.addEventSet(null, known5);
+		knowns.add(knownDocument5);
+		
 		t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument));
 		System.out.println(t.toString());
 
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary", null));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 		
 
 		//Test 3 - Add in another unknown
@@ -130,16 +135,16 @@ public class WEKAMultilayerPerceptronTest {
 		unknown2.addEvent(new Event("a", null));
 		unknown2.addEvent(new Event("shells", null));
 
-		uesv.add(unknown2);
+		Document unknownDocument2 = new Document();
+		unknownDocument2.addEventSet(null, unknown2);
 
 		t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument));
+		t.add(tree.analyze(unknownDocument2));
 		System.out.println(t.toString());
 
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter", null));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
 		
 		// Test 6 - Test unknown that is almost equally likely to be of two authors
 		
@@ -151,16 +156,16 @@ public class WEKAMultilayerPerceptronTest {
 		unknown3.addEvent(new Event("little", null));
 		unknown3.addEvent(new Event("lamb", null));
 		
-		uesv = new Vector<EventSet>();
-		uesv.add(unknown3);
+		Document unknownDocument3 = new Document();
+		unknownDocument3.addEventSet(null, unknown3);
 		
 		//t = tree.analyze(uesv, esv);
 		tree = new WEKAMultilayerPerceptron();
 		t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument));
+		t.add(tree.analyze(unknownDocument2));
+		t.add(tree.analyze(unknownDocument3));
 		System.out.println(t.toString());
 		
 		assertTrue(t.get(0).get(0).getSecond()-.5 < .1 && t.get(0).get(1).getSecond()-.5 < .1);
@@ -191,23 +196,27 @@ public class WEKAMultilayerPerceptronTest {
 		known6.addEvent(new Event("seashore", null));
 		known6.setAuthor("Susie");
 
-		esv.add(known3);
-		esv.add(known4);
-		esv.add(known6);
-		
-		uesv = new Vector<EventSet>();
-		uesv.add(unknown1);
-		uesv.add(unknown2);
+		Document knownDocument3 = new Document();
+		knownDocument3.setAuthor(known3.getAuthor());
+		knownDocument3.addEventSet(null, known3);
+		knowns.add(knownDocument3);
+		Document knownDocument4 = new Document();
+		knownDocument4.setAuthor(known4.getAuthor());
+		knownDocument4.addEventSet(null, known4);
+		knowns.add(knownDocument4);
+		Document knownDocument6 = new Document();
+		knownDocument6.setAuthor(known6.getAuthor());
+		knownDocument6.addEventSet(null, known6);
+		knowns.add(knownDocument6);
 		
 		tree = new WEKAMultilayerPerceptron();
 		t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument));
+		t.add(tree.analyze(unknownDocument2));
 		System.out.println(t.toString());
 		
-		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter", null));
+		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
 
 	}
 

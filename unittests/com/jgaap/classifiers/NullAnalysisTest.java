@@ -23,10 +23,13 @@ package com.jgaap.classifiers;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -59,11 +62,17 @@ public class NullAnalysisTest {
 		known1.addEvents(test1);
 		unknown.addEvents(test1);
 		
-		Vector<EventSet> test = new Vector<EventSet>();
-		test.add(known1);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown);
 		NullAnalysis nullAnalysis = new NullAnalysis();
-		nullAnalysis.train(test);
-		List<Pair<String,Double>> t = nullAnalysis.analyze(unknown);
+		nullAnalysis.train(knowns);
+		List<Pair<String,Double>> t = nullAnalysis.analyze(unknownDocument);
 		String r = t.get(0).getFirst();
 		String s = "No analysis performed.\n";
 		assertTrue(r.equals(s));

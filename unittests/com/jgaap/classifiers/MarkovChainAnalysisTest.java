@@ -22,12 +22,13 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 
 
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -59,26 +60,35 @@ public class MarkovChainAnalysisTest {
 		EventSet unknown = new EventSet();
 		
 		for(int i=0; i<sample.length(); i++){
-		known1.addEvent(new Event(sample.charAt(i)));
+		known1.addEvent(new Event(sample.charAt(i), null));
 		}
 		known1.setAuthor("Frodo");
 		
 		for(int i=0; i<sample2.length(); i++){
-			known2.addEvent(new Event(sample2.charAt(i)));
+			known2.addEvent(new Event(sample2.charAt(i), null));
 		}
 		known2.setAuthor("Sam");
 		
 		for(int i=0; i<sample3.length(); i++){
-			unknown.addEvent(new Event(sample3.charAt(i)));
+			unknown.addEvent(new Event(sample3.charAt(i), null));
 		}
 		
-		Vector<EventSet> esv = new Vector<EventSet>();
-		esv.add(known1);
-		esv.add(known2);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		Document knownDocument2 = new Document();
+		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.addEventSet(null, known2);
+		knowns.add(knownDocument2);
+		
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown);
 		
 		MarkovChainAnalysis gandolf = new MarkovChainAnalysis();
-		gandolf.train(esv);
-		List<Pair<String, Double>> t = gandolf.analyze(unknown);
+		gandolf.train(knowns);
+		List<Pair<String, Double>> t = gandolf.analyze(unknownDocument);
 		for(int i=0; i<t.size(); i++){
 			System.out.println(t.get(i).getFirst()+" "+t.get(i).getSecond());
 		}
