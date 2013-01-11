@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -45,9 +44,7 @@ public class POSBiGramEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 			System.out.println("Test Started");
-		 	Document doc = new Document();
-			/* Note space separation of punctuation */
-		    doc.readStringText("There once was a man from Nantucket , " +
+			String text = ("There once was a man from Nantucket , " +
 		    		       "who kept all his cash in a bucket , " +
 		    		       "but his daughter, named Nan , " +
 		    		       "ran away with a man, " +
@@ -56,7 +53,7 @@ public class POSBiGramEventDriverTest {
 		    EventDriver eventDriver = new POSNGramEventDriver();
 		    eventDriver.setParameter("N", 2);
 		    
-		    EventSet sampleSet = eventDriver.createEventSet(doc);
+		    EventSet sampleSet = eventDriver.createEventSet(text.toCharArray());
 		    //System.out.println(sampleSet.size());
 		    //System.out.println(sampleSet.toString());
 		    

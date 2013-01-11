@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -44,8 +43,7 @@ public class WordSyllablesEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 			"cat " +	// 1 syllable
 			"at " +		// 1 syllable
 			"a " + 		// 1 syllable
@@ -76,7 +74,7 @@ public class WordSyllablesEventDriverTest {
 			"OTTO " 	// 2 syllables
 		);
 
-		EventSet sampleEventSet = new WordSyllablesEventDriver().createEventSet(doc);
+		EventSet sampleEventSet = new WordSyllablesEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("1", null));

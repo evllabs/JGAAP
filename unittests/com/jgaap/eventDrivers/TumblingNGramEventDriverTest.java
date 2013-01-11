@@ -21,7 +21,6 @@ import static org.junit.Assert.*;
 
 import java.util.Vector;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -33,10 +32,8 @@ public class TumblingNGramEventDriverTest {
 
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
-		Document doc = new Document();
-		
-		doc.readStringText("Testing sentence. My name is Joe. run jump, game-start?  Hello!");
-		EventSet sampleEventSet = new TumblingNGramEventDriver().createEventSet(doc);
+		String text = ("Testing sentence. My name is Joe. run jump, game-start?  Hello!");
+		EventSet sampleEventSet = new TumblingNGramEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		

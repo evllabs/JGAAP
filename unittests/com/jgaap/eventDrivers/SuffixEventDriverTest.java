@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -44,12 +43,11 @@ public class SuffixEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "test test test tested testers happiest test test test"
 		);
 
-		EventSet sampleEventSet = new SuffixEventDriver().createEventSet(doc);
+		EventSet sampleEventSet = new SuffixEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

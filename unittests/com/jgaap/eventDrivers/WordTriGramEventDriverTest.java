@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -44,15 +43,14 @@ public class WordTriGramEventDriverTest {
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "Mary had a little lamb;\n" +
 "Its fleece was white as snow.\n" +
 "And everywhere that Mary went,\n" +
 "The lamb was sure to go.");
 		EventDriver eventDriver = new WordNGramEventDriver();
 		eventDriver.setParameter("N", 3);
-		EventSet sampleEventSet = eventDriver.createEventSet(doc);
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("(Mary)-(had)-(a)", null));

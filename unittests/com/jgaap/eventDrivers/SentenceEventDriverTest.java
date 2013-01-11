@@ -26,7 +26,6 @@ import java.util.*;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -35,10 +34,9 @@ public class SentenceEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() {
 
-		Document doc = new Document();
-		doc.readStringText("Hello, Dr. Jones!  I'm not.feeling.too well today.  What's the matter Mr. Adams?  My stomach hurts, A.K.A, cramps.");
+		String text = ("Hello, Dr. Jones!  I'm not.feeling.too well today.  What's the matter Mr. Adams?  My stomach hurts, A.K.A, cramps.");
 
-		EventSet sampleEventSet = new SentenceEventDriver().createEventSet(doc);
+		EventSet sampleEventSet = new SentenceEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		List<Event> tmp = new ArrayList<Event>();
 

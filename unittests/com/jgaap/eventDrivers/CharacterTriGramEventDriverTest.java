@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -44,11 +43,10 @@ public class CharacterTriGramEventDriverTest {
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
-		Document doc = new Document();
-		doc.readStringText("abcdefghijklmnopqrstuvwxyz .");
+		String text = ("abcdefghijklmnopqrstuvwxyz .");
 		EventDriver eventDriver = new CharacterNGramEventDriver();
 		eventDriver.setParameter("N", 3);
-		EventSet sampleEventSet = eventDriver.createEventSet(doc);
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("abc", null));

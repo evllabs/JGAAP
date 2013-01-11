@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -41,9 +40,8 @@ public class CharacterEventDriverTest {
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() {
-		Document doc = new Document();
-		doc.readStringText("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz.");
-		EventSet sampleEventSet = new CharacterEventDriver().createEventSet(doc);
+		String text = ("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz.");
+		EventSet sampleEventSet = new CharacterEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("a", null));

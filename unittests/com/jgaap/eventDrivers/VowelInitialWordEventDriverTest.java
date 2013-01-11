@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -44,8 +43,7 @@ public class VowelInitialWordEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "alpha bravo charlie delta echo foxtrot golf hotel india " +
 "juliet kilo lima mike november oscar papa quebec romeo " +
 "sierra tango uniform victor whiskey x-ray yankee zebra " +
@@ -55,7 +53,7 @@ public class VowelInitialWordEventDriverTest {
 "_none ?of #these *should 1be 4included +in ^output"
 		);
 
-		EventSet sampleEventSet = new VowelInitialWordEventDriver().createEventSet(doc);
+		EventSet sampleEventSet = new VowelInitialWordEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

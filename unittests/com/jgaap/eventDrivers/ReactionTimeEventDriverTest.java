@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -45,15 +44,12 @@ public class ReactionTimeEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		// test just first and last few words rathre than
-		// entire 40k corpus
-		doc.readStringText(
+		String text = (
 "a aah Aaron aback abacus abandon abandoned zones zoning zoo " +
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
 
-		EventSet sampleEventSet = new ReactionTimeEventDriver().createEventSet(doc);
+		EventSet sampleEventSet = new ReactionTimeEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

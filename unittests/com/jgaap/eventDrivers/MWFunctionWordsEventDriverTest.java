@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -43,8 +42,7 @@ public class MWFunctionWordsEventDriverTest {
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 // list of acceptable words
 "a all also an and any are as at be been but by can do down\n" +
 "even every for from had has have her his if in into is it its\n" +
@@ -54,7 +52,7 @@ public class MWFunctionWordsEventDriverTest {
 // line below should be eliminated 
 "distractor fail eliminate megafail lose gark hoser shimatta"
 		);
-		EventSet sampleEventSet = new MWFunctionWordsEventDriver().createEventSet(doc);
+		EventSet sampleEventSet = new MWFunctionWordsEventDriver().createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("a", null));
