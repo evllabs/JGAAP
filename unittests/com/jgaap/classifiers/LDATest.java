@@ -28,6 +28,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -85,14 +86,21 @@ public class LDATest {
 		unknown.addEvent(new Event("as", null));
 		unknown.addEvent(new Event("snow.", null));
 
-		List <EventSet> esv = new ArrayList<EventSet>();
-		esv.add(known1);
-		esv.add(known2);
-		List<EventSet> unknownList = new ArrayList<EventSet>(1);
-		unknownList.add(unknown);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		Document knownDocument2 = new Document();
+		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.addEventSet(null, known2);
+		knowns.add(knownDocument2);
+		
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown);
 		LDA classifier = new LDA();
-		classifier.train(esv);
-		List<Pair<String, Double>> t = classifier.analyze(unknown);
+		classifier.train(knowns);
+		List<Pair<String, Double>> t = classifier.analyze(unknownDocument);
 		String author1 = t.get(0).getFirst();
 		String author2 = t.get(1).getFirst();
 		Double val1 = t.get(0).getSecond();
@@ -103,11 +111,11 @@ public class LDATest {
 		System.out.println("Expected");
 		System.out.println("First : Mary");
 		System.out.println("Second: Peter");*/
-		assertTrue(author1.equals("Mary", null));
+		assertTrue(author1.equals("Mary"));
 
 		//Test 2 - Same classifier
 		//Testing for persistence
-		t = classifier.analyze(unknown);
+		t = classifier.analyze(unknownDocument);
 		/*System.out.println("Test 2 Classified");
 		System.out.println("First : "+t.get(0).getFirst()+" "+t.get(0).getSecond());
 		System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
@@ -120,8 +128,8 @@ public class LDATest {
 		//Test 3 - Different instance of classifier
 		//Again testing for persistence
 		LDA lda = new LDA();
-		lda.train(esv);
-		t = lda.analyze(unknown);
+		lda.train(knowns);
+		t = lda.analyze(unknownDocument);
 		//String r = t.get(0).getFirst();
 		/*System.out.println("Test 3 Classified");
 		System.out.println("First : "+r+" "+t.get(0).getSecond());
@@ -143,13 +151,12 @@ public class LDATest {
 		unknown2.addEvent(new Event("pickled", null));
 		unknown2.addEvent(new Event("potatoes.", null));
 		
-		List <EventSet> uesv = new ArrayList<EventSet>();
-		uesv.add(unknown);
-		uesv.add(unknown2);
+		Document unknownDocument2 = new Document();
+		unknownDocument2.addEventSet(null, unknown2);
 		
 		List<List<Pair<String, Double>>> t2 = new ArrayList<List<Pair<String,Double>>>();
-		t2.add(lda.analyze(unknown));
-		t2.add(lda.analyze(unknown2));
+		t2.add(lda.analyze(unknownDocument));
+		t2.add(lda.analyze(unknownDocument2));
 		/*for(int i = 0; i < t2.size(); i++){
 			System.out.println("Classification of unknown #"+(i+1));
 			for(int j =0; j < t2.get(i).size(); j++){
@@ -158,7 +165,7 @@ public class LDATest {
 			System.out.println();
 		}*/
 		
-		assertTrue(t2.get(0).get(0).getFirst().equals("Mary") && t2.get(1).get(0).getFirst().equals("Peter", null));
+		assertTrue(t2.get(0).get(0).getFirst().equals("Mary") && t2.get(1).get(0).getFirst().equals("Peter"));
 		
 	}
 }

@@ -22,13 +22,14 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -181,13 +182,22 @@ public class MahalanobisDistanceTest {
 		unknown.addEvent(new Event("as", null));
 		unknown.addEvent(new Event("snow.", null));
 
-		Vector<EventSet> esv = new Vector<EventSet>();
-		esv.add(known1);
-		esv.add(known2);
-
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		Document knownDocument2 = new Document();
+		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.addEventSet(null, known2);
+		knowns.add(knownDocument2);
+		
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown);
+		
 		AnalysisDriver analysisDriver = new MahalanobisDistance();
-		analysisDriver.train(esv);
-		List<Pair<String, Double>> t = analysisDriver.analyze(unknown);
+		analysisDriver.train(knowns);
+		List<Pair<String, Double>> t = analysisDriver.analyze(unknownDocument);
 		for(Pair<String, Double> element : t){
 			System.out.println(element.toString());
 		}

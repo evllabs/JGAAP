@@ -27,10 +27,12 @@ import org.junit.Test;
 import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.distances.CosineDistance;
 import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -97,13 +99,22 @@ public class NearestNeighborDriverTest {
 		test3.add(new Event("snow.", null));
 		unknown.addEvents(test3);
 
-		Vector<EventSet> esv = new Vector<EventSet>();
-		esv.add(known1);
-		esv.add(known2);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		Document knownDocument2 = new Document();
+		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.addEventSet(null, known2);
+		knowns.add(knownDocument2);
+		
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown);
 
 		System.out.println("There once was a lass from Nantucket");
-		nearest.train(esv);
-		List<Pair<String, Double>> t = nearest.analyze(unknown);
+		nearest.train(knowns);
+		List<Pair<String, Double>> t = nearest.analyze(unknownDocument);
 		String r = t.get(0).getFirst();
 
 		String s = "Mary";
