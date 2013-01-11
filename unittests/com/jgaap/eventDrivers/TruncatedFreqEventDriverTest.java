@@ -27,6 +27,7 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
@@ -48,28 +49,28 @@ public class TruncatedFreqEventDriverTest {
 "a aah Aaron aback abacus abandon abandoned zones zoning zoo " +
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
-
-		EventSet sampleEventSet = new TruncatedFreqEventDriver().createEventSet(text.toCharArray());
+		EventDriver eventDriver = new TruncatedFreqEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("16.", null));
-		tmp.add(new Event("5.4", null));
-		tmp.add(new Event("9.2", null));
-		tmp.add(new Event("5.9", null));
-		tmp.add(new Event("6.2", null));
-		tmp.add(new Event("8.2", null));
-		tmp.add(new Event("8.5", null));
-		tmp.add(new Event("8.1", null));
-		tmp.add(new Event("6.7", null));
-		tmp.add(new Event("8.3", null));
-		tmp.add(new Event("5.7", null));
-		tmp.add(new Event("6.5", null));
-		tmp.add(new Event("8.5", null));
-		tmp.add(new Event("6.2", null));
-		tmp.add(new Event("5.9", null));
-		tmp.add(new Event("5.7", null));
-		tmp.add(new Event("7.4", null));
+		tmp.add(new Event("16.", eventDriver));
+		tmp.add(new Event("5.4", eventDriver));
+		tmp.add(new Event("9.2", eventDriver));
+		tmp.add(new Event("5.9", eventDriver));
+		tmp.add(new Event("6.2", eventDriver));
+		tmp.add(new Event("8.2", eventDriver));
+		tmp.add(new Event("8.5", eventDriver));
+		tmp.add(new Event("8.1", eventDriver));
+		tmp.add(new Event("6.7", eventDriver));
+		tmp.add(new Event("8.3", eventDriver));
+		tmp.add(new Event("5.7", eventDriver));
+		tmp.add(new Event("6.5", eventDriver));
+		tmp.add(new Event("8.5", eventDriver));
+		tmp.add(new Event("6.2", eventDriver));
+		tmp.add(new Event("5.9", eventDriver));
+		tmp.add(new Event("5.7", eventDriver));
+		tmp.add(new Event("7.4", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 
