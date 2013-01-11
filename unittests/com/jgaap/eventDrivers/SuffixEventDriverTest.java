@@ -27,6 +27,7 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
@@ -47,13 +48,14 @@ public class SuffixEventDriverTest {
 "test test test tested testers happiest test test test"
 		);
 
-		EventSet sampleEventSet = new SuffixEventDriver().createEventSet(text.toCharArray());
+		EventDriver eventDriver = new SuffixEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("ted", null));
-		tmp.add(new Event("ers", null));
-		tmp.add(new Event("est", null));
+		tmp.add(new Event("ted", eventDriver));
+		tmp.add(new Event("ers", eventDriver));
+		tmp.add(new Event("est", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 		System.out.println(sampleEventSet.toString());
