@@ -27,23 +27,26 @@ import java.util.*;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 public class SentenceEventDriverTest {
 
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
 		String text = ("Hello, Dr. Jones!  I'm not.feeling.too well today.  What's the matter Mr. Adams?  My stomach hurts, A.K.A, cramps.");
 
-		EventSet sampleEventSet = new SentenceEventDriver().createEventSet(text.toCharArray());
+		EventDriver eventDriver = new SentenceEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		List<Event> tmp = new ArrayList<Event>();
 
-		tmp.add(new Event("Hello, Dr. Jones!", null));
-        tmp.add(new Event("I'm not.feeling.too well today.", null));
-        tmp.add(new Event("What's the matter Mr. Adams?", null));
-        tmp.add(new Event("My stomach hurts, A.K.A, cramps.", null));
+		tmp.add(new Event("Hello, Dr. Jones!", eventDriver));
+        tmp.add(new Event("I'm not.feeling.too well today.", eventDriver));
+        tmp.add(new Event("What's the matter Mr. Adams?", eventDriver));
+        tmp.add(new Event("My stomach hurts, A.K.A, cramps.", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 

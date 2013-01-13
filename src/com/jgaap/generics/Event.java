@@ -54,6 +54,11 @@ public class Event implements Comparable<Object> {
     	this.eventDriver = events.get(0).eventDriver;
     }
     
+    public Event(List<Event> events, EventDriver eventDriver){
+    	this.data = events.toString();
+    	this.eventDriver = eventDriver;
+    }
+    
     /**
      * Overridden - from Comparable interface. Allows for comparison of two
      * events.

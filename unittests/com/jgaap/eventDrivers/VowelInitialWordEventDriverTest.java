@@ -27,6 +27,7 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
@@ -53,22 +54,23 @@ public class VowelInitialWordEventDriverTest {
 "_none ?of #these *should 1be 4included +in ^output"
 		);
 
-		EventSet sampleEventSet = new VowelInitialWordEventDriver().createEventSet(text.toCharArray());
+		EventDriver eventDriver = new VowelInitialWordEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("alpha", null));
-		tmp.add(new Event("echo", null));
-		tmp.add(new Event("india", null));
-		tmp.add(new Event("oscar", null));
-		tmp.add(new Event("uniform", null));
-		tmp.add(new Event("yankee", null));
-		tmp.add(new Event("Alpha", null));
-		tmp.add(new Event("Echo", null));
-		tmp.add(new Event("India", null));
-		tmp.add(new Event("Oscar", null));
-		tmp.add(new Event("Uniform", null));
-		tmp.add(new Event("Yankee", null));
+		tmp.add(new Event("alpha", eventDriver));
+		tmp.add(new Event("echo", eventDriver));
+		tmp.add(new Event("india", eventDriver));
+		tmp.add(new Event("oscar", eventDriver));
+		tmp.add(new Event("uniform", eventDriver));
+		tmp.add(new Event("yankee", eventDriver));
+		tmp.add(new Event("Alpha", eventDriver));
+		tmp.add(new Event("Echo", eventDriver));
+		tmp.add(new Event("India", eventDriver));
+		tmp.add(new Event("Oscar", eventDriver));
+		tmp.add(new Event("Uniform", eventDriver));
+		tmp.add(new Event("Yankee", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));

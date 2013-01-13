@@ -60,13 +60,13 @@ public class HapaxLegomenaEventDriverTest {
 	    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
-	    tmp.add(new Event("Quick", null));
-	    tmp.add(new Event("Brown", null));
-	    tmp.add(new Event("Fox", null));
-	    tmp.add(new Event("Jumped", null));
-	    tmp.add(new Event("Over", null));
-	    tmp.add(new Event("Lazy", null));
-	    tmp.add(new Event("Dog", null));
+	    tmp.add(new Event("Quick", eventDriver));
+	    tmp.add(new Event("Brown", eventDriver));
+	    tmp.add(new Event("Fox", eventDriver));
+	    tmp.add(new Event("Jumped", eventDriver));
+	    tmp.add(new Event("Over", eventDriver));
+	    tmp.add(new Event("Lazy", eventDriver));
+	    tmp.add(new Event("Dog", eventDriver));
 
 	     expectedSet.addEvents(tmp);
 	     

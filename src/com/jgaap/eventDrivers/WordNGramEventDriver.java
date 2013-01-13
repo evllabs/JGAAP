@@ -65,6 +65,6 @@ public class WordNGramEventDriver extends EventDriver {
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		int n = getParameter("N", 2);
 		EventSet eventSet = theDriver.createEventSet(text);
-		return Utils.convertNGrams(eventSet, n);
+		return Utils.convertNGrams(eventSet, n, this);
 	}
 }

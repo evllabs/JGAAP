@@ -59,14 +59,14 @@ public class _34LetterWordEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("ccc", null));
-		tmp.add(new Event("dddd", null));
-		tmp.add(new Event("333", null));
-		tmp.add(new Event("4444", null));
-		tmp.add(new Event("###", null));
-		tmp.add(new Event("$$$$", null));
-		tmp.add(new Event("CCC", null));
-		tmp.add(new Event("DDDD", null));
+		tmp.add(new Event("ccc", eventDriver));
+		tmp.add(new Event("dddd", eventDriver));
+		tmp.add(new Event("333", eventDriver));
+		tmp.add(new Event("4444", eventDriver));
+		tmp.add(new Event("###", eventDriver));
+		tmp.add(new Event("$$$$", eventDriver));
+		tmp.add(new Event("CCC", eventDriver));
+		tmp.add(new Event("DDDD", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));

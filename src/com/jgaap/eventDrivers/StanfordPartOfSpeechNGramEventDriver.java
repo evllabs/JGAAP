@@ -49,7 +49,7 @@ public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
 		stanfordPOS.setParameter("taggingModel", getParameter("taggingModel"));
 		EventSet posEventSet = stanfordPOS.createEventSet(text);
 		int n = getParameter("N", 2);
-		return Utils.convertNGrams(posEventSet, n);
+		return Utils.convertNGrams(posEventSet, n, this);
 	}
 
 }
