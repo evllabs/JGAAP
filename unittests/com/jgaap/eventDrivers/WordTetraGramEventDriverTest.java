@@ -49,16 +49,16 @@ public class WordTetraGramEventDriverTest {
 		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
-		tmp.add(new Event("(Mary)-(had)-(a)-(little)", null));
-		tmp.add(new Event("(had)-(a)-(little)-(lamb,)", null));
-		tmp.add(new Event("(a)-(little)-(lamb,)-(little)", null));
-		tmp.add(new Event("(little)-(lamb,)-(little)-(lamb.)", null));
-		tmp.add(new Event("(lamb,)-(little)-(lamb.)-(Its)", null));
-		tmp.add(new Event("(little)-(lamb.)-(Its)-(fleece)", null));
-		tmp.add(new Event("(lamb.)-(Its)-(fleece)-(was)", null));
-		tmp.add(new Event("(Its)-(fleece)-(was)-(white)", null));
-		tmp.add(new Event("(fleece)-(was)-(white)-(as)", null));
-		tmp.add(new Event("(was)-(white)-(as)-(snow.)", null));
+		tmp.add(new Event("(Mary)-(had)-(a)-(little)", eventDriver));
+		tmp.add(new Event("(had)-(a)-(little)-(lamb,)", eventDriver));
+		tmp.add(new Event("(a)-(little)-(lamb,)-(little)", eventDriver));
+		tmp.add(new Event("(little)-(lamb,)-(little)-(lamb.)", eventDriver));
+		tmp.add(new Event("(lamb,)-(little)-(lamb.)-(Its)", eventDriver));
+		tmp.add(new Event("(little)-(lamb.)-(Its)-(fleece)", eventDriver));
+		tmp.add(new Event("(lamb.)-(Its)-(fleece)-(was)", eventDriver));
+		tmp.add(new Event("(Its)-(fleece)-(was)-(white)", eventDriver));
+		tmp.add(new Event("(fleece)-(was)-(white)-(as)", eventDriver));
+		tmp.add(new Event("(was)-(white)-(as)-(snow.)", eventDriver));
 		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		

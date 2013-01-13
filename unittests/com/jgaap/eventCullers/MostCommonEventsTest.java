@@ -71,7 +71,7 @@ public class MostCommonEventsTest {
 
         for(EventSet es : list) {
             for(Event e : es) {
-                assertTrue(e.getEvent().equals("A"));
+                assertTrue(e.toString().equals("A"));
             }
         }
 

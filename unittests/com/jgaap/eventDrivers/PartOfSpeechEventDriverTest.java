@@ -27,6 +27,8 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -37,60 +39,62 @@ public class PartOfSpeechEventDriverTest {
 
 	/**
 	 * Test method for {@link com.jgaap.eventDrivers.PartOfSpeechEventDriver#createEventSet(com.jgaap.generics.Document)}.
+	 * @throws EventGenerationException 
 	 */
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 			String text = ("Today the fox jumped over the lazy dog "
 		    		+"While the fox jumped over the lazy dog a cat ran under a truck "
 		    		+"The truck missed the cat and the lazy dog was not so lazy and caught the cat");
 		    
-		    EventSet sampleSet = new PartOfSpeechEventDriver().createEventSet(text.toCharArray());
+			EventDriver eventDriver = new PartOfSpeechEventDriver(); 
+		    EventSet sampleSet = eventDriver.createEventSet(text.toCharArray());
 		    System.out.println(sampleSet.size());
 		    
 		    
 		    EventSet expectedSet = new EventSet();
 		    Vector<Event> tmp = new Vector<Event>();
-		    tmp.add(new Event("NN", null));
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("NN", null));
-		    tmp.add(new Event("VBD", null));
-		    tmp.add(new Event("IN", null));
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("JJ", null));
-		    tmp.add(new Event("NN", null));
+		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event("VBD", eventDriver));
+		    tmp.add(new Event("IN", eventDriver));
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("JJ", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
 		    
-		    tmp.add(new Event("IN", null));
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("NN", null));
-		    tmp.add(new Event("VBD", null));
-		    tmp.add(new Event("IN", null));
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("JJ", null));
-		    tmp.add(new Event("NN", null));
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("NN", null));
-		    tmp.add(new Event("VBD", null));//
-		    tmp.add(new Event("IN", null));
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("NN", null));
+		    tmp.add(new Event("IN", eventDriver));
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event("VBD", eventDriver));
+		    tmp.add(new Event("IN", eventDriver));
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("JJ", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event("VBD", eventDriver));//
+		    tmp.add(new Event("IN", eventDriver));
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
 		   
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("NN", null));
-		    tmp.add(new Event("VBD", null));//
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("NN", null));
-		    tmp.add(new Event("CC", null));
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("JJ", null));
-		    tmp.add(new Event("NN", null));
-		    tmp.add(new Event("VBD", null)); //33
-		    tmp.add(new Event("RB", null));
-		    tmp.add(new Event("RB", null));
-		    tmp.add(new Event("JJ", null));
-		    tmp.add(new Event("CC", null));
-		    tmp.add(new Event("VBN", null));
-		    tmp.add(new Event("DT", null));
-		    tmp.add(new Event("NN", null));
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event("VBD", eventDriver));//
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event("CC", eventDriver));
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("JJ", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event("VBD", eventDriver)); //33
+		    tmp.add(new Event("RB", eventDriver));
+		    tmp.add(new Event("RB", eventDriver));
+		    tmp.add(new Event("JJ", eventDriver));
+		    tmp.add(new Event("CC", eventDriver));
+		    tmp.add(new Event("VBN", eventDriver));
+		    tmp.add(new Event("DT", eventDriver));
+		    tmp.add(new Event("NN", eventDriver));
 		    
 
 		     expectedSet.addEvents(tmp);

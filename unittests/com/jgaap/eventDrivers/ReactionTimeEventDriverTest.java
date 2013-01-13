@@ -27,6 +27,7 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
@@ -48,28 +49,28 @@ public class ReactionTimeEventDriverTest {
 "a aah Aaron aback abacus abandon abandoned zones zoning zoo " +
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
-
-		EventSet sampleEventSet = new ReactionTimeEventDriver().createEventSet(text.toCharArray());
+		EventDriver eventDriver = new ReactionTimeEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("798.92", null));
-		tmp.add(new Event("816.43", null));
-		tmp.add(new Event("736.06", null));
-		tmp.add(new Event("796.27", null));
-		tmp.add(new Event("964.40", null));
-		tmp.add(new Event("695.72", null));
-		tmp.add(new Event("860.77", null));
-		tmp.add(new Event("605.23", null));
-		tmp.add(new Event("726.43", null));
-		tmp.add(new Event("572.56", null));
-		tmp.add(new Event("714.09", null));
-		tmp.add(new Event("685.28", null));
-		tmp.add(new Event("549.76", null));
-		tmp.add(new Event("709.69", null));
-		tmp.add(new Event("666.93", null));
-		tmp.add(new Event("848.68", null));
-		tmp.add(new Event("763.00", null));
+		tmp.add(new Event("798.92", eventDriver));
+		tmp.add(new Event("816.43", eventDriver));
+		tmp.add(new Event("736.06", eventDriver));
+		tmp.add(new Event("796.27", eventDriver));
+		tmp.add(new Event("964.40", eventDriver));
+		tmp.add(new Event("695.72", eventDriver));
+		tmp.add(new Event("860.77", eventDriver));
+		tmp.add(new Event("605.23", eventDriver));
+		tmp.add(new Event("726.43", eventDriver));
+		tmp.add(new Event("572.56", eventDriver));
+		tmp.add(new Event("714.09", eventDriver));
+		tmp.add(new Event("685.28", eventDriver));
+		tmp.add(new Event("549.76", eventDriver));
+		tmp.add(new Event("709.69", eventDriver));
+		tmp.add(new Event("666.93", eventDriver));
+		tmp.add(new Event("848.68", eventDriver));
+		tmp.add(new Event("763.00", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 

@@ -27,6 +27,8 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -37,9 +39,10 @@ public class NaiveWordEventDriverTest {
 
 	/**
 	 * Test method for {@link com.jgaap.eventDrivers.NaiveWordEventDriver#createEventSet(com.jgaap.generics.Document)}.
+	 * @throws EventGenerationException 
 	 */
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
 		String text = (
 "We hold these truths to be self-evident,\n"+
@@ -48,31 +51,32 @@ public class NaiveWordEventDriverTest {
 
 		);
 
-		EventSet sampleEventSet = new NaiveWordEventDriver().createEventSet(text.toCharArray());
+		EventDriver eventDriver = new NaiveWordEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("We", null));
-		tmp.add(new Event("hold", null));
-		tmp.add(new Event("these", null));
-		tmp.add(new Event("truths", null));
-		tmp.add(new Event("to", null));
-		tmp.add(new Event("be", null));
-		tmp.add(new Event("self-evident,", null));
-		tmp.add(new Event("\"My", null));
-		tmp.add(new Event("phone", null));
-		tmp.add(new Event("#", null));
-		tmp.add(new Event("is", null));
-		tmp.add(new Event("867-5309;", null));
-		tmp.add(new Event("don't", null));
-		tmp.add(new Event("forget", null));
-		tmp.add(new Event("it!\"", null));
-		tmp.add(new Event("she", null));
-		tmp.add(new Event("said.", null));
-		tmp.add(new Event("\"I", null));
-		tmp.add(new Event("won't,\"", null));
-		tmp.add(new Event("he", null));
-		tmp.add(new Event("grumbled.", null));
+		tmp.add(new Event("We", eventDriver));
+		tmp.add(new Event("hold", eventDriver));
+		tmp.add(new Event("these", eventDriver));
+		tmp.add(new Event("truths", eventDriver));
+		tmp.add(new Event("to", eventDriver));
+		tmp.add(new Event("be", eventDriver));
+		tmp.add(new Event("self-evident,", eventDriver));
+		tmp.add(new Event("\"My", eventDriver));
+		tmp.add(new Event("phone", eventDriver));
+		tmp.add(new Event("#", eventDriver));
+		tmp.add(new Event("is", eventDriver));
+		tmp.add(new Event("867-5309;", eventDriver));
+		tmp.add(new Event("don't", eventDriver));
+		tmp.add(new Event("forget", eventDriver));
+		tmp.add(new Event("it!\"", eventDriver));
+		tmp.add(new Event("she", eventDriver));
+		tmp.add(new Event("said.", eventDriver));
+		tmp.add(new Event("\"I", eventDriver));
+		tmp.add(new Event("won't,\"", eventDriver));
+		tmp.add(new Event("he", eventDriver));
+		tmp.add(new Event("grumbled.", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
