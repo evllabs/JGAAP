@@ -18,7 +18,6 @@
 package com.jgaap.eventDrivers;
 
 import java.util.Hashtable;
-import java.util.Iterator;
 
 import com.jgaap.backend.API;
 import com.jgaap.generics.Event;
@@ -37,9 +36,12 @@ import com.jgaap.generics.EventSet;
 
 public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 
-	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
-		Hashtable<String, String> verbs = new Hashtable<String, String>();
+	private static Hashtable<String, String> verbs; 
+	private static Hashtable<String, String> nouns;
+	private PorterStemmerEventDriver stemmer = new PorterStemmerEventDriver();
+	
+	static {
+		verbs = new Hashtable<String, String>();
 		verbs.put("awoke", "awake");
 		verbs.put("awoken", "awake");
 		verbs.put("was", "be");
@@ -302,7 +304,7 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 		verbs.put("written", "write");
 		
 		
-		Hashtable<String, String> nouns = new Hashtable<String, String>();
+		nouns = new Hashtable<String, String>();
 		nouns.put("alumni", "alumnus");
 		nouns.put("analyses", "analysis");
 		nouns.put("antennae", "antenna");
@@ -363,22 +365,22 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 		nouns.put("vertebrae", "vertebra");
 		nouns.put("vitae", "vita");
 		nouns.put("women", "woman");
-		
-		PorterStemmerEventDriver stemmer = new PorterStemmerEventDriver();
+	}
+	
+	@Override
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		
 		EventSet ev = stemmer.createEventSet(text);
 		EventSet returnEv = new EventSet();
-		Iterator<Event> it = ev.iterator();
 		
-		while(it.hasNext()){
-			Event event = it.next();
+		for(Event event : ev) {
 			if(verbs.containsKey(event.toString())){
 				returnEv.addEvent(new Event(verbs.get(event.toString()), this));
 			}else if(nouns.containsKey(event.toString())){
 				returnEv.addEvent(new Event(nouns.get(event.toString()), this));
 			}
 			else{
-				returnEv.addEvent(event);
+				returnEv.addEvent(new Event(event.toString(), this));
 			}
 		}
 		
@@ -387,12 +389,11 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 
 	@Override
 	public String displayName() {
-		return "Word stems w/ Irregular";
+		return "Word stems w/o Irregular";
 	}
 
 	@Override
 	public boolean showInGUI() {
-		
 		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("English");
 	}
 

@@ -233,8 +233,8 @@ public class PorterStemmerWithIrregularEventDriverTest {
 		tmp.add(new Event("catch", eventDriver));
 		expectedEventSet.addEvents(tmp);
 
-		//System.out.println(expectedEventSet.toString());
-		//System.out.println(sampleEventSet.toString());
+//		System.out.println(expectedEventSet.toString());
+//		System.out.println(sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		
 	}
