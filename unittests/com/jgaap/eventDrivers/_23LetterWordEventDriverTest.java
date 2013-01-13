@@ -58,14 +58,14 @@ public class _23LetterWordEventDriverTest {
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("bb", null));
-		tmp.add(new Event("ccc", null));
-		tmp.add(new Event("22", null));
-		tmp.add(new Event("333", null));
-		tmp.add(new Event("@@", null));
-		tmp.add(new Event("###", null));
-		tmp.add(new Event("BB", null));
-		tmp.add(new Event("CCC", null));
+		tmp.add(new Event("bb", eventDriver));
+		tmp.add(new Event("ccc", eventDriver));
+		tmp.add(new Event("22", eventDriver));
+		tmp.add(new Event("333", eventDriver));
+		tmp.add(new Event("@@", eventDriver));
+		tmp.add(new Event("###", eventDriver));
+		tmp.add(new Event("BB", eventDriver));
+		tmp.add(new Event("CCC", eventDriver));
 
 
 		expectedEventSet.addEvents(tmp);

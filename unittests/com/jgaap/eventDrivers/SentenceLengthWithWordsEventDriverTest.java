@@ -36,14 +36,15 @@ public class SentenceLengthWithWordsEventDriverTest {
 
 		String text = ("Hello, Dr. Jones!  I'm not.feeling.too well today.  What's the matter Mr. Adams? My stomach hurts, or A.K.A, cramps.");
 
-		EventSet sampleEventSet = new SentenceLengthWithWordsEventDriver().createEventSet(text.toCharArray());
+		SentenceLengthWithWordsEventDriver eventDriver = new SentenceLengthWithWordsEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("3", null));
-        tmp.add(new Event("4", null));
-        tmp.add(new Event("5", null));
-        tmp.add(new Event("6", null));
+		tmp.add(new Event("3", eventDriver));
+        tmp.add(new Event("4", eventDriver));
+        tmp.add(new Event("5", eventDriver));
+        tmp.add(new Event("6", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 

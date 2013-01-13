@@ -69,7 +69,7 @@ public class VowelInitialWordEventDriver extends EventDriver {
 			s = e.toString();
 			if (vowels.indexOf(s.charAt(0)) != -1)
 				// should we clone event before adding? PMJ
-				newEs.addEvent(e);
+				newEs.addEvent(new Event(e.toString(), this));
 		}
 		return newEs;
 	}
