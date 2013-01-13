@@ -19,7 +19,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -78,50 +77,17 @@ public class MNLetterWordEventDriver extends EventDriver {
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
 
-		// Extract local field values based on parameter settings
-		String param;
-
 		// lots of error checking
-		if (!(param = (getParameter("N"))).equals("")) {
-			try {
-				int value = Integer.parseInt(param);
-				setN(value);
-			} catch (NumberFormatException e) {
-				System.out.println("Warning: cannot parse N(upper bound):"
-						+ param + " as int");
-				System.out.println(" -- Using default value (3)");
-				setN(3);
-			}
+		N = getParameter("N", 3);
+		/* Negative upper bounds mean no upper bound */
+		if (N < 0){
+			N = Integer.MAX_VALUE;
 		}
-		if (!(param = (getParameter("M"))).equals("")) {
-			try {
-				int value = Integer.parseInt(param);
-				setM(value);
-			} catch (NumberFormatException e) {
-				System.out.println("Warning: cannot parse M(lower bound):"
-						+ param + " as int");
-				System.out.println(" -- Using default value (2)");
-				setM(2);
-			}
-		}
+		M = getParameter("M", 2);
 
-		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
-			try {
-				setEvents(EventDriverFactory.getEventDriver(param));
-			} catch (Exception e) {
-				// System.out.println("Error: cannot create EventDriver " +
-				// param);
-				// System.out.println(" -- Using NaiveWordEventDriver");
-				setEvents(new NaiveWordEventDriver());
-			}
-		}
 		EventSet es = underlyingevents.createEventSet(text);
 		EventSet newEs = new EventSet();
 		String s;
-
-		/* Negative upper bounds mean no upper bound */
-		if (N < 0)
-			N = Integer.MAX_VALUE;
 
 		/**
 		 * Check length of each event and accept if in range
@@ -133,64 +99,5 @@ public class MNLetterWordEventDriver extends EventDriver {
 			}
 		}
 		return newEs;
-	}
-
-	/**
-	 * Get EventDriver for relevant Events *
-	 * 
-	 * @return underlying EventDriver
-	 */
-	public EventDriver getEvents() {
-		return underlyingevents;
-	}
-
-	/* Parameter settings */
-	/**
-	 * Get N (upper bound)
-	 * 
-	 * @return length upper bound
-	 */
-	public int getN() {
-		return N;
-	};
-
-	/* Parameter settings */
-	/**
-	 * Get M (lower bound)
-	 * 
-	 * @return length lower bound
-	 */
-	public int getM() {
-		return M;
-	};
-
-	/**
-	 * Set EventDriver for relevant Events *
-	 * 
-	 * @param underlyingevents
-	 *            underlying EventDriver
-	 */
-	public void setEvents(EventDriver underlyingevents) {
-		this.underlyingevents = underlyingevents;
-	}
-
-	/**
-	 * Set upper bound on length
-	 * 
-	 * @param N
-	 *            length upper bound
-	 */
-	public void setN(int N) {
-		this.N = N;
-	}
-
-	/**
-	 * Set lower bound on length
-	 * 
-	 * @param M
-	 *            length lower bound
-	 */
-	public void setM(int M) {
-		this.M = M;
 	}
 }
