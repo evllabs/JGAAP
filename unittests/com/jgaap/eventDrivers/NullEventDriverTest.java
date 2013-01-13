@@ -49,7 +49,8 @@ public class NullEventDriverTest{
 				   "for me the lexicons full weight\n"+
 				   "if nature gain who can complain\n"+
 				   "tho dr johnson fulminate");
-	     EventSet sampleEventSet = new NullEventDriver().createEventSet(text.toCharArray());
+		NullEventDriver eventDriver = new NullEventDriver();
+	     EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 	     EventSet expectedEventSet = new EventSet();
 	     Vector<Event> tmp = new Vector<Event>();
 	     tmp.add(new Event("sir I send a rhyme excelling\n"+

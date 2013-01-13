@@ -95,6 +95,8 @@ public class V34LetterWordEventDriverTest {
 
 
 		expectedEventSet.addEvents(tmp);
+		System.out.println(expectedEventSet);
+		System.out.println(sampleEventSet);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 }

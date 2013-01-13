@@ -71,7 +71,7 @@ public class VowelMNLetterWordEventDriver extends MNLetterWordEventDriver {
 		EventSet eventSet = theDriver.createEventSet(text);
 		EventSet finalEventSet = new EventSet(eventSet.size());
 		for(Event event : eventSet){
-			if("aeiouAEIOU".indexOf(event.toString().charAt(0))!=-1)
+			if("aeiouyAEIOUY".indexOf(event.toString().charAt(0))!=-1)
 				finalEventSet.addEvent(new Event(event.toString(), this));
 		}
 		return finalEventSet;
