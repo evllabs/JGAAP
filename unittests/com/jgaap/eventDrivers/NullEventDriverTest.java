@@ -58,7 +58,7 @@ public class NullEventDriverTest{
 				   "numerical sprites elucidate\n"+
 				   "for me the lexicons full weight\n"+
 				   "if nature gain who can complain\n"+
-			           "tho dr johnson fulminate", null));
+			           "tho dr johnson fulminate", eventDriver));
 	     expectedEventSet.addEvents(tmp);
 	     assertTrue(expectedEventSet.equals(sampleEventSet));
 
