@@ -76,7 +76,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 		 */
 		attributeList = new FastVector(allEvents.size() + 1);
 
-		authorNames = new FastVector(allAuthorNames.size());
+		authorNames = new FastVector(allAuthorNames.size()+1);
 		for (String currentAuthorName : allAuthorNames) {
 			authorNames.addElement(currentAuthorName);
 		}
