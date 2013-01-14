@@ -19,10 +19,13 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.JGAAPConstants;
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.backend.API;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
+import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
+import com.jgaap.generics.NumericTransformationEventDriver;
 
 /**
  * Reaction times taken from English Lexicon Project. Converts each word (using
@@ -48,16 +51,20 @@ public class ReactionTimeEventDriver extends NumericTransformationEventDriver {
     	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
     }
 
-    private NumericTransformationEventDriver theDriver = new NumericTransformationEventDriver();
+    private static ImmutableMap<String, String> reactionTimes = getTransformationMap("ELPrt.dat"); 
+    private NaiveWordEventDriver wordEventDriver = new NaiveWordEventDriver();
 
     @Override
     public NumericEventSet createEventSet(char[] text) throws EventGenerationException {
-        // uses NaiveWordEventSet for now
-        theDriver.setParameter("implicitWhitelist", "true");
-        theDriver.setParameter("filename", JGAAPConstants.JGAAP_RESOURCE_PACKAGE
-                + "ELPrt.dat");
-
-        return theDriver.createEventSet(text);
+        EventSet words = wordEventDriver.createEventSet(text);
+        NumericEventSet eventSet = new NumericEventSet();
+        for(Event event : words) {
+        	String currentString = event.toString();
+        	if(reactionTimes.containsKey(currentString)){
+        		eventSet.addEvent(new Event(reactionTimes.get(currentString), this));
+        	}
+        }
+        return eventSet;
     }
 
 }

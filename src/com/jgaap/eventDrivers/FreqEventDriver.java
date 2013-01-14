@@ -19,10 +19,13 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.JGAAPConstants;
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.backend.API;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
+import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
+import com.jgaap.generics.NumericTransformationEventDriver;
 
 /**
  * Corpus frequencies taken from English Lexicon Project. Converts each word
@@ -49,16 +52,21 @@ public class FreqEventDriver extends NumericTransformationEventDriver {
     	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
     }
     
-    private NumericTransformationEventDriver theDriver = new NumericTransformationEventDriver();
+    private static ImmutableMap<String, String> halFrequencies = getTransformationMap("ELPfreq.dat");
+    private NaiveWordEventDriver wordEventDriver = new NaiveWordEventDriver();
 
 
     @Override
     public NumericEventSet createEventSet(char[] text) throws EventGenerationException {
-        // uses NaiveWordEventSet for now
-        theDriver.setParameter("implicitWhitelist", "true");
-        theDriver.setParameter("filename", JGAAPConstants.JGAAP_RESOURCE_PACKAGE + "ELPfreq.dat");
-
-        return theDriver.createEventSet(text);
+        EventSet words = wordEventDriver.createEventSet(text);
+        NumericEventSet eventSet = new NumericEventSet();
+        for(Event event : words) {
+        	String current = event.toString();
+        	if(halFrequencies.containsKey(current)) {
+        		eventSet.addEvent(new Event(halFrequencies.get(current), this));
+        	}
+        }
+        return eventSet;
     }
 
 }

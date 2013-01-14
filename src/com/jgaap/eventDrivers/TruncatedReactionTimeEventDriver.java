@@ -20,6 +20,7 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -45,13 +46,20 @@ public class TruncatedReactionTimeEventDriver extends EventDriver {
     	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
     }
 
-    private EventDriver theDriver = new TruncatedEventDriver();
-
+    private EventDriver theDriver = new ReactionTimeEventDriver();
+    private static int length = 2;
 
     @Override
     public EventSet createEventSet(char[] text) throws EventGenerationException {
-        theDriver.setParameter("length", "2");
-        theDriver.setParameter("underlyingEvents", "Lexical Decision Reaction Times");
-        return theDriver.createEventSet(text);
+    	EventSet reactionTimes = theDriver.createEventSet(text);
+		EventSet eventSet = new EventSet(reactionTimes.size());
+		for (Event event : reactionTimes) {
+			String current = event.toString();
+			if (current.length() > length)
+				eventSet.addEvent(new Event(current.substring(0, length), this));
+			else
+				eventSet.addEvent(new Event(current, this));
+		}
+		return eventSet;
     }
 }

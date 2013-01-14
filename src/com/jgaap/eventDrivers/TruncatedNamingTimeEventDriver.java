@@ -20,38 +20,50 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 /**
- * Truncate lexical frequency for discrete binning 
- *
+ * Truncate lexical frequency for discrete binning
+ * 
  */
 public class TruncatedNamingTimeEventDriver extends EventDriver {
 
-    @Override
-    public String displayName(){
-    	return "Binned naming times";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return "Discretized (by truncation) ELP naming latencies";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
-    }
+	@Override
+	public String displayName() {
+		return "Binned naming times";
+	}
 
-    private EventDriver theDriver = new TruncatedEventDriver();
+	@Override
+	public String tooltipText() {
+		return "Discretized (by truncation) ELP naming latencies";
+	}
 
+	@Override
+	public boolean showInGUI() {
+		return API.getInstance().getLanguage().getLanguage()
+				.equalsIgnoreCase("english");
+	}
 
-    @Override
-    public EventSet createEventSet(char[] text) throws EventGenerationException {
-        theDriver.setParameter("length", "2");
-        theDriver.setParameter("underlyingEvents", "Naming Reaction Times");
-        return theDriver.createEventSet(text);
-    }
+	private EventDriver theDriver = new NamingTimeEventDriver();
+	private static int length = 2;
+
+	@Override
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
+		EventSet namingTimes = theDriver.createEventSet(text);
+		EventSet eventSet = new EventSet(namingTimes.size());
+		for (Event event : namingTimes) {
+			String current = event.toString();
+			if (current.length() > length) {
+				eventSet.addEvent(new Event(current.substring(0, length), this));
+			}
+			else {
+				eventSet.addEvent(new Event(current, this));
+			}
+		}
+		return eventSet;
+	}
+
 }

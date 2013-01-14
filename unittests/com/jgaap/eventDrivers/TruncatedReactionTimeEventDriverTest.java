@@ -27,6 +27,7 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
@@ -48,28 +49,28 @@ public class TruncatedReactionTimeEventDriverTest {
 "a aah Aaron aback abacus abandon abandoned zones zoning zoo " +
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
-
-		EventSet sampleEventSet = new TruncatedReactionTimeEventDriver().createEventSet(text.toCharArray());
+		EventDriver eventDriver = new TruncatedReactionTimeEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("79", null));
-		tmp.add(new Event("81", null));
-		tmp.add(new Event("73", null));
-		tmp.add(new Event("79", null));
-		tmp.add(new Event("96", null));
-		tmp.add(new Event("69", null));
-		tmp.add(new Event("86", null));
-		tmp.add(new Event("60", null));
-		tmp.add(new Event("72", null));
-		tmp.add(new Event("57", null));
-		tmp.add(new Event("71", null));
-		tmp.add(new Event("68", null));
-		tmp.add(new Event("54", null));
-		tmp.add(new Event("70", null));
-		tmp.add(new Event("66", null));
-		tmp.add(new Event("84", null));
-		tmp.add(new Event("76", null));
+		tmp.add(new Event("79", eventDriver));
+		tmp.add(new Event("81", eventDriver));
+		tmp.add(new Event("73", eventDriver));
+		tmp.add(new Event("79", eventDriver));
+		tmp.add(new Event("96", eventDriver));
+		tmp.add(new Event("69", eventDriver));
+		tmp.add(new Event("86", eventDriver));
+		tmp.add(new Event("60", eventDriver));
+		tmp.add(new Event("72", eventDriver));
+		tmp.add(new Event("57", eventDriver));
+		tmp.add(new Event("71", eventDriver));
+		tmp.add(new Event("68", eventDriver));
+		tmp.add(new Event("54", eventDriver));
+		tmp.add(new Event("70", eventDriver));
+		tmp.add(new Event("66", eventDriver));
+		tmp.add(new Event("84", eventDriver));
+		tmp.add(new Event("76", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 
