@@ -67,7 +67,7 @@ public class API {
 	private List<Document> documents;
 	private Language language;
 	private List<EventDriver> eventDrivers;
-	//private List<EventCuller> eventCullers;
+	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 	
 	private final int workers = Runtime.getRuntime().availableProcessors();
@@ -78,6 +78,7 @@ public class API {
 		documents = new ArrayList<Document>();
 		language = new English();
 		eventDrivers = new ArrayList<EventDriver>();
+		eventCullers = new ArrayList<EventCuller>();
 		analysisDrivers = new ArrayList<AnalysisDriver>();
 	}
 	
@@ -428,6 +429,7 @@ public class API {
 	 */
 	public EventCuller addEventCuller(String action) throws Exception {
 		EventCuller eventCuller = EventCullerFactory.getEventCuller(action);
+		eventCullers.add(eventCuller);
 		for(EventDriver eventDriver : eventDrivers) {
 			addEventCuller(eventCuller, eventDriver);
 		}
@@ -448,6 +450,7 @@ public class API {
 	 */
 	public Boolean removeEventCuller(EventCuller eventCuller) {
 		logger.info("Removing EventCuller "+eventCuller.displayName());
+		eventCullers.remove(eventCuller);
 		for(EventDriver eventDriver : eventDrivers){
 			eventDriver.removeCuller(eventCuller);
 		}
@@ -458,6 +461,7 @@ public class API {
 	 * Removes all loaded EventCullers from the system
 	 */
 	public void removeAllEventCullers() {
+		eventCullers.clear();
 		for(EventDriver eventDriver : eventDrivers){
 			eventDriver.clearCullers();
 		}
@@ -468,8 +472,7 @@ public class API {
 	 * @return List of EventCullers loaded
 	 */
 	public List<EventCuller> getEventCullers() {
-		//TODO: fix this because this is not good
-		return null;
+		return eventCullers;
 	}
 
 	/**

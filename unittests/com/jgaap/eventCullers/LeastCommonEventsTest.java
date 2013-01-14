@@ -68,7 +68,9 @@ public class LeastCommonEventsTest {
         list.add(es2);
 
         list = culler.cull(list);
-
+        
+        System.out.println(list);
+        
         for(EventSet es : list) {
             for(Event e : es) {
                 assertTrue(e.getEvent().equals("C"));
