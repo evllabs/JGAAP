@@ -646,15 +646,14 @@ public class API {
 	private void cull() throws EventCullingException {
 		List<EventSet> eventSets = new ArrayList<EventSet>(documents.size());
 		for (EventDriver eventDriver : eventDrivers) {
-			//TODO: Possibly add threading here
 			for (Document document : documents) {
 				eventSets.add(document.getEventSet(eventDriver));
 			}
 			for (EventCuller culler : eventDriver.getEventCullers()) {
-				eventSets = culler.cull(eventSets);
-			}
-			for (Document document : documents) {
-				document.addEventSet(eventDriver, eventSets.remove(0));
+				culler.init(eventSets);
+				for(Document document : documents){
+					document.addEventSet(eventDriver, culler.cull(document.getEventSet(eventDriver)));
+				}
 			}
 			eventSets.clear();
 		}
@@ -743,6 +742,5 @@ public class API {
 			logger.info("Finished Analyzing: "+document.toString());
 			return document;
 		}
-		
 	}
 }

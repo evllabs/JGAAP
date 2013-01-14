@@ -17,26 +17,28 @@
  */
 package com.jgaap.eventCullers;
 
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
 import com.jgaap.generics.EventSet;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Sort out the N most common events (by average frequency) across all event sets
  */
 public class LeastCommonEvents extends EventCuller {
 
+    private EventCuller underlyingCuller = new FrequencyRangeCuller();
+	
     @Override
-    public List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException {
-
-        EventCuller underlyingCuller = new FrequencyRangeCuller();
+    public Set<Event> train(List<EventSet> eventSets) throws EventCullingException {
 
         underlyingCuller.setParameter("minPos", -getParameter("numEvents", 50));
         underlyingCuller.setParameter("numEvents", getParameter("numEvents", "50"));
 
-        return underlyingCuller.cull(eventSets);
+        return underlyingCuller.train(eventSets);
     }
 
     public LeastCommonEvents() {

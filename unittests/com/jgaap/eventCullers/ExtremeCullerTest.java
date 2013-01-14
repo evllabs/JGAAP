@@ -66,7 +66,7 @@ public class ExtremeCullerTest {
 		eventSet3.addEvent(new Event("dog", null));
 		eventSets.add(eventSet3);
 		ExtremeCuller extremeCuller = new ExtremeCuller();
-		List<EventSet> results = extremeCuller.cull(eventSets);
+		List<EventSet> results = extremeCuller.train(eventSets);
 		List<EventSet> expected = new ArrayList<EventSet>();
 		EventSet expectedEventSet = new EventSet();
 		expectedEventSet.addEvent(new Event("fox", null));

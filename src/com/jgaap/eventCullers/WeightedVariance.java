@@ -29,9 +29,8 @@ public class WeightedVariance extends EventCuller {
 		addParams("Informative", "I", "Most", new String[] { "Most","Least"}, false);
 	}
 	@Override
-	public List<EventSet> cull(List<EventSet> eventSets)
+	public Set<Event> train(List<EventSet> eventSets)
 			throws EventCullingException {
-		List<EventSet> results = new ArrayList<EventSet>();
 		int numEvents = getParameter("numEvents", 50);
 		String informative = getParameter("Informative", "Most");
 		
@@ -83,16 +82,7 @@ public class WeightedVariance extends EventCuller {
 			if(counter == numEvents)
 				break;
 		}
-		for (EventSet oneSet : eventSets) {
-			EventSet newSet = new EventSet();
-			for (Event e : oneSet) {
-				if (events.contains(e)) {
-					newSet.addEvent(e);
-				}
-			}
-			results.add(newSet);
-		}		
-		return results;
+		return events;
 	}
 
 	@Override

@@ -24,17 +24,14 @@ import weka.core.SparseInstance;
  * 
  */
 public abstract class WEKAAnalysisDriver extends AnalysisDriver {
-
-	private static List<WEKAAnalysisDriver> WEKA_ANALYSIS_DRIVERS;
 	
 	public Classifier classifier;
 
 	private Set<String> allAuthorNames;
-	private LinkedHashSet<Event> allEvents;
+	private Set<Event> allEvents;
 	private FastVector attributeList;
 	private FastVector authorNames;
 	private Instances trainingSet;
-	private Attribute authorNameAttribute;
 
 	@Override
 	public abstract String displayName();
@@ -81,7 +78,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			authorNames.addElement(currentAuthorName);
 		}
 		authorNames.addElement("Unknown");
-		authorNameAttribute = new Attribute("authorName", authorNames);
+		Attribute authorNameAttribute = new Attribute("authorName", authorNames);
 		attributeList.addElement(authorNameAttribute);
 
 		for (Event event : allEvents) {
@@ -188,23 +185,5 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			return "WEKAAnalysis. No classifier set.";
 		}
 	}
-	
-	public static List<WEKAAnalysisDriver> getWekaAnalysisDrivers() {
-		if (WEKA_ANALYSIS_DRIVERS == null) {
-			WEKA_ANALYSIS_DRIVERS = Collections.unmodifiableList(loadWekaAnalysisDrivers());
-		}
-		return WEKA_ANALYSIS_DRIVERS;
-	}
 
-	private static List<WEKAAnalysisDriver> loadWekaAnalysisDrivers() {
-		List<WEKAAnalysisDriver> wekaAnalysisDrivers = new ArrayList<WEKAAnalysisDriver>();
-		List<AnalysisDriver> analysisDrivers = new ArrayList<AnalysisDriver>();
-		for (AnalysisDriver analysisDriver : analysisDrivers) {
-			if (analysisDriver instanceof WEKAAnalysisDriver) {
-				wekaAnalysisDrivers.add((WEKAAnalysisDriver) analysisDriver);
-			}
-		}
-		Collections.sort(wekaAnalysisDrivers);
-		return wekaAnalysisDrivers;
-	}
 }
