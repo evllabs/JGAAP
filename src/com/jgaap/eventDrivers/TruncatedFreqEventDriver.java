@@ -20,38 +20,47 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 /**
- * Truncate lexical frequency for discrete binning 
- *
+ * Truncate lexical frequency for discrete binning
+ * 
  */
 public class TruncatedFreqEventDriver extends EventDriver {
 
-    @Override
-    public String displayName(){
-    	return "Binned Frequencies";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return "Discretized (by truncation) ELP lexical frequencies";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
-    }
+	@Override
+	public String displayName() {
+		return "Binned Frequencies";
+	}
 
-    private EventDriver theDriver = new TruncatedEventDriver();
+	@Override
+	public String tooltipText() {
+		return "Discretized (by truncation) ELP lexical frequencies";
+	}
 
+	@Override
+	public boolean showInGUI() {
+		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
+	}
 
-    @Override
+	private EventDriver theDriver = new FreqEventDriver();
+	private static int length = 3;
+	
+	
+	@Override
     public EventSet createEventSet(char[] text) throws EventGenerationException {
-        theDriver.setParameter("length", "3");
-        theDriver.setParameter("underlyingEvents", "Lexical Frequencies");
-        return theDriver.createEventSet(text);
+       EventSet frequencies = theDriver.createEventSet(text);
+       EventSet eventSet = new EventSet(frequencies.size());
+       for(Event event : frequencies) {
+    	   String current = event.toString();
+    	   if(current.length()>length)
+    		   eventSet.addEvent(new Event(current.substring(0, length), this));
+    	   else 
+    		   eventSet.addEvent(new Event(current, this));
+       }
+       return eventSet;
     }
 }

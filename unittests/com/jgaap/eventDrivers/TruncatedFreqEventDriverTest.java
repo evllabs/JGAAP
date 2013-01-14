@@ -74,8 +74,8 @@ public class TruncatedFreqEventDriverTest {
 
 		expectedEventSet.addEvents(tmp);
 
-// System.out.println("Expected is " + expectedEventSet.toString());
-// System.out.println("Actual is " + sampleEventSet.toString());
+ System.out.println("Expected is " + expectedEventSet.toString());
+ System.out.println("Actual is " + sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 

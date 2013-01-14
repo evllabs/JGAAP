@@ -19,7 +19,13 @@
  **/
 package com.jgaap.eventDrivers;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import com.google.common.collect.ImmutableSet;
 import com.jgaap.JGAAPConstants;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -52,23 +58,36 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     	return true;
     }
 
-    /** Static field for efficiency */
-    private EventDriver e;
+    private NaiveWordEventDriver wordEventDriver = new NaiveWordEventDriver();
+    private static ImmutableSet<String> functionWords;
 
-
-    /** Default constructor. Sets parameters for WhiteList */
-    public MWFunctionWordsEventDriver() {
-        e = new WhiteListEventDriver();
-        e.setParameter("underlyingEvents", "Words");
-        e.setParameter("filename", JGAAPConstants.JGAAP_RESOURCE_PACKAGE
-                + "MWfunctionwords.dat");
+    static {
+    	ImmutableSet.Builder<String> builder = ImmutableSet.builder();
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(MWFunctionWordsEventDriver.class.getResourceAsStream(JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"MWfunctionwords.dat")));
+    	String current;
+    	try {
+			while((current = reader.readLine())!=null) {
+				builder.add(current.trim());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	functionWords = builder.build();
     }
 
     /** Creates EventSet using M-W function word list 
      * @throws EventGenerationException */
     @Override
     public EventSet createEventSet(char[] text) throws EventGenerationException {
-        return e.createEventSet(text);
+        EventSet words = wordEventDriver.createEventSet(text);
+        EventSet eventSet = new EventSet();
+        for(Event event : words){
+        	String current = event.toString();
+        	if(functionWords.contains(current)){
+        		eventSet.addEvent(new Event(current, this));
+        	}
+        }
+        return eventSet;
     }
 
 }

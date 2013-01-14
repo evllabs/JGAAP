@@ -27,6 +27,7 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NumericEventSet;
@@ -48,33 +49,33 @@ public class TruncatedNamingTimeEventDriverTest {
 "a aah Aaron aback abacus abandon abandoned zones zoning zoo " +
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
-
-		EventSet sampleEventSet = new TruncatedNamingTimeEventDriver().createEventSet(text.toCharArray());
+		EventDriver eventDriver = new TruncatedNamingTimeEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("66", null));
-		tmp.add(new Event("64", null));
-		tmp.add(new Event("68", null));
-		tmp.add(new Event("59", null));
-		tmp.add(new Event("79", null));
-		tmp.add(new Event("62", null));
-		tmp.add(new Event("63", null));
-		tmp.add(new Event("59", null));
-		tmp.add(new Event("69", null));
-		tmp.add(new Event("66", null));
-		tmp.add(new Event("73", null));
-		tmp.add(new Event("68", null));
-		tmp.add(new Event("63", null));
-		tmp.add(new Event("67", null));
-		tmp.add(new Event("61", null));
-		tmp.add(new Event("75", null));
-		tmp.add(new Event("82", null));
+		tmp.add(new Event("66", eventDriver));
+		tmp.add(new Event("64", eventDriver));
+		tmp.add(new Event("68", eventDriver));
+		tmp.add(new Event("59", eventDriver));
+		tmp.add(new Event("79", eventDriver));
+		tmp.add(new Event("62", eventDriver));
+		tmp.add(new Event("63", eventDriver));
+		tmp.add(new Event("59", eventDriver));
+		tmp.add(new Event("69", eventDriver));
+		tmp.add(new Event("66", eventDriver));
+		tmp.add(new Event("73", eventDriver));
+		tmp.add(new Event("68", eventDriver));
+		tmp.add(new Event("63", eventDriver));
+		tmp.add(new Event("67", eventDriver));
+		tmp.add(new Event("61", eventDriver));
+		tmp.add(new Event("75", eventDriver));
+		tmp.add(new Event("82", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 
-// System.out.println("Expected is " + expectedEventSet.toString());
-// System.out.println("Actual is " + sampleEventSet.toString());
+ System.out.println("Expected is " + expectedEventSet.toString());
+ System.out.println("Actual is " + sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 
