@@ -19,7 +19,6 @@ package com.jgaap.eventCullers;
 
 import com.jgaap.generics.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,12 +40,12 @@ import java.util.Set;
  */
 public class FrequencyRangeCuller extends EventCuller {
     @Override
-    public List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException {
+    public Set<Event> train(List<EventSet> eventSets) throws EventCullingException {
 
-        List<EventSet> results = new ArrayList<EventSet>();
         int minPos = getParameter("minPos", 0);
         int numEvents = getParameter("numEvents", 50);
-
+        
+        
         EventHistogram hist = new EventHistogram();
 
         for(EventSet oneSet : eventSets) {
@@ -70,19 +69,8 @@ public class FrequencyRangeCuller extends EventCuller {
         for(int i = minPos; i < minPos + numEvents && i < eventFrequencies.size(); i++) {
             events.add(eventFrequencies.get(i).getFirst());
         }
-
-        // TODO: This is likely not the best way to do this, as it means for N most common events, we go through each event set N times.
-        for(EventSet oneSet : eventSets) {
-            EventSet newSet = new EventSet();
-            for(Event e : oneSet) {
-            	if(events.contains(e)) {
-                    newSet.addEvent(e);
-                }
-            }
-            results.add(newSet);
-        }
         
-        return results;  //To change body of implemented methods use File | Settings | File Templates.
+        return events;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

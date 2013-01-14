@@ -52,7 +52,7 @@ public class InformationGainTest {
 		InformationGain culler = new InformationGain();
         culler.setParameter("numEvents", 4);
         culler.setParameter("informative", "Most");
-        List<EventSet> results = culler.cull(eventSets);
+        List<EventSet> results = culler.train(eventSets);
 		List<EventSet> expected = new ArrayList<EventSet>();
 		EventSet expectedEventSet1 = new EventSet();
 		EventSet expectedEventSet2 = new EventSet();
@@ -83,7 +83,7 @@ public class InformationGainTest {
 		
 		culler.setParameter("numEvents", 4);
 		culler.setParameter("informative", "Least");
-        List<EventSet> results2 = culler.cull(eventSets);
+        List<EventSet> results2 = culler.train(eventSets);
 		List<EventSet> expected2 = new ArrayList<EventSet>();
 		EventSet expectedEventSet4 = new EventSet();
 		EventSet expectedEventSet5 = new EventSet();

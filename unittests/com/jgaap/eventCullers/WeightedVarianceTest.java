@@ -52,7 +52,7 @@ public class WeightedVarianceTest {
 
 		WeightedVariance culler = new WeightedVariance();
         culler.setParameter("numEvents", 4);
-        List<EventSet> results = culler.cull(eventSets);
+        List<EventSet> results = culler.train(eventSets);
 		List<EventSet> expected = new ArrayList<EventSet>();
 		EventSet expectedEventSet = new EventSet();
 		expectedEventSet.addEvent(new Event("A", null));

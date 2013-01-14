@@ -67,7 +67,7 @@ public class LeastCommonEventsTest {
         list.add(es1);
         list.add(es2);
 
-        list = culler.cull(list);
+        list = culler.train(list);
         
         System.out.println(list);
         

@@ -37,7 +37,7 @@ import com.jgaap.generics.EventSet;
 public class ExtremeCuller extends EventCuller {
 
 	@Override
-	public List<EventSet> cull(List<EventSet> eventSets) {
+	public Set<Event> train(List<EventSet> eventSets) {
 		List<Set<Event>> eventSetsUnique = new ArrayList<Set<Event>>();
 		Set<Event> uniqueEvents = new HashSet<Event>();
 		Set<Event> extremeEvents = new HashSet<Event>();
@@ -61,17 +61,7 @@ public class ExtremeCuller extends EventCuller {
 				extremeEvents.add(event);
 			}
 		}
-		List<EventSet> culledEventSets = new ArrayList<EventSet>(eventSets.size());
-		for(EventSet eventSet : eventSets){
-			EventSet culledEventSet = new EventSet();
-			for(Event event : eventSet){
-				if(extremeEvents.contains(event)){
-					culledEventSet.addEvent(event);
-				}
-			}
-			culledEventSets.add(culledEventSet);
-		}
-		return culledEventSets;
+		return extremeEvents;
 	}
 
 	@Override

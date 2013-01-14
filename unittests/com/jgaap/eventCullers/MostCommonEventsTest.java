@@ -67,7 +67,7 @@ public class MostCommonEventsTest {
         list.add(es1);
         list.add(es2);
 
-        list = culler.cull(list);
+        list = culler.train(list);
 
         for(EventSet es : list) {
             for(Event e : es) {

@@ -191,8 +191,7 @@ public class EventHistogram implements Iterable<Event> {
 		});
 
 		List<Pair<Event, Integer>> result = new ArrayList<Pair<Event, Integer>>(list.size());
-		for (Iterator<Entry<Event, Integer>> it = list.iterator(); it.hasNext();) {
-			Entry<Event, Integer> entry = it.next();
+		for (Entry<Event, Integer>entry : list) {
 			result.add(new Pair<Event, Integer>(entry.getKey(), entry.getValue(), 2));
 		}
 		return result;
