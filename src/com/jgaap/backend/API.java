@@ -645,18 +645,21 @@ public class API {
 	 */
 	private void cull() throws EventCullingException {
 		List<EventSet> eventSets = new ArrayList<EventSet>(documents.size());
+		ExecutorService cullerExecutor = Executors.newFixedThreadPool(workers);
 		for (EventDriver eventDriver : eventDrivers) {
 			for (Document document : documents) {
 				eventSets.add(document.getEventSet(eventDriver));
 			}
 			for (EventCuller culler : eventDriver.getEventCullers()) {
 				culler.init(eventSets);
-				for(Document document : documents){
-					document.addEventSet(eventDriver, culler.cull(document.getEventSet(eventDriver)));
-				}
+			}
+			for(Document document : documents){
+				cullerExecutor.submit(new CullerWorker(document, eventDriver));
 			}
 			eventSets.clear();
 		}
+		cullerExecutor.shutdown();
+		while(!cullerExecutor.isTerminated()){};
 	}
 
 	/**
@@ -725,7 +728,26 @@ public class API {
 		}
 	}
 	
-	class AnalysisWorker implements Callable<Document> {
+	private class CullerWorker implements Callable<String> {
+		private Document document;
+		private EventDriver eventDriver;
+		
+		CullerWorker(Document document, EventDriver eventDriver) {
+			this.document = document;
+			this.eventDriver = eventDriver;
+		}
+		
+		public String call() {
+			EventSet eventSet = document.getEventSet(eventDriver);
+			for(EventCuller culler : eventDriver.getEventCullers()){
+				eventSet = culler.cull(eventSet);
+			}
+			document.addEventSet(eventDriver, eventSet);
+			return "Culled: "+document.toString()+" EventSet: "+eventDriver.displayName();
+		}
+	}
+	
+	private class AnalysisWorker implements Callable<Document> {
 
 		private Document document;
 		private AnalysisDriver analysisDriver;
