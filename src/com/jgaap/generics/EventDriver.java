@@ -35,12 +35,12 @@ import com.jgaap.backend.AutoPopulate;
 public abstract class EventDriver extends Parameterizable implements Comparable<EventDriver>, Displayable {
 	
 	private static List<EventDriver> EVENT_DRIVERS;
-
-	public String longDescription() { return tooltipText(); }
 	
 	private List<Canonicizer> canonicizers;
 	
 	private List<EventCuller> cullers;
+	
+	public String longDescription() { return tooltipText(); }
 
     /**
      * Creates an EventSet from a given DocumentSet after preprocessing.
@@ -50,9 +50,7 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
      *            the DocumentSet to be Event-ified
      * @return the EventSet containing the Events from the document(s)
      */
-
     abstract public EventSet createEventSet(char[] text) throws EventGenerationException;
-
     
     public int compareTo(EventDriver o){
     	return displayName().compareTo(o.displayName());
