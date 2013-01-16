@@ -76,7 +76,6 @@
 			<attribute name="javadoc_location" value="http://dom4j.sourceforge.net/dom4j-1.6.1/apidocs/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/external/gson-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/external/javassist-3.12.1.GA.jar"/>
 	<classpathentry kind="lib" path="lib/external/jsr305-1.3.9.jar"/>
 	<classpathentry kind="lib" path="lib/external/slf4j-api-1.6.1.jar"/>
@@ -107,5 +106,7 @@
 			<attribute name="javadoc_location" value="http://www-nlp.stanford.edu/nlp/javadoc/javanlp/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/external/javatuples-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/external/gson-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
