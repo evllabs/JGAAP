@@ -85,11 +85,11 @@ public class IQRCuller extends EventCuller {
 		if(informative.equals("Most")){
 			Collections.reverse(rangeList);
 		}
-		List<Event> rangeSet = new ArrayList<Event>();
+		Set<Event> rangeSet = new HashSet<Event>();
 		for (int i = 0; i < numEvents; i++) {
 			rangeSet.add(rangeList.get(i).getFirst());
 		}
-		return events;
+		return rangeSet;
 	}
 
 	@Override

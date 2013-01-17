@@ -17,6 +17,7 @@
  */
 package com.jgaap.eventCullers;
 
+import com.google.common.collect.Sets;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
@@ -25,6 +26,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
@@ -67,15 +69,10 @@ public class LeastCommonEventsTest {
         list.add(es1);
         list.add(es2);
 
-        list = culler.train(list);
-        
-        System.out.println(list);
-        
-        for(EventSet es : list) {
-            for(Event e : es) {
-                assertTrue(e.getEvent().equals("C"));
-            }
-        }
+        Set<Event> events = culler.train(list);
+                
+        assertTrue(events.equals(Sets.newHashSet(new Event("C", null))));
+
 
     }
 }

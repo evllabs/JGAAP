@@ -3,7 +3,9 @@ package com.jgaap.eventCullers;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -51,24 +53,14 @@ public class CoefficientOfVariationTest {
 
 		CoefficientOfVariation culler = new CoefficientOfVariation();
         culler.setParameter("numEvents", 4);
-        List<EventSet> results = culler.train(eventSets);
-		List<EventSet> expected = new ArrayList<EventSet>();
-		EventSet expectedEventSet = new EventSet();		
-		expectedEventSet.addEvent(new Event("B", null));
-		expectedEventSet.addEvent(new Event("B", null));
-		expectedEventSet.addEvent(new Event("B", null));
-		expectedEventSet.addEvent(new Event("C", null));
-		expectedEventSet.addEvent(new Event("B", null));	
-		expectedEventSet.addEvent(new Event("C", null));
-		expectedEventSet.addEvent(new Event("D", null));
-		expectedEventSet.addEvent(new Event("H", null));		
-		expectedEventSet.addEvent(new Event("B", null));
-		expectedEventSet.addEvent(new Event("D", null));
-		expectedEventSet.addEvent(new Event("H", null));
-		expectedEventSet.addEvent(new Event("C", null));		
+        Set<Event> results = culler.train(eventSets);
+		Set<Event> expected = new HashSet<Event>();
+		expected.add(new Event("B", null));
+		expected.add(new Event("C", null));
+		expected.add(new Event("D", null));
+		expected.add(new Event("H", null));	
 
-		expected.add(expectedEventSet);
-		assertTrue(results.toString().equals(expected.toString()));
+		assertTrue(expected.equals(results));
 		
 	
 	}

@@ -3,7 +3,9 @@ package com.jgaap.eventCullers;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -51,26 +53,14 @@ public class IndexOfDispersionTest {
 
 		IndexOfDispersion culler = new IndexOfDispersion();
         culler.setParameter("numEvents", 4);
-        List<EventSet> results = culler.train(eventSets);
-		List<EventSet> expected = new ArrayList<EventSet>();
-		EventSet expectedEventSet = new EventSet();
-		expectedEventSet.addEvent(new Event("A", null));
-		expectedEventSet.addEvent(new Event("A", null));
-		expectedEventSet.addEvent(new Event("A", null));
-		expectedEventSet.addEvent(new Event("A", null));
-		expectedEventSet.addEvent(new Event("A", null));	
-		expectedEventSet.addEvent(new Event("A", null));
-		expectedEventSet.addEvent(new Event("E", null));		
-		expectedEventSet.addEvent(new Event("F", null));
-		expectedEventSet.addEvent(new Event("F", null));
-		expectedEventSet.addEvent(new Event("G", null));
-		expectedEventSet.addEvent(new Event("E", null));		
-		expectedEventSet.addEvent(new Event("E", null));
-		expectedEventSet.addEvent(new Event("E", null));
-		expectedEventSet.addEvent(new Event("F", null));
-		expectedEventSet.addEvent(new Event("A", null));		
-		expected.add(expectedEventSet);
-		assertTrue(results.toString().equals(expected.toString()));
+        Set<Event> results = culler.train(eventSets);
+		Set<Event> expected = new HashSet<Event>();
+		expected.add(new Event("A", null));
+		expected.add(new Event("E", null));		
+		expected.add(new Event("F", null));
+		expected.add(new Event("G", null));
+		
+		assertTrue(results.equals(expected));
 		
 	}
 }
