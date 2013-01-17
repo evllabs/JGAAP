@@ -20,7 +20,9 @@ package com.jgaap.eventCullers;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -66,17 +68,13 @@ public class ExtremeCullerTest {
 		eventSet3.addEvent(new Event("dog", null));
 		eventSets.add(eventSet3);
 		ExtremeCuller extremeCuller = new ExtremeCuller();
-		List<EventSet> results = extremeCuller.train(eventSets);
-		List<EventSet> expected = new ArrayList<EventSet>();
-		EventSet expectedEventSet = new EventSet();
-		expectedEventSet.addEvent(new Event("fox", null));
-		expectedEventSet.addEvent(new Event("over", null));
-		expectedEventSet.addEvent(new Event("the", null));
-		expectedEventSet.addEvent(new Event("dog", null));
-		expected.add(expectedEventSet);
-		expected.add(expectedEventSet);
-		expected.add(expectedEventSet);
-		assertTrue(results.toString().equals(expected.toString()));
+		Set<Event> results = extremeCuller.train(eventSets);
+		Set<Event> expected = new HashSet<Event>();
+		expected.add(new Event("fox", null));
+		expected.add(new Event("over", null));
+		expected.add(new Event("the", null));
+		expected.add(new Event("dog", null));
+		assertTrue(results.equals(expected));
 	}
 
 }
