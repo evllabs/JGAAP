@@ -25,7 +25,7 @@ import weka.core.SparseInstance;
  */
 public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 	
-	public Classifier classifier;
+	private Classifier classifier;
 
 	private Set<String> allAuthorNames;
 	private Set<Event> allEvents;

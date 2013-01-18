@@ -120,8 +120,9 @@ public class WEKARBFNetworkTest {
 		List<Pair<String, Double>> t;
 		tree.train(knowns);
 		t = tree.analyze(unknownDocument);
+		System.out.println(unknownDocument.getEventSet(null));
 		for(Document document : knowns)
-			System.out.println(document.getEventSet(null));
+			System.out.println(document.getAuthor()+" - "+document.getEventSet(null));
 		System.out.println(t.toString());
 
 		// Assert that the authors match
