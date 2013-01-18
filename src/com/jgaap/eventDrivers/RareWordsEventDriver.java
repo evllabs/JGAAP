@@ -19,7 +19,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.backend.EventDriverFactory;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -66,46 +65,13 @@ public class RareWordsEventDriver extends EventDriver {
 	}
 
 	/** Underlying EventDriver from which Events are drawn. */
-	public EventDriver underlyingevents = new NaiveWordEventDriver();
-	public int M = 1, N = 2;
+	private EventDriver underlyingevents = new NaiveWordEventDriver();
 
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
+		int N = getParameter("N", 3);
+		int M = getParameter("M", 2);
 
-		String param;
-		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
-			try {
-				setEvents(EventDriverFactory.getEventDriver(param));
-			} catch (Exception e) {
-				System.out.println("Error: cannot create EventDriver " + param);
-				System.out.println(" -- Using NaiveWordEventDriver");
-				setEvents(new NaiveWordEventDriver());
-			}
-		}
-
-		// lots of error checking
-		if (!(param = (getParameter("N"))).equals("")) {
-			try {
-				int value = Integer.parseInt(param);
-				setN(value);
-			} catch (NumberFormatException e) {
-				System.out.println("Warning: cannot parse N(upper bound):"
-						+ param + " as int");
-				System.out.println(" -- Using default value (3)");
-				setN(3);
-			}
-		}
-		if (!(param = (getParameter("M"))).equals("")) {
-			try {
-				int value = Integer.parseInt(param);
-				setM(value);
-			} catch (NumberFormatException e) {
-				System.out.println("Warning: cannot parse M(lower bound):"
-						+ param + " as int");
-				System.out.println(" -- Using default value (2)");
-				setM(2);
-			}
-		}
 		EventSet es = underlyingevents.createEventSet(text);
 		EventSet newEs = new EventSet();
 
@@ -127,40 +93,4 @@ public class RareWordsEventDriver extends EventDriver {
 		}
 		return newEs;
 	}
-
-	/**
-	 * Get EventDriver for relevant Events *
-	 * 
-	 * @return underlying EventDriver
-	 */
-	public EventDriver getEvents() {
-		return underlyingevents;
-	}
-
-	/**
-	 * Set EventDriver for relevant Events *
-	 * 
-	 * @param underlyingevents
-	 *            underlying EventDriver
-	 */
-	public void setEvents(EventDriver underlyingevents) {
-		this.underlyingevents = underlyingevents;
-	}
-
-	public int getM() {
-		return M;
-	}
-
-	public void setM(int M) {
-		this.M = M;
-	}
-
-	public int getN() {
-		return N;
-	}
-
-	public void setN(int N) {
-		this.N = N;
-	}
-
 }

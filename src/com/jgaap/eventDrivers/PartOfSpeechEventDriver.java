@@ -51,16 +51,18 @@ public class PartOfSpeechEventDriver extends EventDriver {
 		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("English");
 	}
 
+	private static PunctuationSeparator punctuationSeparator = new PunctuationSeparator();
+	
 	@Override
 	public EventSet createEventSet(char[] text) {
 
+		FastTag tagger = new FastTag();
+		
 		EventSet es = new EventSet();
 
-		text = new PunctuationSeparator().process(text);
+		text = punctuationSeparator.process(text);
 
 		String stringText = new String(text);
-
-		FastTag tagger = new FastTag();
 
 		for (String current : stringText.split("(?<=[?!\\.])\\s+")) {
 

@@ -70,20 +70,16 @@ public class MNLetterWordEventDriver extends EventDriver {
 	/** Underlying EventDriver from which Events are drawn. */
 	private EventDriver underlyingevents = new NaiveWordEventDriver();
 
-	/** Limits on characters per word */
-	public int M = 2;
-	public int N = 3;
-
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
 
 		// lots of error checking
-		N = getParameter("N", 3);
+		int N = getParameter("N", 3);
 		/* Negative upper bounds mean no upper bound */
 		if (N < 0){
 			N = Integer.MAX_VALUE;
 		}
-		M = getParameter("M", 2);
+		int M = getParameter("M", 2);
 
 		EventSet es = underlyingevents.createEventSet(text);
 		EventSet newEs = new EventSet();
