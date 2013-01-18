@@ -29,8 +29,10 @@ import com.jgaap.generics.DivergenceType;
 
 public abstract class DivergenceFunction extends DistanceFunction {
 	
-	abstract public String displayName();
-
+	public DivergenceFunction() {
+		addParams("divergenceType", "Divergence Type", "STANDARD", new String[] {"STANDARD", "AVERAGE", "MAX", "MIN", "REVERSE", "CROSS"}, false);
+	}
+	
 	@Override
 	public double distance(EventMap eventMap1, EventMap eventMap2) throws DistanceCalculationException {
 		double dist;
@@ -66,32 +68,6 @@ public abstract class DivergenceFunction extends DistanceFunction {
 			break;
 		}
 		return dist;
-	}
-
-	public String getDivergenceType() {
-		String result = "";
-		String divergenceString = getParameter("divergenceType");
-		int divergenceType = Integer
-				.parseInt((divergenceString.equals("") ? "0" : divergenceString));
-		switch (divergenceType) {
-		case 1:
-			result += " (Average)";
-			break;
-		case 2:
-			result += " (Max)";
-			break;
-		case 3:
-			result += " (Min)";
-			break;
-		case 4:
-			result += " (Reverse)";
-			break;
-		case 5:
-			result += " (Cross)";
-			break;
-		default:
-		}
-		return result;
 	}
 
 	abstract protected double divergence(EventMap eventMap1, EventMap eventMap2) throws DistanceCalculationException;

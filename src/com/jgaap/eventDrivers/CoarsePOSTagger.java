@@ -33,7 +33,7 @@ public class CoarsePOSTagger extends EventDriver {
 			.put("UH", "UH").put("VB", "V").put("VBD", "V").put("VBG", "V").put("VBN", "V").put("VBP", "V")
 			.put("VBZ", "V").put("WDT", "W").put("WP", "W").put("WP$", "W").put("WRB", "W").put("#", "Punc")
 			.put("$", "Punc").put(".", "Punc").put(",", "Punc").put(":", "Punc").put("(", "Punc").put(")", "Punc")
-			.put("\"", "Punc").put("`", "Punc").put("\"", "Punc").put("'", "Punc").put("\"", "Punc").build();
+			.put("`", "Punc").put("'", "Punc").put("\"", "Punc").build();
 
 	@Override
 	public String displayName() {
