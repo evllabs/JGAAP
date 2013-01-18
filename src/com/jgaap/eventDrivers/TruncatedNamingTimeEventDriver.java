@@ -20,16 +20,16 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.TruncatedEventDriver;
 
 /**
  * Truncate lexical frequency for discrete binning
  * 
  */
-public class TruncatedNamingTimeEventDriver extends EventDriver {
+public class TruncatedNamingTimeEventDriver extends TruncatedEventDriver {
 
 	@Override
 	public String displayName() {
@@ -52,18 +52,7 @@ public class TruncatedNamingTimeEventDriver extends EventDriver {
 
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
-		EventSet namingTimes = theDriver.createEventSet(text);
-		EventSet eventSet = new EventSet(namingTimes.size());
-		for (Event event : namingTimes) {
-			String current = event.toString();
-			if (current.length() > length) {
-				eventSet.addEvent(new Event(current.substring(0, length), this));
-			}
-			else {
-				eventSet.addEvent(new Event(current, this));
-			}
-		}
-		return eventSet;
+		return truncate(theDriver.createEventSet(text), length);
 	}
 
 }
