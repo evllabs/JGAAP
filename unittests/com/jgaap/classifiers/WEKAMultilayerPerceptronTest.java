@@ -163,8 +163,6 @@ public class WEKAMultilayerPerceptronTest {
 		tree = new WEKAMultilayerPerceptron();
 		t = new ArrayList<List<Pair<String,Double>>>(); 
 		tree.train(knowns);
-		t.add(tree.analyze(unknownDocument));
-		t.add(tree.analyze(unknownDocument2));
 		t.add(tree.analyze(unknownDocument3));
 		System.out.println(t.toString());
 		

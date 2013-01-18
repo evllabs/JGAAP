@@ -123,7 +123,7 @@ public class WEKADecisionStumpTest {
 		Document unknownDocument = new Document();
 		unknownDocument.addEventSet(null, unknown1);
 		Document unknownDocument2 = new Document();
-		unknownDocument.addEventSet(null, unknown2);
+		unknownDocument2.addEventSet(null, unknown2);
 
 		//Classify unknown based on the knowns
 		WEKADecisionStump classifier = new WEKADecisionStump();
@@ -131,7 +131,10 @@ public class WEKADecisionStumpTest {
 		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
 		t.add(classifier.analyze(unknownDocument));
 		t.add(classifier.analyze(unknownDocument2));
-		//System.out.println(t.toString());
+		System.out.println(knowns);
+		System.out.println(unknownDocument.getEventSet(null));
+		System.out.println(unknownDocument2.getEventSet(null));
+		System.out.println(t.toString());
 		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
 			//System.out.println(t.toString());
@@ -213,7 +216,7 @@ public class WEKADecisionStumpTest {
 		unknownDocument = new Document();
 		unknownDocument.addEventSet(null, unknown1);
 		unknownDocument2 = new Document();
-		unknownDocument.addEventSet(null, unknown2);
+		unknownDocument2.addEventSet(null, unknown2);
 		
 		//Classify unknown based on the knowns
 		classifier = new WEKADecisionStump();

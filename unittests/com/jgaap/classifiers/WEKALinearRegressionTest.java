@@ -171,7 +171,7 @@ public class WEKALinearRegressionTest {
 
 		Document knownDocument5 = new Document();
 		knownDocument5.setAuthor(known5.getAuthor());
-		knownDocument5.addEventSet(null, known3);
+		knownDocument5.addEventSet(null, known5);
 		knowns.add(knownDocument5);
 		Document knownDocument6 = new Document();
 		knownDocument6.setAuthor(known6.getAuthor());
@@ -180,7 +180,7 @@ public class WEKALinearRegressionTest {
 		
 		t = new ArrayList<List<Pair<String,Double>>>(); 
 		classifier.train(knowns);
-			t.add(classifier.analyze(unknownDocument));
+		t.add(classifier.analyze(unknownDocument));
 		System.out.println(t.toString());
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 	}
