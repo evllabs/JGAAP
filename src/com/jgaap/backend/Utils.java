@@ -28,9 +28,7 @@ import java.util.Map;
 
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
 
 /**
  * Generic methods that will be reused throughout JGAAP
@@ -153,14 +151,5 @@ public class Utils {
 			}
 		}
 		return centroid;
-	}
-	
-	public static EventSet convertNGrams(EventSet eventSet, int n, EventDriver eventDriver) {
-		EventSet newEventSet = new EventSet(eventSet.size()-(n-1));
-		for(int i = 0; i+n <= eventSet.size(); i++){
-			Event event = new Event(eventSet.subList(i, i+n), eventDriver);
-			newEventSet.addEvent(event);
-		}
-		return newEventSet;
 	}
 }

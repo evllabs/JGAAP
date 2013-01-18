@@ -50,47 +50,24 @@ public class VowelInitialWordEventDriver extends EventDriver {
 	}
 
 	/** Underlying EventDriver from which Events are drawn. */
-	public EventDriver underlyingevents = new NaiveWordEventDriver();
+	private EventDriver underlyingevents = new NaiveWordEventDriver();
+	private static String vowels = "aeiouyAEIOUY";
 
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
-
-		String vowels = "aeiouyAEIOUY";
-
 		EventSet es = underlyingevents.createEventSet(text);
 		EventSet newEs = new EventSet();
-
-		String s;
 
 		/**
 		 * Check initial leter of each event and accept if vowel
 		 */
 		for (Event e : es) {
-			s = e.toString();
+			String s = e.toString();
 			if (vowels.indexOf(s.charAt(0)) != -1)
 				// should we clone event before adding? PMJ
-				newEs.addEvent(new Event(e.toString(), this));
+				newEs.addEvent(new Event(s, this));
 		}
 		return newEs;
-	}
-
-	/**
-	 * Get EventDriver for relevant Events *
-	 * 
-	 * @return underlying EventDriver
-	 */
-	public EventDriver getEvents() {
-		return underlyingevents;
-	}
-
-	/**
-	 * Set EventDriver for relevant Events *
-	 * 
-	 * @param underlyingevents
-	 *            underlying EventDriver
-	 */
-	public void setEvents(EventDriver underlyingevents) {
-		this.underlyingevents = underlyingevents;
 	}
 
 }

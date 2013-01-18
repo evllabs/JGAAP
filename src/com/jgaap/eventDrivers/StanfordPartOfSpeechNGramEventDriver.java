@@ -1,20 +1,21 @@
 package com.jgaap.eventDrivers;
 
-import com.jgaap.backend.Utils;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.NGramEventDriver;
 
 /**
  * 
  * @author Michael Ryan
  *
  */
-public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
+public class StanfordPartOfSpeechNGramEventDriver extends NGramEventDriver {
 
 	private EventDriver stanfordPOS = new StanfordPartOfSpeechEventDriver();
 	
 	public StanfordPartOfSpeechNGramEventDriver(){
+		super();
 		addParams("tagginModel", "Model", "english-bidirectional-distsim", 
 				new String[] { "arabic-accurate","arabic-fast.tagger","chinese",
 				"english-bidirectional-distsim","english-left3words-distsim",
@@ -23,9 +24,6 @@ public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
 				"german-fast"
 				//,"german-hgc"
 				}, false);
-		addParams("N", "N", "2", 
-				new String[] { "1","2","3","4","5","6","7",
-				"8","9","10","11","12","13","14","15"}, false);
 	}
 	
 	@Override
@@ -47,9 +45,7 @@ public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
 	public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
 		stanfordPOS.setParameter("taggingModel", getParameter("taggingModel"));
-		EventSet posEventSet = stanfordPOS.createEventSet(text);
-		int n = getParameter("N", 2);
-		return Utils.convertNGrams(posEventSet, n, this);
+		return transformToNgram(stanfordPOS.createEventSet(text));
 	}
 
 }
