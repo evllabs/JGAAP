@@ -27,8 +27,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import weka.classifiers.Classifier;
-
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
@@ -124,9 +122,6 @@ public class WEKALinearRegressionTest {
 		classifier.train(knowns);
 		t.add(classifier.analyze(unknownDocument));
 		System.out.println(t.toString());
-		Classifier stuff = classifier.classifier;
-		if(stuff != null)
-			System.out.println(stuff.toString());
 
 		//Assert that the authors match
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));

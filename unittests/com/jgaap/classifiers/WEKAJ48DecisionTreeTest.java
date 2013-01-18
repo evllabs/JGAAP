@@ -27,8 +27,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import weka.classifiers.trees.J48;
-
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
@@ -125,10 +123,6 @@ public class WEKAJ48DecisionTreeTest {
 		tree.train(knowns);
 		t.add(tree.analyze(unknownDocument));
 		System.out.println(t.toString());
-		J48 classifier = (J48)tree.classifier;
-		if(classifier != null){
-			System.out.println(classifier.toString());
-		}
 
 
 			//Assert that the authors match
@@ -167,10 +161,6 @@ public class WEKAJ48DecisionTreeTest {
 		tree.train(knowns);
 		t.add(tree.analyze(unknownDocument));
 		System.out.println(t.toString());
-		classifier = (J48)tree.classifier;
-		if(classifier != null){
-			System.out.println(classifier.toString());
-		}
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
 
 
@@ -193,10 +183,6 @@ public class WEKAJ48DecisionTreeTest {
 		t.add(tree.analyze(unknownDocument));
 		t.add(tree.analyze(unknownDocument2));
 		System.out.println(t.toString());
-		classifier = (J48)tree.classifier;
-		if(classifier != null){
-			System.out.println(classifier.toString());
-		}
 		
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
 
