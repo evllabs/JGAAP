@@ -46,10 +46,12 @@ public class FirstWordInSentenceEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+	
+	private SentenceEventDriver sentenceEventDriver = new SentenceEventDriver();
 
 	@Override
 	public EventSet createEventSet(char[] text) {
-		EventSet sentences = new SentenceEventDriver().createEventSet(text);
+		EventSet sentences =sentenceEventDriver.createEventSet(text);
 		EventSet eventSet = new EventSet(sentences.size());
 		for(Event sentence : sentences){
 			String[] words = sentence.toString().split("\\s+");
@@ -60,4 +62,3 @@ public class FirstWordInSentenceEventDriver extends EventDriver {
     }
 
 }
-

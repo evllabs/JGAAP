@@ -25,26 +25,11 @@ import com.jgaap.generics.EventSet;
 
 public class SentenceEventDriver extends EventDriver {
 
-	static Logger logger = Logger.getLogger(SentenceEventDriver.class);
-
-	@Override
-	public String displayName() {
-		return "Sentences";
-	}
-
-	@Override
-	public String tooltipText() {
-		return "Full sentences including punctuation";
-	}
-
-	@Override
-	public boolean showInGUI() {
-		return true;
-	}
-
-	@Override
-	public EventSet createEventSet(char[] text) {
-		InputStream is = getClass().getResourceAsStream(JGAAPConstants.JGAAP_RESOURCE_PACKAGE + "abbreviation.list");
+	private static Logger logger = Logger.getLogger(SentenceEventDriver.class);
+	private static String regex;
+	
+	static {
+		InputStream is = SentenceEventDriver.class.getResourceAsStream(JGAAPConstants.JGAAP_RESOURCE_PACKAGE + "abbreviation.list");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		Set<String> abbreviations = new HashSet<String>();
 		try {
@@ -72,7 +57,26 @@ public class SentenceEventDriver extends EventDriver {
 			regexBuilder.append("|").append(abbreviation);
 		}
 		regexBuilder.append(")\\s?[?!\\.]$");
-		String regex = regexBuilder.toString();
+		regex = regexBuilder.toString();
+	}
+	
+	@Override
+	public String displayName() {
+		return "Sentences";
+	}
+
+	@Override
+	public String tooltipText() {
+		return "Full sentences including punctuation";
+	}
+
+	@Override
+	public boolean showInGUI() {
+		return true;
+	}
+
+	@Override
+	public EventSet createEventSet(char[] text) {
 		logger.debug(regex);
 		String textString = new String(text);
 		String[] sentences = textString.split("(?<=[?!\\.])\\s+");

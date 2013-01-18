@@ -17,14 +17,12 @@
  */
 package com.jgaap.eventDrivers;
 
-import java.util.Hashtable;
-
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.backend.API;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
-
 
 /*
  *@author Darren Vescovi
@@ -36,354 +34,101 @@ import com.jgaap.generics.EventSet;
 
 public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 
-	private static Hashtable<String, String> verbs; 
-	private static Hashtable<String, String> nouns;
 	private PorterStemmerEventDriver stemmer = new PorterStemmerEventDriver();
-	
-	static {
-		verbs = new Hashtable<String, String>();
-		verbs.put("awoke", "awake");
-		verbs.put("awoken", "awake");
-		verbs.put("was", "be");
-		verbs.put("were", "be");
-		verbs.put("been", "be");
-		verbs.put("bore", "bear");
-		verbs.put("born", "bear");
-		verbs.put("beat", "beat");
-		verbs.put("became", "become");
-		verbs.put("become", "become");
-		verbs.put("began", "begin");
-		verbs.put("begun", "begin");
-		verbs.put("bent", "bend");
-		verbs.put("beset", "beset");
-		verbs.put("bet", "bet");
-		verbs.put("bid", "bid");
-		verbs.put("bade", "bid");
-		verbs.put("bidden", "bid");
-		verbs.put("bound", "bind");
-		verbs.put("bit", "bite");
-		verbs.put("bitten", "bite");
-		verbs.put("bled", "bleed");
-		verbs.put("blew", "blow");
-		verbs.put("blown", "blow");
-		verbs.put("broke", "break");
-		verbs.put("broken", "break");
-		verbs.put("bred", "breed");
-		verbs.put("brought", "bring");
-		verbs.put("broadcast", "broadcast");
-		verbs.put("built", "build");
-		verbs.put("burned", "burn");
-		verbs.put("burnt", "burn");
-		verbs.put("burst", "burst");
-		verbs.put("bought", "buy");
-		verbs.put("cast", "cast");
-		verbs.put("caught", "catch");
-		verbs.put("chose", "choose");
-		verbs.put("chosen", "choose");
-		verbs.put("clung", "cling");
-		verbs.put("came", "come");
-		verbs.put("come", "come");
-		verbs.put("cost", "cost");
-		verbs.put("crept", "creep");
-		verbs.put("cut", "cut");
-		verbs.put("dealt", "deal");
-		verbs.put("dug", "dig");
-		verbs.put("dived", "dive");
-		verbs.put("dove", "dive");
-		verbs.put("did", "do");
-		verbs.put("done", "do");
-		verbs.put("drew", "draw");
-		verbs.put("drawn", "draw");
-		verbs.put("dreamed", "dream");
-		verbs.put("dreamt", "dream");
-		verbs.put("drove", "drive");
-		verbs.put("driven", "drive");
-		verbs.put("drank", "drink");
-		verbs.put("drunk", "drink");
-		verbs.put("ate", "eat");
-		verbs.put("eaten", "eat");
-		verbs.put("fell", "fall");
-		verbs.put("fallen", "fall");
-		verbs.put("fed", "feed");
-		verbs.put("felt", "feel");
-		verbs.put("fought", "fight");
-		verbs.put("found", "find");
-		verbs.put("fit", "fit");
-		verbs.put("fled", "flee");
-		verbs.put("flung", "fling");
-		verbs.put("flew", "fly");
-		verbs.put("flown", "fly");
-		verbs.put("forbade", "forbid");
-		verbs.put("forbidden", "forbid");
-		verbs.put("forgot", "forget");
-		verbs.put("forgotten", "forget");
-		verbs.put("forewent", "forego");
-		verbs.put("foregone", "forego");
-		verbs.put("forgave", "forgive");
-		verbs.put("forgiven", "forgive");
-		verbs.put("forsook", "forsake");
-		verbs.put("forsaken", "forsake");
-		verbs.put("froze", "freeze");
-		verbs.put("frozen", "freeze");
-		verbs.put("got", "get");
-		verbs.put("gotten", "get");
-		verbs.put("gave", "give");
-		verbs.put("given", "give");
-		verbs.put("went", "go");
-		verbs.put("gone", "go");
-		verbs.put("ground", "grind");
-		verbs.put("grew", "grow");
-		verbs.put("grown", "grow");
-		verbs.put("hung", "hang");
-		verbs.put("heard", "hear");
-		verbs.put("hid", "hide");
-		verbs.put("hidden", "hide");
-		verbs.put("hit", "hit");
-		verbs.put("held", "hold");
-		verbs.put("hurt", "hurt");
-		verbs.put("kept", "keep");
-		verbs.put("knelt", "kneel");
-		verbs.put("knit", "knit");
-		verbs.put("knew", "know");
-		verbs.put("know", "know");
-		verbs.put("laid", "lay");
-		verbs.put("led", "lead");
-		verbs.put("leaped", "leap");
-		verbs.put("leapt", "leap");
-		verbs.put("learned", "learn");
-		verbs.put("learnt", "learn");
-		verbs.put("left", "leave");
-		verbs.put("lent", "lend");
-		verbs.put("let", "let");
-		verbs.put("lay", "lie");
-		verbs.put("lain", "lie");
-		verbs.put("lighted", "light");
-		verbs.put("lit", "light");
-		verbs.put("lost", "lose");
-		verbs.put("made", "make");
-		verbs.put("meant", "mean");
-		verbs.put("met", "meet");
-		verbs.put("misspelled", "misspell");
-		verbs.put("misspelt", "misspell");
-		verbs.put("mistook", "mistake");
-		verbs.put("mistaken", "mistake");
-		verbs.put("mowed", "mow");
-		verbs.put("mown", "mow");
-		verbs.put("overcame", "overcome");
-		verbs.put("overcome", "overcome");
-		verbs.put("overdid", "overdo");
-		verbs.put("overdone", "overdo");
-		verbs.put("overtook", "overtake");
-		verbs.put("overtaken", "overtake");
-		verbs.put("overthrew", "overthrow");
-		verbs.put("overthrown", "overthrow");
-		verbs.put("paid", "pay");
-		verbs.put("pled", "plead");
-		verbs.put("proved", "prove");
-		verbs.put("proven", "prove");
-		verbs.put("put", "put");
-		verbs.put("quit", "quit");
-		verbs.put("read", "read");
-		verbs.put("rid", "rid");
-		verbs.put("rode", "ride");
-		verbs.put("ridden", "ride");
-		verbs.put("rang", "ring");
-		verbs.put("rung", "ring");
-		verbs.put("rose", "rise");
-		verbs.put("risen", "rise");
-		verbs.put("ran", "run");
-		verbs.put("run", "run");
-		verbs.put("sawed", "saw");
-		verbs.put("sawn", "saw");
-		verbs.put("said", "say");
-		verbs.put("saw", "see");
-		verbs.put("seen", "see");
-		verbs.put("sought", "seek");
-		verbs.put("sold", "sell");
-		verbs.put("sent", "send");
-		verbs.put("set", "set");
-		verbs.put("sewed", "sew");
-		verbs.put("sewn", "sew");
-		verbs.put("shook", "shake");
-		verbs.put("shaken", "shake");
-		verbs.put("shaved", "shave");
-		verbs.put("shaven", "shave");
-		verbs.put("shore", "shear");
-		verbs.put("shorn", "shear");
-		verbs.put("shed", "shed");
-		verbs.put("shone", "shine");
-		verbs.put("shoed", "shoe");
-		verbs.put("shod", "shoe");
-		verbs.put("shot", "shoot");
-		verbs.put("showed", "show");
-		verbs.put("shown", "show");
-		verbs.put("shrank", "shrink");
-		verbs.put("shrunk", "shrink");
-		verbs.put("shut", "shut");
-		verbs.put("sang", "sing");
-		verbs.put("sung", "sing");
-		verbs.put("sank", "sink");
-		verbs.put("sunk", "sink");
-		verbs.put("sat", "sit");
-		verbs.put("slept", "sleep");
-		verbs.put("slew", "slay");
-		verbs.put("slain", "slay");
-		verbs.put("slid", "slide");
-		verbs.put("slung", "sling");
-		verbs.put("slit", "slit");
-		verbs.put("smote", "smite");
-		verbs.put("smitten", "smite");
-		verbs.put("sowed", "sow");
-		verbs.put("sown", "sow");
-		verbs.put("spoke", "speak");
-		verbs.put("spoken", "speak");
-		verbs.put("sped", "speed");
-		verbs.put("spent", "spend");
-		verbs.put("spilled", "spill");
-		verbs.put("spilt", "spill");
-		verbs.put("spun", "spin");
-		verbs.put("spit", "spit");
-		verbs.put("spat", "spit");
-		verbs.put("split", "split");
-		verbs.put("spread", "spread");
-		verbs.put("sprang", "spring");
-		verbs.put("sprung", "spring");
-		verbs.put("stood", "stand");
-		verbs.put("stole", "steal");
-		verbs.put("stolen", "steal");
-		verbs.put("stuck", "stick");
-		verbs.put("stung", "sting");
-		verbs.put("stank", "stink");
-		verbs.put("stunk", "stink");
-		verbs.put("strod", "stride");
-		verbs.put("stridden", "stride");
-		verbs.put("struck", "strike");
-		verbs.put("strung", "string");
-		verbs.put("strove", "strive");
-		verbs.put("striven", "strive");
-		verbs.put("swore", "swear");
-		verbs.put("sworn", "swear");
-		verbs.put("swept", "sweep");
-		verbs.put("swelled", "swell");
-		verbs.put("swollen", "swell");
-		verbs.put("swam", "swim");
-		verbs.put("swum", "swim");
-		verbs.put("swung", "swing");
-		verbs.put("took", "take");
-		verbs.put("taken", "take");
-		verbs.put("taught", "teach");
-		verbs.put("tore", "tear");
-		verbs.put("torn", "tear");
-		verbs.put("told", "tell");
-		verbs.put("thought", "think");
-		verbs.put("thrived", "thrive");
-		verbs.put("throve", "thrive");
-		verbs.put("threw", "throw");
-		verbs.put("thrown", "throw");
-		verbs.put("thrust", "thrust");
-		verbs.put("trod", "tread");
-		verbs.put("trodden", "tread");
-		verbs.put("understood", "understand");
-		verbs.put("upheld", "uphold");
-		verbs.put("upset", "upset");
-		verbs.put("woke", "wake");
-		verbs.put("woken", "wake");
-		verbs.put("wore", "wear");
-		verbs.put("worn", "wear");
-		verbs.put("weaved", "weave");
-		verbs.put("wove", "weave");
-		verbs.put("woven", "weave");
-		verbs.put("wed", "wed");
-		verbs.put("wept", "weep");
-		verbs.put("wound", "wind");
-		verbs.put("won", "win");
-		verbs.put("withheld", "withhold");
-		verbs.put("withstood", "withstand");
-		verbs.put("wrung", "wring");
-		verbs.put("wrote", "write");
-		verbs.put("written", "write");
-		
-		
-		nouns = new Hashtable<String, String>();
-		nouns.put("alumni", "alumnus");
-		nouns.put("analyses", "analysis");
-		nouns.put("antennae", "antenna");
-		nouns.put("antennas", "antenna");
-		nouns.put("appendices", "appendix");
-		nouns.put("axes", "axis");
-		nouns.put("bacteria", "bacterium");
-		nouns.put("bases", "basis");
-		nouns.put("beaux", "beau");
-		nouns.put("bureaux", "bureau");
-		nouns.put("bureaus", "bureau");
-		nouns.put("children", "child");
-		nouns.put("corpora", "corpus");
-		nouns.put("corpuses", "corpus");
-		nouns.put("crises", "crisis");
-		nouns.put("criteria", "criterion");
-		nouns.put("curricula", "curriculum");
-		nouns.put("data", "datum");
-		nouns.put("deer", "deer");
-		nouns.put("diagnoses", "diagnosis");
-		nouns.put("ellipses", "ellipsis");
-		nouns.put("fish", "fish");
-		nouns.put("foci", "focus");
-		nouns.put("focuses", "focus");
-		nouns.put("feet", "foot");
-		nouns.put("formulae", "formula");
-		nouns.put("formulas", "formula");
-		nouns.put("fungi", "fungus");
-		nouns.put("funguses", "fungus");
-		nouns.put("genera", "genus");
-		nouns.put("geese", "goose");
-		nouns.put("hypotheses", "hypothesis");
-		nouns.put("indices/indexes", "index");
-		nouns.put("lice", "louse");
-		nouns.put("men", "man");
-		nouns.put("matrices", "matrix");
-		nouns.put("means", "means");
-		nouns.put("media", "medium");
-		nouns.put("mice", "mouse");
-		nouns.put("nebulae", "nebula");
-		nouns.put("nuclei", "nucleus");
-		nouns.put("oases", "oasis");
-		nouns.put("oxen", "ox");
-		nouns.put("paralyses", "paralysis");
-		nouns.put("parentheses", "parenthesis");
-		nouns.put("phenomena", "phenomenon");
-		nouns.put("radii", "radius");
-		nouns.put("series", "series");
-		nouns.put("sheep", "sheep");
-		nouns.put("species", "species");
-		nouns.put("stimuli", "stimulus");
-		nouns.put("strata", "stratum");
-		nouns.put("syntheses", "synthesis");
-		nouns.put("synopses", "synopsis");
-		nouns.put("tableaux", "tableau");
-		nouns.put("theses", "thesis");
-		nouns.put("teeth", "tooth");
-		nouns.put("vertebrae", "vertebra");
-		nouns.put("vitae", "vita");
-		nouns.put("women", "woman");
-	}
-	
+
+	private static ImmutableMap<String, String> verbs = ImmutableMap.<String, String> builder().put("awoke", "awake")
+			.put("awoken", "awake").put("was", "be").put("were", "be").put("been", "be").put("bore", "bear")
+			.put("born", "bear").put("beat", "beat").put("became", "become").put("become", "become")
+			.put("began", "begin").put("begun", "begin").put("bent", "bend").put("beset", "beset").put("bet", "bet")
+			.put("bid", "bid").put("bade", "bid").put("bidden", "bid").put("bound", "bind").put("bit", "bite")
+			.put("bitten", "bite").put("bled", "bleed").put("blew", "blow").put("blown", "blow").put("broke", "break")
+			.put("broken", "break").put("bred", "breed").put("brought", "bring").put("broadcast", "broadcast")
+			.put("built", "build").put("burned", "burn").put("burnt", "burn").put("burst", "burst")
+			.put("bought", "buy").put("cast", "cast").put("caught", "catch").put("chose", "choose")
+			.put("chosen", "choose").put("clung", "cling").put("came", "come").put("come", "come").put("cost", "cost")
+			.put("crept", "creep").put("cut", "cut").put("dealt", "deal").put("dug", "dig").put("dived", "dive")
+			.put("dove", "dive").put("did", "do").put("done", "do").put("drew", "draw").put("drawn", "draw")
+			.put("dreamed", "dream").put("dreamt", "dream").put("drove", "drive").put("driven", "drive")
+			.put("drank", "drink").put("drunk", "drink").put("ate", "eat").put("eaten", "eat").put("fell", "fall")
+			.put("fallen", "fall").put("fed", "feed").put("felt", "feel").put("fought", "fight").put("found", "find")
+			.put("fit", "fit").put("fled", "flee").put("flung", "fling").put("flew", "fly").put("flown", "fly")
+			.put("forbade", "forbid").put("forbidden", "forbid").put("forgot", "forget").put("forgotten", "forget")
+			.put("forewent", "forego").put("foregone", "forego").put("forgave", "forgive").put("forgiven", "forgive")
+			.put("forsook", "forsake").put("forsaken", "forsake").put("froze", "freeze").put("frozen", "freeze")
+			.put("got", "get").put("gotten", "get").put("gave", "give").put("given", "give").put("went", "go")
+			.put("gone", "go").put("ground", "grind").put("grew", "grow").put("grown", "grow").put("hung", "hang")
+			.put("heard", "hear").put("hid", "hide").put("hidden", "hide").put("hit", "hit").put("held", "hold")
+			.put("hurt", "hurt").put("kept", "keep").put("knelt", "kneel").put("knit", "knit").put("knew", "know")
+			.put("know", "know").put("laid", "lay").put("led", "lead").put("leaped", "leap").put("leapt", "leap")
+			.put("learned", "learn").put("learnt", "learn").put("left", "leave").put("lent", "lend").put("let", "let")
+			.put("lay", "lie").put("lain", "lie").put("lighted", "light").put("lit", "light").put("lost", "lose")
+			.put("made", "make").put("meant", "mean").put("met", "meet").put("misspelled", "misspell")
+			.put("misspelt", "misspell").put("mistook", "mistake").put("mistaken", "mistake").put("mowed", "mow")
+			.put("mown", "mow").put("overcame", "overcome").put("overcome", "overcome").put("overdid", "overdo")
+			.put("overdone", "overdo").put("overtook", "overtake").put("overtaken", "overtake")
+			.put("overthrew", "overthrow").put("overthrown", "overthrow").put("paid", "pay").put("pled", "plead")
+			.put("proved", "prove").put("proven", "prove").put("put", "put").put("quit", "quit").put("read", "read")
+			.put("rid", "rid").put("rode", "ride").put("ridden", "ride").put("rang", "ring").put("rung", "ring")
+			.put("rose", "rise").put("risen", "rise").put("ran", "run").put("run", "run").put("sawed", "saw")
+			.put("sawn", "saw").put("said", "say").put("saw", "see").put("seen", "see").put("sought", "seek")
+			.put("sold", "sell").put("sent", "send").put("set", "set").put("sewed", "sew").put("sewn", "sew")
+			.put("shook", "shake").put("shaken", "shake").put("shaved", "shave").put("shaven", "shave")
+			.put("shore", "shear").put("shorn", "shear").put("shed", "shed").put("shone", "shine").put("shoed", "shoe")
+			.put("shod", "shoe").put("shot", "shoot").put("showed", "show").put("shown", "show")
+			.put("shrank", "shrink").put("shrunk", "shrink").put("shut", "shut").put("sang", "sing")
+			.put("sung", "sing").put("sank", "sink").put("sunk", "sink").put("sat", "sit").put("slept", "sleep")
+			.put("slew", "slay").put("slain", "slay").put("slid", "slide").put("slung", "sling").put("slit", "slit")
+			.put("smote", "smite").put("smitten", "smite").put("sowed", "sow").put("sown", "sow").put("spoke", "speak")
+			.put("spoken", "speak").put("sped", "speed").put("spent", "spend").put("spilled", "spill")
+			.put("spilt", "spill").put("spun", "spin").put("spit", "spit").put("spat", "spit").put("split", "split")
+			.put("spread", "spread").put("sprang", "spring").put("sprung", "spring").put("stood", "stand")
+			.put("stole", "steal").put("stolen", "steal").put("stuck", "stick").put("stung", "sting")
+			.put("stank", "stink").put("stunk", "stink").put("strod", "stride").put("stridden", "stride")
+			.put("struck", "strike").put("strung", "string").put("strove", "strive").put("striven", "strive")
+			.put("swore", "swear").put("sworn", "swear").put("swept", "sweep").put("swelled", "swell")
+			.put("swollen", "swell").put("swam", "swim").put("swum", "swim").put("swung", "swing").put("took", "take")
+			.put("taken", "take").put("taught", "teach").put("tore", "tear").put("torn", "tear").put("told", "tell")
+			.put("thought", "think").put("thrived", "thrive").put("throve", "thrive").put("threw", "throw")
+			.put("thrown", "throw").put("thrust", "thrust").put("trod", "tread").put("trodden", "tread")
+			.put("understood", "understand").put("upheld", "uphold").put("upset", "upset").put("woke", "wake")
+			.put("woken", "wake").put("wore", "wear").put("worn", "wear").put("weaved", "weave").put("wove", "weave")
+			.put("woven", "weave").put("wed", "wed").put("wept", "weep").put("wound", "wind").put("won", "win")
+			.put("withheld", "withhold").put("withstood", "withstand").put("wrung", "wring").put("wrote", "write")
+			.put("written", "write").build();
+	private static ImmutableMap<String, String> nouns = ImmutableMap.<String, String> builder().put("alumni", "alumnus")
+			.put("analyses", "analysis").put("antennae", "antenna").put("antennas", "antenna")
+			.put("appendices", "appendix").put("axes", "axis").put("bacteria", "bacterium").put("bases", "basis")
+			.put("beaux", "beau").put("bureaux", "bureau").put("bureaus", "bureau").put("children", "child")
+			.put("corpora", "corpus").put("corpuses", "corpus").put("crises", "crisis").put("criteria", "criterion")
+			.put("curricula", "curriculum").put("data", "datum").put("deer", "deer").put("diagnoses", "diagnosis")
+			.put("ellipses", "ellipsis").put("fish", "fish").put("foci", "focus").put("focuses", "focus")
+			.put("feet", "foot").put("formulae", "formula").put("formulas", "formula").put("fungi", "fungus")
+			.put("funguses", "fungus").put("genera", "genus").put("geese", "goose").put("hypotheses", "hypothesis")
+			.put("indices/indexes", "index").put("lice", "louse").put("men", "man").put("matrices", "matrix")
+			.put("means", "means").put("media", "medium").put("mice", "mouse").put("nebulae", "nebula")
+			.put("nuclei", "nucleus").put("oases", "oasis").put("oxen", "ox").put("paralyses", "paralysis")
+			.put("parentheses", "parenthesis").put("phenomena", "phenomenon").put("radii", "radius")
+			.put("series", "series").put("sheep", "sheep").put("species", "species").put("stimuli", "stimulus")
+			.put("strata", "stratum").put("syntheses", "synthesis").put("synopses", "synopsis")
+			.put("tableaux", "tableau").put("theses", "thesis").put("teeth", "tooth").put("vertebrae", "vertebra")
+			.put("vitae", "vita").put("women", "woman").build();
+
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
-		
+
 		EventSet ev = stemmer.createEventSet(text);
 		EventSet returnEv = new EventSet();
-		
-		for(Event event : ev) {
-			if(verbs.containsKey(event.toString())){
+
+		for (Event event : ev) {
+			if (verbs.containsKey(event.toString())) {
 				returnEv.addEvent(new Event(verbs.get(event.toString()), this));
-			}else if(nouns.containsKey(event.toString())){
+			} else if (nouns.containsKey(event.toString())) {
 				returnEv.addEvent(new Event(nouns.get(event.toString()), this));
-			}
-			else{
+			} else {
 				returnEv.addEvent(new Event(event.toString(), this));
 			}
 		}
-		
+
 		return returnEv;
 	}
 
@@ -399,7 +144,7 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 
 	@Override
 	public String tooltipText() {
-		
+
 		return "Word stems from the Porter Stemmer with ability to handle irregular nouns and verbs";
 	}
 
