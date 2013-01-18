@@ -1,10 +1,9 @@
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.LeaveKOutNGramEventDriver;
 
-public class LeaveKOutCharacterNGramEventDriver extends EventDriver {
+public class LeaveKOutCharacterNGramEventDriver extends LeaveKOutNGramEventDriver {
 
 	public LeaveKOutCharacterNGramEventDriver() {
 		addParams("K", "K", "1", new String[] { "1", "2", "3", "4", "5", "6",
@@ -36,15 +35,11 @@ public class LeaveKOutCharacterNGramEventDriver extends EventDriver {
 		return true;
 	}
 
-	private EventDriver driver = new LeaveKOutNGramEventDriver();
+	private CharacterEventDriver characterDriver = new CharacterEventDriver();
 	
 	@Override
-	public EventSet createEventSet(char[] text)
-			throws EventGenerationException {
-		driver.setParameter("N", getParameter("N"));
-		driver.setParameter("K", getParameter("K"));
-		driver.setParameter("underlyingEventDriver", "Characters");
-		return driver.createEventSet(text);
+	public EventSet createEventSet(char[] text) {
+		return transformEventSet(characterDriver.createEventSet(text), getParameter("k", 1), getParameter("n", 3));
 	}
 
 }

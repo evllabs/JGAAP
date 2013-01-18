@@ -1,51 +1,14 @@
-package com.jgaap.eventDrivers;
+package com.jgaap.generics;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 
-import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+public abstract class LeaveKOutNGramEventDriver extends EventDriver {
 
-public class LeaveKOutNGramEventDriver extends EventDriver {
-
-	private static Logger logger = Logger.getLogger("com.jgaap.eventDrivers.LeaveKOutNGramEventDriver");
-	
-	@Override
-	public String displayName() {
-		return "Leave KOut NGrams";
-	}
-
-	@Override
-	public String tooltipText() {
-		return "Leave K events out of grams of size N";
-	}
-
-	@Override
-	public boolean showInGUI() {
-		return false;
-	}
-
-	@Override
-	public EventSet createEventSet(char[] text)
-			throws EventGenerationException {
-		String eventDriverString = getParameter("underlyingEventDriver", "Words");
-		int n = getParameter("N", 3);
-		int k = getParameter("K", 1);
-		EventDriver underlyingEventDriver = null;
-		try {
-			underlyingEventDriver = EventDriverFactory.getEventDriver(eventDriverString);
-		} catch (Exception e) {
-			logger.error("Problem loading underlying EventDriver "+eventDriverString+".",e);
-			throw new EventGenerationException("Problem loading underlying EventDriver "+eventDriverString+".");
-		}
-		EventSet underlyingEventSet = underlyingEventDriver.createEventSet(text);
+	protected EventSet transformEventSet(EventSet underlyingEventSet, int k, int n) {
 		EventSet eventSet = new EventSet();
 		for (int i = 0; i < underlyingEventSet.size() - n; i++) {
 			List<String> currentEvents = new ArrayList<String>(n);
