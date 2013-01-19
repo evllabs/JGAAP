@@ -20,7 +20,6 @@ package com.jgaap.eventDrivers;
 import com.google.common.collect.ImmutableMap;
 import com.jgaap.backend.API;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
@@ -32,9 +31,7 @@ import com.jgaap.generics.EventSet;
  * 
  */
 
-public class PorterStemmerWithIrregularEventDriver extends EventDriver {
-
-	private PorterStemmerEventDriver stemmer = new PorterStemmerEventDriver();
+public class PorterStemmerWithIrregularEventDriver extends PorterStemmerEventDriver {
 
 	private static ImmutableMap<String, String> verbs = ImmutableMap.<String, String> builder().put("awoke", "awake")
 			.put("awoken", "awake").put("was", "be").put("were", "be").put("been", "be").put("bore", "bear")
@@ -115,17 +112,17 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
-
-		EventSet ev = stemmer.createEventSet(text);
+		EventSet ev = super.createEventSet(text);
 		EventSet returnEv = new EventSet();
 
 		for (Event event : ev) {
-			if (verbs.containsKey(event.toString())) {
-				returnEv.addEvent(new Event(verbs.get(event.toString()), this));
+			String current = event.toString();
+			if (verbs.containsKey(current)) {
+				returnEv.addEvent(new Event(verbs.get(current), this));
 			} else if (nouns.containsKey(event.toString())) {
-				returnEv.addEvent(new Event(nouns.get(event.toString()), this));
+				returnEv.addEvent(new Event(nouns.get(current), this));
 			} else {
-				returnEv.addEvent(new Event(event.toString(), this));
+				returnEv.addEvent(event);
 			}
 		}
 
@@ -134,7 +131,7 @@ public class PorterStemmerWithIrregularEventDriver extends EventDriver {
 
 	@Override
 	public String displayName() {
-		return "Word stems w/o Irregular";
+		return "Word stems w/ Irregular";
 	}
 
 	@Override
