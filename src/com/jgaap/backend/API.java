@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -70,7 +71,7 @@ public class API {
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 	
-	private final int workers = Runtime.getRuntime().availableProcessors();
+	private ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
 	private static final API INSTANCE = new API();
 	
@@ -578,7 +579,6 @@ public class API {
 	 * @throws Exception
 	 */
 	private void loadCanonicizeEventify() throws Exception{
-		ExecutorService loadCanonicizeEventifyExecutor = Executors.newFixedThreadPool(workers);
 		List<Future<Document>> documentsProcessing = new ArrayList<Future<Document>>(documents.size());
 		for(final Document document : documents){
 			Callable<Document> work = new Callable<Document>() {
@@ -615,9 +615,8 @@ public class API {
 				}
 
 			};
-			documentsProcessing.add(loadCanonicizeEventifyExecutor.submit(work));
+			documentsProcessing.add(executor.submit(work));
 		}
-		loadCanonicizeEventifyExecutor.shutdown();
 
 		while(true){
 			if(documentsProcessing.size()==0){
@@ -642,24 +641,25 @@ public class API {
 	/**
 	 * Events are culled from EventSets across all Documents on a per EventDriver basis
 	 * @throws EventCullingException 
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
 	 */
-	private void cull() throws EventCullingException {
-		List<EventSet> eventSets = new ArrayList<EventSet>(documents.size());
-		ExecutorService cullerExecutor = Executors.newFixedThreadPool(workers);
+	private void cull() throws EventCullingException, InterruptedException, ExecutionException {
+		List<Future<EventDriver>> futureEventDrivers = new ArrayList<Future<EventDriver>>();
 		for (EventDriver eventDriver : eventDrivers) {
-			for (Document document : documents) {
-				eventSets.add(document.getEventSet(eventDriver));
-			}
-			for (EventCuller culler : eventDriver.getEventCullers()) {
-				culler.init(eventSets);
-			}
-			for(Document document : documents){
-				cullerExecutor.submit(new CullerWorker(document, eventDriver));
-			}
-			eventSets.clear();
+			futureEventDrivers.add(executor.submit(new Culling(eventDriver)));
 		}
-		cullerExecutor.shutdown();
-		while(!cullerExecutor.isTerminated()){};
+		while(futureEventDrivers.size() != 0) {
+			Iterator<Future<EventDriver>> iterator = futureEventDrivers.iterator();
+			while(iterator.hasNext()) {
+				Future<EventDriver> futureEventDriver = iterator.next();
+				if(futureEventDriver.isDone()){
+					EventDriver eventDriver = futureEventDriver.get();
+					logger.info("Finished Culling "+eventDriver.displayName());
+					iterator.remove();
+				}
+			}
+		}
 	}
 
 	/**
@@ -676,22 +676,28 @@ public class API {
 			}
 		}
 		for (AnalysisDriver analysisDriver : analysisDrivers) {
-			ExecutorService analysisExecutor = Executors.newFixedThreadPool(workers);
 			logger.info("Training " + analysisDriver.displayName());
 			analysisDriver.train(knownDocuments);
 			logger.info("Finished Training "+analysisDriver.displayName());
+			List<Future<Document>> futureDocuments = new ArrayList<Future<Document>>();
 			if (analysisDriver instanceof ValidationDriver) {
 				for (Document knownDocument : knownDocuments) {
-					analysisExecutor.submit(new AnalysisWorker(knownDocument, analysisDriver));
+					futureDocuments.add(executor.submit(new AnalysisWorker(knownDocument, analysisDriver)));
 				}
 			} else {
 				for (Document unknownDocument : unknownDocuments) {
-					analysisExecutor.submit(new AnalysisWorker(unknownDocument, analysisDriver));
+					futureDocuments.add(executor.submit(new AnalysisWorker(unknownDocument, analysisDriver)));
 				}
 			}
-			analysisExecutor.shutdown();
-			while(!analysisExecutor.isTerminated()){
-				//await analysis to finish
+			//await analysis to finish
+			while(futureDocuments.size() != 0){
+				Iterator<Future<Document>> iterator = futureDocuments.iterator();
+				while(iterator.hasNext()) {
+					Future<Document> futureDocument = iterator.next();
+					if(futureDocument.isDone()) {
+						iterator.remove();
+					}
+				}
 			}
 			logger.info("Finished Analysis with "+analysisDriver.displayName());
 		}
@@ -728,22 +734,49 @@ public class API {
 		}
 	}
 	
-	private class CullerWorker implements Callable<String> {
-		private Document document;
+	private class Culling implements Callable<EventDriver> {
 		private EventDriver eventDriver;
 		
-		CullerWorker(Document document, EventDriver eventDriver) {
-			this.document = document;
+		Culling(EventDriver eventDriver) {
 			this.eventDriver = eventDriver;
 		}
 		
-		public String call() {
-			EventSet eventSet = document.getEventSet(eventDriver);
-			for(EventCuller culler : eventDriver.getEventCullers()){
-				eventSet = culler.cull(eventSet);
+		@Override
+		public EventDriver call() throws Exception {
+			List<EventSet> eventSets = new ArrayList<EventSet>();
+			for(Document document : documents){
+				eventSets.add(document.getEventSet(eventDriver));
 			}
-			document.addEventSet(eventDriver, eventSet);
-			return "Culled: "+document.toString()+" EventSet: "+eventDriver.displayName();
+			for(EventCuller culler : eventDriver.getEventCullers()) {
+				culler.init(eventSets);
+				List<Future<EventSet>> futureEventSets = new ArrayList<Future<EventSet>>(eventSets.size());
+				for(EventSet eventSet : eventSets) {
+					futureEventSets.add(executor.submit(new CullerWorker(eventSet, culler)));
+				}
+				eventSets.clear();
+				for(Future<EventSet> futureEventSet : futureEventSets) {
+					eventSets.add(futureEventSet.get());
+				}
+			}
+			for(int i = 0; i < documents.size(); i++) {
+				documents.get(i).addEventSet(eventDriver, eventSets.get(i));
+			}
+			return eventDriver;
+		}
+		
+	}
+	
+	private class CullerWorker implements Callable<EventSet> {
+		private EventSet eventSet;
+		private EventCuller culler;
+		
+		CullerWorker(EventSet eventSet, EventCuller culler) {
+			this.eventSet = eventSet;
+			this.culler = culler;
+		}
+		
+		public EventSet call() {
+			return culler.cull(eventSet);
 		}
 	}
 	
