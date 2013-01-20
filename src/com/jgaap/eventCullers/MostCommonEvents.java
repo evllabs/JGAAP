@@ -17,10 +17,12 @@
  */
 package com.jgaap.eventCullers;
 
+import com.google.common.collect.ImmutableSet;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCuller;
-import com.jgaap.generics.EventCullingException;
+import com.jgaap.generics.EventHistogram;
 import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Pair;
 
 import java.util.List;
 import java.util.Set;
@@ -32,19 +34,30 @@ public class MostCommonEvents extends EventCuller {
 
 
     public MostCommonEvents() {
-        super();
         addParams("numEvents", "N", "50", new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }, true);
     }
 
     @Override
-    public Set<Event> train(List<EventSet> eventSets) throws EventCullingException {
-
-        EventCuller underlyingCuller = new FrequencyRangeCuller();
-        underlyingCuller.setParameter("minPos", 0);
-        underlyingCuller.setParameter("numEvents", getParameter("numEvents", "50"));
-
-        return underlyingCuller.train(eventSets);  
-    }
+    public Set<Event> train(List<EventSet> eventSets) {
+		int numEvents = getParameter("numEvents", 50);
+		EventHistogram histogram = new EventHistogram();
+		for(EventSet eventSet : eventSets) {
+			for(Event event : eventSet) {
+				histogram.add(event);
+			}
+		}
+		List<Pair<Event, Integer>> eventFrequencies = histogram.getSortedHistogram();
+		ImmutableSet.Builder<Event> builder = ImmutableSet.builder();
+		int count = 0;
+		for(Pair<Event, Integer> eventPair : eventFrequencies) {
+			count++;
+			builder.add(eventPair.getFirst());
+			if(numEvents<=count) {
+				break;
+			}
+		}
+		return builder.build();
+	}
 
     @Override
     public String displayName() {
