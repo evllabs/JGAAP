@@ -613,7 +613,6 @@ public class API {
 					}
 					return document;
 				}
-
 			};
 			documentsProcessing.add(executor.submit(work));
 		}
@@ -701,7 +700,6 @@ public class API {
 			}
 			logger.info("Finished Analysis with "+analysisDriver.displayName());
 		}
-
 	}
 
 	/**
@@ -736,6 +734,7 @@ public class API {
 	
 	private class Culling implements Callable<EventDriver> {
 		private EventDriver eventDriver;
+		private ExecutorService cullingExecutor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		
 		Culling(EventDriver eventDriver) {
 			this.eventDriver = eventDriver;
@@ -751,19 +750,19 @@ public class API {
 				culler.init(eventSets);
 				List<Future<EventSet>> futureEventSets = new ArrayList<Future<EventSet>>(eventSets.size());
 				for(EventSet eventSet : eventSets) {
-					futureEventSets.add(executor.submit(new CullerWorker(eventSet, culler)));
+					futureEventSets.add(cullingExecutor.submit(new CullerWorker(eventSet, culler)));
 				}
 				eventSets.clear();
 				for(Future<EventSet> futureEventSet : futureEventSets) {
 					eventSets.add(futureEventSet.get());
 				}
 			}
+			cullingExecutor.shutdown();
 			for(int i = 0; i < documents.size(); i++) {
 				documents.get(i).addEventSet(eventDriver, eventSets.get(i));
 			}
 			return eventDriver;
 		}
-		
 	}
 	
 	private class CullerWorker implements Callable<EventSet> {
@@ -781,7 +780,6 @@ public class API {
 	}
 	
 	private class AnalysisWorker implements Callable<Document> {
-
 		private Document document;
 		private AnalysisDriver analysisDriver;
 		
