@@ -70,7 +70,7 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 		for (Entry<String, EventMap> knownEntry : knownCentroids.entrySet()) {
 			try {
 				double current = distance.distance(unknownEventMap, knownEntry.getValue());
-				logger.info(unknown.getTitle()+" ("+unknown.getFilePath()+")"+" -> "+knownEntry.getKey()+":"+current);
+				logger.debug(unknown.getTitle()+" ("+unknown.getFilePath()+")"+" -> "+knownEntry.getKey()+":"+current);
 				result.add(new Pair<String, Double>(knownEntry.getKey(), current, 2));
 			} catch (DistanceCalculationException e) {
 				logger.fatal("Distance " + distance.displayName() + " failed", e);
