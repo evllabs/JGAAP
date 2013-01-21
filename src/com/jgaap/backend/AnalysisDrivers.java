@@ -17,9 +17,12 @@
  */
 package com.jgaap.backend;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.generics.AnalysisDriver;
 /**
  * 
@@ -29,17 +32,38 @@ import com.jgaap.generics.AnalysisDriver;
  * @author Michael Ryan
  * @since 5.0.0
  */
-public class AnalysisDriverFactory {
+public class AnalysisDrivers {
 
-	private static final Map<String, AnalysisDriver> analysisDrivers = loadAnalysisDrivers();
+	private static final ImmutableList<AnalysisDriver> ANALYSIS_DRIVERS = loadAnalysisDrivers();
+	private static final ImmutableMap<String, AnalysisDriver> analysisDrivers = loadAnalysisDriversMap();
 	
-	private static Map<String, AnalysisDriver> loadAnalysisDrivers() {
-		// Load the classifiers dynamically
-		Map<String, AnalysisDriver>analysisDrivers = new HashMap<String, AnalysisDriver>();
-		for(AnalysisDriver analysisDriver: AnalysisDriver.getAnalysisDrivers()){
-			analysisDrivers.put(analysisDriver.displayName().toLowerCase(), analysisDriver);
+	/**
+	 * A read-only list of the AnalysisDrivers
+	 */
+	public static List<AnalysisDriver> getAnalysisDrivers() {
+		return ANALYSIS_DRIVERS;
+	}
+
+	private static ImmutableList<AnalysisDriver> loadAnalysisDrivers() {
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.classifiers", AnalysisDriver.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", AnalysisDriver.class)){
+			objects.addAll( AutoPopulate.findObjects("com.jgaap.classifiers", (Class<?>)tmp));
 		}
-		return analysisDrivers;
+		List<AnalysisDriver> analysisDrivers = new ArrayList<AnalysisDriver>(objects.size());
+		for (Object tmp : objects) {
+			analysisDrivers.add((AnalysisDriver) tmp);
+		}
+		Collections.sort(analysisDrivers);
+		return ImmutableList.copyOf(analysisDrivers);
+	}
+	
+	private static ImmutableMap<String, AnalysisDriver> loadAnalysisDriversMap() {
+		// Load the classifiers dynamically
+		ImmutableMap.Builder<String, AnalysisDriver> builder = ImmutableMap.builder();
+		for(AnalysisDriver analysisDriver: ANALYSIS_DRIVERS){
+			builder.put(analysisDriver.displayName().toLowerCase(), analysisDriver);
+		}
+		return builder.build();
 	}
 	
 	public static AnalysisDriver getAnalysisDriver(String action) throws Exception{

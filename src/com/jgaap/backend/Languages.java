@@ -29,7 +29,7 @@ import com.jgaap.generics.Language;
  * @since 5.0.0
  */
 
-public class LanguageFactory {
+public class Languages {
 
 	private static final Map<String, Language> languages = loadLanguages();
 	

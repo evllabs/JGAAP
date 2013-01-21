@@ -30,7 +30,7 @@ import com.jgaap.generics.DistanceFunction;
  * @since 5.0.0
  */
 
-public class DistanceFunctionFactory {
+public class DistanceFunctions {
 
 	private static final Map<String, DistanceFunction> distanceFunctions = loadDistanceFunctions();
 	

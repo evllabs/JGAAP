@@ -138,7 +138,7 @@ public class CLI {
 				} else if (command.equalsIgnoreCase("ec")) {
 					list.addAll(EventCuller.getEventCullers());
 				} else if (command.equalsIgnoreCase("a")) {
-					list.addAll(AnalysisDriver.getAnalysisDrivers());
+					list.addAll(AnalysisDrivers.getAnalysisDrivers());
 				} else if (command.equalsIgnoreCase("d")) {
 					list.addAll(DistanceFunction.getDistanceFunctions());
 				} else if (command.equalsIgnoreCase("lang")) {

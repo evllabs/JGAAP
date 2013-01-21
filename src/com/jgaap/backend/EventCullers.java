@@ -30,7 +30,7 @@ import java.util.Map;
  * @since 5.0.0
  */
 
-public class EventCullerFactory {
+public class EventCullers {
 
 	private static final Map<String, EventCuller> eventCullers = loadEventCullers();
 
