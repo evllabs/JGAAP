@@ -17,9 +17,12 @@
  */
 package com.jgaap.backend;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.generics.EventDriver;
 /**
  * 
@@ -32,15 +35,36 @@ import com.jgaap.generics.EventDriver;
 
 public class EventDrivers {
 
-	private static final Map<String, EventDriver> eventDrivers = loadEventDrivers();
+	private static final ImmutableList<EventDriver> EVENT_DRIVERS = loadEventDrivers();
+	private static final ImmutableMap<String, EventDriver> eventDrivers = loadEventDriversMap();
 	
-	private static Map<String, EventDriver> loadEventDrivers() {
-		// Load the event drivers dynamically
-		Map<String, EventDriver> eventDrivers = new HashMap<String, EventDriver>();
-		for(EventDriver eventDriver : EventDriver.getEventDrivers()){
-			eventDrivers.put(eventDriver.displayName().toLowerCase().trim(), eventDriver);
+	/**
+	 * A read-only list of the EventDrivers
+	 */
+	public static List<EventDriver> getEventDrivers() {
+		return EVENT_DRIVERS;
+	}
+
+	private static ImmutableList<EventDriver> loadEventDrivers() {
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.eventDrivers", EventDriver.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", EventDriver.class)){
+			objects.addAll(AutoPopulate.findObjects("com.jgaap.eventDrivers", (Class<?>) tmp));
 		}
-		return eventDrivers;
+		List<EventDriver> eventDrivers = new ArrayList<EventDriver>(objects.size());
+		for (Object tmp : objects) {
+			eventDrivers.add((EventDriver) tmp);
+		}
+		Collections.sort(eventDrivers);
+		return ImmutableList.copyOf(eventDrivers);
+	}
+	
+	private static ImmutableMap<String, EventDriver> loadEventDriversMap() {
+		// Load the event drivers dynamically
+		ImmutableMap.Builder<String, EventDriver> builder = ImmutableMap.builder();
+		for(EventDriver eventDriver : EVENT_DRIVERS){
+			builder.put(eventDriver.displayName().toLowerCase().trim(), eventDriver);
+		}
+		return builder.build();
 	}
 	
 	public static EventDriver getEventDriver(String action) throws Exception{

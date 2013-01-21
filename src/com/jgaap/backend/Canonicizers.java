@@ -17,9 +17,12 @@
  */
 package com.jgaap.backend;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.generics.Canonicizer;
 /**
  * 
@@ -30,16 +33,37 @@ import com.jgaap.generics.Canonicizer;
  */
 
 public class Canonicizers {
-
-	private static final Map<String, Canonicizer> canonicizers = loadCanonicizers();
 	
-	private static Map<String, Canonicizer> loadCanonicizers() {
+	private static final ImmutableList<Canonicizer> CANONICIZERS = loadCanonicizers();
+	private static final ImmutableMap<String, Canonicizer> canonicizers = loadCanonicizersMap();
+	
+	/**
+	 * A read-only list of the Canonicizers
+	 */
+	public static List<Canonicizer> getCanonicizers() {
+		return CANONICIZERS;
+	}
+
+	private static ImmutableList<Canonicizer> loadCanonicizers() {
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.canonicizers", Canonicizer.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", Canonicizer.class)){
+			objects.addAll(AutoPopulate.findObjects("com.jgaap.canonicizers", (Class<?>)tmp));
+		}
+		List<Canonicizer> canonicizers = new ArrayList<Canonicizer>(objects.size());
+		for (Object tmp : objects) {
+			canonicizers.add((Canonicizer)tmp);
+		}
+		Collections.sort(canonicizers);
+		return ImmutableList.copyOf(canonicizers);
+	}
+	
+	private static ImmutableMap<String, Canonicizer> loadCanonicizersMap() {
 		// Load the canonicizers dynamically
-		Map<String, Canonicizer> canonicizers = new HashMap<String, Canonicizer>();
-		for(Canonicizer canon : Canonicizer.getCanonicizers()){
-			canonicizers.put(canon.displayName().toLowerCase().trim(), canon);
+		ImmutableMap.Builder<String, Canonicizer> builder = ImmutableMap.builder();
+		for(Canonicizer canon : CANONICIZERS){
+			builder.put(canon.displayName().toLowerCase().trim(), canon);
 		}	
-		return canonicizers;
+		return builder.build();
 	}
 	
 	public static Canonicizer getCanonicizer(String action) throws Exception{
