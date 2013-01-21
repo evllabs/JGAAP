@@ -54,6 +54,7 @@ import org.apache.log4j.Logger;
 import com.jgaap.generics.*;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
+import com.jgaap.backend.AnalysisDrivers;
 import com.jgaap.backend.CSVIO;
 import com.jgaap.backend.Utils;
 
@@ -3598,7 +3599,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		EventDriverMasterList = new ArrayList<EventDriver>();
 		LanguagesMasterList = new ArrayList<Language>();
 
-		for (AnalysisDriver analysisDriver : AnalysisDriver.getAnalysisDrivers()) {
+		for (AnalysisDriver analysisDriver : AnalysisDrivers.getAnalysisDrivers()) {
 			if (analysisDriver.showInGUI())
 				AnalysisDriverMasterList.add(analysisDriver);
 		}

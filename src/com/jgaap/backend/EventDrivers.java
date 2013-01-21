@@ -20,41 +20,41 @@ package com.jgaap.backend;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.jgaap.generics.Canonicizer;
+import com.jgaap.generics.EventDriver;
 /**
  * 
- * Instances new Canonicizers based on display name.
+ * Instances new Event Drivers based on display name.
+ * If parameters are also passed in the form DisplayName|name:value|name:value they are added to the Event Driver before it is returned
  *
  * @author Michael Ryan
  * @since 5.0.0
  */
 
-public class CanonicizerFactory {
+public class EventDrivers {
 
-	private static final Map<String, Canonicizer> canonicizers = loadCanonicizers();
+	private static final Map<String, EventDriver> eventDrivers = loadEventDrivers();
 	
-	private static Map<String, Canonicizer> loadCanonicizers() {
-		// Load the canonicizers dynamically
-		Map<String, Canonicizer> canonicizers = new HashMap<String, Canonicizer>();
-		for(Canonicizer canon : Canonicizer.getCanonicizers()){
-			canonicizers.put(canon.displayName().toLowerCase().trim(), canon);
-		}	
-		return canonicizers;
+	private static Map<String, EventDriver> loadEventDrivers() {
+		// Load the event drivers dynamically
+		Map<String, EventDriver> eventDrivers = new HashMap<String, EventDriver>();
+		for(EventDriver eventDriver : EventDriver.getEventDrivers()){
+			eventDrivers.put(eventDriver.displayName().toLowerCase().trim(), eventDriver);
+		}
+		return eventDrivers;
 	}
 	
-	public static Canonicizer getCanonicizer(String action) throws Exception{
-		Canonicizer canonicizer;
+	public static EventDriver getEventDriver(String action) throws Exception{
+		EventDriver eventDriver;
 		String[] tmp = action.split("\\|", 2);
 		action = tmp[0].trim().toLowerCase();
-		if(canonicizers.containsKey(action)){
-			canonicizer = canonicizers.get(action).getClass().newInstance();
+		if(eventDrivers.containsKey(action)){
+			eventDriver = eventDrivers.get(action).getClass().newInstance();
 		}else{
-			throw new Exception("Canonicizer "+action+" not found!");
+			throw new Exception("Event Driver "+action+" not found!");
 		}
 		if(tmp.length > 1){
-			canonicizer.setParameters(tmp[1]);
+			eventDriver.setParameters(tmp[1]);
 		}
-		return canonicizer;
+		return eventDriver;
 	}
-	
 }
