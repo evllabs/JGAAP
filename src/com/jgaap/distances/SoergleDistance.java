@@ -43,8 +43,10 @@ public class SoergleDistance extends DistanceFunction {
 		double distance = 0.0, sumNumer = 0.0, sumDenom = 0.0;
 		
 		for(Event event : events){
-			sumNumer += Math.abs(unknownEventMap.relativeFrequency(event) - knownEventMap.relativeFrequency(event));
-			sumDenom += Math.max(unknownEventMap.relativeFrequency(event), knownEventMap.relativeFrequency(event));
+			double known = knownEventMap.relativeFrequency(event);
+			double unknown = unknownEventMap.relativeFrequency(event);
+			sumNumer += Math.abs(unknown - known);
+			sumDenom += Math.max(unknown, known);
 		}
 		distance = sumNumer / sumDenom;
 		
