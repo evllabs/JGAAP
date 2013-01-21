@@ -56,6 +56,11 @@ import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
 import com.jgaap.backend.AnalysisDrivers;
 import com.jgaap.backend.CSVIO;
+import com.jgaap.backend.Canonicizers;
+import com.jgaap.backend.DistanceFunctions;
+import com.jgaap.backend.EventCullers;
+import com.jgaap.backend.EventDrivers;
+import com.jgaap.backend.Languages;
 import com.jgaap.backend.Utils;
 
 import java.awt.Color;
@@ -3603,23 +3608,23 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			if (analysisDriver.showInGUI())
 				AnalysisDriverMasterList.add(analysisDriver);
 		}
-		for (Canonicizer canonicizer : Canonicizer.getCanonicizers()) {
+		for (Canonicizer canonicizer : Canonicizers.getCanonicizers()) {
 			if (canonicizer.showInGUI())
 				CanonicizerMasterList.add(canonicizer);
 		}
-		for (DistanceFunction distanceFunction : DistanceFunction.getDistanceFunctions()) {
+		for (DistanceFunction distanceFunction : DistanceFunctions.getDistanceFunctions()) {
 			if (distanceFunction.showInGUI())
 				DistanceFunctionsMasterList.add(distanceFunction);
 		}
-		for (EventCuller eventCuller : EventCuller.getEventCullers()) {
+		for (EventCuller eventCuller : EventCullers.getEventCullers()) {
 			if (eventCuller.showInGUI())
 				EventCullersMasterList.add(eventCuller);
 		}
-		for (EventDriver eventDriver : EventDriver.getEventDrivers()) {
+		for (EventDriver eventDriver : EventDrivers.getEventDrivers()) {
 			if (eventDriver.showInGUI())
 				EventDriverMasterList.add(eventDriver);
 		}
-		for (Language language : Language.getLanguages()) {
+		for (Language language : Languages.getLanguages()) {
 			if (language.showInGUI())
 				LanguagesMasterList.add(language);
 		}

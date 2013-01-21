@@ -17,12 +17,6 @@
  */
 package com.jgaap.generics;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import com.jgaap.backend.AutoPopulate;
-
 /**
  * Class for canonicizers. As an abstract class, can only be instantiated
  * through subclasses. Legacy code inherited from WAY back.
@@ -31,8 +25,6 @@ import com.jgaap.backend.AutoPopulate;
  * @since 1.0
  */
 public abstract class Canonicizer extends Parameterizable implements Comparable<Canonicizer>, Displayable {
-	
-	private static List<Canonicizer> CANONICIZERS;
 	
     public String longDescription() { return tooltipText(); }
 	
@@ -58,8 +50,7 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
     /**
      * Generic canonicizer method (abstract). Process a document to convert it
      * from one form to another or to normalize/canonicize in some way, such as
-     * stripping HTML, regularizing spelling, or normalizing whitespace. Legacy
-     * code from WAY back.
+     * stripping HTML, regularizing spelling, or normalizing whitespace.
      * 
      * @since 1.0
      * @param procText
@@ -68,7 +59,6 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
      */
 
     abstract public char[] process(char[] procText) throws CanonicizationException;
-
 
     /**
      * Get a String representation of this Canonicizer.
@@ -84,26 +74,4 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
     	return displayName().compareTo(o.displayName());
     }
 
-	/**
-	 * A read-only list of the Canonicizers
-	 */
-	public static List<Canonicizer> getCanonicizers() {
-		if(CANONICIZERS==null){
-			CANONICIZERS = Collections.unmodifiableList(loadCanonicizers());
-		}
-		return CANONICIZERS;
-	}
-
-	private static List<Canonicizer> loadCanonicizers() {
-		List<Object> objects = AutoPopulate.findObjects("com.jgaap.canonicizers", Canonicizer.class);
-		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", Canonicizer.class)){
-			objects.addAll(AutoPopulate.findObjects("com.jgaap.canonicizers", (Class<?>)tmp));
-		}
-		List<Canonicizer> canonicizers = new ArrayList<Canonicizer>(objects.size());
-		for (Object tmp : objects) {
-			canonicizers.add((Canonicizer)tmp);
-		}
-		Collections.sort(canonicizers);
-		return canonicizers;
-	}
 }

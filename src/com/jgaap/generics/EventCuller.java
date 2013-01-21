@@ -17,13 +17,10 @@
  */
 package com.jgaap.generics;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
-import com.jgaap.backend.AutoPopulate;
 
 /**
  * Event Culling abstract parent class.
@@ -34,8 +31,6 @@ import com.jgaap.backend.AutoPopulate;
  * @since 5.0.0
  */
 public abstract class EventCuller extends Parameterizable implements Comparable<EventCuller>, Displayable {
-
-	private static List<EventCuller> EVENT_CULLERS;
 
 	private ImmutableSet<Event> events;
 	
@@ -62,26 +57,4 @@ public abstract class EventCuller extends Parameterizable implements Comparable<
     	return displayName().compareTo(o.displayName());
     }
     
-	/**
-	 * A read-only list of the EventCullers
-	 */
-	public static List<EventCuller> getEventCullers() {
-		if(EVENT_CULLERS == null){
-			 EVENT_CULLERS = Collections.unmodifiableList(loadEventCullers());
-		}
-		return EVENT_CULLERS;
-	}
-
-	private static List<EventCuller> loadEventCullers() {
-		List<Object> objects = AutoPopulate.findObjects("com.jgaap.eventCullers", EventCuller.class);
-		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", EventCuller.class)){
-			objects.addAll(AutoPopulate.findObjects("com.jgaap.eventCullers", (Class<?>)tmp));
-		}
-		List<EventCuller> cullers = new ArrayList<EventCuller>(objects.size());
-		for (Object tmp : objects) {
-			cullers.add((EventCuller) tmp);
-		}
-		Collections.sort(cullers);
-		return cullers;
-	}
 }

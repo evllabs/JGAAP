@@ -17,9 +17,12 @@
  */
 package com.jgaap.backend;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.generics.DistanceFunction;
 /**
  * 
@@ -32,15 +35,36 @@ import com.jgaap.generics.DistanceFunction;
 
 public class DistanceFunctions {
 
-	private static final Map<String, DistanceFunction> distanceFunctions = loadDistanceFunctions();
+	private static final ImmutableList<DistanceFunction> DISTANCE_FUNCTIONS = loadDistanceFunctions();
+	private static final ImmutableMap<String, DistanceFunction> distanceFunctions = loadDistanceFunctionsMap();
 	
-	private static Map<String, DistanceFunction> loadDistanceFunctions() {
-		// Load the distance functions dynamically
-		Map<String, DistanceFunction>distanceFunctions = new HashMap<String, DistanceFunction>();
-		for(DistanceFunction distanceFunction: DistanceFunction.getDistanceFunctions()){
-			distanceFunctions.put(distanceFunction.displayName().toLowerCase().trim(), distanceFunction);
+	/**
+	 * A read-only list of the DistanceFunctions
+	 */
+	public static List<DistanceFunction> getDistanceFunctions() {
+		return DISTANCE_FUNCTIONS;
+	}
+
+	private static ImmutableList<DistanceFunction> loadDistanceFunctions() {
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.distances", DistanceFunction.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", DistanceFunction.class)){
+			objects.addAll(AutoPopulate.findObjects("com.jgaap.distances", (Class<?>)tmp));
 		}
-		return distanceFunctions;
+		List<DistanceFunction> distances = new ArrayList<DistanceFunction>(objects.size());
+		for (Object tmpD : objects) {
+			distances.add((DistanceFunction) tmpD);
+		}
+		Collections.sort(distances);
+		return ImmutableList.copyOf(distances);
+	}
+	
+	private static ImmutableMap<String, DistanceFunction> loadDistanceFunctionsMap() {
+		// Load the distance functions dynamically
+		ImmutableMap.Builder<String, DistanceFunction> builder = ImmutableMap.builder();
+		for(DistanceFunction distanceFunction: DISTANCE_FUNCTIONS){
+			builder.put(distanceFunction.displayName().toLowerCase().trim(), distanceFunction);
+		}
+		return builder.build();
 	}
 	
 	public static DistanceFunction getDistanceFunction(String action) throws Exception{

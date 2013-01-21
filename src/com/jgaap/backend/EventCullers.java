@@ -17,10 +17,13 @@
  */
 package com.jgaap.backend;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.generics.EventCuller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Instances new Event Cullers based on display name.
@@ -32,15 +35,36 @@ import java.util.Map;
 
 public class EventCullers {
 
-	private static final Map<String, EventCuller> eventCullers = loadEventCullers();
+	private static final ImmutableList<EventCuller> EVENT_CULLERS = loadEventCullers();
+	private static final ImmutableMap<String, EventCuller> eventCullers = loadEventCullersMap();
 
-	private static Map<String, EventCuller> loadEventCullers() {
-		// Load the classifiers dynamically
-		Map<String, EventCuller> eventCullers = new HashMap<String, EventCuller>();
-		for(EventCuller eventCuller: EventCuller.getEventCullers()){
-			eventCullers.put(eventCuller.displayName().toLowerCase().trim(), eventCuller);
+	/**
+	 * A read-only list of the EventCullers
+	 */
+	public static List<EventCuller> getEventCullers() {
+		return EVENT_CULLERS;
+	}
+
+	private static ImmutableList<EventCuller> loadEventCullers() {
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.eventCullers", EventCuller.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", EventCuller.class)){
+			objects.addAll(AutoPopulate.findObjects("com.jgaap.eventCullers", (Class<?>)tmp));
 		}
-		return eventCullers;
+		List<EventCuller> cullers = new ArrayList<EventCuller>(objects.size());
+		for (Object tmp : objects) {
+			cullers.add((EventCuller) tmp);
+		}
+		Collections.sort(cullers);
+		return ImmutableList.copyOf(cullers);
+	}
+	
+	private static ImmutableMap<String, EventCuller> loadEventCullersMap() {
+		// Load the classifiers dynamically
+		ImmutableMap.Builder<String, EventCuller> builder = ImmutableMap.builder();
+		for(EventCuller eventCuller: EVENT_CULLERS){
+			builder.put(eventCuller.displayName().toLowerCase().trim(), eventCuller);
+		}
+		return builder.build();
 	}
 
 	public static EventCuller getEventCuller(String action) throws Exception{
