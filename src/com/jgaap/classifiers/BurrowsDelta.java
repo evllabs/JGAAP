@@ -1,14 +1,14 @@
 package com.jgaap.classifiers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.ImmutableSet;
 import com.jgaap.backend.Utils;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Document;
@@ -18,11 +18,11 @@ import com.jgaap.generics.Pair;
 
 public class BurrowsDelta extends AnalysisDriver {
 
-	private Set<Event> events;
-	private Map<String,List<EventMap>> knownHistograms;
-	private Map<String,EventMap> knownCentroids;
+	private ImmutableSet<Event> events;
+	private ImmutableMultimap<String, EventMap> knownHistograms;
+	private ImmutableMap<String,EventMap> knownCentroids;
 	private boolean useCentroid;
-	private Map<Event, Double> eventStddev;
+	private ImmutableMap<Event, Double> eventStddev;
 
 	public BurrowsDelta() {
 		addParams("centroid", "Centroid Model", "false", new String[] { "true", "false" }, false);
@@ -45,26 +45,24 @@ public class BurrowsDelta extends AnalysisDriver {
 
 	public void train(List<Document> knowns) {
 		useCentroid = "true".equalsIgnoreCase(getParameter("centroid"));
-		events = new HashSet<Event>();
-		knownHistograms = new HashMap<String, List<EventMap>>();
+		ImmutableSet.Builder<Event> eventsBuilder = ImmutableSet.builder();
+		ImmutableMultimap.Builder<String, EventMap> knownHistogramsBuilder = ImmutableMultimap.builder();
 		for (Document known : knowns) {
 			EventMap eventMap = new EventMap(known);
-			events.addAll(eventMap.uniqueEvents());
-			List<EventMap> eventMaps = knownHistograms.get(known.getAuthor());
-			if (eventMaps == null) {
-				eventMaps = new ArrayList<EventMap>();
-				knownHistograms.put(known.getAuthor(), eventMaps);
-			}
-			eventMaps.add(eventMap);
+			eventsBuilder.addAll(eventMap.uniqueEvents());
+			knownHistogramsBuilder.put(known.getAuthor(), eventMap);
 		}
-
-		eventStddev = new HashMap<Event, Double>();
+		events = eventsBuilder.build();
+		knownHistograms = knownHistogramsBuilder.build();
+		
+		ImmutableMap.Builder<Event, Double> eventStddevBuilder = ImmutableMap.builder();
 
 		if (useCentroid) {
-			knownCentroids = new HashMap<String, EventMap>();
-			for (Entry<String, List<EventMap>> entry : knownHistograms.entrySet()) {
-				knownCentroids.put(entry.getKey(), EventMap.centroid(entry.getValue()));
+			ImmutableMap.Builder<String, EventMap> knownCentroidsBuilder = ImmutableMap.builder();
+			for (Entry<String, Collection<EventMap>> entry : knownHistograms.asMap().entrySet()) {
+				knownCentroidsBuilder.put(entry.getKey(), EventMap.centroid(entry.getValue()));
 			}
+			knownCentroids = knownCentroidsBuilder.build();
 			for (Event event : events) {
 				List<Double> sample = new ArrayList<Double>();
 				for (EventMap histogram : knownCentroids.values()) {
@@ -75,19 +73,20 @@ public class BurrowsDelta extends AnalysisDriver {
 						sample.add(value);
 					}
 				}
-				eventStddev.put(event, Utils.stddev(sample));
+				eventStddevBuilder.put(event, Utils.stddev(sample));
 			}
 		} else {
 			for (Event event : events) {
 				List<Double> sample = new ArrayList<Double>();
-				for (List<EventMap> histograms : knownHistograms.values()) {
+				for (Collection<EventMap> histograms : knownHistograms.asMap().values()) {
 					for (EventMap histogram : histograms) {
 						sample.add(histogram.relativeFrequency(event));
 					}
 				}
-				eventStddev.put(event, Utils.stddev(sample));
+				eventStddevBuilder.put(event, Utils.stddev(sample));
 			}
 		}
+		eventStddev = eventStddevBuilder.build();
 	}
 
 	/**
@@ -111,7 +110,7 @@ public class BurrowsDelta extends AnalysisDriver {
 				results.add(new Pair<String, Double>(entry.getKey(), delta,2));
 			}
 		} else {
-			for (Entry<String, List<EventMap>> entry : knownHistograms.entrySet()) {
+			for (Entry<String, Collection<EventMap>> entry : knownHistograms.asMap().entrySet()) {
 				for (EventMap histogram : entry.getValue()) {
 					double delta = 0.0;
 					for (Event event : events) {
