@@ -57,10 +57,10 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 				EventBagging eventBag = authorBags.get(knownDocument.getAuthor());
 				if (eventBag == null) {
 					eventBag = new EventBagging(eventSet);
+					authorBags.put(knownDocument.getAuthor(), eventBag);
 				} else {
 					eventBag.addAll(eventSet);
 				}
-				authorBags.put(knownDocument.getAuthor(), eventBag);
 			}
 		}
 		int samples = getParameter("samples", 5);

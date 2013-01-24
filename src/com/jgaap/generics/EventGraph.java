@@ -39,10 +39,10 @@ public class EventGraph {
 			Set<Event> children = root.get(eventSet.eventAt(i));
 			if(children == null){
 				children = new HashSet<Event>();
+				root.put(eventSet.eventAt(i), children);
 			}
 			if(i+1<eventSet.size())
 				children.add(eventSet.eventAt(i+1));
-			root.put(eventSet.eventAt(i), children);
 		}
 	}
 
