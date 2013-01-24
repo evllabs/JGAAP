@@ -20,6 +20,8 @@
  */
 package com.jgaap.classifiers;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
@@ -46,9 +48,9 @@ import org.jscience.mathematics.vector.*;
  */
 public class MahalanobisDistance extends AnalysisDriver {
 
-	private Set<Event> events;
+	private ImmutableSet<Event> events;
 	private Matrix<Float64> inverseCovarianceMatrix;
-	private Map<Document,EventMap> knownHistograms;
+	private ImmutableMap<Document,EventMap> knownHistograms;
 	
 	public String displayName() {
 		return "Mahalanobis Distance";
@@ -63,15 +65,17 @@ public class MahalanobisDistance extends AnalysisDriver {
 	}
 
 	public void train(List<Document> knowns){
-		events = new HashSet<Event>();
-		knownHistograms = new HashMap<Document, EventMap>();
+		ImmutableSet.Builder<Event> eventsBuilder = ImmutableSet.builder();
+		ImmutableMap.Builder<Document, EventMap> knownHistogramsBuilder = ImmutableMap.builder();
 		List<EventMap> histograms = new ArrayList<EventMap>(knowns.size());
 		for(Document known : knowns){
 			EventMap histogram = new EventMap(known);
-			events.addAll(histogram.uniqueEvents());
+			eventsBuilder.addAll(histogram.uniqueEvents());
 			histograms.add(histogram);
-			knownHistograms.put(known, histogram);
+			knownHistogramsBuilder.put(known, histogram);
 		}
+		events = eventsBuilder.build();
+		knownHistograms = knownHistogramsBuilder.build();
 		EventMap mu = EventMap.centroid(histograms);
 		double[][] s = new double[events.size()][events.size()];
 		int i = 0;
