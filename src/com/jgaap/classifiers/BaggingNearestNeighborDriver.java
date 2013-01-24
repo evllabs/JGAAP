@@ -1,6 +1,7 @@
 package com.jgaap.classifiers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.ImmutableMultimap;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Document;
@@ -23,7 +25,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 	private static Logger logger = Logger
 			.getLogger("com.jgaap.classifiers.BaggingNearestNeighborDriver");
 
-	private Map<String,List<EventMap>> authorHistograms;
+	private ImmutableMultimap<String,EventMap> authorHistograms;
 
 	public BaggingNearestNeighborDriver() {
 		addParams("Samples", "Samples", "5", new String[] { "1", "5", "10",
@@ -65,7 +67,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 		}
 		int samples = getParameter("samples", 5);
 		int sampleSize = getParameter("sampleSize", 500);
-		authorHistograms = new HashMap<String, List<EventMap>>();
+		ImmutableMultimap.Builder<String, EventMap> authorHistogramsBuilder = ImmutableMultimap.builder();
 		for (Entry<String, EventBagging> entry : authorBags.entrySet()) {
 			List<EventMap> histograms = new ArrayList<EventMap>(samples);
 			for (int i = 0; i < samples; i++) {
@@ -76,8 +78,9 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 				EventMap histogram = new EventMap(eventSet);
 				histograms.add(histogram);
 			}
-			authorHistograms.put(entry.getKey(), histograms);
+			authorHistogramsBuilder.putAll(entry.getKey(), histograms);
 		}
+		authorHistograms = authorHistogramsBuilder.build();
 	}
 
 	@Override
@@ -89,7 +92,7 @@ public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 			unknownEventSet.addEvents(eventSet);
 		}
 		EventMap unknownHistogram = new EventMap(unknownEventSet);
-		for (Entry<String, List<EventMap>> entry : authorHistograms.entrySet()) {
+		for (Entry<String, Collection<EventMap>> entry : authorHistograms.asMap().entrySet()) {
 			for (EventMap knownHistogram : entry.getValue()) {
 				try {
 					rawResults.add(new Pair<String, Double>(entry.getKey(), distance.distance(unknownHistogram, knownHistogram), 2));
