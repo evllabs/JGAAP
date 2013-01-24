@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.ImmutableList;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.Document;
@@ -41,7 +42,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 
 	private Logger logger = Logger.getLogger(NearestNeighborDriver.class);
 	
-	private List<Pair<Document, EventMap>> knowns;
+	private ImmutableList<Pair<Document, EventMap>> knowns;
 	
 	public String displayName() {
 		return "Nearest Neighbor Driver" + getDistanceName();
@@ -56,10 +57,11 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 	
 	public void train(List<Document> knowns){
-		this.knowns = new ArrayList<Pair<Document,EventMap>>(knowns.size());
+		ImmutableList.Builder<Pair<Document, EventMap>> builder = ImmutableList.builder();
 		for(Document known : knowns) {
-			this.knowns.add(new Pair<Document, EventMap>(known, new EventMap(known)));
+			builder.add(new Pair<Document, EventMap>(known, new EventMap(known)));
 		}
+		this.knowns = builder.build();
 	}
 
 	@Override
