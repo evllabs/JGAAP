@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.Document;
@@ -37,7 +38,7 @@ import com.jgaap.generics.Pair;
 public class ThinXent extends AnalysisDriver {
 
 	private int windowSize;
-	private Map<String, EventGraph> eventGraphs;
+	private ImmutableMap<String, EventGraph> eventGraphs;
 	private boolean authorModel;
 	
 	public ThinXent() {
@@ -93,18 +94,21 @@ public class ThinXent extends AnalysisDriver {
 	@Override
 	public void train(List<Document> knownDocuments) throws AnalyzeException {
 		windowSize = getParameter("windowSize", 15);
-		authorModel = getParameter("model").equalsIgnoreCase("author");
-		eventGraphs = new HashMap<String, EventGraph>();
+		authorModel = getParameter("model").equalsIgnoreCase("author");		
+		Map<String, EventGraph.Builder> graphBuilderMap = new HashMap<String, EventGraph.Builder>();
 		for(Document document : knownDocuments){
-			EventGraph eventGraph = eventGraphs.get(identifier(document));
-			if(eventGraph == null){
-				eventGraph = new EventGraph();
-				eventGraphs.put(identifier(document), eventGraph);
+			EventGraph.Builder builder = graphBuilderMap.get(identifier(document));
+			if(builder == null){
+				builder = EventGraph.builder();
+				graphBuilderMap.put(identifier(document), builder);
 			}
-			for(EventSet eventSet : document.getEventSets().values()){
-				eventGraph.add(eventSet);
-			}
+			builder.add(document.getEventSets().values());
 		}
+		ImmutableMap.Builder<String, EventGraph> builder = ImmutableMap.builder();
+		for(Map.Entry<String, EventGraph.Builder> entry : graphBuilderMap.entrySet()) {
+			builder.put(entry.getKey(), entry.getValue().build());
+		}
+		eventGraphs = builder.build();
 	}
 
 	@Override
