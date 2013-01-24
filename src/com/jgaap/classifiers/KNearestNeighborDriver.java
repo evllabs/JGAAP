@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.ImmutableList;
 import com.jgaap.backend.Ballot;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
@@ -44,7 +45,7 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 
 	static private Logger logger = Logger.getLogger(KNearestNeighborDriver.class);
 	
-	private List<Pair<Document, EventMap>> knowns;
+	private ImmutableList<Pair<Document, EventMap>> knowns;
 	
     private static final int DEFAULT_K = 5;
     private static final String DEFAULT_TIE = "lastPicked";
@@ -62,10 +63,11 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 	
 	public void train(List<Document> knowns){
-		this.knowns = new ArrayList<Pair<Document,EventMap>>(knowns.size());
+		ImmutableList.Builder<Pair<Document, EventMap>> builder = ImmutableList.builder();
 		for(Document known : knowns) {
-			this.knowns.add(new Pair<Document, EventMap>(known, new EventMap(known)));
+			builder.add(new Pair<Document, EventMap>(known, new EventMap(known)));
 		}
+		this.knowns = builder.build();
 	}
 
 	@Override
