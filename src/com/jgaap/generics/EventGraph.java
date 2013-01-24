@@ -1,9 +1,8 @@
 package com.jgaap.generics;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
+
+import com.google.common.collect.ImmutableSetMultimap;
 
 /**
  * Methods for building and manipulating a Cross Entropy Dictionary. A Cross
@@ -12,10 +11,10 @@ import java.util.Set;
  **/
 public class EventGraph {
 
-	Map<Event,Set<Event>> root ;
+	private ImmutableSetMultimap<Event, Event> root ;
 
-	public EventGraph() {
-		root = new HashMap<Event, Set<Event>>();
+	private EventGraph(ImmutableSetMultimap<Event, Event> root) {
+		this.root = ImmutableSetMultimap.copyOf(root);
 	}
 
 	public int find(EventSet eventSet) {
@@ -33,17 +32,33 @@ public class EventGraph {
 		}
 		return matchlength;
 	}
+	
+	static public Builder builder() {
+		return new Builder();
+	}
 
-	public void add(EventSet eventSet) {
-		for(int i = 0; i < eventSet.size(); i++){
-			Set<Event> children = root.get(eventSet.eventAt(i));
-			if(children == null){
-				children = new HashSet<Event>();
-				root.put(eventSet.eventAt(i), children);
+	static public class Builder {
+		private ImmutableSetMultimap.Builder<Event, Event> builder = ImmutableSetMultimap.builder();
+		
+		public Builder add(EventSet eventSet) {
+			for(int i = 0; i < eventSet.size(); i++){
+				if(i+1<eventSet.size())
+					builder.put(eventSet.eventAt(i), eventSet.eventAt(i+1));
 			}
-			if(i+1<eventSet.size())
-				children.add(eventSet.eventAt(i+1));
+			return this;
 		}
+		
+		public Builder add(Iterable<EventSet> eventSets) {
+			for(EventSet eventSet : eventSets) {
+				add(eventSet);
+			}
+			return this;
+		}
+		
+		public EventGraph build() {
+			return new EventGraph(builder.build());
+		}
+		
 	}
 
 	@Override
