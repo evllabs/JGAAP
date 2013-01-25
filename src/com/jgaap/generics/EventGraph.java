@@ -1,5 +1,6 @@
 package com.jgaap.generics;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSetMultimap;
@@ -40,15 +41,18 @@ public class EventGraph {
 	static public class Builder {
 		private ImmutableSetMultimap.Builder<Event, Event> builder = ImmutableSetMultimap.builder();
 		
-		public Builder add(EventSet eventSet) {
-			for(int i = 0; i < eventSet.size(); i++){
-				if(i+1<eventSet.size())
-					builder.put(eventSet.eventAt(i), eventSet.eventAt(i+1));
+		public Builder add(Iterable<Event> events) {
+			Iterator<Event> iterator = events.iterator();
+			Event previous = iterator.next();
+			while(iterator.hasNext()) {
+				Event current = iterator.next();
+				builder.put(previous, current);
+				previous = current;
 			}
 			return this;
 		}
 		
-		public Builder add(Iterable<EventSet> eventSets) {
+		public Builder addAll(Iterable<EventSet> eventSets) {
 			for(EventSet eventSet : eventSets) {
 				add(eventSet);
 			}

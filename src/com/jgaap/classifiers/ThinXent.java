@@ -102,7 +102,7 @@ public class ThinXent extends AnalysisDriver {
 				builder = EventGraph.builder();
 				graphBuilderMap.put(identifier(document), builder);
 			}
-			builder.add(document.getEventSets().values());
+			builder.addAll(document.getEventSets().values());
 		}
 		ImmutableMap.Builder<String, EventGraph> builder = ImmutableMap.builder();
 		for(Map.Entry<String, EventGraph.Builder> entry : graphBuilderMap.entrySet()) {
