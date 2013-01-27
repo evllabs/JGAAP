@@ -61,28 +61,28 @@ public class WEKANaiveBayesTest {
 		known1.addEvent(new Event("alpha", null));
 		known1.addEvent(new Event("alpha", null));
 		known1.addEvent(new Event("betta", null));
-		known1.setAuthor("Mary");
+		//known1.setAuthor("Mary");
 		
 		known3.addEvent(new Event("alpha", null));
 		known3.addEvent(new Event("alpha", null));
 		known3.addEvent(new Event("alpha", null));
 		known3.addEvent(new Event("betta", null));
 		known3.addEvent(new Event("betta", null));
-		known3.setAuthor("Mary");
+		//known3.setAuthor("Mary");
 
 		known2.addEvent(new Event("alpha", null));
 		known2.addEvent(new Event("betta", null));
 		known2.addEvent(new Event("betta", null));
 		known2.addEvent(new Event("betta", null));
 		known2.addEvent(new Event("betta", null));
-		known2.setAuthor("Peter");
+		//known2.setAuthor("Peter");
 		
 		known4.addEvent(new Event("alpha", null));
 		known4.addEvent(new Event("alpha", null));
 		known4.addEvent(new Event("betta", null));
 		known4.addEvent(new Event("betta", null));
 		known4.addEvent(new Event("betta", null));
-		known4.setAuthor("Peter");
+		//known4.setAuthor("Peter");
 
 		unknown.addEvent(new Event("alpha", null));
 		unknown.addEvent(new Event("alpha", null));
@@ -102,19 +102,19 @@ public class WEKANaiveBayesTest {
 		
 		List<Document> knowns = new ArrayList<Document>();
 		Document knownDocument1 = new Document();
-		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.setAuthor("Mary");
 		knownDocument1.addEventSet(null, known1);
 		knowns.add(knownDocument1);
 		Document knownDocument2 = new Document();
-		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.setAuthor("Peter");
 		knownDocument2.addEventSet(null, known2);
 		knowns.add(knownDocument2);
 		Document knownDocument3 = new Document();
-		knownDocument3.setAuthor(known3.getAuthor());
+		knownDocument3.setAuthor("Mary");
 		knownDocument3.addEventSet(null, known3);
 		knowns.add(knownDocument3);
 		Document knownDocument4 = new Document();
-		knownDocument4.setAuthor(known4.getAuthor());
+		knownDocument4.setAuthor("Peter");
 		knownDocument4.addEventSet(null, known4);
 		knowns.add(knownDocument4);
 

@@ -64,7 +64,7 @@ public class NullAnalysisTest {
 		
 		List<Document> knowns = new ArrayList<Document>();
 		Document knownDocument1 = new Document();
-		knownDocument1.setAuthor(known1.getAuthor());
+		//knownDocument1.setAuthor(known1.getAuthor());
 		knownDocument1.addEventSet(null, known1);
 		knowns.add(knownDocument1);
 		

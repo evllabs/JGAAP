@@ -61,7 +61,7 @@ public class LDATest {
 		known1.addEvent(new Event("white", null));
 		known1.addEvent(new Event("as", null));
 		known1.addEvent(new Event("snow.", null));
-		known1.setAuthor("Mary");
+		//known1.setAuthor("Mary");
 
 
 		known2.addEvent(new Event("Peter", null));
@@ -72,7 +72,7 @@ public class LDATest {
 		known2.addEvent(new Event("of", null));
 		known2.addEvent(new Event("pickled", null));
 		known2.addEvent(new Event("peppers.", null));
-		known2.setAuthor("Peter");
+		//known2.setAuthor("Peter");
 
 		unknown.addEvent(new Event("Mary", null));
 		unknown.addEvent(new Event("had", null));
@@ -88,11 +88,11 @@ public class LDATest {
 
 		List<Document> knowns = new ArrayList<Document>();
 		Document knownDocument1 = new Document();
-		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.setAuthor("Mary");
 		knownDocument1.addEventSet(null, known1);
 		knowns.add(knownDocument1);
 		Document knownDocument2 = new Document();
-		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.setAuthor("Peter");
 		knownDocument2.addEventSet(null, known2);
 		knowns.add(knownDocument2);
 		

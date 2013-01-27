@@ -63,44 +63,44 @@ public class WEKALinearRegressionTest {
 		known1.addEvent(new Event("a", null));
 		known1.addEvent(new Event("little", null));
 		known1.addEvent(new Event("lamb", null));
-		known1.setAuthor("Mary");
+		//known1.setAuthor("Mary");
 		
 		known3.addEvent(new Event("mary", null));
 		known3.addEvent(new Event("had", null));
 		known3.addEvent(new Event("a", null));
 		known3.addEvent(new Event("small", null));
 		known3.addEvent(new Event("lamb", null));
-		known3.setAuthor("Mary");
+		//known3.setAuthor("Mary");
 
 		known2.addEvent(new Event("peter", null));
 		known2.addEvent(new Event("piper", null));
 		known2.addEvent(new Event("picked", null));
 		known2.addEvent(new Event("a", null));
 		known2.addEvent(new Event("peck", null));
-		known2.setAuthor("Peter");
+		//known2.setAuthor("Peter");
 		
 		known4.addEvent(new Event("peter", null));
 		known4.addEvent(new Event("piper", null));
 		known4.addEvent(new Event("collected", null));
 		known4.addEvent(new Event("a", null));
 		known4.addEvent(new Event("peck", null));
-		known4.setAuthor("Peter");
+		//known4.setAuthor("Peter");
 
 		List<Document> knowns = new ArrayList<Document>();
 		Document knownDocument1 = new Document();
-		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.setAuthor("Mary");
 		knownDocument1.addEventSet(null, known1);
 		knowns.add(knownDocument1);
 		Document knownDocument2 = new Document();
-		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.setAuthor("Peter");
 		knownDocument2.addEventSet(null, known2);
 		knowns.add(knownDocument2);
 		Document knownDocument3 = new Document();
-		knownDocument3.setAuthor(known3.getAuthor());
+		knownDocument3.setAuthor("Mary");
 		knownDocument3.addEventSet(null, known3);
 		knowns.add(knownDocument3);
 		Document knownDocument4 = new Document();
-		knownDocument4.setAuthor(known4.getAuthor());
+		knownDocument4.setAuthor("Peter");
 		knownDocument4.addEventSet(null, known4);
 		knowns.add(knownDocument4);
 
@@ -155,21 +155,21 @@ public class WEKALinearRegressionTest {
 		known5.addEvent(new Event("seashells", null));
 		known5.addEvent(new Event("by", null));
 		known5.addEvent(new Event("seashore", null));
-		known5.setAuthor("Susie");
+		//known5.setAuthor("Susie");
 
 		known6.addEvent(new Event("susie", null));
 		known6.addEvent(new Event("sells", null));
 		known6.addEvent(new Event("shells", null));
 		known6.addEvent(new Event("by", null));
 		known6.addEvent(new Event("seashore", null));
-		known6.setAuthor("Susie");
+		//known6.setAuthor("Susie");
 
 		Document knownDocument5 = new Document();
-		knownDocument5.setAuthor(known5.getAuthor());
+		knownDocument5.setAuthor("Susie");
 		knownDocument5.addEventSet(null, known5);
 		knowns.add(knownDocument5);
 		Document knownDocument6 = new Document();
-		knownDocument6.setAuthor(known6.getAuthor());
+		knownDocument6.setAuthor("Susie");
 		knownDocument6.addEventSet(null, known6);
 		knowns.add(knownDocument6);
 		
