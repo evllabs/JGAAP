@@ -2602,8 +2602,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			JGAAP_API.clearData();
 			JGAAP_API.clearCanonicizers();
 			for(Pair<Canonicizer, Object> canonicizerPair : SelectedCanonicizerList){
-				if(canonicizerPair.getSecond() instanceof DocType){
-					JGAAP_API.addCanonicizer(canonicizerPair.getFirst().displayName(), (DocType)canonicizerPair.getSecond());
+				if(canonicizerPair.getSecond() instanceof Document.Type){
+					JGAAP_API.addCanonicizer(canonicizerPair.getFirst().displayName(), (Document.Type)canonicizerPair.getSecond());
 				} else if(canonicizerPair.getSecond() instanceof Document){
 					JGAAP_API.addCanonicizer(canonicizerPair.getFirst().displayName(), (Document)canonicizerPair.getSecond());
 				} else {
@@ -3481,10 +3481,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		CanonicizerComboBoxModel.removeAllElements();
 		docTypesList.clear();
 		docTypesList.add("All");
-		docTypesList.add(DocType.GENERIC);
-		docTypesList.add(DocType.DOC);
-		docTypesList.add(DocType.PDF);
-		docTypesList.add(DocType.HTML);
+		docTypesList.add(Document.Type.GENERIC);
+		docTypesList.add(Document.Type.DOC);
+		docTypesList.add(Document.Type.PDF);
+		docTypesList.add(Document.Type.HTML);
 		for(Document document : JGAAP_API.getDocuments()){
 			docTypesList.add(document);
 		}

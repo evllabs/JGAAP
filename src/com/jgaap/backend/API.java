@@ -263,7 +263,7 @@ public class API {
 	 * @return - a reference to the canonicizer added
 	 * @throws Exception - if the canonicizer specified cannot be found or instanced
 	 */
-	public Canonicizer addCanonicizer(String action, DocType docType) throws Exception {
+	public Canonicizer addCanonicizer(String action, Document.Type docType) throws Exception {
 		Canonicizer canonicizer = Canonicizers.getCanonicizer(action);
 		for (Document document : documents) {
 			if (document.getDocType().equals(docType)) {
@@ -339,7 +339,7 @@ public class API {
 	 * @param action - the unique string name representing a canonicizer (displayName())
 	 * @param docType - the DocType to remove the canonicizer from
 	 */
-	public void removeCanonicizer(Canonicizer canonicizer, DocType docType) {
+	public void removeCanonicizer(Canonicizer canonicizer, Document.Type docType) {
 		for (Document document : documents) {
 			if (document.getDocType().equals(docType)) {
 				removeCanonicizer(canonicizer, document);
@@ -352,7 +352,7 @@ public class API {
 	 * 
 	 * @param docType - the DocType to remove canonicizers from
 	 */
-	public void removeAllCanonicizers(DocType docType) {
+	public void removeAllCanonicizers(Document.Type docType) {
 		for (Document document : documents) {
 			document.clearCanonicizers();
 		}
