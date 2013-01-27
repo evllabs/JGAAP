@@ -38,7 +38,7 @@ public class Document extends Parameterizable {
 	private String title;
 	private char[] text;
 	private int size;
-	private DocType docType;
+	private Type docType;
 	private Language language;
 	private List<EventCuller> eventCullers;
 	private List<Canonicizer> canonicizers;
@@ -54,7 +54,7 @@ public class Document extends Parameterizable {
 		eventSets = new HashMap<EventDriver, EventSet>();
 		results = new HashMap<AnalysisDriver, List<Pair<String,Double>>>();
 		eventCullers = new ArrayList<EventCuller>();
-		docType = DocType.GENERIC;
+		docType = Type.GENERIC;
 		this.language = new English();
 	}
 
@@ -112,7 +112,7 @@ public class Document extends Parameterizable {
 	}
 	
 	public void load() throws Exception {
-		if (this.docType != DocType.DATABASE) {
+		if (this.docType != Type.DATABASE) {
 			this.text = DocumentHelper.loadDocument(filepath, language.getCharset());
 			this.size = this.text.length;
 			if (this.size == 0) {
@@ -152,7 +152,7 @@ public class Document extends Parameterizable {
 	}
 
 	/** Returns the docType of the current document **/
-	public DocType getDocType() {
+	public Type getDocType() {
 		return docType;
 	}
 
@@ -191,7 +191,7 @@ public class Document extends Parameterizable {
 	}
 
 	/** Sets the docType of the current document **/
-	public void setDocType(DocType docType) {
+	public void setDocType(Type docType) {
 		this.docType = docType;
 	}
 
@@ -416,5 +416,9 @@ public class Document extends Parameterizable {
 	
 	public boolean hasFailed(){
 		return failed;
+	}
+	
+	public enum Type {
+		PDF, DOC, HTML, GENERIC, DATABASE
 	}
 }
