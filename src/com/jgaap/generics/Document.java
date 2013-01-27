@@ -132,11 +132,6 @@ public class Document extends Parameterizable {
 		String[] split = filePath.split("[\\\\[\\/]]");
 		return split[split.length - 1];
 	}
-
-	public void readStringText(String text) {
-		this.text = text.toCharArray();
-		size = this.text.length;
-	}
 	
 	public void setText(char[] text){
 		this.text = text;
@@ -164,23 +159,6 @@ public class Document extends Parameterizable {
 	/** Returns the full filepath of the current document **/
 	public String getFilePath() {
 		return filepath;
-	}
-	
-	/**
-	 * Sets the filepath of the current document
-	 */
-	public void setFilePath(String filePath) {
-		this.filepath = filePath;
-	}
-	
-	/**
-	 * @deprecated use getText()
-	 * Returns text with preprocessing done. Preprocessing can include stripping
-	 * whitespace or normalizing the case
-	 **/
-	@Deprecated
-	public char[] getProcessedText() {
-			return Arrays.copyOf(text, text.length);
 	}
 	
 	/**

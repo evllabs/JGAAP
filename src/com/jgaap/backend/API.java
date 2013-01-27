@@ -600,7 +600,7 @@ public class API {
 								throw new Exception("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 							}
 						}
-						document.readStringText("");
+						document.setText(new char[0]);
 					} catch (LanguageParsingException e) {
 						logger.fatal("Could not Parse Language: "+language.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
