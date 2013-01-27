@@ -61,7 +61,7 @@ public class CrossEntropyDivergenceTest {
 		test1.add(new Event("as", null));
 		test1.add(new Event("snow", null));
 		known1.addEvents(test1);
-		known1.setAuthor("Mary");
+		//known1.setAuthor("Mary");
 		
 		
 		

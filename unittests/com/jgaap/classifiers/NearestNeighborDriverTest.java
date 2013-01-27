@@ -71,7 +71,7 @@ public class NearestNeighborDriverTest {
 		test1.add(new Event("as", null));
 		test1.add(new Event("snow.", null));
 		known1.addEvents(test1);
-		known1.setAuthor("Mary");
+		//known1.setAuthor("Mary");
 
 		Vector<Event> test2 = new Vector<Event>();
 		test2.add(new Event("Peter", null));
@@ -83,7 +83,7 @@ public class NearestNeighborDriverTest {
 		test2.add(new Event("pickled", null));
 		test2.add(new Event("peppers.", null));
 		known2.addEvents(test2);
-		known2.setAuthor("Peter");
+		//known2.setAuthor("Peter");
 
 		Vector<Event> test3 = new Vector<Event>();
 		test3.add(new Event("Mary", null));
@@ -101,11 +101,11 @@ public class NearestNeighborDriverTest {
 
 		List<Document> knowns = new ArrayList<Document>();
 		Document knownDocument1 = new Document();
-		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.setAuthor("Mary");
 		knownDocument1.addEventSet(null, known1);
 		knowns.add(knownDocument1);
 		Document knownDocument2 = new Document();
-		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.setAuthor("Peter");
 		knownDocument2.addEventSet(null, known2);
 		knowns.add(knownDocument2);
 		

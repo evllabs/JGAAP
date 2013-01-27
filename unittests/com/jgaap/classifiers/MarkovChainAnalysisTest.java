@@ -62,12 +62,12 @@ public class MarkovChainAnalysisTest {
 		for(int i=0; i<sample.length(); i++){
 		known1.addEvent(new Event(sample.charAt(i), null));
 		}
-		known1.setAuthor("Frodo");
+		//known1.setAuthor("Frodo");
 		
 		for(int i=0; i<sample2.length(); i++){
 			known2.addEvent(new Event(sample2.charAt(i), null));
 		}
-		known2.setAuthor("Sam");
+		//known2.setAuthor("Sam");
 		
 		for(int i=0; i<sample3.length(); i++){
 			unknown.addEvent(new Event(sample3.charAt(i), null));
@@ -75,11 +75,11 @@ public class MarkovChainAnalysisTest {
 		
 		List<Document> knowns = new ArrayList<Document>();
 		Document knownDocument1 = new Document();
-		knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.setAuthor("Frodo");
 		knownDocument1.addEventSet(null, known1);
 		knowns.add(knownDocument1);
 		Document knownDocument2 = new Document();
-		knownDocument2.setAuthor(known2.getAuthor());
+		knownDocument2.setAuthor("Sam");
 		knownDocument2.addEventSet(null, known2);
 		knowns.add(knownDocument2);
 		

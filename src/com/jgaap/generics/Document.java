@@ -278,8 +278,6 @@ public class Document extends Parameterizable {
 	 * @param eventSet
 	 */
 	public void addEventSet(EventDriver eventDriver, EventSet eventSet) {
-		eventSet.setAuthor(author);
-		eventSet.setDocumentName(getFilePath());
 		eventSets.put(eventDriver, eventSet);
 	}
 

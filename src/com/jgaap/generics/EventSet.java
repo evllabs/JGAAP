@@ -32,15 +32,10 @@ public class EventSet implements Iterable<Event> {
 
     /** Events are currently stored as a ArrayList of Events */
     private List<Event> events;
-    /** The author, if any, is stored as a String. May be null. */
-    private String       author;
-    /** Name of document from which Events were derived. */
-    private String       docName;
         
     /** Creates a new, empty list of events. Will also include unique ID */
     public EventSet() {
         events = new ArrayList<Event>();
-        setAuthor("default");
     }
     
     /**
@@ -49,13 +44,11 @@ public class EventSet implements Iterable<Event> {
      */
     public EventSet(int size) {
         events = new ArrayList<Event>(size);
-        setAuthor("default");
     }
 
     /** Creates a new list of events given a previously created list of events **/
     public EventSet(List<Event> evts) {
         events = new ArrayList<Event>(evts);
-        setAuthor("default");
     }
 
     /**
@@ -79,29 +72,6 @@ public class EventSet implements Iterable<Event> {
     
     public void addEvents(EventSet eventSet) {
     	this.events.addAll(eventSet.events);
-    }
-
-    /** return the Author associated with any EventSet */
-    public String getAuthor() {
-        return author;
-    }
-
-    /** Return (document) name associated with EventSet */
-    public String getDocumentName() {
-        return docName;
-    }
-
-    /**
-     * Sets the author of the current event set. There should be a better way to
-     * pass authors through the processing stages...
-     */
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    /** Set (document) name associated with EventSet */
-    public void setDocumentName(String s) {
-        docName = s;
     }
 
     /** Returns the total number of events in the set **/
