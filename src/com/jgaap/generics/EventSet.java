@@ -59,17 +59,6 @@ public class EventSet implements Iterable<Event> {
     }
 
     /**
-     * Construct new Event set (with empty vector) of known author
-     * 
-     * @param Author
-     *            the name of the author
-     */
-    public EventSet(String Author) {
-        events = new ArrayList<Event>();
-        setAuthor(Author);
-    }
-
-    /**
      * Returns the event at a given index
      * 
      * @param index
@@ -125,25 +114,13 @@ public class EventSet implements Iterable<Event> {
      * number of events wanted in the returned list.
      **/
     public EventSet subset(int start, int length) {
-        /*
-         * JIN - 07/31/2008 : Added array bounds checking. If the requested
-         * subset would run beyond the end of the current list, only elements
-         * from start until the end of the list are returned. If start is beyond
-         * the end of the list, an empty list is returned If start > length, an
-         * empty list will be returned
-         */
-        if (length > events.size()) {
-            length = events.size();
-        }
-        if (start > events.size()) {
-            start = length; // subList() will now return an empty list
-        }
-        if (start > length) {
-            start = length; // subList() will now return an empty list
-        }
-        return new EventSet(events.subList(start, length));
+        return new EventSet(subList(start, length));
     }
 
+    /**
+     * Returns a sublist of events given a starting index of an event and the
+     * number of events wanted in the returned list.
+     **/
     public List<Event> subList(int start, int length) {
         /*
          * JIN - 07/31/2008 : Added array bounds checking. If the requested
