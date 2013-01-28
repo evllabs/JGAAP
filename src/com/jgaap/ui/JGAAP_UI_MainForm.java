@@ -484,7 +484,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 										.addContainerGap()));
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("JGAAP");
+		setTitle("JGAAP 7.0");
 
 		JGAAP_TabbedPane.setName("JGAAP_TabbedPane"); // NOI18N
 
