@@ -1,6 +1,6 @@
 package com.jgaap.generics;
 
-public class LanguageParsingException extends JGAAPException {
+public class LanguageParsingException extends Exception {
 
 	public LanguageParsingException(String message) {
 		super(message);
