@@ -96,14 +96,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	DefaultTableModel UnknownAuthorDocumentsTable_Model = new DefaultTableModel() {
 		private static final long serialVersionUID = 1L;
 
-		@Override
-		public boolean isCellEditable(int row, int column) {
-			if (column == 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
 	};
 
 	API JGAAP_API = API.getInstance();
