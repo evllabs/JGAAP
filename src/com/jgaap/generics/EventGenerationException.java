@@ -1,6 +1,6 @@
 package com.jgaap.generics;
 
-public class EventGenerationException extends JGAAPException {
+public class EventGenerationException extends Exception {
 
 	public EventGenerationException(String string) {
 		super(string);
