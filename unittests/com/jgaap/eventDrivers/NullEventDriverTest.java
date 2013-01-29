@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 
@@ -44,15 +43,14 @@ public class NullEventDriverTest{
 	@Test
 	public void testCreateEventSetDocumentSet() {
 	    /*Test One - Text to Text with new line char*/
-	    Document doc = new Document();
-	    //Text Taken from Patrick Juola to standardize testing	
-	    doc.readStringText("sir I send a rhyme excelling\n"+
+		String text = ("sir I send a rhyme excelling\n"+
 				   "in sacred truth and rigid spelling\n"+
 				   "numerical sprites elucidate\n"+
 				   "for me the lexicons full weight\n"+
 				   "if nature gain who can complain\n"+
 				   "tho dr johnson fulminate");
-	     EventSet sampleEventSet = new NullEventDriver().createEventSet(doc);
+		NullEventDriver eventDriver = new NullEventDriver();
+	     EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 	     EventSet expectedEventSet = new EventSet();
 	     Vector<Event> tmp = new Vector<Event>();
 	     tmp.add(new Event("sir I send a rhyme excelling\n"+
@@ -60,7 +58,7 @@ public class NullEventDriverTest{
 				   "numerical sprites elucidate\n"+
 				   "for me the lexicons full weight\n"+
 				   "if nature gain who can complain\n"+
-			           "tho dr johnson fulminate"));
+			           "tho dr johnson fulminate", eventDriver));
 	     expectedEventSet.addEvents(tmp);
 	     assertTrue(expectedEventSet.equals(sampleEventSet));
 

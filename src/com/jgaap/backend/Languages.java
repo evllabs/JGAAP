@@ -17,9 +17,13 @@
  */
 package com.jgaap.backend;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.generics.Language;
 /**
  * 
@@ -29,17 +33,38 @@ import com.jgaap.generics.Language;
  * @since 5.0.0
  */
 
-public class LanguageFactory {
+public class Languages {
 
-	private static final Map<String, Language> languages = loadLanguages();
+	private static ImmutableList<Language> LANGUAGES = loadLanguages();
+	private static final Map<String, Language> languages = loadLanguagesMap();
 	
-	private static Map<String, Language> loadLanguages() {
-		// Load the classifiers dynamically
-		Map<String, Language>languages = new HashMap<String, Language>();
-		for(Language language : Language.getLanguages()){
-			languages.put(language.displayName().toLowerCase().trim(), language);
+	/**
+	 * A read-only list of the Languages
+	 */
+	public static List<Language> getLanguages() {
+		return LANGUAGES;
+	}
+
+	private static ImmutableList<Language> loadLanguages() {
+		List<Object> objects = AutoPopulate.findObjects("com.jgaap.languages", Language.class);
+		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", Language.class)){
+			objects.add(tmp);
 		}
-		return languages;
+		List<Language> languages = new ArrayList<Language>(objects.size());
+		for (Object tmp : objects) {
+			languages.add((Language)tmp);
+		}
+		Collections.sort(languages);
+		return ImmutableList.copyOf(languages);
+	}
+	
+	private static Map<String, Language> loadLanguagesMap() {
+		// Load the classifiers dynamically
+		ImmutableMap.Builder<String, Language> builder = ImmutableMap.builder();
+		for(Language language : LANGUAGES){
+			builder.put(language.displayName().toLowerCase().trim(), language);
+		}
+		return builder.build();
 	}
 	
 	public static Language getLanguage(String action) throws Exception{

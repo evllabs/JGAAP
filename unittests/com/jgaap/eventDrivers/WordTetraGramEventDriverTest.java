@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -44,23 +43,22 @@ public class WordTetraGramEventDriverTest {
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
-		Document doc = new Document();
-		doc.readStringText("Mary had a little lamb, little lamb. Its fleece was white as snow.");
+		String text = ("Mary had a little lamb, little lamb. Its fleece was white as snow.");
 		EventDriver eventDriver = new WordNGramEventDriver();
 		eventDriver.setParameter("N", 4);
-		EventSet sampleEventSet = eventDriver.createEventSet(doc);
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
-		tmp.add(new Event("(Mary)-(had)-(a)-(little)"));
-		tmp.add(new Event("(had)-(a)-(little)-(lamb,)"));
-		tmp.add(new Event("(a)-(little)-(lamb,)-(little)"));
-		tmp.add(new Event("(little)-(lamb,)-(little)-(lamb.)"));
-		tmp.add(new Event("(lamb,)-(little)-(lamb.)-(Its)"));
-		tmp.add(new Event("(little)-(lamb.)-(Its)-(fleece)"));
-		tmp.add(new Event("(lamb.)-(Its)-(fleece)-(was)"));
-		tmp.add(new Event("(Its)-(fleece)-(was)-(white)"));
-		tmp.add(new Event("(fleece)-(was)-(white)-(as)"));
-		tmp.add(new Event("(was)-(white)-(as)-(snow.)"));
+		tmp.add(new Event("[Mary, had, a, little]", eventDriver));
+		tmp.add(new Event("[had, a, little, lamb,]", eventDriver));
+		tmp.add(new Event("[a, little, lamb,, little]", eventDriver));
+		tmp.add(new Event("[little, lamb,, little, lamb.]", eventDriver));
+		tmp.add(new Event("[lamb,, little, lamb., Its]", eventDriver));
+		tmp.add(new Event("[little, lamb., Its, fleece]", eventDriver));
+		tmp.add(new Event("[lamb., Its, fleece, was]", eventDriver));
+		tmp.add(new Event("[Its, fleece, was, white]", eventDriver));
+		tmp.add(new Event("[fleece, was, white, as]", eventDriver));
+		tmp.add(new Event("[was, white, as, snow.]", eventDriver));
 		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		

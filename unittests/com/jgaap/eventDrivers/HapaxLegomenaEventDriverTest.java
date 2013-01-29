@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -51,24 +50,23 @@ public class HapaxLegomenaEventDriverTest {
 	    /*HapaxLegomenaEventDriver - Returns only events that occurs once*/
 	    /*Test One - Normal Text w/ one event to return*/
 
-	    Document doc = new Document();
-	    doc.readStringText("The Quick Brown Fox Jumped Over The Lazy Dog 3 3 3 4 4 4 4 5 5 5 5 5");
+		String text = ("The Quick Brown Fox Jumped Over The Lazy Dog 3 3 3 4 4 4 4 5 5 5 5 5");
 
 	    EventDriver eventDriver = new RareWordsEventDriver();
 	    eventDriver.setParameter("M", 1);
 	    eventDriver.setParameter("N", 1);
 	    
-	    EventSet sampleSet = eventDriver.createEventSet(doc);
+	    EventSet sampleSet = eventDriver.createEventSet(text.toCharArray());
 	    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
-	    tmp.add(new Event("Quick"));
-	    tmp.add(new Event("Brown"));
-	    tmp.add(new Event("Fox"));
-	    tmp.add(new Event("Jumped"));
-	    tmp.add(new Event("Over"));
-	    tmp.add(new Event("Lazy"));
-	    tmp.add(new Event("Dog"));
+	    tmp.add(new Event("Quick", eventDriver));
+	    tmp.add(new Event("Brown", eventDriver));
+	    tmp.add(new Event("Fox", eventDriver));
+	    tmp.add(new Event("Jumped", eventDriver));
+	    tmp.add(new Event("Over", eventDriver));
+	    tmp.add(new Event("Lazy", eventDriver));
+	    tmp.add(new Event("Dog", eventDriver));
 
 	     expectedSet.addEvents(tmp);
 	     

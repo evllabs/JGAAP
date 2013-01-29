@@ -27,9 +27,8 @@ public class IQRCuller extends EventCuller {
 		addParams("Informative", "I", "Most", new String[] { "Most","Least"}, false);
 	}
 	@Override
-	public List<EventSet> cull(List<EventSet> eventSets)
+	public Set<Event> train(List<EventSet> eventSets)
 			throws EventCullingException {
-		List<EventSet> results = new ArrayList<EventSet>();
 		int numEvents = getParameter("numEvents", 50);
 		String informative = getParameter("informative", "Most");
 
@@ -86,20 +85,11 @@ public class IQRCuller extends EventCuller {
 		if(informative.equals("Most")){
 			Collections.reverse(rangeList);
 		}
-		List<Event> rangeSet = new ArrayList<Event>();
+		Set<Event> rangeSet = new HashSet<Event>();
 		for (int i = 0; i < numEvents; i++) {
 			rangeSet.add(rangeList.get(i).getFirst());
 		}
-		for (EventSet oneSet : eventSets) {
-			EventSet newSet = new EventSet();
-			for (Event e : oneSet) {
-				if (rangeSet.contains(e)) {
-					newSet.addEvent(e);
-				}
-			}
-			results.add(newSet);
-		}
-		return results;
+		return rangeSet;
 	}
 
 	@Override

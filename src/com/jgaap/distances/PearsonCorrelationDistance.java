@@ -22,8 +22,7 @@ package com.jgaap.distances;
 import java.util.*;
 
 import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.EventHistogram;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.Event;
 
 /**
@@ -66,12 +65,9 @@ public class PearsonCorrelationDistance extends DistanceFunction {
      *            otherwise returns 1 if only one is 0.  
      */
     @Override
-    public double distance(EventSet es1, EventSet es2) {
-
-		EventHistogram h1 = es1.getHistogram();
-		EventHistogram h2 = es2.getHistogram();
-
-		Set<Event> s = new HashSet<Event>();
+    public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+		Set<Event> s = new HashSet<Event>(unknownEventMap.uniqueEvents());
+		s.addAll(knownEventMap.uniqueEvents());
 
 		int n; // number of elements
 	
@@ -85,9 +81,6 @@ public class PearsonCorrelationDistance extends DistanceFunction {
 
 		double correlation = 0.0;
 
-		s.addAll(es1.uniqueEvents());
-		s.addAll(es2.uniqueEvents());
-
 		//System.out.println(h1.toString());
 		//System.out.println(h2.toString());
 		//System.out.println(s.toString());
@@ -99,8 +92,8 @@ public class PearsonCorrelationDistance extends DistanceFunction {
 		sigX2 = 0.0; 
 		sigY2 = 0.0; 
 		for (Event e: s) {
-			double x = h1.getRelativeFrequency(e);
-			double y = h2.getRelativeFrequency(e);
+			double x = unknownEventMap.relativeFrequency(e);
+			double y = knownEventMap.relativeFrequency(e);
 			sigX += x;
 			sigY += y;
 			sigX2 += x * x;

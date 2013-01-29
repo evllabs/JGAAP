@@ -1,6 +1,6 @@
 package com.jgaap.generics;
 
-public class DistanceCalculationException extends JGAAPException {
+public class DistanceCalculationException extends Exception {
 
 	public DistanceCalculationException(String message) {
 		super(message);

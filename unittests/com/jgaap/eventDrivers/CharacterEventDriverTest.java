@@ -26,8 +26,9 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -38,44 +39,45 @@ public class CharacterEventDriverTest {
 
 	/**
 	 * Test method for {@link com.jgaap.eventDrivers.CharacterEventDriver#createEventSet(com.jgaap.generics.Document)}.
+	 * @throws EventGenerationException 
 	 */
 	@Test
-	public void testCreateEventSetDocumentSet() {
-		Document doc = new Document();
-		doc.readStringText("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz.");
-		EventSet sampleEventSet = new CharacterEventDriver().createEventSet(doc);
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
+		String text = ("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz.");
+		EventDriver eventDriver = new CharacterEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
-		tmp.add(new Event("a"));
-		tmp.add(new Event("b"));
-		tmp.add(new Event("c"));
-		tmp.add(new Event("d"));
-		tmp.add(new Event("e"));
-		tmp.add(new Event("f"));
-		tmp.add(new Event("g"));
-		tmp.add(new Event("h"));
-		tmp.add(new Event("i"));
-		tmp.add(new Event("j"));
-		tmp.add(new Event("k"));
-		tmp.add(new Event("l"));
-		tmp.add(new Event("m"));
-		tmp.add(new Event("n"));
-		tmp.add(new Event("o"));
-		tmp.add(new Event("p"));
-		tmp.add(new Event("q"));
-		tmp.add(new Event("r"));
-		tmp.add(new Event("s"));
-		tmp.add(new Event("t"));
-		tmp.add(new Event("u"));
-		tmp.add(new Event("v"));
-		tmp.add(new Event("w"));
-		tmp.add(new Event("x"));
-		tmp.add(new Event("y"));
-		tmp.add(new Event("z"));
+		tmp.add(new Event("a", eventDriver));
+		tmp.add(new Event("b", eventDriver));
+		tmp.add(new Event("c", eventDriver));
+		tmp.add(new Event("d", eventDriver));
+		tmp.add(new Event("e", eventDriver));
+		tmp.add(new Event("f", eventDriver));
+		tmp.add(new Event("g", eventDriver));
+		tmp.add(new Event("h", eventDriver));
+		tmp.add(new Event("i", eventDriver));
+		tmp.add(new Event("j", eventDriver));
+		tmp.add(new Event("k", eventDriver));
+		tmp.add(new Event("l", eventDriver));
+		tmp.add(new Event("m", eventDriver));
+		tmp.add(new Event("n", eventDriver));
+		tmp.add(new Event("o", eventDriver));
+		tmp.add(new Event("p", eventDriver));
+		tmp.add(new Event("q", eventDriver));
+		tmp.add(new Event("r", eventDriver));
+		tmp.add(new Event("s", eventDriver));
+		tmp.add(new Event("t", eventDriver));
+		tmp.add(new Event("u", eventDriver));
+		tmp.add(new Event("v", eventDriver));
+		tmp.add(new Event("w", eventDriver));
+		tmp.add(new Event("x", eventDriver));
+		tmp.add(new Event("y", eventDriver));
+		tmp.add(new Event("z", eventDriver));
 		expectedEventSet.addEvents(tmp);
-		expectedEventSet.addEvent(new Event(" "));
+		expectedEventSet.addEvent(new Event(" ", eventDriver));
 		expectedEventSet.addEvents(tmp);
-		expectedEventSet.addEvent(new Event("."));
+		expectedEventSet.addEvent(new Event(".", eventDriver));
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		
 	}

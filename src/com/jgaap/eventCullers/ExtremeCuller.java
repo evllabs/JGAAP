@@ -37,21 +37,21 @@ import com.jgaap.generics.EventSet;
 public class ExtremeCuller extends EventCuller {
 
 	@Override
-	public List<EventSet> cull(List<EventSet> eventSets) {
-		List<Set<String>> eventSetsUnique = new ArrayList<Set<String>>();
-		Set<String> uniqueEvents = new HashSet<String>();
-		Set<String> extremeEvents = new HashSet<String>();
+	public Set<Event> train(List<EventSet> eventSets) {
+		List<Set<Event>> eventSetsUnique = new ArrayList<Set<Event>>();
+		Set<Event> uniqueEvents = new HashSet<Event>();
+		Set<Event> extremeEvents = new HashSet<Event>();
 		for(EventSet eventSet : eventSets){
-			Set<String> events = new HashSet<String>();
+			Set<Event> events = new HashSet<Event>();
 			for(Event event : eventSet){
-				events.add(event.getEvent());
-				uniqueEvents.add(event.getEvent());
+				events.add(event);
+				uniqueEvents.add(event);
 			}
 			eventSetsUnique.add(events);
 		}
-		for(String event : uniqueEvents){
+		for(Event event : uniqueEvents){
 			boolean extreme = true;
-			for(Set<String> events : eventSetsUnique){
+			for(Set<Event> events : eventSetsUnique){
 				if(!events.contains(event)){
 					extreme = false;
 					break;
@@ -61,17 +61,7 @@ public class ExtremeCuller extends EventCuller {
 				extremeEvents.add(event);
 			}
 		}
-		List<EventSet> culledEventSets = new ArrayList<EventSet>(eventSets.size());
-		for(EventSet eventSet : eventSets){
-			EventSet culledEventSet = new EventSet();
-			for(Event event : eventSet){
-				if(extremeEvents.contains(event.getEvent())){
-					culledEventSet.addEvent(event);
-				}
-			}
-			culledEventSets.add(culledEventSet);
-		}
-		return culledEventSets;
+		return extremeEvents;
 	}
 
 	@Override

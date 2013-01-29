@@ -21,6 +21,8 @@ package com.jgaap.canonicizers;
 
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import com.jgaap.generics.Canonicizer;
 
 /**
@@ -33,6 +35,8 @@ import com.jgaap.generics.Canonicizer;
  * 
  */
 public class AddErrors extends Canonicizer {
+
+	private static Logger logger = Logger.getLogger(AddErrors.class);
 
 	@Override
 	public String displayName() {
@@ -49,19 +53,14 @@ public class AddErrors extends Canonicizer {
 		return "Add random character replacement errors to the document; useful for evaluating method effectiveness in the presence of OCR-type errors.";
 	}
 
-
 	@Override
 	public boolean showInGUI() {
 		return false;
 	}
 
-	/**
-	 * Prompt the user (via JOptionPane) for the percentage of characters to
-	 * replace with errors.
-	 */
 	public AddErrors() {
-		addParams("percenterror", "Percent Error", "0", new String[] {"0","1","2","3","4","5","10","15","20","50"}, false);
-
+		addParams("percenterror", "Percent Error", "0", new String[] { "0", "1", "2", "3", "4", "5", "10", "15", "20",
+				"50" }, false);
 	}
 
 	/**
@@ -77,14 +76,12 @@ public class AddErrors extends Canonicizer {
 		int percentErrors = getParameter("percenterror", 0);
 		int numChanges = (int) ((percentErrors / 100.0) * procText.length);
 
-		System.out.println("Introducing errors to " + percentErrors
-				+ "% of document, or " + numChanges + " of " + procText.length
-				+ " characters.");
+		logger.debug("Introducing errors to " + percentErrors + "% of document, or " + numChanges + " of "
+				+ procText.length + " characters.");
 
 		for (int i = 0; i < numChanges; i++) {
 			int changePos = random.nextInt(procText.length);
-			if ((procText[changePos] == ' ') || (procText[changePos] == '\t')
-					|| (procText[changePos] == '\n')) {
+			if ((procText[changePos] == ' ') || (procText[changePos] == '\t') || (procText[changePos] == '\n')) {
 				int newChar = random.nextInt(3);
 				switch (newChar) {
 				case 0:

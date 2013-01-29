@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -45,8 +44,7 @@ public class SyllableTransitionEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- bigrams */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 			"cat " +	// 1 syllable
 			"at " +		// 1 syllable
 			"a " + 		// 1 syllable
@@ -77,36 +75,37 @@ public class SyllableTransitionEventDriverTest {
 			"OTTO " 	// 2 syllables
 		);
 
-		EventSet sampleEventSet = new SyllableTransitionEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new SyllableTransitionEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-2"));
-		tmp.add(new Event("2-2"));
-		tmp.add(new Event("2-2"));
-		tmp.add(new Event("2-2"));
-		tmp.add(new Event("2-3"));
-		tmp.add(new Event("3-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-1"));
-		tmp.add(new Event("1-2"));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 2]", eventDriver));
+		tmp.add(new Event("[2, 2]", eventDriver));
+		tmp.add(new Event("[2, 2]", eventDriver));
+		tmp.add(new Event("[2, 2]", eventDriver));
+		tmp.add(new Event("[2, 3]", eventDriver));
+		tmp.add(new Event("[3, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 1]", eventDriver));
+		tmp.add(new Event("[1, 2]", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 		System.out.println(expectedEventSet.toString());
@@ -116,37 +115,37 @@ public class SyllableTransitionEventDriverTest {
 		/* test case 2 -- trigrams */
 		EventDriver ed = new SyllableTransitionEventDriver();
 		ed.setParameter("N","3"); 
-		sampleEventSet = ed.createEventSet(doc);
+		sampleEventSet = ed.createEventSet(text.toCharArray());
 
 		expectedEventSet = new EventSet();
 		tmp = new Vector<Event>();
 
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-2"));
-		tmp.add(new Event("1-2-2"));
-		tmp.add(new Event("2-2-2"));
-		tmp.add(new Event("2-2-2"));
-		tmp.add(new Event("2-2-3"));
-		tmp.add(new Event("2-3-1"));
-		tmp.add(new Event("3-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-1"));
-		tmp.add(new Event("1-1-2"));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 2]", ed));
+		tmp.add(new Event("[1, 2, 2]", ed));
+		tmp.add(new Event("[2, 2, 2]", ed));
+		tmp.add(new Event("[2, 2, 2]", ed));
+		tmp.add(new Event("[2, 2, 3]", ed));
+		tmp.add(new Event("[2, 3, 1]", ed));
+		tmp.add(new Event("[3, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 1]", ed));
+		tmp.add(new Event("[1, 1, 2]", ed));
 
 		expectedEventSet.addEvents(tmp);
 		System.out.println(expectedEventSet.toString());

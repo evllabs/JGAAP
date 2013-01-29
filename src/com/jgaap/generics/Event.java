@@ -19,6 +19,8 @@
  **/
 package com.jgaap.generics;
 
+import java.util.List;
+
 /*
  * Event.java Caleb Astey - 2007
  */
@@ -33,21 +35,30 @@ package com.jgaap.generics;
 public class Event implements Comparable<Object> {
 
     private String data;
-
-    public Event() {
-        data = "";
-    }
+    private EventDriver eventDriver;
 
     /** Create a new event given a character representation of the event **/
-    public Event(char data) {
+    public Event(char data, EventDriver eventDriver) {
         this.data = Character.toString(data);
+        this.eventDriver = eventDriver;
     }
-
+    
     /** Create a new event given a string representation of this event **/
-    public Event(String data) {
+    public Event(String data, EventDriver eventDriver) {
         this.data = data;
+        this.eventDriver = eventDriver;
     }
-
+    
+    public Event(List<Event> events){
+    	this.data = events.toString();
+    	this.eventDriver = events.get(0).eventDriver;
+    }
+    
+    public Event(List<Event> events, EventDriver eventDriver){
+    	this.data = events.toString();
+    	this.eventDriver = eventDriver;
+    }
+    
     /**
      * Overridden - from Comparable interface. Allows for comparison of two
      * events.
@@ -63,14 +74,18 @@ public class Event implements Comparable<Object> {
     @Override
     public boolean equals(Object o) {
         if(o instanceof Event) {
-            return data.equals(((Event) o).data);
+        	Event event = ((Event) o);
+        	if(eventDriver != null)
+        		return data.equals(event.data)&&eventDriver.equals(event.eventDriver);
+        	else 
+        		return data.equals(event.data)&&(event.eventDriver==null);
         }
         return false;
     }
 
     /** Returns the String representation of this event **/
     public String getEvent() {
-        return data;
+        return data+eventDriver;
     }
 
     /**
@@ -82,7 +97,10 @@ public class Event implements Comparable<Object> {
      **/
     @Override
     public int hashCode() {
-        return data.hashCode();
+    	if(eventDriver != null)
+    		return data.hashCode()*eventDriver.hashCode();
+    	else 
+    		return data.hashCode();
     }
 
     @Override

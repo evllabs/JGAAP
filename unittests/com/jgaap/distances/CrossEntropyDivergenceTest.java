@@ -27,6 +27,7 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.EventSet;
 
 /**
@@ -48,25 +49,25 @@ public class CrossEntropyDivergenceTest {
 		
 		
 		Vector<Event> test1 = new Vector<Event>();
-		test1.add(new Event("mary"));
-		test1.add(new Event("had"));
-		test1.add(new Event("a"));
-		test1.add(new Event("little"));
-		test1.add(new Event("lamb"));
-		test1.add(new Event("whose"));
-		test1.add(new Event("fleece"));
-		test1.add(new Event("was"));
-		test1.add(new Event("white"));
-		test1.add(new Event("as"));
-		test1.add(new Event("snow"));
+		test1.add(new Event("mary", null));
+		test1.add(new Event("had", null));
+		test1.add(new Event("a", null));
+		test1.add(new Event("little", null));
+		test1.add(new Event("lamb", null));
+		test1.add(new Event("whose", null));
+		test1.add(new Event("fleece", null));
+		test1.add(new Event("was", null));
+		test1.add(new Event("white", null));
+		test1.add(new Event("as", null));
+		test1.add(new Event("snow", null));
 		known1.addEvents(test1);
-		known1.setAuthor("Mary");
+		//known1.setAuthor("Mary");
 		
 		
 		
 		
 		//Same event set
-		double Result = new CrossEntropyDivergence().divergence(known1, known1);
+		double Result = new CrossEntropyDivergence().divergence(new EventMap(known1), new EventMap(known1));
 		
 		//System.out.println(s);
 		
@@ -78,19 +79,19 @@ public class CrossEntropyDivergenceTest {
 		test1  = new Vector<Event>();
 		Vector<Event> test2 = new Vector<Event>();
 		
-		test1.add(new Event("alpha"));
-		test1.add(new Event("beta"));
+		test1.add(new Event("alpha", null));
+		test1.add(new Event("beta", null));
 		known1 = new EventSet();
 		known1.addEvents(test1);
 		
-		test2.add(new Event("alpha"));
-		test2.add(new Event("alpha"));
-		test2.add(new Event("alpha"));
-		test2.add(new Event("beta"));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("beta", null));
 		known2 = new EventSet();
 		known2.addEvents(test2);
 		
-		Result = new CrossEntropyDivergence().divergence(known1, known2);
+		Result = new CrossEntropyDivergence().divergence(new EventMap(known1), new EventMap(known2));
 		
 		//System.out.println(Result);
 		
@@ -98,7 +99,7 @@ public class CrossEntropyDivergenceTest {
 		
 		//Reversed Event Sets
 		
-		Result = new CrossEntropyDivergence().divergence(known2, known1);
+		Result = new CrossEntropyDivergence().divergence(new EventMap(known2), new EventMap(known1));
 		
 		//System.out.println(Result);
 		
@@ -107,17 +108,17 @@ public class CrossEntropyDivergenceTest {
 		//Test with Smoothing
 		test2 = new Vector<Event>();
 		
-		test2.add(new Event("alpha"));
-		test2.add(new Event("alpha"));
-		test2.add(new Event("beta"));
-		test2.add(new Event("gamma"));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("beta", null));
+		test2.add(new Event("gamma", null));
 		known2 = new EventSet();
 		known2.addEvents(test2);
 	
 		
 		//System.out.println("Start Here"); 
 		
-		Result = new CrossEntropyDivergence().divergence(known2, known1);
+		Result = new CrossEntropyDivergence().divergence(new EventMap(known2), new EventMap(known1));
 		
 		//System.out.println(Result);
 		
@@ -125,7 +126,7 @@ public class CrossEntropyDivergenceTest {
 		
 		//revese the event sets
 		
-		Result = new CrossEntropyDivergence().divergence(known1, known2);
+		Result = new CrossEntropyDivergence().divergence(new EventMap(known1), new EventMap(known2));
 		
 		//System.out.println(Result);
 		

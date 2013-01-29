@@ -22,11 +22,13 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import org.junit.Test;
 
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -46,24 +48,31 @@ public class NullHistAnalysisTest {
 		EventSet unknown = new EventSet();
 		
 		Vector<Event> test1 = new Vector<Event>();
-		test1.add(new Event("The"));
-		test1.add(new Event("quick"));
-		test1.add(new Event("brown"));
-		test1.add(new Event("fox"));
-		test1.add(new Event("jumps"));
-		test1.add(new Event("over"));
-		test1.add(new Event("the"));
-		test1.add(new Event("lazy"));
-		test1.add(new Event("dog"));
-		test1.add(new Event("."));
+		test1.add(new Event("The", null));
+		test1.add(new Event("quick", null));
+		test1.add(new Event("brown", null));
+		test1.add(new Event("fox", null));
+		test1.add(new Event("jumps", null));
+		test1.add(new Event("over", null));
+		test1.add(new Event("the", null));
+		test1.add(new Event("lazy", null));
+		test1.add(new Event("dog", null));
+		test1.add(new Event(".", null));
 		known1.addEvents(test1);
 		unknown.addEvents(test1);
 		
-		Vector<EventSet> test = new Vector<EventSet>();
-		test.add(known1);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		//knownDocument1.setAuthor(known1.getAuthor());
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+
+		
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown);
 		NullHistAnalysis nullHistAnalysis = new NullHistAnalysis();
-		nullHistAnalysis.train(test);
-		List<Pair<String, Double>> t = nullHistAnalysis.analyze(unknown);
+		nullHistAnalysis.train(knowns);
+		List<Pair<String, Double>> t = nullHistAnalysis.analyze(unknownDocument);
 		String r = t.get(0).getFirst();
 		String s = "No analysis performed.\n";
 		assertTrue(r.equals(s));

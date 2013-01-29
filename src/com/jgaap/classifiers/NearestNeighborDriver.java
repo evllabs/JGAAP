@@ -25,9 +25,11 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.ImmutableList;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Document;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.Pair;
 
@@ -40,7 +42,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 
 	private Logger logger = Logger.getLogger(NearestNeighborDriver.class);
 	
-	private List<EventSet> knowns;
+	private ImmutableList<Pair<Document, EventMap>> knowns;
 	
 	public String displayName() {
 		return "Nearest Neighbor Driver" + getDistanceName();
@@ -54,24 +56,27 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 		return true;
 	}
 	
-	public void train(List<EventSet> knowns){
-		this.knowns = knowns;
+	public void train(List<Document> knowns){
+		ImmutableList.Builder<Pair<Document, EventMap>> builder = ImmutableList.builder();
+		for(Document known : knowns) {
+			builder.add(new Pair<Document, EventMap>(known, new EventMap(known)));
+		}
+		this.knowns = builder.build();
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown) throws AnalyzeException {
+	public List<Pair<String, Double>> analyze(Document unknown) throws AnalyzeException {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
 
-		for (EventSet known : knowns){
-			double current;
+		for (Pair<Document, EventMap> known : knowns){
 			try {
-				current = distance.distance(unknown, known);
+				double current = distance.distance(new EventMap(unknown), known.getSecond());
+				results.add(new Pair<String, Double>(known.getFirst().getAuthor() + " -" + known.getFirst().getFilePath(),current,2));
+				logger.debug(unknown.getFilePath()+"(Unknown) -> "+known.getFirst().getFilePath()+"("+known.getFirst().getAuthor()+") Distance:"+current);
 			} catch (DistanceCalculationException e) {
 				logger.error("Distance "+distance.displayName()+" failed", e);
 				throw new AnalyzeException("Distance "+distance.displayName()+" failed");
 			}
-			results.add(new Pair<String, Double>(known.getAuthor() + " -" + known.getDocumentName(),current,2));
-			logger.debug(unknown.getDocumentName()+"(Unknown):"+known.getDocumentName()+"("+known.getAuthor()+") Distance:"+current);
 		}
 		Collections.sort(results);
 		return results;

@@ -54,7 +54,13 @@ import org.apache.log4j.Logger;
 import com.jgaap.generics.*;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
+import com.jgaap.backend.AnalysisDrivers;
 import com.jgaap.backend.CSVIO;
+import com.jgaap.backend.Canonicizers;
+import com.jgaap.backend.DistanceFunctions;
+import com.jgaap.backend.EventCullers;
+import com.jgaap.backend.EventDrivers;
+import com.jgaap.backend.Languages;
 import com.jgaap.backend.Utils;
 
 import java.awt.Color;
@@ -90,14 +96,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	DefaultTableModel UnknownAuthorDocumentsTable_Model = new DefaultTableModel() {
 		private static final long serialVersionUID = 1L;
 
-		@Override
-		public boolean isCellEditable(int row, int column) {
-			if (column == 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
 	};
 
 	API JGAAP_API = API.getInstance();
@@ -305,11 +303,11 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		
 		jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 24));
 		jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabel11.setText("JGAAP 6.0");
+		jLabel11.setText("JGAAP 7.0");
 
 		jLabel12.setText("<html> JGAAP, the Java Graphical Authorship Attribution Program, <br/>is an opensource author attribution / text classification tool <br/>Developed by the EVL lab (Evaluating Variation in Language Labratory) <br/> Released by Patrick Juola under the AGPL v3.0");
 
-        jLabel13.setText("\u00A92012 EVL lab");
+        jLabel13.setText("\u00A92013 EVL lab");
 
 		jLabel23.setForeground(new java.awt.Color(0, 0, 255));
 		jLabel23.setText("http://evllabs.com");
@@ -478,7 +476,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 										.addContainerGap()));
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("JGAAP");
+		setTitle("JGAAP 7.0");
 
 		JGAAP_TabbedPane.setName("JGAAP_TabbedPane"); // NOI18N
 
@@ -2596,8 +2594,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			JGAAP_API.clearData();
 			JGAAP_API.clearCanonicizers();
 			for(Pair<Canonicizer, Object> canonicizerPair : SelectedCanonicizerList){
-				if(canonicizerPair.getSecond() instanceof DocType){
-					JGAAP_API.addCanonicizer(canonicizerPair.getFirst().displayName(), (DocType)canonicizerPair.getSecond());
+				if(canonicizerPair.getSecond() instanceof Document.Type){
+					JGAAP_API.addCanonicizer(canonicizerPair.getFirst().displayName(), (Document.Type)canonicizerPair.getSecond());
 				} else if(canonicizerPair.getSecond() instanceof Document){
 					JGAAP_API.addCanonicizer(canonicizerPair.getFirst().displayName(), (Document)canonicizerPair.getSecond());
 				} else {
@@ -2614,27 +2612,17 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			// ResultsPage.DisplayResults(buffer.toString());
 			ResultsPage.addResults(buffer.toString());
 			ResultsPage.setVisible(true);
-		} catch (JGAAPException e) {
-			logger.fatal("Experiment Failed", e);
+		} catch (Exception e) {
 			if (e.getMessage() == null) {
 				JOptionPane
-						.showMessageDialog(
-								this,
+						.showMessageDialog(this,
 								"Experiment failed to complete.\nReview Error logs for more information.\n(Run JGAAP from the terminal to view logs using java -jar jgaap.jar or ant run-gui)",
 								"JGAAP Error", JOptionPane.ERROR_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(this,
 						"Experiment failed to complete.\nDetailed information is available below:\n"
-								+ e.getMessage(), "JGAAP Error",
-						JOptionPane.ERROR_MESSAGE);
+								+ e.toString(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
 			}
-		} catch (Exception e) {
-			logger.fatal("Experiment Failed", e);
-			JOptionPane
-					.showMessageDialog(
-							this,
-							"Experiment failed to complete.\nReview Error logs for more information.\n(Run JGAAP from the terminal to view logs using java -jar jgaap.jar or ant run-gui)",
-							"JGAAP Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}// GEN-LAST:event_ReviewPanel_ProcessButtonActionPerformed
 
@@ -3475,10 +3463,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		CanonicizerComboBoxModel.removeAllElements();
 		docTypesList.clear();
 		docTypesList.add("All");
-		docTypesList.add(DocType.GENERIC);
-		docTypesList.add(DocType.DOC);
-		docTypesList.add(DocType.PDF);
-		docTypesList.add(DocType.HTML);
+		docTypesList.add(Document.Type.GENERIC);
+		docTypesList.add(Document.Type.DOC);
+		docTypesList.add(Document.Type.PDF);
+		docTypesList.add(Document.Type.HTML);
 		for(Document document : JGAAP_API.getDocuments()){
 			docTypesList.add(document);
 		}
@@ -3598,28 +3586,27 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		EventDriverMasterList = new ArrayList<EventDriver>();
 		LanguagesMasterList = new ArrayList<Language>();
 
-		for (AnalysisDriver analysisDriver : JGAAP_API.getAllAnalysisDrivers()) {
+		for (AnalysisDriver analysisDriver : AnalysisDrivers.getAnalysisDrivers()) {
 			if (analysisDriver.showInGUI())
 				AnalysisDriverMasterList.add(analysisDriver);
 		}
-		for (Canonicizer canonicizer : JGAAP_API.getAllCanonicizers()) {
+		for (Canonicizer canonicizer : Canonicizers.getCanonicizers()) {
 			if (canonicizer.showInGUI())
 				CanonicizerMasterList.add(canonicizer);
 		}
-		for (DistanceFunction distanceFunction : JGAAP_API
-				.getAllDistanceFunctions()) {
+		for (DistanceFunction distanceFunction : DistanceFunctions.getDistanceFunctions()) {
 			if (distanceFunction.showInGUI())
 				DistanceFunctionsMasterList.add(distanceFunction);
 		}
-		for (EventCuller eventCuller : JGAAP_API.getAllEventCullers()) {
+		for (EventCuller eventCuller : EventCullers.getEventCullers()) {
 			if (eventCuller.showInGUI())
 				EventCullersMasterList.add(eventCuller);
 		}
-		for (EventDriver eventDriver : JGAAP_API.getAllEventDrivers()) {
+		for (EventDriver eventDriver : EventDrivers.getEventDrivers()) {
 			if (eventDriver.showInGUI())
 				EventDriverMasterList.add(eventDriver);
 		}
-		for (Language language : JGAAP_API.getAllLanguages()) {
+		for (Language language : Languages.getLanguages()) {
 			if (language.showInGUI())
 				LanguagesMasterList.add(language);
 		}

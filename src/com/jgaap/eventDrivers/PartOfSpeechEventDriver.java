@@ -17,14 +17,15 @@
  */
 package com.jgaap.eventDrivers;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.jgaap.backend.API;
 import com.jgaap.canonicizers.PunctuationSeparator;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
-import com.knowledgebooks.nlp.fasttag.*;
-import java.util.*;
+import com.knowledgebooks.nlp.fasttag.FastTag;
 
 /**
  * This changes words into their parts of speech in a document. This does not
@@ -50,18 +51,18 @@ public class PartOfSpeechEventDriver extends EventDriver {
 		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("English");
 	}
 
+	private static PunctuationSeparator punctuationSeparator = new PunctuationSeparator();
+	
 	@Override
-	public EventSet createEventSet(Document doc) {
-
-		EventSet es = new EventSet(doc.getAuthor());
-
-		char[] text = doc.getText();
-
-		text = new PunctuationSeparator().process(text);
-
-		String stringText = new String(text);
+	public EventSet createEventSet(char[] text) {
 
 		FastTag tagger = new FastTag();
+		
+		EventSet es = new EventSet();
+
+		text = punctuationSeparator.process(text);
+
+		String stringText = new String(text);
 
 		for (String current : stringText.split("(?<=[?!\\.])\\s+")) {
 
@@ -72,7 +73,7 @@ public class PartOfSpeechEventDriver extends EventDriver {
 			List<String> tagged = tagger.tag(tmp);
 
 			for (int j = 0; j < tagged.size(); j++) {
-				es.addEvent(new Event(tagged.get(j)));
+				es.addEvent(new Event(tagged.get(j), this));
 			}
 		}
 		return es;

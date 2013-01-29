@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -44,37 +43,36 @@ public class WordTriGramEventDriverTest {
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "Mary had a little lamb;\n" +
 "Its fleece was white as snow.\n" +
 "And everywhere that Mary went,\n" +
 "The lamb was sure to go.");
 		EventDriver eventDriver = new WordNGramEventDriver();
 		eventDriver.setParameter("N", 3);
-		EventSet sampleEventSet = eventDriver.createEventSet(doc);
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
-		tmp.add(new Event("(Mary)-(had)-(a)"));
-		tmp.add(new Event("(had)-(a)-(little)"));
-		tmp.add(new Event("(a)-(little)-(lamb;)"));
-		tmp.add(new Event("(little)-(lamb;)-(Its)"));
-		tmp.add(new Event("(lamb;)-(Its)-(fleece)"));
-		tmp.add(new Event("(Its)-(fleece)-(was)"));
-		tmp.add(new Event("(fleece)-(was)-(white)"));
-		tmp.add(new Event("(was)-(white)-(as)"));
-		tmp.add(new Event("(white)-(as)-(snow.)"));
-		tmp.add(new Event("(as)-(snow.)-(And)"));
-		tmp.add(new Event("(snow.)-(And)-(everywhere)"));
-		tmp.add(new Event("(And)-(everywhere)-(that)"));
-		tmp.add(new Event("(everywhere)-(that)-(Mary)"));
-		tmp.add(new Event("(that)-(Mary)-(went,)"));
-		tmp.add(new Event("(Mary)-(went,)-(The)"));
-		tmp.add(new Event("(went,)-(The)-(lamb)"));
-		tmp.add(new Event("(The)-(lamb)-(was)"));
-		tmp.add(new Event("(lamb)-(was)-(sure)"));
-		tmp.add(new Event("(was)-(sure)-(to)"));
-		tmp.add(new Event("(sure)-(to)-(go.)"));
+		tmp.add(new Event("[Mary, had, a]", eventDriver));
+		tmp.add(new Event("[had, a, little]", eventDriver));
+		tmp.add(new Event("[a, little, lamb;]", eventDriver));
+		tmp.add(new Event("[little, lamb;, Its]", eventDriver));
+		tmp.add(new Event("[lamb;, Its, fleece]", eventDriver));
+		tmp.add(new Event("[Its, fleece, was]", eventDriver));
+		tmp.add(new Event("[fleece, was, white]", eventDriver));
+		tmp.add(new Event("[was, white, as]", eventDriver));
+		tmp.add(new Event("[white, as, snow.]", eventDriver));
+		tmp.add(new Event("[as, snow., And]", eventDriver));
+		tmp.add(new Event("[snow., And, everywhere]", eventDriver));
+		tmp.add(new Event("[And, everywhere, that]", eventDriver));
+		tmp.add(new Event("[everywhere, that, Mary]", eventDriver));
+		tmp.add(new Event("[that, Mary, went,]", eventDriver));
+		tmp.add(new Event("[Mary, went,, The]", eventDriver));
+		tmp.add(new Event("[went,, The, lamb]", eventDriver));
+		tmp.add(new Event("[The, lamb, was]", eventDriver));
+		tmp.add(new Event("[lamb, was, sure]", eventDriver));
+		tmp.add(new Event("[was, sure, to]", eventDriver));
+		tmp.add(new Event("[sure, to, go.]", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 // System.out.println(expectedEventSet.toString());

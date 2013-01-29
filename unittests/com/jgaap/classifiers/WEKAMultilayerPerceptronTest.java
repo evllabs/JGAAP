@@ -24,11 +24,11 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.Pair;
@@ -54,43 +54,47 @@ public class WEKAMultilayerPerceptronTest {
 		EventSet known1 = new EventSet();
 		EventSet known2 = new EventSet();
 
-		known1.addEvent(new Event("mary"));
-		known1.addEvent(new Event("had"));
-		known1.addEvent(new Event("a"));
-		known1.addEvent(new Event("little"));
-		known1.addEvent(new Event("lamb"));
-		known1.setAuthor("Mary");
+		known1.addEvent(new Event("mary", null));
+		known1.addEvent(new Event("had", null));
+		known1.addEvent(new Event("a", null));
+		known1.addEvent(new Event("little", null));
+		known1.addEvent(new Event("lamb", null));
+		//known1.setAuthor("Mary");
 		
-		known2.addEvent(new Event("peter"));
-		known2.addEvent(new Event("piper"));
-		known2.addEvent(new Event("picked"));
-		known2.addEvent(new Event("a"));
-		known2.addEvent(new Event("peck"));
-		known2.setAuthor("Peter");
+		known2.addEvent(new Event("peter", null));
+		known2.addEvent(new Event("piper", null));
+		known2.addEvent(new Event("picked", null));
+		known2.addEvent(new Event("a", null));
+		known2.addEvent(new Event("peck", null));
+		//known2.setAuthor("Peter");
 		
-		Vector<EventSet> esv = new Vector<EventSet>();
-		esv.add(known1);
-		esv.add(known2);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor("Mary");
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		Document knownDocument2 = new Document();
+		knownDocument2.setAuthor("Peter");
+		knownDocument2.addEventSet(null, known2);
+		knowns.add(knownDocument2);
 
 		//Create unknown text
 		EventSet unknown1 = new EventSet();
 
-		unknown1.addEvent(new Event("mary"));
-		unknown1.addEvent(new Event("had"));
-		unknown1.addEvent(new Event("a"));
-		unknown1.addEvent(new Event("little"));
-		unknown1.addEvent(new Event("beta"));
+		unknown1.addEvent(new Event("mary", null));
+		unknown1.addEvent(new Event("had", null));
+		unknown1.addEvent(new Event("a", null));
+		unknown1.addEvent(new Event("little", null));
+		unknown1.addEvent(new Event("beta", null));
 
-		Vector<EventSet> uesv = new Vector<EventSet>();
-		uesv.add(unknown1);
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown1);
 
 		//Classify unknown based on the knowns
 		WEKAMultilayerPerceptron tree = new WEKAMultilayerPerceptron();
 		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument));
 		System.out.println(t.toString());
 
 		//Assert that the authors match
@@ -101,20 +105,21 @@ public class WEKAMultilayerPerceptronTest {
 
 		EventSet known5 = new EventSet();
 		
-		known5.addEvent(new Event("she"));
-		known5.addEvent(new Event("sells"));
-		known5.addEvent(new Event("seashells"));
-		known5.addEvent(new Event("by"));
-		known5.addEvent(new Event("seashore"));
-		known5.setAuthor("Susie");
+		known5.addEvent(new Event("she", null));
+		known5.addEvent(new Event("sells", null));
+		known5.addEvent(new Event("seashells", null));
+		known5.addEvent(new Event("by", null));
+		known5.addEvent(new Event("seashore", null));
+		//known5.setAuthor("Susie");
 
-		esv.add(known5);
-
+		Document knownDocument5 = new Document();
+		knownDocument5.setAuthor("Susie");
+		knownDocument5.addEventSet(null, known5);
+		knowns.add(knownDocument5);
+		
 		t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument));
 		System.out.println(t.toString());
 
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary"));
@@ -124,19 +129,19 @@ public class WEKAMultilayerPerceptronTest {
 
 		EventSet unknown2 = new EventSet();
 
-		unknown2.addEvent(new Event("peter"));
-		unknown2.addEvent(new Event("piper"));
-		unknown2.addEvent(new Event("picked"));
-		unknown2.addEvent(new Event("a"));
-		unknown2.addEvent(new Event("shells"));
+		unknown2.addEvent(new Event("peter", null));
+		unknown2.addEvent(new Event("piper", null));
+		unknown2.addEvent(new Event("picked", null));
+		unknown2.addEvent(new Event("a", null));
+		unknown2.addEvent(new Event("shells", null));
 
-		uesv.add(unknown2);
+		Document unknownDocument2 = new Document();
+		unknownDocument2.addEventSet(null, unknown2);
 
 		t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument));
+		t.add(tree.analyze(unknownDocument2));
 		System.out.println(t.toString());
 
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));
@@ -145,22 +150,20 @@ public class WEKAMultilayerPerceptronTest {
 		
 		EventSet unknown3 = new EventSet();
 		
-		unknown3.addEvent(new Event("peter"));
-		unknown3.addEvent(new Event("piper"));
-		unknown3.addEvent(new Event("a"));
-		unknown3.addEvent(new Event("little"));
-		unknown3.addEvent(new Event("lamb"));
+		unknown3.addEvent(new Event("peter", null));
+		unknown3.addEvent(new Event("piper", null));
+		unknown3.addEvent(new Event("a", null));
+		unknown3.addEvent(new Event("little", null));
+		unknown3.addEvent(new Event("lamb", null));
 		
-		uesv = new Vector<EventSet>();
-		uesv.add(unknown3);
+		Document unknownDocument3 = new Document();
+		unknownDocument3.addEventSet(null, unknown3);
 		
 		//t = tree.analyze(uesv, esv);
 		tree = new WEKAMultilayerPerceptron();
 		t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument3));
 		System.out.println(t.toString());
 		
 		assertTrue(t.get(0).get(0).getSecond()-.5 < .1 && t.get(0).get(1).getSecond()-.5 < .1);
@@ -170,41 +173,45 @@ public class WEKAMultilayerPerceptronTest {
 		EventSet known4 = new EventSet();
 		EventSet known6 = new EventSet();
 		
-		known3.addEvent(new Event("mary"));
-		known3.addEvent(new Event("had"));
-		known3.addEvent(new Event("a"));
-		known3.addEvent(new Event("small"));
-		known3.addEvent(new Event("lamb"));
-		known3.setAuthor("Mary");
+		known3.addEvent(new Event("mary", null));
+		known3.addEvent(new Event("had", null));
+		known3.addEvent(new Event("a", null));
+		known3.addEvent(new Event("small", null));
+		known3.addEvent(new Event("lamb", null));
+		//known3.setAuthor("Mary");
 
-		known4.addEvent(new Event("peter"));
-		known4.addEvent(new Event("piper"));
-		known4.addEvent(new Event("collected"));
-		known4.addEvent(new Event("a"));
-		known4.addEvent(new Event("peck"));
-		known4.setAuthor("Peter");
+		known4.addEvent(new Event("peter", null));
+		known4.addEvent(new Event("piper", null));
+		known4.addEvent(new Event("collected", null));
+		known4.addEvent(new Event("a", null));
+		known4.addEvent(new Event("peck", null));
+		//known4.setAuthor("Peter");
 		
-		known6.addEvent(new Event("susie"));
-		known6.addEvent(new Event("sells"));
-		known6.addEvent(new Event("shells"));
-		known6.addEvent(new Event("by"));
-		known6.addEvent(new Event("seashore"));
-		known6.setAuthor("Susie");
+		known6.addEvent(new Event("susie", null));
+		known6.addEvent(new Event("sells", null));
+		known6.addEvent(new Event("shells", null));
+		known6.addEvent(new Event("by", null));
+		known6.addEvent(new Event("seashore", null));
+		//known6.setAuthor("Susie");
 
-		esv.add(known3);
-		esv.add(known4);
-		esv.add(known6);
-		
-		uesv = new Vector<EventSet>();
-		uesv.add(unknown1);
-		uesv.add(unknown2);
+		Document knownDocument3 = new Document();
+		knownDocument3.setAuthor("Mary");
+		knownDocument3.addEventSet(null, known3);
+		knowns.add(knownDocument3);
+		Document knownDocument4 = new Document();
+		knownDocument4.setAuthor("Peter");
+		knownDocument4.addEventSet(null, known4);
+		knowns.add(knownDocument4);
+		Document knownDocument6 = new Document();
+		knownDocument6.setAuthor("Susie");
+		knownDocument6.addEventSet(null, known6);
+		knowns.add(knownDocument6);
 		
 		tree = new WEKAMultilayerPerceptron();
 		t = new ArrayList<List<Pair<String,Double>>>(); 
-		tree.train(esv);
-		for(EventSet unknown : uesv){
-			t.add(tree.analyze(unknown));
-		}
+		tree.train(knowns);
+		t.add(tree.analyze(unknownDocument));
+		t.add(tree.analyze(unknownDocument2));
 		System.out.println(t.toString());
 		
 		assertTrue(t.get(0).get(0).getFirst().equals("Mary") && t.get(1).get(0).getFirst().equals("Peter"));

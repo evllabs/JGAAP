@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.Pair;
 
 /**
@@ -44,25 +44,24 @@ public class NullHistAnalysis extends AnalysisDriver {
 	    return true;
 	}
 
-	public void train(List<EventSet> knowns){
+	public void train(List<Document> knowns){
 		int count = 0;
-		for(EventSet known : knowns){
+		for(Document known : knowns){
 			count++;
-			EventHistogram histogram = known.getHistogram();
+			EventMap eventMap = new EventMap(known);
 			System.out.println("--- Known Event Set #" + count + " ---");
-            for(Event event : histogram){
-            	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+histogram.getRelativeFrequency(event)+"',");
+            for(Event event : eventMap.uniqueEvents()){
+            	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+eventMap.relativeFrequency(event)+"',");
             }
 		}
 	}
 	
     @Override
-    public List<Pair<String, Double>> analyze(EventSet unknown) {
-        EventHistogram h1 = unknown.getHistogram();
-
+    public List<Pair<String, Double>> analyze(Document unknown) {
+        EventMap eventMap = new EventMap(unknown);
         System.out.println("--- Unknown Event Set ---");
-        for(Event event : h1){
-        	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+h1.getRelativeFrequency(event)+"',");
+        for(Event event : eventMap.uniqueEvents()){
+        	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+eventMap.relativeFrequency(event)+"',");
         }
 
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();

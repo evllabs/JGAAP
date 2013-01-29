@@ -19,8 +19,7 @@ import java.util.Set;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 public class WEDDivergence extends DistanceFunction {
 
@@ -40,19 +39,17 @@ public class WEDDivergence extends DistanceFunction {
 	}
 
 	@Override
-	public double distance(EventSet unknownEventSet, EventSet knownEventSet)
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap)
 			throws DistanceCalculationException {
-		EventHistogram unknownHistogram = unknownEventSet.getHistogram();
-		EventHistogram knownHistogram = knownEventSet.getHistogram();
-
-		Set<Event> events = new HashSet<Event>();
-		events.addAll(unknownHistogram.events());
-		events.addAll(knownHistogram.events());
+		Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
+		events.addAll(knownEventMap.uniqueEvents());
 		
 		double distance = 0.0;
 		
 		for(Event event : events){
-			distance += (unknownHistogram.getRelativeFrequency(event) == 0 ? 1 : unknownHistogram.getRelativeFrequency(event)) * (unknownHistogram.getRelativeFrequency(event) - knownHistogram.getRelativeFrequency(event)) * (unknownHistogram.getRelativeFrequency(event) - knownHistogram.getRelativeFrequency(event));  
+			double unknown = unknownEventMap.relativeFrequency(event);
+			double known = knownEventMap.relativeFrequency(event);
+			distance += (unknown == 0 ? 1 : unknown) * (unknown - known) * (unknown - known);  
 		}
 		
 		return Math.sqrt(distance);

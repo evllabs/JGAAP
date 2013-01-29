@@ -1,28 +1,28 @@
 package com.jgaap.classifiers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.ImmutableSet;
 import com.jgaap.backend.Utils;
 import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 import com.jgaap.generics.Pair;
 
 public class BurrowsDelta extends AnalysisDriver {
 
-	private Set<Event> events;
-	private Map<String, List<EventHistogram>> knownHistograms;
-	private Map<String, Map<Event, Double>> knownCentroids;
+	private ImmutableSet<Event> events;
+	private ImmutableMultimap<String, EventMap> knownHistograms;
+	private ImmutableMap<String,EventMap> knownCentroids;
 	private boolean useCentroid;
-	private Map<Event, Double> eventStddev;
+	private ImmutableMap<Event, Double> eventStddev;
 
 	public BurrowsDelta() {
 		addParams("centroid", "Centroid Model", "false", new String[] { "true", "false" }, false);
@@ -43,51 +43,50 @@ public class BurrowsDelta extends AnalysisDriver {
 		return true;
 	}
 
-	public void train(List<EventSet> knowns) {
+	public void train(List<Document> knowns) {
 		useCentroid = "true".equalsIgnoreCase(getParameter("centroid"));
-		events = new HashSet<Event>();
-		knownHistograms = new HashMap<String, List<EventHistogram>>();
-		for (EventSet known : knowns) {
-			EventHistogram histogram = known.getHistogram();
-			events.addAll(histogram.events());
-			List<EventHistogram> histograms = knownHistograms.get(known.getAuthor());
-			if (histograms == null) {
-				histograms = new ArrayList<EventHistogram>();
-				knownHistograms.put(known.getAuthor(), histograms);
-			}
-			histograms.add(histogram);
+		ImmutableSet.Builder<Event> eventsBuilder = ImmutableSet.builder();
+		ImmutableMultimap.Builder<String, EventMap> knownHistogramsBuilder = ImmutableMultimap.builder();
+		for (Document known : knowns) {
+			EventMap eventMap = new EventMap(known);
+			eventsBuilder.addAll(eventMap.uniqueEvents());
+			knownHistogramsBuilder.put(known.getAuthor(), eventMap);
 		}
-
-		eventStddev = new HashMap<Event, Double>();
+		events = eventsBuilder.build();
+		knownHistograms = knownHistogramsBuilder.build();
+		
+		ImmutableMap.Builder<Event, Double> eventStddevBuilder = ImmutableMap.builder();
 
 		if (useCentroid) {
-			knownCentroids = new HashMap<String, Map<Event, Double>>();
-			for (Entry<String, List<EventHistogram>> entry : knownHistograms.entrySet()) {
-				knownCentroids.put(entry.getKey(), Utils.makeRelativeCentroid(entry.getValue()));
+			ImmutableMap.Builder<String, EventMap> knownCentroidsBuilder = ImmutableMap.builder();
+			for (Entry<String, Collection<EventMap>> entry : knownHistograms.asMap().entrySet()) {
+				knownCentroidsBuilder.put(entry.getKey(), EventMap.centroid(entry.getValue()));
 			}
+			knownCentroids = knownCentroidsBuilder.build();
 			for (Event event : events) {
 				List<Double> sample = new ArrayList<Double>();
-				for (Map<Event, Double> histogram : knownCentroids.values()) {
-					Double value = histogram.get(event);
+				for (EventMap histogram : knownCentroids.values()) {
+					Double value = histogram.relativeFrequency(event);
 					if (value == null) {
 						sample.add(0.0);
 					} else {
 						sample.add(value);
 					}
 				}
-				eventStddev.put(event, Utils.stddev(sample));
+				eventStddevBuilder.put(event, Utils.stddev(sample));
 			}
 		} else {
 			for (Event event : events) {
 				List<Double> sample = new ArrayList<Double>();
-				for (List<EventHistogram> histograms : knownHistograms.values()) {
-					for (EventHistogram histogram : histograms) {
-						sample.add(histogram.getRelativeFrequency(event));
+				for (Collection<EventMap> histograms : knownHistograms.asMap().values()) {
+					for (EventMap histogram : histograms) {
+						sample.add(histogram.relativeFrequency(event));
 					}
 				}
-				eventStddev.put(event, Utils.stddev(sample));
+				eventStddevBuilder.put(event, Utils.stddev(sample));
 			}
 		}
+		eventStddev = eventStddevBuilder.build();
 	}
 
 	/**
@@ -95,27 +94,27 @@ public class BurrowsDelta extends AnalysisDriver {
 	 * sigma|) (Basically, a Manhattan Distance normalized by the standard
 	 * deviation of a word across the known author list)
 	 */
-	public List<Pair<String, Double>> analyze(EventSet unknown) {
+	public List<Pair<String, Double>> analyze(Document unknown) {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
-		EventHistogram unknownHistogram = unknown.getHistogram();
+		EventMap unknownEventMap = new EventMap(unknown);
 		if (useCentroid) {
-			for (Entry<String, Map<Event, Double>> entry : knownCentroids.entrySet()) {
+			for (Entry<String, EventMap> entry : knownCentroids.entrySet()) {
 				double delta = 0.0;
 				for (Event event : events) {
-					Double knownFrequency = entry.getValue().get(event);
+					Double knownFrequency = entry.getValue().relativeFrequency(event);
 					if (knownFrequency == null) {
 						knownFrequency = 0.0;
 					}
-					delta += Math.abs((unknownHistogram.getRelativeFrequency(event) - knownFrequency) / eventStddev.get(event));
+					delta += Math.abs((unknownEventMap.relativeFrequency(event) - knownFrequency) / eventStddev.get(event));
 				}
 				results.add(new Pair<String, Double>(entry.getKey(), delta,2));
 			}
 		} else {
-			for (Entry<String, List<EventHistogram>> entry : knownHistograms.entrySet()) {
-				for (EventHistogram histogram : entry.getValue()) {
+			for (Entry<String, Collection<EventMap>> entry : knownHistograms.asMap().entrySet()) {
+				for (EventMap histogram : entry.getValue()) {
 					double delta = 0.0;
 					for (Event event : events) {
-						delta += Math.abs((unknownHistogram.getRelativeFrequency(event) - histogram.getRelativeFrequency(event)) / eventStddev.get(event));
+						delta += Math.abs((unknownEventMap.relativeFrequency(event) - histogram.relativeFrequency(event)) / eventStddev.get(event));
 					}
 					results.add(new Pair<String, Double>(entry.getKey(), delta,2));
 				}

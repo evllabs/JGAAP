@@ -26,8 +26,8 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
 
@@ -44,8 +44,7 @@ public class WordSyllablesEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 			"cat " +	// 1 syllable
 			"at " +		// 1 syllable
 			"a " + 		// 1 syllable
@@ -76,37 +75,38 @@ public class WordSyllablesEventDriverTest {
 			"OTTO " 	// 2 syllables
 		);
 
-		EventSet sampleEventSet = new WordSyllablesEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new WordSyllablesEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("2"));
-		tmp.add(new Event("2"));
-		tmp.add(new Event("2"));
-		tmp.add(new Event("2"));
-		tmp.add(new Event("3"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("1"));
-		tmp.add(new Event("2"));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("2", eventDriver));
+		tmp.add(new Event("2", eventDriver));
+		tmp.add(new Event("2", eventDriver));
+		tmp.add(new Event("2", eventDriver));
+		tmp.add(new Event("3", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("1", eventDriver));
+		tmp.add(new Event("2", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));

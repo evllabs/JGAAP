@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -45,8 +44,7 @@ public class V24LetterWordEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "a b c d e f g h i j k l m n o p q r s t u v w x y z " +
 "aa bb cc dd ee ff gg hh ii jj kk ll mm nn oo pp qq rr ss tt uu vv ww xx yy zz " +
 "aaa bbb ccc ddd eee fff ggg hhh iii jjj kkk lll mmm nnn ooo ppp qqq rrr sss ttt uuu vvv www xxx yyy zzz " +
@@ -66,49 +64,52 @@ public class V24LetterWordEventDriverTest {
 		eventDriver.setParameter("M", 2);
 		eventDriver.setParameter("N", 4);
 
-		EventSet sampleEventSet = eventDriver.createEventSet(doc);
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("aa"));
-		tmp.add(new Event("ee"));
-		tmp.add(new Event("ii"));
-		tmp.add(new Event("oo"));
-		tmp.add(new Event("uu"));
-		tmp.add(new Event("yy"));
-		tmp.add(new Event("aaa"));
-		tmp.add(new Event("eee"));
-		tmp.add(new Event("iii"));
-		tmp.add(new Event("ooo"));
-		tmp.add(new Event("uuu"));
-		tmp.add(new Event("yyy"));
-		tmp.add(new Event("aaaa"));
-		tmp.add(new Event("eeee"));
-		tmp.add(new Event("iiii"));
-		tmp.add(new Event("oooo"));
-		tmp.add(new Event("uuuu"));
-		tmp.add(new Event("yyyy"));
-		tmp.add(new Event("AA"));
-		tmp.add(new Event("EE"));
-		tmp.add(new Event("II"));
-		tmp.add(new Event("OO"));
-		tmp.add(new Event("UU"));
-		tmp.add(new Event("YY"));
-		tmp.add(new Event("AAA"));
-		tmp.add(new Event("EEE"));
-		tmp.add(new Event("III"));
-		tmp.add(new Event("OOO"));
-		tmp.add(new Event("UUU"));
-		tmp.add(new Event("YYY"));
-		tmp.add(new Event("AAAA"));
-		tmp.add(new Event("EEEE"));
-		tmp.add(new Event("IIII"));
-		tmp.add(new Event("OOOO"));
-		tmp.add(new Event("UUUU"));
-		tmp.add(new Event("YYYY"));
+		tmp.add(new Event("aa", eventDriver));
+		tmp.add(new Event("ee", eventDriver));
+		tmp.add(new Event("ii", eventDriver));
+		tmp.add(new Event("oo", eventDriver));
+		tmp.add(new Event("uu", eventDriver));
+		tmp.add(new Event("yy", eventDriver));
+		tmp.add(new Event("aaa", eventDriver));
+		tmp.add(new Event("eee", eventDriver));
+		tmp.add(new Event("iii", eventDriver));
+		tmp.add(new Event("ooo", eventDriver));
+		tmp.add(new Event("uuu", eventDriver));
+		tmp.add(new Event("yyy", eventDriver));
+		tmp.add(new Event("aaaa", eventDriver));
+		tmp.add(new Event("eeee", eventDriver));
+		tmp.add(new Event("iiii", eventDriver));
+		tmp.add(new Event("oooo", eventDriver));
+		tmp.add(new Event("uuuu", eventDriver));
+		tmp.add(new Event("yyyy", eventDriver));
+		tmp.add(new Event("AA", eventDriver));
+		tmp.add(new Event("EE", eventDriver));
+		tmp.add(new Event("II", eventDriver));
+		tmp.add(new Event("OO", eventDriver));
+		tmp.add(new Event("UU", eventDriver));
+		tmp.add(new Event("YY", eventDriver));
+		tmp.add(new Event("AAA", eventDriver));
+		tmp.add(new Event("EEE", eventDriver));
+		tmp.add(new Event("III", eventDriver));
+		tmp.add(new Event("OOO", eventDriver));
+		tmp.add(new Event("UUU", eventDriver));
+		tmp.add(new Event("YYY", eventDriver));
+		tmp.add(new Event("AAAA", eventDriver));
+		tmp.add(new Event("EEEE", eventDriver));
+		tmp.add(new Event("IIII", eventDriver));
+		tmp.add(new Event("OOOO", eventDriver));
+		tmp.add(new Event("UUUU", eventDriver));
+		tmp.add(new Event("YYYY", eventDriver));
 
 
 		expectedEventSet.addEvents(tmp);
+		
+		System.out.println(expectedEventSet);
+		System.out.println(sampleEventSet);
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 }
