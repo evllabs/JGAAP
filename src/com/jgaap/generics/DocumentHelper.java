@@ -77,15 +77,15 @@ class DocumentHelper {
 		return text;
 	}
 
-	static DocType getDocType(String filepath) {
+	static Document.Type getDocType(String filepath) {
 		if (filepath.endsWith(".pdf")) {
-			return DocType.PDF;
+			return Document.Type.PDF;
 		} else if (filepath.endsWith(".doc")||filepath.endsWith(".docx")) {
-			return DocType.DOC;
+			return Document.Type.DOC;
 		} else if (filepath.endsWith(".htm") || filepath.endsWith(".html")) {
-			return DocType.HTML;
+			return Document.Type.HTML;
 		} else {
-			return DocType.GENERIC;
+			return Document.Type.GENERIC;
 		}
 	}
 

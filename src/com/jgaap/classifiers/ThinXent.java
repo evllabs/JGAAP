@@ -27,8 +27,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventGraph;
 import com.jgaap.generics.Pair;
@@ -36,7 +38,7 @@ import com.jgaap.generics.Pair;
 public class ThinXent extends AnalysisDriver {
 
 	private int windowSize;
-	private Map<String, EventGraph> eventGraphs;
+	private ImmutableMap<String, EventGraph> eventGraphs;
 	private boolean authorModel;
 	
 	public ThinXent() {
@@ -56,25 +58,27 @@ public class ThinXent extends AnalysisDriver {
 	}
 
 	public boolean showInGUI() {
-		return false;
+		return true;
 	}
 
-	public double distance(EventGraph eventGraph, EventSet eventSet) {
+	public double distance(EventGraph eventGraph, Document document) {
 
-		double me = meanEntropy(eventGraph, eventSet);
+		double me = meanEntropy(eventGraph, document);
 		double hhat = (Math.log(1.0 * windowSize) / Math.log(2.0)) / me;
 
 		return hhat;
 	}
 
-	private double meanEntropy(EventGraph eventGraph, EventSet eventSet) {
+	private double meanEntropy(EventGraph eventGraph, Document document) {
 
 		double totalEntropy = 0;
 		int trials = 0;
 
-		for (int i = 0; i < eventSet.size(); i++) {
-			totalEntropy += eventGraph.find(window(eventSet, i, windowSize));
-			trials++;
+		for (EventSet eventSet : document.getEventSets().values()) {
+			for (int i = 0; i < eventSet.size(); i++) {
+				totalEntropy += eventGraph.find(window(eventSet, i, windowSize));
+				trials++;
+			}
 		}
 		return totalEntropy / trials;
 	}
@@ -83,37 +87,37 @@ public class ThinXent extends AnalysisDriver {
 		return e1.subset(offset, offset + windowSize);
 	}
 	
-	private String identifier(EventSet eventSet){
-		return (authorModel? eventSet.getAuthor() : eventSet.getAuthor()+" -"+eventSet.getDocumentName());
+	private String identifier(Document eventSet){
+		return (authorModel? eventSet.getAuthor() : eventSet.getAuthor()+" -"+eventSet.getFilePath());
 	}
 
 	@Override
-	public void train(List<EventSet> knownEventSets) throws AnalyzeException {
-		windowSize = Integer.parseInt(getParameter("windowSize"));
-		authorModel = getParameter("model").equalsIgnoreCase("author");
-		eventGraphs = new HashMap<String, EventGraph>();
-		for(EventSet eventSet : knownEventSets){
-			EventGraph eventGraph = eventGraphs.get(identifier(eventSet));
-			if(eventGraph == null){
-				eventGraph = new EventGraph();
-				eventGraphs.put(identifier(eventSet), eventGraph);
+	public void train(List<Document> knownDocuments) throws AnalyzeException {
+		windowSize = getParameter("windowSize", 15);
+		authorModel = getParameter("model").equalsIgnoreCase("author");		
+		Map<String, EventGraph.Builder> graphBuilderMap = new HashMap<String, EventGraph.Builder>();
+		for(Document document : knownDocuments){
+			EventGraph.Builder builder = graphBuilderMap.get(identifier(document));
+			if(builder == null){
+				builder = EventGraph.builder();
+				graphBuilderMap.put(identifier(document), builder);
 			}
-			eventGraph.add(eventSet);
-//			for (int i = 0; i < eventSet.size(); i++) {
-//				EventSet dictionary;
-//				dictionary = window(eventSet, i, windowSize);
-//				eventGraph.add(dictionary);
-//			}
+			builder.addAll(document.getEventSets().values());
 		}
+		ImmutableMap.Builder<String, EventGraph> builder = ImmutableMap.builder();
+		for(Map.Entry<String, EventGraph.Builder> entry : graphBuilderMap.entrySet()) {
+			builder.put(entry.getKey(), entry.getValue().build());
+		}
+		eventGraphs = builder.build();
 	}
 
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknownEventSet)
+	public List<Pair<String, Double>> analyze(Document unknownDocument)
 			throws AnalyzeException {
 		Set<Entry<String,EventGraph>> entrySet = eventGraphs.entrySet();
 		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>(entrySet.size());
 		for(Entry<String,EventGraph> entry : entrySet){
-			results.add(new Pair<String, Double>(entry.getKey(), distance(entry.getValue(), unknownEventSet), 2));
+			results.add(new Pair<String, Double>(entry.getKey(), distance(entry.getValue(), unknownDocument), 2));
 		}
 		Collections.sort(results);
 		return results;

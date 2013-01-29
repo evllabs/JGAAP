@@ -19,23 +19,22 @@
  **/
 package com.jgaap.distances;
 
-import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.NumericEventSet;
+import com.google.common.collect.Sets;
+import com.jgaap.generics.*;
 
 /**
- * Mean Distance or normalized dot product. Average both EventSets and subtract.
+ * Given two event type-sets, A,B, calculate 1 - ||A intersect B|| // ||A union B||
  * 
  * @author Juola
- * @version 4.2
+ * @version 4.1
  */
-public class MeanDistance extends DistanceFunction {
+public class AltIntersectionDistance extends DistanceFunction{
 	public String displayName() {
-		return "Mean Distance";
+		return "Alt Intersection Distance";
 	}
 
 	public String tooltipText() {
-		return "Distance between arithmetic mean of events (numeric events only)";
+		return "One over Event type set intersection plus one";
 	}
 
 	public boolean showInGUI() {
@@ -43,35 +42,18 @@ public class MeanDistance extends DistanceFunction {
 	}
 
 	/**
-	 * Returns mean distance between event sets es1 and es2
+	 * Returns intersection distance between event sets es1 and es2.
 	 * 
 	 * @param es1
 	 *            The first EventSet
 	 * @param es2
 	 *            The second EventSet
-	 * @return the mean distance between them
+	 * @return the intersection distance between them
 	 */
+
 	@Override
-	public double distance(EventSet es1, EventSet es2) {
-
-		double sum1 = 0.0;
-		double sum2 = 0.0;
-
-		if (!(es1 instanceof NumericEventSet)
-				|| !(es2 instanceof NumericEventSet)) {
-			System.out
-					.println("ERROR : MeanDistance: Attempting to take average of non-numeric set!");
-			return Double.NaN;
-		}
-
-		for (int i = 0; i < es1.size(); i++) {
-			sum1 += Double.valueOf((es1.eventAt(i).toString()));
-		}
-
-		for (int i = 0; i < es2.size(); i++) {
-			sum2 += Double.valueOf((es2.eventAt(i).toString()));
-		}
-
-		return Math.abs((sum1 / es1.size()) - (sum2 / es2.size()));
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+		double intersectioncount = Sets.intersection(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents()).size();
+		return 1/(intersectioncount+1);
 	}
 }

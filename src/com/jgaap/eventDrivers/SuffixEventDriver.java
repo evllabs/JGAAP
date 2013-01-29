@@ -19,13 +19,10 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.NumericEventSet;
 
 
 /**
@@ -37,6 +34,11 @@ import com.jgaap.generics.NumericEventSet;
  */
 public class SuffixEventDriver extends EventDriver {
 
+	public SuffixEventDriver() {
+		addParams("length", "Length", "3", new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}, false);
+		addParams("minimumlength", "Minimum Length", "5", new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}, false);
+	}
+	
 	@Override
 	public String displayName() {
 		return "Suffices";
@@ -52,57 +54,22 @@ public class SuffixEventDriver extends EventDriver {
 		return true;
 	}
 
-	private EventDriver underlyingEvents;
-	private int length;
-	private int minimumlength;
+	private NaiveWordEventDriver wordEventDriver = new NaiveWordEventDriver();
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
-		String param;
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
+		int length = getParameter("length", 3);
+		int minimumlength = getParameter("mimimnmlength", 5);
 
-		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
-			try {
-				underlyingEvents = EventDriverFactory.getEventDriver(param);
-			} catch (Exception e) {
-				System.out.println("Error: cannot create EventDriver " + param);
-				System.out.println(" -- Using NaiveWordEventSet");
-				underlyingEvents = new NaiveWordEventDriver();
-			}
-		} else { // no underlyingEventsParameter, use NaiveWordEventSet
-			underlyingEvents = new NaiveWordEventDriver();
-		}
-
-		if (!(param = (getParameter("length"))).equals("")) {
-			length = Integer.valueOf(param);
-		} else { // no defined length
-			length = 3;
-		}
-
-		if (!(param = (getParameter("minimumlength"))).equals("")) {
-			minimumlength = Integer.valueOf(param);
-		} else { // no defined minimum length
-			minimumlength = 5;
-		}
-
-		EventSet es = underlyingEvents.createEventSet(ds);
-		EventSet newEs;
-
-		// preserve "numeric"-ness
-		if (es instanceof NumericEventSet)
-			newEs = new NumericEventSet();
-		else
-			newEs = new EventSet();
-
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
+		EventSet es = wordEventDriver.createEventSet(text);
+		EventSet newEs = new EventSet();
 
 		for (int i = 0; i < es.size(); i++) {
 			String s = (es.eventAt(i)).toString();
 
 			if (s.length() >= minimumlength) {
 				try {
-					newEs.addEvent(new Event(s.substring(
-						s.length()-length)));
+					newEs.addEvent(new Event(s.substring(s.length()-length), this));
 				} catch (Exception e) {
 					System.out.println("Error in truncating " + s);
 				}

@@ -1,13 +1,11 @@
 package com.jgaap.distances;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 public class HellingerDistance extends DistanceFunction {
 
@@ -27,28 +25,14 @@ public class HellingerDistance extends DistanceFunction {
 	public boolean showInGUI() {
 		return true;
 	}
-
-	@Override
-	public double distance(EventSet es1, EventSet es2) {
-		return distance(es1.getHistogram(), es2.getHistogram());
-	}
 	
 	@Override
-	public double distance(EventHistogram h1, EventHistogram h2) {
-		Set<Event> events = new HashSet<Event>(h1.events());
-		events.addAll(h2.events());
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+		Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
+		events.addAll(knownEventMap.uniqueEvents());
 		double sum = 0.0;
 		for(Event event : events) { 
-			sum += Math.pow(Math.sqrt(h1.getRelativeFrequency(event))-Math.sqrt(h2.getRelativeFrequency(event)), 2);
-		}
-		return Math.sqrt(sum)*oneOverSqrtTwo;
-	}
-	
-	@Override
-	public double distance(List<Double> v1, List<Double> v2) {
-		double sum = 0.0;
-		for(int i = 0; i<v1.size(); i++) { 
-			sum += Math.pow(Math.sqrt(v1.get(i))-Math.sqrt(v2.get(i)), 2);
+			sum += Math.pow(Math.sqrt(unknownEventMap.relativeFrequency(event))-Math.sqrt(knownEventMap.relativeFrequency(event)), 2);
 		}
 		return Math.sqrt(sum)*oneOverSqrtTwo;
 	}

@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -45,8 +44,7 @@ public class VowelMNLetterWordEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "a b c d e f g h i j k l m n o p q r s t u v w x y z " +
 "aa bb cc dd ee ff gg hh ii jj kk ll mm nn oo pp qq rr ss tt uu vv ww xx yy zz " +
 "aaa bbb ccc ddd eee fff ggg hhh iii jjj kkk lll mmm nnn ooo ppp qqq rrr sss ttt uuu vvv www xxx yyy zzz " +
@@ -66,34 +64,34 @@ public class VowelMNLetterWordEventDriverTest {
 		ed.setParameter("M","1");
 		ed.setParameter("N","2");
 
-		EventSet sampleEventSet = ed.createEventSet(doc);
+		EventSet sampleEventSet = ed.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("a"));
-		tmp.add(new Event("e"));
-		tmp.add(new Event("i"));
-		tmp.add(new Event("o"));
-		tmp.add(new Event("u"));
-		tmp.add(new Event("y"));
-		tmp.add(new Event("aa"));
-		tmp.add(new Event("ee"));
-		tmp.add(new Event("ii"));
-		tmp.add(new Event("oo"));
-		tmp.add(new Event("uu"));
-		tmp.add(new Event("yy"));
-		tmp.add(new Event("A"));
-		tmp.add(new Event("E"));
-		tmp.add(new Event("I"));
-		tmp.add(new Event("O"));
-		tmp.add(new Event("U"));
-		tmp.add(new Event("Y"));
-		tmp.add(new Event("AA"));
-		tmp.add(new Event("EE"));
-		tmp.add(new Event("II"));
-		tmp.add(new Event("OO"));
-		tmp.add(new Event("UU"));
-		tmp.add(new Event("YY"));
+		tmp.add(new Event("a", ed));
+		tmp.add(new Event("e", ed));
+		tmp.add(new Event("i", ed));
+		tmp.add(new Event("o", ed));
+		tmp.add(new Event("u", ed));
+		tmp.add(new Event("y", ed));
+		tmp.add(new Event("aa", ed));
+		tmp.add(new Event("ee", ed));
+		tmp.add(new Event("ii", ed));
+		tmp.add(new Event("oo", ed));
+		tmp.add(new Event("uu", ed));
+		tmp.add(new Event("yy", ed));
+		tmp.add(new Event("A", ed));
+		tmp.add(new Event("E", ed));
+		tmp.add(new Event("I", ed));
+		tmp.add(new Event("O", ed));
+		tmp.add(new Event("U", ed));
+		tmp.add(new Event("Y", ed));
+		tmp.add(new Event("AA", ed));
+		tmp.add(new Event("EE", ed));
+		tmp.add(new Event("II", ed));
+		tmp.add(new Event("OO", ed));
+		tmp.add(new Event("UU", ed));
+		tmp.add(new Event("YY", ed));
 
 
 		expectedEventSet.addEvents(tmp);

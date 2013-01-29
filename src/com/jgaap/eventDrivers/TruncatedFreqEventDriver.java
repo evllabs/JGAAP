@@ -20,39 +20,38 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.TruncatedEventDriver;
 
 /**
- * Truncate lexical frequency for discrete binning 
- *
+ * Truncate lexical frequency for discrete binning
+ * 
  */
-public class TruncatedFreqEventDriver extends EventDriver {
+public class TruncatedFreqEventDriver extends TruncatedEventDriver {
 
-    @Override
-    public String displayName(){
-    	return "Binned Frequencies";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return "Discretized (by truncation) ELP lexical frequencies";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
-    }
+	@Override
+	public String displayName() {
+		return "Binned Frequencies";
+	}
 
-    private EventDriver theDriver;
+	@Override
+	public String tooltipText() {
+		return "Discretized (by truncation) ELP lexical frequencies";
+	}
 
-    @Override
-    public EventSet createEventSet(Document ds) throws EventGenerationException {
-        theDriver = new TruncatedEventDriver();
-        theDriver.setParameter("length", "3");
-        theDriver.setParameter("underlyingEvents", "Lexical Frequencies");
-        return theDriver.createEventSet(ds);
+	@Override
+	public boolean showInGUI() {
+		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
+	}
+
+	private EventDriver theDriver = new FreqEventDriver();
+	private static int length = 3;
+	
+	
+	@Override
+    public EventSet createEventSet(char[] text) throws EventGenerationException {
+       return truncate(theDriver.createEventSet(text), length);
     }
 }

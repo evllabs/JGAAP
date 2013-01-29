@@ -11,7 +11,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.jgaap.JGAAPConstants;
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventSet;
@@ -26,26 +25,11 @@ import com.jgaap.generics.EventSet;
 
 public class SentenceEventDriver extends EventDriver {
 
-	static Logger logger = Logger.getLogger(SentenceEventDriver.class);
-
-	@Override
-	public String displayName() {
-		return "Sentences";
-	}
-
-	@Override
-	public String tooltipText() {
-		return "Full sentences including punctuation";
-	}
-
-	@Override
-	public boolean showInGUI() {
-		return true;
-	}
-
-	@Override
-	public EventSet createEventSet(Document doc) {
-		InputStream is = getClass().getResourceAsStream(JGAAPConstants.JGAAP_RESOURCE_PACKAGE + "abbreviation.list");
+	private static Logger logger = Logger.getLogger(SentenceEventDriver.class);
+	private static String regex;
+	
+	static {
+		InputStream is = SentenceEventDriver.class.getResourceAsStream(JGAAPConstants.JGAAP_RESOURCE_PACKAGE + "abbreviation.list");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		Set<String> abbreviations = new HashSet<String>();
 		try {
@@ -73,16 +57,35 @@ public class SentenceEventDriver extends EventDriver {
 			regexBuilder.append("|").append(abbreviation);
 		}
 		regexBuilder.append(")\\s?[?!\\.]$");
-		String regex = regexBuilder.toString();
+		regex = regexBuilder.toString();
+	}
+	
+	@Override
+	public String displayName() {
+		return "Sentences";
+	}
+
+	@Override
+	public String tooltipText() {
+		return "Full sentences including punctuation";
+	}
+
+	@Override
+	public boolean showInGUI() {
+		return true;
+	}
+
+	@Override
+	public EventSet createEventSet(char[] text) {
 		logger.debug(regex);
-		String text = doc.stringify();
-		String[] sentences = text.split("(?<=[?!\\.])\\s+");
+		String textString = new String(text);
+		String[] sentences = textString.split("(?<=[?!\\.])\\s+");
 		EventSet eventSet = new EventSet(sentences.length);
 		StringBuilder eventBuilder = new StringBuilder();
 		for (String sentence : sentences) {
 			eventBuilder.append(sentence);
 			if(!sentence.matches(regex)){
-				eventSet.addEvent(new Event(eventBuilder.toString()));
+				eventSet.addEvent(new Event(eventBuilder.toString(), this));
 				eventBuilder = new StringBuilder();
 			} else {
 				eventBuilder.append(" ");
@@ -90,7 +93,7 @@ public class SentenceEventDriver extends EventDriver {
 		}
 		String edgeCase = eventBuilder.toString();
 		if(!edgeCase.isEmpty()){
-			eventSet.addEvent(new Event(edgeCase));
+			eventSet.addEvent(new Event(edgeCase, this));
 		}
 		return eventSet;
 	}

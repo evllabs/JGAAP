@@ -23,6 +23,8 @@ package com.jgaap.backend;
 import java.io.*;
 import java.util.*;
 
+import org.apache.log4j.Logger;
+
 /*
  * MVR 8/1/2008 This class will handle all IO for CSV files. readCSV- Input:
  * file name reads the CSV and return a Vector of Vectors of Strings writeCSV-
@@ -39,56 +41,8 @@ import java.util.*;
  */
 public class CSVIO {
 
-	/**
-	 * This method creates and writes to a csv file and releases the Vectors
-	 * back to memory.
-	 * 
-	 * @param informationMatrix
-	 *            contains the information you want in each cell and where you
-	 *            want the cells
-	 * @param fileName
-	 *            name of the csv file that will be created
-	 * @throws IOException
-	 */
-	public static void altWriteCSV(List<List<String>> informationMatrix,
-			String fileName) throws IOException {
-		File file = new File(fileName);
-		Writer output = new BufferedWriter(new FileWriter(file));
-		while (!informationMatrix.isEmpty()) {
-			List<String> currentRow = informationMatrix.remove(0);
-			StringBuffer row = new StringBuffer();
-			while (!currentRow.isEmpty()) {
-				String entry = currentRow.remove(0);
-				StringBuffer thisEntry = new StringBuffer();
-				boolean quoteFlag = false;
-				for (int i = 0; i < entry.length(); i++) {
-					if (entry.charAt(i) == '"') {
-						quoteFlag = true;
-						thisEntry.append("\"\"");
-					} else if (entry.charAt(i) == ',') {
-						quoteFlag = true;
-						thisEntry.append(',');
-					} else {
-						thisEntry.append(entry.charAt(i));
-					}
-				}
-				if (quoteFlag) {
-					row.append('"');
-					row.append(thisEntry);
-					row.append("\",");
-				} else {
-					row.append(thisEntry);
-					row.append(',');
-				}
-				if (currentRow.isEmpty()) {
-					row.replace(row.length() - 1, row.length(), "\n");
-				}
-			}
-			output.write(row.toString());
-		}
-		output.close();
-	}
-
+	private static Logger logger = Logger.getLogger(CSVIO.class);
+	
 	/**
 	 * This method prints the the current matrix to the terminal in a similar
 	 * way to how it will appear in the csv. This is for testing purposes.
@@ -119,40 +73,39 @@ public class CSVIO {
 		String rowText = "";
 		while ((rowText = br.readLine()) != null) {
 			List<String> column = new ArrayList<String>();
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			int state = 1;
 			// loop through the row of test using a finite state machine to
 			// parse the input
-			for (int i = 0; i < rowText.length(); i++) {
+			for (char c : rowText.toCharArray()) {
 				switch (state) {
 				case 1:
-					if (rowText.charAt(i) == ',') {
+					if (c == ',') {
 						column.add(buffer.toString());
-						buffer = new StringBuffer();
-					} else if (rowText.charAt(i) == '"') {
+						buffer = new StringBuilder();
+					} else if (c == '"') {
 						state = 2;
 					} else {
-						buffer.append(rowText.charAt(i));
+						buffer.append(c);
 					}
 					break;
 				case 2:
-					if (rowText.charAt(i) == '"') {
+					if (c == '"') {
 						state = 3;
 					} else {
-						buffer.append(rowText.charAt(i));
+						buffer.append(c);
 					}
 					break;
 				case 3:
-					if (rowText.charAt(i) == ',') {
+					if (c == ',') {
 						column.add(buffer.toString());
-						buffer = new StringBuffer();
+						buffer = new StringBuilder();
 						state = 1;
-					} else if (rowText.charAt(i) == '"') {
+					} else if (c == '"') {
 						buffer.append('"');
 						state = 2;
 					} else {
-						System.out.println("ERROR READING CSV");
-						System.exit(-1);
+						logger.error("Failed to read CSV file "+is.toString());
 					}
 					break;
 				}
@@ -181,8 +134,7 @@ public class CSVIO {
 	 */
 	public static void writeCSV(List<List<String>> csvMatrix, File file) throws IOException {
 			Writer output = new BufferedWriter(new FileWriter(file));
-			for (int i = 0; i < csvMatrix.size(); i++) {
-				List<String> row = csvMatrix.get(i);
+			for (List<String> row : csvMatrix) {
 				StringBuffer rowBuffer = new StringBuffer();
 				boolean first = true;
 				for (int j = 0; j < row.size(); j++) {

@@ -6,8 +6,7 @@ import java.util.Set;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventMap;
 
 /**
  * Matusita Distance
@@ -35,19 +34,15 @@ public class MatusitaDistance extends DistanceFunction {
 	}
 
 	@Override
-	public double distance(EventSet unknownEventSet, EventSet knownEventSet)
+	public double distance(EventMap unknownEventMap, EventMap knownEventMap)
 			throws DistanceCalculationException {
-		EventHistogram unknownHistogram = unknownEventSet.getHistogram();
-		EventHistogram knownHistogram = knownEventSet.getHistogram();
-
-		Set<Event> events = new HashSet<Event>();
-		events.addAll(unknownHistogram.events());
-		events.addAll(knownHistogram.events());
+		Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
+		events.addAll(knownEventMap.uniqueEvents());
 
 		double distance = 0.0, sum = 0.0;
 		
 		for(Event event : events){
-			sum += Math.pow(Math.sqrt(unknownHistogram.getRelativeFrequency(event)) - Math.sqrt(knownHistogram.getRelativeFrequency(event)), 2);
+			sum += Math.pow(Math.sqrt(unknownEventMap.relativeFrequency(event)) - Math.sqrt(knownEventMap.relativeFrequency(event)), 2);
 		}
 		distance = Math.sqrt(sum);
 		

@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
@@ -45,9 +44,7 @@ public class POSBiGramEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 			System.out.println("Test Started");
-		 	Document doc = new Document();
-			/* Note space separation of punctuation */
-		    doc.readStringText("There once was a man from Nantucket , " +
+			String text = ("There once was a man from Nantucket , " +
 		    		       "who kept all his cash in a bucket , " +
 		    		       "but his daughter, named Nan , " +
 		    		       "ran away with a man, " +
@@ -56,7 +53,7 @@ public class POSBiGramEventDriverTest {
 		    EventDriver eventDriver = new POSNGramEventDriver();
 		    eventDriver.setParameter("N", 2);
 		    
-		    EventSet sampleSet = eventDriver.createEventSet(doc);
+		    EventSet sampleSet = eventDriver.createEventSet(text.toCharArray());
 		    //System.out.println(sampleSet.size());
 		    //System.out.println(sampleSet.toString());
 		    
@@ -64,43 +61,43 @@ public class POSBiGramEventDriverTest {
 		    EventSet expectedSet = new EventSet();
 		    Vector<Event> tmp = new Vector<Event>();
 
-			tmp.add(new Event("(EX)-(RB)"));
- 			tmp.add(new Event("(RB)-(VBD)"));
- 			tmp.add(new Event("(VBD)-(DT)"));
- 			tmp.add(new Event("(DT)-(NN)"));
- 			tmp.add(new Event("(NN)-(IN)"));
- 			tmp.add(new Event("(IN)-(NNP)"));
- 			tmp.add(new Event("(NNP)-(,)"));
- 			tmp.add(new Event("(,)-(WP)"));
- 			tmp.add(new Event("(WP)-(VBD)"));
- 			tmp.add(new Event("(VBD)-(DT)"));
- 			tmp.add(new Event("(DT)-(PRP$)"));
- 			tmp.add(new Event("(PRP$)-(NN)"));
- 			tmp.add(new Event("(NN)-(IN)"));
- 			tmp.add(new Event("(IN)-(DT)"));
- 			tmp.add(new Event("(DT)-(NN)"));
- 			tmp.add(new Event("(NN)-(,)"));
- 			tmp.add(new Event("(,)-(CC)"));
- 			tmp.add(new Event("(CC)-(PRP$)"));
- 			tmp.add(new Event("(PRP$)-(NN)"));
- 			tmp.add(new Event("(NN)-(,)"));
- 			tmp.add(new Event("(,)-(VBN)"));
- 			tmp.add(new Event("(VBN)-(NNP)"));
- 			tmp.add(new Event("(NNP)-(,)"));
- 			tmp.add(new Event("(,)-(VBD)"));
- 			tmp.add(new Event("(VBD)-(RB)"));
- 			tmp.add(new Event("(RB)-(IN)"));
- 			tmp.add(new Event("(IN)-(DT)"));
- 			tmp.add(new Event("(DT)-(NN)"));
- 			tmp.add(new Event("(NN)-(,)"));
- 			tmp.add(new Event("(,)-(CC)"));
- 			tmp.add(new Event("(CC)-(IN)"));
- 			tmp.add(new Event("(IN)-(IN)"));
- 			tmp.add(new Event("(IN)-(DT)"));
- 			tmp.add(new Event("(DT)-(NN)"));
- 			tmp.add(new Event("(NN)-(,)"));
- 			tmp.add(new Event("(,)-(NNP)"));
- 			tmp.add(new Event("(NNP)-(.)"));
+			tmp.add(new Event("[EX, RB]", eventDriver));
+ 			tmp.add(new Event("[RB, VBD]", eventDriver));
+ 			tmp.add(new Event("[VBD, DT]", eventDriver));
+ 			tmp.add(new Event("[DT, NN]", eventDriver));
+ 			tmp.add(new Event("[NN, IN]", eventDriver));
+ 			tmp.add(new Event("[IN, NNP]", eventDriver));
+ 			tmp.add(new Event("[NNP, ,]", eventDriver));
+ 			tmp.add(new Event("[,, WP]", eventDriver));
+ 			tmp.add(new Event("[WP, VBD]", eventDriver));
+ 			tmp.add(new Event("[VBD, DT]", eventDriver));
+ 			tmp.add(new Event("[DT, PRP$]", eventDriver));
+ 			tmp.add(new Event("[PRP$, NN]", eventDriver));
+ 			tmp.add(new Event("[NN, IN]", eventDriver));
+ 			tmp.add(new Event("[IN, DT]", eventDriver));
+ 			tmp.add(new Event("[DT, NN]", eventDriver));
+ 			tmp.add(new Event("[NN, ,]", eventDriver));
+ 			tmp.add(new Event("[,, CC]", eventDriver));
+ 			tmp.add(new Event("[CC, PRP$]", eventDriver));
+ 			tmp.add(new Event("[PRP$, NN]", eventDriver));
+ 			tmp.add(new Event("[NN, ,]", eventDriver));
+ 			tmp.add(new Event("[,, VBN]", eventDriver));
+ 			tmp.add(new Event("[VBN, NNP]", eventDriver));
+ 			tmp.add(new Event("[NNP, ,]", eventDriver));
+ 			tmp.add(new Event("[,, VBD]", eventDriver));
+ 			tmp.add(new Event("[VBD, RB]", eventDriver));
+ 			tmp.add(new Event("[RB, IN]", eventDriver));
+ 			tmp.add(new Event("[IN, DT]", eventDriver));
+ 			tmp.add(new Event("[DT, NN]", eventDriver));
+ 			tmp.add(new Event("[NN, ,]", eventDriver));
+ 			tmp.add(new Event("[,, CC]", eventDriver));
+ 			tmp.add(new Event("[CC, IN]", eventDriver));
+ 			tmp.add(new Event("[IN, IN]", eventDriver));
+ 			tmp.add(new Event("[IN, DT]", eventDriver));
+ 			tmp.add(new Event("[DT, NN]", eventDriver));
+ 			tmp.add(new Event("[NN, ,]", eventDriver));
+ 			tmp.add(new Event("[,, NNP]", eventDriver));
+ 			tmp.add(new Event("[NNP, .]", eventDriver));
 
 
 		     expectedSet.addEvents(tmp);

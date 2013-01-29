@@ -19,6 +19,7 @@
  **/
 package com.jgaap.canonicizers;
 
+import com.google.common.base.CharMatcher;
 import com.jgaap.generics.Canonicizer;
 
 /**
@@ -61,17 +62,6 @@ public class NormalizeWhitespace extends Canonicizer {
      */
     @Override
     public char[] process(char[] procText) {
-        StringBuilder stringBuilder = new StringBuilder(procText.length);
-        boolean spaceflag = false;
-        for (int i = 0; i < procText.length; i++) {
-            if (Character.isWhitespace(procText[i]) && !spaceflag) {
-                stringBuilder.append(' ');
-                spaceflag = true;
-            } else if (!Character.isWhitespace(procText[i])) {
-                stringBuilder.append(procText[i]);
-                spaceflag = false;
-            }
-        }
-        return stringBuilder.toString().toCharArray();
+        return CharMatcher.WHITESPACE.collapseFrom(new String(procText), ' ').toCharArray();
     }
 }

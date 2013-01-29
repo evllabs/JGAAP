@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
@@ -45,8 +44,7 @@ public class MNLetterWordEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "a b c d e f g h i j k l m n o p q r s t u v w x y z " +
 "aa bb cc dd ee ff gg hh ii jj kk ll mm nn oo pp qq rr ss tt uu vv ww xx yy zz " +
 "aaa bbb ccc "+
@@ -66,26 +64,26 @@ public class MNLetterWordEventDriverTest {
 		ed.setParameter("M","3");
 		ed.setParameter("N","4");
 
-		EventSet sampleEventSet = ed.createEventSet(doc);
+		EventSet sampleEventSet = ed.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("aaa"));
-		tmp.add(new Event("bbb"));
-		tmp.add(new Event("ccc"));
-		tmp.add(new Event("aaaa"));
-		tmp.add(new Event("bbbb"));
-		tmp.add(new Event("cccc"));
-		tmp.add(new Event("AAA"));
-		tmp.add(new Event("BBB"));
-		tmp.add(new Event("CCC"));
-		tmp.add(new Event("AAAA"));
-		tmp.add(new Event("BBBB"));
-		tmp.add(new Event("CCCC"));
-		tmp.add(new Event("333"));
-		tmp.add(new Event("4444"));
-		tmp.add(new Event("###"));
-		tmp.add(new Event("$$$$"));
+		tmp.add(new Event("aaa", ed));
+		tmp.add(new Event("bbb", ed));
+		tmp.add(new Event("ccc", ed));
+		tmp.add(new Event("aaaa", ed));
+		tmp.add(new Event("bbbb", ed));
+		tmp.add(new Event("cccc", ed));
+		tmp.add(new Event("AAA", ed));
+		tmp.add(new Event("BBB", ed));
+		tmp.add(new Event("CCC", ed));
+		tmp.add(new Event("AAAA", ed));
+		tmp.add(new Event("BBBB", ed));
+		tmp.add(new Event("CCCC", ed));
+		tmp.add(new Event("333", ed));
+		tmp.add(new Event("4444", ed));
+		tmp.add(new Event("###", ed));
+		tmp.add(new Event("$$$$", ed));
 
 
 		expectedEventSet.addEvents(tmp);

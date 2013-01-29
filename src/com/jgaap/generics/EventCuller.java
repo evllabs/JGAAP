@@ -17,11 +17,10 @@
  */
 package com.jgaap.generics;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
-import com.jgaap.backend.AutoPopulate;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Event Culling abstract parent class.
@@ -33,39 +32,29 @@ import com.jgaap.backend.AutoPopulate;
  */
 public abstract class EventCuller extends Parameterizable implements Comparable<EventCuller>, Displayable {
 
-	private static List<EventCuller> EVENT_CULLERS;
+	private ImmutableSet<Event> events;
+	
+    public abstract Set<Event> train(List<EventSet> eventSets) throws EventCullingException; 
 
-    public abstract List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException; 
-
-    public abstract String displayName();
-    public abstract String tooltipText();
-    public abstract boolean showInGUI();
+    public Set<Event> init(List<EventSet> eventSets) throws EventCullingException {
+    	events = ImmutableSet.copyOf(train(eventSets));
+    	return events;
+    }
+    
+    public EventSet cull(EventSet eventSet) {
+    	EventSet reducedEventSet = new EventSet();
+    	for(Event event : eventSet){
+    		if(events.contains(event)){
+    			reducedEventSet.addEvent(event);
+    		}
+    	}
+    	return reducedEventSet;
+    }
+    
     public String longDescription() { return tooltipText(); }
 
     public int compareTo(EventCuller o){
     	return displayName().compareTo(o.displayName());
     }
     
-	/**
-	 * A read-only list of the EventCullers
-	 */
-	public static List<EventCuller> getEventCullers() {
-		if(EVENT_CULLERS == null){
-			 EVENT_CULLERS = Collections.unmodifiableList(loadEventCullers());
-		}
-		return EVENT_CULLERS;
-	}
-
-	private static List<EventCuller> loadEventCullers() {
-		List<Object> objects = AutoPopulate.findObjects("com.jgaap.eventCullers", EventCuller.class);
-		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", EventCuller.class)){
-			objects.addAll(AutoPopulate.findObjects("com.jgaap.eventCullers", (Class<?>)tmp));
-		}
-		List<EventCuller> cullers = new ArrayList<EventCuller>(objects.size());
-		for (Object tmp : objects) {
-			cullers.add((EventCuller) tmp);
-		}
-		Collections.sort(cullers);
-		return cullers;
-	}
 }

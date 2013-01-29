@@ -1,17 +1,16 @@
 package com.jgaap.eventDrivers;
 
-import edu.stanford.nlp.ie.AbstractSequenceClassifier;
-import edu.stanford.nlp.ie.crf.*;
-import edu.stanford.nlp.ling.CoreAnnotations.AnswerAnnotation;
-import edu.stanford.nlp.ling.CoreLabel;
-
 import java.util.List;
 
-import com.jgaap.generics.Document;
+import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Event;
+
+import edu.stanford.nlp.ie.AbstractSequenceClassifier;
+import edu.stanford.nlp.ie.crf.CRFClassifier;
+import edu.stanford.nlp.ling.CoreAnnotations.AnswerAnnotation;
+import edu.stanford.nlp.ling.CoreLabel;
 
 public class StanfordNamedEntityRecognizer extends EventDriver {
 
@@ -33,7 +32,7 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 	}
 
 	@Override
-	synchronized public EventSet createEventSet(Document doc)
+	synchronized public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
 		EventSet eventSet = new EventSet();
 		//		String serializedClassifier = "/com/jgaap/resources/models/ner/english.all.3class.distsim.crf.ser.gz";  original classifier
@@ -50,15 +49,14 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 					}
 				}
 			}
-
-		String fileContents = doc.stringify();
+		String fileContents = new String(text);
 		List<List<CoreLabel>> out = classifier.classify(fileContents);
 		for (List<CoreLabel> sentence : out) {
 			for (CoreLabel word : sentence) {
-				System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));
+//				System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));
 				if (!word.get(AnswerAnnotation.class).equals("O")) {
-					eventSet.addEvent(new Event(word.word()));
-					System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));  // This can be removed.  Just shows each word being analyzed.
+					eventSet.addEvent(new Event(word.word(), this));
+//					System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));  // This can be removed.  Just shows each word being analyzed.
 				}
 			}		
 		}		

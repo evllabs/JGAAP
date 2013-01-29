@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.Document;
 import com.jgaap.generics.WEKAAnalysisDriver;
 
 import weka.classifiers.Classifier;
@@ -33,12 +33,12 @@ public class WEKALeastMedSq extends WEKAAnalysisDriver {
 		return (Classifier)c;
 	}
 	
-	public void testRequirements(List<EventSet> knownList) throws AnalyzeException{
+	public void testRequirements(List<Document> knownList) throws AnalyzeException{
 		//LeastMedSq requires at least two documents per author
 
 		//Make a "list" of the number of documents per author
 		HashMap<String, Integer> docsPerAuthor = new HashMap<String, Integer>();
-		for(EventSet e : knownList){
+		for(Document e : knownList){
 			if(docsPerAuthor.containsKey(e.getAuthor())){
 				docsPerAuthor.put(e.getAuthor(), docsPerAuthor.get(e.getAuthor())+1);
 			}else{

@@ -15,11 +15,24 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jgaap.generics;
+package com.jgaap.languages;
+
+import com.jgaap.generics.Language;
 
 /**
- * List of possible document types.
+ * 
+ * Representation of english in jgaap using UTF-16
+ * 
+ * @author Michael Ryan
+ *
  */
-public enum DocType {
-	PDF, DOC, HTML, GENERIC, DATABASE
+public class EnglishUTF16 extends Language {
+
+	public EnglishUTF16() {
+		super("English (UTF-16)", "english", "UTF-16");
+	}
+
+	public boolean showInGUI() {
+		return true;
+	}
 }
