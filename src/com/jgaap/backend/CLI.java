@@ -128,7 +128,7 @@ public class CLI {
 				helpFormatter.printHelp(
 								"jgaap -c [canon canon ...] -es [event] -ec [culler culler ...] -a [analysis] <-d [distance]> -l [file] <-s [file]>",
 								"Welcome to JGAAP the Java Graphical Authorship Attribution Program.\nMore information can be found at http://jgaap.com",
-								options, "Copyright 2011 Evaluating Variation in Language Lab, Duquesne University");
+								options, "Copyright 2013 Evaluating Variation in Language Lab, Duquesne University");
 			} else {
 				List<Displayable> list = new ArrayList<Displayable>();
 				if (command.equalsIgnoreCase("c")) {
