@@ -1,4 +1,4 @@
-package com.jgaap.generics;
+package com.jgaap.util;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.EventSet;
 import com.jgaap.generics.LeaveKOutNGramEventDriver;
+import com.jgaap.util.EventSet;
 
 public class LeaveKOutCharacterNGramEventDriver extends LeaveKOutNGramEventDriver {
 

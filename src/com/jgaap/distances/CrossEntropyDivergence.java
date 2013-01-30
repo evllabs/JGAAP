@@ -20,8 +20,8 @@
 package com.jgaap.distances;
 
 import com.jgaap.generics.DivergenceFunction;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventMap;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
 
 /**
  * Cross-entropy "divergence" for Nearest Neighbor. It's actually a rather poor

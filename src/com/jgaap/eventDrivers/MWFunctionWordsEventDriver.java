@@ -25,10 +25,10 @@ import java.io.InputStreamReader;
 
 import com.google.common.collect.ImmutableSet;
 import com.jgaap.JGAAPConstants;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 
 /**

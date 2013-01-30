@@ -19,7 +19,9 @@
  **/
 package com.jgaap.distances;
 
-import com.jgaap.generics.*;
+import com.jgaap.generics.DistanceFunction;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
 
 /**
  * Given two event type-sets, A,B, calculate 1 - ||A intersect B|| // ||A union B||

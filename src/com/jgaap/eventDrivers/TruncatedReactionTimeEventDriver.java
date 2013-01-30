@@ -22,8 +22,8 @@ package com.jgaap.eventDrivers;
 import com.jgaap.backend.API;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
 import com.jgaap.generics.TruncatedEventDriver;
+import com.jgaap.util.EventSet;
 
 /**
  * Truncate lexical frequency for discrete binning 

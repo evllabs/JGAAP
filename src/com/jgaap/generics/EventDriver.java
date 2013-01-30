@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.jgaap.util.EventSet;
+
 /**
  * Class for EventSet factories. As an abstract class, can only be instantiated
  * through subclasses. Legacy code inherited from WAY back.

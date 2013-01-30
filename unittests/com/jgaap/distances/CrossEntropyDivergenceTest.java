@@ -26,9 +26,9 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventMap;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.EventSet;
 
 /**
  * @author darrenvescovi
@@ -37,7 +37,7 @@ import com.jgaap.generics.EventSet;
 public class CrossEntropyDivergenceTest {
 
 	/**
-	 * Test method for {@link com.jgaap.distances.CrossEntropyDivergence#divergence(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}.
+	 * Test method for {@link com.jgaap.distances.CrossEntropyDivergence#divergence(com.jgaap.util.EventSet, com.jgaap.util.EventSet)}.
 	 */
 	@Test
 	public void testDivergence() {

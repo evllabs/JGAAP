@@ -12,10 +12,10 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.EventMap;
-import com.jgaap.generics.Pair;
 import com.jgaap.generics.ValidationDriver;
+import com.jgaap.util.Document;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
 
 public class LeaveOneOutCentroidDriver extends ValidationDriver {
 

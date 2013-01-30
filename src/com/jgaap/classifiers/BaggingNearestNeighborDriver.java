@@ -13,12 +13,12 @@ import org.apache.log4j.Logger;
 import com.google.common.collect.ImmutableMultimap;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.EventBagging;
-import com.jgaap.generics.EventMap;
-import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NeighborAnalysisDriver;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Document;
+import com.jgaap.util.EventBagging;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 
 public class BaggingNearestNeighborDriver extends NeighborAnalysisDriver {
 

@@ -19,12 +19,17 @@
  **/
 package com.jgaap.distances;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.EventMap;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
 
 /**
  * KendallCorrelationDistance : sequence-based distance for NN

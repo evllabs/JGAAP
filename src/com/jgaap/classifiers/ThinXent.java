@@ -30,10 +30,10 @@ import java.util.Set;
 import com.google.common.collect.ImmutableMap;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.EventGraph;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Document;
+import com.jgaap.util.EventGraph;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 
 public class ThinXent extends AnalysisDriver {
 

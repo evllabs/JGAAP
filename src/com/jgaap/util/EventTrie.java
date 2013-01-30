@@ -1,4 +1,4 @@
-package com.jgaap.generics;
+package com.jgaap.util;
 
 import java.util.HashMap;
 import java.util.Map;

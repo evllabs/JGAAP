@@ -30,10 +30,10 @@ import com.google.common.collect.Lists;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
 import com.jgaap.canonicizers.StripPunctuation;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 import com.knowledgebooks.nlp.fasttag.FastTag;
 
 import edu.mit.jwi.Dictionary;

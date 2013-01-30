@@ -14,6 +14,11 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.SparseInstance;
 
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
+
 
 /**
  * Generic WEKA classifier. In theory, WEKA classifiers can extend this and set

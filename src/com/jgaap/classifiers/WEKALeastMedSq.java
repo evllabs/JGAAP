@@ -3,12 +3,12 @@ package com.jgaap.classifiers;
 import java.util.HashMap;
 import java.util.List;
 
-import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.WEKAAnalysisDriver;
-
 import weka.classifiers.Classifier;
 import weka.classifiers.meta.ClassificationViaRegression;
+
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.WEKAAnalysisDriver;
+import com.jgaap.util.Document;
 
 public class WEKALeastMedSq extends WEKAAnalysisDriver {
 

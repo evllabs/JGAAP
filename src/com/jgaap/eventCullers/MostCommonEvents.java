@@ -17,15 +17,15 @@
  */
 package com.jgaap.eventCullers;
 
-import com.google.common.collect.ImmutableSet;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventCuller;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
-
 import java.util.List;
 import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
+import com.jgaap.generics.EventCuller;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 
 /**
  * Sort out the N most common events (by average frequency) across all event sets

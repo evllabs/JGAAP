@@ -20,10 +20,10 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 
 /**

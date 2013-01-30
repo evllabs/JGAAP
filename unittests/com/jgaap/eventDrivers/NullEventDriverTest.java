@@ -26,8 +26,8 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * @author Joshua Booth

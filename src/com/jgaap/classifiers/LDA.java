@@ -6,15 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.jscience.mathematics.number.Float64;
+import org.jscience.mathematics.vector.Float64Matrix;
+import org.jscience.mathematics.vector.Float64Vector;
+import org.jscience.mathematics.vector.Matrix;
+import org.jscience.mathematics.vector.Vector;
+
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.FeatureVectorFactory;
-import com.jgaap.generics.Pair;
-
-import org.jscience.mathematics.number.Float64;
-import org.jscience.mathematics.vector.*;
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.Pair;
 
 public class LDA extends AnalysisDriver {
 

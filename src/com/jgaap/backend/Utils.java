@@ -26,9 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
 
 /**
  * Generic methods that will be reused throughout JGAAP

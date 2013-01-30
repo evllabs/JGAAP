@@ -15,9 +15,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jgaap.generics;
+package com.jgaap.util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 
 import javax.swing.text.BadLocationException;
@@ -45,7 +51,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 class DocumentHelper {
 	
-	static Logger logger = Logger.getLogger(com.jgaap.generics.DocumentHelper.class);
+	static Logger logger = Logger.getLogger(com.jgaap.util.DocumentHelper.class);
 
 	static char[] loadDocument(String filepath, String charset) throws Exception {
 		InputStream is;

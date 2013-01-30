@@ -18,10 +18,11 @@
 package com.jgaap.eventCullers;
 
 import com.google.common.collect.Sets;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

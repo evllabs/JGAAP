@@ -28,10 +28,13 @@
 
 package com.jgaap.ui;
 
-import javax.swing.*;
 import java.awt.BorderLayout;
-import java.util.Calendar;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  *

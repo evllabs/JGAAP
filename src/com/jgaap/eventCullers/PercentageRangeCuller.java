@@ -17,11 +17,15 @@
  */
 package com.jgaap.eventCullers;
 
-import com.jgaap.generics.*;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import com.jgaap.generics.EventCuller;
+import com.jgaap.generics.EventCullingException;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
+import com.jgaap.util.EventSet;
 
 /**
  * Analyze only events whose relative frequency is in a percentage range across all documents.

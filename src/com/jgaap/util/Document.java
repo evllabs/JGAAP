@@ -17,7 +17,7 @@
  */
 /**
  **/
-package com.jgaap.generics;
+package com.jgaap.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +26,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.CanonicizationException;
+import com.jgaap.generics.Canonicizer;
+import com.jgaap.generics.EventCuller;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.Language;
+import com.jgaap.generics.LanguageParsingException;
+import com.jgaap.generics.Parameterizable;
 import com.jgaap.languages.English;
 
 /**

@@ -5,8 +5,8 @@ import java.util.Set;
 
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventMap;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
 
 /**
  * Angular Separation Distance

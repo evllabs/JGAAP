@@ -17,9 +17,11 @@
  */
 /**
  **/
-package com.jgaap.generics;
+package com.jgaap.util;
 
 import java.util.List;
+
+import com.jgaap.generics.EventDriver;
 
 /*
  * Event.java Caleb Astey - 2007

@@ -22,9 +22,9 @@ import java.util.List;
 
 import com.jgaap.backend.API;
 import com.jgaap.canonicizers.PunctuationSeparator;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 import com.knowledgebooks.nlp.fasttag.FastTag;
 
 /**

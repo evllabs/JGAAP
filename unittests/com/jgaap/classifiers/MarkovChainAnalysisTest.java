@@ -28,10 +28,10 @@ import java.util.List;
 import org.junit.Test;
 
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 
 
 /**
@@ -41,7 +41,7 @@ import com.jgaap.generics.Pair;
 public class MarkovChainAnalysisTest {
 
 	/**
-	 * Test method for {@link com.jgaap.classifiers.MarkovChainAnalysis#analyze(com.jgaap.generics.EventSet, java.util.List)}.
+	 * Test method for {@link com.jgaap.classifiers.MarkovChainAnalysis#analyze(com.jgaap.util.EventSet, java.util.List)}.
 	 */
 	@Test
 	public void testAnalyzeEventSetListOfEventSet() {

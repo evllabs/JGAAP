@@ -4,6 +4,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
+
 /**
  * FeatureVectorFactory provides methods for getting known and unknown feature matrices
  * for any analysis method that requires such information.

@@ -13,10 +13,10 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.EventMap;
 import com.jgaap.generics.NeighborAnalysisDriver;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Document;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
 
 /**
  * 

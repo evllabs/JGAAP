@@ -2,8 +2,8 @@ package com.jgaap.eventDrivers;
 
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
 import com.jgaap.generics.NGramEventDriver;
+import com.jgaap.util.EventSet;
 
 /**
  * 

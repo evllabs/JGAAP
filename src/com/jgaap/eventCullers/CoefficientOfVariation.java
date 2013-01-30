@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.jgaap.backend.Utils;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 
 /**
  * Analyze N events with the lowest Coefficient of Variation
