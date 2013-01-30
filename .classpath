@@ -16,8 +16,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/fasttag_v2.jar"/>
-	<classpathentry kind="lib" path="lib/external/jmatharray.jar"/>
-	<classpathentry kind="lib" path="lib/external/jmathplot.jar"/>
 	<classpathentry kind="lib" path="lib/external/jscience-4.3.1.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://jscience.org/api/"/>
@@ -106,7 +104,6 @@
 			<attribute name="javadoc_location" value="http://www-nlp.stanford.edu/nlp/javadoc/javanlp/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/external/javatuples-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/external/gson-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
