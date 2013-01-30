@@ -17,8 +17,6 @@
  */
 package com.jgaap.generics;
 
-import com.jgaap.generics.DivergenceType;
-
 /**
  * 
  * Abstract class for divergences (distance like functions where A->B != B->A)
@@ -78,4 +76,14 @@ public abstract class DivergenceFunction extends DistanceFunction {
 	@Override
 	abstract public String tooltipText();
 
+	/**
+	 * This keeps track of which if any of the variances on standard divergence is
+	 * being used
+	 * 
+	 * @author Michael Ryan
+	 * 
+	 */
+	public enum DivergenceType {
+		STANDARD, AVERAGE, MAX, MIN, REVERSE, CROSS
+	}
 }
