@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+
 
 public abstract class SortedNGramEventDriver extends EventDriver {
 	

@@ -19,19 +19,19 @@
  **/
 package com.jgaap.classifiers;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.ImmutableList;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.EventMap;
 import com.jgaap.generics.NeighborAnalysisDriver;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Document;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
 
 /**
  * Assigns authorship labels by using a nearest-neighbor approach on a given

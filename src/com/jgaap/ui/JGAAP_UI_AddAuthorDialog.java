@@ -32,13 +32,16 @@ package com.jgaap.ui;
  *
  * @author Patrick Brennan
  */
-import javax.swing.table.DefaultTableModel;
-import com.jgaap.backend.API;
-import javax.swing.*;
-import com.jgaap.generics.Document;
-
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import com.jgaap.backend.API;
+import com.jgaap.util.Document;
 
 public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
 

@@ -21,6 +21,9 @@ package com.jgaap.generics;
 
 import java.util.List;
 
+import com.jgaap.util.Document;
+import com.jgaap.util.Pair;
+
 /**
  * Class for statistical analysis methods. As an abstract class, can only be
  * instantiated through subclasses. Legacy code inherited from WAY back.

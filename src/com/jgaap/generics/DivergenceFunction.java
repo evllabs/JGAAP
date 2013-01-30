@@ -17,6 +17,8 @@
  */
 package com.jgaap.generics;
 
+import com.jgaap.util.EventMap;
+
 /**
  * 
  * Abstract class for divergences (distance like functions where A->B != B->A)

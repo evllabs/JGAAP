@@ -9,9 +9,9 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCullingException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 public class CoefficientOfVariationTest {
 	@Test

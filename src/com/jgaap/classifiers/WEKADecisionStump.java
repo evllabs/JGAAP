@@ -2,11 +2,11 @@ package com.jgaap.classifiers;
 
 import java.util.List;
 
-import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.WEKAAnalysisDriver;
-
 import weka.classifiers.Classifier;
+
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.WEKAAnalysisDriver;
+import com.jgaap.util.Document;
 
 public class WEKADecisionStump extends WEKAAnalysisDriver {
 

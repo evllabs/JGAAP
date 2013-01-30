@@ -22,10 +22,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * Remove any duplicate events in the event sets.  This removes any

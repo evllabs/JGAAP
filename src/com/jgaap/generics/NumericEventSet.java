@@ -19,6 +19,8 @@
  **/
 package com.jgaap.generics;
 
+import com.jgaap.util.EventSet;
+
 
 /**
  * Any EventSet whose events are purely numbers (lengths, counts, &c) is a

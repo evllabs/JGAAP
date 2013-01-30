@@ -18,6 +18,11 @@
 package com.jgaap.generics;
 
 import org.junit.Test;
+
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
+import com.jgaap.util.Pair;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;

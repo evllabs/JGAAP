@@ -34,24 +34,30 @@ package com.jgaap.ui;
  */
 
 //Package Imports
+import java.awt.Color;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.*;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import javax.swing.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeSelectionModel;
-import javax.swing.tree.TreePath;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 import org.apache.log4j.Logger;
-//import java.awt.event.*;
 
-import com.jgaap.generics.*;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
 import com.jgaap.backend.AnalysisDrivers;
@@ -62,9 +68,16 @@ import com.jgaap.backend.EventCullers;
 import com.jgaap.backend.EventDrivers;
 import com.jgaap.backend.Languages;
 import com.jgaap.backend.Utils;
-
-import java.awt.Color;
-import java.io.IOException;
+import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.Canonicizer;
+import com.jgaap.generics.DistanceFunction;
+import com.jgaap.generics.EventCuller;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.Language;
+import com.jgaap.generics.NeighborAnalysisDriver;
+import com.jgaap.util.Document;
+import com.jgaap.util.Pair;
+//import java.awt.event.*;
 
 public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;

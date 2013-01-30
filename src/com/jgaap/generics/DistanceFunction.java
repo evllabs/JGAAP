@@ -19,6 +19,8 @@
  **/
 package com.jgaap.generics;
 
+import com.jgaap.util.EventMap;
+
 /**
  * This is an abstract class for distance functions. It is used, for example, in
  * variations of nearest-neighbor algorithms.

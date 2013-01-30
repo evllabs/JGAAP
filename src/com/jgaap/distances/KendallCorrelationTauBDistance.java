@@ -11,9 +11,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventMap;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
 
 /**
  * 

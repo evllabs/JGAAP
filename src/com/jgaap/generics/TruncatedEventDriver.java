@@ -1,5 +1,8 @@
 package com.jgaap.generics;
 
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+
 public abstract class TruncatedEventDriver extends EventDriver {
 
 	protected EventSet truncate(EventSet eventSet, int length) {

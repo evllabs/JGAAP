@@ -20,19 +20,22 @@
  */
 package com.jgaap.classifiers;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map.Entry;
+
+import org.jscience.mathematics.number.Float64;
+import org.jscience.mathematics.vector.Float64Matrix;
+import org.jscience.mathematics.vector.Matrix;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventMap;
-import com.jgaap.generics.Pair;
-
-import java.util.*;
-import java.util.Map.Entry;
-
-import org.jscience.mathematics.number.*;
-import org.jscience.mathematics.vector.*;
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
 
 /**
  * MahalanobisDistance class does the generalized squared interpoint distance.

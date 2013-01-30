@@ -20,8 +20,8 @@
 package com.jgaap.distances;
 
 import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventMap;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
 
 /**
  * Histogram distance as weighted by Keselj (2003).

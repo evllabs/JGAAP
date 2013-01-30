@@ -19,8 +19,6 @@
  **/
 package com.jgaap.generics;
 
-import javax.swing.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,6 +26,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import javax.swing.GroupLayout;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import com.jgaap.util.Pair;
 
 /**
  * A class of things-that-can-take-(label:value)-parameters.

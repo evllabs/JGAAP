@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * Event Culling abstract parent class.

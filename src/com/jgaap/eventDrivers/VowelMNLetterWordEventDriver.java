@@ -19,9 +19,9 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * Extract vowel-initial words with between M and N letters as features

@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+
 
 public abstract class LeaveKOutNGramEventDriver extends EventDriver {
 

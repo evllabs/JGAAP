@@ -26,9 +26,9 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventMap;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.EventSet;
 
 /**
  * @author Patrick Juola
@@ -38,7 +38,7 @@ public class CosineDistanceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.distances.CosineDistance#distance(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}
+	 * {@link com.jgaap.distances.CosineDistance#distance(com.jgaap.util.EventSet, com.jgaap.util.EventSet)}
 	 * .
 	 */
 	@Test
