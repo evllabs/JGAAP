@@ -42,6 +42,7 @@
 			<include name="com/jgaap/backend/*.java" />
 			<include name="com/jgaap/languages/*.java" />
 			<include name="com/jgaap/ui/*.java" />
+			<include name="com/jgaap/util/*.java" />
 		</javac>
 		<copy todir="../bin">
 			<fileset dir="../src">
