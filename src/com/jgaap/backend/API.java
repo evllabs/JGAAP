@@ -85,7 +85,7 @@ public class API {
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 	
-	private ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+	private ExecutorService executor;
 
 	private static final API INSTANCE = new API();
 	
@@ -722,9 +722,11 @@ public class API {
 	 */
 	public void execute() throws Exception {
 		clearData();
+		executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		loadCanonicizeEventify();
 		cull();
 		analyze();
+		executor.shutdown();
 	}
 	
 	/**
