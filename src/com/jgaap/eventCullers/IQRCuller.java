@@ -67,13 +67,13 @@ public class IQRCuller extends EventCuller {
 			 * Calculate the indexes of Q1 and Q3
 			 * If the index is between two numbers, take the average of the two numbers
 			 */
-			if(Math.round(med)==med && Math.round(Q1Index)>Q1Index){
+			if(Math.round(med)-med==0 && Math.round(Q1Index)>Q1Index){
 				Q1Index = Math.round(Q1Index) - 1 ;
 				Q3Index = med + Q1Index;
 				Q1 = frequencies.get((int) Q1Index);
 				Q3 = frequencies.get((int) Q3Index);
 			}
-			else if(Math.round(med)==med && Math.round(Q1Index)==Q1Index){
+			else if(Math.round(med)-med==0 && Math.round(Q1Index)-Q1Index==0){
 				Q3Index = med + Q1Index;
 				Q1 = (frequencies.get((int) Q1Index) + frequencies.get((int) (Q1Index-1)))/2;
 				Q3 = (frequencies.get((int) Q3Index) + frequencies.get((int) (Q3Index-1)))/2;
