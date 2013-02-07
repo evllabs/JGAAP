@@ -19,8 +19,7 @@
  **/
 package com.jgaap.util;
 
-import java.util.List;
-
+import com.google.common.base.Objects;
 import com.jgaap.generics.EventDriver;
 
 /*
@@ -34,7 +33,7 @@ import com.jgaap.generics.EventDriver;
  * @author Astey
  * @since 1.0
  */
-public class Event implements Comparable<Object> {
+public class Event {
 
     private String data;
     private EventDriver eventDriver;
@@ -50,24 +49,6 @@ public class Event implements Comparable<Object> {
         this.data = data;
         this.eventDriver = eventDriver;
     }
-    
-    public Event(List<Event> events){
-    	this.data = events.toString();
-    	this.eventDriver = events.get(0).eventDriver;
-    }
-    
-    public Event(List<Event> events, EventDriver eventDriver){
-    	this.data = events.toString();
-    	this.eventDriver = eventDriver;
-    }
-    
-    /**
-     * Overridden - from Comparable interface. Allows for comparison of two
-     * events.
-     **/
-    public int compareTo(Object o) {
-        return data.compareTo(((Event) o).data);
-    }
 
     /**
      * Allows for equality comparison of two events. Two events are the same if
@@ -77,10 +58,7 @@ public class Event implements Comparable<Object> {
     public boolean equals(Object o) {
         if(o instanceof Event) {
         	Event event = ((Event) o);
-        	if(eventDriver != null)
-        		return data.equals(event.data)&&eventDriver.equals(event.eventDriver);
-        	else 
-        		return data.equals(event.data)&&(event.eventDriver==null);
+        	return Objects.equal(data, event.data) && Objects.equal(eventDriver, event.eventDriver);
         }
         return false;
     }
@@ -99,10 +77,7 @@ public class Event implements Comparable<Object> {
      **/
     @Override
     public int hashCode() {
-    	if(eventDriver != null)
-    		return data.hashCode()*eventDriver.hashCode();
-    	else 
-    		return data.hashCode();
+    	return Objects.hashCode(data, eventDriver);
     }
 
     @Override
