@@ -68,7 +68,8 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 	}
 	
 	public void clearCanonicizers() {
-		canonicizers.clear();
+		if(canonicizers != null)
+			canonicizers.clear();
 	}
 	
 	public List<Canonicizer> getCanonicizers() {
