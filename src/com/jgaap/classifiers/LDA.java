@@ -14,9 +14,9 @@ import org.jscience.mathematics.vector.Vector;
 
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.FeatureVectorFactory;
 import com.jgaap.util.Document;
 import com.jgaap.util.Event;
+import com.jgaap.util.FeatureVectorFactory;
 import com.jgaap.util.Pair;
 
 public class LDA extends AnalysisDriver {
