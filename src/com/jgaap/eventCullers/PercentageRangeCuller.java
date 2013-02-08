@@ -17,9 +17,7 @@
  */
 package com.jgaap.eventCullers;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
@@ -68,7 +66,7 @@ public class PercentageRangeCuller extends EventCuller{
 	}
 	
 	@Override
-    public Set<Event> train(List<EventSet> eventSets) throws EventCullingException {
+    public void init(List<EventSet> eventSets) throws EventCullingException {
         
         //Get/set minimum percentage
         minPercent = Math.min(Math.max(getParameter("minPercent",0.0025),0.0),1.0);
@@ -95,8 +93,6 @@ public class PercentageRangeCuller extends EventCuller{
                 hist.add(e);
             }
         }
-        
-        return Collections.emptySet();
 	}
 	
     @Override

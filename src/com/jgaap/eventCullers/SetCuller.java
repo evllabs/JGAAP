@@ -17,10 +17,8 @@
  */
 package com.jgaap.eventCullers;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
@@ -38,8 +36,8 @@ import com.jgaap.util.EventSet;
 public class SetCuller extends EventCuller {
 
 	@Override
-	public Set<Event> train(List<EventSet> eventSets) throws EventCullingException {
-		return Collections.emptySet();
+	public void init(List<EventSet> eventSets) throws EventCullingException {
+		//Empty
 	}
 	
 	@Override

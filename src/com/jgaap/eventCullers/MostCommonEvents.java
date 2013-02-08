@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
-import com.jgaap.generics.EventCuller;
+import com.jgaap.generics.FilterEventCuller;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventHistogram;
 import com.jgaap.util.EventSet;
@@ -30,7 +30,7 @@ import com.jgaap.util.Pair;
 /**
  * Sort out the N most common events (by average frequency) across all event sets
  */
-public class MostCommonEvents extends EventCuller {
+public class MostCommonEvents extends FilterEventCuller {
 
 
     public MostCommonEvents() {

@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
+import com.jgaap.generics.FilterEventCuller;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventHistogram;
 import com.jgaap.util.EventSet;
@@ -17,7 +17,7 @@ import com.jgaap.util.Pair;
  * 
  * @author Christine Gray
  */
-public class RangeCuller extends EventCuller {
+public class RangeCuller extends FilterEventCuller {
 	public RangeCuller() {
 		super();
 		addParams("numEvents", "N", "50", new String[] { "1", "2", "3", "4",
