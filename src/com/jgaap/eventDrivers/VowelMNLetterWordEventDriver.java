@@ -19,7 +19,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
@@ -49,7 +48,7 @@ public class VowelMNLetterWordEventDriver extends MNLetterWordEventDriver {
 
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) {
 		EventSet eventSet = super.createEventSet(text);
 		EventSet finalEventSet = new EventSet(eventSet.size());
 		for(Event event : eventSet){

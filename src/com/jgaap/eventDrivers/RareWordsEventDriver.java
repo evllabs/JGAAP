@@ -19,8 +19,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventHistogram;
 import com.jgaap.util.EventSet;
@@ -32,7 +30,7 @@ import com.jgaap.util.EventSet;
  * @author Patrick Juola
  * @since 5.0
  **/
-public class RareWordsEventDriver extends EventDriver {
+public class RareWordsEventDriver extends NaiveWordEventDriver {
 
 	public RareWordsEventDriver() {
 		addParams("M", "M", "1", new String[] { "1", "2", "3", "4", "5", "6",
@@ -64,15 +62,12 @@ public class RareWordsEventDriver extends EventDriver {
 		return true;
 	}
 
-	/** Underlying EventDriver from which Events are drawn. */
-	private EventDriver underlyingevents = new NaiveWordEventDriver();
-
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) {
 		int N = getParameter("N", 3);
 		int M = getParameter("M", 2);
 
-		EventSet es = underlyingevents.createEventSet(text);
+		EventSet es = super.createEventSet(text);
 		EventSet newEs = new EventSet();
 
 		/**
@@ -89,7 +84,7 @@ public class RareWordsEventDriver extends EventDriver {
 			int n = hist.getAbsoluteFrequency(e);
 			//System.out.println(e.toString() + " " + n);
 			if (n >= M && n <= N)
-				newEs.addEvent(new Event(e.toString(), this));
+				newEs.addEvent(e);
 		}
 		return newEs;
 	}

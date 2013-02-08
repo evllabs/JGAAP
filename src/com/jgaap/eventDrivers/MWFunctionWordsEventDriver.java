@@ -25,8 +25,6 @@ import java.io.InputStreamReader;
 
 import com.google.common.collect.ImmutableSet;
 import com.jgaap.JGAAPConstants;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
@@ -35,7 +33,7 @@ import com.jgaap.util.EventSet;
  * Uses function words as defined by Mosteller-Wallace in their Federalist
  * papers study.
  */
-public class MWFunctionWordsEventDriver extends EventDriver {
+public class MWFunctionWordsEventDriver extends NaiveWordEventDriver {
 
 
     @Override
@@ -58,7 +56,6 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     	return true;
     }
 
-    private NaiveWordEventDriver wordEventDriver = new NaiveWordEventDriver();
     private static ImmutableSet<String> functionWords;
 
     static {
@@ -78,13 +75,13 @@ public class MWFunctionWordsEventDriver extends EventDriver {
     /** Creates EventSet using M-W function word list 
      * @throws EventGenerationException */
     @Override
-    public EventSet createEventSet(char[] text) throws EventGenerationException {
-        EventSet words = wordEventDriver.createEventSet(text);
+    public EventSet createEventSet(char[] text) {
+        EventSet words = super.createEventSet(text);
         EventSet eventSet = new EventSet();
         for(Event event : words){
         	String current = event.toString();
         	if(functionWords.contains(current)){
-        		eventSet.addEvent(new Event(current, this));
+        		eventSet.addEvent(event);
         	}
         }
         return eventSet;

@@ -19,8 +19,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
@@ -30,7 +28,7 @@ import com.jgaap.util.EventSet;
  * 
  * @since 4.1
  **/
-public class MNLetterWordEventDriver extends EventDriver {
+public class MNLetterWordEventDriver extends NaiveWordEventDriver {
 
 	public MNLetterWordEventDriver() {
 		addParams("M", "M", "1", new String[] { "1", "2", "3", "4", "5", "6",
@@ -67,11 +65,8 @@ public class MNLetterWordEventDriver extends EventDriver {
 		return true;
 	}
 
-	/** Underlying EventDriver from which Events are drawn. */
-	private EventDriver underlyingevents = new NaiveWordEventDriver();
-
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) {
 
 		// lots of error checking
 		int N = getParameter("N", 3);
@@ -81,7 +76,7 @@ public class MNLetterWordEventDriver extends EventDriver {
 		}
 		int M = getParameter("M", 2);
 
-		EventSet es = underlyingevents.createEventSet(text);
+		EventSet es = super.createEventSet(text);
 		EventSet newEs = new EventSet();
 		String s;
 
@@ -91,7 +86,7 @@ public class MNLetterWordEventDriver extends EventDriver {
 		for (Event e : es) {
 			s = e.toString();
 			if (s.length() >= M && s.length() <= N) {
-				newEs.addEvent(new Event(s, this));
+				newEs.addEvent(e);
 			}
 		}
 		return newEs;
