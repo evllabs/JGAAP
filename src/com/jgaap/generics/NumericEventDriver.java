@@ -19,6 +19,8 @@
  **/
 package com.jgaap.generics;
 
+import com.jgaap.util.NumericEventSet;
+
 
 /** Any driver of a NumericEventSet is a NumericEventDriver */
 public abstract class NumericEventDriver extends EventDriver {

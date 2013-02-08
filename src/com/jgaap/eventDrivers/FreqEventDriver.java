@@ -22,10 +22,10 @@ package com.jgaap.eventDrivers;
 import com.google.common.collect.ImmutableMap;
 import com.jgaap.backend.API;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.NumericEventSet;
 import com.jgaap.generics.NumericTransformationEventDriver;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
+import com.jgaap.util.NumericEventSet;
 
 /**
  * Corpus frequencies taken from English Lexicon Project. Converts each word

@@ -17,9 +17,8 @@
  */
 /**
  **/
-package com.jgaap.generics;
+package com.jgaap.util;
 
-import com.jgaap.util.EventSet;
 
 
 /**

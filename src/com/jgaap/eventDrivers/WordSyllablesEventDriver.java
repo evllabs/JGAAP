@@ -22,9 +22,9 @@ package com.jgaap.eventDrivers;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.NumericEventDriver;
-import com.jgaap.generics.NumericEventSet;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
+import com.jgaap.util.NumericEventSet;
 
 
 /**
