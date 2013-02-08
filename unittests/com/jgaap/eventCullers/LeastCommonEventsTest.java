@@ -18,7 +18,6 @@
 package com.jgaap.eventCullers;
 
 import com.google.common.collect.Sets;
-import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
@@ -63,7 +62,7 @@ public class LeastCommonEventsTest {
         es2.addEvent(new Event("B", null));
         es2.addEvent(new Event("B", null));
 
-        EventCuller culler = new LeastCommonEvents();
+        LeastCommonEvents culler = new LeastCommonEvents();
         culler.setParameter("numEvents", 1);
 
         List<EventSet> list = new ArrayList<EventSet>();

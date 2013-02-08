@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.jgaap.generics.EventCuller;
+import com.jgaap.generics.FilterEventCuller;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
@@ -34,7 +34,7 @@ import com.jgaap.util.EventSet;
  * @since 5.0.0
  */
 
-public class ExtremeCuller extends EventCuller {
+public class ExtremeCuller extends FilterEventCuller {
 
 	@Override
 	public Set<Event> train(List<EventSet> eventSets) {

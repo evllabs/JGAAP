@@ -18,10 +18,7 @@
 package com.jgaap.generics;
 
 import java.util.List;
-import java.util.Set;
 
-import com.google.common.collect.ImmutableSet;
-import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
 /**
@@ -32,26 +29,11 @@ import com.jgaap.util.EventSet;
  * @author John Noecker
  * @since 5.0.0
  */
-public abstract class EventCuller extends Parameterizable implements Comparable<EventCuller>, Displayable {
+public abstract class EventCuller extends Parameterizable implements Comparable<EventCuller>, Displayable {	
 
-	private ImmutableSet<Event> events;
-	
-    public abstract Set<Event> train(List<EventSet> eventSets) throws EventCullingException; 
-
-    public Set<Event> init(List<EventSet> eventSets) throws EventCullingException {
-    	events = ImmutableSet.copyOf(train(eventSets));
-    	return events;
-    }
+    public abstract void init(List<EventSet> eventSets) throws EventCullingException;
     
-    public EventSet cull(EventSet eventSet) {
-    	EventSet reducedEventSet = new EventSet();
-    	for(Event event : eventSet){
-    		if(events.contains(event)){
-    			reducedEventSet.addEvent(event);
-    		}
-    	}
-    	return reducedEventSet;
-    }
+    public abstract EventSet cull(EventSet eventSet);
     
     public String longDescription() { return tooltipText(); }
 
