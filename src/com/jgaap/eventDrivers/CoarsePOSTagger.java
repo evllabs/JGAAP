@@ -19,11 +19,10 @@ package com.jgaap.eventDrivers;
 
 import com.google.common.collect.ImmutableMap;
 import com.jgaap.backend.API;
-import com.jgaap.generics.EventDriver;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
-public class CoarsePOSTagger extends EventDriver {
+public class CoarsePOSTagger extends PartOfSpeechEventDriver {
 
 	static ImmutableMap<String, String> translationTable = ImmutableMap.<String, String> builder().put("CC", "C")
 			.put("CD", "CD").put("DT", "DT").put("EX", "EX").put("FW", "FW").put("IN", "C").put("JJ", "J")
@@ -55,11 +54,9 @@ public class CoarsePOSTagger extends EventDriver {
 		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("English");
 	}
 
-	private PartOfSpeechEventDriver posEventDriver = new PartOfSpeechEventDriver();
-
 	@Override
 	public EventSet createEventSet(char[] text) {
-		EventSet preprocessEventSet = posEventDriver.createEventSet(text);
+		EventSet preprocessEventSet = super.createEventSet(text);
 		EventSet eventSet = new EventSet();
 		for (Event event : preprocessEventSet) {
 			if (translationTable.containsKey(event.toString()))
