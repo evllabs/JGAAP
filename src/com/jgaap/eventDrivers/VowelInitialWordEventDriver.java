@@ -19,8 +19,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
@@ -32,7 +30,7 @@ import com.jgaap.util.EventSet;
  * 
  * @since 4.1
  **/
-public class VowelInitialWordEventDriver extends EventDriver {
+public class VowelInitialWordEventDriver extends NaiveWordEventDriver {
 
 	@Override
 	public String displayName() {
@@ -49,13 +47,11 @@ public class VowelInitialWordEventDriver extends EventDriver {
 		return true;
 	}
 
-	/** Underlying EventDriver from which Events are drawn. */
-	private EventDriver underlyingevents = new NaiveWordEventDriver();
 	private static String vowels = "aeiouyAEIOUY";
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
-		EventSet es = underlyingevents.createEventSet(text);
+	public EventSet createEventSet(char[] text) {
+		EventSet es = super.createEventSet(text);
 		EventSet newEs = new EventSet();
 
 		/**
@@ -64,8 +60,7 @@ public class VowelInitialWordEventDriver extends EventDriver {
 		for (Event e : es) {
 			String s = e.toString();
 			if (vowels.indexOf(s.charAt(0)) != -1)
-				// should we clone event before adding? PMJ
-				newEs.addEvent(new Event(s, this));
+				newEs.addEvent(e);
 		}
 		return newEs;
 	}

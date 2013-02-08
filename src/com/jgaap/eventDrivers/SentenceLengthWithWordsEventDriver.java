@@ -20,12 +20,11 @@
  */
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.EventDriver;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
 
-public class SentenceLengthWithWordsEventDriver extends EventDriver {
+public class SentenceLengthWithWordsEventDriver extends SentenceEventDriver {
 	
 	@Override
 	public String displayName() {
@@ -45,7 +44,7 @@ public class SentenceLengthWithWordsEventDriver extends EventDriver {
 	@Override
 	public EventSet createEventSet(char[] text) {
 		
-		EventSet sentences = new SentenceEventDriver().createEventSet(text);
+		EventSet sentences = super.createEventSet(text);
 		EventSet eventSet = new EventSet(sentences.size());
 		for(Event sentence : sentences){
 			String[] words = sentence.toString().split("\\s+");
