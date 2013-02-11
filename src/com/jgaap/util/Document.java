@@ -334,8 +334,12 @@ public class Document extends Parameterizable {
 		buffer.append("EventDrivers: \n");
 		for(EventDriver eventDriver : eventSets.keySet()){
 			buffer.append("\t").append(eventDriver.displayName()).append(" ").append(eventDriver.getParameters());
-			for(EventCuller eventCuller : eventDriver.getEventCullers()){
-				buffer.append("\n\t\t").append(eventCuller.displayName()).append(" ").append(eventCuller.getParameters());
+			List<EventCuller> eventCullers = eventDriver.getEventCullers();
+			if(!eventCullers.isEmpty()){
+				buffer.append("\n\t\tEventCullers: ");
+				for(EventCuller eventCuller : eventDriver.getEventCullers()){
+					buffer.append("\n\t\t").append(eventCuller.displayName()).append(" ").append(eventCuller.getParameters());
+				}
 			}
 			buffer.append("\n");
 		}
