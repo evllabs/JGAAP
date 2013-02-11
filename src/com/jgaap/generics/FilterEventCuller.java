@@ -25,12 +25,13 @@ import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
 /**
- * Event Culling abstract parent class.
- * Event Culling is any transformation on a List<EventSet> that results in
- * a List<EventSet>
+ * Filter Event Culling abstract parent class.
+ * A filter on a EventSet that results in a EventSet
+ * containing only Events found in the Set<Event> returned
+ * by train(List<EventSet>)
  * 
- * @author John Noecker
- * @since 5.0.0
+ * @author Michael Ryan
+ * @since 7.0.0
  */
 public abstract class FilterEventCuller extends EventCuller {
 
