@@ -32,15 +32,14 @@ import com.jgaap.util.EventSet;
  * @author John Noecker
  * @since 5.0.0
  */
-public abstract class FilterEventCuller extends Parameterizable implements Comparable<FilterEventCuller>, Displayable {
+public abstract class FilterEventCuller extends EventCuller {
 
 	private ImmutableSet<Event> events;
 	
     public abstract Set<Event> train(List<EventSet> eventSets) throws EventCullingException; 
 
-    public Set<Event> init(List<EventSet> eventSets) throws EventCullingException {
+    public void init(List<EventSet> eventSets) throws EventCullingException {
     	events = ImmutableSet.copyOf(train(eventSets));
-    	return events;
     }
     
     public EventSet cull(EventSet eventSet) {
