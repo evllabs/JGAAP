@@ -54,6 +54,8 @@ public class Document extends Parameterizable {
 	private Map<AnalysisDriver, List<Pair<String, Double>>> results;
 	private boolean failed = false;
 	
+	private static final String tab = "        "; 
+	
 	public Document() {
 		filepath = "";
 		title = "";
@@ -321,35 +323,41 @@ public class Document extends Parameterizable {
 	 */
 	public String getFormattedResult(AnalysisDriver analysisDriver) {
 		StringBuilder buffer = new StringBuilder();
-		buffer.append(getTitle() + " ");
-		buffer.append(getFilePath() + "\n");
+		buffer.append(getTitle()).append(" ").append(getFilePath()).append("\n");
 		buffer.append("Canonicizers: \n");
 		if (canonicizers.isEmpty()) {
-			buffer.append("\tnone\n");
+			buffer.append(tab).append("none\n");
 		} else {
 			for (Canonicizer canonicizer : canonicizers) {
-				buffer.append("\t").append(canonicizer.displayName()).append(" ").append(canonicizer.getParameters()).append("\n");
+				buffer.append(tab).append(canonicizer.displayName()).append(" ").append(canonicizer.getParameters()).append("\n");
 			}
 		}
 		buffer.append("EventDrivers: \n");
-		for(EventDriver eventDriver : eventSets.keySet()){
-			buffer.append("\t").append(eventDriver.displayName()).append(" ").append(eventDriver.getParameters());
+		for (EventDriver eventDriver : eventSets.keySet()) {
+			buffer.append(tab).append(eventDriver.displayName()).append(" ").append(eventDriver.getParameters());
+			List<Canonicizer> canonicizers = eventDriver.getCanonicizers();
+			if (!canonicizers.isEmpty()) {
+				buffer.append("\n").append(tab).append(tab).append("Canonicizers: ");
+				for (Canonicizer canonicizer : canonicizers) {
+					buffer.append("\n").append(tab).append(tab).append(tab).append(canonicizer.displayName()).append(" ").append(canonicizer.getParameters());
+				}
+			}
 			List<EventCuller> eventCullers = eventDriver.getEventCullers();
-			if(!eventCullers.isEmpty()){
-				buffer.append("\n\t\tEventCullers: ");
-				for(EventCuller eventCuller : eventDriver.getEventCullers()){
-					buffer.append("\n\t\t").append(eventCuller.displayName()).append(" ").append(eventCuller.getParameters());
+			if (!eventCullers.isEmpty()) {
+				buffer.append("\n").append(tab).append(tab).append("EventCullers: ");
+				for (EventCuller eventCuller : eventDriver.getEventCullers()) {
+					buffer.append("\n").append(tab).append(tab).append(tab).append(eventCuller.displayName()).append(" ").append(eventCuller.getParameters());
 				}
 			}
 			buffer.append("\n");
 		}
-		buffer.append("Analysis: \n\t").append(analysisDriver.displayName()).append(" ").append(analysisDriver.getParameters());
+		buffer.append("Analysis: \n").append(tab).append(analysisDriver.displayName()).append(" ").append(analysisDriver.getParameters());
 		buffer.append("\n");
 		int count = 0; // Keeps a relative count (adjusted for ties)
 		int fullCount = 0; // Keeps the absolute count (does not count ties)
 		Double lastResult = Double.NaN;
 		List<Pair<String, Double>> results = getRawResult(analysisDriver);
-		if(results == null){
+		if (results == null) {
 			return null;
 		}
 		for (Pair<String, Double> result : results) {
