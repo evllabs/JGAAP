@@ -315,6 +315,11 @@ public class API {
 		return canonicizer;
 	}
 	
+	public Canonicizer addCanonicizer(String action, EventDriver eventDriver) throws Exception {
+		Canonicizer canonicizer = Canonicizers.getCanonicizer(action);
+		return addCanonicizer(canonicizer, eventDriver);
+	}
+	
 	public Canonicizer addCanonicizer(Canonicizer canonicizer, EventDriver eventDriver) {
 		eventDriver.addCanonicizer(canonicizer);
 		logger.info("Adding Canonicizer "+canonicizer.displayName()+" to EventDriver "+eventDriver.displayName());
@@ -450,6 +455,11 @@ public class API {
 			addEventCuller(eventCuller, eventDriver);
 		}
 		return eventCuller;
+	}
+	
+	public EventCuller addEventCuller(String action, EventDriver eventDriver) throws Exception {
+		EventCuller eventCuller = EventCullers.getEventCuller(action);
+		return addEventCuller(eventCuller, eventDriver);
 	}
 	
 	public EventCuller addEventCuller(EventCuller eventCuller, EventDriver eventDriver) {
