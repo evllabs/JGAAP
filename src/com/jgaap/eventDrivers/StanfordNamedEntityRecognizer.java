@@ -55,7 +55,7 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 		List<List<CoreLabel>> out = classifier.classify(fileContents);
 		for (List<CoreLabel> sentence : out) {
 			for (CoreLabel word : sentence) {
-				System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));
+				//System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));
 				if (!word.get(AnswerAnnotation.class).equals("O")) {
 					eventSet.addEvent(new Event(word.word()));
 					System.out.println(word.word()+"\t" + word.get(AnswerAnnotation.class));  // This can be removed.  Just shows each word being analyzed.
