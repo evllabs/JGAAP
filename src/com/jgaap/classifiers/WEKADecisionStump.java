@@ -2,17 +2,17 @@ package com.jgaap.classifiers;
 
 import java.util.List;
 
-import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.WEKAAnalysisDriver;
-
 import weka.classifiers.Classifier;
+
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.WEKAAnalysisDriver;
+import com.jgaap.util.Document;
 
 public class WEKADecisionStump extends WEKAAnalysisDriver {
 
 	@Override
 	public String displayName() {
-		return "WEKA Decision Stump Classifier";
+		return "WEKA Decision Stump";
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class WEKADecisionStump extends WEKAAnalysisDriver {
 		return (Classifier)(new weka.classifiers.trees.DecisionStump());
 	}
 	
-	public void testRequirements(List<EventSet> knownList) throws AnalyzeException{
+	public void testRequirements(List<Document> knownList) throws AnalyzeException{
 		//No requirements for Decision Stump
 		return;
 	}

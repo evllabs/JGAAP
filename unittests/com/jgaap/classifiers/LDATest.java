@@ -28,9 +28,10 @@ import java.util.List;
 import org.junit.Test;
 
 import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 
 /**
  * @author darrenvescovi
@@ -39,7 +40,7 @@ import com.jgaap.generics.Pair;
 public class LDATest {
 
 	/**
-	 * Test method for {@link com.jgaap.classifiers.LDA#analyze(com.jgaap.generics.EventSet)}.
+	 * Test method for {@link com.jgaap.classifiers.LDA#analyze(com.jgaap.util.EventSet)}.
 	 * @throws AnalyzeException 
 	 */
 	@Test
@@ -49,50 +50,57 @@ public class LDATest {
 		EventSet known2 = new EventSet();
 		EventSet unknown = new EventSet();
 
-		known1.addEvent(new Event("Mary"));
-		known1.addEvent(new Event("had"));
-		known1.addEvent(new Event("a"));
-		known1.addEvent(new Event("little"));
-		known1.addEvent(new Event("lamb"));
-		known1.addEvent(new Event("whose"));
-		known1.addEvent(new Event("fleece"));
-		known1.addEvent(new Event("was"));
-		known1.addEvent(new Event("white"));
-		known1.addEvent(new Event("as"));
-		known1.addEvent(new Event("snow."));
-		known1.setAuthor("Mary");
+		known1.addEvent(new Event("Mary", null));
+		known1.addEvent(new Event("had", null));
+		known1.addEvent(new Event("a", null));
+		known1.addEvent(new Event("little", null));
+		known1.addEvent(new Event("lamb", null));
+		known1.addEvent(new Event("whose", null));
+		known1.addEvent(new Event("fleece", null));
+		known1.addEvent(new Event("was", null));
+		known1.addEvent(new Event("white", null));
+		known1.addEvent(new Event("as", null));
+		known1.addEvent(new Event("snow.", null));
+		//known1.setAuthor("Mary");
 
 
-		known2.addEvent(new Event("Peter"));
-		known2.addEvent(new Event("piper"));
-		known2.addEvent(new Event("picked"));
-		known2.addEvent(new Event("a"));
-		known2.addEvent(new Event("pack"));
-		known2.addEvent(new Event("of"));
-		known2.addEvent(new Event("pickled"));
-		known2.addEvent(new Event("peppers."));
-		known2.setAuthor("Peter");
+		known2.addEvent(new Event("Peter", null));
+		known2.addEvent(new Event("piper", null));
+		known2.addEvent(new Event("picked", null));
+		known2.addEvent(new Event("a", null));
+		known2.addEvent(new Event("pack", null));
+		known2.addEvent(new Event("of", null));
+		known2.addEvent(new Event("pickled", null));
+		known2.addEvent(new Event("peppers.", null));
+		//known2.setAuthor("Peter");
 
-		unknown.addEvent(new Event("Mary"));
-		unknown.addEvent(new Event("had"));
-		unknown.addEvent(new Event("a"));
-		unknown.addEvent(new Event("little"));
-		unknown.addEvent(new Event("lambda"));
-		unknown.addEvent(new Event("whose"));
-		unknown.addEvent(new Event("syntax"));
-		unknown.addEvent(new Event("was"));
-		unknown.addEvent(new Event("white"));
-		unknown.addEvent(new Event("as"));
-		unknown.addEvent(new Event("snow."));
+		unknown.addEvent(new Event("Mary", null));
+		unknown.addEvent(new Event("had", null));
+		unknown.addEvent(new Event("a", null));
+		unknown.addEvent(new Event("little", null));
+		unknown.addEvent(new Event("lambda", null));
+		unknown.addEvent(new Event("whose", null));
+		unknown.addEvent(new Event("syntax", null));
+		unknown.addEvent(new Event("was", null));
+		unknown.addEvent(new Event("white", null));
+		unknown.addEvent(new Event("as", null));
+		unknown.addEvent(new Event("snow.", null));
 
-		List <EventSet> esv = new ArrayList<EventSet>();
-		esv.add(known1);
-		esv.add(known2);
-		List<EventSet> unknownList = new ArrayList<EventSet>(1);
-		unknownList.add(unknown);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor("Mary");
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		Document knownDocument2 = new Document();
+		knownDocument2.setAuthor("Peter");
+		knownDocument2.addEventSet(null, known2);
+		knowns.add(knownDocument2);
+		
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown);
 		LDA classifier = new LDA();
-		classifier.train(esv);
-		List<Pair<String, Double>> t = classifier.analyze(unknown);
+		classifier.train(knowns);
+		List<Pair<String, Double>> t = classifier.analyze(unknownDocument);
 		String author1 = t.get(0).getFirst();
 		String author2 = t.get(1).getFirst();
 		Double val1 = t.get(0).getSecond();
@@ -107,7 +115,7 @@ public class LDATest {
 
 		//Test 2 - Same classifier
 		//Testing for persistence
-		t = classifier.analyze(unknown);
+		t = classifier.analyze(unknownDocument);
 		/*System.out.println("Test 2 Classified");
 		System.out.println("First : "+t.get(0).getFirst()+" "+t.get(0).getSecond());
 		System.out.println("Second: "+t.get(1).getFirst()+" "+t.get(1).getSecond());
@@ -120,8 +128,8 @@ public class LDATest {
 		//Test 3 - Different instance of classifier
 		//Again testing for persistence
 		LDA lda = new LDA();
-		lda.train(esv);
-		t = lda.analyze(unknown);
+		lda.train(knowns);
+		t = lda.analyze(unknownDocument);
 		//String r = t.get(0).getFirst();
 		/*System.out.println("Test 3 Classified");
 		System.out.println("First : "+r+" "+t.get(0).getSecond());
@@ -134,22 +142,21 @@ public class LDATest {
 		
 		//Test 4 - two unknowns
 		EventSet unknown2 = new EventSet();
-		unknown2.addEvent(new Event("Peter"));
-		unknown2.addEvent(new Event("pumpkin"));
-		unknown2.addEvent(new Event("picked"));
-		unknown2.addEvent(new Event("a"));
-		unknown2.addEvent(new Event("pack"));
-		unknown2.addEvent(new Event("of"));
-		unknown2.addEvent(new Event("pickled"));
-		unknown2.addEvent(new Event("potatoes."));
+		unknown2.addEvent(new Event("Peter", null));
+		unknown2.addEvent(new Event("pumpkin", null));
+		unknown2.addEvent(new Event("picked", null));
+		unknown2.addEvent(new Event("a", null));
+		unknown2.addEvent(new Event("pack", null));
+		unknown2.addEvent(new Event("of", null));
+		unknown2.addEvent(new Event("pickled", null));
+		unknown2.addEvent(new Event("potatoes.", null));
 		
-		List <EventSet> uesv = new ArrayList<EventSet>();
-		uesv.add(unknown);
-		uesv.add(unknown2);
+		Document unknownDocument2 = new Document();
+		unknownDocument2.addEventSet(null, unknown2);
 		
 		List<List<Pair<String, Double>>> t2 = new ArrayList<List<Pair<String,Double>>>();
-		t2.add(lda.analyze(unknown));
-		t2.add(lda.analyze(unknown2));
+		t2.add(lda.analyze(unknownDocument));
+		t2.add(lda.analyze(unknownDocument2));
 		/*for(int i = 0; i < t2.size(); i++){
 			System.out.println("Classification of unknown #"+(i+1));
 			for(int j =0; j < t2.get(i).size(); j++){

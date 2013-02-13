@@ -26,11 +26,11 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.NumericEventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.NumericEventSet;
 
 /**
  * @author Patrick Juola
@@ -45,35 +45,32 @@ public class TruncatedReactionTimeEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		// test just first and last few words rathre than
-		// entire 40k corpus
-		doc.readStringText(
+		String text = (
 "a aah Aaron aback abacus abandon abandoned zones zoning zoo " +
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
-
-		EventSet sampleEventSet = new TruncatedReactionTimeEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new TruncatedReactionTimeEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("79"));
-		tmp.add(new Event("81"));
-		tmp.add(new Event("73"));
-		tmp.add(new Event("79"));
-		tmp.add(new Event("96"));
-		tmp.add(new Event("69"));
-		tmp.add(new Event("86"));
-		tmp.add(new Event("60"));
-		tmp.add(new Event("72"));
-		tmp.add(new Event("57"));
-		tmp.add(new Event("71"));
-		tmp.add(new Event("68"));
-		tmp.add(new Event("54"));
-		tmp.add(new Event("70"));
-		tmp.add(new Event("66"));
-		tmp.add(new Event("84"));
-		tmp.add(new Event("76"));
+		tmp.add(new Event("79", eventDriver));
+		tmp.add(new Event("81", eventDriver));
+		tmp.add(new Event("73", eventDriver));
+		tmp.add(new Event("79", eventDriver));
+		tmp.add(new Event("96", eventDriver));
+		tmp.add(new Event("69", eventDriver));
+		tmp.add(new Event("86", eventDriver));
+		tmp.add(new Event("60", eventDriver));
+		tmp.add(new Event("72", eventDriver));
+		tmp.add(new Event("57", eventDriver));
+		tmp.add(new Event("71", eventDriver));
+		tmp.add(new Event("68", eventDriver));
+		tmp.add(new Event("54", eventDriver));
+		tmp.add(new Event("70", eventDriver));
+		tmp.add(new Event("66", eventDriver));
+		tmp.add(new Event("84", eventDriver));
+		tmp.add(new Event("76", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 

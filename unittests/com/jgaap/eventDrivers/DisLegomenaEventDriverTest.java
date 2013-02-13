@@ -26,11 +26,10 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * @author Joshua Booth
@@ -51,19 +50,18 @@ public class DisLegomenaEventDriverTest {
 	    /*DisLegomenaEventDriver - Returns only events that occur twice*/
 	    /*Test One - Normal Text w/ one event to return*/
 
-	    Document doc = new Document();
-	    doc.readStringText("The Quick Brown Fox Jumped Over The Lazy Dog 3 3 3 4 4 4 4 5 5 5 5 5");
+		String text = ("The Quick Brown Fox Jumped Over The Lazy Dog 3 3 3 4 4 4 4 5 5 5 5 5");
 
 	    EventDriver eventDriver = new RareWordsEventDriver();
 	    eventDriver.setParameter("M", 2);
 	    eventDriver.setParameter("N", 2);
 	    
-	    EventSet sampleSet = eventDriver.createEventSet(doc);
+	    EventSet sampleSet = eventDriver.createEventSet(text.toCharArray());
 	    
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
-	    tmp.add(new Event("The"));
-	    tmp.add(new Event("The"));
+	    tmp.add(new Event("The", eventDriver));
+	    tmp.add(new Event("The", eventDriver));
 	     expectedSet.addEvents(tmp);
 	     
 		    assertTrue(expectedSet.equals(sampleSet));

@@ -48,17 +48,13 @@ public class IntervieweeText extends Canonicizer {
 
     @Override
     public char[] process(char[] procText) {
-        StringBuilder text = new StringBuilder(procText.length);
+        String text = new String(procText);
         StringBuilder newText = new StringBuilder(procText.length);
-        for(Character c : procText) {
-            text.append(c);
-        }
 
         int start = 0;
         int end = 0;
 
         while(true) {
-
             start = text.indexOf("<B>", end + 3);
             end = text.indexOf("</B>", start);
 

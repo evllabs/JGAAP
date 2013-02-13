@@ -17,12 +17,22 @@
  */
 package com.jgaap.backend;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
 
-import com.jgaap.*;
-import com.jgaap.generics.*;
+import com.jgaap.JGAAP;
+import com.jgaap.JGAAPConstants;
+import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.Displayable;
+import com.jgaap.util.Document;
 
 /**
  * Command Line Interface This is version 4.0 of the command line interface.
@@ -128,21 +138,21 @@ public class CLI {
 				helpFormatter.printHelp(
 								"jgaap -c [canon canon ...] -es [event] -ec [culler culler ...] -a [analysis] <-d [distance]> -l [file] <-s [file]>",
 								"Welcome to JGAAP the Java Graphical Authorship Attribution Program.\nMore information can be found at http://jgaap.com",
-								options, "Copyright 2011 Evaluating Variation in Language Lab, Duquesne University");
+								options, "Copyright 2013 Evaluating Variation in Language Lab, Duquesne University");
 			} else {
 				List<Displayable> list = new ArrayList<Displayable>();
 				if (command.equalsIgnoreCase("c")) {
-					list.addAll(Canonicizer.getCanonicizers());
+					list.addAll(Canonicizers.getCanonicizers());
 				} else if (command.equalsIgnoreCase("es")) {
-					list.addAll(EventDriver.getEventDrivers());
+					list.addAll(EventDrivers.getEventDrivers());
 				} else if (command.equalsIgnoreCase("ec")) {
-					list.addAll(EventCuller.getEventCullers());
+					list.addAll(EventCullers.getEventCullers());
 				} else if (command.equalsIgnoreCase("a")) {
-					list.addAll(AnalysisDriver.getAnalysisDrivers());
+					list.addAll(AnalysisDrivers.getAnalysisDrivers());
 				} else if (command.equalsIgnoreCase("d")) {
-					list.addAll(DistanceFunction.getDistanceFunctions());
+					list.addAll(DistanceFunctions.getDistanceFunctions());
 				} else if (command.equalsIgnoreCase("lang")) {
-					list.addAll(Language.getLanguages());
+					list.addAll(Languages.getLanguages());
 				}
 				for (Displayable display : list) {
 					if (display.showInGUI())
@@ -183,11 +193,13 @@ public class CLI {
 					api.addCanonicizer(canonicizer);
 				}
 			}
-			String event = cmd.getOptionValue("es");
-			if (event == null) {
+			String[] events = cmd.getOptionValues("es");
+			if (events == null) {
 				throw new Exception("No EventDriver specified");
 			}
-			EventDriver eventDriver = api.addEventDriver(event);
+			for(String event : events){
+				api.addEventDriver(event);
+			}
 			String[] eventCullers = cmd.getOptionValues("ec");
 			if (eventCullers != null) {
 				for (String eventCuller : eventCullers) {
@@ -207,7 +219,7 @@ public class CLI {
 			List<Document> unknowns = api.getUnknownDocuments();
 			StringBuffer buffer = new StringBuffer();
 			for (Document unknown : unknowns) {
-				buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
+				buffer.append(unknown.getFormattedResult(analysisDriver));
 			}
 			String saveFile = cmd.getOptionValue('s');
 			if (saveFile == null) {

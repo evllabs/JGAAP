@@ -26,8 +26,9 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.EventSet;
 
 /**
  * @author michael
@@ -36,66 +37,66 @@ import com.jgaap.generics.EventSet;
 public class KendallCorrelationDistanceTest {
 
 	/**
-	 * Test method for {@link com.jgaap.distances.KendallCorrelationDistance#distance(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}.
+	 * Test method for {@link com.jgaap.distances.KendallCorrelationDistance#distance(com.jgaap.util.EventSet, com.jgaap.util.EventSet)}.
 	 */
 	@Test
 	public void testDistance() {
 		EventSet es1 = new EventSet();
 		EventSet es2 = new EventSet();
 		Vector<Event> test1 = new Vector<Event>();
-		test1.add(new Event("alpha"));
-		test1.add(new Event("alpha"));
-		test1.add(new Event("alpha"));
-		test1.add(new Event("alpha"));
-		test1.add(new Event("beta"));
-		test1.add(new Event("beta"));
-		test1.add(new Event("beta"));
-		test1.add(new Event("gamma"));
-		test1.add(new Event("gamma"));
-		test1.add(new Event("delta"));
+		test1.add(new Event("alpha", null));
+		test1.add(new Event("alpha", null));
+		test1.add(new Event("alpha", null));
+		test1.add(new Event("alpha", null));
+		test1.add(new Event("beta", null));
+		test1.add(new Event("beta", null));
+		test1.add(new Event("beta", null));
+		test1.add(new Event("gamma", null));
+		test1.add(new Event("gamma", null));
+		test1.add(new Event("delta", null));
 		es1.addEvents(test1);
 		es2.addEvents(test1);
-		assertTrue(new KendallCorrelationDistance().distance(es1, es2) == 0);
+		assertTrue(new KendallCorrelationDistance().distance(new EventMap(es1), new EventMap(es2)) == 0);
 
 		es1=new EventSet();
 		es2=new EventSet();
 		test1 = new Vector<Event>();
 		Vector<Event> test2 = new Vector<Event>();
-		test1.add(new Event("A"));
-		test1.add(new Event("A"));
-		test1.add(new Event("A"));
-		test1.add(new Event("A"));
-		test1.add(new Event("A"));
-		test1.add(new Event("B"));
-		test1.add(new Event("B"));
-		test1.add(new Event("B"));
-		test1.add(new Event("B"));
-		test1.add(new Event("C"));
-		test1.add(new Event("C"));
-		test1.add(new Event("C"));
-		test1.add(new Event("D"));
-		test1.add(new Event("D"));
-		test1.add(new Event("E"));
+		test1.add(new Event("A", null));
+		test1.add(new Event("A", null));
+		test1.add(new Event("A", null));
+		test1.add(new Event("A", null));
+		test1.add(new Event("A", null));
+		test1.add(new Event("B", null));
+		test1.add(new Event("B", null));
+		test1.add(new Event("B", null));
+		test1.add(new Event("B", null));
+		test1.add(new Event("C", null));
+		test1.add(new Event("C", null));
+		test1.add(new Event("C", null));
+		test1.add(new Event("D", null));
+		test1.add(new Event("D", null));
+		test1.add(new Event("E", null));
 
-		test2.add(new Event("A"));
-		test2.add(new Event("A"));
-		test2.add(new Event("A"));
-		test2.add(new Event("B"));
-		test2.add(new Event("C"));
-		test2.add(new Event("C"));
-		test2.add(new Event("C"));
-		test2.add(new Event("C"));
-		test2.add(new Event("D"));
-		test2.add(new Event("D"));
-		test2.add(new Event("D"));
-		test2.add(new Event("D"));
-		test2.add(new Event("D"));
-		test2.add(new Event("E"));
-		test2.add(new Event("E"));
+		test2.add(new Event("A", null));
+		test2.add(new Event("A", null));
+		test2.add(new Event("A", null));
+		test2.add(new Event("B", null));
+		test2.add(new Event("C", null));
+		test2.add(new Event("C", null));
+		test2.add(new Event("C", null));
+		test2.add(new Event("C", null));
+		test2.add(new Event("D", null));
+		test2.add(new Event("D", null));
+		test2.add(new Event("D", null));
+		test2.add(new Event("D", null));
+		test2.add(new Event("D", null));
+		test2.add(new Event("E", null));
+		test2.add(new Event("E", null));
 
 		es1.addEvents(test1);
 		es2.addEvents(test2);
-		double result = new KendallCorrelationDistance().distance(es1, es2);
+		double result = new KendallCorrelationDistance().distance(new EventMap(es1), new EventMap(es2));
 		//System.out.println(result);
 		assertTrue(DistanceTestHelper.inRange(result, 1.2, 0.0000000001));
 
@@ -104,23 +105,23 @@ public class KendallCorrelationDistanceTest {
 		test1 = new Vector<Event>();
 		test2 = new Vector<Event>();
 
-		test1.add(new Event("A"));
-		test1.add(new Event("A"));
-		test1.add(new Event("A"));
-		test1.add(new Event("B"));
-		test1.add(new Event("B"));
-		test1.add(new Event("C"));
+		test1.add(new Event("A", null));
+		test1.add(new Event("A", null));
+		test1.add(new Event("A", null));
+		test1.add(new Event("B", null));
+		test1.add(new Event("B", null));
+		test1.add(new Event("C", null));
 
-		test2.add(new Event("C"));
-		test2.add(new Event("C"));
-		test2.add(new Event("C"));
-		test2.add(new Event("B"));
-		test2.add(new Event("B"));
-		test2.add(new Event("A"));
+		test2.add(new Event("C", null));
+		test2.add(new Event("C", null));
+		test2.add(new Event("C", null));
+		test2.add(new Event("B", null));
+		test2.add(new Event("B", null));
+		test2.add(new Event("A", null));
 
 		es1.addEvents(test1);
 		es2.addEvents(test2);
-		result = new KendallCorrelationDistance().distance(es1, es2);
+		result = new KendallCorrelationDistance().distance(new EventMap(es1), new EventMap(es2));
 		//System.out.println(result);
 		assertTrue(DistanceTestHelper.inRange(result, 2.0, 0.0000000001));
 	}

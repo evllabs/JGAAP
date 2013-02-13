@@ -19,12 +19,14 @@ package com.jgaap.generics;
 
 import org.junit.Test;
 
+import com.jgaap.util.Pair;
+
 import static org.junit.Assert.assertTrue;
 
 public class PairTest {
 
     /**
-	 * Test method for {@link com.jgaap.generics.Pair}.
+	 * Test method for {@link com.jgaap.util.Pair}.
 	 */
 	@Test
 	public void testProcess() {

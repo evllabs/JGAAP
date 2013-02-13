@@ -17,72 +17,22 @@
  */
 package com.jgaap.eventDrivers;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.common.collect.ImmutableMap;
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
+public class CoarsePOSTagger extends PartOfSpeechEventDriver {
 
-public class CoarsePOSTagger extends EventDriver {
-
-	static Map<String, String> translationTable;
-	static {
-		translationTable = new HashMap<String, String>();
-
-		translationTable.put("CC", "C");
-		translationTable.put("CD", "CD");
-		translationTable.put("DT", "DT");
-		translationTable.put("EX", "EX");
-		translationTable.put("FW", "FW");
-		translationTable.put("IN", "C");
-		translationTable.put("JJ", "J");
-		translationTable.put("JJR", "J");
-		translationTable.put("JJS", "J");
-		translationTable.put("LS", "LS");
-		translationTable.put("MD", "MD");
-		translationTable.put("NN", "N");
-		translationTable.put("NNS", "N");
-		translationTable.put("NNP", "N");
-		translationTable.put("NNPS", "N");
-		translationTable.put("PDT", "PDT");
-		translationTable.put("POS", "PDT");
-		translationTable.put("PRP", "P");
-		translationTable.put("PRP$", "P");
-		translationTable.put("RB", "R");
-		translationTable.put("RBR", "R");
-		translationTable.put("RBS", "R");
-		translationTable.put("RP", "R");
-		translationTable.put("SYM", "Punc");
-		translationTable.put("TO", "TO");
-		translationTable.put("UH", "UH");
-		translationTable.put("VB", "V");
-		translationTable.put("VBD", "V");
-		translationTable.put("VBG", "V");
-		translationTable.put("VBN", "V");
-		translationTable.put("VBP", "V");
-		translationTable.put("VBZ", "V");
-		translationTable.put("WDT", "W");
-		translationTable.put("WP", "W");
-		translationTable.put("WP$", "W");
-		translationTable.put("WRB", "W");
-		translationTable.put("#", "Punc");
-		translationTable.put("$", "Punc");
-		translationTable.put(".", "Punc");
-		translationTable.put(",", "Punc");
-		translationTable.put(":", "Punc");
-		translationTable.put("(", "Punc");
-		translationTable.put(")", "Punc");
-		translationTable.put("\"", "Punc");
-		translationTable.put("`", "Punc");
-		translationTable.put("\"", "Punc");
-		translationTable.put("'", "Punc");
-		translationTable.put("\"", "Punc");
-
-	}
+	static ImmutableMap<String, String> translationTable = ImmutableMap.<String, String> builder().put("CC", "C")
+			.put("CD", "CD").put("DT", "DT").put("EX", "EX").put("FW", "FW").put("IN", "C").put("JJ", "J")
+			.put("JJR", "J").put("JJS", "J").put("LS", "LS").put("MD", "MD").put("NN", "N").put("NNS", "N")
+			.put("NNP", "N").put("NNPS", "N").put("PDT", "PDT").put("POS", "PDT").put("PRP", "P").put("PRP$", "P")
+			.put("RB", "R").put("RBR", "R").put("RBS", "R").put("RP", "R").put("SYM", "Punc").put("TO", "TO")
+			.put("UH", "UH").put("VB", "V").put("VBD", "V").put("VBG", "V").put("VBN", "V").put("VBP", "V")
+			.put("VBZ", "V").put("WDT", "W").put("WP", "W").put("WP$", "W").put("WRB", "W").put("#", "Punc")
+			.put("$", "Punc").put(".", "Punc").put(",", "Punc").put(":", "Punc").put("(", "Punc").put(")", "Punc")
+			.put("`", "Punc").put("'", "Punc").put("\"", "Punc").build();
 
 	@Override
 	public String displayName() {
@@ -105,12 +55,12 @@ public class CoarsePOSTagger extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc) {
-		EventSet preprocessEventSet = new PartOfSpeechEventDriver().createEventSet(doc);
-		EventSet eventSet = new EventSet(doc.getAuthor());
+	public EventSet createEventSet(char[] text) {
+		EventSet preprocessEventSet = super.createEventSet(text);
+		EventSet eventSet = new EventSet();
 		for (Event event : preprocessEventSet) {
-			if(translationTable.containsKey(event.getEvent()))
-				eventSet.addEvent(new Event(translationTable.get(event.getEvent())));
+			if (translationTable.containsKey(event.toString()))
+				eventSet.addEvent(new Event(translationTable.get(event.toString()), this));
 			else
 				eventSet.addEvent(event);
 		}

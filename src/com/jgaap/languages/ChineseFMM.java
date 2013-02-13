@@ -19,9 +19,10 @@ package com.jgaap.languages;
 
 import java.util.List;
 
-import com.jgaap.generics.Language;
+import WordSegment.FMM;
+import WordSegment.WordSegment;
 
-import WordSegment.*;
+import com.jgaap.generics.Language;
 
 /**
  * 

@@ -15,15 +15,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- **/
 package com.jgaap.generics;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import com.jgaap.backend.AutoPopulate;
 
 /**
  * Class for canonicizers. As an abstract class, can only be instantiated
@@ -34,31 +26,7 @@ import com.jgaap.backend.AutoPopulate;
  */
 public abstract class Canonicizer extends Parameterizable implements Comparable<Canonicizer>, Displayable {
 	
-	private static List<Canonicizer> CANONICIZERS;
-	
-	/**
-	 * Simple method to return the display name of this Canonicizer, to be used in the GUI.
-	 * 
-	 * @return The human-readable name of this Canonicizer
-	 */
-	public abstract String displayName();
-	
-	/**
-	 * Simple method to return the tooltip text of this Canonicizer, to be used in the GUI.
-	 * 
-	 * @return The human-readable tooltip text to display when this Canonicizer is moused over
-	 */
-	public abstract String tooltipText();
-
-        public String longDescription() { return tooltipText(); }
-
-
-	/**
-	 * Simple method to indicate whether this Canonicizer should be displayed in the GUI.
-	 * 
-	 * @return Boolean flag indicating whether this Canonicizer should appear in the GUI
-	 */
-	public abstract boolean showInGUI();
+    public String longDescription() { return tooltipText(); }
 	
 	/**
 	 * Overrides the equals method so that Canonicizer can be compared more easily. A
@@ -78,20 +46,11 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
 	public int hashCode() {
 		return this.displayName().toLowerCase().hashCode();
 	}
-	
-    /**
-     * Generic method for getting information. As yet used only by AddErrors,
-     * and should use Parameterizable interface instead.
-     */
-    public String getExtraInfo() {
-        return "";
-    }
 
     /**
      * Generic canonicizer method (abstract). Process a document to convert it
      * from one form to another or to normalize/canonicize in some way, such as
-     * stripping HTML, regularizing spelling, or normalizing whitespace. Legacy
-     * code from WAY back.
+     * stripping HTML, regularizing spelling, or normalizing whitespace.
      * 
      * @since 1.0
      * @param procText
@@ -100,7 +59,6 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
      */
 
     abstract public char[] process(char[] procText) throws CanonicizationException;
-
 
     /**
      * Get a String representation of this Canonicizer.
@@ -116,26 +74,4 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
     	return displayName().compareTo(o.displayName());
     }
 
-	/**
-	 * A read-only list of the Canonicizers
-	 */
-	public static List<Canonicizer> getCanonicizers() {
-		if(CANONICIZERS==null){
-			CANONICIZERS = Collections.unmodifiableList(loadCanonicizers());
-		}
-		return CANONICIZERS;
-	}
-
-	private static List<Canonicizer> loadCanonicizers() {
-		List<Object> objects = AutoPopulate.findObjects("com.jgaap.canonicizers", Canonicizer.class);
-		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", Canonicizer.class)){
-			objects.addAll(AutoPopulate.findObjects("com.jgaap.canonicizers", (Class<?>)tmp));
-		}
-		List<Canonicizer> canonicizers = new ArrayList<Canonicizer>(objects.size());
-		for (Object tmp : objects) {
-			canonicizers.add((Canonicizer)tmp);
-		}
-		Collections.sort(canonicizers);
-		return canonicizers;
-	}
 }

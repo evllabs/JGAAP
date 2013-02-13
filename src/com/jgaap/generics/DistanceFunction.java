@@ -19,11 +19,7 @@
  **/
 package com.jgaap.generics;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import com.jgaap.backend.AutoPopulate;
+import com.jgaap.util.EventMap;
 
 /**
  * This is an abstract class for distance functions. It is used, for example, in
@@ -32,15 +28,7 @@ import com.jgaap.backend.AutoPopulate;
  */
 abstract public class DistanceFunction extends Parameterizable implements Comparable<DistanceFunction>, Displayable{
 
-	private static List<DistanceFunction> DISTANCE_FUNCTIONS;
-	
-	public abstract String displayName();
-
-	public abstract String tooltipText();
-
     public String longDescription() { return tooltipText(); }
-
-	public abstract boolean showInGUI();
 
     /**
      * Returns (as double) the distance between two EventSets.
@@ -51,79 +39,11 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
      *            The first EventSet
      * @return a double precision number (ideally a distance) btw es1 and es2
      */
-    abstract public double distance(EventSet es1, EventSet es2) throws DistanceCalculationException;
+    abstract public double distance(EventMap eventMap1, EventMap eventMap2) throws DistanceCalculationException;
 
-    public double distance(List<Double> v1, List<Double> v2) throws DistanceCalculationException {
-        EventSet es1 = new EventSet();
-        EventSet es2 = new EventSet();
-        int max = 0;
-
-        if(v1.size() > v2.size()) {
-            max = v1.size();
-        }
-        else {
-            max = v2.size();
-        }
-
-        for(Integer i = 0; i < max; i++) {
-            Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(1000 * v1.get(i)); j++) {
-                es1.addEvent(e);
-            }
-        }
-
-        for(Integer i = 0; i < max; i++) {
-            Event e = new Event(i.toString());
-            for(int j = 0; j < Math.round(1000 * v2.get(i)); j++) {
-                es2.addEvent(e);
-            }
-        }
-
-        return distance(es1, es2);
-
-    }
-    
-    public double distance(EventHistogram histogram1, EventHistogram histogram2) throws DistanceCalculationException {
-    	EventSet es1 = new EventSet(histogram1.getNTokens());
-    	for(Event event : histogram1){
-    		for(int i = 0; i < histogram1.getAbsoluteFrequency(event);i++){
-    			es1.addEvent(event);
-    		}
-    	}
-    	EventSet es2 = new EventSet(histogram2.getNTokens());
-    	for(Event event : histogram2){
-    		for(int i = 0; i < histogram2.getAbsoluteFrequency(event);i++){
-    			es2.addEvent(event);
-    		}
-    	}
-    	return distance(es1, es2);
-    }
 
     public int compareTo(DistanceFunction o){
     	return displayName().compareTo(o.displayName());
     }
-    
-	/**
-	 * A read-only list of the DistanceFunctions
-	 */
-	public static List<DistanceFunction> getDistanceFunctions() {
-		if(DISTANCE_FUNCTIONS == null){
-			DISTANCE_FUNCTIONS = Collections.unmodifiableList(loadDistanceFunctions());
-		}
-		return DISTANCE_FUNCTIONS;
-	}
-
-	private static List<DistanceFunction> loadDistanceFunctions() {
-		List<Object> objects = AutoPopulate.findObjects("com.jgaap.distances", DistanceFunction.class);
-		for(Object tmp : AutoPopulate.findClasses("com.jgaap.generics", DistanceFunction.class)){
-			objects.addAll(AutoPopulate.findObjects("com.jgaap.distances", (Class<?>)tmp));
-		}
-		List<DistanceFunction> distances = new ArrayList<DistanceFunction>(objects.size());
-		for (Object tmpD : objects) {
-			distances.add((DistanceFunction) tmpD);
-		}
-		Collections.sort(distances);
-		return distances;
-	}
 
 }

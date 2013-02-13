@@ -19,13 +19,17 @@
  **/
 package com.jgaap.distances;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
 
 /**
  * KendallCorrelationDistance : sequence-based distance for NN
@@ -62,12 +66,10 @@ public class KendallCorrelationDistance extends DistanceFunction {
      * @return the KC distance between them
      */
     @Override
-    public double distance(EventSet es1, EventSet es2) {
+    public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
 
-		EventHistogram h1 = es1.getHistogram();
-		EventHistogram h2 = es2.getHistogram();
-
-		Set<Event> s = new HashSet<Event>();
+		Set<Event> s = new HashSet<Event>(unknownEventMap.uniqueEvents());
+		s.addAll(knownEventMap.uniqueEvents());
 
 		List<Pair<Event,Double>> l1 = new ArrayList<Pair<Event,Double>>();
 		List<Pair<Event,Double>> l2 = new ArrayList<Pair<Event,Double>>();
@@ -79,18 +81,12 @@ public class KendallCorrelationDistance extends DistanceFunction {
 
 		double correlation = 0.0;
 
-		s.addAll(es1.uniqueEvents());
-		s.addAll(es2.uniqueEvents());
-
-		//System.out.println(h1.toString());
-		//System.out.println(h2.toString());
-
 		/* make lists of the histograms */
-		for (Event e: h1) {
-			l1.add(new Pair<Event, Double>(e,h1.getRelativeFrequency(e),2) );
+		for (Event e: unknownEventMap.uniqueEvents()) {
+			l1.add(new Pair<Event, Double>(e, unknownEventMap.relativeFrequency(e),2) );
 		}
-		for (Event e: h2) {
-			l2.add(new Pair<Event, Double>(e,h2.getRelativeFrequency(e),2) );
+		for (Event e: knownEventMap.uniqueEvents()) {
+			l2.add(new Pair<Event, Double>(e, knownEventMap.relativeFrequency(e),2) );
 		}
 
 		/* sort the list so the most frequent items are at the top */

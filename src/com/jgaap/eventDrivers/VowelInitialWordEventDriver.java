@@ -19,12 +19,8 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 
 /**
@@ -34,7 +30,7 @@ import com.jgaap.generics.EventSet;
  * 
  * @since 4.1
  **/
-public class VowelInitialWordEventDriver extends EventDriver {
+public class VowelInitialWordEventDriver extends NaiveWordEventDriver {
 
 	@Override
 	public String displayName() {
@@ -51,62 +47,22 @@ public class VowelInitialWordEventDriver extends EventDriver {
 		return true;
 	}
 
-	/** Underlying EventDriver from which Events are drawn. */
-	public EventDriver underlyingevents = new NaiveWordEventDriver();
+	private static String vowels = "aeiouyAEIOUY";
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
-
-		String vowels = "aeiouyAEIOUY";
-
-		// Extract local field values based on parameter settings
-		String param;
-
-		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
-			try {
-				setEvents(EventDriverFactory.getEventDriver(param));
-			} catch (Exception e) {
-				// System.out.println("Error: cannot create EventDriver " +
-				// param);
-				// System.out.println(" -- Using NaiveWordEventDriver");
-				setEvents(new NaiveWordEventDriver());
-			}
-		}
-		EventSet es = underlyingevents.createEventSet(ds);
+	public EventSet createEventSet(char[] text) {
+		EventSet es = super.createEventSet(text);
 		EventSet newEs = new EventSet();
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
-		String s;
 
 		/**
 		 * Check initial leter of each event and accept if vowel
 		 */
 		for (Event e : es) {
-			s = e.toString();
+			String s = e.toString();
 			if (vowels.indexOf(s.charAt(0)) != -1)
-				// should we clone event before adding? PMJ
 				newEs.addEvent(e);
 		}
 		return newEs;
-	}
-
-	/**
-	 * Get EventDriver for relevant Events *
-	 * 
-	 * @return underlying EventDriver
-	 */
-	public EventDriver getEvents() {
-		return underlyingevents;
-	}
-
-	/**
-	 * Set EventDriver for relevant Events *
-	 * 
-	 * @param underlyingevents
-	 *            underlying EventDriver
-	 */
-	public void setEvents(EventDriver underlyingevents) {
-		this.underlyingevents = underlyingevents;
 	}
 
 }

@@ -20,18 +20,22 @@
  */
 package com.jgaap.classifiers;
 
-import com.jgaap.backend.Utils;
-import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map.Entry;
 
-import org.jscience.mathematics.number.*;
-import org.jscience.mathematics.vector.*;
+import org.jscience.mathematics.number.Float64;
+import org.jscience.mathematics.vector.Float64Matrix;
+import org.jscience.mathematics.vector.Matrix;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
 
 /**
  * MahalanobisDistance class does the generalized squared interpoint distance.
@@ -47,9 +51,9 @@ import org.jscience.mathematics.vector.*;
  */
 public class MahalanobisDistance extends AnalysisDriver {
 
-	private Set<Event> events;
+	private ImmutableSet<Event> events;
 	private Matrix<Float64> inverseCovarianceMatrix;
-	private Map<EventSet, EventHistogram> knownHistograms;
+	private ImmutableMap<Document,EventMap> knownHistograms;
 	
 	public String displayName() {
 		return "Mahalanobis Distance";
@@ -63,25 +67,27 @@ public class MahalanobisDistance extends AnalysisDriver {
 		return true; 
 	}
 
-	public void train(List<EventSet> knowns){
-		events = new HashSet<Event>();
-		knownHistograms = new HashMap<EventSet, EventHistogram>();
-		List<EventHistogram> histograms = new ArrayList<EventHistogram>(knowns.size());
-		for(EventSet known : knowns){
-			EventHistogram histogram = known.getHistogram();
-			events.addAll(histogram.events());
+	public void train(List<Document> knowns){
+		ImmutableSet.Builder<Event> eventsBuilder = ImmutableSet.builder();
+		ImmutableMap.Builder<Document, EventMap> knownHistogramsBuilder = ImmutableMap.builder();
+		List<EventMap> histograms = new ArrayList<EventMap>(knowns.size());
+		for(Document known : knowns){
+			EventMap histogram = new EventMap(known);
+			eventsBuilder.addAll(histogram.uniqueEvents());
 			histograms.add(histogram);
-			knownHistograms.put(known, histogram);
+			knownHistogramsBuilder.put(known, histogram);
 		}
-		Map<Event, Double> mu = Utils.makeRelativeCentroid(histograms);
+		events = eventsBuilder.build();
+		knownHistograms = knownHistogramsBuilder.build();
+		EventMap mu = EventMap.centroid(histograms);
 		double[][] s = new double[events.size()][events.size()];
 		int i = 0;
 		for(Event x : events){
 			int j =0;
 			for(Event y : events){
 				double tmp = 0;
-				for(EventHistogram histogram : histograms){
-					tmp += (histogram.getRelativeFrequency(x)-mu.get(x))*(histogram.getRelativeFrequency(y)-mu.get(y));
+				for(EventMap histogram : histograms){
+					tmp += (histogram.relativeFrequency(x)-mu.relativeFrequency(x))*(histogram.relativeFrequency(y)-mu.relativeFrequency(y));
 				}
 				s[i][j] = tmp/(events.size()-1);
 				if(i == j) {
@@ -95,14 +101,14 @@ public class MahalanobisDistance extends AnalysisDriver {
 	}
 	
 	@Override
-	public List<Pair<String, Double>> analyze(EventSet unknown) {
+	public List<Pair<String, Double>> analyze(Document unknown) {
 		List<Pair<String, Double>> results = new ArrayList<Pair<String,Double>>();
-		EventHistogram histogram = unknown.getHistogram();
-		for(Entry<EventSet, EventHistogram> entry : knownHistograms.entrySet()){
+		EventMap histogram = new EventMap(unknown);
+		for(Entry<Document, EventMap> entry : knownHistograms.entrySet()){
 			double[][] tmp = new double[events.size()][1];
 			int i = 0;
 			for(Event event : events){
-				tmp[i][0] = histogram.getRelativeFrequency(event)-entry.getValue().getRelativeFrequency(event);
+				tmp[i][0] = histogram.relativeFrequency(event)-entry.getValue().relativeFrequency(event);
 				i++;
 			}
 			Matrix<Float64> difference = Float64Matrix.valueOf(tmp);

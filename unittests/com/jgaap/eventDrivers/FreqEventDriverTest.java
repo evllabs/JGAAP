@@ -26,11 +26,11 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.NumericEventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.NumericEventSet;
 
 /**
  * @author Patrick Juola
@@ -45,35 +45,32 @@ public class FreqEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		// test just first and last few words rathre than
-		// entire 40k corpus
-		doc.readStringText(
+		String text = (
 "a aah Aaron aback abacus abandon abandoned zones zoning zoo " +
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
-
-		EventSet sampleEventSet = new FreqEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new FreqEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("16.18"));
-		tmp.add(new Event("5.40"));
-		tmp.add(new Event("9.29"));
-		tmp.add(new Event("5.96"));
-		tmp.add(new Event("6.24"));
-		tmp.add(new Event("8.23"));
-		tmp.add(new Event("8.55"));
-		tmp.add(new Event("8.13"));
-		tmp.add(new Event("6.71"));
-		tmp.add(new Event("8.37"));
-		tmp.add(new Event("5.71"));
-		tmp.add(new Event("6.56"));
-		tmp.add(new Event("8.50"));
-		tmp.add(new Event("6.26"));
-		tmp.add(new Event("5.95"));
-		tmp.add(new Event("5.75"));
-		tmp.add(new Event("7.48"));
+		tmp.add(new Event("16.18", eventDriver));
+		tmp.add(new Event("5.40", eventDriver));
+		tmp.add(new Event("9.29", eventDriver));
+		tmp.add(new Event("5.96", eventDriver));
+		tmp.add(new Event("6.24", eventDriver));
+		tmp.add(new Event("8.23", eventDriver));
+		tmp.add(new Event("8.55", eventDriver));
+		tmp.add(new Event("8.13", eventDriver));
+		tmp.add(new Event("6.71", eventDriver));
+		tmp.add(new Event("8.37", eventDriver));
+		tmp.add(new Event("5.71", eventDriver));
+		tmp.add(new Event("6.56", eventDriver));
+		tmp.add(new Event("8.50", eventDriver));
+		tmp.add(new Event("6.26", eventDriver));
+		tmp.add(new Event("5.95", eventDriver));
+		tmp.add(new Event("5.75", eventDriver));
+		tmp.add(new Event("7.48", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 

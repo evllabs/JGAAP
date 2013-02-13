@@ -1,21 +1,21 @@
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.NGramEventDriver;
+import com.jgaap.util.EventSet;
 
 /**
  * 
  * @author Michael Ryan
  *
  */
-public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
+public class StanfordPartOfSpeechNGramEventDriver extends NGramEventDriver {
 
 	private EventDriver stanfordPOS = new StanfordPartOfSpeechEventDriver();
 	
 	public StanfordPartOfSpeechNGramEventDriver(){
+		super();
 		addParams("tagginModel", "Model", "english-bidirectional-distsim", 
 				new String[] { "arabic-accurate","arabic-fast.tagger","chinese",
 				"english-bidirectional-distsim","english-left3words-distsim",
@@ -24,9 +24,6 @@ public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
 				"german-fast"
 				//,"german-hgc"
 				}, false);
-		addParams("N", "N", "2", 
-				new String[] { "1","2","3","4","5","6","7",
-				"8","9","10","11","12","13","14","15"}, false);
 	}
 	
 	@Override
@@ -45,31 +42,10 @@ public class StanfordPartOfSpeechNGramEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc)
+	public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
-		EventSet eventSet = new EventSet();
 		stanfordPOS.setParameter("taggingModel", getParameter("taggingModel"));
-		EventSet posEventSet = stanfordPOS.createEventSet(doc);
-		String gramSize = getParameter("N");
-		int n;
-		if("".equals(gramSize)){
-			n = 2;
-		}else{ 
-			n = Integer.parseInt(getParameter("N"));
-		}
-		String s;
-		for (int i = n; i <= posEventSet.size(); i++) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int j = i - n; j < i; j++) {
-                s = posEventSet.eventAt(j).getEvent();
-                stringBuilder.append("(").append(s).append(")");
-                if (j != i - 1) {
-                    stringBuilder.append("-");
-                }
-            }
-            eventSet.addEvent(new Event(stringBuilder.toString()));
-        }
-		return eventSet;
+		return transformToNgram(stanfordPOS.createEventSet(text));
 	}
 
 }

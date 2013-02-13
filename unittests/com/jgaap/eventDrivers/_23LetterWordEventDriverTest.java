@@ -26,11 +26,10 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * @author Patrick Juola
@@ -45,31 +44,28 @@ public class _23LetterWordEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
-		Document doc = new Document();
-		doc.readStringText(
-"a bb ccc dddd eeeee " +
-"1 22 333 4444 55555 " +
-"! @@ ### $$$$ %%%%% " +
-"A BB CCC DDDD EEEEE "
-		);
+		String text = "a bb ccc dddd eeeee " +
+						"1 22 333 4444 55555 " +
+						"! @@ ### $$$$ %%%%% " +
+						"A BB CCC DDDD EEEEE " ;
 
 
 		EventDriver eventDriver = new MNLetterWordEventDriver();
 		eventDriver.setParameter("M", 2);
 		eventDriver.setParameter("N", 3);
 		
-		EventSet sampleEventSet = eventDriver.createEventSet(doc);
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("bb"));
-		tmp.add(new Event("ccc"));
-		tmp.add(new Event("22"));
-		tmp.add(new Event("333"));
-		tmp.add(new Event("@@"));
-		tmp.add(new Event("###"));
-		tmp.add(new Event("BB"));
-		tmp.add(new Event("CCC"));
+		tmp.add(new Event("bb", eventDriver));
+		tmp.add(new Event("ccc", eventDriver));
+		tmp.add(new Event("22", eventDriver));
+		tmp.add(new Event("333", eventDriver));
+		tmp.add(new Event("@@", eventDriver));
+		tmp.add(new Event("###", eventDriver));
+		tmp.add(new Event("BB", eventDriver));
+		tmp.add(new Event("CCC", eventDriver));
 
 
 		expectedEventSet.addEvents(tmp);

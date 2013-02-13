@@ -24,14 +24,14 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 
 import com.jgaap.generics.AnalyzeException;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 
 /**
  * @author Amanda Kroft
@@ -58,67 +58,83 @@ public class WEKADecisionStumpTest {
 		EventSet known3 = new EventSet();
 		EventSet known4 = new EventSet();
 
-		known1.addEvent(new Event("mary"));
-		known1.addEvent(new Event("had"));
-		known1.addEvent(new Event("a"));
-		known1.addEvent(new Event("little"));
-		known1.addEvent(new Event("lamb"));
-		known1.setAuthor("Mary");
+		known1.addEvent(new Event("mary", null));
+		known1.addEvent(new Event("had", null));
+		known1.addEvent(new Event("a", null));
+		known1.addEvent(new Event("little", null));
+		known1.addEvent(new Event("lamb", null));
+		//known1.setAuthor("Mary");
 		
-		known3.addEvent(new Event("mary"));
-		known3.addEvent(new Event("had"));
-		known3.addEvent(new Event("a"));
-		known3.addEvent(new Event("small"));
-		known3.addEvent(new Event("lamb"));
-		known3.setAuthor("Mary");
+		known3.addEvent(new Event("mary", null));
+		known3.addEvent(new Event("had", null));
+		known3.addEvent(new Event("a", null));
+		known3.addEvent(new Event("small", null));
+		known3.addEvent(new Event("lamb", null));
+		//known3.setAuthor("Mary");
 
-		known2.addEvent(new Event("peter"));
-		known2.addEvent(new Event("piper"));
-		known2.addEvent(new Event("picked"));
-		known2.addEvent(new Event("a"));
-		known2.addEvent(new Event("peck"));
-		known2.setAuthor("Peter");
+		known2.addEvent(new Event("peter", null));
+		known2.addEvent(new Event("piper", null));
+		known2.addEvent(new Event("picked", null));
+		known2.addEvent(new Event("a", null));
+		known2.addEvent(new Event("peck", null));
+		//known2.setAuthor("Peter");
 		
-		known4.addEvent(new Event("peter"));
-		known4.addEvent(new Event("piper"));
-		known4.addEvent(new Event("collected"));
-		known4.addEvent(new Event("a"));
-		known4.addEvent(new Event("peck"));
-		known4.setAuthor("Peter");
+		known4.addEvent(new Event("peter", null));
+		known4.addEvent(new Event("piper", null));
+		known4.addEvent(new Event("collected", null));
+		known4.addEvent(new Event("a", null));
+		known4.addEvent(new Event("peck", null));
+		//known4.setAuthor("Peter");
 
-		Vector<EventSet> esv = new Vector<EventSet>();
-		esv.add(known1);
-		esv.add(known2);
-		esv.add(known3);
-		esv.add(known4);
+		List<Document> knowns = new ArrayList<Document>();
+		Document knownDocument1 = new Document();
+		knownDocument1.setAuthor("Mary");
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		Document knownDocument2 = new Document();
+		knownDocument2.setAuthor("Peter");
+		knownDocument2.addEventSet(null, known2);
+		knowns.add(knownDocument2);
+		Document knownDocument3 = new Document();
+		knownDocument3.setAuthor("Mary");
+		knownDocument3.addEventSet(null, known3);
+		knowns.add(knownDocument3);
+		Document knownDocument4 = new Document();
+		knownDocument4.setAuthor("Peter");
+		knownDocument4.addEventSet(null, known4);
+		knowns.add(knownDocument4);
 
 		//Create unknown texts
 		EventSet unknown1 = new EventSet();
 		EventSet unknown2 = new EventSet();
 
-		unknown1.addEvent(new Event("mary"));
-		unknown1.addEvent(new Event("had"));
-		unknown1.addEvent(new Event("a"));
-		unknown1.addEvent(new Event("little"));
-		unknown1.addEvent(new Event("beta"));
+		unknown1.addEvent(new Event("mary", null));
+		unknown1.addEvent(new Event("had", null));
+		unknown1.addEvent(new Event("a", null));
+		unknown1.addEvent(new Event("little", null));
+		unknown1.addEvent(new Event("beta", null));
 		
-		unknown2.addEvent(new Event("peter"));
-		unknown2.addEvent(new Event("piper"));
-		unknown2.addEvent(new Event("picked"));
-		unknown2.addEvent(new Event("a"));
-		unknown2.addEvent(new Event("shells"));
+		unknown2.addEvent(new Event("peter", null));
+		unknown2.addEvent(new Event("piper", null));
+		unknown2.addEvent(new Event("picked", null));
+		unknown2.addEvent(new Event("a", null));
+		unknown2.addEvent(new Event("shells", null));
 
-		Vector<EventSet> uesv = new Vector<EventSet>();
-		uesv.add(unknown1);
-		uesv.add(unknown2);
+		Document unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown1);
+		Document unknownDocument2 = new Document();
+		unknownDocument2.addEventSet(null, unknown2);
 
 		//Classify unknown based on the knowns
 		WEKADecisionStump classifier = new WEKADecisionStump();
-		classifier.train(esv);
+		classifier.train(knowns);
 		List<List<Pair<String, Double>>> t = new ArrayList<List<Pair<String,Double>>>(); 
-		for(EventSet unknown : uesv)		
-			t.add(classifier.analyze(unknown));
-		//System.out.println(t.toString());
+		t.add(classifier.analyze(unknownDocument));
+		t.add(classifier.analyze(unknownDocument2));
+		System.out.println(knowns);
+		System.out.println(unknownDocument.getEventSet(null));
+		System.out.println(unknownDocument2.getEventSet(null));
+		System.out.println(t.toString());
 		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]
 
 			//System.out.println(t.toString());
@@ -135,66 +151,79 @@ public class WEKADecisionStumpTest {
 		known3 = new EventSet();
 		known4 = new EventSet();
 		
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("alpha"));
-		known1.addEvent(new Event("beta"));
-		known1.setAuthor("Mary");
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("alpha", null));
+		known1.addEvent(new Event("beta", null));
+		//known1.setAuthor("Mary");
 		
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("alpha"));
-		known3.addEvent(new Event("beta"));
-		known3.addEvent(new Event("beta"));
-		known3.setAuthor("Mary");
+		known3.addEvent(new Event("alpha", null));
+		known3.addEvent(new Event("alpha", null));
+		known3.addEvent(new Event("alpha", null));
+		known3.addEvent(new Event("beta", null));
+		known3.addEvent(new Event("beta", null));
+		//known3.setAuthor("Mary");
 
-		known2.addEvent(new Event("alpha"));
-		known2.addEvent(new Event("beta"));
-		known2.addEvent(new Event("beta"));
-		known2.addEvent(new Event("beta"));
-		known2.addEvent(new Event("beta"));
-		known2.setAuthor("Peter");
+		known2.addEvent(new Event("alpha", null));
+		known2.addEvent(new Event("beta", null));
+		known2.addEvent(new Event("beta", null));
+		known2.addEvent(new Event("beta", null));
+		known2.addEvent(new Event("beta", null));
+		//known2.setAuthor("Peter");
 		
-		known4.addEvent(new Event("alpha"));
-		known4.addEvent(new Event("alpha"));
-		known4.addEvent(new Event("beta"));
-		known4.addEvent(new Event("beta"));
-		known4.addEvent(new Event("beta"));
-		known4.setAuthor("Peter");
+		known4.addEvent(new Event("alpha", null));
+		known4.addEvent(new Event("alpha", null));
+		known4.addEvent(new Event("beta", null));
+		known4.addEvent(new Event("beta", null));
+		known4.addEvent(new Event("beta", null));
+		//known4.setAuthor("Peter");
 		
-		esv = new Vector<EventSet>();
-		esv.add(known1);
-		esv.add(known2);
-		esv.add(known3);
-		esv.add(known4);
+		knowns = new ArrayList<Document>();
+		knownDocument1 = new Document();
+		knownDocument1.setAuthor("Mary");
+		knownDocument1.addEventSet(null, known1);
+		knowns.add(knownDocument1);
+		knownDocument2 = new Document();
+		knownDocument2.setAuthor("Peter");
+		knownDocument2.addEventSet(null, known2);
+		knowns.add(knownDocument2);
+		knownDocument3 = new Document();
+		knownDocument3.setAuthor("Mary");
+		knownDocument3.addEventSet(null, known3);
+		knowns.add(knownDocument3);
+		knownDocument4 = new Document();
+		knownDocument4.setAuthor("Peter");
+		knownDocument4.addEventSet(null, known4);
+		knowns.add(knownDocument4);
 
 		//Create unknown texts
 		unknown1 = new EventSet();
 		unknown2 = new EventSet();
 
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
-		unknown1.addEvent(new Event("alpha"));
+		unknown1.addEvent(new Event("alpha", null));
+		unknown1.addEvent(new Event("alpha", null));
+		unknown1.addEvent(new Event("alpha", null));
+		unknown1.addEvent(new Event("alpha", null));
+		unknown1.addEvent(new Event("alpha", null));
 		
-		unknown2.addEvent(new Event("beta"));
-		unknown2.addEvent(new Event("beta"));
-		unknown2.addEvent(new Event("beta"));
-		unknown2.addEvent(new Event("beta"));
-		unknown2.addEvent(new Event("beta"));
+		unknown2.addEvent(new Event("beta", null));
+		unknown2.addEvent(new Event("beta", null));
+		unknown2.addEvent(new Event("beta", null));
+		unknown2.addEvent(new Event("beta", null));
+		unknown2.addEvent(new Event("beta", null));
 
-		uesv = new Vector<EventSet>();
-		uesv.add(unknown1);
-		uesv.add(unknown2);
+		unknownDocument = new Document();
+		unknownDocument.addEventSet(null, unknown1);
+		unknownDocument2 = new Document();
+		unknownDocument2.addEventSet(null, unknown2);
 		
 		//Classify unknown based on the knowns
 		classifier = new WEKADecisionStump();
-		classifier.train(esv);
+		classifier.train(knowns);
 		t = new ArrayList<List<Pair<String,Double>>>(); 
-		for(EventSet unknown : uesv)		
-			t.add(classifier.analyze(unknown));
+		t.add(classifier.analyze(unknownDocument));
+		t.add(classifier.analyze(unknownDocument2));
 		//System.out.println(classifier.classifier.toString());
 		//System.out.println(t.toString());
 		//[[[Mary:1.0], [Peter:0.0]], [[Peter:1.0], [Mary:0.0]]]

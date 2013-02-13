@@ -1,9 +1,8 @@
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 /**
  * 
  * Split text on contiguous groups of new lines
@@ -29,13 +28,13 @@ public class NewLineEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc) {
+	public EventSet createEventSet(char[] text) {
 		
-		String text = doc.stringify();
-		String [] events = text.split("[\n]+");
+		String textString = new String(text);
+		String [] events = textString.split("[\n]+");
 		EventSet eventSet = new EventSet(events.length);
 		for(String event : events){
-			eventSet.addEvent(new Event(event));
+			eventSet.addEvent(new Event(event, this));
 		}
 		
 		return eventSet;

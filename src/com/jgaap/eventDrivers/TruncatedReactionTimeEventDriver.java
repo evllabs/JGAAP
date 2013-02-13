@@ -20,16 +20,16 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
+import com.jgaap.generics.TruncatedEventDriver;
+import com.jgaap.util.EventSet;
 
 /**
  * Truncate lexical frequency for discrete binning 
  *
  */
-public class TruncatedReactionTimeEventDriver extends EventDriver {
+public class TruncatedReactionTimeEventDriver extends TruncatedEventDriver {
 
     @Override
     public String displayName(){
@@ -46,13 +46,11 @@ public class TruncatedReactionTimeEventDriver extends EventDriver {
     	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
     }
 
-    private EventDriver theDriver;
+    private EventDriver theDriver = new ReactionTimeEventDriver();
+    private static int length = 2;
 
     @Override
-    public EventSet createEventSet(Document ds) throws EventGenerationException {
-        theDriver = new TruncatedEventDriver();
-        theDriver.setParameter("length", "2");
-        theDriver.setParameter("underlyingEvents", "Lexical Decision Reaction Times");
-        return theDriver.createEventSet(ds);
+    public EventSet createEventSet(char[] text) throws EventGenerationException {
+    	return truncate(theDriver.createEventSet(text), length);
     }
 }

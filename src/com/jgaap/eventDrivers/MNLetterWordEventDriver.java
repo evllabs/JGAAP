@@ -19,12 +19,8 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.backend.EventDriverFactory;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * This event set is all "words" (NaiveWordEventDriver) with M <= length <= N (M
@@ -32,7 +28,7 @@ import com.jgaap.generics.EventSet;
  * 
  * @since 4.1
  **/
-public class MNLetterWordEventDriver extends EventDriver {
+public class MNLetterWordEventDriver extends NaiveWordEventDriver {
 
 	public MNLetterWordEventDriver() {
 		addParams("M", "M", "1", new String[] { "1", "2", "3", "4", "5", "6",
@@ -69,133 +65,30 @@ public class MNLetterWordEventDriver extends EventDriver {
 		return true;
 	}
 
-	/** Underlying EventDriver from which Events are drawn. */
-	public EventDriver underlyingevents = new NaiveWordEventDriver();
-
-	/** Limits on characters per word */
-	public int M = 2;
-	public int N = 3;
-
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
-
-		// Extract local field values based on parameter settings
-		String param;
+	public EventSet createEventSet(char[] text) {
 
 		// lots of error checking
-		if (!(param = (getParameter("N"))).equals("")) {
-			try {
-				int value = Integer.parseInt(param);
-				setN(value);
-			} catch (NumberFormatException e) {
-				System.out.println("Warning: cannot parse N(upper bound):"
-						+ param + " as int");
-				System.out.println(" -- Using default value (3)");
-				setN(3);
-			}
-		}
-		if (!(param = (getParameter("M"))).equals("")) {
-			try {
-				int value = Integer.parseInt(param);
-				setM(value);
-			} catch (NumberFormatException e) {
-				System.out.println("Warning: cannot parse M(lower bound):"
-						+ param + " as int");
-				System.out.println(" -- Using default value (2)");
-				setM(2);
-			}
-		}
-
-		if (!(param = (getParameter("underlyingEvents"))).equals("")) {
-			try {
-				setEvents(EventDriverFactory.getEventDriver(param));
-			} catch (Exception e) {
-				// System.out.println("Error: cannot create EventDriver " +
-				// param);
-				// System.out.println(" -- Using NaiveWordEventDriver");
-				setEvents(new NaiveWordEventDriver());
-			}
-		}
-		EventSet es = underlyingevents.createEventSet(ds);
-		EventSet newEs = new EventSet();
-		newEs.setAuthor(es.getAuthor());
-		newEs.setNewEventSetID(es.getAuthor());
-		String s;
-
+		int N = getParameter("N", 3);
 		/* Negative upper bounds mean no upper bound */
-		if (N < 0)
+		if (N < 0){
 			N = Integer.MAX_VALUE;
+		}
+		int M = getParameter("M", 2);
+
+		EventSet es = super.createEventSet(text);
+		EventSet newEs = new EventSet();
+		String s;
 
 		/**
 		 * Check length of each event and accept if in range
 		 */
 		for (Event e : es) {
 			s = e.toString();
-			// System.out.println("Event: "+s);
 			if (s.length() >= M && s.length() <= N) {
-				// should we clone event before adding? PMJ
 				newEs.addEvent(e);
 			}
 		}
 		return newEs;
-	}
-
-	/**
-	 * Get EventDriver for relevant Events *
-	 * 
-	 * @return underlying EventDriver
-	 */
-	public EventDriver getEvents() {
-		return underlyingevents;
-	}
-
-	/* Parameter settings */
-	/**
-	 * Get N (upper bound)
-	 * 
-	 * @return length upper bound
-	 */
-	public int getN() {
-		return N;
-	};
-
-	/* Parameter settings */
-	/**
-	 * Get M (lower bound)
-	 * 
-	 * @return length lower bound
-	 */
-	public int getM() {
-		return M;
-	};
-
-	/**
-	 * Set EventDriver for relevant Events *
-	 * 
-	 * @param underlyingevents
-	 *            underlying EventDriver
-	 */
-	public void setEvents(EventDriver underlyingevents) {
-		this.underlyingevents = underlyingevents;
-	}
-
-	/**
-	 * Set upper bound on length
-	 * 
-	 * @param N
-	 *            length upper bound
-	 */
-	public void setN(int N) {
-		this.N = N;
-	}
-
-	/**
-	 * Set lower bound on length
-	 * 
-	 * @param M
-	 *            length lower bound
-	 */
-	public void setM(int M) {
-		this.M = M;
 	}
 }

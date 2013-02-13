@@ -9,11 +9,10 @@ import edu.stanford.nlp.ie.crf.*;
 import edu.stanford.nlp.ling.CoreAnnotations.AnswerAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 
-import com.jgaap.generics.Document;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Event;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 public class WordsBeforeAfterNamedEntities extends EventDriver {
 
@@ -37,7 +36,7 @@ public class WordsBeforeAfterNamedEntities extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(Document doc)
+	public EventSet createEventSet(char[] text)
 			throws EventGenerationException {
 		EventSet eventSet = new EventSet();
 		// String serializedClassifier =
@@ -60,18 +59,18 @@ public class WordsBeforeAfterNamedEntities extends EventDriver {
 				}
 			}
 		}
-		String fileContents = doc.stringify();
+		String fileContents = new String(text);
 		List<List<CoreLabel>> out = classifier.classify(fileContents);
 		for (List<CoreLabel> sentence : out) {
 			for (int i = 0; i < sentence.size(); i++) {
 				if (!sentence.get(i).get(AnswerAnnotation.class).equals("O")) {
 					if (i > 0 && sentence.get(i-1).get(AnswerAnnotation.class).equals("O")) {
 						eventSet.addEvent(new Event("BEFORE "
-								+ sentence.get(i - 1).word()));
+								+ sentence.get(i - 1).word(), this));
 					}
 					if (i < sentence.size() - 1 && sentence.get(i+1).get(AnswerAnnotation.class).equals("O")) {
 						eventSet.addEvent(new Event("AFTER "
-								+ sentence.get(i + 1).word()));
+								+ sentence.get(i + 1).word(), this));
 					}
 				}
 			}

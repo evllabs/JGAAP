@@ -17,15 +17,27 @@
  */
 package com.jgaap.backend;
 
-import java.io.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.log4j.Logger;
 
 import com.jgaap.JGAAPConstants;
-import com.jgaap.generics.*;
+import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.ValidationDriver;
+import com.jgaap.util.Document;
 
 /**
  * Experiment Engine This class takes a csv file of experiments and then will
@@ -56,7 +68,7 @@ public class ExperimentEngine {
 	 *            the identifier given to this experiment
 	 * @return the location of where the file will be written
 	 */
-	public static String fileNameGen(List<String> canons, String event,
+	public static String fileNameGen(List<String> canons, String[] events,
 			String[] eventCullers, String analysis, String experimentName,
 			String number) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -75,11 +87,17 @@ public class ExperimentEngine {
 			cullerNameBuilder.append(iterator.next().trim()).append(" ");
 		}
 		String cullerName = cullerNameBuilder.toString().trim();
+		iterator = Arrays.asList(events).iterator();
+		StringBuilder eventNameBuilder = new StringBuilder();
+		while (iterator.hasNext()) {
+			eventNameBuilder.append(iterator.next().trim()).append(" ");
+		}
+		String eventName = eventNameBuilder.toString().trim();
 		if(cullerName.isEmpty())
 			cullerName = "none";
 		String path = JGAAPConstants.JGAAP_TMPDIR
 				+ canonName.replace("/", "\\/") + "/"
-				+ event.trim().replace("/", "\\/") + "/"
+				+ eventName.trim().replace("/", "\\/") + "/"
 				+ cullerName.replace("/", "\\/") + "/"
 				+ analysis.trim().replace("/", "\\/") + "/";
 		File file = new File(path);
@@ -118,14 +136,14 @@ public class ExperimentEngine {
 			} else if (experimentRow.size() >= 7) {
 				String number = experimentRow.get(0);
 				String[] canonicizers = experimentRow.get(1).trim().split("\\s*&\\s*");
-				String event = experimentRow.get(2).trim();
+				String[] events = experimentRow.get(2).trim().split("\\s*&\\s*");
 				String[] eventCullers = experimentRow.get(3).trim().split("\\s*&\\s*");
 				String analysis = experimentRow.get(4).trim();
 				String distance = experimentRow.get(5).trim();
 				String documentsPath = experimentRow.get(6).trim();
-				String fileName = fileNameGen(Arrays.asList(canonicizers), event, eventCullers, analysis + (distance.isEmpty() ? "" : "-" + distance), experimentName, number);
+				String fileName = fileNameGen(Arrays.asList(canonicizers), events, eventCullers, analysis + (distance.isEmpty() ? "" : "-" + distance), experimentName, number);
 
-				runningExperiments.add(experimentExecutor.submit(new Experiment(canonicizers, event, eventCullers, analysis, distance, documentsPath, fileName)));
+				runningExperiments.add(experimentExecutor.submit(new Experiment(canonicizers, events, eventCullers, analysis, distance, documentsPath, fileName)));
 			} else {
 				logger.error("Experiment " + experimentRow.toString()
 						+ " missing " + (7 - experimentRow.size())
@@ -156,18 +174,18 @@ public class ExperimentEngine {
 	private static class Experiment implements Callable<String> {
 
 		private String[] canonicizers;
-		private String event;
+		private String[] events;
 		private String[] eventCullers;
 		private String analysis;
 		private String distance;
 		private String documentsPath;
 		private String fileName;
 
-		public Experiment(String[] canonicizers, String event,
+		public Experiment(String[] canonicizers, String[] events,
 				String[] eventCullers, String analysis, String distance,
 				String documentsPath, String fileName) {
 			this.canonicizers = canonicizers;
-			this.event = event;
+			this.events = events;
 			this.eventCullers = eventCullers;
 			this.analysis = analysis;
 			this.distance = distance;
@@ -193,7 +211,9 @@ public class ExperimentEngine {
 					if(!canonicizer.isEmpty())
 						experiment.addCanonicizer(canonicizer);
 				}
-				EventDriver eventDriver = experiment.addEventDriver(event);
+				for (String event : events) {
+					experiment.addEventDriver(event);
+				}
 				for (String eventCuller : eventCullers) {
 					if (eventCuller != null && !"".equalsIgnoreCase(eventCuller))
 						experiment.addEventCuller(eventCuller.trim());
@@ -204,10 +224,15 @@ public class ExperimentEngine {
 					experiment.addDistanceFunction(distance, analysisDriver);
 				}
 				experiment.execute();
-				List<Document> unknowns = experiment.getUnknownDocuments();
+				List<Document> resultDocuments;
+				if(analysisDriver instanceof ValidationDriver){
+					resultDocuments = experiment.getDocuments();
+				} else {
+					resultDocuments = experiment.getUnknownDocuments();
+				}
 				StringBuffer buffer = new StringBuffer();
-				for (Document unknown : unknowns) {
-					buffer.append(unknown.getFormattedResult(analysisDriver, eventDriver));
+				for (Document resultDocument : resultDocuments) {
+					buffer.append(resultDocument.getFormattedResult(analysisDriver));
 				}
 				Utils.saveFile(fileName, buffer.toString());
 			} catch (Exception e) {

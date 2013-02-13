@@ -23,9 +23,24 @@ package com.jgaap.generics;
 
 public interface Displayable {
 
+	/**
+	 * Simple method to return the display name of this Displayable, to be used in the GUI.
+	 * 
+	 * @return The human-readable name of this Displayable
+	 */
 	public String displayName();
 	
+	/**
+	 * Simple method to return the tooltip text of this Displayable, to be used in the GUI.
+	 * 
+	 * @return The human-readable tooltip text to display when this Displayable is moused over
+	 */
 	public String tooltipText();
 	
+	/**
+	 * Simple method to indicate whether this Displayable should be displayed in the GUI.
+	 * 
+	 * @return Boolean flag indicating whether this Displayable should appear in the GUI
+	 */
 	public boolean showInGUI();
 }

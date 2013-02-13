@@ -24,15 +24,30 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
-import com.jgaap.classifiers.NearestNeighborDriver;
-import com.jgaap.generics.*;
+import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.AnalyzeException;
+import com.jgaap.generics.CanonicizationException;
+import com.jgaap.generics.Canonicizer;
+import com.jgaap.generics.DistanceFunction;
+import com.jgaap.generics.EventCuller;
+import com.jgaap.generics.EventCullingException;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
+import com.jgaap.generics.Language;
+import com.jgaap.generics.LanguageParsingException;
+import com.jgaap.generics.NeighborAnalysisDriver;
+import com.jgaap.generics.ValidationDriver;
 import com.jgaap.languages.English;
+import com.jgaap.util.Document;
+import com.jgaap.util.EventSet;
 
 /**
  * 
@@ -71,7 +86,7 @@ public class API {
 	private List<EventCuller> eventCullers;
 	private List<AnalysisDriver> analysisDrivers;
 	
-	private final int workers = Runtime.getRuntime().availableProcessors();
+	private ExecutorService executor;
 
 	private static final API INSTANCE = new API();
 	
@@ -122,9 +137,7 @@ public class API {
 	public Document addDocument(String filepath, String author, String title)
 			throws Exception {
 		Document document = new Document(filepath, author, title);
-		documents.add(document);
-		logger.info("Adding Document "+document.toString());
-		return document;
+		return addDocument(document);
 	}
 
 	/**
@@ -154,6 +167,7 @@ public class API {
 	 * Removes all documents loaded into the system.
 	 */
 	public void removeAllDocuments() {
+		logger.info("Removing all Documents");
 		documents.clear();
 	}
 
@@ -245,12 +259,15 @@ public class API {
 	 * Adds the specified canonicizer to all documents currently loaded in the system.
 	 * 
 	 * @param action - the unique string name representing a canonicizer (displayName())
+	 * @return - a reference to the canonicizer added
 	 * @throws Exception - if the canonicizer specified cannot be found or instanced
 	 */
-	public void addCanonicizer(String action) throws Exception {
+	public Canonicizer addCanonicizer(String action) throws Exception {
+		Canonicizer canonicizer = Canonicizers.getCanonicizer(action);
 		for (Document document : documents) {
-			addCanonicizer(action, document);
+			addCanonicizer(canonicizer, document);
 		}
+		return canonicizer;
 	}
 
 	/**
@@ -258,14 +275,17 @@ public class API {
 	 * 
 	 * @param action - the unique string name representing a canonicizer (displayName())
 	 * @param docType - The DocType this canonicizer is restricted to 
+	 * @return - a reference to the canonicizer added
 	 * @throws Exception - if the canonicizer specified cannot be found or instanced
 	 */
-	public void addCanonicizer(String action, DocType docType) throws Exception {
+	public Canonicizer addCanonicizer(String action, Document.Type docType) throws Exception {
+		Canonicizer canonicizer = Canonicizers.getCanonicizer(action);
 		for (Document document : documents) {
 			if (document.getDocType().equals(docType)) {
-				addCanonicizer(action, document);
+				addCanonicizer(canonicizer, document);
 			}
 		}
+		return canonicizer;
 	}
 
 	/**
@@ -278,9 +298,31 @@ public class API {
 	 */
 	public Canonicizer addCanonicizer(String action, Document document)
 			throws Exception {
-		Canonicizer canonicizer = CanonicizerFactory.getCanonicizer(action);
+		Canonicizer canonicizer = Canonicizers.getCanonicizer(action);
+		return addCanonicizer(canonicizer, document);
+	}
+	
+	/**
+	 * Add the Canonicizer specified to the document referenced.
+	 * 
+	 * @param canonicizer - the canonicizer to add
+	 * @param document - the Document to add the canonicizer to
+	 * @return - a reference to the canonicizer added
+	 */
+	public Canonicizer addCanonicizer(Canonicizer canonicizer, Document document) {
 		document.addCanonicizer(canonicizer);
 		logger.info("Adding Canonicizer "+canonicizer.displayName()+" to Document "+document.toString());
+		return canonicizer;
+	}
+	
+	public Canonicizer addCanonicizer(String action, EventDriver eventDriver) throws Exception {
+		Canonicizer canonicizer = Canonicizers.getCanonicizer(action);
+		return addCanonicizer(canonicizer, eventDriver);
+	}
+	
+	public Canonicizer addCanonicizer(Canonicizer canonicizer, EventDriver eventDriver) {
+		eventDriver.addCanonicizer(canonicizer);
+		logger.info("Adding Canonicizer "+canonicizer.displayName()+" to EventDriver "+eventDriver.displayName());
 		return canonicizer;
 	}
 
@@ -291,8 +333,12 @@ public class API {
 	 * @param action - the unique string name representing a canonicizer (displayName())
 	 * @param document - a reference to the Document to remove the canonicizer from
 	 */
-	public void removeCanonicizer(String action, Document document) {
-		document.removeCanonicizer(action);
+	public void removeCanonicizer(Canonicizer canonicizer, Document document) {
+		document.removeCanonicizer(canonicizer);
+	}
+	
+	public void removeCanonicizer(Canonicizer canonicizer, EventDriver eventDriver) {
+		eventDriver.removeCanonicizer(canonicizer);
 	}
 
 	/**
@@ -301,9 +347,9 @@ public class API {
 	 * 
 	 * @param action - the unique string name representing a canonicizer (displayName())
 	 */
-	public void removeCanonicizer(String action) {
+	public void removeCanonicizer(Canonicizer canonicizer) {
 		for (Document document : documents) {
-			removeCanonicizer(action, document);
+			removeCanonicizer(canonicizer, document);
 		}
 	}
 
@@ -313,10 +359,10 @@ public class API {
 	 * @param action - the unique string name representing a canonicizer (displayName())
 	 * @param docType - the DocType to remove the canonicizer from
 	 */
-	public void removeCanonicizer(String action, DocType docType) {
+	public void removeCanonicizer(Canonicizer canonicizer, Document.Type docType) {
 		for (Document document : documents) {
 			if (document.getDocType().equals(docType)) {
-				removeCanonicizer(action, document);
+				removeCanonicizer(canonicizer, document);
 			}
 		}
 	}
@@ -326,7 +372,7 @@ public class API {
 	 * 
 	 * @param docType - the DocType to remove canonicizers from
 	 */
-	public void removeAllCanonicizers(DocType docType) {
+	public void removeAllCanonicizers(Document.Type docType) {
 		for (Document document : documents) {
 			document.clearCanonicizers();
 		}
@@ -350,7 +396,18 @@ public class API {
 	 * @throws Exception - If the action is not found or the EventDriver cannot be instanced
 	 */
 	public EventDriver addEventDriver(String action) throws Exception {
-		EventDriver eventDriver = EventDriverFactory.getEventDriver(action);
+		EventDriver eventDriver = EventDrivers.getEventDriver(action);
+		return addEventDriver(eventDriver);
+	}
+	
+	/**
+	 * Add an Event Driver which will be used to 
+	 * eventify(Generate a List of Events order in the sequence they are found in the document) 
+	 * all of the documents
+	 * @param eventDriver - the EventDriver to add 
+	 * @return - a reference to the added EventDriver
+	 */
+	public EventDriver addEventDriver(EventDriver eventDriver) {
 		eventDrivers.add(eventDriver);
 		logger.info("Adding EventDriver "+eventDriver.displayName());
 		return eventDriver;
@@ -392,9 +449,22 @@ public class API {
 	 * @throws Exception - if the EventCuller cannot be found or cannor be instanced 
 	 */
 	public EventCuller addEventCuller(String action) throws Exception {
-		EventCuller eventCuller = EventCullerFactory.getEventCuller(action);
+		EventCuller eventCuller = EventCullers.getEventCuller(action);
 		eventCullers.add(eventCuller);
-		logger.info("Adding EventCuller "+eventCuller.displayName());
+		for(EventDriver eventDriver : eventDrivers) {
+			addEventCuller(eventCuller, eventDriver);
+		}
+		return eventCuller;
+	}
+	
+	public EventCuller addEventCuller(String action, EventDriver eventDriver) throws Exception {
+		EventCuller eventCuller = EventCullers.getEventCuller(action);
+		return addEventCuller(eventCuller, eventDriver);
+	}
+	
+	public EventCuller addEventCuller(EventCuller eventCuller, EventDriver eventDriver) {
+		eventDriver.addCuller(eventCuller);
+		logger.info("Adding EventCuller "+eventCuller.displayName()+" to "+eventDriver.displayName());
 		return eventCuller;
 	}
 
@@ -406,7 +476,11 @@ public class API {
 	 */
 	public Boolean removeEventCuller(EventCuller eventCuller) {
 		logger.info("Removing EventCuller "+eventCuller.displayName());
-		return eventCullers.remove(eventCuller);
+		eventCullers.remove(eventCuller);
+		for(EventDriver eventDriver : eventDrivers){
+			eventDriver.removeCuller(eventCuller);
+		}
+		return true;
 	}
 
 	/**
@@ -414,6 +488,9 @@ public class API {
 	 */
 	public void removeAllEventCullers() {
 		eventCullers.clear();
+		for(EventDriver eventDriver : eventDrivers){
+			eventDriver.clearCullers();
+		}
 	}
 
 	/**
@@ -426,25 +503,17 @@ public class API {
 
 	/**
 	 * Add an AnalysisDriver to the system as referenced by the action.
-	 * 
-	 * NOTE! for legacy purposes this methods also accepts actions that reference DistanceFunctions
-	 *  it will use the supplied distance function along with the NeighborAnalysisDriver NearestNeighborDriver 
-	 *  which had been the only NeighbotAnalysisDriver prior to version 5.0 
-	 *  !!!WARNING!!! There are no guarantees that this functionality will remain in future releases please use addDistanceFunction
-	 * 
+	 *
 	 * @param action - the unique identifier for a AnalysisDriver (alternately a DistanceFunction)
 	 * @return - a reference to the generated Analysis Driver
 	 * @throws Exception - If the AnalysisDriver cannot be found or if it cannot be instanced 
 	 */
 	public AnalysisDriver addAnalysisDriver(String action) throws Exception {
-		AnalysisDriver analysisDriver;
-		try {
-			analysisDriver = AnalysisDriverFactory.getAnalysisDriver(action);
-		} catch (Exception e) {
-			logger.warn("Unable to load action "+action+" as AnalysisDriver attempting to load as DistanceFunction using NearestNeighborDriver", e);
-			analysisDriver = new NearestNeighborDriver();
-			addDistanceFunction(action, analysisDriver);
-		}
+		AnalysisDriver analysisDriver = AnalysisDrivers.getAnalysisDriver(action);
+		return addAnalysisDriver(analysisDriver);
+	}
+	
+	public AnalysisDriver addAnalysisDriver(AnalysisDriver analysisDriver) {
 		logger.info("Adding AnalysisDriver "+analysisDriver.displayName());
 		analysisDrivers.add(analysisDriver);
 		return analysisDriver;
@@ -478,12 +547,24 @@ public class API {
 	 */
 	public DistanceFunction addDistanceFunction(String action,
 			AnalysisDriver analysisDriver) throws Exception {
-		DistanceFunction distanceFunction = DistanceFunctionFactory
+		DistanceFunction distanceFunction = DistanceFunctions
 				.getDistanceFunction(action);
+		return addDistanceFunction(distanceFunction, analysisDriver);
+	}
+
+	/**
+	 * Adds a DistanceFunction to the AnalysisDriver supplied.
+	 * Only AnalysisDrivers that extend the NeighborAnalysisDriver can be used
+	 * 
+	 * @param distanceFunction - the DistanceFunction you want to add
+	 * @param analysisDriver - a reference to the AnalysisDriver you want the distance added to
+	 * @return - a reference to the generated DistanceFunction
+	 */
+	public DistanceFunction addDistanceFunction(DistanceFunction distanceFunction, AnalysisDriver analysisDriver) {
 		((NeighborAnalysisDriver) analysisDriver).setDistance(distanceFunction);
 		return distanceFunction;
 	}
-
+	
 	/**
 	 * Get a List of All AnalysisDrivers currently loaded on the system
 	 * @return List of All AnalysisDrivers
@@ -508,7 +589,7 @@ public class API {
 	 * @throws Exception - if the language cannot be found or cannot be instanced 
 	 */
 	public Language setLanguage(String action) throws Exception {
-		language = LanguageFactory.getLanguage(action);
+		language = Languages.getLanguage(action);
 		return language;
 	}
 
@@ -523,7 +604,6 @@ public class API {
 	 * @throws Exception
 	 */
 	private void loadCanonicizeEventify() throws Exception{
-		ExecutorService loadCanonicizeEventifyExecutor = Executors.newFixedThreadPool(workers);
 		List<Future<Document>> documentsProcessing = new ArrayList<Future<Document>>(documents.size());
 		for(final Document document : documents){
 			Callable<Document> work = new Callable<Document>() {
@@ -534,14 +614,18 @@ public class API {
 						document.load();
 						document.processCanonicizers();
 						for (EventDriver eventDriver : eventDrivers) {
+							char[] text = document.getText();
+							for(Canonicizer canonicizer : eventDriver.getCanonicizers()){
+								text = canonicizer.process(text);
+							}
 							try{
-								document.addEventSet(eventDriver,eventDriver.createEventSet(document));
+								document.addEventSet(eventDriver,eventDriver.createEventSet(text));
 							} catch (EventGenerationException e) {
 								logger.error("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 								throw new Exception("Could not Eventify with "+eventDriver.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 							}
 						}
-						document.readStringText("");
+						document.setText(new char[0]);
 					} catch (LanguageParsingException e) {
 						logger.fatal("Could not Parse Language: "+language.displayName()+" on File:"+document.getFilePath()+" Title:"+document.getTitle(),e);
 						document.failed();
@@ -554,11 +638,9 @@ public class API {
 					}
 					return document;
 				}
-
 			};
-			documentsProcessing.add(loadCanonicizeEventifyExecutor.submit(work));
+			documentsProcessing.add(executor.submit(work));
 		}
-		loadCanonicizeEventifyExecutor.shutdown();
 
 		while(true){
 			if(documentsProcessing.size()==0){
@@ -583,21 +665,24 @@ public class API {
 	/**
 	 * Events are culled from EventSets across all Documents on a per EventDriver basis
 	 * @throws EventCullingException 
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
 	 */
-	private void cull() throws EventCullingException {
-		if(eventCullers.isEmpty()) return;
-		List<EventSet> eventSets = new ArrayList<EventSet>(documents.size());
+	private void cull() throws EventCullingException, InterruptedException, ExecutionException {
+		List<Future<EventDriver>> futureEventDrivers = new ArrayList<Future<EventDriver>>();
 		for (EventDriver eventDriver : eventDrivers) {
-			for (Document document : documents) {
-				eventSets.add(document.getEventSet(eventDriver));
+			futureEventDrivers.add(executor.submit(new Culling(eventDriver)));
+		}
+		while(futureEventDrivers.size() != 0) {
+			Iterator<Future<EventDriver>> iterator = futureEventDrivers.iterator();
+			while(iterator.hasNext()) {
+				Future<EventDriver> futureEventDriver = iterator.next();
+				if(futureEventDriver.isDone()){
+					EventDriver eventDriver = futureEventDriver.get();
+					logger.info("Finished Culling "+eventDriver.displayName());
+					iterator.remove();
+				}
 			}
-			for (EventCuller culler : eventCullers) {
-				eventSets = culler.cull(eventSets);
-			}
-			for (Document document : documents) {
-				document.addEventSet(eventDriver, eventSets.remove(0));
-			}
-			eventSets.clear();
 		}
 	}
 
@@ -614,30 +699,31 @@ public class API {
 				unknownDocuments.add(document);
 			}
 		}
-		for (EventDriver eventDriver : eventDrivers) {
-			List<EventSet> knownEventSets = new ArrayList<EventSet>(knownDocuments.size());
-			for (Document knownDocument : knownDocuments) {
-				knownEventSets.add(knownDocument.getEventSet(eventDriver));
+		for (AnalysisDriver analysisDriver : analysisDrivers) {
+			logger.info("Training " + analysisDriver.displayName());
+			analysisDriver.train(knownDocuments);
+			logger.info("Finished Training "+analysisDriver.displayName());
+			List<Future<Document>> futureDocuments = new ArrayList<Future<Document>>();
+			if (analysisDriver instanceof ValidationDriver) {
+				for (Document knownDocument : knownDocuments) {
+					futureDocuments.add(executor.submit(new AnalysisWorker(knownDocument, analysisDriver)));
+				}
+			} else {
+				for (Document unknownDocument : unknownDocuments) {
+					futureDocuments.add(executor.submit(new AnalysisWorker(unknownDocument, analysisDriver)));
+				}
 			}
-			for (AnalysisDriver analysisDriver : analysisDrivers) {
-				logger.info("Training "+analysisDriver.displayName());
-				analysisDriver.train(knownEventSets);
-				//ExecutorService analysisExecutor = Executors.newFixedThreadPool(workers);
-				if (analysisDriver instanceof ValidationDriver) {
-					for (Document knownDocument : knownDocuments) {
-						//TODO: change to threaded here
-						logger.info("Analyzing "+knownDocument.toString());
-						knownDocument.addResult(analysisDriver, eventDriver,analysisDriver.analyze(knownDocument.getEventSet(eventDriver)));
-					}
-				} else {
-					for (Document unknownDocument : unknownDocuments) {
-						//TODO: change to threaded here 
-						logger.info("Analyzing "+unknownDocument.toString());
-						List<Pair<String, Double>> tmp = analysisDriver.analyze(unknownDocument.getEventSet(eventDriver));
-						unknownDocument.addResult(analysisDriver, eventDriver,tmp);
+			//await analysis to finish
+			while(futureDocuments.size() != 0){
+				Iterator<Future<Document>> iterator = futureDocuments.iterator();
+				while(iterator.hasNext()) {
+					Future<Document> futureDocument = iterator.next();
+					if(futureDocument.isDone()) {
+						iterator.remove();
 					}
 				}
 			}
+			logger.info("Finished Analysis with "+analysisDriver.displayName());
 		}
 	}
 
@@ -647,32 +733,12 @@ public class API {
 	 */
 	public void execute() throws Exception {
 		clearData();
+		executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		loadCanonicizeEventify();
 		cull();
 		analyze();
-	}
-
-	/**
-	 * @deprecated Use clearData()
-	 * Removes all results generated by the analysis methods 
-	 */
-	@Deprecated
-	public void clearResults() {
-		List<Document> documents = getUnknownDocuments();
-		for (Document document : documents) {
-			document.clearResults();
-		}
-	}
-	
-	/**
-	 * @deprecated User clearData() 
-	 * Removes all EventSets generated by EventDriver
-	 */
-	@Deprecated
-	public void clearEventSets() {
-		for(Document document : documents){
-			document.clearEventSets();
-		}
+		executor.shutdown();
+		executor.awaitTermination(5, TimeUnit.SECONDS);
 	}
 	
 	/**
@@ -690,54 +756,72 @@ public class API {
 	public void clearData() {
 		for(Document document : documents){
 			document.clearEventSets();
+			document.clearResults();
 		}
 	}
-
-	/**
-	 * Get a List of All Canonicizers that are available to be used
-	 * @return List of All Canonicizers
-	 */
-	public List<Canonicizer> getAllCanonicizers() {
-		return Canonicizer.getCanonicizers();
+	
+	private class Culling implements Callable<EventDriver> {
+		private EventDriver eventDriver;
+		private ExecutorService cullingExecutor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+		
+		Culling(EventDriver eventDriver) {
+			this.eventDriver = eventDriver;
+		}
+		
+		@Override
+		public EventDriver call() throws Exception {
+			List<EventSet> eventSets = new ArrayList<EventSet>();
+			for(Document document : documents){
+				eventSets.add(document.getEventSet(eventDriver));
+			}
+			for(EventCuller culler : eventDriver.getEventCullers()) {
+				culler.init(eventSets);
+				List<Future<EventSet>> futureEventSets = new ArrayList<Future<EventSet>>(eventSets.size());
+				for(EventSet eventSet : eventSets) {
+					futureEventSets.add(cullingExecutor.submit(new CullerWorker(eventSet, culler)));
+				}
+				eventSets.clear();
+				for(Future<EventSet> futureEventSet : futureEventSets) {
+					eventSets.add(futureEventSet.get());
+				}
+			}
+			cullingExecutor.shutdown();
+			for(int i = 0; i < documents.size(); i++) {
+				documents.get(i).addEventSet(eventDriver, eventSets.get(i));
+			}
+			return eventDriver;
+		}
 	}
-
-	/**
-	 * Get a List of All EventDrivers that are available to be used
-	 * @return List of All EventDrivers
-	 */
-	public List<EventDriver> getAllEventDrivers() {
-		return EventDriver.getEventDrivers();
+	
+	private class CullerWorker implements Callable<EventSet> {
+		private EventSet eventSet;
+		private EventCuller culler;
+		
+		CullerWorker(EventSet eventSet, EventCuller culler) {
+			this.eventSet = eventSet;
+			this.culler = culler;
+		}
+		
+		public EventSet call() {
+			return culler.cull(eventSet);
+		}
 	}
-
-	/**
-	 * Get a List of All EventCuller that are available to be used
-	 * @return List of All EventCullers
-	 */
-	public List<EventCuller> getAllEventCullers() {
-		return EventCuller.getEventCullers();
-	}
-
-	/**
-	 * Get a List of All AnalysisDriver that are available to be used
-	 * @return List of All AnalysisDrivers
-	 */
-	public List<AnalysisDriver> getAllAnalysisDrivers() {
-		return AnalysisDriver.getAnalysisDrivers();
-	}
-
-	/**
-	 * Get a List of All DistanceFunctions that are available to be used
-	 * @return List of All DistanceFunctions
-	 */
-	public List<DistanceFunction> getAllDistanceFunctions() {
-		return DistanceFunction.getDistanceFunctions();
-	}
-
-	/**
-	 * Get a List of All Languages that are available to be used
-	 * @return List of All Languages
-	 */
-	public List<Language> getAllLanguages() {
-		return Language.getLanguages();
+	
+	private class AnalysisWorker implements Callable<Document> {
+		private Document document;
+		private AnalysisDriver analysisDriver;
+		
+		AnalysisWorker(Document document, AnalysisDriver analysisDriver){
+			this.document = document;
+			this.analysisDriver = analysisDriver;
+		}
+		
+		@Override
+		public Document call() throws Exception {
+			logger.info("Begining Analyzing: " + document.toString());
+			document.addResult(analysisDriver, analysisDriver.analyze(document));
+			logger.info("Finished Analyzing: "+document.toString());
+			return document;
+		}
 	}
 }

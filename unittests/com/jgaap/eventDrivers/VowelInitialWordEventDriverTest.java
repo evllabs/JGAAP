@@ -26,10 +26,10 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * @author Patrick Juola
@@ -44,8 +44,7 @@ public class VowelInitialWordEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "alpha bravo charlie delta echo foxtrot golf hotel india " +
 "juliet kilo lima mike november oscar papa quebec romeo " +
 "sierra tango uniform victor whiskey x-ray yankee zebra " +
@@ -55,22 +54,23 @@ public class VowelInitialWordEventDriverTest {
 "_none ?of #these *should 1be 4included +in ^output"
 		);
 
-		EventSet sampleEventSet = new VowelInitialWordEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new VowelInitialWordEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("alpha"));
-		tmp.add(new Event("echo"));
-		tmp.add(new Event("india"));
-		tmp.add(new Event("oscar"));
-		tmp.add(new Event("uniform"));
-		tmp.add(new Event("yankee"));
-		tmp.add(new Event("Alpha"));
-		tmp.add(new Event("Echo"));
-		tmp.add(new Event("India"));
-		tmp.add(new Event("Oscar"));
-		tmp.add(new Event("Uniform"));
-		tmp.add(new Event("Yankee"));
+		tmp.add(new Event("alpha", eventDriver));
+		tmp.add(new Event("echo", eventDriver));
+		tmp.add(new Event("india", eventDriver));
+		tmp.add(new Event("oscar", eventDriver));
+		tmp.add(new Event("uniform", eventDriver));
+		tmp.add(new Event("yankee", eventDriver));
+		tmp.add(new Event("Alpha", eventDriver));
+		tmp.add(new Event("Echo", eventDriver));
+		tmp.add(new Event("India", eventDriver));
+		tmp.add(new Event("Oscar", eventDriver));
+		tmp.add(new Event("Uniform", eventDriver));
+		tmp.add(new Event("Yankee", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 		assertTrue(expectedEventSet.equals(sampleEventSet));

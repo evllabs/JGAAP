@@ -26,11 +26,10 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * @author Patrick Juola
@@ -51,8 +50,7 @@ public class RareWordsEventDriverTest {
 	    /*HDLegomenaEventDriver - Returns only events that occurs once or twice*/
 	    /*Test One - Normal Text w/ one or two events to return*/
 
-	    Document doc = new Document();
-	    doc.readStringText(
+		String text = (
 "one " +
 "two two  " +
 "three three three " +
@@ -63,19 +61,19 @@ public class RareWordsEventDriverTest {
 	    EventDriver ed  = new RareWordsEventDriver();
 	    ed.setParameter("M","4");
 	    ed.setParameter("N","5");
-	    EventSet sampleSet = ed.createEventSet(doc);    
+	    EventSet sampleSet = ed.createEventSet(text.toCharArray());    
 
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
-	    tmp.add(new Event("four"));
-	    tmp.add(new Event("four"));
-	    tmp.add(new Event("four"));
-	    tmp.add(new Event("four"));
-	    tmp.add(new Event("five"));
-	    tmp.add(new Event("five"));
-	    tmp.add(new Event("five"));
-	    tmp.add(new Event("five"));
-	    tmp.add(new Event("five"));
+	    tmp.add(new Event("four", ed));
+	    tmp.add(new Event("four", ed));
+	    tmp.add(new Event("four", ed));
+	    tmp.add(new Event("four", ed));
+	    tmp.add(new Event("five", ed));
+	    tmp.add(new Event("five", ed));
+	    tmp.add(new Event("five", ed));
+	    tmp.add(new Event("five", ed));
+	    tmp.add(new Event("five", ed));
 
 	    expectedSet.addEvents(tmp);     
 	    System.out.println(sampleSet.toString());

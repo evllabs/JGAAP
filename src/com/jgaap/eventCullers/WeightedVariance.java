@@ -2,14 +2,16 @@ package com.jgaap.eventCullers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
+import com.jgaap.generics.FilterEventCuller;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 /**
  * Analyze N events with highest weighted variance
  * Var(x) = sum for i = 1 to n Pi*(xi-mean)^2
@@ -18,7 +20,7 @@ import com.jgaap.generics.Pair;
  * 
  * @author Christine Gray
  */
-public class WeightedVariance extends EventCuller {
+public class WeightedVariance extends FilterEventCuller {
 	public WeightedVariance() {
 		super();
 		addParams("numEvents", "N", "50", new String[] { "1", "2", "3", "4",
@@ -27,28 +29,11 @@ public class WeightedVariance extends EventCuller {
 		addParams("Informative", "I", "Most", new String[] { "Most","Least"}, false);
 	}
 	@Override
-	public List<EventSet> cull(List<EventSet> eventSets)
+	public Set<Event> train(List<EventSet> eventSets)
 			throws EventCullingException {
-		List<EventSet> results = new ArrayList<EventSet>();
-		int minPos, numEvents;
-		String informative;
-
-		if (!getParameter("minPos").equals("")) {
-			minPos = Integer.parseInt(getParameter("minPos"));
-		} else {
-			minPos = 0;
-		}
-
-		if (!getParameter("numEvents").equals("")) {
-			numEvents = Integer.parseInt(getParameter("numEvents"));
-		} else {
-			numEvents = 50;
-		}
-		if (!getParameter("Informative").equals("")) {
-			informative = getParameter("Informative");
-		} else {
-			informative = "Most";
-		}
+		int numEvents = getParameter("numEvents", 50);
+		String informative = getParameter("Informative", "Most");
+		
 		EventHistogram hist = new EventHistogram();
 
 		for (EventSet oneSet : eventSets) {
@@ -89,20 +74,15 @@ public class WeightedVariance extends EventCuller {
 		if(informative.equals("Most")){
 			Collections.reverse(WVar);
 		}
-		List<Event> Set = new ArrayList<Event>();
-		for (int i = minPos; i < minPos + numEvents; i++) {
-			Set.add(WVar.get(i).getFirst());
+		int counter = 0;
+		Set<Event> events = new HashSet<Event>(numEvents);
+		for(Pair<Event, Double> event : WVar){
+			counter++;
+			events.add(event.getFirst());
+			if(counter == numEvents)
+				break;
 		}
-		for (EventSet oneSet : eventSets) {
-			EventSet newSet = new EventSet();
-			for (Event e : oneSet) {
-				if (Set.contains(e)) {
-					newSet.addEvent(e);
-				}
-			}
-			results.add(newSet);
-		}		
-		return results;
+		return events;
 	}
 
 	@Override
