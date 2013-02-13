@@ -39,7 +39,7 @@ class DocumentHelper {
 	static private Tika tika = new Tika();
 	
 	static {
-		tika.setMaxStringLength(Integer.MAX_VALUE - 5);
+		tika.setMaxStringLength(-1);
 	}
 	
 	static char[] loadDocument(String filepath, String charset) throws Exception {
