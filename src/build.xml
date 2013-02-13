@@ -42,6 +42,7 @@
 			<include name="com/jgaap/backend/*.java" />
 			<include name="com/jgaap/languages/*.java" />
 			<include name="com/jgaap/ui/*.java" />
+			<include name="com/jgaap/util/*.java" />
 		</javac>
 		<copy todir="../bin">
 			<fileset dir="../src">
@@ -91,14 +92,16 @@
 	</target>
 
 	<target name="run-gui" depends="build">
-		<java classname="com.jgaap.JGAAP" fork="true" maxmemory="2048m">
+		<java classname="com.jgaap.JGAAP" fork="true" maxmemory="4g">
+			<jvmarg value="-XX:+UseG1GC"/>
 			<classpath refid="run-classpath" />
 		</java>
 	</target>
 
 	<!-- ant cli -Dcli="arguments to CLI go here" -->
 	<target name="cli" depends="build">
-		<java classname="com.jgaap.JGAAP" fork="true" maxmemory="8192m">
+		<java classname="com.jgaap.JGAAP" fork="true" maxmemory="10g">
+			<jvmarg value="-XX:+UseG1GC"/>
 			<arg line="${cli}" />
 			<classpath refid="run-classpath" />
 		</java>

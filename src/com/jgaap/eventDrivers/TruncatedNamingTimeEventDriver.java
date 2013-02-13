@@ -20,39 +20,39 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.Document;
-import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
 import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
+import com.jgaap.generics.TruncatedEventDriver;
+import com.jgaap.util.EventSet;
 
 /**
- * Truncate lexical frequency for discrete binning 
- *
+ * Truncate lexical frequency for discrete binning
+ * 
  */
-public class TruncatedNamingTimeEventDriver extends EventDriver {
+public class TruncatedNamingTimeEventDriver extends TruncatedEventDriver {
 
-    @Override
-    public String displayName(){
-    	return "Binned naming times";
-    }
-    
-    @Override
-    public String tooltipText(){
-    	return "Discretized (by truncation) ELP naming latencies";
-    }
-    
-    @Override
-    public boolean showInGUI(){
-    	return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
-    }
+	@Override
+	public String displayName() {
+		return "Binned naming times";
+	}
 
-    private EventDriver theDriver;
+	@Override
+	public String tooltipText() {
+		return "Discretized (by truncation) ELP naming latencies";
+	}
 
-    @Override
-    public EventSet createEventSet(Document ds) throws EventGenerationException {
-        theDriver = new TruncatedEventDriver();
-        theDriver.setParameter("length", "2");
-        theDriver.setParameter("underlyingEvents", "Naming Reaction Times");
-        return theDriver.createEventSet(ds);
-    }
+	@Override
+	public boolean showInGUI() {
+		return API.getInstance().getLanguage().getLanguage()
+				.equalsIgnoreCase("english");
+	}
+
+	private EventDriver theDriver = new NamingTimeEventDriver();
+	private static int length = 2;
+
+	@Override
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
+		return truncate(theDriver.createEventSet(text), length);
+	}
+
 }

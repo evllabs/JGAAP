@@ -19,6 +19,8 @@
  **/
 package com.jgaap.generics;
 
+import com.jgaap.util.NumericEventSet;
+
 
 /** Any driver of a NumericEventSet is a NumericEventDriver */
 public abstract class NumericEventDriver extends EventDriver {
@@ -30,6 +32,6 @@ public abstract class NumericEventDriver extends EventDriver {
 
 
     @Override
-    abstract public NumericEventSet createEventSet(Document ds) throws EventGenerationException;
+    abstract public NumericEventSet createEventSet(char[] text) throws EventGenerationException;
 
 }

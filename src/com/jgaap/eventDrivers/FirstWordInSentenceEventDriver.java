@@ -17,16 +17,14 @@
  */
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 
 /**
  * @author Mike Mehok
  */
-public class FirstWordInSentenceEventDriver extends EventDriver {
+public class FirstWordInSentenceEventDriver extends SentenceEventDriver {
 
 	@Override
 	public String displayName() {
@@ -47,18 +45,18 @@ public class FirstWordInSentenceEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return true;
 	}
+	
 
 	@Override
-	public EventSet createEventSet(Document doc) {
-		EventSet sentences = new SentenceEventDriver().createEventSet(doc);
+	public EventSet createEventSet(char[] text) {
+		EventSet sentences = super.createEventSet(text);
 		EventSet eventSet = new EventSet(sentences.size());
 		for(Event sentence : sentences){
-			String[] words = sentence.getEvent().split("\\s+");
+			String[] words = sentence.toString().split("\\s+");
 			if(words.length>0)
-				eventSet.addEvent(new Event(words[0]));
+				eventSet.addEvent(new Event(words[0], this));
 		}
 		return eventSet;
     }
 
 }
-

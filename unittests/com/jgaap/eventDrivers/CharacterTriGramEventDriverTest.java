@@ -26,11 +26,10 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * @author Chris
@@ -44,40 +43,39 @@ public class CharacterTriGramEventDriverTest {
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
-		Document doc = new Document();
-		doc.readStringText("abcdefghijklmnopqrstuvwxyz .");
+		String text = ("abcdefghijklmnopqrstuvwxyz .");
 		EventDriver eventDriver = new CharacterNGramEventDriver();
 		eventDriver.setParameter("N", 3);
-		EventSet sampleEventSet = eventDriver.createEventSet(doc);
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
-		tmp.add(new Event("abc"));
-		tmp.add(new Event("bcd"));
-		tmp.add(new Event("cde"));
-		tmp.add(new Event("def"));
-		tmp.add(new Event("efg"));
-		tmp.add(new Event("fgh"));
-		tmp.add(new Event("ghi"));
-		tmp.add(new Event("hij"));
-		tmp.add(new Event("ijk"));
-		tmp.add(new Event("jkl"));
-		tmp.add(new Event("klm"));
-		tmp.add(new Event("lmn"));
-		tmp.add(new Event("mno"));
-		tmp.add(new Event("nop"));
-		tmp.add(new Event("opq"));
-		tmp.add(new Event("pqr"));
-		tmp.add(new Event("qrs"));
-		tmp.add(new Event("rst"));
-		tmp.add(new Event("stu"));
-		tmp.add(new Event("tuv"));
-		tmp.add(new Event("uvw"));
-		tmp.add(new Event("vwx"));
-		tmp.add(new Event("wxy"));
-		tmp.add(new Event("xyz"));
+		tmp.add(new Event("abc", eventDriver));
+		tmp.add(new Event("bcd", eventDriver));
+		tmp.add(new Event("cde", eventDriver));
+		tmp.add(new Event("def", eventDriver));
+		tmp.add(new Event("efg", eventDriver));
+		tmp.add(new Event("fgh", eventDriver));
+		tmp.add(new Event("ghi", eventDriver));
+		tmp.add(new Event("hij", eventDriver));
+		tmp.add(new Event("ijk", eventDriver));
+		tmp.add(new Event("jkl", eventDriver));
+		tmp.add(new Event("klm", eventDriver));
+		tmp.add(new Event("lmn", eventDriver));
+		tmp.add(new Event("mno", eventDriver));
+		tmp.add(new Event("nop", eventDriver));
+		tmp.add(new Event("opq", eventDriver));
+		tmp.add(new Event("pqr", eventDriver));
+		tmp.add(new Event("qrs", eventDriver));
+		tmp.add(new Event("rst", eventDriver));
+		tmp.add(new Event("stu", eventDriver));
+		tmp.add(new Event("tuv", eventDriver));
+		tmp.add(new Event("uvw", eventDriver));
+		tmp.add(new Event("vwx", eventDriver));
+		tmp.add(new Event("wxy", eventDriver));
+		tmp.add(new Event("xyz", eventDriver));
 		expectedEventSet.addEvents(tmp);
-		expectedEventSet.addEvent(new Event("yz "));
-		expectedEventSet.addEvent(new Event("z ."));
+		expectedEventSet.addEvent(new Event("yz ", eventDriver));
+		expectedEventSet.addEvent(new Event("z .", eventDriver));
 		
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		

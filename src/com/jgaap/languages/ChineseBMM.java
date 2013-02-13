@@ -19,9 +19,10 @@ package com.jgaap.languages;
 
 import java.util.List;
 
-import com.jgaap.generics.Language;
+import WordSegment.BMM;
+import WordSegment.WordSegment;
 
-import WordSegment.*;
+import com.jgaap.generics.Language;
 /**
  * A Chinese representation that uses GB2123 and backwards word matching.
  * 

@@ -26,9 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventHistogram;
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
 
 /**
  * Generic methods that will be reused throughout JGAAP
@@ -89,15 +89,6 @@ public class Utils {
 			documents.add(document);
 		}
 		return documents;
-	}
-	
-	public static List<String[]> getParameters(String input){
-		List<String[]> parameters = new ArrayList<String[]>();
-		String[] sets = input.split("\\|");
-		for(int i = 0; i<sets.length;i++){
-			parameters.add(sets[i].split(":"));
-		}
-		return parameters;
 	}
 	
 	/** Calculate sample deviation */

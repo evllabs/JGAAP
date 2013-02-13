@@ -19,13 +19,20 @@
  **/
 package com.jgaap.generics;
 
-import javax.swing.*;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import javax.swing.GroupLayout;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import com.jgaap.util.Pair;
 
 /**
  * A class of things-that-can-take-(label:value)-parameters.
@@ -36,7 +43,7 @@ import java.util.Set;
 public class Parameterizable {
 
     /** Parameters are stored using pairs of Strings in a HashMap */
-    private HashMap<String, String> Parameters;
+    private Map<String, String> Parameters;
 
     /** Store parameter GUI settings representations (label, dropdown box pair) */
     private List<Pair<JLabel, JComboBox>> paramGUI;
@@ -46,10 +53,25 @@ public class Parameterizable {
         Parameters = new HashMap<String, String>();
         paramGUI = new ArrayList<Pair<JLabel, JComboBox>>();
     }
+    
+    private Parameterizable(Map<String, String> parameters) {
+        Parameters = parameters;
+        paramGUI = Collections.emptyList();
+    }
 
     /** Removes all label and their associated values */
     public void clearParameterSet() {
         Parameters.clear();
+    }
+    
+    static public Parameterizable converToParameters(String parametersString) {
+    	String[] parameters = parametersString.split("\\|");
+    	Map<String, String> parametersMap = new HashMap<String, String>(parameters.length);
+    	for(String parameter : parameters){
+    		String[] tmp = parameter.split(":", 2);
+    		parametersMap.put(tmp[0].trim(), tmp[1].trim());
+    	}
+    	return new Parameterizable(parametersMap);
     }
 
     /**
@@ -195,7 +217,19 @@ public class Parameterizable {
     public void setParameter(String label, String value) {
         Parameters.put(label.toLowerCase(), value);
     }
+    
+    public void setParameters(String parametersString) {
+    	String[] parameters = parametersString.split("\\|");
+    	for(String parameter : parameters){
+    		String[] tmp = parameter.split(":", 2);
+    		setParameter(tmp[0].trim(), tmp[1].trim());
+    	}
+    }
 
+    public void setParameters(Parameterizable parameterizable) {
+    	this.Parameters.putAll(parameterizable.Parameters);
+    }
+    
     public void addParams(String paramName, String displayName, String defaultValue, String[] possibleValues, boolean editable) {
         JLabel label = new JLabel();
         JComboBox box = new JComboBox();

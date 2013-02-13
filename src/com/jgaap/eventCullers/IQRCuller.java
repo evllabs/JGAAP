@@ -6,19 +6,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventCullingException;
-import com.jgaap.generics.EventHistogram;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
+import com.jgaap.generics.FilterEventCuller;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 /**
  * Analyze N events with the the highest interquartile range where the interquartile range is the third quartile - the first quartile.
  * IQR = Q3 - Q1
  * 
  * @author Christine Gray
  */
-public class IQRCuller extends EventCuller {
+public class IQRCuller extends FilterEventCuller {
 	public IQRCuller() {
 		super();
 		addParams("numEvents", "N", "50", new String[] { "1", "2", "3", "4",
@@ -27,9 +27,7 @@ public class IQRCuller extends EventCuller {
 		addParams("Informative", "I", "Most", new String[] { "Most","Least"}, false);
 	}
 	@Override
-	public List<EventSet> cull(List<EventSet> eventSets)
-			throws EventCullingException {
-		List<EventSet> results = new ArrayList<EventSet>();
+	public Set<Event> train(List<EventSet> eventSets) throws EventCullingException {
 		int numEvents = getParameter("numEvents", 50);
 		String informative = getParameter("informative", "Most");
 
@@ -68,13 +66,13 @@ public class IQRCuller extends EventCuller {
 			 * Calculate the indexes of Q1 and Q3
 			 * If the index is between two numbers, take the average of the two numbers
 			 */
-			if(Math.round(med)==med && Math.round(Q1Index)>Q1Index){
+			if(Math.round(med)-med==0 && Math.round(Q1Index)>Q1Index){
 				Q1Index = Math.round(Q1Index) - 1 ;
 				Q3Index = med + Q1Index;
 				Q1 = frequencies.get((int) Q1Index);
 				Q3 = frequencies.get((int) Q3Index);
 			}
-			else if(Math.round(med)==med && Math.round(Q1Index)==Q1Index){
+			else if(Math.round(med)-med==0 && Math.round(Q1Index)-Q1Index==0){
 				Q3Index = med + Q1Index;
 				Q1 = (frequencies.get((int) Q1Index) + frequencies.get((int) (Q1Index-1)))/2;
 				Q3 = (frequencies.get((int) Q3Index) + frequencies.get((int) (Q3Index-1)))/2;
@@ -86,20 +84,11 @@ public class IQRCuller extends EventCuller {
 		if(informative.equals("Most")){
 			Collections.reverse(rangeList);
 		}
-		List<Event> rangeSet = new ArrayList<Event>();
+		Set<Event> rangeSet = new HashSet<Event>();
 		for (int i = 0; i < numEvents; i++) {
 			rangeSet.add(rangeList.get(i).getFirst());
 		}
-		for (EventSet oneSet : eventSets) {
-			EventSet newSet = new EventSet();
-			for (Event e : oneSet) {
-				if (rangeSet.contains(e)) {
-					newSet.addEvent(e);
-				}
-			}
-			results.add(newSet);
-		}
-		return results;
+		return rangeSet;
 	}
 
 	@Override

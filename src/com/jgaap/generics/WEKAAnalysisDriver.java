@@ -3,6 +3,7 @@ package com.jgaap.generics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +12,12 @@ import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.SparseInstance;
+
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.Pair;
 
 
 /**
@@ -22,10 +29,8 @@ import weka.core.Instances;
  * 
  */
 public abstract class WEKAAnalysisDriver extends AnalysisDriver {
-
-	private static List<WEKAAnalysisDriver> WEKA_ANALYSIS_DRIVERS;
 	
-	public Classifier classifier;
+	private Classifier classifier;
 
 	private Set<String> allAuthorNames;
 	private Set<Event> allEvents;
@@ -44,26 +49,27 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 
 	public abstract Classifier getClassifier();
 
-	public abstract void testRequirements(List<EventSet> knownList) throws AnalyzeException;
+	public abstract void testRequirements(List<Document> knownDocuments) throws AnalyzeException;
 
-	public void train(List<EventSet> knownList) throws AnalyzeException {
+	public void train(List<Document> knownDocuments) throws AnalyzeException {
 
 		classifier = getClassifier();
 
 		// Test requirements
-		testRequirements(knownList);
+		testRequirements(knownDocuments);
 
 		/*
 		 * Generate event histograms, unique event list, and unique author list.
 		 */
-		List<EventHistogram> knownHistograms = new ArrayList<EventHistogram>();
+		List<EventMap> knownEventMaps = new ArrayList<EventMap>();
 		allAuthorNames = new HashSet<String>();
-		allEvents = new HashSet<Event>();
-		for (EventSet eventSet : knownList) {
-			allAuthorNames.add(eventSet.getAuthor());
-			EventHistogram currentKnownHistogram = eventSet.getHistogram();
-			allEvents.addAll(eventSet.uniqueEvents());
-			knownHistograms.add(currentKnownHistogram);
+		allEvents = new LinkedHashSet<Event>();
+		for (Document document : knownDocuments) {
+			allAuthorNames.add(document.getAuthor());
+			EventMap eventMap = new EventMap(document);
+			
+			allEvents.addAll(eventMap.uniqueEvents());
+			knownEventMaps.add(eventMap);
 		}
 
 		/*
@@ -72,7 +78,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 		 */
 		attributeList = new FastVector(allEvents.size() + 1);
 
-		authorNames = new FastVector(allAuthorNames.size());
+		authorNames = new FastVector(allAuthorNames.size()+1);
 		for (String currentAuthorName : allAuthorNames) {
 			authorNames.addElement(currentAuthorName);
 		}
@@ -90,29 +96,29 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 		 * Create the training "Instances" object, which is essentially the set
 		 * of feature vectors for the training data.
 		 */
-		trainingSet = new Instances("JGAAP", attributeList, knownList.size());
+		trainingSet = new Instances("JGAAP", attributeList, knownDocuments.size());
 		trainingSet.setClassIndex(0); // The label (author name) is in position
 										// 0.
 
 		/*
 		 * Put together the training set
 		 */
-		for (int i = 0; i < knownHistograms.size(); i++) {
-			EventHistogram knownHistogram = knownHistograms.get(i);
+		for (int i = 0; i < knownEventMaps.size(); i++) {
+			EventMap knownEventMap = knownEventMaps.get(i);
 			Instance currentTrainingDocument = new Instance(
 					allEvents.size() + 1);
 			currentTrainingDocument.setValue((Attribute) attributeList
-					.elementAt(0), knownList.get(i).getAuthor());
+					.elementAt(0), knownDocuments.get(i).getAuthor());
 			int j = 1; // Start counting events (at 1, since 0 is the author
 						// label)
 			for (Event event : allEvents) {
 				currentTrainingDocument.setValue(
 						(Attribute) attributeList.elementAt(j),
-						knownHistogram.getNormalizedFrequency(event));
+						knownEventMap.normalizedFrequency(event));
 				j++;
 			}
-			trainingSet.add(currentTrainingDocument);
-		}
+			trainingSet.add(new SparseInstance(currentTrainingDocument));
+		}		
 
 		/*
 		 * Train the classifier N.B. The classifier should be set in the
@@ -122,7 +128,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			classifier.buildClassifier(trainingSet);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new AnalyzeException("WEKA classifier not trained");
+			throw new AnalyzeException("WEKA classifier not trained: "+e.getMessage());
 		}
 	}
 
@@ -132,23 +138,24 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 	 * 
 	 * @throws AnalyzeException
 	 */
-	public List<Pair<String, Double>> analyze(EventSet unknownEventSet)
+	public List<Pair<String, Double>> analyze(Document unknownDocument)
 			throws AnalyzeException {
 		/*
 		 * Generate the test sets, classifying each one as we go
 		 */
 		List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>();
-		EventHistogram currentUnknownHistogram = unknownEventSet.getHistogram();
-
+		EventMap eventMap = new EventMap(unknownDocument);
 		Instance currentTest = new Instance(allEvents.size() + 1);
 
 		currentTest.setValue((Attribute) attributeList.elementAt(0), "Unknown");
 		int i = 1; // Start at 1, again
 		for (Event event : allEvents) {
 			currentTest.setValue((Attribute) attributeList.elementAt(i),
-					currentUnknownHistogram.getNormalizedFrequency(event));
+					eventMap.normalizedFrequency(event));
 			i++;
 		}
+		
+		currentTest = new SparseInstance(currentTest);
 		currentTest.setDataset(trainingSet);
 
 		double[] probDistribution;
@@ -156,7 +163,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			probDistribution = classifier.distributionForInstance(currentTest);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new AnalyzeException("Could not classify with WEKA");
+			throw new AnalyzeException("Could not classify with WEKA: " + e.getMessage());
 		}
 
 		/*
@@ -183,23 +190,5 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			return "WEKAAnalysis. No classifier set.";
 		}
 	}
-	
-	public static List<WEKAAnalysisDriver> getWekaAnalysisDrivers() {
-		if (WEKA_ANALYSIS_DRIVERS == null) {
-			WEKA_ANALYSIS_DRIVERS = Collections.unmodifiableList(loadWekaAnalysisDrivers());
-		}
-		return WEKA_ANALYSIS_DRIVERS;
-	}
 
-	private static List<WEKAAnalysisDriver> loadWekaAnalysisDrivers() {
-		List<WEKAAnalysisDriver> wekaAnalysisDrivers = new ArrayList<WEKAAnalysisDriver>();
-		List<AnalysisDriver> analysisDrivers = new ArrayList<AnalysisDriver>();
-		for (AnalysisDriver analysisDriver : analysisDrivers) {
-			if (analysisDriver instanceof WEKAAnalysisDriver) {
-				wekaAnalysisDrivers.add((WEKAAnalysisDriver) analysisDriver);
-			}
-		}
-		Collections.sort(wekaAnalysisDrivers);
-		return wekaAnalysisDrivers;
-	}
 }

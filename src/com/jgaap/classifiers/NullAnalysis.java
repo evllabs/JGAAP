@@ -23,8 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.Pair;
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 
 /**
  * NullAnalysis : no analysis, but prints event sets received
@@ -43,20 +45,30 @@ public class NullAnalysis extends AnalysisDriver {
 	    return true;
 	}
 
-	public void train(List<EventSet> knowns) {
+	public void train(List<Document> knowns) {
 		for (int i = 0; i < knowns.size(); i++) {
 			System.out.println("--- Known Event Set #" + i + " ---");
-			System.out.println(knowns.get(i).toString());
+			for(EventSet eventSet : knowns.get(i).getEventSets().values()){
+				for(Event event : eventSet){
+					System.out.print(event.toString()+" *** ");
+				}
+				System.out.println();
+			}
 		}
 	}
 	
     @Override
-    public List<Pair<String, Double>> analyze(EventSet unknown) {
+    public List<Pair<String, Double>> analyze(Document unknown) {
 
         // When we start using a useful logging function, change the
         // print(ln) lines below.
         System.out.println("--- Unknown Event Set ---");
-        System.out.println(unknown.toString());       
+        for(EventSet eventSet : unknown.getEventSets().values()){
+			for(Event event : eventSet){
+				System.out.print(event.getEvent()+" *** ");
+			}
+			System.out.println();
+		};       
 
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();
         results.add(new Pair<String, Double>("No analysis performed.\n", 0.0));

@@ -27,8 +27,9 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.jgaap.generics.DistanceCalculationException;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventMap;
+import com.jgaap.util.EventSet;
 
 /**
  * @author Patrick Juola
@@ -38,7 +39,7 @@ public class KullbackLeiblerDivergenceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.distances.KullbackLeiblerDivergence#distance(com.jgaap.generics.EventSet, com.jgaap.generics.EventSet)}
+	 * {@link com.jgaap.distances.KullbackLeiblerDivergence#distance(com.jgaap.util.EventSet, com.jgaap.util.EventSet)}
 	 * .
 	 * @throws DistanceCalculationException 
 	 */
@@ -57,25 +58,25 @@ public class KullbackLeiblerDivergenceTest {
 		EventSet es1 = new EventSet();
 		EventSet es2 = new EventSet();
 		Vector<Event> test1 = new Vector<Event>();
-		test1.add(new Event("The"));
-		test1.add(new Event("quick"));
-		test1.add(new Event("brown"));
-		test1.add(new Event("fox"));
-		test1.add(new Event("jumps"));
-		test1.add(new Event("over"));
-		test1.add(new Event("the"));
-		test1.add(new Event("lazy"));
-		test1.add(new Event("dog"));
-		test1.add(new Event("."));
+		test1.add(new Event("The", null));
+		test1.add(new Event("quick", null));
+		test1.add(new Event("brown", null));
+		test1.add(new Event("fox", null));
+		test1.add(new Event("jumps", null));
+		test1.add(new Event("over", null));
+		test1.add(new Event("the", null));
+		test1.add(new Event("lazy", null));
+		test1.add(new Event("dog", null));
+		test1.add(new Event(".", null));
 		es1.addEvents(test1);
 		es2.addEvents(test1);
 
-		assertTrue(new KullbackLeiblerDivergence().distance(es1, es2) == 0.00);
+		assertTrue(new KullbackLeiblerDivergence().distance(new EventMap(es1), new EventMap(es2)) == 0.00);
 
 		/* test 2 -- different hist, same distribution (still 0.0) */
 		/* use prior data and add another copy */
 		es2.addEvents(test1);
-		assertTrue(new KullbackLeiblerDivergence().distance(es1, es2) == 0.00);
+		assertTrue(new KullbackLeiblerDivergence().distance(new EventMap(es1), new EventMap(es2)) == 0.00);
 
 		/* test 3 -- different distributions */
 
@@ -83,24 +84,24 @@ public class KullbackLeiblerDivergenceTest {
 		Vector<Event> test2 = new Vector<Event>();
 
 		/* es1 gets a 50/50 split between alpha and beta */
-		test1.add(new Event("alpha"));
-		test1.add(new Event("beta"));
+		test1.add(new Event("alpha", null));
+		test1.add(new Event("beta", null));
 		es1 = new EventSet();
 		es1.addEvents(test1);
 
 		/* es2 gets a 75/25 split between alpha and beta */
-		test2.add(new Event("alpha"));
-		test2.add(new Event("alpha"));
-		test2.add(new Event("alpha"));
-		test2.add(new Event("beta"));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("beta", null));
 		es2 = new EventSet();
 		es2.addEvents(test2);
-		double result = new KullbackLeiblerDivergence().distance(es1, es2);
+		double result = new KullbackLeiblerDivergence().distance(new EventMap(es1), new EventMap(es2));
 		System.out.println(result);
 		assertTrue(DistanceTestHelper.inRange(result, 0.1438410, 0.00001));
 
 		/* test 4 -- reversed distributions */
-		result = new KullbackLeiblerDivergence().distance(es2, es1);
+		result = new KullbackLeiblerDivergence().distance(new EventMap(es2), new EventMap(es1));
 		assertTrue(DistanceTestHelper.inRange(result, 0.13081203594, 0.00001));
 		/* test 5 -- distributions with 0 (need rounding) */
 		/* use same 50/50 es1 */
@@ -111,15 +112,15 @@ public class KullbackLeiblerDivergenceTest {
 
 		/* es2 gets a 50/25/25 split between alpha, beta,gamma */
 		test2 = new Vector<Event>();
-		test2.add(new Event("alpha"));
-		test2.add(new Event("alpha"));
-		test2.add(new Event("beta"));
-		test2.add(new Event("gamma"));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("alpha", null));
+		test2.add(new Event("beta", null));
+		test2.add(new Event("gamma", null));
 
 		es2 = new EventSet();
 		es2.addEvents(test2);
 		System.out.println("Start here");
-		result = new KullbackLeiblerDivergence().distance(es1, es2);
+		result = new KullbackLeiblerDivergence().distance(new EventMap(es1), new EventMap(es2));
 		System.out.println(result);
 		assertTrue(DistanceTestHelper.inRange(result, 0.346574, 0.00001));
 

@@ -26,11 +26,10 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * @author Patrick Juola
@@ -46,8 +45,7 @@ public class _24LetterWordEventDriverTest {
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		doc.readStringText(
+		String text = (
 "a bb ccc dddd eeeee " +
 "1 22 333 4444 55555 " +
 "! @@ ### $$$$ %%%%% " +
@@ -58,22 +56,22 @@ public class _24LetterWordEventDriverTest {
 		eventDriver.setParameter("M", 2);
 		eventDriver.setParameter("N", 4);
 		
-		EventSet sampleEventSet = eventDriver.createEventSet(doc);
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("bb"));
-		tmp.add(new Event("ccc"));
-		tmp.add(new Event("dddd"));
-		tmp.add(new Event("22"));
-		tmp.add(new Event("333"));
-		tmp.add(new Event("4444"));
-		tmp.add(new Event("@@"));
-		tmp.add(new Event("###"));
-		tmp.add(new Event("$$$$"));
-		tmp.add(new Event("BB"));
-		tmp.add(new Event("CCC"));
-		tmp.add(new Event("DDDD"));
+		tmp.add(new Event("bb", eventDriver));
+		tmp.add(new Event("ccc", eventDriver));
+		tmp.add(new Event("dddd", eventDriver));
+		tmp.add(new Event("22", eventDriver));
+		tmp.add(new Event("333", eventDriver));
+		tmp.add(new Event("4444", eventDriver));
+		tmp.add(new Event("@@", eventDriver));
+		tmp.add(new Event("###", eventDriver));
+		tmp.add(new Event("$$$$", eventDriver));
+		tmp.add(new Event("BB", eventDriver));
+		tmp.add(new Event("CCC", eventDriver));
+		tmp.add(new Event("DDDD", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 

@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Event;
 import com.jgaap.generics.EventCullingException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 public class PercentageRangeCullerTest {
 
@@ -23,32 +23,32 @@ public class PercentageRangeCullerTest {
 		List<EventSet> events = new ArrayList<EventSet>();
 		List<EventSet> expected = new ArrayList<EventSet>();
 		EventSet holder = new EventSet();
-		holder.addEvent(new Event("This"));
-		holder.addEvent(new Event("is"));
-		holder.addEvent(new Event("a"));
-		holder.addEvent(new Event("test."));
+		holder.addEvent(new Event("This", null));
+		holder.addEvent(new Event("is", null));
+		holder.addEvent(new Event("a", null));
+		holder.addEvent(new Event("test.", null));
 		events.add(holder);
 		expected.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("This"));
-		holder.addEvent(new Event("is"));
-		holder.addEvent(new Event("another"));
-		holder.addEvent(new Event("test."));
+		holder.addEvent(new Event("This", null));
+		holder.addEvent(new Event("is", null));
+		holder.addEvent(new Event("another", null));
+		holder.addEvent(new Event("test.", null));
 		events.add(holder);
 		expected.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("test"));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("test", null));
 		events.add(holder);
 		expected.add(new EventSet());
 		
 		try {
-			events = p.cull(events);
-			//for(EventSet e : events)
-			//	System.out.println(e.toString());
-			assertTrue(events.equals(expected));
+			p.init(events);
+			for(int i = 0; i < events.size(); i++){
+				assertTrue(p.cull(events.get(i)).equals(expected.get(i)));
+			}
 		} catch (EventCullingException e) {
 			//e.printStackTrace();
 			assertTrue(false);
@@ -64,38 +64,38 @@ public class PercentageRangeCullerTest {
 		
 		List<EventSet> events = new ArrayList<EventSet>();
 		EventSet holder = new EventSet();
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("blah"));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("blah", null));
 		events.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("it"));
-		holder.addEvent(new Event("is"));
-		holder.addEvent(new Event("test"));
+		holder.addEvent(new Event("it", null));
+		holder.addEvent(new Event("is", null));
+		holder.addEvent(new Event("test", null));
 		events.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("blah"));
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("test"));
+		holder.addEvent(new Event("blah", null));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("test", null));
 		events.add(holder);
 		
 		List<EventSet> expected = new ArrayList<EventSet>();
 		holder = new EventSet();
-		holder.addEvent(new Event("blah"));
+		holder.addEvent(new Event("blah", null));
 		expected.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("it"));
-		holder.addEvent(new Event("is"));
+		holder.addEvent(new Event("it", null));
+		holder.addEvent(new Event("is", null));
 		expected.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("blah"));
+		holder.addEvent(new Event("blah", null));
 		expected.add(holder);
 		
 		try {
-			events = p.cull(events);
-			//for(EventSet e : events)
-			//	System.out.println(e.toString());
-			assertTrue(events.equals(expected));
+			p.init(events);
+			for(int i = 0; i < events.size(); i++){
+				assertTrue(p.cull(events.get(i)).equals(expected.get(i)));
+			}
 		} catch (EventCullingException e) {
 			//e.printStackTrace();
 			assertTrue(false);
@@ -111,39 +111,39 @@ public class PercentageRangeCullerTest {
 		
 		List<EventSet> events = new ArrayList<EventSet>();
 		EventSet holder = new EventSet();
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("blah"));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("blah", null));
 		events.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("it"));
-		holder.addEvent(new Event("is"));
-		holder.addEvent(new Event("test"));
+		holder.addEvent(new Event("it", null));
+		holder.addEvent(new Event("is", null));
+		holder.addEvent(new Event("test", null));
 		events.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("blah"));
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("test"));
+		holder.addEvent(new Event("blah", null));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("test", null));
 		events.add(holder);
 		
 		List<EventSet> expected = new ArrayList<EventSet>();
 		holder = new EventSet();
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("test"));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("test", null));
 		expected.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("test"));
+		holder.addEvent(new Event("test", null));
 		expected.add(holder);
 		holder = new EventSet();
-		holder.addEvent(new Event("test"));
-		holder.addEvent(new Event("test"));
+		holder.addEvent(new Event("test", null));
+		holder.addEvent(new Event("test", null));
 		expected.add(holder);
 		
 		try {
-			events = p.cull(events);
-			//for(EventSet e : events)
-			//	System.out.println(e.toString());
-			assertTrue(events.equals(expected));
+			p.init(events);
+			for(int i = 0; i < events.size(); i++){
+				assertTrue(p.cull(events.get(i)).equals(expected.get(i)));
+			}
 		} catch (EventCullingException e) {
 			//e.printStackTrace();
 			assertTrue(false);
@@ -158,7 +158,7 @@ public class PercentageRangeCullerTest {
 		List<EventSet> events = new ArrayList<EventSet>();
 		
 		try {
-			events = p.cull(events);
+			p.init(events);
 			//System.out.println(p.toString());
 			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.0075\nmaxPercent = 1.0"));
 		} catch (EventCullingException e) {
@@ -174,7 +174,7 @@ public class PercentageRangeCullerTest {
 		List<EventSet> events = new ArrayList<EventSet>();
 		
 		try {
-			events = p.cull(events);
+			p.init(events);
 			//System.out.println(p.toString());
 			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.0\nmaxPercent = 0.0025"));
 		} catch (EventCullingException e) {
@@ -191,7 +191,7 @@ public class PercentageRangeCullerTest {
 		List<EventSet> events = new ArrayList<EventSet>();
 		
 		try {
-			events = p.cull(events);
+			p.init(events);
 			//System.out.println(p.toString());
 			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.25\nmaxPercent = 0.75"));
 		} catch (EventCullingException e) {
@@ -207,7 +207,7 @@ public class PercentageRangeCullerTest {
 		List<EventSet> events = new ArrayList<EventSet>();
 		
 		try {
-			events = p.cull(events);
+			p.init(events);
 			//System.out.println(p.toString());
 			assertTrue(p.toString().equals("Percentage Range Culler with parameter values:\nminPercent = 0.0025\nmaxPercent = 0.0075"));
 		} catch (EventCullingException e) {

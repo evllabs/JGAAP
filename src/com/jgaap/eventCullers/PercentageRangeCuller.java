@@ -17,10 +17,13 @@
  */
 package com.jgaap.eventCullers;
 
-import com.jgaap.generics.*;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import com.jgaap.generics.EventCuller;
+import com.jgaap.generics.EventCullingException;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventHistogram;
+import com.jgaap.util.EventSet;
 
 /**
  * Analyze only events whose relative frequency is in a percentage range across all documents.
@@ -39,6 +42,10 @@ import java.util.List;
  */
 public class PercentageRangeCuller extends EventCuller{
 	
+	private double minPercent;
+	private double maxPercent;
+	private EventHistogram hist;
+	
 	public PercentageRangeCuller() {
 		super();
 		addParams("minPercent", "min", "0.0025", new String[] { "0.00", "0.0025", "0.005", "0.0075", 
@@ -47,10 +54,19 @@ public class PercentageRangeCuller extends EventCuller{
 				"0.05", "0.10", "1.0"}, true);
 	}
 	
+	@Override 
+	public EventSet cull(EventSet eventSet) {
+		EventSet newEventSet = new EventSet();
+		for(Event event : eventSet) {
+			if(hist.getRelativeFrequency(event) >= minPercent && hist.getRelativeFrequency(event) <= maxPercent){
+				newEventSet.addEvent(event);
+			}
+		}
+		return newEventSet;
+	}
+	
 	@Override
-    public List<EventSet> cull(List<EventSet> eventSets) throws EventCullingException {
-        List<EventSet> results = new ArrayList<EventSet>();
-        double minPercent, maxPercent;
+    public void init(List<EventSet> eventSets) throws EventCullingException {
         
         //Get/set minimum percentage
         minPercent = Math.min(Math.max(getParameter("minPercent",0.0025),0.0),1.0);
@@ -71,25 +87,12 @@ public class PercentageRangeCuller extends EventCuller{
         this.setParameter("maxPercent", maxPercent);
         
         //Create the histogram of frequencies of the events
-        EventHistogram hist = new EventHistogram();
+        hist = new EventHistogram();
         for(EventSet oneSet : eventSets) {
             for(Event e : oneSet) {
                 hist.add(e);
             }
         }
-        
-        //Run through all events and keep only the ones that fall within the percentage range
-        for(EventSet oneSet : eventSets) {
-            EventSet newSet = new EventSet();
-            for(Event e : oneSet) {
-            	if(hist.getRelativeFrequency(e) >= minPercent && hist.getRelativeFrequency(e) <= maxPercent){
-            		newSet.addEvent(e);
-            	}
-            }
-            results.add(newSet);
-        }
-        
-        return results;
 	}
 	
     @Override

@@ -19,9 +19,8 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 /**
  * Extract vowel-initial words with between M and N letters as features
@@ -31,21 +30,6 @@ import com.jgaap.generics.EventSet;
  * 
  */
 public class VowelMNLetterWordEventDriver extends MNLetterWordEventDriver {
-
-	public VowelMNLetterWordEventDriver() {
-		addParams("M", "M", "2", new String[] { "1", "2", "3", "4", "5", "6",
-				"7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
-				"18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
-				"28", "29", "30", "31", "32", "33", "34", "35", "36", "37",
-				"38", "39", "40", "41", "42", "43", "44", "45", "46", "47",
-				"48", "49", "50" }, false);
-		addParams("N", "N", "3", new String[] { "1", "2", "3", "4", "5", "6",
-				"7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
-				"18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
-				"28", "29", "30", "31", "32", "33", "34", "35", "36", "37",
-				"38", "39", "40", "41", "42", "43", "44", "45", "46", "47",
-				"48", "49", "50" }, false);
-	}
 
 	@Override
 	public String displayName() {
@@ -62,22 +46,16 @@ public class VowelMNLetterWordEventDriver extends MNLetterWordEventDriver {
 		return true;
 	}
 
-	private MNLetterWordEventDriver theDriver;
 
 	@Override
-	public EventSet createEventSet(Document ds) throws EventGenerationException {
-		theDriver = new MNLetterWordEventDriver();
-		theDriver.setParameter("underlyingevents", "Vowel-initial Words");
-		String temp = this.getParameter("M");
-		if (temp.equals("")) {
-			this.setParameter("M", 2);
+	public EventSet createEventSet(char[] text) {
+		EventSet eventSet = super.createEventSet(text);
+		EventSet finalEventSet = new EventSet(eventSet.size());
+		for(Event event : eventSet){
+			if("aeiouyAEIOUY".indexOf(event.toString().charAt(0))!=-1){
+				finalEventSet.addEvent(event);
+			}
 		}
-		theDriver.setParameter("M", this.getParameter("M"));
-		temp = this.getParameter("N");
-		if (temp.equals("")) {
-			this.setParameter("N", 3);
-		}
-		theDriver.setParameter("N", this.getParameter("N"));
-		return theDriver.createEventSet(ds);
+		return finalEventSet;
 	}
 }

@@ -26,26 +26,27 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
-import com.jgaap.generics.EventSet;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.generics.EventGenerationException;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
 
 public class FirstWordInSentenceEventDriverTest {
 
 	@Test
-	public void testCreateEventSetDocumentSet() {
+	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 
-		Document doc = new Document();
-		doc.readStringText("Hello, Dr. Jones!  I'm not.feeling.too well today.  What's the matter Mr. Adams?  My stomach hurts, or A.K.A, cramps.");
+		String text = ("Hello, Dr. Jones!  I'm not.feeling.too well today.  What's the matter Mr. Adams?  My stomach hurts, or A.K.A, cramps.");
 
-		EventSet sampleEventSet = new FirstWordInSentenceEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new FirstWordInSentenceEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("Hello,"));
-        tmp.add(new Event("I'm"));
-        tmp.add(new Event("What's"));
-        tmp.add(new Event("My"));
+		tmp.add(new Event("Hello,", eventDriver));
+        tmp.add(new Event("I'm", eventDriver));
+        tmp.add(new Event("What's", eventDriver));
+        tmp.add(new Event("My", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 

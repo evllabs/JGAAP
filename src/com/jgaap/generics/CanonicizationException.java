@@ -1,6 +1,6 @@
 package com.jgaap.generics;
 
-public class CanonicizationException extends JGAAPException {
+public class CanonicizationException extends Exception {
 
 	public CanonicizationException(String message) {
 		super(message);

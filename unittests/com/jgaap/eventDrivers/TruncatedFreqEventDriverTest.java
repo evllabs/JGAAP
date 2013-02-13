@@ -26,11 +26,11 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jgaap.generics.Document;
-import com.jgaap.generics.Event;
+import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.generics.EventSet;
-import com.jgaap.generics.NumericEventSet;
+import com.jgaap.util.Event;
+import com.jgaap.util.EventSet;
+import com.jgaap.util.NumericEventSet;
 
 /**
  * @author Patrick Juola
@@ -45,40 +45,37 @@ public class TruncatedFreqEventDriverTest {
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 		/* test case 1 -- no punctuation */
-		Document doc = new Document();
-		// test just first and last few words rathre than
-		// entire 40k corpus
-		doc.readStringText(
+		String text = (
 "a aah Aaron aback abacus abandon abandoned zones zoning zoo " +
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
-
-		EventSet sampleEventSet = new TruncatedFreqEventDriver().createEventSet(doc);
+		EventDriver eventDriver = new TruncatedFreqEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 
-		tmp.add(new Event("16."));
-		tmp.add(new Event("5.4"));
-		tmp.add(new Event("9.2"));
-		tmp.add(new Event("5.9"));
-		tmp.add(new Event("6.2"));
-		tmp.add(new Event("8.2"));
-		tmp.add(new Event("8.5"));
-		tmp.add(new Event("8.1"));
-		tmp.add(new Event("6.7"));
-		tmp.add(new Event("8.3"));
-		tmp.add(new Event("5.7"));
-		tmp.add(new Event("6.5"));
-		tmp.add(new Event("8.5"));
-		tmp.add(new Event("6.2"));
-		tmp.add(new Event("5.9"));
-		tmp.add(new Event("5.7"));
-		tmp.add(new Event("7.4"));
+		tmp.add(new Event("16.", eventDriver));
+		tmp.add(new Event("5.4", eventDriver));
+		tmp.add(new Event("9.2", eventDriver));
+		tmp.add(new Event("5.9", eventDriver));
+		tmp.add(new Event("6.2", eventDriver));
+		tmp.add(new Event("8.2", eventDriver));
+		tmp.add(new Event("8.5", eventDriver));
+		tmp.add(new Event("8.1", eventDriver));
+		tmp.add(new Event("6.7", eventDriver));
+		tmp.add(new Event("8.3", eventDriver));
+		tmp.add(new Event("5.7", eventDriver));
+		tmp.add(new Event("6.5", eventDriver));
+		tmp.add(new Event("8.5", eventDriver));
+		tmp.add(new Event("6.2", eventDriver));
+		tmp.add(new Event("5.9", eventDriver));
+		tmp.add(new Event("5.7", eventDriver));
+		tmp.add(new Event("7.4", eventDriver));
 
 		expectedEventSet.addEvents(tmp);
 
-// System.out.println("Expected is " + expectedEventSet.toString());
-// System.out.println("Actual is " + sampleEventSet.toString());
+ System.out.println("Expected is " + expectedEventSet.toString());
+ System.out.println("Actual is " + sampleEventSet.toString());
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 
