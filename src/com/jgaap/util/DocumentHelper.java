@@ -38,6 +38,10 @@ class DocumentHelper {
 	static Logger logger = Logger.getLogger(com.jgaap.util.DocumentHelper.class);
 	static private Tika tika = new Tika();
 	
+	static {
+		tika.setMaxStringLength(Integer.MAX_VALUE - 5);
+	}
+	
 	static char[] loadDocument(String filepath, String charset) throws Exception {
 		InputStream is;
 		if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
@@ -48,7 +52,9 @@ class DocumentHelper {
 		} else {
 			is = new FileInputStream(filepath);
 		} 
-		return tika.parseToString(is).toCharArray();
+		char[] text = tika.parseToString(is).toCharArray();
+		is.close();
+		return text;
 	}
 
 	static Document.Type getDocType(String filepath) {
