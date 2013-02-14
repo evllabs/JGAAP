@@ -26,7 +26,7 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 	private volatile MaxentTagger tagger = null;
 
 	public StanfordPartOfSpeechEventDriver() {
-		addParams("tagginModel", "Model", "english-left3words-distsim", new String[] { "arabic-fast", "chinese",
+		addParams("taggingModel", "Model", "english-left3words-distsim", new String[] { "arabic-fast", "chinese",
 				"english-left3words-distsim", "french", "german-fast" }, false);
 	}
 
@@ -50,10 +50,7 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 		if (tagger == null)
 			synchronized (this) {
 				if (tagger == null) {
-					String taggingModel = getParameter("taggingModel");
-					if ("".equals(taggingModel)) {
-						taggingModel = "english-bidirectional-distsim";
-					}
+					String taggingModel = getParameter("taggingModel", "english-left3words-distsim");
 					taggingModel = "com/jgaap/resources/models/postagger/" + taggingModel + ".tagger";
 					try {
 						tagger = new MaxentTagger(taggingModel);

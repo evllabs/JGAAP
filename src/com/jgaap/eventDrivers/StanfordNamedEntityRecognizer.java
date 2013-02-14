@@ -15,6 +15,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 public class StanfordNamedEntityRecognizer extends EventDriver {
 
 	private volatile AbstractSequenceClassifier<CoreLabel> classifier;
+	private static String serializedClassifier = "/com/jgaap/resources/models/ner/english.muc.7class.distsim.crf.ser.gz";
 
 	@Override
 	public String displayName() {
@@ -32,19 +33,16 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 	}
 
 	@Override
-	synchronized public EventSet createEventSet(char[] text)
-			throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		EventSet eventSet = new EventSet();
-		String serializedClassifier = "/com/jgaap/resources/models/ner/english.muc.7class.distsim.crf.ser.gz";
 		if (classifier == null)
 			synchronized (this) {
-				if (classifier == null) {   
+				if (classifier == null) {
 					try {
 						classifier = CRFClassifier.getJarClassifier(serializedClassifier, null);
 					} catch (Exception e) {
 						e.printStackTrace();
-						throw new EventGenerationException(
-								"Classifier failed to load");
+						throw new EventGenerationException("Classifier failed to load");
 					}
 				}
 			}
@@ -55,8 +53,8 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 				if (!word.get(AnswerAnnotation.class).equals("O")) {
 					eventSet.addEvent(new Event(word.word(), this));
 				}
-			}		
-		}		
+			}
+		}
 		return eventSet;
-	}	
 	}
+}

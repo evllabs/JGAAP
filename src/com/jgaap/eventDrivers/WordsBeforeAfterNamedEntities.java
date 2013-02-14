@@ -17,8 +17,8 @@ import com.jgaap.util.EventSet;
 public class WordsBeforeAfterNamedEntities extends EventDriver {
 
 	private volatile AbstractSequenceClassifier<CoreLabel> classifier;
+	private static String serializedClassifier = "/com/jgaap/resources/models/ner/english.muc.7class.distsim.crf.ser.gz";
 
-	String serializedClassifier = "com.jgaap.generics.Document";
 
 	@Override
 	public String displayName() {
@@ -36,25 +36,17 @@ public class WordsBeforeAfterNamedEntities extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text)
-			throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		EventSet eventSet = new EventSet();
-		// String serializedClassifier =
-		// "/com/jgaap/resources/models/ner/english.all.3class.distsim.crf.ser.gz";
-		// original classifier
-		String serializedClassifier = "/com/jgaap/resources/models/ner/english.muc.7class.distsim.crf.ser.gz"; 
-		// Runs with this one too. Decide which to keep?!
-		
-		if (classifier == null){
+
+		if (classifier == null) {
 			synchronized (this) {
 				if (classifier == null) {
 					try {
-						classifier = CRFClassifier.getJarClassifier(
-								serializedClassifier, null);
+						classifier = CRFClassifier.getJarClassifier(serializedClassifier, null);
 					} catch (Exception e) {
 						e.printStackTrace();
-						throw new EventGenerationException(
-								"Classifier failed to load");
+						throw new EventGenerationException("Classifier failed to load");
 					}
 				}
 			}
@@ -64,13 +56,11 @@ public class WordsBeforeAfterNamedEntities extends EventDriver {
 		for (List<CoreLabel> sentence : out) {
 			for (int i = 0; i < sentence.size(); i++) {
 				if (!sentence.get(i).get(AnswerAnnotation.class).equals("O")) {
-					if (i > 0 && sentence.get(i-1).get(AnswerAnnotation.class).equals("O")) {
-						eventSet.addEvent(new Event("BEFORE "
-								+ sentence.get(i - 1).word(), this));
+					if (i > 0 && sentence.get(i - 1).get(AnswerAnnotation.class).equals("O")) {
+						eventSet.addEvent(new Event("BEFORE " + sentence.get(i - 1).word(), this));
 					}
-					if (i < sentence.size() - 1 && sentence.get(i+1).get(AnswerAnnotation.class).equals("O")) {
-						eventSet.addEvent(new Event("AFTER "
-								+ sentence.get(i + 1).word(), this));
+					if (i < sentence.size() - 1 && sentence.get(i + 1).get(AnswerAnnotation.class).equals("O")) {
+						eventSet.addEvent(new Event("AFTER " + sentence.get(i + 1).word(), this));
 					}
 				}
 			}
