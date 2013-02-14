@@ -17,26 +17,19 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 /**
  * 
  * @author Michael Ryan
- *
+ * 
  */
 public class StanfordPartOfSpeechEventDriver extends EventDriver {
-	
-	static private Logger logger = Logger.getLogger(
-			com.jgaap.eventDrivers.StanfordPartOfSpeechEventDriver.class);
-	
+
+	static private Logger logger = Logger.getLogger(com.jgaap.eventDrivers.StanfordPartOfSpeechEventDriver.class);
+
 	private volatile MaxentTagger tagger = null;
-		
+
 	public StanfordPartOfSpeechEventDriver() {
-		addParams("tagginModel", "Model", "english-bidirectional-distsim", 
-				new String[] { "arabic-accurate","arabic-fast.tagger","chinese",
-				"english-bidirectional-distsim","english-left3words-distsim",
-				"french",
-				//"german-dewac",
-				"german-fast"
-				//,"german-hgc"
-				}, false);
+		addParams("tagginModel", "Model", "english-left3words-distsim", new String[] { "arabic-fast", "chinese",
+				"english-left3words-distsim", "french", "german-fast" }, false);
 	}
-	
+
 	@Override
 	public String displayName() {
 		return "Stanford Part of Speech";
@@ -53,27 +46,25 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text)
-			throws EventGenerationException {
+	public EventSet createEventSet(char[] text) throws EventGenerationException {
 		if (tagger == null)
 			synchronized (this) {
 				if (tagger == null) {
 					String taggingModel = getParameter("taggingModel");
-					if ("".equals(taggingModel)){
-						 taggingModel = "english-bidirectional-distsim";
+					if ("".equals(taggingModel)) {
+						taggingModel = "english-bidirectional-distsim";
 					}
-					taggingModel = "com/jgaap/resources/models/postagger/"+taggingModel+".tagger";
+					taggingModel = "com/jgaap/resources/models/postagger/" + taggingModel + ".tagger";
 					try {
 						tagger = new MaxentTagger(taggingModel);
 					} catch (Exception e) {
-						logger.error("Could Not instance Maxent Tagger "+taggingModel,e);
-						throw new EventGenerationException(
-								"Could not instance Maxent Tagger with model located at "+taggingModel);
+						logger.error("Could Not instance Maxent Tagger " + taggingModel, e);
+						throw new EventGenerationException("Could not instance Maxent Tagger with model located at " + taggingModel);
 					}
 				}
 			}
-		List<ArrayList<TaggedWord>> taggedSentences = tagger
-				.process(MaxentTagger.tokenizeText(new StringReader(new String(text))));
+		List<ArrayList<TaggedWord>> taggedSentences = tagger.process(MaxentTagger.tokenizeText(new StringReader(
+				new String(text))));
 		EventSet eventSet = new EventSet(taggedSentences.size());
 		for (ArrayList<TaggedWord> sentence : taggedSentences) {
 			for (TaggedWord taggedWord : sentence) {

@@ -14,16 +14,10 @@ public class StanfordPartOfSpeechNGramEventDriver extends NGramEventDriver {
 
 	private EventDriver stanfordPOS = new StanfordPartOfSpeechEventDriver();
 	
-	public StanfordPartOfSpeechNGramEventDriver(){
+	public StanfordPartOfSpeechNGramEventDriver() {
 		super();
-		addParams("tagginModel", "Model", "english-bidirectional-distsim", 
-				new String[] { "arabic-accurate","arabic-fast.tagger","chinese",
-				"english-bidirectional-distsim","english-left3words-distsim",
-				"french",
-				//"german-dewac",
-				"german-fast"
-				//,"german-hgc"
-				}, false);
+		addParams("tagginModel", "Model", "english-bidirectional-distsim", new String[] { "arabic-fast", "chinese",
+				"english-left3words-distsim", "french", "german-fast" }, false);
 	}
 	
 	@Override
