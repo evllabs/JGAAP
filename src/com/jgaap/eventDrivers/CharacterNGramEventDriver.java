@@ -60,12 +60,7 @@ public class CharacterNGramEventDriver extends EventDriver {
 
 	@Override
 	public EventSet createEventSet(char[] text) {
-		int n;
-		try {
-			n = getParameter("N", 2);
-		} catch (NumberFormatException e) {
-			n = 2;
-		}
+		int n = getParameter("N", 2);
 		EventSet eventSet = new EventSet(text.length);
 		for (int i = 0; i <= text.length - n; i++) {
 			eventSet.addEvent(new Event(new String(text, i, n), this));
