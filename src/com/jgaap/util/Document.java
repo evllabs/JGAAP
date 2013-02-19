@@ -92,6 +92,27 @@ public class Document extends Parameterizable {
 		this.title = document.title;
 		this.language = document.getLanguage();
 	}
+	
+	/**
+	 * Copy constructor. Can be used to break object references and protect a
+	 * Document instance from being modified by other classes.
+	 * 
+	 * @param document
+	 *            The document to be copied
+	 */
+	public Document(Document document, int from, int to) {
+		this.author = document.author;
+		this.canonicizers = new ArrayList<Canonicizer>(document.canonicizers);
+		this.eventCullers = new ArrayList<EventCuller>(document.eventCullers);
+		this.docType = document.docType;
+		this.eventSets = new HashMap<EventDriver, EventSet>(document.eventSets);
+		this.results = new HashMap<AnalysisDriver, List<Pair<String,Double>>>(document.results);
+		this.filepath = document.filepath;
+		this.text = Arrays.copyOfRange(document.text, from, to);
+		this.size = document.size;
+		this.title = document.title;
+		this.language = document.getLanguage();
+	}
 
 	/**
 	 * Constructor that takes three arguments: file path, file author, file
@@ -203,6 +224,10 @@ public class Document extends Parameterizable {
 	/** Sets the docType of the current document **/
 	public void setDocType(Type docType) {
 		this.docType = docType;
+	}
+	
+	public void setFilePath(String filePath) {
+		this.filepath = filePath;
 	}
 
 	/** Sets the title of the current document **/
