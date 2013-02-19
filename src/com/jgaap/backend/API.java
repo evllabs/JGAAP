@@ -18,7 +18,6 @@
 package com.jgaap.backend;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -852,7 +851,7 @@ public class API {
 					try {
 						current.processCanonicizers();
 						for (EventDriver eventDriver : eventDrivers) {
-							char[] text = Arrays.copyOf(current.getText(), current.getText().length);
+							char[] text = current.getText();
 							for (Canonicizer canonicizer : eventDriver.getCanonicizers()) {
 								text = canonicizer.process(text);
 							}
@@ -865,7 +864,7 @@ public class API {
 								continue;
 							}
 						}
-						current.setText(new char[0]);
+						current.setText("");
 					} catch (CanonicizationException e) {
 						logger.fatal(
 								"Could not Canonicize File: " + current.getFilePath() + " Title:" + current.getTitle(),
