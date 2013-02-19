@@ -132,7 +132,7 @@ public class ExperimentEngine {
 				String fileName = fileNameGen(Arrays.asList(canonicizers), events, analysis
 						+ (distance.isEmpty() ? "" : "-" + distance), experimentName, number);
 
-				runningExperiments.add(experimentExecutor.submit(new Experiment(canonicizers, events, analysis,
+				runningExperiments.add(experimentExecutor.submit(new Experiment(number, canonicizers, events, analysis,
 						distance, documentsPath, fileName)));
 			} else {
 				logger.error("Experiment " + experimentRow.toString() + " missing " + (6 - experimentRow.size())
@@ -167,8 +167,9 @@ public class ExperimentEngine {
 		private String distance;
 		private String documentsPath;
 		private String fileName;
+		private int windowSize;
 
-		public Experiment(String[] canonicizers, String[] events, String analysis, String distance,
+		public Experiment(String number, String[] canonicizers, String[] events, String analysis, String distance,
 				String documentsPath, String fileName) {
 			this.canonicizers = canonicizers;
 			this.events = events;
@@ -176,11 +177,13 @@ public class ExperimentEngine {
 			this.distance = distance;
 			this.documentsPath = documentsPath;
 			this.fileName = fileName;
+			this.windowSize = Integer.parseInt(number);
 		}
 
 		@Override
 		public String call() throws Exception {
 			API experiment = API.getPrivateInstance();
+			experiment.setWindowSize(windowSize);
 			try {
 				List<List<String>> tmp;
 				if (documentsPath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)) {
