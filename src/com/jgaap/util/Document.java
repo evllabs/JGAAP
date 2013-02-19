@@ -20,7 +20,6 @@
 package com.jgaap.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +43,7 @@ public class Document extends Parameterizable {
 	private String author;
 	private String filepath;
 	private String title;
-	private char[] text;
+	private String text;
 	private int size;
 	private Type docType;
 	private Language language;
@@ -87,7 +86,7 @@ public class Document extends Parameterizable {
 		this.eventSets = new HashMap<EventDriver, EventSet>(document.eventSets);
 		this.results = new HashMap<AnalysisDriver, List<Pair<String,Double>>>(document.results);
 		this.filepath = document.filepath;
-		this.text = Arrays.copyOf(document.text, document.text.length);
+		this.text = document.text;
 		this.size = document.size;
 		this.title = document.title;
 		this.language = document.getLanguage();
@@ -124,7 +123,7 @@ public class Document extends Parameterizable {
 	public void load() throws Exception {
 		if (this.docType != Type.DATABASE) {
 			this.text = DocumentHelper.loadDocument(filepath, language.getCharset());
-			this.size = this.text.length;
+			this.size = this.text.length();
 			if (this.size == 0) {
 				throw new Exception("Document: "+this.filepath+" was empty.");
 			}
@@ -143,9 +142,9 @@ public class Document extends Parameterizable {
 		return split[split.length - 1];
 	}
 	
-	public void setText(char[] text){
+	public void setText(String text){
 		this.text = text;
-		size = text.length;
+		size = text.length();
 	}
 
 	/**
@@ -179,7 +178,7 @@ public class Document extends Parameterizable {
 	 * @return 
 	 */
 	public char[] getText() {
-		return text;
+		return text.toCharArray();
 	}
 
 	/**
@@ -252,8 +251,11 @@ public class Document extends Parameterizable {
 	 * them to the document one by one, in the same order they were added.
 	 */
 	public void processCanonicizers() throws LanguageParsingException, CanonicizationException {
+		char[] text;
 		if (language.isParseable()){
-			text = language.parseLanguage(stringify());
+			text = language.parseLanguage(this.text);
+		} else {
+			text = getText();
 		}
 		for (Canonicizer canonicizer : canonicizers) {
 			text = canonicizer.process(text);
@@ -408,7 +410,7 @@ public class Document extends Parameterizable {
 	 * Convert processed document into one really long string.
 	 **/
 	public String stringify() {
-		return new String(text);
+		return text;
 	}
 
 	@Override
