@@ -18,6 +18,7 @@
 package com.jgaap.backend;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -851,7 +852,7 @@ public class API {
 					try {
 						current.processCanonicizers();
 						for (EventDriver eventDriver : eventDrivers) {
-							char[] text = current.getText();
+							char[] text = Arrays.copyOf(current.getText(), current.getText().length);
 							for (Canonicizer canonicizer : eventDriver.getCanonicizers()) {
 								text = canonicizer.process(text);
 							}
