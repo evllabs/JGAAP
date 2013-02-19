@@ -42,7 +42,7 @@ class DocumentHelper {
 		tika.setMaxStringLength(-1);
 	}
 	
-	static char[] loadDocument(String filepath, String charset) throws Exception {
+	static String loadDocument(String filepath, String charset) throws Exception {
 		InputStream is;
 		if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
 			URL url = new URL(filepath);
@@ -52,7 +52,7 @@ class DocumentHelper {
 		} else {
 			is = new FileInputStream(filepath);
 		} 
-		char[] text = tika.parseToString(is).toCharArray();
+		String text = tika.parseToString(is);
 		is.close();
 		return text;
 	}
