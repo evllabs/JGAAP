@@ -260,6 +260,7 @@ public class Document extends Parameterizable {
 		for (Canonicizer canonicizer : canonicizers) {
 			text = canonicizer.process(text);
 		}
+		this.text = new String(text);
 	}
 
 	/**
