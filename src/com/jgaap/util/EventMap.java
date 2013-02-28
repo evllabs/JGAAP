@@ -2,13 +2,14 @@ package com.jgaap.util;
 
 import java.util.Collection;
 import java.util.Collections;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.ImmutableMultiset;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multiset.Entry;
 
@@ -30,7 +31,8 @@ public class EventMap {
 		Builder<Event, Double> histogramBuilder = ImmutableMap.builder();
 		for(EventSet eventSet : eventSets){
 			double numEvents = eventSet.size();
-			Multiset<Event> multiset = ImmutableMultiset.copyOf(eventSet); 
+
+			Multiset<Event> multiset = HashMultiset.create(eventSet); 
 			for (Entry<Event> eventEntry : multiset.entrySet()) {
 				histogramBuilder.put(eventEntry.getElement(), eventEntry.getCount()/numEvents);
 			}
@@ -73,23 +75,19 @@ public class EventMap {
 	}
 	
 	public static EventMap centroid(Collection<EventMap> eventMaps) {
-		ImmutableMultimap.Builder<Event, Double> multiMapBuilder = ImmutableMultimap.builder();
+		double count = eventMaps.size();
+		Map<Event, Double> map = new HashMap<Event, Double>(10000);
 		for (EventMap eventMap : eventMaps) {
 			for(Map.Entry<Event, Double> entry : eventMap.histogram.entrySet()){
-				multiMapBuilder.put(entry.getKey(), entry.getValue());
+				Double current = map.get(entry.getKey());
+				if(current == null){
+					map.put(entry.getKey(), entry.getValue()/count);
+				} else {
+					map.put(entry.getKey(), current+entry.getValue()/count);
+				}
 			}
 		}
-		ImmutableMultimap<Event, Double> multimap = multiMapBuilder.build();
-		
-		double count = eventMaps.size();
-		Builder<Event, Double> builder = ImmutableMap.builder();
-		for (Map.Entry<Event, Collection<Double>> entry : multimap.asMap().entrySet()) {
-			double value = 0.0;
-			for(double current : entry.getValue()){
-				value += current;
-			}
-			builder.put(entry.getKey(), value/count);
-		}
-		return new EventMap(builder.build());
+
+		return new EventMap(map);
 	}
 }

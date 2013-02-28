@@ -19,9 +19,9 @@
  **/
 package com.jgaap.distances;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventMap;
@@ -60,9 +60,7 @@ public class HistogramDistance extends DistanceFunction {
 	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
 		double distance = 0.0;
 
-		Set<Event> events = new HashSet<Event>();
-		events.addAll(unknownEventMap.uniqueEvents());
-		events.addAll(knownEventMap.uniqueEvents());
+		Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
 		
 		for(Event event : events){
 			distance += Math.pow(unknownEventMap.relativeFrequency(event) - knownEventMap.relativeFrequency(event), 2);

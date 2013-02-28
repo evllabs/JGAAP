@@ -19,9 +19,9 @@
  **/
 package com.jgaap.distances;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventMap;
@@ -63,8 +63,7 @@ public class CosineDistance extends DistanceFunction {
         double h1Magnitude = 0.0;
         double h2Magnitude = 0.0;
 
-        Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
-        events.addAll(knownEventMap.uniqueEvents());
+        Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
         
         for(Event event : events){
         	double unknownNormalizedFrequencey = unknownEventMap.normalizedFrequency(event);

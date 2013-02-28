@@ -1,8 +1,8 @@
 package com.jgaap.distances;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
@@ -36,8 +36,7 @@ public class WaveHedgesDistance extends DistanceFunction {
 	@Override
 	public double distance(EventMap unknownEventMap, EventMap knownEventMap)
 			throws DistanceCalculationException {
-		Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
-		events.addAll(knownEventMap.uniqueEvents());
+		Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
 		
 		double sum = 0.0;
 		
