@@ -46,7 +46,7 @@
 			<attribute name="javadoc_location" value="http://www-nlp.stanford.edu/nlp/javadoc/javanlp/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/external/guava-14.0-rc2.jar">
+	<classpathentry kind="lib" path="lib/external/guava-14.0.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://docs.guava-libraries.googlecode.com/git-history/release/javadoc"/>
 		</attributes>
