@@ -1,8 +1,8 @@
 package com.jgaap.distances;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventMap;
@@ -28,8 +28,7 @@ public class HellingerDistance extends DistanceFunction {
 	
 	@Override
 	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
-		Set<Event> events = new HashSet<Event>(unknownEventMap.uniqueEvents());
-		events.addAll(knownEventMap.uniqueEvents());
+		Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
 		double sum = 0.0;
 		for(Event event : events) { 
 			sum += Math.pow(Math.sqrt(unknownEventMap.relativeFrequency(event))-Math.sqrt(knownEventMap.relativeFrequency(event)), 2);

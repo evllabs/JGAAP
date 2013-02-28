@@ -19,9 +19,9 @@
  **/
 package com.jgaap.distances;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventMap;
@@ -67,8 +67,7 @@ public class PearsonCorrelationDistance extends DistanceFunction {
      */
     @Override
     public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
-		Set<Event> s = new HashSet<Event>(unknownEventMap.uniqueEvents());
-		s.addAll(knownEventMap.uniqueEvents());
+    	Set<Event> s = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
 
 		int n; // number of elements
 	
