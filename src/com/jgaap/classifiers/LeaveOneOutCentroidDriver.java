@@ -62,10 +62,11 @@ public class LeaveOneOutCentroidDriver extends ValidationDriver {
 
 	@Override
 	public List<Pair<String, Double>> analyze(Document known) throws AnalyzeException {
-		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>();
+		List<Pair<String, Double>> results = new ArrayList<Pair<String, Double>>(knownCentroids.size());
 		String currentAuthor = known.getAuthor();
-		List<EventMap> currentAuthorHistograms = new ArrayList<EventMap>();
-		for (Document document : knownDocuments.get(currentAuthor)) {
+		Collection<Document> authorDocuments = knownDocuments.get(currentAuthor);
+		List<EventMap> currentAuthorHistograms = new ArrayList<EventMap>(authorDocuments.size());
+		for (Document document : authorDocuments) {
 			if (!document.equals(known))
 				currentAuthorHistograms.add(knownEventMaps.get(document));
 		}

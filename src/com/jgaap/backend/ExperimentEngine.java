@@ -50,7 +50,7 @@ public class ExperimentEngine {
 
 	static Logger logger = Logger.getLogger(ExperimentEngine.class);
 
-	private static final int workers = 2;
+	private static final int workers = 1;
 
 	/**
 	 * This method generates unique file names and a directory structure to save
@@ -154,6 +154,7 @@ public class ExperimentEngine {
 						logger.error("Problem printing experiment completion", e);
 					}
 					iterator.remove();
+					System.gc(); //I know this is terrible and should be removed MVR (Dear Future Me, Please forgive me.)
 				}
 			}
 		}
