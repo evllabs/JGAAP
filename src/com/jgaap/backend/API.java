@@ -844,6 +844,9 @@ public class API {
 					if(to > pretext.length) {
 						to = pretext.length;
 					}
+					if(to-start < windowSize/2){
+						break; //ensure that documents included contain at least half the window character size
+					}
 					Document current = new Document(document, start, to);
 					current.setFilePath(current.getFilePath() + "(" + start + "-" + to + ")");
 					start += windowSize;
