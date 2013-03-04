@@ -671,7 +671,9 @@ public class API {
 	private void cull() throws EventCullingException, InterruptedException, ExecutionException {
 		List<Future<EventDriver>> futureEventDrivers = new ArrayList<Future<EventDriver>>();
 		for (EventDriver eventDriver : eventDrivers) {
-			futureEventDrivers.add(executor.submit(new Culling(eventDriver)));
+			if (!eventDriver.getEventCullers().isEmpty()) {
+				futureEventDrivers.add(executor.submit(new Culling(eventDriver)));
+			}
 		}
 		while(futureEventDrivers.size() != 0) {
 			Iterator<Future<EventDriver>> iterator = futureEventDrivers.iterator();
