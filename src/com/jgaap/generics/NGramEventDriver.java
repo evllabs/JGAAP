@@ -16,7 +16,7 @@ public abstract class NGramEventDriver extends EventDriver {
 	
 	protected EventSet transformToNgram(EventSet eventSet) {
 		int n = getParameter("n", 2);
-		EventSet ngramEventSet = new EventSet(eventSet.size()-(n-1));
+		EventSet ngramEventSet = new EventSet(eventSet.size());
 		for(int i = 0; i+n <= eventSet.size(); i++){
 			Event event = new Event(eventSet.subList(i, i+n).toString(), this);
 			ngramEventSet.addEvent(event);
