@@ -1,7 +1,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
@@ -9,7 +8,6 @@ public class PunctuationEventDriver extends EventDriver {
 
 	@Override
 	public String displayName() {
-		// TODO Auto-generated method stub
 		return "Punctuation";
 	}
 
@@ -24,8 +22,7 @@ public class PunctuationEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text)
-			throws EventGenerationException {
+	public EventSet createEventSet(char[] text) {
 		EventSet eventSet = new EventSet();
 		for(char character: text){
 			if(!(Character.isLetterOrDigit(character)||Character.isWhitespace(character))){

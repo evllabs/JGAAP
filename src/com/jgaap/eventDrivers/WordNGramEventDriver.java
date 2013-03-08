@@ -19,8 +19,6 @@
  **/
 package com.jgaap.eventDrivers;
 
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.NGramEventDriver;
 import com.jgaap.util.EventSet;
 
@@ -50,10 +48,10 @@ public class WordNGramEventDriver extends NGramEventDriver {
 		return true;
 	}
 
-	private EventDriver theDriver = new NaiveWordEventDriver();
+	private NaiveWordEventDriver theDriver = new NaiveWordEventDriver();
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) {
 		return transformToNgram(theDriver.createEventSet(text));
 	}
 }

@@ -32,13 +32,12 @@ import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.Language;
 import com.jgaap.generics.LanguageParsingException;
-import com.jgaap.generics.Parameterizable;
 import com.jgaap.languages.English;
 
 /**
  * Code for storing and processing individual documents of any type.
  */
-public class Document extends Parameterizable {
+public class Document {
 
 	private String author;
 	private String filepath;
