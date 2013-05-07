@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -32,7 +33,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
-import com.jgaap.canonicizers.StripKeyloggerLines;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.CanonicizationException;
@@ -97,7 +99,7 @@ public class API {
 
 	private static final API INSTANCE = new API();
 
-	private static final StripKeyloggerLines stripKeyloggerLines = new StripKeyloggerLines();
+	private static final Gson gson = new Gson();
 
 	private API() {
 		documents = new ArrayList<Document>();
@@ -835,54 +837,78 @@ public class API {
 		@Override
 		public List<Document> call() throws Exception {
 			List<Document> documents = new ArrayList<Document>();
-			try {
-				document.load();
-				char[] pretext = document.getText();
-				pretext = stripKeyloggerLines.process(pretext);
-				int windows = (int) Math.ceil(pretext.length / (double) windowSize);
-				int start = 0;
-				for (int i = 0; i < windows; i++) {
-					int to = start + windowSize;
-					if(to > pretext.length) {
-						to = pretext.length;
+			Scanner jsonInput = new Scanner(document.getFilePath());
+			int counter = 0;
+			String timestamp = null;
+			StringBuilder builder = new StringBuilder();
+			String fold = null;
+			while (jsonInput.hasNextLine()) {
+				JsonObject keystroke = gson.fromJson(jsonInput.nextLine(), JsonObject.class);
+				String currentFold = keystroke.get("fold").getAsString();
+				if (fold == null) fold = currentFold;
+				if (!fold.equalsIgnoreCase(currentFold)) {
+					if (counter >= windowSize / 2) {
+						Document current = new Document(document);
+						current.setFilePath(timestamp); // TODO: fill in range
+						current.setText(builder.toString());
+						current.setFold(fold);
+						builder = new StringBuilder();
+						documents.add(current);
+						process(current);
 					}
-					if(to-start < windowSize/2){
-						break; //ensure that documents included contain at least half the window character size
-					}
-					Document current = new Document(document, start, to);
-					current.setFilePath(current.getFilePath() + "(" + start + "-" + to + ")");
-					start += windowSize;
+					fold = currentFold;
+					counter = 0;
+				}
+				builder.append((char) keystroke.get("ascii").getAsInt());
+				counter++;
+				timestamp = keystroke.get("timestamp").getAsString();
+				if (counter == windowSize) {
+					Document current = new Document(document);
+					current.setFilePath(timestamp); // TODO: fill in range
+					current.setText(builder.toString());
+					current.setFold(fold);
+					builder = new StringBuilder();
 					documents.add(current);
+					process(current);
+					counter = 0;
+				}
+			}
+			if (counter >= windowSize / 2) {
+				Document current = new Document(document);
+				current.setFilePath(timestamp); // TODO: fill in range
+				current.setText(builder.toString());
+				documents.add(current);
+				process(current);
+			}
+			jsonInput.close();
+			return documents;
+		}
+
+		private void process(Document current) {
+			try {
+				current.processCanonicizers();
+				for (EventDriver eventDriver : eventDrivers) {
+					char[] text = current.getText();
+					for (Canonicizer canonicizer : eventDriver.getCanonicizers()) {
+						text = canonicizer.process(text);
+					}
 					try {
-						current.processCanonicizers();
-						for (EventDriver eventDriver : eventDrivers) {
-							char[] text = current.getText();
-							for (Canonicizer canonicizer : eventDriver.getCanonicizers()) {
-								text = canonicizer.process(text);
-							}
-							try {
-								current.addEventSet(eventDriver, eventDriver.createEventSet(text));
-							} catch (EventGenerationException e) {
-								logger.error("Could not Eventify with " + eventDriver.displayName() + " on File:"
-										+ current.getFilePath() + " Title:" + current.getTitle(), e);
-								current.failed();
-								continue;
-							}
-						}
-						current.setText("");
-					} catch (CanonicizationException e) {
-						logger.fatal(
-								"Could not Canonicize File: " + current.getFilePath() + " Title:" + current.getTitle(),
-								e);
+						current.addEventSet(eventDriver, eventDriver.createEventSet(text));
+					} catch (EventGenerationException e) {
+						logger.error("Could not Eventify with " + eventDriver.displayName() 
+								+ " on File:" + current.getFilePath() + " Title:" + current.getTitle(), e);
 						current.failed();
+						continue;
 					}
 				}
+				current.setText("");
+			} catch (CanonicizationException e) {
+				logger.fatal("Could not Canonicize File: " + current.getFilePath() + " Title:" + current.getTitle(), e);
+				current.failed();
 			} catch (LanguageParsingException e) {
-				logger.fatal(
-						"Could not Parse Language: " + language.displayName() + " on File:" + document.getFilePath()
-								+ " Title:" + document.getTitle(), e);
+				logger.fatal("Could not Parse Language File: " + current.getFilePath() + " Title:" + current.getTitle(), e);
+				current.failed();
 			}
-			return documents;
 		}
 
 	}

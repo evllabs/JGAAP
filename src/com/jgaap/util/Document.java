@@ -52,6 +52,8 @@ public class Document {
 	private Map<AnalysisDriver, List<Pair<String, Double>>> results;
 	private boolean failed = false;
 	
+	private String fold;
+	
 	private static final String tab = "        "; 
 	
 	public Document() {
@@ -463,6 +465,14 @@ public class Document {
 	
 	public boolean hasFailed(){
 		return failed;
+	}
+	
+	public void setFold(String fold) {
+		this.fold = fold;
+	}
+	
+	public String getFold() { 
+		return fold;
 	}
 	
 	public enum Type {
