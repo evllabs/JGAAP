@@ -859,7 +859,7 @@ public class API {
 					fold = currentFold;
 					counter = 0;
 				}
-				builder.append((char) keystroke.get("ascii").getAsInt());
+				builder.append((char) keystroke.get("ascii").getAsInt()); // TODO: add check for non ascii chars
 				counter++;
 				timestamp = keystroke.get("timestamp").getAsString();
 				if (counter == windowSize) {
