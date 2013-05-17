@@ -33,6 +33,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.jgaap.generics.AnalysisDriver;
@@ -47,7 +49,6 @@ import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.Language;
 import com.jgaap.generics.LanguageParsingException;
 import com.jgaap.generics.NeighborAnalysisDriver;
-import com.jgaap.generics.ValidationDriver;
 import com.jgaap.languages.English;
 import com.jgaap.util.Document;
 import com.jgaap.util.EventSet;
@@ -753,37 +754,49 @@ public class API {
 	 * Unknown(sample) to the Known(training) Documents.
 	 */
 	private void analyze() throws AnalyzeException {
-		List<Document> knownDocuments = new ArrayList<Document>();
-		List<Document> unknownDocuments = new ArrayList<Document>();
-
+		Multimap<String, Document> foldMap = HashMultimap.create();
 		for (Document document : documents) {
-			if (document.isAuthorKnown()) {
-				knownDocuments.add(document);
-			} else {
-				unknownDocuments.add(document);
-			}
+			foldMap.put(document.getFold(), document);
 		}
+		List<String> folds = new ArrayList<String>(foldMap.keySet());
+		Collections.sort(folds);
 		for (AnalysisDriver analysisDriver : analysisDrivers) {
-			logger.info("Training " + analysisDriver.displayName());
-			analysisDriver.train(knownDocuments);
-			logger.info("Finished Training " + analysisDriver.displayName());
-			List<Future<Document>> futureDocuments = new ArrayList<Future<Document>>();
-			if (analysisDriver instanceof ValidationDriver) {
-				for (Document knownDocument : knownDocuments) {
-					futureDocuments.add(executor.submit(new AnalysisWorker(knownDocument, analysisDriver)));
+			for (int i = 0; i < folds.size(); i++) {
+				List<Document> trainingDocuments = new ArrayList<Document>();
+				List<Document> testDocuments = new ArrayList<Document>();
+				List<Document> frrfarDocuments = new ArrayList<Document>();
+				for (int j = 0; j < folds.size(); j++) {
+					switch (j) {
+					case 0:
+						frrfarDocuments.addAll(foldMap.get(folds.get((i + j) % folds.size())));
+						break;
+					case 1:
+						testDocuments.addAll(foldMap.get(folds.get((i + j) % folds.size())));
+						break;
+					default:
+						trainingDocuments.addAll(foldMap.get(folds.get((i + j) % folds.size())));
+						break;
+					}
 				}
-			} else {
-				for (Document unknownDocument : unknownDocuments) {
-					futureDocuments.add(executor.submit(new AnalysisWorker(unknownDocument, analysisDriver)));
+				logger.info("Training " + analysisDriver.displayName());
+				analysisDriver.train(trainingDocuments);
+				logger.info("Finished Training " + analysisDriver.displayName());
+				List<Future<Document>> futureDocuments = new ArrayList<Future<Document>>();
+				for (Document testDocument : testDocuments) {
+					futureDocuments.add(executor.submit(new AnalysisWorker(testDocument, analysisDriver)));
 				}
-			}
-			// await analysis to finish
-			while (futureDocuments.size() != 0) {
-				Iterator<Future<Document>> iterator = futureDocuments.iterator();
-				while (iterator.hasNext()) {
-					Future<Document> futureDocument = iterator.next();
-					if (futureDocument.isDone()) {
-						iterator.remove();
+				for (Document frrfarDocument : frrfarDocuments) {
+					futureDocuments.add(executor.submit(new FrrFarAnalysisWorker(frrfarDocument, analysisDriver)));
+				}
+
+				// await analysis to finish
+				while (futureDocuments.size() != 0) {
+					Iterator<Future<Document>> iterator = futureDocuments.iterator();
+					while (iterator.hasNext()) {
+						Future<Document> futureDocument = iterator.next();
+						if (futureDocument.isDone()) {
+							iterator.remove();
+						}
 					}
 				}
 			}
