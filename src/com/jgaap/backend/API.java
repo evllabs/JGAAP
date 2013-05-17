@@ -755,6 +755,7 @@ public class API {
 	private void analyze() throws AnalyzeException {
 		List<Document> knownDocuments = new ArrayList<Document>();
 		List<Document> unknownDocuments = new ArrayList<Document>();
+
 		for (Document document : documents) {
 			if (document.isAuthorKnown()) {
 				knownDocuments.add(document);
@@ -974,6 +975,24 @@ public class API {
 		public Document call() throws Exception {
 			logger.info("Begining Analyzing: " + document.toString());
 			document.addResult(analysisDriver, analysisDriver.analyze(document));
+			logger.info("Finished Analyzing: " + document.toString());
+			return document;
+		}
+	}
+
+	private class FrrFarAnalysisWorker implements Callable<Document> {
+		private Document document;
+		private AnalysisDriver analysisDriver;
+
+		FrrFarAnalysisWorker(Document document, AnalysisDriver analysisDriver) {
+			this.document = document;
+			this.analysisDriver = analysisDriver;
+		}
+
+		@Override
+		public Document call() throws Exception {
+			logger.info("Begining Analyzing: " + document.toString());
+			document.addResult2(analysisDriver, analysisDriver.analyze(document));
 			logger.info("Finished Analyzing: " + document.toString());
 			return document;
 		}

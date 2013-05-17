@@ -50,6 +50,7 @@ public class Document {
 	private List<Canonicizer> canonicizers;
 	private Map<EventDriver, EventSet> eventSets;
 	private Map<AnalysisDriver, List<Pair<String, Double>>> results;
+	private Map<AnalysisDriver, List<Pair<String, Double>>> results2 = new HashMap<AnalysisDriver, List<Pair<String,Double>>>();
 	private boolean failed = false;
 	
 	private String fold;
@@ -333,6 +334,10 @@ public class Document {
 	public void addResult(AnalysisDriver analysisDriver, List<Pair<String, Double>> list) {
 		results.put(analysisDriver, list);
 	}
+
+	public void addResult2(AnalysisDriver analysisDriver, List<Pair<String, Double>> list) {
+		results2.put(analysisDriver, list);
+	}
 	
 	/**
 	 * 
@@ -351,6 +356,14 @@ public class Document {
 	 * @return Report of analysis run on this document
 	 */
 	public String getFormattedResult(AnalysisDriver analysisDriver) {
+		return formatResult(analysisDriver, getRawResult(analysisDriver));
+	}
+
+	public String getFormattedResult2(AnalysisDriver analysisDriver) {
+		return formatResult(analysisDriver, results2.get(analysisDriver));
+	}
+
+	private String formatResult(AnalysisDriver analysisDriver, List<Pair<String, Double>> results) {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append(getTitle()).append(" ").append(getFilePath()).append("\n");
 		buffer.append("Canonicizers: \n");
@@ -385,7 +398,6 @@ public class Document {
 		int count = 0; // Keeps a relative count (adjusted for ties)
 		int fullCount = 0; // Keeps the absolute count (does not count ties)
 		Double lastResult = Double.NaN;
-		List<Pair<String, Double>> results = getRawResult(analysisDriver);
 		if (results == null) {
 			return null;
 		}

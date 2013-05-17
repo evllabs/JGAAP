@@ -240,11 +240,16 @@ public class ExperimentEngine {
 				} else {
 					resultDocuments = experiment.getUnknownDocuments();
 				}
-				StringBuffer buffer = new StringBuffer();
+				StringBuilder buffer = new StringBuilder();
 				for (Document resultDocument : resultDocuments) {
 					buffer.append(resultDocument.getFormattedResult(analysisDriver));
 				}
 				Utils.saveFile(fileName, buffer.toString());
+				buffer = new StringBuilder();
+				for (Document resultDocument : resultDocuments) {
+					buffer.append(resultDocument.getFormattedResult2(analysisDriver));
+				}
+				Utils.saveFile(fileName+".frrfar", buffer.toString());
 			} catch (Exception e) {
 				logger.error("Could not run experiment " + fileName, e);
 			}
