@@ -330,7 +330,7 @@ public class API {
 	 * Removes the first instance of the canoniciser corresponding to the action(displayName()) 
 	 * from the Document referenced.
 	 * 
-	 * @param action - the unique string name representing a canonicizer (displayName())
+	 * @param canonicizer - the canonicizer to be removed
 	 * @param document - a reference to the Document to remove the canonicizer from
 	 */
 	public void removeCanonicizer(Canonicizer canonicizer, Document document) {
@@ -345,7 +345,7 @@ public class API {
 	 * Removes the first occurrence of the canonicizer corresponding to the action(displayName())
 	 * from every document
 	 * 
-	 * @param action - the unique string name representing a canonicizer (displayName())
+	 * @param canonicizer - the canonicizer to be removed
 	 */
 	public void removeCanonicizer(Canonicizer canonicizer) {
 		for (Document document : documents) {
@@ -356,7 +356,7 @@ public class API {
 	/**
 	 * Removes the first occurrence of the canonicizer from every Document of the DocType docType
 	 * 
-	 * @param action - the unique string name representing a canonicizer (displayName())
+	 * @param canonicizer - the canonicizer to be removed
 	 * @param docType - the DocType to remove the canonicizer from
 	 */
 	public void removeCanonicizer(Canonicizer canonicizer, Document.Type docType) {

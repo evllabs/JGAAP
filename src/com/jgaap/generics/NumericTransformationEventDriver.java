@@ -27,10 +27,9 @@ import com.google.common.collect.ImmutableMap;
 import com.jgaap.JGAAPConstants;
 
 /**
- * TransformationEventSet where transformed events are numeric, such as
+ * Transformation EventSet where transformed events are numeric, such as
  * frequency data or reaction times
  * 
- * @see TransformationEventSet
  */
 
 

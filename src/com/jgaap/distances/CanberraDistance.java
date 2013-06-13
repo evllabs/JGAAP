@@ -51,9 +51,9 @@ public class CanberraDistance extends DistanceFunction {
 	/**
 	 * Returns Canberra distance between event sets es1 and es2
 	 * 
-	 * @param es1
+	 * @param unknownEventMap
 	 *            The first EventSet
-	 * @param es2
+	 * @param knownEventMap
 	 *            The second EventSet
 	 * @return the Canberra distance between them
 	 */

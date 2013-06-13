@@ -45,10 +45,10 @@ public class AltIntersectionDistance extends DistanceFunction{
 	/**
 	 * Returns intersection distance between event sets es1 and es2.
 	 * 
-	 * @param es1
-	 *            The first EventSet
-	 * @param es2
-	 *            The second EventSet
+	 * @param unknownEventMap
+	 *            The first EventMap
+	 * @param knownEventMap
+	 *            The second EventMap
 	 * @return the intersection distance between them
 	 */
 
