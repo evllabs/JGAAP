@@ -799,6 +799,7 @@ public class API {
 						}
 					}
 				}
+				//TODO add part here that does verification
 			}
 			logger.info("Finished Analysis with " + analysisDriver.displayName());
 		}
