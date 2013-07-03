@@ -19,7 +19,6 @@ package com.jgaap.eventDrivers;
 
 import com.google.common.collect.ImmutableMap;
 import com.jgaap.backend.API;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
@@ -111,7 +110,7 @@ public class PorterStemmerWithIrregularEventDriver extends PorterStemmerEventDri
 			.put("vitae", "vita").put("women", "woman").build();
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) {
 		EventSet ev = super.createEventSet(text);
 		EventSet returnEv = new EventSet();
 
