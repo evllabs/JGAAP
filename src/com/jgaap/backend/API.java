@@ -35,8 +35,8 @@ import org.apache.log4j.Logger;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.CanonicizationException;
@@ -51,6 +51,7 @@ import com.jgaap.generics.LanguageParsingException;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.languages.English;
 import com.jgaap.util.Document;
+import com.jgaap.util.DocumentHelper;
 import com.jgaap.util.EventSet;
 
 /**
@@ -100,7 +101,7 @@ public class API {
 
 	private static final API INSTANCE = new API();
 
-	private static final Gson gson = new Gson();
+	private static final JsonParser jsonParser = new JsonParser();
 
 	private API() {
 		documents = new ArrayList<Document>();
@@ -759,6 +760,8 @@ public class API {
 			foldMap.put(document.getFold(), document);
 		}
 		List<String> folds = new ArrayList<String>(foldMap.keySet());
+		//logger.info("Folds list "+folds);
+		//logger.info("Fold Map "+foldMap);
 		Collections.sort(folds);
 		for (AnalysisDriver analysisDriver : analysisDrivers) {
 			for (int i = 0; i < folds.size(); i++) {
@@ -778,7 +781,8 @@ public class API {
 						break;
 					}
 				}
-				logger.info("Training " + analysisDriver.displayName());
+				logger.info("Training " + analysisDriver.displayName()+" with "+trainingDocuments);
+				//logger.info(trainingDocuments.get(0).getEventSets());
 				analysisDriver.train(trainingDocuments);
 				logger.info("Finished Training " + analysisDriver.displayName());
 				List<Future<Document>> futureDocuments = new ArrayList<Future<Document>>();
@@ -852,14 +856,24 @@ public class API {
 		@Override
 		public List<Document> call() throws Exception {
 			List<Document> documents = new ArrayList<Document>();
-			Scanner jsonInput = new Scanner(document.getFilePath());
+			Scanner jsonInput = new Scanner(DocumentHelper.getInputStream(document.getFilePath()));
+			logger.info("loading document in scanner: "+document.getFilePath());
 			int counter = 0;
 			String timestamp = null;
 			StringBuilder builder = new StringBuilder();
 			String fold = null;
 			while (jsonInput.hasNextLine()) {
-				JsonObject keystroke = gson.fromJson(jsonInput.nextLine(), JsonObject.class);
+				//String jsonText = jsonInput.nextLine();
+				//logger.info("Raw text: "+jsonText);
+				JsonObject keystroke = jsonParser.parse(jsonInput.nextLine()).getAsJsonObject();
+				//logger.info("Object"+keystroke.toString());
+				if(keystroke.get("type").getAsString().equals("IdlePeriod")){
+					continue;
+				}
 				String currentFold = keystroke.get("fold").getAsString();
+				if(currentFold == null) {
+					logger.info("Null fold in "+keystroke+" "+document.getFilePath());
+				}
 				if (fold == null) fold = currentFold;
 				if (!fold.equalsIgnoreCase(currentFold)) {
 					if (counter >= windowSize / 2) {
@@ -874,7 +888,12 @@ public class API {
 					fold = currentFold;
 					counter = 0;
 				}
-				builder.append((char) keystroke.get("ascii").getAsInt()); // TODO: add check for non ascii chars
+				int c = keystroke.get("ascii").getAsInt();
+				if(c == 0){
+					builder.append(keystroke.get("key").getAsString());
+				}else {
+					builder.append((char)c); // TODO: add check for non ascii chars
+				}
 				counter++;
 				timestamp = keystroke.get("timestamp").getAsString();
 				if (counter == windowSize) {
@@ -892,6 +911,7 @@ public class API {
 				Document current = new Document(document);
 				current.setFilePath(timestamp); // TODO: fill in range
 				current.setText(builder.toString());
+				current.setFold(fold);
 				documents.add(current);
 				process(current);
 			}
@@ -908,7 +928,9 @@ public class API {
 						text = canonicizer.process(text);
 					}
 					try {
-						current.addEventSet(eventDriver, eventDriver.createEventSet(text));
+						EventSet eventSet = eventDriver.createEventSet(text);
+						current.addEventSet(eventDriver, eventSet);
+						//logger.info(current+" adding eventset "+eventSet);
 					} catch (EventGenerationException e) {
 						logger.error("Could not Eventify with " + eventDriver.displayName() 
 								+ " on File:" + current.getFilePath() + " Title:" + current.getTitle(), e);
@@ -988,7 +1010,11 @@ public class API {
 		@Override
 		public Document call() throws Exception {
 			logger.info("Begining Analyzing: " + document.toString());
+			try {
 			document.addResult(analysisDriver, analysisDriver.analyze(document));
+			} catch(Exception e) {
+				logger.error("Wtf is here?", e);
+			}
 			logger.info("Finished Analyzing: " + document.toString());
 			return document;
 		}

@@ -460,7 +460,7 @@ public class Document {
 		} else {
 			string += "unknown)";
 		}
-		return string;
+		return string+" "+this.getFilePath();
 	}
 
 	public Language getLanguage() {

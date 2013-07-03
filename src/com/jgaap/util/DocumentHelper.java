@@ -33,7 +33,7 @@ import org.apache.tika.Tika;
  * @since 5.0.0
  */
 
-class DocumentHelper {
+public class DocumentHelper {
 	
 	static Logger logger = Logger.getLogger(com.jgaap.util.DocumentHelper.class);
 	static private Tika tika = new Tika();
@@ -42,7 +42,7 @@ class DocumentHelper {
 		tika.setMaxStringLength(-1);
 	}
 	
-	static String loadDocument(String filepath, String charset) throws Exception {
+	public static InputStream getInputStream(String filepath) throws Exception {
 		InputStream is;
 		if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
 			URL url = new URL(filepath);
@@ -52,12 +52,17 @@ class DocumentHelper {
 		} else {
 			is = new FileInputStream(filepath);
 		} 
+		return is;
+	}
+	
+	public static String loadDocument(String filepath, String charset) throws Exception {
+		InputStream is = getInputStream(filepath);
 		String text = tika.parseToString(is);
 		is.close();
 		return text;
 	}
 
-	static Document.Type getDocType(String filepath) {
+	public static Document.Type getDocType(String filepath) {
 		if (filepath.endsWith(".pdf")) {
 			return Document.Type.PDF;
 		} else if (filepath.endsWith(".doc")||filepath.endsWith(".docx")) {

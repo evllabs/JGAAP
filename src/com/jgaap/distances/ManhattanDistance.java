@@ -56,7 +56,9 @@ public class ManhattanDistance extends DistanceFunction {
     @Override
     public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
         double distance = 0.0;
-        Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
+        Set<Event> events = Sets.union(
+        		unknownEventMap.uniqueEvents(), 
+        		knownEventMap.uniqueEvents());
         
         for(Event event : events){
         	distance += Math.abs(unknownEventMap.relativeFrequency(event)-knownEventMap.relativeFrequency(event));
