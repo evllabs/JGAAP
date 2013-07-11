@@ -43,9 +43,9 @@ public class PartOfSpeechEventDriverTest {
 	 */
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
-			String text = ("Today the fox jumped over the lazy dog "
-		    		+"While the fox jumped over the lazy dog a cat ran under a truck "
-		    		+"The truck missed the cat and the lazy dog was not so lazy and caught the cat");
+			String text = ("Today the fox jumped over the lazy dog. "
+		    		+"While the fox jumped over the lazy dog a cat ran under a truck. "
+		    		+"The truck missed the cat and the lazy dog was not so lazy and caught the cat.");
 		    
 			EventDriver eventDriver = new PartOfSpeechEventDriver(); 
 		    EventSet sampleSet = eventDriver.createEventSet(text.toCharArray());
@@ -62,6 +62,7 @@ public class PartOfSpeechEventDriverTest {
 		    tmp.add(new Event("DT", eventDriver));
 		    tmp.add(new Event("JJ", eventDriver));
 		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event(".", eventDriver));
 		    
 		    tmp.add(new Event("IN", eventDriver));
 		    tmp.add(new Event("DT", eventDriver));
@@ -77,6 +78,7 @@ public class PartOfSpeechEventDriverTest {
 		    tmp.add(new Event("IN", eventDriver));
 		    tmp.add(new Event("DT", eventDriver));
 		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event(".", eventDriver));
 		   
 		    tmp.add(new Event("DT", eventDriver));
 		    tmp.add(new Event("NN", eventDriver));
@@ -95,6 +97,7 @@ public class PartOfSpeechEventDriverTest {
 		    tmp.add(new Event("VBN", eventDriver));
 		    tmp.add(new Event("DT", eventDriver));
 		    tmp.add(new Event("NN", eventDriver));
+		    tmp.add(new Event(".", eventDriver));
 		    
 
 		     expectedSet.addEvents(tmp);

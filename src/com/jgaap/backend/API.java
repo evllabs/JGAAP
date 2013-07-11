@@ -17,11 +17,14 @@
  */
 package com.jgaap.backend;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -34,9 +37,11 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.jgaap.classifiers.LeaveOneOutCentroidDriver;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.CanonicizationException;
@@ -49,10 +54,12 @@ import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.Language;
 import com.jgaap.generics.LanguageParsingException;
 import com.jgaap.generics.NeighborAnalysisDriver;
+import com.jgaap.generics.ValidationDriver;
 import com.jgaap.languages.English;
 import com.jgaap.util.Document;
 import com.jgaap.util.DocumentHelper;
 import com.jgaap.util.EventSet;
+import com.jgaap.util.Pair;
 
 /**
  * 
@@ -781,15 +788,36 @@ public class API {
 						break;
 					}
 				}
-				logger.info("Training " + analysisDriver.displayName()+" with "+trainingDocuments);
+				Multimap<String, Document> trainingDocumentsByAuthor = HashMultimap.create();
+				for(Document document : trainingDocuments) {
+					trainingDocumentsByAuthor.put(document.getAuthor(), document);
+				}
+				List<Future<Map.Entry<String, Pair<Double, Double>>>> futureEntries = new ArrayList<Future<Map.Entry<String, Pair<Double, Double>>>>();
+				for(String author : trainingDocumentsByAuthor.keySet()){
+					futureEntries.add(executor.submit(new VerificationTrainingWorker(author, Lists.newArrayList(trainingDocumentsByAuthor.get(author)), ((NeighborAnalysisDriver)analysisDriver).distance)));
+				}
+				Map<String, Pair<Double, Double>> authorMeanAndStdDev = new HashMap<String, Pair<Double, Double>>();
+				for(Future<Map.Entry<String, Pair<Double, Double>>> entry : futureEntries) {
+					Map.Entry<String, Pair<Double, Double>> tmp;
+					try {
+						tmp = entry.get();
+						authorMeanAndStdDev.put(tmp.getKey(), tmp.getValue());
+					} catch (InterruptedException | ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				logger.info("Training " + analysisDriver.displayName());
 				//logger.info(trainingDocuments.get(0).getEventSets());
 				analysisDriver.train(trainingDocuments);
 				logger.info("Finished Training " + analysisDriver.displayName());
 				List<Future<Document>> futureDocuments = new ArrayList<Future<Document>>();
 				for (Document testDocument : testDocuments) {
+					testDocument.setFilePath(testDocument.getFilePath()+" Test:"+authorMeanAndStdDev.get(testDocument.getAuthor()));
 					futureDocuments.add(executor.submit(new AnalysisWorker(testDocument, analysisDriver)));
 				}
 				for (Document frrfarDocument : frrfarDocuments) {
+					frrfarDocument.setFilePath(frrfarDocument.getFilePath()+" FrrFar:"+authorMeanAndStdDev.get(frrfarDocument.getAuthor()));
 					futureDocuments.add(executor.submit(new FrrFarAnalysisWorker(frrfarDocument, analysisDriver)));
 				}
 
@@ -878,7 +906,7 @@ public class API {
 				if (!fold.equalsIgnoreCase(currentFold)) {
 					if (counter >= windowSize / 2) {
 						Document current = new Document(document);
-						current.setFilePath(timestamp); // TODO: fill in range
+						current.setFilePath(current.getFilePath()+" "+timestamp); 
 						current.setText(builder.toString());
 						current.setFold(fold);
 						builder = new StringBuilder();
@@ -890,15 +918,15 @@ public class API {
 				}
 				int c = keystroke.get("ascii").getAsInt();
 				if(c == 0){
-					builder.append(keystroke.get("key").getAsString());
+					builder.append(keystroke.get("key").getAsString()); //TODO: consider changing these to a single character
 				}else {
-					builder.append((char)c); // TODO: add check for non ascii chars
+					builder.append((char)c);
 				}
 				counter++;
 				timestamp = keystroke.get("timestamp").getAsString();
 				if (counter == windowSize) {
 					Document current = new Document(document);
-					current.setFilePath(timestamp); // TODO: fill in range
+					current.setFilePath(current.getFilePath()+" "+timestamp);
 					current.setText(builder.toString());
 					current.setFold(fold);
 					builder = new StringBuilder();
@@ -909,7 +937,7 @@ public class API {
 			}
 			if (counter >= windowSize / 2) {
 				Document current = new Document(document);
-				current.setFilePath(timestamp); // TODO: fill in range
+				current.setFilePath(current.getFilePath()+" "+timestamp);
 				current.setText(builder.toString());
 				current.setFold(fold);
 				documents.add(current);
@@ -1010,11 +1038,7 @@ public class API {
 		@Override
 		public Document call() throws Exception {
 			logger.info("Begining Analyzing: " + document.toString());
-			try {
 			document.addResult(analysisDriver, analysisDriver.analyze(document));
-			} catch(Exception e) {
-				logger.error("Wtf is here?", e);
-			}
 			logger.info("Finished Analyzing: " + document.toString());
 			return document;
 		}
@@ -1036,5 +1060,35 @@ public class API {
 			logger.info("Finished Analyzing: " + document.toString());
 			return document;
 		}
+	}
+
+	private class VerificationTrainingWorker implements Callable<Map.Entry<String, Pair<Double, Double>>> {
+		private List<Document> documents;
+		private ValidationDriver validationDriver;
+		private String author;
+		
+		public VerificationTrainingWorker(String author, List<Document> documents, DistanceFunction distance) {
+			this.author = author;
+			this.documents = documents;
+			this.validationDriver = new LeaveOneOutCentroidDriver();
+			this.validationDriver.setDistance(distance);
+		}
+		
+		@Override
+		public Map.Entry<String, Pair<Double, Double>> call() throws Exception {
+			logger.info("Training Verification for "+author);
+			validationDriver.train(documents);
+			List<Double> distances = new ArrayList<Double>(documents.size());
+			for(Document document : documents) {
+				logger.info("Begining LOO distance: "+document);
+				distances.add(validationDriver.analyze(document).get(0).getSecond());
+				logger.info("Finished LOO distance: "+document);
+			}
+			double mean = Utils.mean(distances);
+			double stdDev = Utils.stddev(distances, mean);
+			logger.info("Finished training Verification for "+author);
+			return new AbstractMap.SimpleImmutableEntry<String, Pair<Double, Double>>(author, new Pair<Double, Double>(mean, stdDev));
+		}
+		
 	}
 }

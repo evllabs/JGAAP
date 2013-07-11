@@ -17,15 +17,14 @@
  */
 package com.jgaap.eventDrivers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.jgaap.backend.API;
-import com.jgaap.canonicizers.PunctuationSeparator;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 import com.knowledgebooks.nlp.fasttag.FastTag;
+import com.knowledgebooks.nlp.util.Tokenizer;
 
 /**
  * This changes words into their parts of speech in a document. This does not
@@ -51,7 +50,7 @@ public class PartOfSpeechEventDriver extends EventDriver {
 		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("English");
 	}
 
-	private static PunctuationSeparator punctuationSeparator = new PunctuationSeparator();
+//	private static PunctuationSeparator punctuationSeparator = new PunctuationSeparator();
 	
 	@Override
 	public EventSet createEventSet(char[] text) {
@@ -60,22 +59,29 @@ public class PartOfSpeechEventDriver extends EventDriver {
 		
 		EventSet es = new EventSet();
 
-		text = punctuationSeparator.process(text);
+		List<String> tagged = tagger.tag(Tokenizer.wordsToList(new String(text)));
 
-		String stringText = new String(text);
-
-		for (String current : stringText.split("(?<=[?!\\.])\\s+")) {
-
-			String[] tmpArray = current.split("\\s");
-
-			List<String> tmp = Arrays.asList(tmpArray);
-
-			List<String> tagged = tagger.tag(tmp);
-
-			for (int j = 0; j < tagged.size(); j++) {
-				es.addEvent(new Event(tagged.get(j), this));
-			}
+		for (int j = 0; j < tagged.size(); j++) {
+			es.addEvent(new Event(tagged.get(j), this));
 		}
+		
+//		text = punctuationSeparator.process(text);
+//
+//		String stringText = new String(text);
+//		Tokenizer.
+//
+//		for (String current : stringText.split("(?<=[?!\\.])\\s+")) {
+//
+//			String[] tmpArray = current.split("\\s");
+//
+//			List<String> tmp = Arrays.asList(tmpArray);
+//
+//			List<String> tagged = tagger.tag(tmp);
+//
+//			for (int j = 0; j < tagged.size(); j++) {
+//				es.addEvent(new Event(tagged.get(j), this));
+//			}
+//		}
 		return es;
 
 	}

@@ -93,19 +93,15 @@ public class Utils {
 	
 	/** Calculate sample deviation */
 	public static double stddev(List<Double> observations) {
+		return stddev(observations, mean(observations));
+	}
+	
+	public static double stddev(List<Double> observations, double mean) {
 		
 		// Catch single observation case
 		if(observations.size() == 1 ) {
 			return 0.0;
 		}
-		
-		double mean = 0.0;
-		
-		// Calculate the mean of the observations
-		for(Double d : observations) {
-			mean += d;
-		}
-		mean = mean / observations.size();
 		
 		double stddev = 0.0;
 		for(Double d : observations) {
@@ -116,6 +112,17 @@ public class Utils {
 		return Math.sqrt(stddev);
 	}
 
+	public static double mean(List<Double> observations) {
+		double mean = 0.0;
+		
+		// Calculate the mean of the observations
+		for(Double d : observations) {
+			mean += d;
+		}
+		mean = mean / observations.size();
+		return mean;
+	}
+	
 	/**
 	 * 
 	 */
