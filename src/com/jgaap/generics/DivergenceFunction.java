@@ -17,7 +17,7 @@
  */
 package com.jgaap.generics;
 
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 /**
  * 
@@ -34,7 +34,7 @@ public abstract class DivergenceFunction extends DistanceFunction {
 	}
 	
 	@Override
-	public double distance(EventMap eventMap1, EventMap eventMap2) throws DistanceCalculationException {
+	public double distance(Histogram histogram1, Histogram histogram2) throws DistanceCalculationException {
 		double dist;
 		double first;
 		double second;
@@ -42,35 +42,35 @@ public abstract class DivergenceFunction extends DistanceFunction {
 				"divergenceType", "STANDARD").toUpperCase());
 		switch (divergenceType.ordinal()) {
 		case 1:
-			dist = (divergence(eventMap1, eventMap2) + divergence(eventMap2, eventMap1)) / 2.0;
+			dist = (divergence(histogram1, histogram2) + divergence(histogram2, histogram1)) / 2.0;
 			break;
 		case 2:
-			first = divergence(eventMap1, eventMap2);
-			second = divergence(eventMap1, eventMap2);
+			first = divergence(histogram1, histogram2);
+			second = divergence(histogram1, histogram2);
 			dist = (first > second ? first : second);
 			break;
 		case 3:
-			first = divergence(eventMap1, eventMap2);
-			second = divergence(eventMap1, eventMap2);
+			first = divergence(histogram1, histogram2);
+			second = divergence(histogram1, histogram2);
 			dist = (first < second ? first : second);
 			break;
 		case 4:
-			dist = divergence(eventMap2, eventMap1);
+			dist = divergence(histogram2, histogram1);
 			break;
 		case 5:
-			first = divergence(eventMap1, eventMap2);
-			second = divergence(eventMap1, eventMap2);
+			first = divergence(histogram1, histogram2);
+			second = divergence(histogram1, histogram2);
 			dist = first * second;
             break;
 		case 0:
 		default:
-			dist = divergence(eventMap1, eventMap2);
+			dist = divergence(histogram1, histogram2);
 			break;
 		}
 		return dist;
 	}
 
-	abstract protected double divergence(EventMap eventMap1, EventMap eventMap2) throws DistanceCalculationException;
+	abstract protected double divergence(Histogram histogram1, Histogram histogram2) throws DistanceCalculationException;
 
 	@Override
 	abstract public boolean showInGUI();

@@ -24,7 +24,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 /**
  * Canberra distance, defined as D(x,y) = sum (| (xi -yi)/(xi + yi) |). This is
@@ -51,20 +51,20 @@ public class CanberraDistance extends DistanceFunction {
 	/**
 	 * Returns Canberra distance between event sets es1 and es2
 	 * 
-	 * @param unknownEventMap
+	 * @param unknownHistogram
 	 *            The first EventSet
-	 * @param knownEventMap
+	 * @param knownHistogram
 	 *            The second EventSet
 	 * @return the Canberra distance between them
 	 */
 	@Override
-	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+	public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
 		double distance = 0.0;
-		Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
+		Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
 
 		for (Event event : events) {
-			distance += Math.abs((unknownEventMap.relativeFrequency(event) - knownEventMap.relativeFrequency(event))
-					/ (unknownEventMap.relativeFrequency(event) + knownEventMap.relativeFrequency(event)));
+			distance += Math.abs((unknownHistogram.relativeFrequency(event) - knownHistogram.relativeFrequency(event))
+					/ (unknownHistogram.relativeFrequency(event) + knownHistogram.relativeFrequency(event)));
 		}
 
 		return distance;

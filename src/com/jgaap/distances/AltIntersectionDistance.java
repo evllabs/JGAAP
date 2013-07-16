@@ -21,7 +21,7 @@ package com.jgaap.distances;
 
 import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 /**
  * Given two event type-sets, A,B, calculate 1 - ||A intersect B|| // ||A union B||
@@ -45,16 +45,16 @@ public class AltIntersectionDistance extends DistanceFunction{
 	/**
 	 * Returns intersection distance between event sets es1 and es2.
 	 * 
-	 * @param unknownEventMap
+	 * @param unknownHistogram
 	 *            The first EventMap
-	 * @param knownEventMap
+	 * @param knownHistogram
 	 *            The second EventMap
 	 * @return the intersection distance between them
 	 */
 
 	@Override
-	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
-		double intersectioncount = Sets.intersection(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents()).size();
+	public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
+		double intersectioncount = Sets.intersection(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents()).size();
 		return 1/(intersectioncount+1);
 	}
 }
