@@ -12,6 +12,11 @@ import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Multiset.Entry;
 import com.jgaap.generics.EventDriver;
 
+/**
+ * 
+ * @author Michael Ryan
+ * @since 7.0
+ */
 public class AbsoluteHistogram implements Histogram {
 
 	private final ImmutableMap<Event, Integer> histogram;
