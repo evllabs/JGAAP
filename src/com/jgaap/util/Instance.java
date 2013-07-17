@@ -34,6 +34,7 @@ import java.util.Enumeration;
  * @author Michael Ryan
  * @version $Revision: 9140 $ 
  */
+@SuppressWarnings({"rawtypes"})
 public class Instance extends weka.core.Instance
   implements Copyable, Serializable, RevisionHandler {
   

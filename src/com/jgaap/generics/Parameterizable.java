@@ -40,13 +40,14 @@ import com.jgaap.util.Pair;
  * @author Juola
  * @since 1.0
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class Parameterizable {
 
     /** Parameters are stored using pairs of Strings in a HashMap */
     private Map<String, String> Parameters;
 
     /** Store parameter GUI settings representations (label, dropdown box pair) */
-    private List<Pair<JLabel, JComboBox>> paramGUI;
+	private List<Pair<JLabel, JComboBox>> paramGUI;
 
     /** Construct new Parameterizable with empty set */
     public Parameterizable() {
