@@ -11,8 +11,8 @@ On Unix-based systems, or from the Windows command-line, you can also run:
 java -jar jgaap.jar
 
 NOTE: It is suggested that you increase the Heap size alloted to the JVM 
-     when using JGAAP since it is very memory intensive 2GB is good for 
-     most applications
+     when using JGAAP since it is very memory intensive. 2GB is good for 
+     most applications.
 
 java -Xmx2048m -jar jgaap.jar
 
