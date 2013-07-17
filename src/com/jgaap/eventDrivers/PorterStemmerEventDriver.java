@@ -20,8 +20,6 @@
 package com.jgaap.eventDrivers;
 
 import com.jgaap.backend.API;
-import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
@@ -41,7 +39,7 @@ import com.jgaap.util.EventSet;
  * most of the time. I have put in an ugly hack to address. 4) Ditto
  * punctuation. I have NOT put in a hack to address
  */
-public class PorterStemmerEventDriver extends EventDriver {
+public class PorterStemmerEventDriver extends NaiveWordEventDriver {
 
 	@Override
 	public String displayName() {
@@ -59,13 +57,12 @@ public class PorterStemmerEventDriver extends EventDriver {
 		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("english");
 	}
 
-	private EventDriver e = new NaiveWordEventDriver();
-
-	/** Creates EventSet using Porter stemmer on underlying events 
-	 * @throws EventGenerationException */
+	/** 
+	 * Creates EventSet using Porter stemmer on underlying events 
+	 */
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
-		EventSet raw = e.createEventSet(text);
+	public EventSet createEventSet(char[] text) {
+		EventSet raw = super.createEventSet(text);
 		EventSet cooked = new EventSet();
 		Stemmer theStemmer = new Stemmer();
 

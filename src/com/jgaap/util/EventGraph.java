@@ -9,6 +9,9 @@ import com.google.common.collect.ImmutableSetMultimap;
  * Methods for building and manipulating a Cross Entropy Dictionary. A Cross
  * Entropy Dictionary is a hashtable where the keys are Events and the values
  * are Cross Entropy Dictionary Nodes
+ * 
+ * @author Michael Ryan
+ * 
  **/
 public class EventGraph {
 

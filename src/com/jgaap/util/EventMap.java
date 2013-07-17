@@ -19,7 +19,7 @@ import com.google.common.collect.Multiset.Entry;
  * @author Michael Ryan
  *
  */
-public class EventMap {
+public class EventMap implements Histogram {
 
 	private final ImmutableMap<Event, Double> histogram;
 	
@@ -89,5 +89,10 @@ public class EventMap {
 		}
 
 		return new EventMap(map);
+	}
+
+	@Override
+	public int absoluteFrequency(Event event) {
+		throw new UnsupportedOperationException();
 	}
 }

@@ -14,8 +14,8 @@ import com.google.common.collect.Multimap;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.NeighborAnalysisDriver;
+import com.jgaap.util.AbsoluteHistogram;
 import com.jgaap.util.Document;
-import com.jgaap.util.EventMap;
 import com.jgaap.util.Histogram;
 import com.jgaap.util.Pair;
 
@@ -27,15 +27,15 @@ import com.jgaap.util.Pair;
  * @author Michael Ryan
  * @since 5.0.2
  */
-public class CentroidDriver extends NeighborAnalysisDriver {
+public class AbsoluteCentroidDriver extends NeighborAnalysisDriver {
 
-	static private Logger logger = Logger.getLogger(CentroidDriver.class);
+	static private Logger logger = Logger.getLogger(AbsoluteCentroidDriver.class);
 
 	private ImmutableMap<String, Histogram> knownCentroids;
 
 	@Override
 	public String displayName() {
-		return "Centroid Driver" + getDistanceName();
+		return "Absolute Centroid Driver" + getDistanceName();
 	}
 
 	@Override
@@ -52,21 +52,21 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 
 	@Override
 	public void train(List<Document> knowns) {
-		Multimap<String, EventMap> knownHistograms = HashMultimap.create();
+		Multimap<String, AbsoluteHistogram> knownHistograms = HashMultimap.create();
 		for (Document known : knowns) {
-			EventMap eventMap = new EventMap(known);
-			knownHistograms.put(known.getAuthor(), eventMap);
+			AbsoluteHistogram AbsoluteHistogram = new AbsoluteHistogram(known);
+			knownHistograms.put(known.getAuthor(), AbsoluteHistogram);
 		}
 		ImmutableMap.Builder<String, Histogram> mapBuilder = ImmutableMap.builder();
-		for (Entry<String, Collection<EventMap>> entry : knownHistograms.asMap().entrySet()) {
-			mapBuilder.put(entry.getKey(), EventMap.centroid(entry.getValue()));
+		for (Entry<String, Collection<AbsoluteHistogram>> entry : knownHistograms.asMap().entrySet()) {
+			mapBuilder.put(entry.getKey(), AbsoluteHistogram.centroid(entry.getValue()));
 		}
 		knownCentroids = mapBuilder.build();
 	}
 
 	@Override
 	public List<Pair<String, Double>> analyze(Document unknown) throws AnalyzeException {
-		Histogram unknownHistogram = new EventMap(unknown);
+		Histogram unknownHistogram = new AbsoluteHistogram(unknown);
 		List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>(knownCentroids.size());
 		for (Entry<String, Histogram> knownEntry : knownCentroids.entrySet()) {
 			try {

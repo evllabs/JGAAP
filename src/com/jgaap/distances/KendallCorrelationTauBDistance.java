@@ -12,7 +12,7 @@ import java.util.Set;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 import com.jgaap.util.Pair;
 
 /**
@@ -43,16 +43,16 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 	}
 	
 	@Override
-	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+	public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
 
 		//System.err.println("1");
-		List<Pair<Event, Double>> unknownList = new ArrayList<Pair<Event, Double>>(unknownEventMap.uniqueEvents().size());
-		List<Pair<Event, Double>> knownList = new ArrayList<Pair<Event, Double>>(knownEventMap.uniqueEvents().size());
-		for(Event e : unknownEventMap.uniqueEvents()){
-			unknownList.add(new Pair<Event, Double>(e, unknownEventMap.relativeFrequency(e),2));
+		List<Pair<Event, Double>> unknownList = new ArrayList<Pair<Event, Double>>(unknownHistogram.uniqueEvents().size());
+		List<Pair<Event, Double>> knownList = new ArrayList<Pair<Event, Double>>(knownHistogram.uniqueEvents().size());
+		for(Event e : unknownHistogram.uniqueEvents()){
+			unknownList.add(new Pair<Event, Double>(e, unknownHistogram.relativeFrequency(e),2));
 		}
-		for(Event e : knownEventMap.uniqueEvents()){
-			knownList.add(new Pair<Event, Double>(e, knownEventMap.relativeFrequency(e), 2));
+		for(Event e : knownHistogram.uniqueEvents()){
+			knownList.add(new Pair<Event, Double>(e, knownHistogram.relativeFrequency(e), 2));
 		}
 		return tauDistance(unknownList, knownList);
 	}

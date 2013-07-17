@@ -24,7 +24,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 /**
  * Chi-Square Distance, defined as
@@ -56,13 +56,13 @@ public class ChiSquareDistance extends DistanceFunction {
 	 * @return the Canberra distance between them
 	 */
 	@Override
-	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+	public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
 		double distance = 0.0;
-		Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
+		Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
 
 		for (Event event : events) {
-			double x = unknownEventMap.relativeFrequency(event);
-			double y = knownEventMap.relativeFrequency(event);
+			double x = unknownHistogram.relativeFrequency(event);
+			double y = knownHistogram.relativeFrequency(event);
 			distance += (x - y) * (x - y) / (x + y);			
 		}
 

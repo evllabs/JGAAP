@@ -24,7 +24,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 /**
  * Histogram distance using L2 metric,(defined as D(x,y) = sum ((xi -yi)^2) This
@@ -57,13 +57,13 @@ public class HistogramDistance extends DistanceFunction {
 	 */
 
 	@Override
-	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+	public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
 		double distance = 0.0;
 
-		Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
+		Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
 		
 		for(Event event : events){
-			distance += Math.pow(unknownEventMap.relativeFrequency(event) - knownEventMap.relativeFrequency(event), 2);
+			distance += Math.pow(unknownHistogram.relativeFrequency(event) - knownHistogram.relativeFrequency(event), 2);
 		}
 
 		return distance;

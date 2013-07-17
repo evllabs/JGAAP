@@ -78,7 +78,7 @@ import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.util.Document;
 import com.jgaap.util.Pair;
 //import java.awt.event.*;
-
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 

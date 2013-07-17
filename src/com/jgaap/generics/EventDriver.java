@@ -44,8 +44,8 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
      * Creates an EventSet from a given DocumentSet after preprocessing.
      * 
      * @since 1.0
-     * @param doc
-     *            the DocumentSet to be Event-ified
+     * @param text
+     *            the text to be Event-ified
      * @return the EventSet containing the Events from the document(s)
      */
     abstract public EventSet createEventSet(char[] text) throws EventGenerationException;

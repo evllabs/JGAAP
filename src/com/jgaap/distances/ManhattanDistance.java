@@ -22,7 +22,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 /**
  * Histogram distance using L1 metric,(defined as D(x,y) = sum (|xi -yi|). This
@@ -54,14 +54,12 @@ public class ManhattanDistance extends DistanceFunction {
      * @return the Manhattan distance between them
      */
     @Override
-    public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+    public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
         double distance = 0.0;
-        Set<Event> events = Sets.union(
-        		unknownEventMap.uniqueEvents(), 
-        		knownEventMap.uniqueEvents());
+        Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
         
         for(Event event : events){
-        	distance += Math.abs(unknownEventMap.relativeFrequency(event)-knownEventMap.relativeFrequency(event));
+        	distance += Math.abs(unknownHistogram.relativeFrequency(event)-knownHistogram.relativeFrequency(event));
         }
 
         return distance;

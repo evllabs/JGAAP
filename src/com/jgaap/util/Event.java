@@ -67,6 +67,10 @@ public class Event {
     public String getEvent() {
         return data+eventDriver;
     }
+    
+    public EventDriver getEventDriver() {
+    	return eventDriver;
+    }
 
     /**
      * When overriding equals(), the hashCode() function must also be

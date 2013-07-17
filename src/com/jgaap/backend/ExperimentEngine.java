@@ -57,8 +57,8 @@ public class ExperimentEngine {
 	 * 
 	 * @param canons
 	 *            the canonicizors used
-	 * @param event
-	 *            the event used
+	 * @param events
+	 *            the events used
 	 * @param analysis
 	 *            the analysis method or distance function used
 	 * @param experimentName
