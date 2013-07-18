@@ -17,8 +17,11 @@
  */
 package com.jgaap.util;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 
 import org.apache.log4j.Logger;
@@ -54,11 +57,16 @@ public class DocumentHelper {
 		} 
 		return is;
 	}
-	
+
 	public static String loadDocument(String filepath, String charset) throws Exception {
 		InputStream is = getInputStream(filepath);
 		String text = tika.parseToString(is);
 		is.close();
+		if(text.isEmpty()){
+			is = getInputStream(filepath);
+			text = readText(is, charset);
+			is.close();
+		}
 		return text;
 	}
 
@@ -72,6 +80,28 @@ public class DocumentHelper {
 		} else {
 			return Document.Type.GENERIC;
 		}
+	}
+	
+	/**
+	 * Reads text from a local file. The raw text of
+	 * the file is stored for quick access in an array.
+	 * 
+	 * @throws IOException
+	 **/
+	static private String readText(InputStream is, String charset) throws IOException {
+		int c;
+		StringBuilder stringBuilder = new StringBuilder();
+		BufferedReader reader;
+		if (charset==null||charset.isEmpty()) {
+			reader = new BufferedReader(new InputStreamReader(is));
+		} else {
+			reader = new BufferedReader(new InputStreamReader(is,charset));
+		}
+		while ((c = reader.read()) != -1) {
+			stringBuilder.append((char)c);
+		}
+		reader.close();
+		return stringBuilder.toString();
 	}
 
 }
