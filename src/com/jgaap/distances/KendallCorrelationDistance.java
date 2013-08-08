@@ -29,7 +29,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 import com.jgaap.util.Pair;
 
 /**
@@ -67,9 +67,9 @@ public class KendallCorrelationDistance extends DistanceFunction {
      * @return the KC distance between them
      */
     @Override
-    public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+    public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
 
-    	Set<Event> s = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
+    	Set<Event> s = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
 
 		List<Pair<Event,Double>> l1 = new ArrayList<Pair<Event,Double>>();
 		List<Pair<Event,Double>> l2 = new ArrayList<Pair<Event,Double>>();
@@ -82,11 +82,11 @@ public class KendallCorrelationDistance extends DistanceFunction {
 		double correlation = 0.0;
 
 		/* make lists of the histograms */
-		for (Event e: unknownEventMap.uniqueEvents()) {
-			l1.add(new Pair<Event, Double>(e, unknownEventMap.relativeFrequency(e),2) );
+		for (Event e: unknownHistogram.uniqueEvents()) {
+			l1.add(new Pair<Event, Double>(e, unknownHistogram.relativeFrequency(e),2) );
 		}
-		for (Event e: knownEventMap.uniqueEvents()) {
-			l2.add(new Pair<Event, Double>(e, knownEventMap.relativeFrequency(e),2) );
+		for (Event e: knownHistogram.uniqueEvents()) {
+			l2.add(new Pair<Event, Double>(e, knownHistogram.relativeFrequency(e),2) );
 		}
 
 		/* sort the list so the most frequent items are at the top */

@@ -21,7 +21,7 @@ package com.jgaap.distances;
 
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 /**
  * Given two event type-sets, A,B, calculate 1 - ||A intersect B|| // ||A union B||
@@ -53,16 +53,16 @@ public class IntersectionDistance extends DistanceFunction{
 	 */
 
 	@Override
-	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+	public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
 
 		double intersectioncount = 0;
 		double unioncount;
 
-		unioncount = knownEventMap.uniqueEvents().size();
+		unioncount = knownHistogram.uniqueEvents().size();
 		// unioncount now has the number of distinct types in h1
 
-		for (Event event : unknownEventMap.uniqueEvents()) {
-			if (!knownEventMap.contains(event)) {
+		for (Event event : unknownHistogram.uniqueEvents()) {
+			if (!knownHistogram.contains(event)) {
 				// present in h2, not in h1, so add to union count
 				unioncount++;
 			} else {

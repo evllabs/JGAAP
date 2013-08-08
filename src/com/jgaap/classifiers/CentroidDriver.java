@@ -16,6 +16,7 @@ import com.jgaap.generics.DistanceCalculationException;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.util.Document;
 import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 import com.jgaap.util.Pair;
 
 /**
@@ -30,7 +31,7 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 
 	static private Logger logger = Logger.getLogger(CentroidDriver.class);
 
-	private ImmutableMap<String, EventMap> knownCentroids;
+	private ImmutableMap<String, Histogram> knownCentroids;
 
 	@Override
 	public String displayName() {
@@ -56,7 +57,7 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 			EventMap eventMap = new EventMap(known);
 			knownHistograms.put(known.getAuthor(), eventMap);
 		}
-		ImmutableMap.Builder<String, EventMap> mapBuilder = ImmutableMap.builder();
+		ImmutableMap.Builder<String, Histogram> mapBuilder = ImmutableMap.builder();
 		for (Entry<String, Collection<EventMap>> entry : knownHistograms.asMap().entrySet()) {
 			mapBuilder.put(entry.getKey(), EventMap.centroid(entry.getValue()));
 		}
@@ -65,11 +66,11 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 
 	@Override
 	public List<Pair<String, Double>> analyze(Document unknown) throws AnalyzeException {
-		EventMap unknownEventMap = new EventMap(unknown);
+		Histogram unknownHistogram = new EventMap(unknown);
 		List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>(knownCentroids.size());
-		for (Entry<String, EventMap> knownEntry : knownCentroids.entrySet()) {
+		for (Entry<String, Histogram> knownEntry : knownCentroids.entrySet()) {
 			try {
-				double current = distance.distance(unknownEventMap, knownEntry.getValue());
+				double current = distance.distance(unknownHistogram, knownEntry.getValue());
 				logger.debug(unknown.getTitle()+" ("+unknown.getFilePath()+")"+" -> "+knownEntry.getKey()+":"+current);
 				result.add(new Pair<String, Double>(knownEntry.getKey(), current, 2));
 			} catch (DistanceCalculationException e) {

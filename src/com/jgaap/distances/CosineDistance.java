@@ -24,7 +24,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 /**
  * Cosine Distance or normalized dot product. This is YA distance for Nearest
@@ -57,17 +57,17 @@ public class CosineDistance extends DistanceFunction {
      * @return the cosine distance between them
      */
     @Override    
-    public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
+    public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
         
         double distance = 0.0;
         double h1Magnitude = 0.0;
         double h2Magnitude = 0.0;
 
-        Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
+        Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
         
         for(Event event : events){
-        	double unknownNormalizedFrequencey = unknownEventMap.normalizedFrequency(event);
-        	double knownNormalizedFrequencey = knownEventMap.normalizedFrequency(event);
+        	double unknownNormalizedFrequencey = unknownHistogram.normalizedFrequency(event);
+        	double knownNormalizedFrequencey = knownHistogram.normalizedFrequency(event);
         	
         	distance += unknownNormalizedFrequencey * knownNormalizedFrequencey;
             h1Magnitude += unknownNormalizedFrequencey * unknownNormalizedFrequencey;

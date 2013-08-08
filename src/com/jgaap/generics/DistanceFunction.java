@@ -19,7 +19,7 @@
  **/
 package com.jgaap.generics;
 
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 /**
  * This is an abstract class for distance functions. It is used, for example, in
@@ -33,13 +33,13 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
     /**
      * Returns (as double) the distance between two EventSets.
      * 
-     * @param es1
+     * @param eventMap1
      *            The first EventSet
-     * @param es2
+     * @param eventMap2
      *            The first EventSet
-     * @return a double precision number (ideally a distance) btw es1 and es2
+     * @return a double precision number with distance like behavior between eventMap1 and eventMap2
      */
-    abstract public double distance(EventMap eventMap1, EventMap eventMap2) throws DistanceCalculationException;
+    abstract public double distance(Histogram histogram1, Histogram histogram2) throws DistanceCalculationException;
 
 
     public int compareTo(DistanceFunction o){

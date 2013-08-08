@@ -5,7 +5,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
+import com.jgaap.util.Histogram;
 
 public class HellingerDistance extends DistanceFunction {
 
@@ -27,11 +27,11 @@ public class HellingerDistance extends DistanceFunction {
 	}
 	
 	@Override
-	public double distance(EventMap unknownEventMap, EventMap knownEventMap) {
-		Set<Event> events = Sets.union(unknownEventMap.uniqueEvents(), knownEventMap.uniqueEvents());
+	public double distance(Histogram unknownHistogram, Histogram knownHistogram) {
+		Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
 		double sum = 0.0;
 		for(Event event : events) { 
-			sum += Math.pow(Math.sqrt(unknownEventMap.relativeFrequency(event))-Math.sqrt(knownEventMap.relativeFrequency(event)), 2);
+			sum += Math.pow(Math.sqrt(unknownHistogram.relativeFrequency(event))-Math.sqrt(knownHistogram.relativeFrequency(event)), 2);
 		}
 		return Math.sqrt(sum)*oneOverSqrtTwo;
 	}

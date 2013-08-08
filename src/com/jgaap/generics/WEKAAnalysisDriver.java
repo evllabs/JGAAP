@@ -10,13 +10,14 @@ import java.util.Set;
 import weka.classifiers.Classifier;
 import weka.core.Attribute;
 import weka.core.FastVector;
-import weka.core.Instance;
+//import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.SparseInstance;
 
 import com.jgaap.util.Document;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventMap;
+import com.jgaap.util.Instance;
 import com.jgaap.util.Pair;
 
 
@@ -155,7 +156,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			i++;
 		}
 		
-		currentTest = new SparseInstance(currentTest);
+		currentTest = new Instance(currentTest);
 		currentTest.setDataset(trainingSet);
 
 		double[] probDistribution;

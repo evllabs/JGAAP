@@ -325,7 +325,6 @@ public class Document {
 	 * add the result of an analysis to the document
 	 * 
 	 * @param analysisDriver
-	 * @param eventDriver
 	 * @param list
 	 */
 	public void addResult(AnalysisDriver analysisDriver, List<Pair<String, Double>> list) {
@@ -335,7 +334,6 @@ public class Document {
 	/**
 	 * 
 	 * @param analysisDriver
-	 * @param eventDriver
 	 * @return
 	 */
 	public List<Pair<String, Double>> getRawResult(AnalysisDriver analysisDriver){
@@ -345,7 +343,6 @@ public class Document {
 	/**
 	 * Generates a formatted report for the analysisDriver and eventDriver specified 
 	 * @param analysisDriver
-	 * @param eventDriver
 	 * @return Report of analysis run on this document
 	 */
 	public String getFormattedResult(AnalysisDriver analysisDriver) {
