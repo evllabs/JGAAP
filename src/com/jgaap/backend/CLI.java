@@ -17,6 +17,10 @@
  */
 package com.jgaap.backend;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -217,16 +221,18 @@ public class CLI {
 			}
 			api.execute();
 			List<Document> unknowns = api.getUnknownDocuments();
-			StringBuffer buffer = new StringBuffer();
-			for (Document unknown : unknowns) {
-				buffer.append(unknown.getFormattedResult(analysisDriver));
-			}
+			OutputStreamWriter outputStreamWriter;
 			String saveFile = cmd.getOptionValue('s');
 			if (saveFile == null) {
-				System.out.println(buffer.toString());
+				outputStreamWriter = new OutputStreamWriter(System.out);
 			} else {
-				Utils.saveFile(saveFile, buffer.toString());
+				outputStreamWriter = new OutputStreamWriter(new FileOutputStream(saveFile));
 			}
+			Writer writer = new BufferedWriter(outputStreamWriter);
+			for (Document unknown : unknowns) {
+				writer.append(unknown.getFormattedResult(analysisDriver));
+			}
+			writer.append('\n');
 		}
 	}
 }

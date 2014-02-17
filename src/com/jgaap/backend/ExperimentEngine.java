@@ -19,6 +19,12 @@ package com.jgaap.backend;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -238,11 +244,12 @@ public class ExperimentEngine {
 				} else {
 					resultDocuments = experiment.getUnknownDocuments();
 				}
-				StringBuffer buffer = new StringBuffer();
+				Path filePath = FileSystems.getDefault().getPath(fileName);
+				Writer writer = Files.newBufferedWriter(filePath, Charset.defaultCharset(), StandardOpenOption.CREATE);
 				for (Document resultDocument : resultDocuments) {
-					buffer.append(resultDocument.getFormattedResult(analysisDriver));
+					writer.append(resultDocument.getFormattedResult(analysisDriver));
 				}
-				Utils.saveFile(fileName, buffer.toString());
+				writer.close();
 			} catch (Exception e) {
 				logger.error("Could not run experiment " + fileName, e);
 			}

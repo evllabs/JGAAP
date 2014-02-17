@@ -2617,7 +2617,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			}
 			JGAAP_API.execute();
 			List<Document> documents = JGAAP_API.getDocuments();
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			for (Document document : documents) {
 				String result = document.getResult();
 				buffer.append(result);

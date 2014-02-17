@@ -145,10 +145,10 @@ public class CSVIO {
 	public static void writeCSV(List<List<String>> csvMatrix, File file) throws IOException {
 			Writer output = new BufferedWriter(new FileWriter(file));
 			for (List<String> row : csvMatrix) {
-				StringBuffer rowBuffer = new StringBuffer();
+				StringBuilder rowBuffer = new StringBuilder();
 				boolean first = true;
 				for (int j = 0; j < row.size(); j++) {
-					StringBuffer thisEntry = new StringBuffer();
+					StringBuilder thisEntry = new StringBuilder();
 					String entry = row.get(j);
 					boolean quoteFlag = false;
 					for (int k = 0; k < entry.length(); k++) {
