@@ -57,6 +57,8 @@ public class ExperimentEngine {
 	static Logger logger = Logger.getLogger(ExperimentEngine.class);
 
 	private static final int workers = 1;
+	
+	private static String language = "english";
 
 	/**
 	 * This method generates unique file names and a directory structure to save
@@ -112,16 +114,18 @@ public class ExperimentEngine {
 	 *            the location of the csv file of experiments
 	 */
 
-	public static void runExperiment(String listPath) {
+	public static void runExperiment(String listPath, String lang) {
 		try {
-			runExperiment(CSVIO.readCSV(listPath));
+			runExperiment(CSVIO.readCSV(listPath), lang);
 		} catch (IOException e) {
 			logger.fatal("Problem processing experiment file: " + listPath, e);
 		}
 
 	}
 
-	public static void runExperiment(List<List<String>> experimentTable) {
+	public static void runExperiment(List<List<String>> experimentTable, String lang) {
+		if (lang != null)
+			language = lang;
 		final String experimentName = experimentTable.remove(0).get(0);
 		ExecutorService experimentExecutor = Executors.newFixedThreadPool(workers);
 		List<Future<String>> runningExperiments = new ArrayList<Future<String>>(experimentTable.size());
@@ -188,6 +192,7 @@ public class ExperimentEngine {
 		@Override
 		public String call() throws Exception {
 			API experiment = API.getPrivateInstance();
+			experiment.setLanguage(language);
 			try {
 				List<List<String>> tmp;
 				if (documentsPath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)) {

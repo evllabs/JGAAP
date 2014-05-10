@@ -46,11 +46,14 @@ class DocumentHelper {
 	}
 	
 	static String loadDocument(String filepath, String charset) throws Exception {
-		InputStream is = getInputStream(filepath);
-		String text = tika.parseToString(is);
-		is.close();
+		String text = "";
+		if("tika".equalsIgnoreCase(charset)){
+			InputStream is = getInputStream(filepath);
+			text= tika.parseToString(is);
+			is.close();
+		}
 		if(text.isEmpty()){
-			is = getInputStream(filepath);
+			InputStream is = getInputStream(filepath);
 			text = readText(is, charset);
 			is.close();
 		}

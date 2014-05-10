@@ -171,7 +171,8 @@ public class CLI {
 			System.out.println("Java Graphical Authorship Attribution Program version 5.2.0");
 		} else if (cmd.hasOption("ee")) {
 			String eeFile = cmd.getOptionValue("ee");
-			ExperimentEngine.runExperiment(eeFile);
+			String lang = cmd.getOptionValue("lang");
+			ExperimentEngine.runExperiment(eeFile, lang);
 			System.exit(0);
 		} else {
 			JGAAP.commandline = true;

@@ -29,7 +29,7 @@ import com.jgaap.generics.Language;
 public class English extends Language {
 
 	public English() {
-		super("English", "english", null);
+		super("English", "english", "tika");
 	}
 
 	public boolean showInGUI() {
