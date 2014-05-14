@@ -45,6 +45,7 @@ import com.jgaap.generics.Language;
 import com.jgaap.generics.LanguageParsingException;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.ValidationDriver;
+import com.jgaap.generics.WEKAAnalysisDriver;
 import com.jgaap.languages.English;
 import com.jgaap.util.Document;
 import com.jgaap.util.EventSet;
@@ -709,6 +710,12 @@ public class API {
 			if (analysisDriver instanceof ValidationDriver) {
 				for (Document knownDocument : knownDocuments) {
 					futureDocuments.add(executor.submit(new AnalysisWorker(knownDocument, analysisDriver)));
+				}
+			} else if (analysisDriver instanceof WEKAAnalysisDriver){
+				for (Document unknownDocument : unknownDocuments){
+					logger.info("Begining Analyzing: " + unknownDocument.toString());
+					unknownDocument.addResult(analysisDriver, analysisDriver.analyze(unknownDocument));
+					logger.info("Finished Analyzing: "+unknownDocument.toString());
 				}
 			} else {
 				for (Document unknownDocument : unknownDocuments) {

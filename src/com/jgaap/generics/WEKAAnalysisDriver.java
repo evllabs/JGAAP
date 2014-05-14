@@ -156,7 +156,6 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			i++;
 		}
 		
-		currentTest = new Instance(currentTest);
 		currentTest.setDataset(trainingSet);
 
 		double[] probDistribution;
