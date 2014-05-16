@@ -46,14 +46,14 @@
 			<attribute name="javadoc_location" value="http://www-nlp.stanford.edu/nlp/javadoc/javanlp/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/external/guava-14.0.1.jar">
+	<classpathentry kind="lib" path="lib/external/guava-17.0.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://docs.guava-libraries.googlecode.com/git-history/release/javadoc"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/external/tika-app-1.4.jar">
+	<classpathentry kind="lib" path="lib/external/tika-app-1.5.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="http://tika.apache.org/1.4/api/"/>
+			<attribute name="javadoc_location" value="http://tika.apache.org/1.5/api/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/external/javassist-3.17.1.jar"/>
