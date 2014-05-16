@@ -21,11 +21,11 @@ import com.jgaap.util.Pair;
 
 /**
  * 
- * This is a version of was had been the Frequency Centroid Driver This uses the
- * average relative frequency of events of a single author as a centroid
+ * This Centroid Driver classifier uses Absolute values of event occurrences to build the centroids.
+ * 
  * 
  * @author Michael Ryan
- * @since 5.0.2
+ * @since 7.0
  */
 public class AbsoluteCentroidDriver extends NeighborAnalysisDriver {
 
@@ -41,8 +41,7 @@ public class AbsoluteCentroidDriver extends NeighborAnalysisDriver {
 	@Override
 	public String tooltipText() {
 		return "Computes one centroid per Author.\n"
-				+ "Centroids are the average relitive frequency of events over all docuents provided.\n"
-				+ "i=1 to n \u03A3frequencyIn_i(event)/n";
+				+ "Centroids are the frequency of events over all docuents provided.\n";
 	}
 
 	@Override
