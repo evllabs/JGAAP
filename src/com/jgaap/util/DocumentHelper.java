@@ -95,7 +95,7 @@ class DocumentHelper {
 		int c;
 		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader reader;
-		if (charset==null||charset.isEmpty()) {
+		if (charset==null||charset.isEmpty()||charset.equalsIgnoreCase("tika")) {
 			reader = new BufferedReader(new InputStreamReader(is));
 		} else {
 			reader = new BufferedReader(new InputStreamReader(is,charset));
