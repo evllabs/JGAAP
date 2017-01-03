@@ -316,13 +316,13 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			}
 		});
 		
-		jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 24));
+		jLabel11.setFont(new java.awt.Font("Lucida Grande", java.awt.Font.BOLD, 46));
 		jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabel11.setText("JGAAP 7.0");
+		jLabel11.setText("JGAAP");
 
-		jLabel12.setText("<html> JGAAP, the Java Graphical Authorship Attribution Program, <br/>is an opensource author attribution / text classification tool <br/>Developed by the EVL lab (Evaluating Variation in Language Labratory) <br/> Released by Patrick Juola under the AGPL v3.0");
+		jLabel12.setText("<html> JGAAP "+JGAAPConstants.VERSION+", the Java Graphical Authorship Attribution Program, <br/>is an opensource author attribution / text classification tool <br/>Developed by the EVL lab (Evaluating Variation in Language Labratory) <br/> Released by Patrick Juola under the AGPL v3.0");
 
-        jLabel13.setText("\u00A92017 EVL lab");
+        jLabel13.setText("\u00A9"+JGAAPConstants.YEAR+" EVL lab");
 
 		jLabel23.setForeground(new java.awt.Color(0, 0, 255));
 		jLabel23.setText("http://evllabs.com");
@@ -492,7 +492,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 										.addContainerGap()));
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("JGAAP 7.0");
+		setTitle("JGAAP "+JGAAPConstants.VERSION);
 
 		JGAAP_TabbedPane.setName("JGAAP_TabbedPane"); // NOI18N
 

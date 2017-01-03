@@ -94,4 +94,9 @@ public class JGAAPConstants {
 	public static final String JGAAP_BACKENDPREFIX = "com.jgaap.backend.";
 	public static final String JGAAP_LANGUAGEPREFIX = "com.jgaap.languages.";
 
+	/**
+	 * Version Information
+	 */
+	public static final String VERSION = "7.0.0-alpha";
+	public static final String YEAR = "2017";
 }
