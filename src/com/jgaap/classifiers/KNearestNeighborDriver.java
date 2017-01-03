@@ -59,7 +59,7 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 	}
 
 	public boolean showInGUI() {
-		return false;
+		return true;
 	}
 	
 	public void train(List<Document> knowns){
