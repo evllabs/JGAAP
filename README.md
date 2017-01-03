@@ -10,6 +10,9 @@ JGAAP is developed by the [Evaluating Variation in Language (EVL) Lab](http://ev
 * [Running Large Experiments](docs/experiment_engine.md)
 * [Extending JGAAP](docs/modules.md)
 
+## Download
+Head over to our [releases page](https://github.com/evllabs/JGAAP/releases) to get the latest version of JGAAP.
+
 ## Support
 If you need help with JGAAP please review our forum of past help requests [here](https://groups.google.com/forum/#!forum/jgaap-support).
 
