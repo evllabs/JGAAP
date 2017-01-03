@@ -35,6 +35,7 @@ package com.jgaap.ui;
 
 //Package Imports
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -45,6 +46,7 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -320,7 +322,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 		jLabel12.setText("<html> JGAAP, the Java Graphical Authorship Attribution Program, <br/>is an opensource author attribution / text classification tool <br/>Developed by the EVL lab (Evaluating Variation in Language Labratory) <br/> Released by Patrick Juola under the AGPL v3.0");
 
-        jLabel13.setText("\u00A92013 EVL lab");
+        jLabel13.setText("\u00A92017 EVL lab");
 
 		jLabel23.setForeground(new java.awt.Color(0, 0, 255));
 		jLabel23.setText("http://evllabs.com");
@@ -330,8 +332,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			}
 		});
 
-		jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-				"/com/jgaap/resources/ui/jgaap_icon.png"))); // NOI18N
+		ImageIcon jgaapIcon = new javax.swing.ImageIcon(getClass().getResource(
+				"/com/jgaap/resources/ui/jgaap-icon.png"));
+		jLabel24.setIcon(new ImageIcon(jgaapIcon.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH))); // NOI18N
 
 		jLabel25.setForeground(new java.awt.Color(0, 0, 255));
 		jLabel25.setText("http://jgaap.com");
@@ -341,8 +344,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			}
 		});
 
-		jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-				"/com/jgaap/resources/ui/EVLlab_icon.png"))); // NOI18N
+		ImageIcon evlIcon = new ImageIcon(getClass().getResource("/com/jgaap/resources/ui/EVL_Icon_duq.png"));
+		jLabel26.setIcon(new ImageIcon(evlIcon.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH))); // NOI18N
 
 		javax.swing.GroupLayout helpDialogLayout = new javax.swing.GroupLayout(
 				helpDialog.getContentPane());
