@@ -66,12 +66,7 @@ public class BurrowsDelta extends AnalysisDriver {
 			for (Event event : events) {
 				List<Double> sample = new ArrayList<Double>();
 				for (EventMap histogram : knownCentroids.values()) {
-					Double value = histogram.relativeFrequency(event);
-					if (value == null) {
-						sample.add(0.0);
-					} else {
-						sample.add(value);
-					}
+					sample.add(histogram.relativeFrequency(event));
 				}
 				eventStddevBuilder.put(event, Utils.stddev(sample));
 			}
@@ -101,10 +96,7 @@ public class BurrowsDelta extends AnalysisDriver {
 			for (Entry<String, EventMap> entry : knownCentroids.entrySet()) {
 				double delta = 0.0;
 				for (Event event : events) {
-					Double knownFrequency = entry.getValue().relativeFrequency(event);
-					if (knownFrequency == null) {
-						knownFrequency = 0.0;
-					}
+					double knownFrequency = entry.getValue().relativeFrequency(event);
 					delta += Math.abs((unknownEventMap.relativeFrequency(event) - knownFrequency) / eventStddev.get(event));
 				}
 				results.add(new Pair<String, Double>(entry.getKey(), delta,2));
