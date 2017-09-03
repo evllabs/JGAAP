@@ -1,3 +1,22 @@
 bin/*
 .DS_Store
 /bin/
+
+# Maven
+/target
+
+# Eclipse stuff
+/.classpath
+/.project
+/.settings
+
+# Netbeans
+/nbproject
+nb-configuration.xml
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
