@@ -1,6 +1,8 @@
 <!--	FIXME: This will not work on Windows outside of Cygwin. -->
 
 <project name="JGAAP" default="run-gui" basedir=".">
+	
+	<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
 
 	<path id="classpath">
 		<fileset dir="../lib/external">
