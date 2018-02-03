@@ -309,14 +309,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		helpDialog.setMinimumSize(new java.awt.Dimension(520, 300));
 		helpDialog.setResizable(false);
 
-		helpCloseButton.setText("close");
+		helpCloseButton.setText("Close");
 		helpCloseButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				helpCloseButtonActionPerformed(evt);
 			}
 		});
 		
-		jLabel11.setFont(new java.awt.Font("Lucida Grande", java.awt.Font.BOLD, 46));
+		jLabel11.setFont(new java.awt.Font("Lucida Grande", java.awt.Font.PLAIN, 46));
 		jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		jLabel11.setText("JGAAP");
 
