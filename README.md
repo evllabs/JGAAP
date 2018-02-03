@@ -7,8 +7,6 @@ JGAAP is developed by the [Evaluating Variation in Language (EVL) Lab](http://ev
 ## Getting Started
 * [Understanding Authorship Attribution](docs/authorship_attribution.md)
 * [Running your First Experiment](docs/running_jgaap.md)
-* [Running Large Experiments](docs/experiment_engine.md)
-* [Extending JGAAP](docs/modules.md)
 
 ## Download
 Head over to our [releases page](https://github.com/evllabs/JGAAP/releases) to get the latest version of JGAAP.
