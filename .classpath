@@ -15,7 +15,6 @@
 			<attribute name="javadoc_location" value="http://commons.apache.org/cli/api-release/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/external/fasttag_v2.jar"/>
 	<classpathentry kind="lib" path="lib/external/jscience-4.3.1.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://jscience.org/api/"/>
