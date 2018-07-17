@@ -82,8 +82,8 @@ public class POSBiGramEventDriverTest {
  			tmp.add(new Event("[PRP$, NN]", eventDriver));
  			tmp.add(new Event("[NN, ,]", eventDriver));
  			tmp.add(new Event("[,, VBN]", eventDriver));
- 			tmp.add(new Event("[VBN, NNP]", eventDriver));
- 			tmp.add(new Event("[NNP, ,]", eventDriver));
+ 			tmp.add(new Event("[VBN, NN]", eventDriver));
+ 			tmp.add(new Event("[NN, ,]", eventDriver));
  			tmp.add(new Event("[,, VBD]", eventDriver));
  			tmp.add(new Event("[VBD, RB]", eventDriver));
  			tmp.add(new Event("[RB, IN]", eventDriver));
@@ -100,17 +100,17 @@ public class POSBiGramEventDriverTest {
  			tmp.add(new Event("[NNP, .]", eventDriver));
 
 
-		     expectedSet.addEvents(tmp);
+		    expectedSet.addEvents(tmp);
 		     
-//		     for(int i=0; i<sampleSet.size(); i++)
-//			    {
-//			    	System.out.println(sampleSet.eventAt(i).toString()+" "+expectedSet.eventAt(i).toString());
-//			    	System.out.println(sampleSet.eventAt(i).toString().equals(expectedSet.eventAt(i).toString()));
-//			    }
-//		     System.out.println(expectedSet.size());
+		    //for(int i=0; i<sampleSet.size(); i++)
+ 			//{
+			//    System.out.println(sampleSet.eventAt(i).toString()+" "+expectedSet.eventAt(i).toString());
+			//	System.out.println(sampleSet.eventAt(i).toString().equals(expectedSet.eventAt(i).toString()));
+			//}
+		    //System.out.println(expectedSet.size());
 		     
 		     
-			    assertTrue(expectedSet.equals(sampleSet));
+			assertTrue(expectedSet.equals(sampleSet));
 	}
 
 }
