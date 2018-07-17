@@ -56,7 +56,6 @@ public class PartOfSpeechEventDriver extends EventDriver {
 	@Override
 	public EventSet createEventSet(char[] text) {
 
-		//FastTag tagger = new FastTag();
 		MaxentTagger tagger = null;
 		try {
 			tagger = new MaxentTagger(getClass().getResource("/com/jgaap/resources/models/postagger/english-left3words-distsim.tagger").toString());
