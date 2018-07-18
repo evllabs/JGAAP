@@ -35,18 +35,15 @@ package com.jgaap.ui;
 
 //Package Imports
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -90,6 +87,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			JGAAP_UI_MainForm.this, true);
 	JGAAP_UI_ResultsDialog ResultsPage = new JGAAP_UI_ResultsDialog(
 			JGAAP_UI_MainForm.this, false);
+	JGAAP_UI_AboutDialog AboutPage = new JGAAP_UI_AboutDialog();
 	String[] Notes = new String[5];
 
 	DefaultListModel AnalysisMethodListBox_Model = new DefaultListModel();
@@ -166,16 +164,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed"
 	// desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
-		helpDialog = new javax.swing.JDialog();
-		helpCloseButton = new javax.swing.JButton();
-		jLabel11 = new javax.swing.JLabel();
-		jLabel12 = new javax.swing.JLabel();
-		jLabel13 = new javax.swing.JLabel();
-		jLabel23 = new javax.swing.JLabel();
-		jLabel24 = new javax.swing.JLabel();
-		jLabel25 = new javax.swing.JLabel();
-		jLabel26 = new javax.swing.JLabel();
+		
 		JGAAP_TabbedPane = new javax.swing.JTabbedPane();
 		JGAAP_DocumentsPanel = new javax.swing.JPanel();
 		jLabel1 = new javax.swing.JLabel();
@@ -304,192 +293,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		exitMenuItem = new javax.swing.JMenuItem();
 		helpMenu = new javax.swing.JMenu();
 		aboutMenuItem = new javax.swing.JMenuItem();
-
-		helpDialog.setTitle("About");
-		helpDialog.setMinimumSize(new java.awt.Dimension(520, 300));
-		helpDialog.setResizable(false);
-
-		helpCloseButton.setText("Close");
-		helpCloseButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				helpCloseButtonActionPerformed(evt);
-			}
-		});
-		
-		jLabel11.setFont(new java.awt.Font("Lucida Grande", java.awt.Font.PLAIN, 46));
-		jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabel11.setText("JGAAP");
-
-		jLabel12.setText("<html> JGAAP "+JGAAPConstants.VERSION+", the Java Graphical Authorship Attribution Program, <br/>is an opensource author attribution / text classification tool <br/>Developed by the EVL lab (Evaluating Variation in Language Labratory) <br/> Released by Patrick Juola under the AGPL v3.0");
-
-        jLabel13.setText("\u00A9"+JGAAPConstants.YEAR+" EVL lab");
-
-		jLabel23.setForeground(new java.awt.Color(0, 0, 255));
-		jLabel23.setText("http://evllabs.com");
-		jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				jLabel23MouseClicked(evt);
-			}
-		});
-
-		ImageIcon jgaapIcon = new javax.swing.ImageIcon(getClass().getResource(
-				"/com/jgaap/resources/ui/jgaap-icon.png"));
-		jLabel24.setIcon(new ImageIcon(jgaapIcon.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH))); // NOI18N
-
-		jLabel25.setForeground(new java.awt.Color(0, 0, 255));
-		jLabel25.setText("http://jgaap.com");
-		jLabel25.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				jLabel25MouseClicked(evt);
-			}
-		});
-
-		ImageIcon evlIcon = new ImageIcon(getClass().getResource("/com/jgaap/resources/ui/EVL_Icon_duq.png"));
-		jLabel26.setIcon(new ImageIcon(evlIcon.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH))); // NOI18N
-
-		javax.swing.GroupLayout helpDialogLayout = new javax.swing.GroupLayout(
-				helpDialog.getContentPane());
-		helpDialog.getContentPane().setLayout(helpDialogLayout);
-		helpDialogLayout
-				.setHorizontalGroup(helpDialogLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								helpDialogLayout
-										.createSequentialGroup()
-										.addGroup(
-												helpDialogLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																helpDialogLayout
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addGroup(
-																				helpDialogLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addGroup(
-																								helpDialogLayout
-																										.createSequentialGroup()
-																										.addComponent(
-																												jLabel24)
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-																										.addComponent(
-																												jLabel11,
-																												javax.swing.GroupLayout.PREFERRED_SIZE,
-																												153,
-																												javax.swing.GroupLayout.PREFERRED_SIZE)
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-																												javax.swing.GroupLayout.DEFAULT_SIZE,
-																												Short.MAX_VALUE)
-																										.addComponent(
-																												jLabel26))
-																						.addComponent(
-																								helpCloseButton,
-																								javax.swing.GroupLayout.Alignment.TRAILING)))
-														.addGroup(
-																helpDialogLayout
-																		.createSequentialGroup()
-																		.addGap(199,
-																				199,
-																				199)
-																		.addGroup(
-																				helpDialogLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addComponent(
-																								jLabel23)
-																						.addGroup(
-																								helpDialogLayout
-																										.createParallelGroup(
-																												javax.swing.GroupLayout.Alignment.TRAILING)
-																										.addComponent(
-																												jLabel13)
-																										.addComponent(
-																												jLabel25))))
-														.addGroup(
-																helpDialogLayout
-																		.createSequentialGroup()
-																		.addGap(58,
-																				58,
-																				58)
-																		.addComponent(
-																				jLabel12,
-																				javax.swing.GroupLayout.PREFERRED_SIZE,
-																				452,
-																				javax.swing.GroupLayout.PREFERRED_SIZE)))
-										.addContainerGap()));
-		helpDialogLayout
-				.setVerticalGroup(helpDialogLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								helpDialogLayout
-										.createSequentialGroup()
-										.addGroup(
-												helpDialogLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING,
-																false)
-														.addGroup(
-																helpDialogLayout
-																		.createSequentialGroup()
-																		.addGroup(
-																				helpDialogLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addComponent(
-																								jLabel24)
-																						.addGroup(
-																								helpDialogLayout
-																										.createSequentialGroup()
-																										.addContainerGap()
-																										.addComponent(
-																												jLabel26,
-																												javax.swing.GroupLayout.PREFERRED_SIZE,
-																												98,
-																												javax.swing.GroupLayout.PREFERRED_SIZE)))
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-														.addGroup(
-																javax.swing.GroupLayout.Alignment.TRAILING,
-																helpDialogLayout
-																		.createSequentialGroup()
-																		.addContainerGap(
-																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				Short.MAX_VALUE)
-																		.addComponent(
-																				jLabel11)
-																		.addGap(44,
-																				44,
-																				44)))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												jLabel12,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												66,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jLabel23)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jLabel25)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-												8, Short.MAX_VALUE)
-										.addGroup(
-												helpDialogLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(
-																helpCloseButton)
-														.addComponent(jLabel13))
-										.addContainerGap()));
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("JGAAP "+JGAAPConstants.VERSION);
@@ -2688,22 +2491,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		System.exit(0);
 	}// GEN-LAST:event_exitMenuItemActionPerformed
 
-	private void helpCloseButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_helpCloseButtonActionPerformed
-		toggleHelpDialog();
-	}// GEN-LAST:event_helpCloseButtonActionPerformed
-
-	private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel23MouseClicked
-		browseToURL("http://evllabs.com");
-	}// GEN-LAST:event_jLabel23MouseClicked
-
-	private void jLabel25MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel25MouseClicked
-		if (!browseToURL("http://jgaap.com")) {
-			browseToURL("http://server8.mathcomp.duq.edu/jgaap/w");
-		}
-	}// GEN-LAST:event_jLabel25MouseClicked
-
 	private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_aboutMenuItemActionPerformed
-		toggleHelpDialog();
+		AboutPage.setVisible(true);
 	}// GEN-LAST:event_aboutMenuItemActionPerformed
 
 	private void AnalysisMethodPanel_AnalysisMethodsListBoxMouseMoved(
@@ -3457,23 +3246,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_ReviewPanel_SelectedAnalysisMethodsListBoxMouseClicked
 		// JGAAP_TabbedPane.setSelectedIndex(4);
 	}// GEN-LAST:event_ReviewPanel_SelectedAnalysisMethodsListBoxMouseClicked
-
-	private void toggleHelpDialog() {
-		helpDialog.setVisible(!helpDialog.isVisible());
-	}
-
-	public boolean browseToURL(String url) {
-		boolean succees = false;
-		try {
-			java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-			succees = true;
-		} catch (IOException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error",
-					JOptionPane.ERROR_MESSAGE);
-		}
-		return succees;
-	}
 	
 	private void UpdateCanonicizerDocTypeComboBox() { 
 		CanonicizerComboBoxModel.removeAllElements();
@@ -3840,14 +3612,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JButton Review_Button;
 	private javax.swing.JMenuItem aboutMenuItem;
 	private javax.swing.JMenuItem exitMenuItem;
-	private javax.swing.JButton helpCloseButton;
-	private javax.swing.JDialog helpDialog;
 	private javax.swing.JMenu helpMenu;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel10;
-	private javax.swing.JLabel jLabel11;
-	private javax.swing.JLabel jLabel12;
-	private javax.swing.JLabel jLabel13;
 	private javax.swing.JLabel jLabel15;
 	private javax.swing.JLabel jLabel16;
 	private javax.swing.JLabel jLabel17;
@@ -3856,10 +3623,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabel20;
 	private javax.swing.JLabel jLabel21;
 	private javax.swing.JLabel jLabel22;
-	private javax.swing.JLabel jLabel23;
-	private javax.swing.JLabel jLabel24;
-	private javax.swing.JLabel jLabel25;
-	private javax.swing.JLabel jLabel26;
 	private javax.swing.JLabel jLabel28;
 	private javax.swing.JLabel jLabel29;
 	private javax.swing.JLabel jLabel30;
