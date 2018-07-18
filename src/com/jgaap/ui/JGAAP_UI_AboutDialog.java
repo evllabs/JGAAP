@@ -19,6 +19,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.InputStream;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -78,11 +79,19 @@ public class JGAAP_UI_AboutDialog extends JDialog {
 		lblNewLabel.setBounds(55, 107, 398, 87);
 		contentPane.add(lblNewLabel);
 		
+		InputStream fontIs = JGAAP_UI_AboutDialog.class.getResourceAsStream("/com/jgaap/resources/ui/LucidaGrande.ttf");
+		Font lgFont = null;
+		try {
+			lgFont = Font.createFont(Font.TRUETYPE_FONT, fontIs).deriveFont(Font.BOLD, 46);
+		} catch(Exception e) {}
 		JLabel lblJgaap = new JLabel("JGAAP");
-		lblJgaap.setFont(new Font("Lucida Grande", Font.BOLD, 46));
+		lblJgaap.setFont(lgFont);
 		lblJgaap.setHorizontalAlignment(SwingConstants.CENTER);
 		lblJgaap.setBounds(141, 11, 225, 100);
 		contentPane.add(lblJgaap);
+		try {
+			fontIs.close();
+		} catch(Exception e) {}
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
