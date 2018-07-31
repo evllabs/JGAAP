@@ -74,6 +74,7 @@ import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.Language;
 import com.jgaap.generics.NeighborAnalysisDriver;
+import com.jgaap.generics.NonDistanceDependentAnalysisDriver;
 import com.jgaap.util.Document;
 import com.jgaap.util.Pair;
 //import java.awt.event.*;
@@ -99,6 +100,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	DefaultListModel EventSetsListBox_Model = new DefaultListModel();
 	DefaultListModel SelectedEventSetsListBox_Model = new DefaultListModel();
 	DefaultListModel DistanceFunctionsListBox_Model = new DefaultListModel();
+	DefaultListModel AnalysisMethodsNoDistanceListBox_Model = new DefaultListModel();
 
 	DefaultComboBoxModel LanguageComboBox_Model = new DefaultComboBoxModel();
 	DefaultComboBoxModel CanonicizerComboBoxModel = new DefaultComboBoxModel();
@@ -115,6 +117,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	JFileChooser FileChoser;
 	String filepath = "..";
+	
+	boolean distanceFormulasDisplayed = false;
 
 	List<Canonicizer> CanonicizerMasterList = new ArrayList<Canonicizer>();
 	List<EventDriver> EventDriverMasterList = new ArrayList<EventDriver>();
@@ -150,6 +154,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		CheckMinimumRequirements();
 		UpdateCanonicizerDocTypeComboBox();
 		updateDistanceListUseability();
+		SetAnalysisMethodNoDistanceList();
 
 		// DefaultMutableTreeNode top = new
 		// DefaultMutableTreeNode("The Java Series");
@@ -249,7 +254,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		AnalysisMethodPanel_AnalysisMethodDescriptionTextBox = new javax.swing.JTextArea();
 		jScrollPane22 = new javax.swing.JScrollPane();
 		AnalysisMethodPanel_DistanceFunctionsListBox = new javax.swing.JList();
-		jLabel35 = new javax.swing.JLabel();
+		lblDistanceFunctions = new javax.swing.JLabel();
 		jScrollPane23 = new javax.swing.JScrollPane();
 		AnalysisMethodPanel_DistanceFunctionDescriptionTextBox = new javax.swing.JTextArea();
 		jLabel36 = new javax.swing.JLabel();
@@ -1603,8 +1608,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 				.setViewportView(AnalysisMethodPanel_AnalysisMethodDescriptionTextBox);
 
 		AnalysisMethodPanel_DistanceFunctionsListBox
-				.setModel(DistanceFunctionsListBox_Model);
-		AnalysisMethodPanel_DistanceFunctionsListBox
 				.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 		AnalysisMethodPanel_DistanceFunctionsListBox
 				.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1621,8 +1624,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		jScrollPane22
 				.setViewportView(AnalysisMethodPanel_DistanceFunctionsListBox);
 
-		jLabel35.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-		jLabel35.setText("Distance Functions");
+		lblDistanceFunctions.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
 
 		AnalysisMethodPanel_DistanceFunctionDescriptionTextBox.setColumns(20);
 		AnalysisMethodPanel_DistanceFunctionDescriptionTextBox
@@ -1681,7 +1683,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																						.createParallelGroup(
 																								javax.swing.GroupLayout.Alignment.LEADING)
 																						.addComponent(
-																								jLabel35,
+																								lblDistanceFunctions,
 																								javax.swing.GroupLayout.DEFAULT_SIZE,
 																								257,
 																								Short.MAX_VALUE)
@@ -1891,7 +1893,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addComponent(
-																				jLabel35)
+																				lblDistanceFunctions)
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addComponent(
@@ -2591,6 +2593,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 					.addAnalysisDriver(AnalysisMethodPanel_AnalysisMethodsListBox
 							.getSelectedValue().toString());
 			if (temp instanceof NeighborAnalysisDriver) {
+				// If the analysis driver that was selected requires a distance,
+				// add the selected distance function.
 				JGAAP_API.addDistanceFunction(
 						AnalysisMethodPanel_DistanceFunctionsListBox
 								.getSelectedValue().toString(), temp);
@@ -2954,6 +2958,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			SetDistanceFunctionList();
 			SetEventCullingList();
 			SetEventSetList();
+			SetAnalysisMethodNoDistanceList();
 		} catch (Exception e) {
 			logger.error("Error changing language", e);
 			JOptionPane.showMessageDialog(this, "Error changing language",
@@ -3412,6 +3417,18 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 					.setText(AnalysisDriverMasterList.get(0).longDescription());
 		}
 	}
+	
+	private void SetAnalysisMethodNoDistanceList() {
+		// Create a list box model containing the analysis methods that do not require a distance
+		// or a second analysis method to be selected.
+		AnalysisMethodsNoDistanceListBox_Model.removeAllElements();
+		for(AnalysisDriver analysisDriver : AnalysisDriverMasterList) {
+			if(analysisDriver instanceof AnalysisDriver && !(analysisDriver instanceof NeighborAnalysisDriver)
+					&& !(analysisDriver instanceof NonDistanceDependentAnalysisDriver)) {
+				AnalysisMethodsNoDistanceListBox_Model.addElement(analysisDriver.displayName());
+			}
+		}
+	}
 
 	private void SetDistanceFunctionList() {
 		DistanceFunctionsListBox_Model.removeAllElements();
@@ -3520,10 +3537,33 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	}
 	
 	private void updateDistanceListUseability() {
+		// Update the distance list's useability and contents based on various conditions.
+		if(!distanceFormulasDisplayed) {
+			// If the distance formulas are not currently displayed, then display them. If we need
+			// something else to display instead, this will be changed by this method later.
+			lblDistanceFunctions.setText("Distance Functions");
+			AnalysisMethodPanel_DistanceFunctionsListBox.setModel(DistanceFunctionsListBox_Model);
+			AnalysisMethodPanel_DistanceFunctionsListBox.setSelectedIndex(0);
+			distanceFormulasDisplayed = true;
+		}
+		
 		int i = AnalysisMethodPanel_AnalysisMethodsListBox.getSelectedIndex();
 		if(AnalysisDriverMasterList.get(i) instanceof NeighborAnalysisDriver){
+			// If the currently selected analysis driver requires a distance formula, enable the JList.
 			this.AnalysisMethodPanel_DistanceFunctionsListBox.setEnabled(true);
-		} else {
+		}
+		else if(AnalysisDriverMasterList.get(i) instanceof NonDistanceDependentAnalysisDriver) {
+			// If the currently selected analysis driver requires a second, non-distance analysis,
+			// change the JList to show non-distance analysis drivers.
+			lblDistanceFunctions.setText("Analyze with:");
+			AnalysisMethodPanel_DistanceFunctionsListBox.setModel(AnalysisMethodsNoDistanceListBox_Model);
+			AnalysisMethodPanel_DistanceFunctionsListBox.setSelectedIndex(0);
+			this.AnalysisMethodPanel_DistanceFunctionsListBox.setEnabled(true);
+			distanceFormulasDisplayed = false;
+		}
+		else {
+			// If the currently selected analysis driver does not require a distance formula, disable
+			// the JList.
 			this.AnalysisMethodPanel_DistanceFunctionsListBox.setEnabled(false);
 		}
 	}
@@ -3627,7 +3667,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabel29;
 	private javax.swing.JLabel jLabel30;
 	private javax.swing.JLabel jLabel32;
-	private javax.swing.JLabel jLabel35;
+	private javax.swing.JLabel lblDistanceFunctions;
 	private javax.swing.JLabel jLabel36;
 	private javax.swing.JLabel jLabel37;
 	private javax.swing.JLabel jLabel6;
