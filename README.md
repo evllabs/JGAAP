@@ -1,4 +1,4 @@
-# ![JGAAP](http://i.imgur.com/vnrh7GY.png)
+# ![JGAAP](logo.png)
 ## Java Graphical Authorship Attribution Program
 JGAAP is a tool to allow nonexperts to use cutting edge machine learning techniques on text attribution problems. 
 
