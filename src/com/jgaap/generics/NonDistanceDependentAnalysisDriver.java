@@ -14,4 +14,11 @@ public abstract class NonDistanceDependentAnalysisDriver extends AnalysisDriver 
 		// AnalysisDriver to function.
 		this.analysisDriver = analysisDriver;
 	}
+	
+	public String getAnalysisDependencyName() {
+		// Get the name of the analysis driver upon which this analysis driver is dependent.
+		if(analysisDriver == null)
+			return "";
+		return " with " + analysisDriver.displayName();
+	}
 }
