@@ -32,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
+import com.jgaap.classifiers.LeaveOneOutNoDistanceDriver;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.CanonicizationException;
@@ -718,7 +719,8 @@ public class API {
 			analysisDriver.train(knownDocuments);
 			logger.info("Finished Training "+analysisDriver.displayName());
 			List<Future<Document>> futureDocuments = new ArrayList<Future<Document>>();
-			if (analysisDriver instanceof ValidationDriver) {
+			if (analysisDriver instanceof ValidationDriver ||
+					analysisDriver instanceof LeaveOneOutNoDistanceDriver) {
 				for (Document knownDocument : knownDocuments) {
 					futureDocuments.add(executor.submit(new AnalysisWorker(knownDocument, analysisDriver)));
 				}
