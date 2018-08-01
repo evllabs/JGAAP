@@ -65,8 +65,9 @@ public class LeaveOneOutNoDistanceDriver extends NonDistanceDependentAnalysisDri
     		if(known != fakeUnknown)
     			knownsTemp.add(fakeUnknown);
     	
-    	List<Pair<String,Double>> results = new ArrayList<>();
-    	results.add(new Pair<String, Double>("No analysis performed.\n", 0.0));
-    	return results;
+    	// Pass the temporary known list and the fake unknown to the analysis driver that this
+    	// driver depends on, and return the result.
+    	analysisDriver.train(knownsTemp);
+    	return analysisDriver.analyze(fakeUnknown);
     }
 }
