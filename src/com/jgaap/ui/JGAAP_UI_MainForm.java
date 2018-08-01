@@ -2599,6 +2599,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 						AnalysisMethodPanel_DistanceFunctionsListBox
 								.getSelectedValue().toString(), temp);
 			}
+			else if (temp instanceof NonDistanceDependentAnalysisDriver) {
+				// If the analysis driver that was selected is dependent on
+				// another analysis driver being selected, add the one that
+				// that is selected.
+				JGAAP_API.addAnalysisDriverAsParamToOther(
+						AnalysisMethodPanel_DistanceFunctionsListBox
+						.getSelectedValue().toString(), (NonDistanceDependentAnalysisDriver) temp);
+			}
 			UpdateSelectedAnalysisMethodListBox();
 		} catch (Exception e) {
 			logger.error("Error adding analysis", e);

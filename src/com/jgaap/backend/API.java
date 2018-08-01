@@ -44,6 +44,7 @@ import com.jgaap.generics.EventGenerationException;
 import com.jgaap.generics.Language;
 import com.jgaap.generics.LanguageParsingException;
 import com.jgaap.generics.NeighborAnalysisDriver;
+import com.jgaap.generics.NonDistanceDependentAnalysisDriver;
 import com.jgaap.generics.ValidationDriver;
 import com.jgaap.generics.WEKAAnalysisDriver;
 import com.jgaap.languages.English;
@@ -564,6 +565,16 @@ public class API {
 	public DistanceFunction addDistanceFunction(DistanceFunction distanceFunction, AnalysisDriver analysisDriver) {
 		((NeighborAnalysisDriver) analysisDriver).setDistance(distanceFunction);
 		return distanceFunction;
+	}
+	
+	/**
+	 * @param action - unique identifier for the AnalysisDriver you want to add
+	 * @param analysisDriver - a reference to the NonDistanceDependentAnalysisDriver you want
+	 * 						   the other driver added to
+	 */
+	public void addAnalysisDriverAsParamToOther(String action, NonDistanceDependentAnalysisDriver analysisDriver)
+			throws Exception {
+		analysisDriver.setAnalysisDriver(AnalysisDrivers.getAnalysisDriver(action));
 	}
 	
 	/**
