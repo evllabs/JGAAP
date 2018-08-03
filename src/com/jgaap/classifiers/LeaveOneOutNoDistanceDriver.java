@@ -53,6 +53,7 @@ public class LeaveOneOutNoDistanceDriver extends NonDistanceDependentAnalysisDri
 	public void train(List<Document> knowns) {
 		// Store known documents in a class-level list.
 		knownDocuments = knowns;
+		super.train(knowns);
 	}
 	
     @Override
