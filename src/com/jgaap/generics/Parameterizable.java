@@ -284,4 +284,40 @@ public class Parameterizable {
             this.setParameter(p.getSecond().getName(), (String)p.getSecond().getSelectedItem());
         }
     }
+    
+    /**
+     * Return the List that makes the parameter GUI. This
+     * is useful for sharing parameter requirements of
+     * dependencies with the drivers that depend on them.
+     * 
+     * @return The List that makes the parameter GUI.
+     */
+    public List<Pair<JLabel, JComboBox>> getParamGUI() {
+    	return paramGUI;
+    }
+    
+    /**
+     * Sets parameters based on the parameter GUI list that is passed in.
+     * 
+     * @param incomingParamGUI - the List that contains the parameter GUI
+     * 							 information that is needed
+     */
+    public void setParamGUI(List<Pair<JLabel, JComboBox>> incomingParamGUI) {
+    	// For each label and box pair in the list, extract the information
+		// that is needed to add a parameter and pass it addParams().
+    	for(Pair<JLabel, JComboBox> guiPair : incomingParamGUI) {
+    		JLabel label = guiPair.getFirst();
+    		JComboBox box = guiPair.getSecond();
+    		String paramName = box.getName();
+    		String displayName = label.getText();
+    		String defaultValue = String.valueOf(box.getSelectedItem());
+    		String[] possibleValues = new String[box.getModel().getSize()];
+    		boolean editable = box.isEditable();
+    		
+    		for(int x = 0; x < possibleValues.length; x++)
+    			possibleValues[x] = String.valueOf(box.getItemAt(x));
+    		
+    		addParams(paramName, displayName, defaultValue, possibleValues, editable);
+    	}
+    }
 }
