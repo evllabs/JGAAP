@@ -10,8 +10,10 @@ public abstract class NonDistanceDependentAnalysisDriver extends AnalysisDriver 
 	public AnalysisDriver analysisDriver;
 	
 	public void setAnalysisDriver(AnalysisDriver analysisDriver) {
-		// Even though LeaveOneOutNoDistance is an AnalysisDriver itself, it is dependent upon a second
-		// AnalysisDriver to function.
+		// Set the parameter GUI for analysisDriver as the parameter GUI
+		// for this driver, and analysisDriver as the dependency for this
+		// driver.
+		setParamGUI(analysisDriver.getParamGUI());
 		this.analysisDriver = analysisDriver;
 	}
 	
