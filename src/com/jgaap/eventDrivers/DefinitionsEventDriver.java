@@ -18,6 +18,7 @@
 package com.jgaap.eventDrivers;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -34,7 +35,7 @@ import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
-import com.knowledgebooks.nlp.fasttag.FastTag;
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
@@ -116,12 +117,25 @@ public class DefinitionsEventDriver extends EventDriver {
 
 		String current = new String(text);
 
-		FastTag tagger = new FastTag();
+		MaxentTagger tagger = null;
+		try {
+			tagger = new MaxentTagger(getClass().getResource("/com/jgaap/resources/models/postagger/english-left3words-distsim.tagger").toString());
+		} catch (Exception e) {}
 
 		List<String> words = Lists.newArrayList(Splitter.on(CharMatcher.WHITESPACE).trimResults().omitEmptyStrings()
 				.split(current));
-
-		List<String> tagged = tagger.tag(words);
+		
+		List<String> tagged = new ArrayList<String>(words);
+		for(int x = 0; x < tagged.size(); x++) {
+			tagged.set(x, tagger.tagString(tagged.get(x)));
+			
+			// The Stanford POS tagger's tagString() method returns the passed-in string with an underscore followed by the tag and a
+			// space character appended to it. Since we only want the tag, we must strip off all extra data if the returned string
+			// is not empty.
+			if(!tagged.get(x).equals(""))
+				tagged.set(x, tagged.get(x).substring(tagged.get(x).lastIndexOf('_') + 1, tagged.get(x).length() - 1));
+		}
+		
 		IIndexWord idxWord;
 		List<IWordID> wordID;
 		IWord word;
