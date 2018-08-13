@@ -25,7 +25,7 @@ import com.jgaap.canonicizers.PunctuationSeparator;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
-import com.knowledgebooks.nlp.fasttag.FastTag;
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 /**
  * This changes words into their parts of speech in a document. This does not
@@ -56,7 +56,10 @@ public class PartOfSpeechEventDriver extends EventDriver {
 	@Override
 	public EventSet createEventSet(char[] text) {
 
-		FastTag tagger = new FastTag();
+		MaxentTagger tagger = null;
+		try {
+			tagger = new MaxentTagger(getClass().getResource("/com/jgaap/resources/models/postagger/english-left3words-distsim.tagger").toString());
+		} catch (Exception e) {}
 		
 		EventSet es = new EventSet();
 
@@ -70,10 +73,16 @@ public class PartOfSpeechEventDriver extends EventDriver {
 
 			List<String> tmp = Arrays.asList(tmpArray);
 
-			List<String> tagged = tagger.tag(tmp);
-
-			for (int j = 0; j < tagged.size(); j++) {
-				es.addEvent(new Event(tagged.get(j), this));
+			for (int j = 0; j < tmp.size(); j++) {
+				String tagged = tagger.tagString(tmp.get(j));
+				
+				// The Stanford POS tagger's tagString() method returns the passed-in string with an underscore followed by the tag and a
+				// space character appended to it. Since we only want the tag, we must strip off all extra data if the returned string
+				// is not empty.
+				if(!tagged.equals(""))
+					tagged = tagged.substring(tagged.lastIndexOf('_') + 1, tagged.length() - 1);
+				
+				es.addEvent(new Event(tagged.substring(0, tagged.length()), this));
 			}
 		}
 		return es;

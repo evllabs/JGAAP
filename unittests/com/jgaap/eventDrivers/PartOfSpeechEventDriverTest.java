@@ -41,6 +41,7 @@ public class PartOfSpeechEventDriverTest {
 	 * Test method for {@link com.jgaap.eventDrivers.PartOfSpeechEventDriver#createEventSet(com.jgaap.generics.Document)}.
 	 * @throws EventGenerationException 
 	 */
+	// Test website: http://nlp.stanford.edu:8080/parser/index.jsp
 	@Test
 	public void testCreateEventSetDocumentSet() throws EventGenerationException {
 			String text = ("Today the fox jumped over the lazy dog "
@@ -73,21 +74,21 @@ public class PartOfSpeechEventDriverTest {
 		    tmp.add(new Event("NN", eventDriver));
 		    tmp.add(new Event("DT", eventDriver));
 		    tmp.add(new Event("NN", eventDriver));
-		    tmp.add(new Event("VBD", eventDriver));//
+		    tmp.add(new Event("VBD", eventDriver));
 		    tmp.add(new Event("IN", eventDriver));
 		    tmp.add(new Event("DT", eventDriver));
 		    tmp.add(new Event("NN", eventDriver));
 		   
 		    tmp.add(new Event("DT", eventDriver));
 		    tmp.add(new Event("NN", eventDriver));
-		    tmp.add(new Event("VBD", eventDriver));//
+		    tmp.add(new Event("VBN", eventDriver));
 		    tmp.add(new Event("DT", eventDriver));
 		    tmp.add(new Event("NN", eventDriver));
 		    tmp.add(new Event("CC", eventDriver));
 		    tmp.add(new Event("DT", eventDriver));
 		    tmp.add(new Event("JJ", eventDriver));
 		    tmp.add(new Event("NN", eventDriver));
-		    tmp.add(new Event("VBD", eventDriver)); //33
+		    tmp.add(new Event("VBD", eventDriver));
 		    tmp.add(new Event("RB", eventDriver));
 		    tmp.add(new Event("RB", eventDriver));
 		    tmp.add(new Event("JJ", eventDriver));
