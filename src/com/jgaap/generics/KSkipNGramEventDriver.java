@@ -46,27 +46,26 @@ public abstract class KSkipNGramEventDriver extends EventDriver {
 	}
 	
 	protected EventSet transformToKSkipNGram(EventSet eventSet) {
+		// Using the entries in "eventSet", create a new event set of k-skip-n-grams.
 		int k = getParameter("k", 1);
 		int n = getParameter("n", 2);
 		EventSet kSkipNGramEventSet = new EventSet(eventSet.size());
 		
-		boolean keepGoing = true;
-		for(int x = 0; keepGoing; x++) {
+		// Iterate through "eventSet" until we reach a point where attempting to complete
+		// a skip gram would result in an ArrayIndexOutOfBoundsException.
+		for(int x = 0; x + (k + 1) * (n - 1) < kSkipNGramEventSet.size(); x++) {
 			int gramTracker = x;
 			String gramBuilder = "";
 			
 			for(int y = 0; y < n; y++) {
+				// The inner loop is used for adding events to each gram as well as for keeping
+				// track of how many have been added.
 				gramBuilder += eventSet.eventAt(gramTracker).toString() + " ";
-				
-				if(gramTracker == eventSet.size() - 1)
-					keepGoing = false;
-				else
-					gramTracker += k + 1;
+				gramTracker += k + 1;
 			}
 			
 			kSkipNGramEventSet.addEvent(new Event(gramBuilder.toString(), this));
-		}
-		
+		}		
 		return kSkipNGramEventSet;
 	}
 }
