@@ -64,7 +64,7 @@ public abstract class KSkipNGramEventDriver extends EventDriver {
 				gramTracker += k + 1;
 			}
 			
-			kSkipNGramEventSet.addEvent(new Event(gramBuilder.toString(), this));
+			kSkipNGramEventSet.addEvent(new Event(gramBuilder.toString().trim(), this));
 		}		
 		return kSkipNGramEventSet;
 	}
