@@ -93,7 +93,7 @@ public class LeaveOneOutNoDistanceDriverTest {
 		loondd.train(knowns);
 		
 		// Iterate through the collection of known documents, testing each one as an unknown.
-		boolean isMary = true; // MIGHT WANT TO TEST THE UNIT TEST BY TEMPORARILY MAKING THIS FALSE
+		boolean isMary = true;
 		for(Document fakeUnknown : knowns) {
 			List<Pair<String, Double>> results = loondd.analyze(fakeUnknown);
 			if(isMary)
