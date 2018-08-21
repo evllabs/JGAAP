@@ -49,11 +49,11 @@ public abstract class KSkipNGramEventDriver extends EventDriver {
 		// Using the entries in "eventSet", create a new event set of k-skip-n-grams.
 		int k = getParameter("k", 1);
 		int n = getParameter("n", 2);
-		EventSet kSkipNGramEventSet = new EventSet(eventSet.size());
+		EventSet kSkipNGramEventSet = new EventSet();
 		
 		// Iterate through "eventSet" until we reach a point where attempting to complete
 		// a skip gram would result in an ArrayIndexOutOfBoundsException.
-		for(int x = 0; x + (k + 1) * (n - 1) < kSkipNGramEventSet.size(); x++) {
+		for(int x = 0; x + (k + 1) * (n - 1) < eventSet.size(); x++) {
 			int gramTracker = x;
 			String gramBuilder = "";
 			
