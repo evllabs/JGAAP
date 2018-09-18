@@ -1,37 +1,22 @@
-JGAAP (Java Graphical Authorship Attribution Program)
-From the Evaluating Variation in Language (EVL) Lab http://evllabs.com
+# ![JGAAP](logo.png)
+## Java Graphical Authorship Attribution Program
+JGAAP is a tool to allow nonexperts to use cutting edge machine learning techniques on text attribution problems. 
 
-JGAAP is released under the AGPL v3.0 a copy should be included 
-if not it can be found at http://www.gnu.org/licenses/agpl.html
+JGAAP is developed by the [Evaluating Variation in Language (EVL) Lab](http://evllabs.com) at Duquesne University.
 
-To run JGAAP in Windows, click on the jgaap.jar file in the bin directory.
+## Getting Started
+* [Understanding Authorship Attribution](docs/authorship_attribution.md)
+* [Running your First Experiment](docs/running_jgaap.md)
+* [Running Large Experiments](docs/experiment_engine.md)
+* [Extending JGAAP](docs/modules.md)
 
-On Unix-based systems, or from the Windows command-line, you can also run:
+## Download
+Head over to our [releases page](https://github.com/evllabs/JGAAP/releases) to get the latest version of JGAAP.
 
-java -jar jgaap.jar
+## Support
+If you need help with JGAAP, please review our forum of past help requests [here](https://groups.google.com/forum/#!forum/jgaap-support).
 
-NOTE: It is suggested that you increase the Heap size alloted to the JVM 
-     when using JGAAP since it is very memory intensive. 2GB is good for 
-     most applications.
+You should always feel free to reach out to us at any time with questions or suggestions at [jgaap-support@googlegroups.com](mailto:jgaap-support@googlegroups.com).
 
-java -Xmx2048m -jar jgaap.jar
-
-from the bin directory.
-
-
-JGAAP also has a command line mode.  You can see the command 
-line options by running:
-
-java -jar jgaap.jar -h
-or
-java -jar jgaap.jar --help
-
-
-JGAAP also comes with a ant build file in the src directory.  
-To compile the system:
-
-ant build
-
-To launch the gui:
-
-ant run-gui
+## License
+JGAAP has been released under the **AGPLv3.0** and a copy should be included with the source. If it has not been included, a copy can be found at <http://www.gnu.org/licenses/agpl.html> 
