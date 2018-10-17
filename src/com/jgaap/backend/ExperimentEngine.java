@@ -96,7 +96,8 @@ public class ExperimentEngine {
 		}
 		String eventName = eventNameBuilder.toString().trim();
 		String path = JGAAPConstants.JGAAP_TMPDIR + canonName.replace("/", "\\/") + JGAAPConstants.separator
-				+ eventName.trim().replace("/", "\\/").replace("|","_") + JGAAPConstants.separator + analysis.trim().replace("/", "\\/") + JGAAPConstants.separator;
+				+ eventName.trim().replace("/", "\\/").replace("|","_").replace(":", "-") + JGAAPConstants.separator
+				+ analysis.trim().replace("/", "\\/") + JGAAPConstants.separator;
 		File file = new File(path);
 		boolean newDirs = file.mkdirs();
 		if (!newDirs) {
