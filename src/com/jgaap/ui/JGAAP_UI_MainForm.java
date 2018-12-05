@@ -145,7 +145,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		SetDistanceFunctionList();
 		SetCanonicizerList();
 		SetEventSetList();
-		SetEventCullingList();
 		SetUnknownDocumentColumns();
 		SetKnownDocumentTree();
 		SetLanguagesList();
@@ -203,23 +202,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		EventSetsPanel_RemoveEventSetButton = new javax.swing.JButton();
 		EventSetsPanel_AddAllEventSetsButton = new javax.swing.JButton();
 		EventSetsPanel_RemoveAllEventSetsButton = new javax.swing.JButton();
-		JGAAP_EventCullingPanel = new javax.swing.JPanel();
-		jLabel15 = new javax.swing.JLabel();
-		jLabel16 = new javax.swing.JLabel();
-		jLabel17 = new javax.swing.JLabel();
-		EventCullingPanel_NotesButton = new javax.swing.JButton();
-		jScrollPane14 = new javax.swing.JScrollPane();
-		EventCullingPanel_SelectedEventCullingListBox = new javax.swing.JList();
-		EventCullingPanel_AddEventCullingButton = new javax.swing.JButton();
-		EventCullingPanel_RemoveEventCullingButton = new javax.swing.JButton();
-		EventCullingPanel_AddAllEventCullingButton = new javax.swing.JButton();
-		EventCullingPanel_RemoveAllEventCullingButton = new javax.swing.JButton();
-		EventCullingPanel_ParametersPanel = new javax.swing.JPanel();
-		jScrollPane15 = new javax.swing.JScrollPane();
-		EventCullingPanel_EventCullingListBox = new javax.swing.JList();
-		jScrollPane16 = new javax.swing.JScrollPane();
-		EventCullingPanel_EventCullingDescriptionTextbox = new javax.swing.JTextArea();
-		jLabel18 = new javax.swing.JLabel();
 		JGAAP_AnalysisMethodPanel = new javax.swing.JPanel();
 		jLabel20 = new javax.swing.JLabel();
 		jLabel21 = new javax.swing.JLabel();
@@ -825,304 +807,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 										.addContainerGap()));
 
 		JGAAP_TabbedPane.addTab("Event Drivers", JGAAP_EventSetsPanel);
-
-		jLabel15.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-		jLabel15.setText("Event Culling");
-
-		jLabel16.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
-		jLabel16.setText("Parameters");
-
-		jLabel17.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
-		jLabel17.setText("Selected");
-
-		EventCullingPanel_NotesButton.setLabel("Notes");
-		EventCullingPanel_NotesButton
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						EventCullingPanel_NotesButtonActionPerformed(evt);
-					}
-				});
-
-		EventCullingPanel_SelectedEventCullingListBox
-				.setModel(SelectedEventCullingListBox_Model);
-		EventCullingPanel_SelectedEventCullingListBox
-				.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-		EventCullingPanel_SelectedEventCullingListBox
-				.addMouseListener(new java.awt.event.MouseAdapter() {
-					public void mouseClicked(java.awt.event.MouseEvent evt) {
-						EventCullingPanel_SelectedEventCullingListBoxMouseClicked(evt);
-					}
-				});
-		EventCullingPanel_SelectedEventCullingListBox
-				.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-					public void mouseMoved(java.awt.event.MouseEvent evt) {
-						EventCullingPanel_SelectedEventCullingListBoxMouseMoved(evt);
-					}
-				});
-		jScrollPane14
-				.setViewportView(EventCullingPanel_SelectedEventCullingListBox);
-
-		EventCullingPanel_AddEventCullingButton.setText("\u2192");
-		EventCullingPanel_AddEventCullingButton
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						EventCullingPanel_AddEventCullingButtonActionPerformed(evt);
-					}
-				});
-
-		EventCullingPanel_RemoveEventCullingButton.setText("\u2190");
-		EventCullingPanel_RemoveEventCullingButton
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						EventCullingPanel_RemoveEventCullingButtonActionPerformed(evt);
-					}
-				});
-
-		EventCullingPanel_AddAllEventCullingButton.setText("All");
-		EventCullingPanel_AddAllEventCullingButton
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						EventCullingPanel_AddAllEventCullingButtonActionPerformed(evt);
-					}
-				});
-
-		EventCullingPanel_RemoveAllEventCullingButton.setText("Clear");
-		EventCullingPanel_RemoveAllEventCullingButton
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						EventCullingPanel_RemoveAllEventCullingButtonActionPerformed(evt);
-					}
-				});
-
-		EventCullingPanel_ParametersPanel.setBorder(javax.swing.BorderFactory
-				.createEtchedBorder());
-
-		javax.swing.GroupLayout EventCullingPanel_ParametersPanelLayout = new javax.swing.GroupLayout(
-				EventCullingPanel_ParametersPanel);
-		EventCullingPanel_ParametersPanel
-				.setLayout(EventCullingPanel_ParametersPanelLayout);
-		EventCullingPanel_ParametersPanelLayout
-				.setHorizontalGroup(EventCullingPanel_ParametersPanelLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGap(0, 343, Short.MAX_VALUE));
-		EventCullingPanel_ParametersPanelLayout
-				.setVerticalGroup(EventCullingPanel_ParametersPanelLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGap(0, 300, Short.MAX_VALUE));
-
-		EventCullingPanel_EventCullingListBox
-				.setModel(EventCullingListBox_Model);
-		EventCullingPanel_EventCullingListBox
-				.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-		EventCullingPanel_EventCullingListBox
-				.addMouseListener(new java.awt.event.MouseAdapter() {
-					public void mouseClicked(java.awt.event.MouseEvent evt) {
-						EventCullingPanel_EventCullingListBoxMouseClicked(evt);
-					}
-				});
-		EventCullingPanel_EventCullingListBox
-				.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-					public void mouseMoved(java.awt.event.MouseEvent evt) {
-						EventCullingPanel_EventCullingListBoxMouseMoved(evt);
-					}
-				});
-		jScrollPane15.setViewportView(EventCullingPanel_EventCullingListBox);
-
-		EventCullingPanel_EventCullingDescriptionTextbox.setColumns(20);
-		EventCullingPanel_EventCullingDescriptionTextbox.setLineWrap(true);
-		EventCullingPanel_EventCullingDescriptionTextbox.setRows(5);
-		EventCullingPanel_EventCullingDescriptionTextbox.setWrapStyleWord(true);
-		jScrollPane16
-				.setViewportView(EventCullingPanel_EventCullingDescriptionTextbox);
-
-		jLabel18.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
-		jLabel18.setText("Event Culling Description");
-
-		javax.swing.GroupLayout JGAAP_EventCullingPanelLayout = new javax.swing.GroupLayout(
-				JGAAP_EventCullingPanel);
-		JGAAP_EventCullingPanel.setLayout(JGAAP_EventCullingPanelLayout);
-		JGAAP_EventCullingPanelLayout
-				.setHorizontalGroup(JGAAP_EventCullingPanelLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								javax.swing.GroupLayout.Alignment.TRAILING,
-								JGAAP_EventCullingPanelLayout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												JGAAP_EventCullingPanelLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.TRAILING)
-														.addComponent(
-																jScrollPane16,
-																javax.swing.GroupLayout.Alignment.LEADING,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																824,
-																Short.MAX_VALUE)
-														.addComponent(
-																jLabel18,
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																JGAAP_EventCullingPanelLayout
-																		.createSequentialGroup()
-																		.addGroup(
-																				JGAAP_EventCullingPanelLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addComponent(
-																								jScrollPane15,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								178,
-																								javax.swing.GroupLayout.PREFERRED_SIZE)
-																						.addComponent(
-																								jLabel15))
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addGroup(
-																				JGAAP_EventCullingPanelLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.TRAILING,
-																								false)
-																						.addComponent(
-																								EventCullingPanel_RemoveEventCullingButton,
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								EventCullingPanel_AddAllEventCullingButton,
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								EventCullingPanel_AddEventCullingButton,
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								EventCullingPanel_RemoveAllEventCullingButton,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								64,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addGroup(
-																				JGAAP_EventCullingPanelLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addComponent(
-																								jLabel17)
-																						.addComponent(
-																								jScrollPane14,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								217,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addGroup(
-																				JGAAP_EventCullingPanelLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.TRAILING)
-																						.addGroup(
-																								JGAAP_EventCullingPanelLayout
-																										.createSequentialGroup()
-																										.addComponent(
-																												jLabel16)
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-																												162,
-																												Short.MAX_VALUE)
-																										.addComponent(
-																												EventCullingPanel_NotesButton))
-																						.addComponent(
-																								EventCullingPanel_ParametersPanel,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE))))
-										.addContainerGap()));
-		JGAAP_EventCullingPanelLayout
-				.setVerticalGroup(JGAAP_EventCullingPanelLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								JGAAP_EventCullingPanelLayout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												JGAAP_EventCullingPanelLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																JGAAP_EventCullingPanelLayout
-																		.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.BASELINE)
-																		.addComponent(
-																				jLabel15)
-																		.addComponent(
-																				jLabel17)
-																		.addComponent(
-																				jLabel16))
-														.addComponent(
-																EventCullingPanel_NotesButton))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												JGAAP_EventCullingPanelLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addComponent(
-																jScrollPane14,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																304,
-																Short.MAX_VALUE)
-														.addComponent(
-																EventCullingPanel_ParametersPanel,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jScrollPane15,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																304,
-																Short.MAX_VALUE)
-														.addGroup(
-																JGAAP_EventCullingPanelLayout
-																		.createSequentialGroup()
-																		.addComponent(
-																				EventCullingPanel_AddEventCullingButton)
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addComponent(
-																				EventCullingPanel_RemoveEventCullingButton)
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addComponent(
-																				EventCullingPanel_AddAllEventCullingButton)
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addComponent(
-																				EventCullingPanel_RemoveAllEventCullingButton)
-																		.addGap(107,
-																				107,
-																				107)))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jLabel18)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												jScrollPane16,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												101,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addContainerGap()));
-
-		JGAAP_TabbedPane.addTab("Event Culling", JGAAP_EventCullingPanel);
 
 		jLabel20.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
 		jLabel20.setText("Analysis Methods");
@@ -2310,111 +1994,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		}
 	}// GEN-LAST:event_AnalysisMethodPanel_SelectedAnalysisMethodsListBoxMouseClicked
 
-	private void EventCullingPanel_EventCullingListBoxMouseMoved(
-			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_EventCullingPanel_EventCullingListBoxMouseMoved
-		JList theList = (JList) evt.getSource();
-		int index = theList.locationToIndex(evt.getPoint());
-		if (index > -1) {
-			String text = EventCullersMasterList.get(index).tooltipText();
-			theList.setToolTipText(text);
-		}
-	}// GEN-LAST:event_EventCullingPanel_EventCullingListBoxMouseMoved
-
-	private void EventCullingPanel_EventCullingListBoxMouseClicked(
-			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_EventCullingPanel_EventCullingListBoxMouseClicked
-		EventCullingPanel_EventCullingDescriptionTextbox
-				.setText(EventCullersMasterList.get(
-						EventCullingPanel_EventCullingListBox
-								.getSelectedIndex()).longDescription());
-
-		if (evt.getClickCount() == 2) {
-			AddEventCullerSelection();
-		}
-	}// GEN-LAST:event_EventCullingPanel_EventCullingListBoxMouseClicked
-
-	private void EventCullingPanel_RemoveAllEventCullingButtonActionPerformed(
-			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EventCullingPanel_RemoveAllEventCullingButtonActionPerformed
-		JGAAP_API.removeAllEventCullers();
-		UpdateSelectedEventCullingListBox();
-	}// GEN-LAST:event_EventCullingPanel_RemoveAllEventCullingButtonActionPerformed
-
-	private void EventCullingPanel_AddAllEventCullingButtonActionPerformed(
-			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EventCullingPanel_AddAllEventCullingButtonActionPerformed
-		try {
-			for (int i = 0; i < EventCullersMasterList.size(); i++) {
-				JGAAP_API.addEventCuller(EventCullersMasterList.get(i)
-						.displayName());
-			}
-			UpdateSelectedEventCullingListBox();
-		} catch (Exception e) {
-			logger.error("Error adding all EventCullers", e);
-			JOptionPane.showMessageDialog(this,
-					"Error adding all EventCullers", "JGAAP Error",
-					JOptionPane.ERROR_MESSAGE);
-		} 
-	}// GEN-LAST:event_EventCullingPanel_AddAllEventCullingButtonActionPerformed
-
-	private void EventCullingPanel_RemoveEventCullingButtonActionPerformed(
-			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EventCullingPanel_RemoveEventCullingButtonActionPerformed
-		RemoveEventCullerSelection();
-	}// GEN-LAST:event_EventCullingPanel_RemoveEventCullingButtonActionPerformed
-
-	private void RemoveEventCullerSelection() {
-		SelectedEventCullersList = JGAAP_API.getEventCullers();
-		JGAAP_API.removeEventCuller(SelectedEventCullersList
-				.get(EventCullingPanel_SelectedEventCullingListBox
-						.getSelectedIndex()));
-		UpdateSelectedEventCullingListBox();
-	}
-
-	private void EventCullingPanel_AddEventCullingButtonActionPerformed(
-			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EventCullingPanel_AddEventCullingButtonActionPerformed
-		AddEventCullerSelection();
-	}// GEN-LAST:event_EventCullingPanel_AddEventCullingButtonActionPerformed
-
-	private void AddEventCullerSelection() {
-		try {
-			JGAAP_API.addEventCuller(EventCullingPanel_EventCullingListBox
-					.getSelectedValue().toString());
-			UpdateSelectedEventCullingListBox();
-		} catch (Exception e) {
-			logger.error("Error adding EventCuller "
-					+ EventCullingPanel_EventCullingListBox.getSelectedValue()
-							.toString(), e);
-			JOptionPane.showMessageDialog(this, "Error adding EventCuller "
-					+ EventCullingPanel_EventCullingListBox.getSelectedValue()
-							.toString(), "JGAAP Error",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
-
-	private void EventCullingPanel_SelectedEventCullingListBoxMouseMoved(
-			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_EventCullingPanel_SelectedEventCullingListBoxMouseMoved
-		JList theList = (JList) evt.getSource();
-		int index = theList.locationToIndex(evt.getPoint());
-		if (index > -1) {
-			String text = SelectedEventCullersList.get(index).tooltipText();
-			theList.setToolTipText(text);
-		}
-	}// GEN-LAST:event_EventCullingPanel_SelectedEventCullingListBoxMouseMoved
-
-	private void EventCullingPanel_SelectedEventCullingListBoxMouseClicked(
-			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_EventCullingPanel_SelectedEventCullingListBoxMouseClicked
-		EventCullingPanel_ParametersPanel.removeAll();
-		EventCullingPanel_ParametersPanel.setLayout(SelectedEventCullersList
-				.get(EventCullingPanel_SelectedEventCullingListBox
-						.getSelectedIndex()).getGUILayout(
-						EventCullingPanel_ParametersPanel));
-
-		EventCullingPanel_EventCullingDescriptionTextbox
-				.setText(SelectedEventCullersList.get(
-						EventCullingPanel_SelectedEventCullingListBox
-								.getSelectedIndex()).longDescription());
-		if (evt != null && evt.getClickCount() == 2) {
-			RemoveEventCullerSelection();
-		}
-	}// GEN-LAST:event_EventCullingPanel_SelectedEventCullingListBoxMouseClicked
-
 	private void EventSetsPanel_RemoveAllEventSetsButtonActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EventSetsPanel_RemoveAllEventSetsButtonActionPerformed
 		JGAAP_API.removeAllEventDrivers();
@@ -2533,7 +2112,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			SetAnalysisMethodList();
 			SetCanonicizerList();
 			SetDistanceFunctionList();
-			SetEventCullingList();
 			SetEventSetList();
 			SetAnalysisMethodNoDistanceList();
 		} catch (Exception e) {
@@ -2642,21 +2220,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}// GEN-LAST:event_EventSetsPanel_NotesButtonActionPerformed
-
-	private void EventCullingPanel_NotesButtonActionPerformed(
-			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EventCullingPanel_NotesButtonActionPerformed
-		try {
-			NotesPage.displayNote(Notes[3]);
-			NotesPage.setVisible(true);
-			if (NotesPage.SavedNote != null) {
-				Notes[3] = NotesPage.SavedNote;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.getMessage(), "JGAAP Error",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}// GEN-LAST:event_EventCullingPanel_NotesButtonActionPerformed
 
 	private void AnalysisMethodPanel_NotesButtonActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AnalysisMethodPanel_NotesButtonActionPerformed
@@ -2860,20 +2423,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		}
 	}
 
-	private void UpdateSelectedEventCullingListBox() {
-		SelectedEventCullingListBox_Model.clear();
-		SelectedEventCullersList = JGAAP_API.getEventCullers();
-		for (int i = 0; i < SelectedEventCullersList.size(); i++) {
-			SelectedEventCullingListBox_Model
-					.addElement(SelectedEventCullersList.get(i).displayName());
-		}
-		if (!SelectedEventCullersList.isEmpty()) {
-			EventCullingPanel_SelectedEventCullingListBox
-					.setSelectedIndex(SelectedEventCullersList.size() - 1);
-			EventCullingPanel_SelectedEventCullingListBoxMouseClicked(null);
-		}
-	}
-
 	private void UpdateUnknownDocumentsTable() {
 		UnknownAuthorDocumentsTable_Model.setRowCount(0);
 		UnknownDocumentList = JGAAP_API.getUnknownDocuments();
@@ -3005,19 +2554,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		}
 	}
 
-	private void SetEventCullingList() {
-		EventCullingListBox_Model.removeAllElements();
-		for (int i = 0; i < EventCullersMasterList.size(); i++) {
-			EventCullingListBox_Model.addElement(EventCullersMasterList.get(i)
-					.displayName());
-		}
-		if (!EventCullersMasterList.isEmpty()) {
-			EventCullingPanel_EventCullingListBox.setSelectedIndex(0);
-			EventCullingPanel_EventCullingDescriptionTextbox
-					.setText(EventCullersMasterList.get(0).longDescription());
-		}
-	}
-
 	private void SetLanguagesList() {
 		int englishIndex = -1;
 		for (int i = 0; i < LanguagesMasterList.size(); i++) {
@@ -3140,15 +2676,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JButton DocumentsPanel_RemoveAuthorButton;
 	private javax.swing.JButton DocumentsPanel_RemoveDocumentsButton;
 	private javax.swing.JTable DocumentsPanel_UnknownAuthorsTable;
-	private javax.swing.JButton EventCullingPanel_AddAllEventCullingButton;
-	private javax.swing.JButton EventCullingPanel_AddEventCullingButton;
-	private javax.swing.JTextArea EventCullingPanel_EventCullingDescriptionTextbox;
-	private javax.swing.JList EventCullingPanel_EventCullingListBox;
-	private javax.swing.JButton EventCullingPanel_NotesButton;
-	private javax.swing.JPanel EventCullingPanel_ParametersPanel;
-	private javax.swing.JButton EventCullingPanel_RemoveAllEventCullingButton;
-	private javax.swing.JButton EventCullingPanel_RemoveEventCullingButton;
-	private javax.swing.JList EventCullingPanel_SelectedEventCullingListBox;
 	private javax.swing.JButton EventSetsPanel_AddAllEventSetsButton;
 	private javax.swing.JButton EventSetsPanel_AddEventSetButton;
 	private javax.swing.JTextArea EventSetsPanel_EventSetDescriptionTextBox;
@@ -3160,7 +2687,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JList EventSetsPanel_SelectedEventSetListBox;
 	private javax.swing.JPanel JGAAP_AnalysisMethodPanel;
 	private javax.swing.JPanel JGAAP_DocumentsPanel;
-	private javax.swing.JPanel JGAAP_EventCullingPanel;
 	private javax.swing.JPanel JGAAP_EventSetsPanel;
 	private javax.swing.JMenuBar JGAAP_MenuBar;
 	private javax.swing.JPanel JGAAP_ReviewPanel;
@@ -3194,10 +2720,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JMenu helpMenu;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel10;
-	private javax.swing.JLabel jLabel15;
-	private javax.swing.JLabel jLabel16;
-	private javax.swing.JLabel jLabel17;
-	private javax.swing.JLabel jLabel18;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel20;
 	private javax.swing.JLabel jLabel21;
@@ -3215,9 +2737,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JMenu jMenu4;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JScrollPane jScrollPane10;
-	private javax.swing.JScrollPane jScrollPane14;
-	private javax.swing.JScrollPane jScrollPane15;
-	private javax.swing.JScrollPane jScrollPane16;
 	private javax.swing.JScrollPane jScrollPane17;
 	private javax.swing.JScrollPane jScrollPane18;
 	private javax.swing.JScrollPane jScrollPane19;
