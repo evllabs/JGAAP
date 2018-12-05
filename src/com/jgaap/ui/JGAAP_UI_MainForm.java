@@ -2497,10 +2497,13 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			if (eventDriver.showInGUI())
 				EventDriverMasterList.add(eventDriver);
 		}
-		for (Language language : Languages.getLanguages()) {
-			if (language.showInGUI())
-				LanguagesMasterList.add(language);
-		}
+		// Manually add the languages in a non-alphabetical order.
+		try {
+			LanguagesMasterList.add(Languages.getLanguage("Greek (ISO-8859-7)"));
+			LanguagesMasterList.add(Languages.getLanguage("English"));
+			LanguagesMasterList.add(Languages.getLanguage("English (UTF-8)"));
+			LanguagesMasterList.add(Languages.getLanguage("English (UTF-16)"));
+		} catch (Exception e) {}
 	}
 
 	private void SetAnalysisMethodList() {
@@ -2549,9 +2552,6 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			CanonicizerListBox_Model.addElement(CanonicizerMasterList.get(i)
 					.displayName());
 		}
-		if (!CanonicizerMasterList.isEmpty()) {
-			// CanonicizersPanel_DocumentsCurrentCanonicizersTextBox.setText(CanonicizerMasterList.get(0).longDescription());
-		}
 	}
 
 	private void SetLanguagesList() {
@@ -2560,7 +2560,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 			LanguageComboBox_Model.addElement(LanguagesMasterList.get(i)
 					.displayName());
 			if (LanguagesMasterList.get(i).displayName()
-					.equalsIgnoreCase("English")) {
+					.equalsIgnoreCase("Greek (ISO-8859-7)")) {
 				englishIndex = i;
 			}
 
