@@ -40,7 +40,7 @@ public class NaiveWordEventDriver extends EventDriver {
 
 	@Override
 	public boolean showInGUI() {
-		return true;
+		return false;
 	}
 
 	@Override

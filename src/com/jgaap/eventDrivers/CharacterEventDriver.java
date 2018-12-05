@@ -48,7 +48,7 @@ public class CharacterEventDriver extends EventDriver {
 
 	@Override
 	public boolean showInGUI() {
-		return true;
+		return false;
 	}
 
 	/**
