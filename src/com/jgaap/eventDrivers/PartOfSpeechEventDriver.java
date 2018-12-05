@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.jgaap.backend.API;
-import com.jgaap.canonicizers.PunctuationSeparator;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
@@ -50,8 +49,6 @@ public class PartOfSpeechEventDriver extends EventDriver {
 	public boolean showInGUI() {
 		return API.getInstance().getLanguage().getLanguage().equalsIgnoreCase("English");
 	}
-
-	private static PunctuationSeparator punctuationSeparator = new PunctuationSeparator();
 	
 	@Override
 	public EventSet createEventSet(char[] text) {
@@ -62,8 +59,6 @@ public class PartOfSpeechEventDriver extends EventDriver {
 		} catch (Exception e) {}
 		
 		EventSet es = new EventSet();
-
-		text = punctuationSeparator.process(text);
 
 		String stringText = new String(text);
 

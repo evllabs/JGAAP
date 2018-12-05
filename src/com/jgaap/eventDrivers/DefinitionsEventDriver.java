@@ -26,14 +26,11 @@ import org.apache.log4j.Logger;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.backend.API;
-import com.jgaap.canonicizers.StripPunctuation;
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
-import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
@@ -67,12 +64,6 @@ public class DefinitionsEventDriver extends EventDriver {
 			.put("VBG", Integer.valueOf(2)).put("VBN", Integer.valueOf(2)).put("VBP", Integer.valueOf(2))
 			.put("VBZ", Integer.valueOf(2)).build();
 
-	private static ImmutableSet<String> stopWords = ImmutableSet.<String> builder().add("the").add("of").add("to")
-			.add("and").add("a").add("in").add("is").add("it").add("you").add("that").add("he").add("was").add("for")
-			.add("on").add("are").add("with").add("as").add("i").add("his").add("they").add("be").add("at").add("have")
-			.add("this").add("or").add("had").add("by").add("but").add("some").add("what").add("there").add("we")
-			.add("other").add("were").add("your").add("an").add("do").add("if").build();
-
 	private static ImmutableMap<String, String> nouns = ImmutableMap.<String, String> builder()
 			.put("alumni", "alumnus").put("analyses", "analysis").put("antennae", "antenna").put("antennas", "antenna")
 			.put("appendices", "appendix").put("axes", "axis").put("bacteria", "bacterium").put("bases", "basis")
@@ -90,8 +81,6 @@ public class DefinitionsEventDriver extends EventDriver {
 			.put("stimuli", "stimulus").put("strata", "stratum").put("syntheses", "synthesis")
 			.put("synopses", "synopsis").put("tableaux", "tableau").put("theses", "thesis").put("teeth", "tooth")
 			.put("vertebrae", "vertebra").put("vitae", "vita").put("women", "woman").build();
-
-	private static StripPunctuation stripPunctuation = new StripPunctuation();
 
 	@Override
 	public EventSet createEventSet(char[] text) throws EventGenerationException {
@@ -194,13 +183,6 @@ public class DefinitionsEventDriver extends EventDriver {
 					outDef.append(tmpDef[0]).append(" ");
 			}
 
-		}
-
-		String[] eventArray = new String(stripPunctuation.process(outDef.toString().toCharArray())).split("\\s+");
-
-		for (int i = 0; i < eventArray.length; i++) {
-			if (!stopWords.contains(eventArray[i]))
-				eventSet.addEvent(new Event(eventArray[i], this));
 		}
 
 		return eventSet;
