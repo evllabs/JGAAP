@@ -17,14 +17,9 @@
  */
 package com.jgaap.canonicizers;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-
 import org.junit.Test;
 
-import com.jgaap.generics.CanonicizationException;
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Unit test for the Smash I canonicizer.

@@ -17,14 +17,10 @@
  */
 package com.jgaap.canonicizers;
 
-import com.jgaap.generics.CanonicizationException;
 import com.jgaap.generics.Canonicizer;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Canonicizer for smashing all instances in which "I" is used as a
