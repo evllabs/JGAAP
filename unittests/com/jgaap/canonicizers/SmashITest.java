@@ -17,6 +17,7 @@
  */
 package com.jgaap.canonicizers;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -33,32 +34,50 @@ import com.jgaap.generics.CanonicizationException;
  */
 public class SmashITest {
 	@Test
-	public void testProcess() throws CanonicizationException {
+	public void testProcess() {
 		SmashI smashI = new SmashI();
 		
 		// Test 1 - I on ends
 		String in = "I don't care if IPad is supposed to be spelled with a lowercase I";
 		char[] correct = "i don't care if IPad is supposed to be spelled with a lowercase i".toCharArray();
 		char[] actual = smashI.process(in.toCharArray());
-		assertTrue(Arrays.equals(correct, actual));
+		assertArrayEquals(correct, actual);
 		
 		// Test 2 - I in middle surrounded by spaces
 		in = "Sometimes I cannot think of creative things to write for unit tests.";
 		correct = "Sometimes i cannot think of creative things to write for unit tests.".toCharArray();
 		actual = smashI.process(in.toCharArray());
-		assertTrue(Arrays.equals(correct, actual));
+		assertArrayEquals(correct, actual);
 		
 		// Test 3 - I in middle surrounded by tabs
 		in = "Sometimes		I	cannot think of creative things to write for unit tests.";
 		correct = in.toCharArray();
 		correct[11] = 'i';
 		actual = smashI.process(in.toCharArray());
-		assertTrue(Arrays.equals(correct, actual));
+		assertArrayEquals(correct, actual);
 		
 		// Test 4 - Bunch of I's next to each other with varying case
 		in = "iIiIiiIIiiiiiiIIiiIiIiIIiiIIiiIiiIiiIIiiiIiiiIiI";
 		correct = in.toCharArray();
 		actual = smashI.process(in.toCharArray());
-		assertTrue(Arrays.equals(correct, actual));
+		assertArrayEquals(correct, actual);
+
+		// Test 5 - Non-whitespaced I
+		in = "\"I am here\", she said.";
+		correct = "\"i am here\", she said.".toCharArray();
+		actual = smashI.process(in.toCharArray());
+		assertArrayEquals(correct, actual);
+
+		// Test 6 - Non-whitespaced I
+		in = "I'm here.";
+		correct = "i'm here.".toCharArray();
+		actual = smashI.process(in.toCharArray());
+		assertArrayEquals(correct, actual);
+
+		// Test 7 - Non-whitespaced I
+		in = "It is I.";
+		correct = "It is i.".toCharArray();
+		actual = smashI.process(in.toCharArray());
+		assertArrayEquals(correct, actual);
 	}
 }

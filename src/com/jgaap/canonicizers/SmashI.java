@@ -20,14 +20,22 @@ package com.jgaap.canonicizers;
 import com.jgaap.generics.CanonicizationException;
 import com.jgaap.generics.Canonicizer;
 
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.junit.Assert.assertTrue;
+
 /**
  * Canonicizer for smashing all instances in which "I" is used as a
  * word.
- * 
+ *
  * @author David
  * @since 8.0.0
  */
 public class SmashI extends Canonicizer {
+
+	private static Pattern iWord = Pattern.compile("(^|\\W+)I(\\W+|$)");
 
 	@Override
 	public String displayName() {
@@ -38,7 +46,7 @@ public class SmashI extends Canonicizer {
 	public String tooltipText() {
 		return "Converts all uses of \"I\" to lowercase.";
 	}
-	
+
 	@Override
 	public String longDescription() {
 		return "Converts all uses of \"I\" as a word to lowercase.";
@@ -50,40 +58,9 @@ public class SmashI extends Canonicizer {
 	}
 
 	@Override
-	public char[] process(char[] procText) throws CanonicizationException {
-		for (int x = 0; x < procText.length; x++) {
-			// Character is not even a potential candidate for smashing if it is
-			// not a capital I.
-			if (procText[x] == 'I' ) {
-				// Left and right flag are for indicating if whitespace was found
-				// on either side of "I."
-				boolean leftFlag = false;
-				boolean rightFlag = false;
-				
-				try {
-					// Check for whitespace on left side.
-					leftFlag = Character.isWhitespace(procText[x - 1]);
-				}
-				catch (ArrayIndexOutOfBoundsException e) {
-					// If the I is at the beginning of the string, set left flag to true.
-					leftFlag = true;
-				}
-				
-				try {
-					// Check for whitespace on the right side.
-					rightFlag = Character.isWhitespace(procText[x + 1]);
-				}
-				catch (ArrayIndexOutOfBoundsException e) {
-					// If the I is at the end of the string, set right flag to true.
-					rightFlag = true;
-				}
-				
-				// Smash character if both flags are set to true.
-				if (leftFlag && rightFlag)
-					procText[x] = Character.toLowerCase(procText[x]);
-			}
-		}
-		return procText;
+	public char[] process(char[] procText) {
+		Matcher m = iWord.matcher(new String(procText));
+		return m.replaceAll("$1i$2").toCharArray();
 	}
-
 }
+
