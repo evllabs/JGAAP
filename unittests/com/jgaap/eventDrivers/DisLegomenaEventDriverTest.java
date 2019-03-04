@@ -20,16 +20,15 @@
  */
 package com.jgaap.eventDrivers;
 
-import static org.junit.Assert.*;
-
-import java.util.Vector;
-
-import org.junit.Test;
-
 import com.jgaap.generics.EventDriver;
 import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
+import org.junit.Test;
+
+import java.util.Vector;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Joshua Booth
