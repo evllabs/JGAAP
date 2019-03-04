@@ -38,7 +38,7 @@ import static org.junit.Assert.assertTrue;
 public class DisLegomenaEventDriverTest {
 
 	/**
-	 * Test method for {@link com.jgaap.eventDrivers.DisLegomenaEventDriver#createEventSet(com.jgaap.generics.Document)}.
+	 * Test method for DisLegomenaEventDriver.
 	 * @throws EventGenerationException 
 	 */
 
