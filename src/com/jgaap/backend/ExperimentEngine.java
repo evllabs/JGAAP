@@ -253,7 +253,8 @@ public class ExperimentEngine {
 				Path filePath = FileSystems.getDefault().getPath(fileName);
 				Writer writer = Files.newBufferedWriter(filePath, Charset.defaultCharset(), StandardOpenOption.CREATE);
 				for (Document resultDocument : resultDocuments) {
-					writer.append(resultDocument.getFormattedResult(analysisDriver));
+					if (!resultDocument.getFormattedResult(analysisDriver).equals("null"))
+						writer.append(resultDocument.getFormattedResult(analysisDriver));
 				}
 				writer.close();
 			} catch (Exception e) {
