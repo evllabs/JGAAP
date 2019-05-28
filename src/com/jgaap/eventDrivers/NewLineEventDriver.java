@@ -19,7 +19,7 @@ public class NewLineEventDriver extends EventDriver {
 
 	@Override
 	public String tooltipText() {
-		return "Events are split on contiguous groups of \n";
+		return "Events are split on contiguous groups of \\n";
 	}
 
 	@Override
