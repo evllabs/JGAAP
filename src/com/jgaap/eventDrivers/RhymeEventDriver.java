@@ -7,7 +7,7 @@ import com.jgaap.util.EventSet;
 
 /**
  * 
- * Gets the last letter from the last word in each line.
+ * Gets the last character from the last word in each line.
  * @author David Berdik
  *
  */
@@ -20,7 +20,7 @@ public class RhymeEventDriver extends EventDriver {
 
 	@Override
 	public String tooltipText() {
-		return "Gets the last letter from the last word in each line.";
+		return "Gets the last character from the last word in each line.";
 	}
 
 	@Override
