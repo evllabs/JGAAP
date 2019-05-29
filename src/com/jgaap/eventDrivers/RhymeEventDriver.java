@@ -20,7 +20,8 @@ public class RhymeEventDriver extends EventDriver {
 
 	@Override
 	public String tooltipText() {
-		return "Gets the last character from the last word in each line.";
+		return "Gets the last character from the last word in each line. Punctuation is "
+				+ "included unless the \"Strip Punctuation\" canonicizer is used.";
 	}
 
 	@Override
