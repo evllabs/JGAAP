@@ -5,7 +5,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.EventGenerationException;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
@@ -33,7 +32,7 @@ public class RhymeEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(char[] text) {
 		EventSet rhymeEventSet = new EventSet();
 		Pattern consClusterPattern = Pattern.compile("(?i)[bcdfghjklmnpqrstvwxyz]{2,}");
 		
