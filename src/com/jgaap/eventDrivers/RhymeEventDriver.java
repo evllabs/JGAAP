@@ -34,7 +34,7 @@ public class RhymeEventDriver extends EventDriver {
 	@Override
 	public EventSet createEventSet(char[] text) {
 		EventSet rhymeEventSet = new EventSet();
-		Pattern consClusterPattern = Pattern.compile("(?i)[bcdfghjklmnpqrstvwxyz]{2,}");
+		Pattern consClusterPattern = Pattern.compile("(?i)[bcdfghjklmnpqrstvwxyz]{1,}");
 		
 		// Get lines from text.
 		EventSet linesEventSet = new NewLineEventDriver().createEventSet(text);
