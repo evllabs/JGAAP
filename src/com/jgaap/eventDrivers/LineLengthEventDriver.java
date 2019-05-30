@@ -35,7 +35,7 @@ public class LineLengthEventDriver extends EventDriver {
 		// Create an EventSet that consists of length values for each line.
 		EventSet lineLengths = new EventSet();
 		for(Event line : linesEventSet)
-			lineLengths.addEvent(new Event(Integer.toString(line.toString().split("\\s+").length), this));
+			lineLengths.addEvent(new Event(Integer.toString(line.toString().trim().split("\\s+").length), this));
 		
 		return lineLengths;
 	}
