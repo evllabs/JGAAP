@@ -1,6 +1,5 @@
 package com.jgaap.eventDrivers;
 
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,15 +45,15 @@ public class RhymeEventDriver extends EventDriver {
 			if (wordsEventSet.size() > 0) {
 				String lastWord = wordsEventSet.eventAt(wordsEventSet.size() - 1).toString();
 				
-				// Get all consonant clusters from the last word.
+				// Get the last consonant cluster from the last word.
 				Matcher consClusterMatcher = consClusterPattern.matcher(lastWord);
-				ArrayList<String> clusters = new ArrayList<>();
+				String lastCluster = "";
 				while(consClusterMatcher.find())
-					clusters.add(consClusterMatcher.group());
+					lastCluster = consClusterMatcher.group();
 				
-				// Get the last consonant cluster and add it to the EventSet.
-				if (clusters.size() > 0)
-					rhymeEventSet.addEvent(new Event(clusters.get(clusters.size() - 1), this));
+				// Add the last consonant cluster to the EventSet.
+				if (lastCluster.length() > 0)
+					rhymeEventSet.addEvent(new Event(lastCluster, this));
 			}
 		}
 		
