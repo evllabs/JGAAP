@@ -103,6 +103,8 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
         }
 
         List<Pair<String, Double>> results = ballot.getResults();
+        Comparator<Pair<String, Double>> compareByScore = (Pair<String, Double> r1, Pair<String, Double> r2) -> r1.getSecond().compareTo(r2.getSecond());
+        Collections.sort(results, compareByScore);
 
 		return results;
 	}
