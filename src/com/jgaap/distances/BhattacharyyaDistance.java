@@ -10,10 +10,10 @@ import com.jgaap.util.Histogram;
 
 /**
  * Bhattacharyya Distance
- * d = abs( log(  sum( sqrt(  abs(xi - yi)  ) ) / sum(xi) ) )
+ * d = -log(sum(sqrt(xi * yi)))
  * 
- * @author Adam Sargent
- * @version 1.0
+ * @author David Berdik
+ * @version 2.0
  */
 
 public class BhattacharyyaDistance extends DistanceFunction {
@@ -36,16 +36,13 @@ public class BhattacharyyaDistance extends DistanceFunction {
 	@Override
 	public double distance(Histogram unknownHistogram, Histogram knownHistogram)
 			throws DistanceCalculationException {
-
 		Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
+		double distance = 0.0;
 		
-		double distance = 0.0, sumNumer = 0.0, sumDenom = 0.0;
-
-		for(Event event: events){
-			sumNumer += Math.sqrt(Math.abs(unknownHistogram.relativeFrequency(event) - knownHistogram.relativeFrequency(event)));
-			sumDenom += unknownHistogram.relativeFrequency(event);
-		}
-		distance = Math.abs(Math.log(sumNumer / sumDenom));
+		for(Event event : events)
+			distance += Math.sqrt(unknownHistogram.relativeFrequency(event) * knownHistogram.relativeFrequency(event));
+		
+		distance = -Math.log(distance);
 		return distance;
 	}
 

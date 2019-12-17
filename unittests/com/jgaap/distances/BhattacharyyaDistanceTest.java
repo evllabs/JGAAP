@@ -19,21 +19,17 @@ public class BhattacharyyaDistanceTest {
 		EventSet set1 = new EventSet();
 		EventSet set2 = new EventSet();
 		Vector<Event> test1 = new Vector<Event>();
-		test1.add(new Event("one", null));
-		test1.add(new Event("two", null));
-		test1.add(new Event("three", null));
-		test1.add(new Event("four", null));
-		test1.add(new Event("five", null));
-		test1.add(new Event("six", null));
-		test1.add(new Event("seven", null));
-		test1.add(new Event("eight", null));
-		test1.add(new Event("nine", null));
-		test1.add(new Event("ten", null));			
+		test1.add(new Event("Lorem", null));
+		test1.add(new Event("Lorem", null));
+		test1.add(new Event("ipsum", null));
+		test1.add(new Event("ipsum", null));
+		test1.add(new Event("ipsum", null));
+		test1.add(new Event("ipsum", null));
+		test1.add(new Event("ipsum", null));
 		set1.addEvents(test1);
 		set2.addEvents(test1);
 		double result = new BhattacharyyaDistance().distance(new EventMap(set1), new EventMap(set2));
-		assertTrue(Double.isInfinite(result));
-		
+		assertTrue(result == 0);
 		
 		set2 = new EventSet();
 		Vector<Event> test2 = new Vector<Event>();
@@ -49,7 +45,7 @@ public class BhattacharyyaDistanceTest {
 		test2.add(new Event("10", null));
 		set2.addEvents(test2);
 		result = new BhattacharyyaDistance().distance(new EventMap(set1), new EventMap(set2));
-		assertTrue(DistanceTestHelper.inRange(result, Math.log(20 * Math.sqrt(.1)), 0.0000000001));
+		assertTrue(Double.isInfinite(result));
 	}
 
 }
