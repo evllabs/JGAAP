@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.jgaap.util.Document;
+import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
 /**
@@ -49,7 +51,36 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
      * @return the EventSet containing the Events from the document(s)
      */
     abstract public EventSet createEventSet(char[] text) throws EventGenerationException;
-    
+
+    public List<EventSet> apply(List<Document> documents) throws EventGenerationException, CanonicizationException, EventCullingException {
+    	return this.apply(documents, false);
+	}
+
+	public List<EventSet> trainApply(List<Document> documents) throws EventGenerationException, CanonicizationException, EventCullingException {
+    	return this.apply(documents, true);
+	}
+
+    private List<EventSet> apply(List<Document> documents, boolean train) throws CanonicizationException, EventGenerationException, EventCullingException {
+    	List<EventSet> eventSets = new ArrayList<>(documents.size());
+    	for (Document document : documents) {
+    		char[] text = document.getText();
+    		for (Canonicizer canonicizer: this.getCanonicizers()){
+    			text = canonicizer.process(text);
+			}
+    		eventSets.add(this.createEventSet(text));
+		}
+    	for (EventCuller eventCuller : this.getEventCullers()){
+    		if (train)
+    			eventCuller.init(eventSets);
+    		List<EventSet> culledEventSets = new ArrayList<>(eventSets.size());
+    		for (EventSet eventSet : eventSets){
+    			culledEventSets.add(eventCuller.cull(eventSet));
+			}
+    		eventSets = culledEventSets;
+		}
+    	return eventSets;
+	}
+
     public int compareTo(EventDriver o){
     	return displayName().compareTo(o.displayName());
     }
@@ -58,6 +89,12 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 		if(canonicizers == null)
 			canonicizers = new ArrayList<Canonicizer>();
 		return canonicizers.add(canonicizer);
+	}
+
+	public boolean addCanonicizers(List<Canonicizer> canonicizers){
+		if(this.canonicizers == null)
+			this.canonicizers = new ArrayList<Canonicizer>();
+		return this.canonicizers.addAll(canonicizers);
 	}
 	
 	public boolean removeCanonicizer(Canonicizer canonicizer) {
@@ -83,6 +120,12 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 		if(cullers == null)
 			cullers = new ArrayList<EventCuller>();
 		return cullers.add(eventCuller);
+	}
+
+	public boolean addCullers(List<EventCuller> eventCullers) {
+    	if(this.cullers == null)
+    		this.cullers = new ArrayList<>();
+    	return this.cullers.addAll(eventCullers);
 	}
 	
 	public boolean removeCuller(EventCuller eventCuller) {

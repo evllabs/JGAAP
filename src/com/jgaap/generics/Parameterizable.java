@@ -208,7 +208,7 @@ public class Parameterizable {
     }
 
     /**
-     * Set label=value (persistantly)
+     * Set label=value (persistently)
      * 
      * @param label
      *            the label to set
@@ -227,6 +227,12 @@ public class Parameterizable {
 	    		setParameter(tmp[0].trim(), tmp[1].trim());
 	    	}
     	}
+    }
+
+    public void setParameters(Map<String, String> parameters){
+        for (Entry<String, String> entry : parameters.entrySet()){
+            this.setParameter(entry.getKey(), entry.getValue());
+        }
     }
 
     public void setParameters(Parameterizable parameterizable) {

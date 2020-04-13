@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/lib/external/weka.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/WordSegment.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/commons-cli-1.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/jscience-4.3.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/log4j-1.2.17.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/reflections-0.9.8.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/stanford-ner-2012-07-09.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/edu.mit.jwi_2.2.3.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/stanford-postagger-2012-07-09.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/guava-17.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/tika-app-1.5.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/external/javassist-3.17.1.jar!/" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+      <src_folder value="file://$MODULE_DIR$/unittests" expected_position="1" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/unittests" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="junit4">
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="module-library">
+      <library name="weka.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/weka.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://weka.sourceforge.net/doc.stable/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="WordSegment.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/WordSegment.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-cli-1.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/commons-cli-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://commons.apache.org/cli/api-release/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jscience-4.3.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/jscience-4.3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://jscience.org/api/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="log4j-1.2.17.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/log4j-1.2.17.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://logging.apache.org/log4j/1.2/apidocs/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="reflections-0.9.8.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/reflections-0.9.8.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://reflections.googlecode.com/svn-history/r142/trunk/reflections/javadoc/apidocs/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="stanford-ner-2012-07-09.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/stanford-ner-2012-07-09.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://www-nlp.stanford.edu/nlp/javadoc/javanlp/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="edu.mit.jwi_2.2.3.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/edu.mit.jwi_2.2.3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://projects.csail.mit.edu/jwi/api/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="stanford-postagger-2012-07-09.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/stanford-postagger-2012-07-09.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://www-nlp.stanford.edu/nlp/javadoc/javanlp/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="guava-17.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/guava-17.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://docs.guava-libraries.googlecode.com/git-history/release/javadoc" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tika-app-1.5.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/tika-app-1.5.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://tika.apache.org/1.5/api/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="javassist-3.17.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/external/javassist-3.17.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="commons-cli-1.2" level="project" />
+  </component>
+</module>

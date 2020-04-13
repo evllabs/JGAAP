@@ -44,7 +44,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * Pass in samples of known author's writing
 	 * Generate the models that unknown documents will be tested against
 	 * 
-	 * @param knownEventSets Samples of known authors writing
+	 * @param knownDocuments Samples of known authors writing
 	 */
 	
 	abstract public void train(List<Document> knownDocuments) throws AnalyzeException;
@@ -54,7 +54,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * 
 	 * Only to be used after train()
 	 * 
-	 * @param unknownEventSet - sample of unknown authors work
+	 * @param unknownDocument - sample of unknown authors work
 	 * @return Sorted list of possible authors, sorted based on likelyhood they authored the document
 	 * @throws AnalyzeException
 	 */
