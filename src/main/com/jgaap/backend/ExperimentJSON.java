@@ -1,5 +1,6 @@
 package com.jgaap.backend;
 
+import com.google.gson.Gson;
 import com.jgaap.generics.Experiment;
 import com.jgaap.generics.EventDriver;
 import lombok.Value;
@@ -30,5 +31,11 @@ import java.util.Map;
         experiment.addEventDrivers(this.instanceEventDrivers());
         experiment.setAnalysisDriver(this.analysisDriver.instanceAnalysisDriver());
         return experiment;
+    }
+
+    static public Experiment readExperiment(String json) throws Exception {
+        Gson gson = new Gson();
+        ExperimentJSON experimentJSON = gson.fromJson(json, ExperimentJSON.class);
+        return experimentJSON.instanceExperiment();
     }
 }
