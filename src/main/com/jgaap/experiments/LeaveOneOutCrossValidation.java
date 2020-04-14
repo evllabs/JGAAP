@@ -1,6 +1,5 @@
 package com.jgaap.experiments;
 
-import com.google.common.collect.Collections2;
 import com.jgaap.generics.Experiment;
 import com.jgaap.util.Document;
 
