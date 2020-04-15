@@ -1,5 +1,5 @@
-bin/*
 .DS_Store
-/bin/
+bin/
 src/unittest_logs
-.idea
+.idea/
+target/
