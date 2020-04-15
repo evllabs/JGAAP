@@ -2,5 +2,4 @@ bin/*
 .DS_Store
 /bin/
 src/unittest_logs
-target
 .idea
