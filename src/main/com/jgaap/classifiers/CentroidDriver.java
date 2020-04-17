@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.HashMultimap;
@@ -27,9 +29,10 @@ import com.jgaap.util.Pair;
  * @author Michael Ryan
  * @since 5.0.2
  */
+@Log4j
 public class CentroidDriver extends NeighborAnalysisDriver {
 
-	static private Logger logger = Logger.getLogger(CentroidDriver.class);
+//	static private Logger logger = Logger.getLogger(CentroidDriver.class);
 
 	private ImmutableMap<String, Histogram> knownCentroids;
 
@@ -71,10 +74,10 @@ public class CentroidDriver extends NeighborAnalysisDriver {
 		for (Entry<String, Histogram> knownEntry : knownCentroids.entrySet()) {
 			try {
 				double current = distance.distance(unknownHistogram, knownEntry.getValue());
-				logger.debug(unknown.getTitle()+" ("+unknown.getFilePath()+")"+" -> "+knownEntry.getKey()+":"+current);
+				log.debug(unknown.getTitle()+" ("+unknown.getFilePath()+")"+" -> "+knownEntry.getKey()+":"+current);
 				result.add(new Pair<String, Double>(knownEntry.getKey(), current, 2));
 			} catch (DistanceCalculationException e) {
-				logger.fatal("Distance " + distance.displayName() + " failed", e);
+				log.fatal("Distance " + distance.displayName() + " failed\n", e);
 				throw new AnalyzeException("Distance " + distance.displayName() + " failed");
 			}
 		}
