@@ -26,7 +26,7 @@ public class ExperimentJSONTest {
                                         JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"experiment.json"
                                 ).toURI())));
         Experiment e = ExperimentJSON.readExperiment(json);
-//        assertTrue(e.displayName().equalsIgnoreCase("Leave One Out Cross Validation"));
+        assertTrue(e.displayName().equalsIgnoreCase("K Fold Cross Validation"));
         List<Document> documents = Utils.getDocumentsFromCSV(
                 CSVIO.readCSV(
                         getClass().getResourceAsStream(
@@ -44,9 +44,14 @@ public class ExperimentJSONTest {
             }
         }
         ConfusionMatrix result = e.run(knownDocuments);
-        System.out.println("F1 score "+result.getAverageF1Score());
-        System.out.println("Precision "+result.getAveragePrecision());
-        System.out.println("Recall "+result.getAverageRecall());
-        System.out.println(e.toString());
+        double f1 = result.getAverageF1Score();
+        double precision = result.getAveragePrecision();
+        double recall = result.getAverageRecall();
+        System.out.println("F1 score "+f1);
+        System.out.println("Precision "+precision);
+        System.out.println("Recall "+recall);
+        assertEquals(f1, 0.22391625538335796, 0.05);
+        assertEquals(precision, 0.23021978021978023, 0.05);
+        assertEquals(recall, 0.23021978021978023, 0.05);
     }
 }
