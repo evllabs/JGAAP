@@ -97,4 +97,12 @@ public abstract class Experiment extends Parameterizable implements Displayable,
             testDocuments.addAll(documents);
         }
     }
+
+    public String toString() {
+        String tmp = "";
+        for(EventDriver e : getEventDrivers()){
+            tmp = tmp + "\n" + e.toString();
+        }
+        return displayName()+" : "+getParameters() + tmp +  getAnalysisDriver().toString();
+    }
 }

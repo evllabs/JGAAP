@@ -33,6 +33,7 @@ public class ExperimentJSONTest {
         Experiment e = ExperimentJSON.readExperiment(json);
         log.info("Experiment Loaded");
         assertTrue(e.displayName().equalsIgnoreCase("K Fold Cross Validation"));
+        log.info(e.toString());
         log.info("Loading Documents.");
         List<Document> documents = Utils.getDocumentsFromCSV(
                 CSVIO.readCSV(

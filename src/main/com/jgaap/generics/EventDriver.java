@@ -146,6 +146,17 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
 		else 
 			return Collections.emptyList();
 	}
+	public String toString() {
+    	String tmpC = "";
+    	for (Canonicizer c : getCanonicizers()){
+    		tmpC = tmpC + c.toString() + " ";
+		}
+    	String tmpEC = "";
+    	for (EventCuller e : getEventCullers()){
+    		tmpEC = tmpEC + e.toString() + " ";
+		}
+		return displayName()+" : "+getParameters() + "\n\t" + tmpC + "\n\t" + tmpEC;
+	}
 }
 
 

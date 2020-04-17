@@ -66,10 +66,13 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString(){
-    	return displayName();
-    }
-    
+//    public String toString(){
+//    	return displayName();
+//    }
+	public String toString() {
+		return displayName()+" : "+getParameters();
+	}
+
     public int compareTo(Canonicizer o){
     	return displayName().compareTo(o.displayName());
     }

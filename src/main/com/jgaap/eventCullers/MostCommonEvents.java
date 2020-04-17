@@ -34,12 +34,12 @@ public class MostCommonEvents extends FilterEventCuller {
 
 
     public MostCommonEvents() {
-        addParams("numEvents", "N", "50", new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }, true);
+        addParams("n", "N", "50", new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "40", "45", "50", "75", "100", "150", "200" }, true);
     }
 
     @Override
     public Set<Event> train(List<EventSet> eventSets) {
-		int numEvents = getParameter("numEvents", 50);
+		int numEvents = getParameter("n", 50);
 		EventHistogram histogram = new EventHistogram();
 		for(EventSet eventSet : eventSets) {
 			for(Event event : eventSet) {

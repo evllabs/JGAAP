@@ -46,4 +46,7 @@ abstract public class DistanceFunction extends Parameterizable implements Compar
     	return displayName().compareTo(o.displayName());
     }
 
+    public String toString() {
+        return displayName()+" : "+getParameters();
+    }
 }

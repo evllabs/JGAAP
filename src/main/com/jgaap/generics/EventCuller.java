@@ -40,5 +40,8 @@ public abstract class EventCuller extends Parameterizable implements Comparable<
     public int compareTo(EventCuller o){
     	return displayName().compareTo(o.displayName());
     }
-    
+
+    public String toString() {
+        return displayName()+" : "+getParameters();
+    }
 }

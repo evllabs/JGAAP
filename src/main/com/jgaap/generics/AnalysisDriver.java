@@ -64,4 +64,7 @@ public abstract class AnalysisDriver extends Parameterizable implements
 		return displayName().compareTo(o.displayName());
 	}
 
+	public String toString() {
+		return displayName()+" : "+getParameters();
+	}
 }

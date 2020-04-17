@@ -63,7 +63,7 @@ public class MostCommonEventsTest {
         es2.addEvent(new Event("B", null));
 
         MostCommonEvents culler = new MostCommonEvents();
-        culler.setParameter("numEvents", 1);
+        culler.setParameter("n", 1);
 
         List<EventSet> list = new ArrayList<EventSet>();
         list.add(es1);
