@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class Experiment extends Parameterizable implements Displayable, Comparable<Experiment>{
@@ -32,7 +33,8 @@ public abstract class Experiment extends Parameterizable implements Displayable,
 
     public ConfusionMatrix run(List<Document> knownDocuments) throws EventGenerationException, CanonicizationException, EventCullingException, AnalyzeException, ExperimentException {
         applyEventDrivers(knownDocuments);
-        for (TrainTestSplit trainTestSplit: this.getTestingPlan(knownDocuments)){
+        for (Iterator<TrainTestSplit> plan = this.getTestingPlan(knownDocuments); plan.hasNext(); ){
+            TrainTestSplit trainTestSplit = plan.next();
             this.getAnalysisDriver().train(trainTestSplit.getTrainDocuments());
             for (Document document : trainTestSplit.getTestDocuments()) {
                 List<Pair<String, Double>> result = this.getAnalysisDriver().analyze(document);
@@ -42,7 +44,7 @@ public abstract class Experiment extends Parameterizable implements Displayable,
         return evaluate(knownDocuments);
     }
 
-    protected abstract List<TrainTestSplit> getTestingPlan(List<Document> documents) throws ExperimentException;
+    protected abstract Iterator<TrainTestSplit> getTestingPlan(List<Document> documents) throws ExperimentException;
 
     private void applyEventDrivers(List<Document> documents) throws EventGenerationException, CanonicizationException, EventCullingException {
         for (EventDriver eventDriver: this.getEventDrivers()){

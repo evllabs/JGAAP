@@ -5,6 +5,7 @@ import com.jgaap.util.Document;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class LeaveOneOutCrossValidation extends Experiment {
@@ -24,7 +25,7 @@ public class LeaveOneOutCrossValidation extends Experiment {
     }
 
     @Override
-    protected List<TrainTestSplit> getTestingPlan(List<Document> documents) {
+    protected Iterator<TrainTestSplit> getTestingPlan(List<Document> documents) {
         List<TrainTestSplit> plan = new ArrayList<>(documents.size());
         for (int i = 0; i < documents.size(); i++) {
             List<Document> test = Collections.singletonList(documents.get(i));
@@ -42,6 +43,6 @@ public class LeaveOneOutCrossValidation extends Experiment {
             trainTestSplit.addTestDocuments(test);
             plan.add(trainTestSplit);
         }
-        return plan;
+        return plan.iterator();
     }
 }

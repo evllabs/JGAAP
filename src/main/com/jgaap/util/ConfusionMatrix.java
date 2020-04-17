@@ -45,9 +45,21 @@ public class ConfusionMatrix {
         return total;
     }
 
+    public double getTruePositive(String label) {
+        double truePositive = 0;
+        if (this.matrix.contains(label, label)){
+            truePositive = this.matrix.get(label, label);
+        }
+        return truePositive;
+    }
+
     public double getPrecision(String label) {
-        double truePositive = this.matrix.get(label, label);
-        return truePositive / this.getPredictedTotal(label);
+        double predicted = this.getPredictedTotal(label);
+        double truePositive = this.getTruePositive(label);
+        if (predicted == 0){
+            return 0;
+        }
+        return truePositive / predicted;
     }
 
     public double getAveragePrecision() {
@@ -60,8 +72,7 @@ public class ConfusionMatrix {
     }
 
     public double getRecall(String label) {
-        double truePositive = this.matrix.get(label, label);
-        return truePositive / this.getActualTotal(label);
+        return this.getTruePositive(label) / this.getActualTotal(label);
     }
 
     public double getAverageRecall() {
@@ -76,15 +87,14 @@ public class ConfusionMatrix {
     public double getF1Score(String label) {
         double precision = this.getPrecision(label);
         double recall = this.getRecall(label);
-        return 2 * (precision * recall) / (precision + recall);
+        return f1(precision, recall);
     }
 
     public double getAverageF1Score() {
-        Set<String> labels = this.matrix.rowKeySet();
-        double sum = 0;
-        for (String label : labels){
-            sum += getF1Score(label);
-        }
-        return sum / labels.size();
+        return f1(getAveragePrecision(), getAverageRecall());
+    }
+
+    private double f1(double precision, double recall) {
+        return 2 * (precision * recall) / (precision + recall);
     }
 }

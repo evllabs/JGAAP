@@ -42,7 +42,7 @@ public class KFoldCrossValidation  extends Experiment {
     }
 
     @Override
-    protected List<TrainTestSplit> getTestingPlan(List<Document> documents) throws ExperimentException {
+    protected Iterator<TrainTestSplit> getTestingPlan(List<Document> documents) throws ExperimentException {
         int k = this.getParameter("k", 5);
         List<TrainTestSplit> plan = new ArrayList<>(documents.size());
         for (int i = 0; i < k; i++) {
@@ -61,6 +61,9 @@ public class KFoldCrossValidation  extends Experiment {
             for (int i = 0; i < k; i++) {
                 int start = i * count;
                 int end = start + count;
+                if (i == k-1){
+                    end = authorsDocuments.size();
+                }
                 List<Document> tmp = authorsDocuments.subList(start, end);
                 for(int j = 0; j < plan.size(); j++) {
                     TrainTestSplit currentSplit = plan.get(j);
@@ -72,7 +75,7 @@ public class KFoldCrossValidation  extends Experiment {
                 }
             }
         }
-        return plan;
+        return plan.iterator();
     }
 
 
