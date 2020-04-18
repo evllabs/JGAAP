@@ -19,9 +19,9 @@
  **/
 package com.jgaap;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import com.jgaap.backend.CLI;
 import com.jgaap.ui.JGAAP_UI_MainForm;
@@ -32,10 +32,11 @@ import com.jgaap.ui.JGAAP_UI_MainForm;
  * @author michael ryan
  */
 
+@Log4j
 public class JGAAP {
 
-	static Logger logger = Logger.getLogger("com.jgaap");
-	static Logger mainLogger = Logger.getLogger(JGAAP.class);
+//	static Logger logger = Logger.getLogger("com.jgaap");
+//	static Logger mainLogger = Logger.getLogger(JGAAP.class);
 	
 	public static boolean commandline = false;
 
@@ -54,21 +55,21 @@ public class JGAAP {
     public static void main(String[] args) {
     	
     	BasicConfigurator.configure();
-    	logger.setLevel(Level.INFO);
+    	log.setLevel(Level.INFO);
     	
     	if (args.length == 0) {
-    		mainLogger.info("Starting GUI");
+    		log.info("Starting GUI");
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     createAndShowGUI();
                 }
             });
         } else {
-        	mainLogger.info("Starting CLI");
+        	log.info("Starting CLI");
             try {
 				CLI.main(args);
 			} catch (Exception e) {
-				mainLogger.fatal("Command Line Failure", e);
+				log.fatal("Command Line Failure", e);
 			}
         }
     }

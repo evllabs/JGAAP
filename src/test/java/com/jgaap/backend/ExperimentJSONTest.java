@@ -4,7 +4,6 @@ import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.Experiment;
 import com.jgaap.util.ConfusionMatrix;
 import com.jgaap.util.Document;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
