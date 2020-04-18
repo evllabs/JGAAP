@@ -24,11 +24,11 @@ public class ExperimentJSONTest {
     public void readExperiment() throws Exception {
         log.info("Loading json.");
         String json = new String(
-                Files.readAllBytes(
-                        Paths.get(
-                                getClass().getResource(
-                                        JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"experiment.json"
-                                ).toURI())));
+            Files.readAllBytes(
+                Paths.get(
+                    getClass().getResource(
+                        JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"experiment.json"
+                    ).toURI())));
         log.info("Populating Experiment.");
         Experiment e = ExperimentJSON.readExperiment(json);
         log.info("Experiment Loaded");
@@ -36,9 +36,9 @@ public class ExperimentJSONTest {
         log.info(e.toString());
         log.info("Loading Documents.");
         List<Document> documents = Utils.getDocumentsFromCSV(
-                CSVIO.readCSV(
-                        getClass().getResourceAsStream(
-                                JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"aaac/problemA/loadA.csv")));
+            CSVIO.readCSV(
+                getClass().getResourceAsStream(
+                    JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"aaac/problemA/loadA.csv")));
         List<Document> knownDocuments = new ArrayList<Document>();
         List<Document> unknownDocuments = new ArrayList<Document>();
         Set<String> authors = new HashSet<String>();
