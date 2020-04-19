@@ -34,9 +34,6 @@ import com.jgaap.ui.JGAAP_UI_MainForm;
 
 @Log4j
 public class JGAAP {
-
-//	static Logger logger = Logger.getLogger("com.jgaap");
-//	static Logger mainLogger = Logger.getLogger(JGAAP.class);
 	
 	public static boolean commandline = false;
 
