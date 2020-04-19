@@ -35,7 +35,7 @@ public class ChineseFMM extends Language {
 
 	public ChineseFMM() {
 		super("Chinese FMM (GB2312)", "chinese", "GB2312");
-		super.setParseable(true);
+		super.setParsable(true);
 	}
 
 	@Override

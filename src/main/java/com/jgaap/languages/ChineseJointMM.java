@@ -36,7 +36,7 @@ public class ChineseJointMM extends Language {
 
 	public ChineseJointMM() {
 		super("Chinese JointMM (GB2312)", "chinese", "GB2312");
-		super.setParseable(true);
+		super.setParsable(true);
 	}
 
 	@Override

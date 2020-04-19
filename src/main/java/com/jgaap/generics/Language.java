@@ -38,7 +38,7 @@ public abstract class Language implements Comparable<Language>, Displayable {
 	private String name = "Generic";
 	private String language = "generic";
 	private String charset = "";
-	private Boolean parseable = false;
+	private Boolean parsable = false;
 /**
  * 
  * Define the language to read documents in and which methods of jgaap's can be used on them.
@@ -85,8 +85,8 @@ public abstract class Language implements Comparable<Language>, Displayable {
 		return "";
 	}
 	
-	public void setParseable(Boolean parseable) {
-		this.parseable = parseable;
+	public void setParsable(Boolean parsable) {
+		this.parsable = parsable;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public abstract class Language implements Comparable<Language>, Displayable {
 	 * @return True if the language requires further parsing
 	 */
 	public Boolean isParseable() {
-		return this.parseable;
+		return this.parsable;
 	}
 	
 	public int compareTo(Language o){

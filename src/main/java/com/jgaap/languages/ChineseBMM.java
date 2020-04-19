@@ -32,7 +32,7 @@ public class ChineseBMM extends Language {
 
 	public ChineseBMM() {
 		super("Chinese BMM (GB2312)", "chinese", "GB2312");
-		super.setParseable(true);
+		super.setParsable(true);
 	}
 
 	@Override
