@@ -24,7 +24,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.jgaap.classifiers.NearestNeighborDriver;
 import com.jgaap.distances.CosineDistance;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.util.Document;
