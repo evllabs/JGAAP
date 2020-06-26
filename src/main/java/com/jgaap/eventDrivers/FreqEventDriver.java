@@ -57,7 +57,7 @@ public class FreqEventDriver extends NumericTransformationEventDriver {
 
 
     @Override
-    public NumericEventSet createEventSet(char[] text) throws EventGenerationException {
+    public NumericEventSet createEventSet(String text) throws EventGenerationException {
         EventSet words = wordEventDriver.createEventSet(text);
         NumericEventSet eventSet = new NumericEventSet();
         for(Event event : words) {

@@ -36,7 +36,7 @@ public class StanfordPartOfSpeechNGramEventDriver extends NGramEventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(String text) throws EventGenerationException {
 		stanfordPOS.setParameter("taggingModel", getParameter("taggingModel"));
 		return transformToNgram(stanfordPOS.createEventSet(text));
 	}

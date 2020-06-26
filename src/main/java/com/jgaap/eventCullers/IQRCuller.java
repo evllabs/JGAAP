@@ -8,10 +8,8 @@ import java.util.Set;
 
 import com.jgaap.generics.EventCullingException;
 import com.jgaap.generics.FilterEventCuller;
-import com.jgaap.util.Event;
-import com.jgaap.util.EventHistogram;
-import com.jgaap.util.EventSet;
-import com.jgaap.util.Pair;
+import com.jgaap.util.*;
+
 /**
  * Analyze N events with the the highest interquartile range where the interquartile range is the third quartile - the first quartile.
  * IQR = Q3 - Q1
@@ -39,7 +37,7 @@ public class IQRCuller extends FilterEventCuller {
 			}
 		}
 		List<Pair<Event,Double>> rangeList = new ArrayList<Pair<Event,Double>>(events.size()); 
-		List<EventHistogram> eventHistograms = new ArrayList<EventHistogram>(eventSets.size());
+		List<Histogram> eventHistograms = new ArrayList<>(eventSets.size());
 		for (EventSet eventSet : eventSets) {
 			eventHistograms.add(new EventHistogram(eventSet));
 		}
@@ -56,7 +54,7 @@ public class IQRCuller extends FilterEventCuller {
 			 * Create a list of the frequency of each event across all documents
 			 * Then sort by frequency
 			 */
-			for (EventHistogram eventHistogram : eventHistograms) {
+			for (Histogram eventHistogram : eventHistograms) {
 				frequencies.add((double) eventHistogram.getAbsoluteFrequency(event));
 			}			
 			Collections.sort(frequencies);

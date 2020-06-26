@@ -50,7 +50,7 @@ public class TruncatedReactionTimeEventDriver extends TruncatedEventDriver {
     private static int length = 2;
 
     @Override
-    public EventSet createEventSet(char[] text) throws EventGenerationException {
+    public EventSet createEventSet(String text) throws EventGenerationException {
     	return truncate(theDriver.createEventSet(text), length);
     }
 }

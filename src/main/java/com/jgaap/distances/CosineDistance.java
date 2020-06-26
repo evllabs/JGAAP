@@ -66,8 +66,8 @@ public class CosineDistance extends DistanceFunction {
         Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
         
         for(Event event : events){
-        	double unknownNormalizedFrequencey = unknownHistogram.normalizedFrequency(event);
-        	double knownNormalizedFrequencey = knownHistogram.normalizedFrequency(event);
+        	double unknownNormalizedFrequencey = unknownHistogram.getNormalizedFrequency(event);
+        	double knownNormalizedFrequencey = knownHistogram.getNormalizedFrequency(event);
         	
         	distance += unknownNormalizedFrequencey * knownNormalizedFrequencey;
             h1Magnitude += unknownNormalizedFrequencey * unknownNormalizedFrequencey;

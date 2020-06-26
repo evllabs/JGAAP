@@ -19,9 +19,12 @@
  **/
 package com.jgaap.generics;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.jgaap.util.Document;
+import com.jgaap.util.EventSet;
 import com.jgaap.util.Pair;
 
 /**
@@ -44,21 +47,29 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * Pass in samples of known author's writing
 	 * Generate the models that unknown documents will be tested against
 	 * 
-	 * @param knownDocuments Samples of known authors writing
+	 * @param events Samples of known authors writing
 	 */
 	
+//	abstract public void train(List<String> labels, List<Map<EventDriver, EventSet>> events) throws AnalyzeException;
 	abstract public void train(List<Document> knownDocuments) throws AnalyzeException;
-	
 	/**
 	 * Compare the current document to the trained models
 	 * 
 	 * Only to be used after train()
 	 * 
-	 * @param unknownDocument - sample of unknown authors work
+	 * @param events - sample of unknown authors work
 	 * @return Sorted list of possible authors, sorted based on likelyhood they authored the document
 	 * @throws AnalyzeException
 	 */
-	abstract public List<Pair<String, Double>> analyze(Document unknownDocument) throws AnalyzeException;
+	abstract public List<Pair<String, Double>> analyze(Document unknown) throws AnalyzeException;
+
+	public List<String> analyze(List<Document> unknowns) throws AnalyzeException {
+		List<String> results = new ArrayList<>(unknowns.size());
+		for (Document unknown : unknowns) {
+			results.add(analyze(unknown).get(0).getFirst());
+		}
+		return results;
+	}
 
 	public int compareTo(AnalysisDriver o) {
 		return displayName().compareTo(o.displayName());

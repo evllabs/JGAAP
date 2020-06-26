@@ -70,17 +70,17 @@ public class StripComments extends Canonicizer {
 	 * 
 	 */
 	@Override
-	public char[] process(char[] procText) {
-		StringBuilder stringBuilder = new StringBuilder(procText.length);
+	public String process(String procText) {
+		StringBuilder stringBuilder = new StringBuilder(procText.length());
 		boolean isPrinting = true;
 		LanguageEnum theLang = LanguageEnum.UNDEF;
 
 		
-		for (int i = 0; i < procText.length; i++) {
+		for (int i = 0; i < procText.length(); i++) {
 
 		// case 1 : C-style comments */
 			if (theLang == LanguageEnum.UNDEF &&
-			    procText[i] == '/' && procText[i+1] == '*') {
+			    procText.charAt(i) == '/' && procText.charAt(i+1) == '*') {
 				i = i+1;
 				theLang = LanguageEnum.C;
 				isPrinting = false;
@@ -89,7 +89,7 @@ public class StripComments extends Canonicizer {
 			}
 			
 			if (theLang == LanguageEnum.C &&
-			    procText[i] == '*' && procText[i+1] == '/') {
+			    procText.charAt(i) == '*' && procText.charAt(i+1) == '/') {
 				i = i+1;
 				theLang = LanguageEnum.UNDEF;
 				isPrinting = true;
@@ -98,7 +98,7 @@ public class StripComments extends Canonicizer {
 
 		// case 2 : Java-style comments */
 			if (theLang == LanguageEnum.UNDEF &&
-			    procText[i] == '/' && procText[i+1] == '/') {
+			    procText.charAt(i) == '/' && procText.charAt(i+1) == '/') {
 				i = i+1;
 				theLang = LanguageEnum.JAVA;
 				isPrinting = false;
@@ -107,7 +107,7 @@ public class StripComments extends Canonicizer {
 			}
 			
 			if (theLang == LanguageEnum.JAVA &&
-			    procText[i] == '\n') {
+			    procText.charAt(i) == '\n') {
 				isPrinting = true;
 				theLang = LanguageEnum.UNDEF;
 				continue;
@@ -115,7 +115,7 @@ public class StripComments extends Canonicizer {
 
 		// case 3 : Perl-style comments
 			if (theLang == LanguageEnum.UNDEF &&
-				procText[i] == '#') {
+				procText.charAt(i) == '#') {
 				theLang = LanguageEnum.PERL;
 				isPrinting = false;
 				continue;
@@ -123,7 +123,7 @@ public class StripComments extends Canonicizer {
 			}
 			
 			if (theLang == LanguageEnum.PERL &&
-			    procText[i] == '\n') {
+			    procText.charAt(i) == '\n') {
 				theLang = LanguageEnum.UNDEF;
 				isPrinting = true;
 				continue;
@@ -133,10 +133,10 @@ public class StripComments extends Canonicizer {
 
 			if (isPrinting) {
 				//System.out.println("Appending "+procText[i]);
-				stringBuilder.append(procText[i]);
+				stringBuilder.append(procText.charAt(i));
 			}
 		}
 
-		return stringBuilder.toString().toCharArray();
+		return stringBuilder.toString();
 	}
 }

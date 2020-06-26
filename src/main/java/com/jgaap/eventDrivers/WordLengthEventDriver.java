@@ -58,7 +58,7 @@ public class WordLengthEventDriver extends NumericEventDriver {
 	private EventDriver wordTokenizer = new NaiveWordEventDriver();
 
 	@Override
-	public NumericEventSet createEventSet(char[] text) throws EventGenerationException {
+	public NumericEventSet createEventSet(String text) throws EventGenerationException {
 		EventSet es = wordTokenizer.createEventSet(text);
 		NumericEventSet newEs = new NumericEventSet();
 

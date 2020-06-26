@@ -41,7 +41,7 @@ public class MatusitaDistance extends DistanceFunction {
 		double distance = 0.0, sum = 0.0;
 		
 		for(Event event : events){
-			sum += Math.pow(Math.sqrt(unknownHistogram.relativeFrequency(event)) - Math.sqrt(knownHistogram.relativeFrequency(event)), 2);
+			sum += Math.pow(Math.sqrt(unknownHistogram.getRelativeFrequency(event)) - Math.sqrt(knownHistogram.getRelativeFrequency(event)), 2);
 		}
 		distance = Math.sqrt(sum);
 		

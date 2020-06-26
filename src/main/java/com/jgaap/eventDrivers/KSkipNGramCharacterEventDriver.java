@@ -46,7 +46,7 @@ public class KSkipNGramCharacterEventDriver extends KSkipNGramEventDriver {
 	}
 	
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		return transformToKSkipNGram(new CharacterEventDriver().createEventSet(text));
 	}
 

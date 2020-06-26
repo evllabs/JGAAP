@@ -22,9 +22,9 @@ public class PunctuationEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		EventSet eventSet = new EventSet();
-		for(char character: text){
+		for(char character: text.toCharArray()){
 			if(!(Character.isLetterOrDigit(character)||Character.isWhitespace(character))){
 				eventSet.addEvent(new Event(character, this));
 			}

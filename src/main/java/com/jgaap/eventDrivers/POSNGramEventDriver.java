@@ -50,7 +50,7 @@ public class POSNGramEventDriver extends NGramEventDriver {
 	private EventDriver theDriver = new PartOfSpeechEventDriver();
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(String text) throws EventGenerationException {
 		return transformToNgram(theDriver.createEventSet(text));
 	}
 }

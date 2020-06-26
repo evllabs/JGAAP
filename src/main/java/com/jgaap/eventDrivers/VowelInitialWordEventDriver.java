@@ -50,7 +50,7 @@ public class VowelInitialWordEventDriver extends NaiveWordEventDriver {
 	private static String vowels = "aeiouyAEIOUY";
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		EventSet es = super.createEventSet(text);
 		EventSet newEs = new EventSet();
 

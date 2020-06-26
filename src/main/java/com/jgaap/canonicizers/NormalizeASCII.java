@@ -19,6 +19,7 @@
  **/
 package com.jgaap.canonicizers;
 
+import com.google.common.collect.Lists;
 import com.jgaap.generics.Canonicizer;
 
 /**
@@ -54,14 +55,14 @@ public class NormalizeASCII extends Canonicizer {
 	 * @return array of processed characters.
 	 */
 	@Override
-	public char[] process(char[] procText) {
-		StringBuilder stringBuilder = new StringBuilder(procText.length);
-		for (char c : procText) {
+	public String process(String procText) {
+		StringBuilder stringBuilder = new StringBuilder(procText.length());
+		for (char c : Lists.charactersOf(procText)) {
 			if ((c > 0x08 && c <= 0x0D) || // whitespace control codes
 					(c > 0x1F && c <= 0x7E)) { // printable ASCII
 				stringBuilder.append(c);
 			} 
 		}
-		return stringBuilder.toString().toCharArray();
+		return stringBuilder.toString();
 	}
 }

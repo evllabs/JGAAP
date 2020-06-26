@@ -1,16 +1,13 @@
 package com.jgaap.util;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multiset.Entry;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An Immutable mapping of Events to their relative frequencies
@@ -46,7 +43,7 @@ public class EventMap implements Histogram {
 		this.histogram = ImmutableMap.copyOf(histogram);
 	}
 
-	public double relativeFrequency(Event event) {
+	public double getRelativeFrequency(Event event) {
 		Double frequency = histogram.get(event);
 		if (frequency == null) {
 			return 0.0;
@@ -55,7 +52,7 @@ public class EventMap implements Histogram {
 		}
 	}
 		
-	public double normalizedFrequency(Event event) {
+	public double getNormalizedFrequency(Event event) {
 		Double frequency = histogram.get(event);
 		if (frequency == null) {
 			return 0.0;
@@ -90,7 +87,13 @@ public class EventMap implements Histogram {
 	}
 
 	@Override
-	public int absoluteFrequency(Event event) {
+	public int getAbsoluteFrequency(Event event) {
 		throw new UnsupportedOperationException();
+	}
+
+	@NotNull
+	@Override
+	public Iterator<Event> iterator() {
+		return this.uniqueEvents().iterator();
 	}
 }

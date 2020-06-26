@@ -1,9 +1,6 @@
 package com.jgaap.classifiers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 
 import com.google.common.collect.ImmutableMap;
@@ -11,10 +8,8 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.jgaap.backend.Utils;
 import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.util.Document;
-import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
-import com.jgaap.util.Pair;
+import com.jgaap.generics.EventDriver;
+import com.jgaap.util.*;
 
 public class BurrowsDelta extends AnalysisDriver {
 
@@ -66,7 +61,7 @@ public class BurrowsDelta extends AnalysisDriver {
 			for (Event event : events) {
 				List<Double> sample = new ArrayList<Double>();
 				for (EventMap histogram : knownCentroids.values()) {
-					sample.add(histogram.relativeFrequency(event));
+					sample.add(histogram.getRelativeFrequency(event));
 				}
 				eventStddevBuilder.put(event, Utils.stddev(sample));
 			}
@@ -75,7 +70,7 @@ public class BurrowsDelta extends AnalysisDriver {
 				List<Double> sample = new ArrayList<Double>();
 				for (Collection<EventMap> histograms : knownHistograms.asMap().values()) {
 					for (EventMap histogram : histograms) {
-						sample.add(histogram.relativeFrequency(event));
+						sample.add(histogram.getRelativeFrequency(event));
 					}
 				}
 				eventStddevBuilder.put(event, Utils.stddev(sample));
@@ -96,8 +91,8 @@ public class BurrowsDelta extends AnalysisDriver {
 			for (Entry<String, EventMap> entry : knownCentroids.entrySet()) {
 				double delta = 0.0;
 				for (Event event : events) {
-					double knownFrequency = entry.getValue().relativeFrequency(event);
-					delta += Math.abs((unknownEventMap.relativeFrequency(event) - knownFrequency) / eventStddev.get(event));
+					double knownFrequency = entry.getValue().getRelativeFrequency(event);
+					delta += Math.abs((unknownEventMap.getRelativeFrequency(event) - knownFrequency) / eventStddev.get(event));
 				}
 				results.add(new Pair<String, Double>(entry.getKey(), delta,2));
 			}
@@ -106,7 +101,7 @@ public class BurrowsDelta extends AnalysisDriver {
 				for (EventMap histogram : entry.getValue()) {
 					double delta = 0.0;
 					for (Event event : events) {
-						delta += Math.abs((unknownEventMap.relativeFrequency(event) - histogram.relativeFrequency(event)) / eventStddev.get(event));
+						delta += Math.abs((unknownEventMap.getRelativeFrequency(event) - histogram.getRelativeFrequency(event)) / eventStddev.get(event));
 					}
 					results.add(new Pair<String, Double>(entry.getKey(), delta,2));
 				}

@@ -26,22 +26,22 @@ import com.jgaap.generics.Canonicizer;
  * debugging purposes.
  */
 public class NullCanonicizer extends Canonicizer {
-	
 
+    @Override
     public String displayName(){
     	return "Null Canonicizer";
     }
-    
 
+    @Override
     public String tooltipText(){
     	return "This preprocessor makes no changes to the text, but prints it to the console.";
     }
-
+    @Override
     public String longDescription(){
     	return "This preprocessor makes no changes to the text, but prints it to the console.  Generally only useful for software testing.";
     }
-    
 
+    @Override
     public boolean showInGUI(){
     	return true;
     }
@@ -53,10 +53,9 @@ public class NullCanonicizer extends Canonicizer {
 	 * @param procText Array of characters to be processed.
 	 * @return Array of processed characters 
 	 */
-
-    public char[] process(char[] procText) {
-        String tmp = new String(procText);
-		System.out.print(" --- Begin Document ---\n" + tmp + "\n --- End Document ---\n");
+    @Override
+    public String process(String procText) {
+		System.out.print(" --- Begin Document ---\n" + procText + "\n --- End Document ---\n");
         return procText;
     }
 }

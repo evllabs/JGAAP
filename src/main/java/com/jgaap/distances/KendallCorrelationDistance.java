@@ -83,10 +83,10 @@ public class KendallCorrelationDistance extends DistanceFunction {
 
 		/* make lists of the histograms */
 		for (Event e: unknownHistogram.uniqueEvents()) {
-			l1.add(new Pair<Event, Double>(e, unknownHistogram.relativeFrequency(e),2) );
+			l1.add(new Pair<Event, Double>(e, unknownHistogram.getRelativeFrequency(e),2) );
 		}
 		for (Event e: knownHistogram.uniqueEvents()) {
-			l2.add(new Pair<Event, Double>(e, knownHistogram.relativeFrequency(e),2) );
+			l2.add(new Pair<Event, Double>(e, knownHistogram.getRelativeFrequency(e),2) );
 		}
 
 		/* sort the list so the most frequent items are at the top */

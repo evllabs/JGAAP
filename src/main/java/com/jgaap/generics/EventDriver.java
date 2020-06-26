@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.jgaap.util.Document;
-import com.jgaap.util.Event;
 import com.jgaap.util.EventSet;
 
 /**
@@ -50,24 +48,24 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
      *            the text to be Event-ified
      * @return the EventSet containing the Events from the document(s)
      */
-    abstract public EventSet createEventSet(char[] text) throws EventGenerationException;
+    abstract public EventSet createEventSet(String text) throws EventGenerationException;
 
-    public List<EventSet> apply(List<Document> documents) throws EventGenerationException, CanonicizationException, EventCullingException {
-    	return this.apply(documents, false);
+    public List<EventSet> apply(List<String> texts) throws EventGenerationException, CanonicizationException, EventCullingException {
+    	return this.apply(texts, false);
 	}
 
-	public List<EventSet> trainApply(List<Document> documents) throws EventGenerationException, CanonicizationException, EventCullingException {
-    	return this.apply(documents, true);
+	public List<EventSet> trainApply(List<String> texts) throws EventGenerationException, CanonicizationException, EventCullingException {
+    	return this.apply(texts, true);
 	}
 
-    private List<EventSet> apply(List<Document> documents, boolean train) throws CanonicizationException, EventGenerationException, EventCullingException {
-    	List<EventSet> eventSets = new ArrayList<>(documents.size());
-    	for (Document document : documents) {
-    		char[] text = document.getText();
+    private List<EventSet> apply(List<String> texts, boolean train) throws CanonicizationException, EventGenerationException, EventCullingException {
+    	List<EventSet> eventSets = new ArrayList<>(texts.size());
+    	for (String text : texts) {
+    		String textBuffer = text;
     		for (Canonicizer canonicizer: this.getCanonicizers()){
-    			text = canonicizer.process(text);
+    			textBuffer = canonicizer.process(textBuffer);
 			}
-    		eventSets.add(this.createEventSet(text));
+    		eventSets.add(this.createEventSet(textBuffer));
 		}
     	for (EventCuller eventCuller : this.getEventCullers()){
     		if (train)

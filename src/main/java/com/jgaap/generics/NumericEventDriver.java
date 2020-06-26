@@ -32,6 +32,6 @@ public abstract class NumericEventDriver extends EventDriver {
 
 
     @Override
-    abstract public NumericEventSet createEventSet(char[] text) throws EventGenerationException;
+    abstract public NumericEventSet createEventSet(String text) throws EventGenerationException;
 
 }

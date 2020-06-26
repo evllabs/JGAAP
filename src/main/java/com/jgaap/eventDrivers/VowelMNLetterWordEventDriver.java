@@ -48,7 +48,7 @@ public class VowelMNLetterWordEventDriver extends MNLetterWordEventDriver {
 
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		EventSet eventSet = super.createEventSet(text);
 		EventSet finalEventSet = new EventSet(eventSet.size());
 		for(Event event : eventSet){

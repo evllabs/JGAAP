@@ -36,14 +36,14 @@ public class ChineseBMM extends Language {
 	}
 
 	@Override
-	public char[] parseLanguage(String document) {
+	public String parseLanguage(String document) {
 		StringBuilder stringBuilder = new StringBuilder(document.length());
 		WordSegment wordSegmenter = new WordSegment(new BMM());
 		List<String> segmented = wordSegmenter.segment(document);
 		for (String word : segmented) {
 			stringBuilder.append(word).append(" ");
 		}
-		return stringBuilder.toString().toCharArray();
+		return stringBuilder.toString();
 	}
 
 	@Override

@@ -40,8 +40,8 @@ public class BrayCurtisDistance extends DistanceFunction {
 		double distance = 0.0, sumNumer = 0.0, sumDenom = 0.0;
 		
 		for(Event event: events){
-			double known = knownHistogram.relativeFrequency(event);
-			double unknown = unknownHistogram.relativeFrequency(event);
+			double known = knownHistogram.getRelativeFrequency(event);
+			double unknown = unknownHistogram.getRelativeFrequency(event);
 			sumNumer += Math.abs(unknown - known);
 			sumDenom += unknown + known;
 		}

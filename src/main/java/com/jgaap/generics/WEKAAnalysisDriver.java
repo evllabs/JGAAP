@@ -115,7 +115,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 			for (Event event : allEvents) {
 				currentTrainingDocument.setValue(
 						(Attribute) attributeList.elementAt(j),
-						knownEventMap.normalizedFrequency(event));
+						knownEventMap.getNormalizedFrequency(event));
 				j++;
 			}
 			trainingSet.add(new SparseInstance(currentTrainingDocument));
@@ -152,7 +152,7 @@ public abstract class WEKAAnalysisDriver extends AnalysisDriver {
 		int i = 1; // Start at 1, again
 		for (Event event : allEvents) {
 			currentTest.setValue((Attribute) attributeList.elementAt(i),
-					eventMap.normalizedFrequency(event));
+					eventMap.getNormalizedFrequency(event));
 			i++;
 		}
 		

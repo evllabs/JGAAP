@@ -58,7 +58,7 @@ public abstract class Canonicizer extends Parameterizable implements Comparable<
      * @return an array of characters containing the processed text
      */
 
-    abstract public char[] process(char[] procText) throws CanonicizationException;
+    abstract public String process(String procText) throws CanonicizationException;
 
     /**
      * Get a String representation of this Canonicizer.

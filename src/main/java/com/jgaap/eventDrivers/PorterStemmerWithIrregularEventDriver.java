@@ -110,7 +110,7 @@ public class PorterStemmerWithIrregularEventDriver extends PorterStemmerEventDri
 			.put("vitae", "vita").put("women", "woman").build();
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		EventSet ev = super.createEventSet(text);
 		EventSet returnEv = new EventSet();
 

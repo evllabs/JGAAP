@@ -71,7 +71,9 @@ public class AddErrors extends Canonicizer {
 	 *            Array of characters to be processed.
 	 * @return Array of characters after processing.
 	 */
-	public char[] process(char[] procText) {
+	@Override
+	public String process(String text) {
+		char[] procText = text.toCharArray();
 		Random random = new Random();
 		int percentErrors = getParameter("percenterror", 0);
 		int numChanges = (int) ((percentErrors / 100.0) * procText.length);
@@ -99,6 +101,6 @@ public class AddErrors extends Canonicizer {
 				procText[changePos] = replaceWith;
 			}
 		}
-		return procText;
+		return new String(procText);
 	}
 }

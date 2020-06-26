@@ -53,15 +53,14 @@ public class CharacterEventDriver extends EventDriver {
 
 	/**
 	 * Create sequence of characters from document set.
-	 * 
-	 * @param document
-	 *            document of interest
-	 */
+	 *
+     * @param text
+     */
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		EventSet es = new EventSet();
-		for (int j = 0; j < text.length; j++) {
-			es.addEvent(new Event(text[j], this));
+		for (int j = 0; j < text.length(); j++) {
+			es.addEvent(new Event(text.charAt(j), this));
 		}
 		return es;
 	}

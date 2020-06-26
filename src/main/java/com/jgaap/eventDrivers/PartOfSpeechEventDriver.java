@@ -54,7 +54,7 @@ public class PartOfSpeechEventDriver extends EventDriver {
 	private static PunctuationSeparator punctuationSeparator = new PunctuationSeparator();
 	
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 
 		MaxentTagger tagger = null;
 		try {
@@ -63,9 +63,7 @@ public class PartOfSpeechEventDriver extends EventDriver {
 		
 		EventSet es = new EventSet();
 
-		text = punctuationSeparator.process(text);
-
-		String stringText = new String(text);
+		String stringText = punctuationSeparator.process(text);
 
 		for (String current : stringText.split("(?<=[?!\\.])\\s+")) {
 

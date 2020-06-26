@@ -58,10 +58,11 @@ public class PorterStemmerEventDriver extends NaiveWordEventDriver {
 	}
 
 	/** 
-	 * Creates EventSet using Porter stemmer on underlying events 
-	 */
+	 * Creates EventSet using Porter stemmer on underlying events
+     * @param text
+     */
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		EventSet raw = super.createEventSet(text);
 		EventSet cooked = new EventSet();
 		Stemmer theStemmer = new Stemmer();

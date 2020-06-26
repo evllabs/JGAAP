@@ -38,7 +38,7 @@ public abstract class NeighborAnalysisDriver extends AnalysisDriver {
 	}
 	
 	public String getDistanceName(){
-		String result ="";
+		String result = "";
 		if(distance!=null){
 			result = " with metric "+distance.displayName();
 		}

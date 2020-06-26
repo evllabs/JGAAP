@@ -48,7 +48,7 @@ public class FirstWordInSentenceEventDriver extends SentenceEventDriver {
 	
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		EventSet sentences = super.createEventSet(text);
 		EventSet eventSet = new EventSet(sentences.size());
 		for(Event sentence : sentences){

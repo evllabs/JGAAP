@@ -31,8 +31,8 @@ public class StamatatosDistance extends DistanceFunction {
 		double distance = 0.0;
 		
 		for(Event event : events){
-			double unknownValue = unknownHistogram.relativeFrequency(event);
-			double knownValue = knownHistogram.relativeFrequency(event);
+			double unknownValue = unknownHistogram.getRelativeFrequency(event);
+			double knownValue = knownHistogram.getRelativeFrequency(event);
 			distance += Math.pow(2*(unknownValue-knownValue)/(unknownValue+knownValue), 2);
 		}
 		

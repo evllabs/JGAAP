@@ -61,7 +61,7 @@ public class KullbackLeiblerDivergence extends DivergenceFunction {
 
         for(Event event : unknownHistogram.uniqueEvents()) {
             if(knownHistogram.contains(event)){
-             distance += unknownHistogram.relativeFrequency(event) * Math.log(unknownHistogram.relativeFrequency(event)/knownHistogram.relativeFrequency(event)); 
+             distance += unknownHistogram.getRelativeFrequency(event) * Math.log(unknownHistogram.getRelativeFrequency(event)/knownHistogram.getRelativeFrequency(event));
             }
         }
         return Math.abs(distance);

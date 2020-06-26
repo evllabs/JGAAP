@@ -9,10 +9,8 @@ import java.util.Set;
 import com.jgaap.backend.Utils;
 import com.jgaap.generics.EventCullingException;
 import com.jgaap.generics.FilterEventCuller;
-import com.jgaap.util.Event;
-import com.jgaap.util.EventHistogram;
-import com.jgaap.util.EventSet;
-import com.jgaap.util.Pair;
+import com.jgaap.util.*;
+
 /**
  *Analyze N events with the highest index of dispersion
  *D = stdev^2/mean
@@ -42,7 +40,7 @@ public class IndexOfDispersion extends FilterEventCuller {
 		}
 		
 		List<Pair<Event,Double>> IoD = new ArrayList<Pair<Event,Double>>(); 
-		List<EventHistogram> eventHistograms = new ArrayList<EventHistogram>(eventSets.size());
+		List<Histogram> eventHistograms = new ArrayList<>(eventSets.size());
 		for (EventSet eventSet : eventSets) {
 			eventHistograms.add(new EventHistogram(eventSet));
 		}
@@ -55,7 +53,7 @@ public class IndexOfDispersion extends FilterEventCuller {
 			 * Add all the frequencies of each event to a list
 			 * Then take the standard deviation of the list
 			 */
-			for (EventHistogram eventHistogram : eventHistograms) {
+			for (Histogram eventHistogram : eventHistograms) {
 				frequencies.add((double) eventHistogram.getAbsoluteFrequency(event));
 			}
 			stddev = Utils.stddev(frequencies);

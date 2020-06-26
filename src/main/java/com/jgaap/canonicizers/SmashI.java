@@ -54,9 +54,9 @@ public class SmashI extends Canonicizer {
 	}
 
 	@Override
-	public char[] process(char[] procText) {
-		Matcher m = iWord.matcher(new String(procText));
-		return m.replaceAll("$1i$2").toCharArray();
+	public String process(String procText) {
+		Matcher m = iWord.matcher(procText);
+		return m.replaceAll("$1i$2");
 	}
 }
 

@@ -55,7 +55,7 @@ public class CoarsePOSTagger extends PartOfSpeechEventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		EventSet preprocessEventSet = super.createEventSet(text);
 		EventSet eventSet = new EventSet();
 		for (Event event : preprocessEventSet) {

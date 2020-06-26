@@ -36,7 +36,7 @@ import java.util.Set;
  * @author Juola
  * @since 1.0
  */
-public class EventHistogram implements Iterable<Event> {
+public class EventHistogram implements Histogram {
 
 	/** The Hashtable storing the histogram of interest */
 	private Map<Event, Integer> theHist;
@@ -116,6 +116,16 @@ public class EventHistogram implements Iterable<Event> {
 		} else {
 			return v.intValue();
 		}
+	}
+
+	@Override
+	public boolean contains(Event event) {
+		return this.theHist.containsKey(event);
+	}
+
+	@Override
+	public Set<Event> uniqueEvents() {
+		return this.theHist.keySet();
 	}
 
 	/**

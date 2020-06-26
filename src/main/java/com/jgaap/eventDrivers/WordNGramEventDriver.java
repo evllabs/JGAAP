@@ -51,7 +51,7 @@ public class WordNGramEventDriver extends NGramEventDriver {
 	private NaiveWordEventDriver theDriver = new NaiveWordEventDriver();
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		return transformToNgram(theDriver.createEventSet(text));
 	}
 }

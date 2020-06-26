@@ -23,7 +23,7 @@ public class PunctuationNGramEventDriver extends NGramEventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		return transformToNgram(punctuationEventDriver.createEventSet(text));
 	}
 

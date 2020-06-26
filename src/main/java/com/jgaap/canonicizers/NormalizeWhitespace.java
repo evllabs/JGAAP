@@ -61,7 +61,7 @@ public class NormalizeWhitespace extends Canonicizer {
      *         single space.
      */
     @Override
-    public char[] process(char[] procText) {
-        return CharMatcher.whitespace().collapseFrom(new String(procText), ' ').toCharArray();
+    public String process(String procText) {
+        return CharMatcher.whitespace().collapseFrom(procText, ' ');
     }
 }

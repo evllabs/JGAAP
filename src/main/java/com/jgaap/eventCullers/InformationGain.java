@@ -10,10 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.jgaap.generics.FilterEventCuller;
-import com.jgaap.util.Event;
-import com.jgaap.util.EventHistogram;
-import com.jgaap.util.EventSet;
-import com.jgaap.util.Pair;
+import com.jgaap.util.*;
 
 /**
  * Sort out the N most informative events across all documents. Uses smoothing
@@ -55,13 +52,13 @@ public class InformationGain extends FilterEventCuller {
 		 * The list count keeps track of the frequency of each event in the
 		 * individual documents This is mi in the formula
 		 */
-		List<EventHistogram> eventHistograms = new ArrayList<EventHistogram>(eventSets.size());
+		List<Histogram> eventHistograms = new ArrayList<>(eventSets.size());
 		for (EventSet eventSet : eventSets) {
 			eventHistograms.add(new EventHistogram(eventSet));
 		}
 		for (Event event : hist) {
 			percentage = new BigDecimal(hist.getRelativeFrequency(event));
-			for (EventHistogram eventHistogram : eventHistograms) {
+			for (Histogram eventHistogram : eventHistograms) {
 				int mi = eventHistogram.getAbsoluteFrequency(event);
 				/*
 				 * Calculates numerator i = 0 to n Product of mi!

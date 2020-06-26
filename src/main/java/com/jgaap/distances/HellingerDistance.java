@@ -31,7 +31,7 @@ public class HellingerDistance extends DistanceFunction {
 		Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
 		double sum = 0.0;
 		for(Event event : events) { 
-			sum += Math.pow(Math.sqrt(unknownHistogram.relativeFrequency(event))-Math.sqrt(knownHistogram.relativeFrequency(event)), 2);
+			sum += Math.pow(Math.sqrt(unknownHistogram.getRelativeFrequency(event))-Math.sqrt(knownHistogram.getRelativeFrequency(event)), 2);
 		}
 		return Math.sqrt(sum)*oneOverSqrtTwo;
 	}

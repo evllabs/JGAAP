@@ -1,15 +1,13 @@
 package com.jgaap.generics;
 
-import com.jgaap.util.ConfusionMatrix;
-import com.jgaap.util.Document;
-import com.jgaap.util.EventSet;
-import com.jgaap.util.Pair;
+import com.jgaap.util.*;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Experiment extends Parameterizable implements Displayable, Comparable<Experiment>{
     private List<EventDriver> eventDrivers;
@@ -31,7 +29,7 @@ public abstract class Experiment extends Parameterizable implements Displayable,
         return this.eventDrivers.add(eventDriver);
     }
 
-    public ConfusionMatrix run(List<Document> knownDocuments) throws EventGenerationException, CanonicizationException, EventCullingException, AnalyzeException, ExperimentException {
+    public ConfusionMatrix run(List<Document> knownDocuments) throws EventGenerationException, CanonicizationException, EventCullingException, AnalyzeException, ExperimentException, LanguageParsingException, DocumentException {
         applyEventDrivers(knownDocuments);
         for (Iterator<TrainTestSplit> plan = this.getTestingPlan(knownDocuments); plan.hasNext(); ){
             TrainTestSplit trainTestSplit = plan.next();
@@ -46,9 +44,15 @@ public abstract class Experiment extends Parameterizable implements Displayable,
 
     protected abstract Iterator<TrainTestSplit> getTestingPlan(List<Document> documents) throws ExperimentException;
 
-    private void applyEventDrivers(List<Document> documents) throws EventGenerationException, CanonicizationException, EventCullingException {
+    private void applyEventDrivers(List<Document> documents) throws EventGenerationException, CanonicizationException, EventCullingException, LanguageParsingException, DocumentException {
+
         for (EventDriver eventDriver: this.getEventDrivers()){
-            List<EventSet> eventSets = eventDriver.trainApply(documents);
+            List<String> list = new ArrayList<>();
+            for (Document d : documents) {
+                String text = d.getText();
+                list.add(text);
+            }
+            List<EventSet> eventSets = eventDriver.trainApply(list);
             for (int i = 0; i < eventSets.size(); i++) {
                 Document document = documents.get(i);
                 EventSet eventSet = eventSets.get(i);
@@ -100,7 +104,7 @@ public abstract class Experiment extends Parameterizable implements Displayable,
 
     public String toString() {
         String tmp = "";
-        for(EventDriver e : getEventDrivers()){
+        for(EventDriver e : this.getEventDrivers()){
             tmp = tmp + "\n" + e.toString();
         }
         return displayName()+" : "+getParameters() + tmp +  getAnalysisDriver().toString();

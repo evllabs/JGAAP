@@ -1,9 +1,6 @@
 package com.jgaap.util;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableMap;
@@ -11,6 +8,7 @@ import com.google.common.collect.Multiset;
 import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Multiset.Entry;
 import com.jgaap.generics.EventDriver;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 
@@ -44,21 +42,17 @@ public class AbsoluteHistogram implements Histogram {
 	}
 	
 	@Override
-	public double relativeFrequency(Event event) {
-		Integer current = histogram.get(event);
-		if(current == null){
-			return 0.0;
-		} 
-		return current/(double)totals.get(event.getEventDriver());
+	public double getRelativeFrequency(Event event) {
+		return getAbsoluteFrequency(event)/(double)totals.get(event.getEventDriver());
 	}
 
 	@Override
-	public double normalizedFrequency(Event event) {
-		return relativeFrequency(event)*100000;
+	public double getNormalizedFrequency(Event event) {
+		return getRelativeFrequency(event)*100000;
 	}
 
 	@Override
-	public int absoluteFrequency(Event event) {
+	public int getAbsoluteFrequency(Event event) {
 		Integer current = histogram.get(event);
 		if(current == null){
 			return 0;
@@ -100,4 +94,9 @@ public class AbsoluteHistogram implements Histogram {
 		return new AbsoluteHistogram(tmpHistogram, tmpTotals);
 	}
 
+	@NotNull
+	@Override
+	public Iterator<Event> iterator() {
+		return this.uniqueEvents().iterator();
+	}
 }

@@ -92,8 +92,8 @@ public class PearsonCorrelationDistance extends DistanceFunction {
 		sigX2 = 0.0; 
 		sigY2 = 0.0; 
 		for (Event e: s) {
-			double x = unknownHistogram.relativeFrequency(e);
-			double y = knownHistogram.relativeFrequency(e);
+			double x = unknownHistogram.getRelativeFrequency(e);
+			double y = knownHistogram.getRelativeFrequency(e);
 			sigX += x;
 			sigY += y;
 			sigX2 += x * x;

@@ -58,10 +58,7 @@ public class UnifyCase extends Canonicizer {
      * @return Array of Characters after conversion to lower case
      */
     @Override
-    public char[] process(char[] procText) {
-        for (int i = 0; i < procText.length; i++) {
-            procText[i] = Character.toLowerCase(procText[i]);
-        }
-        return procText;
+    public String process(String procText) {
+        return procText.toLowerCase();
     }
 }

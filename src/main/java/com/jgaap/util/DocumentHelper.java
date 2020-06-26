@@ -45,17 +45,21 @@ class DocumentHelper {
 		tika.setMaxStringLength(-1);
 	}
 	
-	static String loadDocument(String filepath, String charset) throws Exception {
+	static String loadDocument(String filepath, String charset) throws DocumentException {
 		String text = "";
-		if("tika".equalsIgnoreCase(charset)){
-			InputStream is = getInputStream(filepath);
-			text= tika.parseToString(is);
-			is.close();
-		}
-		if(text.isEmpty()){
-			InputStream is = getInputStream(filepath);
-			text = readText(is, charset);
-			is.close();
+		try {
+			if ("tika".equalsIgnoreCase(charset)) {
+				InputStream is = getInputStream(filepath);
+				text = tika.parseToString(is);
+				is.close();
+			}
+			if (text.isEmpty()) {
+				InputStream is = getInputStream(filepath);
+				text = readText(is, charset);
+				is.close();
+			}
+		} catch (Exception e){
+			throw new DocumentException(e.getMessage());
 		}
 		return text;
 	}

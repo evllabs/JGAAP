@@ -42,9 +42,9 @@ public class HistogramIntersectionDistance extends DistanceFunction {
 		double distance = 0.0, sumNumer = 0.0, sumUnknown = 0.0, sumKnown = 0.0;
 
 		for(Event event: events){
-			sumNumer += Math.min(unknownHistogram.relativeFrequency(event), knownHistogram.relativeFrequency(event));
-			sumUnknown += unknownHistogram.relativeFrequency(event);
-			sumKnown += knownHistogram.relativeFrequency(event);
+			sumNumer += Math.min(unknownHistogram.getRelativeFrequency(event), knownHistogram.getRelativeFrequency(event));
+			sumUnknown += unknownHistogram.getRelativeFrequency(event);
+			sumKnown += knownHistogram.getRelativeFrequency(event);
 		}
 
 		distance = 1 - (sumNumer / Math.min(sumUnknown, sumKnown));

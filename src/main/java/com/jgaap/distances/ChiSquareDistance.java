@@ -61,8 +61,8 @@ public class ChiSquareDistance extends DistanceFunction {
 		Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
 
 		for (Event event : events) {
-			double x = unknownHistogram.relativeFrequency(event);
-			double y = knownHistogram.relativeFrequency(event);
+			double x = unknownHistogram.getRelativeFrequency(event);
+			double y = knownHistogram.getRelativeFrequency(event);
 			distance += (x - y) * (x - y) / (x + y);			
 		}
 

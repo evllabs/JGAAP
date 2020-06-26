@@ -41,9 +41,9 @@ public class ChordDistance extends DistanceFunction {
 		double distance = 0.0, sumNumer = 0.0, sumUnknown = 0.0, sumKnown = 0.0;
 		
 		for(Event event : events){
-			sumNumer += unknownHistogram.relativeFrequency(event) * knownHistogram.relativeFrequency(event);
-			sumUnknown += unknownHistogram.relativeFrequency(event);
-			sumKnown += knownHistogram.relativeFrequency(event);
+			sumNumer += unknownHistogram.getRelativeFrequency(event) * knownHistogram.getRelativeFrequency(event);
+			sumUnknown += unknownHistogram.getRelativeFrequency(event);
+			sumKnown += knownHistogram.getRelativeFrequency(event);
 		}
 		distance = Math.sqrt(2 - 2 * (sumNumer / Math.sqrt(sumUnknown * sumUnknown * sumKnown * sumKnown)));
 		

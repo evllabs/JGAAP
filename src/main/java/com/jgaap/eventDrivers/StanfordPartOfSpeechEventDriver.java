@@ -46,7 +46,7 @@ public class StanfordPartOfSpeechEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(String text) throws EventGenerationException {
 		if (tagger == null)
 			synchronized (this) {
 				if (tagger == null) {

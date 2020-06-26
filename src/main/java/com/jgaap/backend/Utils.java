@@ -29,6 +29,7 @@ import java.util.Map;
 import com.jgaap.util.Document;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventHistogram;
+import com.jgaap.util.Histogram;
 
 /**
  * Generic methods that will be reused throughout JGAAP
@@ -119,10 +120,10 @@ public class Utils {
 	/**
 	 * 
 	 */
-	public static Map<Event, Double> makeNormalizedCentroid(List<EventHistogram> histograms){
+	public static Map<Event, Double> makeNormalizedCentroid(List<Histogram> histograms){
 		Map<Event, Double> centroid = new HashMap<Event, Double>();
 		double size = histograms.size();
-		for(EventHistogram histogram : histograms){
+		for(Histogram histogram : histograms){
 			for(Event event : histogram){
 				Double value = centroid.get(event);
 				if(value != null){
@@ -137,10 +138,10 @@ public class Utils {
 	/**
 	 * 
 	 */
-	public static Map<Event, Double> makeRelativeCentroid(List<EventHistogram> histograms){
+	public static Map<Event, Double> makeRelativeCentroid(List<Histogram> histograms){
 		Map<Event, Double> centroid = new HashMap<Event, Double>();
 		double size = histograms.size();
-		for(EventHistogram histogram : histograms){
+		for(Histogram histogram : histograms){
 			for(Event event : histogram){
 				Double value = centroid.get(event);
 				if(value != null){

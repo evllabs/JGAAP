@@ -59,7 +59,7 @@ public class CrossEntropyDivergence extends DivergenceFunction {
         double distance = 0.0;
 
        for(Event event : knownHistogram.uniqueEvents()) {
-    	   distance += -1 * (unknownHistogram.relativeFrequency(event) * Math.log(knownHistogram.relativeFrequency(event))) ;            		
+    	   distance += -1 * (unknownHistogram.getRelativeFrequency(event) * Math.log(knownHistogram.getRelativeFrequency(event))) ;
         }
         return distance;
     }

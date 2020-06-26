@@ -41,7 +41,7 @@ public class WaveHedgesDistance extends DistanceFunction {
 		double sum = 0.0;
 		
 		for(Event event : events){
-			sum += 1 - Math.min( unknownHistogram.relativeFrequency(event), knownHistogram.relativeFrequency(event)) / Math.max(unknownHistogram.relativeFrequency(event), knownHistogram.relativeFrequency(event));
+			sum += 1 - Math.min( unknownHistogram.getRelativeFrequency(event), knownHistogram.getRelativeFrequency(event)) / Math.max(unknownHistogram.getRelativeFrequency(event), knownHistogram.getRelativeFrequency(event));
 		}
 
 		return sum;

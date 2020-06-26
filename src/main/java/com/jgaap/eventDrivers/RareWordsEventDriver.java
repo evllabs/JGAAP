@@ -63,7 +63,7 @@ public class RareWordsEventDriver extends NaiveWordEventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		int N = getParameter("N", 3);
 		int M = getParameter("M", 2);
 

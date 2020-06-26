@@ -119,12 +119,15 @@ public class Document {
 		results = new HashMap<AnalysisDriver, List<Pair<String,Double>>>();
 	}
 	
-	public void load() throws Exception {
+	public void load() throws DocumentException, LanguageParsingException {
 		if (this.docType != Type.DATABASE) {
-			this.text = DocumentHelper.loadDocument(filepath, language.getCharset());
-			this.size = this.text.length();
+			String text = DocumentHelper.loadDocument(filepath, language.getCharset());
+			if (language.isParseable()){
+				text = language.parseLanguage(text);
+			}
+			this.setText(text);
 			if (this.size == 0) {
-				throw new Exception("Document: "+this.filepath+" was empty.");
+				throw new DocumentException("Document: "+this.filepath+" was empty.");
 			}
 		}
 	}
@@ -176,8 +179,11 @@ public class Document {
 	 * 
 	 * @return 
 	 */
-	public char[] getText() {
-		return text.toCharArray();
+	public String getText() throws LanguageParsingException, DocumentException {
+		if (text == null || text.isEmpty()){
+			this.load();
+		}
+		return text;
 	}
 
 	/**
@@ -249,13 +255,9 @@ public class Document {
 	 * Take the list of canonicizers associated with this document and apply
 	 * them to the document one by one, in the same order they were added.
 	 */
-	public void processCanonicizers() throws LanguageParsingException, CanonicizationException {
-		char[] text;
-		if (language.isParseable()){
-			text = language.parseLanguage(this.text);
-		} else {
-			text = getText();
-		}
+	public void processCanonicizers() throws LanguageParsingException, CanonicizationException, DocumentException {
+		String text = getText();
+
 		for (Canonicizer canonicizer : canonicizers) {
 			text = canonicizer.process(text);
 		}

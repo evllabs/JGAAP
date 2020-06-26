@@ -627,7 +627,7 @@ public class API {
 						document.load();
 						document.processCanonicizers();
 						for (EventDriver eventDriver : eventDrivers) {
-							char[] text = document.getText();
+							String text = document.getText();
 							for(Canonicizer canonicizer : eventDriver.getCanonicizers()){
 								text = canonicizer.process(text);
 							}

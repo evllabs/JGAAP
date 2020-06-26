@@ -49,10 +49,10 @@ public class KendallCorrelationTauBDistance extends DistanceFunction {
 		List<Pair<Event, Double>> unknownList = new ArrayList<Pair<Event, Double>>(unknownHistogram.uniqueEvents().size());
 		List<Pair<Event, Double>> knownList = new ArrayList<Pair<Event, Double>>(knownHistogram.uniqueEvents().size());
 		for(Event e : unknownHistogram.uniqueEvents()){
-			unknownList.add(new Pair<Event, Double>(e, unknownHistogram.relativeFrequency(e),2));
+			unknownList.add(new Pair<Event, Double>(e, unknownHistogram.getRelativeFrequency(e),2));
 		}
 		for(Event e : knownHistogram.uniqueEvents()){
-			knownList.add(new Pair<Event, Double>(e, knownHistogram.relativeFrequency(e), 2));
+			knownList.add(new Pair<Event, Double>(e, knownHistogram.getRelativeFrequency(e), 2));
 		}
 		return tauDistance(unknownList, knownList);
 	}

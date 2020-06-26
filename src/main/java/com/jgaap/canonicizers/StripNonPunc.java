@@ -60,10 +60,9 @@ public class StripNonPunc extends Canonicizer {
 	 * @return Array of processed characters.
 	 */
 	@Override
-	public char[] process(char[] procText) {
-    	String procString = new String(procText);
-    	procString = procString.replaceAll("\\s\\p{Alnum}+\\s", " ");
-    	procString = procString.replaceAll("\\p{Alnum}", "");
-    	return procString.toCharArray();
+	public String process(String procText) {
+		procText = procText.replaceAll("\\s\\p{Alnum}+\\s", " ");
+		procText = procText.replaceAll("\\p{Alnum}", "");
+    	return procText;
 	}
 }

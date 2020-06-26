@@ -8,10 +8,8 @@ import java.util.Set;
 
 import com.jgaap.generics.EventCullingException;
 import com.jgaap.generics.FilterEventCuller;
-import com.jgaap.util.Event;
-import com.jgaap.util.EventHistogram;
-import com.jgaap.util.EventSet;
-import com.jgaap.util.Pair;
+import com.jgaap.util.*;
+
 /**
  * Analyze N events with the highest Mean Absolute Deviation
  * MAD = 1/n sum for i = 1 to n |xi - mean|
@@ -32,23 +30,19 @@ public class MeanAbsoluteDeviation extends FilterEventCuller {
 		int numEvents = getParameter("numEvents", 50);
 		String informative = getParameter("Informative", "Most");
 		
-		EventHistogram hist = new EventHistogram();
-
-		for (EventSet oneSet : eventSets) {
-			for (Event e : oneSet) {
-				hist.add(e);
-			}
-		}
+		Set<Event> allEvents = new HashSet<>();
 		List<Pair<Event,Double>> MAD = new ArrayList<Pair<Event,Double>>(); 
-		List<EventHistogram> eventHistograms = new ArrayList<EventHistogram>(eventSets.size());
+		List<Histogram> eventHistograms = new ArrayList<>(eventSets.size());
 		for (EventSet eventSet : eventSets) {
-			eventHistograms.add(new EventHistogram(eventSet));
+			Histogram histogram = new EventHistogram(eventSet);
+			eventHistograms.add(histogram);
+			allEvents.addAll(histogram.uniqueEvents());
 		}
-		
-		for (Event event : hist) {
+
+		for (Event event : allEvents) {
 			double mean;
 			List<Integer>frequencies = new  ArrayList<Integer>();
-			for (EventHistogram eventHistogram : eventHistograms) {
+			for (Histogram eventHistogram : eventHistograms) {
 				frequencies.add(eventHistogram.getAbsoluteFrequency(event));
 			}
 			double total = frequencies.size();

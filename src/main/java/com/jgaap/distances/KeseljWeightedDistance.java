@@ -61,8 +61,8 @@ public class KeseljWeightedDistance extends DistanceFunction {
 		for (Event event : unknownHistogram.uniqueEvents()) {
 			double fa, fx;
 
-			fa = unknownHistogram.relativeFrequency(event);
-			fx = knownHistogram.relativeFrequency(event);
+			fa = unknownHistogram.getRelativeFrequency(event);
+			fx = knownHistogram.getRelativeFrequency(event);
 
 			// note denominator for Keselj-weighting
 			distance += ( (fa-fx)*(fa-fx) )/

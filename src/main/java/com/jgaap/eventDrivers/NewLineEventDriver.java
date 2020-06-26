@@ -28,7 +28,7 @@ public class NewLineEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		
 		String textString = new String(text);
 		String [] events = textString.split("[\n]+");

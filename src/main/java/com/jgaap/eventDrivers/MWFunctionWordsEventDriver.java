@@ -73,9 +73,10 @@ public class MWFunctionWordsEventDriver extends NaiveWordEventDriver {
     }
 
     /** Creates EventSet using M-W function word list 
-     * @throws EventGenerationException */
+     * @throws EventGenerationException
+     * @param text */
     @Override
-    public EventSet createEventSet(char[] text) {
+    public EventSet createEventSet(String text) {
         EventSet words = super.createEventSet(text);
         EventSet eventSet = new EventSet();
         for(Event event : words){

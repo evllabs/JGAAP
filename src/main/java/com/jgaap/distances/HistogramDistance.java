@@ -63,7 +63,7 @@ public class HistogramDistance extends DistanceFunction {
 		Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
 		
 		for(Event event : events){
-			distance += Math.pow(unknownHistogram.relativeFrequency(event) - knownHistogram.relativeFrequency(event), 2);
+			distance += Math.pow(unknownHistogram.getRelativeFrequency(event) - knownHistogram.getRelativeFrequency(event), 2);
 		}
 
 		return distance;

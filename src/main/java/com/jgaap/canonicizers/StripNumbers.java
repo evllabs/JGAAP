@@ -57,22 +57,22 @@ public class StripNumbers extends Canonicizer {
 	 * 
 	 */
 	@Override
-	public char[] process(char[] procText) {
-		StringBuilder stringBuilder = new StringBuilder(procText.length);
+	public String process(String procText) {
+		StringBuilder stringBuilder = new StringBuilder(procText.length());
 		boolean spaceflag = false;
-		for (int i = 0; i < procText.length; i++) {
-			if (Character.isDigit(procText[i]) && !spaceflag) {
+		for (int i = 0; i < procText.length(); i++) {
+			if (Character.isDigit(procText.charAt(i)) && !spaceflag) {
 				stringBuilder.append('0');
 				spaceflag = true;
-			} else if (!Character.isDigit(procText[i]) && procText[i] != ','
-					&& procText[i] != '.') {
+			} else if (!Character.isDigit(procText.charAt(i)) && procText.charAt(i) != ','
+					&& procText.charAt(i) != '.') {
 				// handle numbers like 3.14 and 20,000 as well
 				// TODO : handle numbers like .001 or 12. (?)
 //				processed.add(procText[i]);
-				stringBuilder.append(procText[i]);
+				stringBuilder.append(procText.charAt(i));
 				spaceflag = false;
 			}
 		}
-		return stringBuilder.toString().toCharArray();
+		return stringBuilder.toString();
 	}
 }

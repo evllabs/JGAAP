@@ -49,6 +49,7 @@ public class ExtremeCuller extends FilterEventCuller {
 			}
 			eventSetsUnique.add(events);
 		}
+
 		for(Event event : uniqueEvents){
 			boolean extreme = true;
 			for(Set<Event> events : eventSetsUnique){

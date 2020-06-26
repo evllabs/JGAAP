@@ -76,7 +76,7 @@ public class SentenceEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		logger.debug(regex);
 		String textString = new String(text);
 		String[] sentences = textString.split("(?<=[?!\\.])\\s+");

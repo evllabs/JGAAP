@@ -51,8 +51,8 @@ public class NominalKSDistance extends DistanceFunction {
         Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
 
         for (Event event : events) {
-            distance += Math.abs(unknownHistogram.relativeFrequency(event)
-                    - knownHistogram.relativeFrequency(event));
+            distance += Math.abs(unknownHistogram.getRelativeFrequency(event)
+                    - knownHistogram.getRelativeFrequency(event));
         }
 
         return (1.0 / 2.0) * distance;

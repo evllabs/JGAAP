@@ -46,8 +46,8 @@ public class WEDDivergence extends DistanceFunction {
 		double distance = 0.0;
 		
 		for(Event event : events){
-			double unknown = unknownHistogram.relativeFrequency(event);
-			double known = knownHistogram.relativeFrequency(event);
+			double unknown = unknownHistogram.getRelativeFrequency(event);
+			double known = knownHistogram.getRelativeFrequency(event);
 			distance += (unknown == 0 ? 1 : unknown) * (unknown - known) * (unknown - known);  
 		}
 		

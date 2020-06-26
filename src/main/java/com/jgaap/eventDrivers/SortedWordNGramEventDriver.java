@@ -23,7 +23,7 @@ public class SortedWordNGramEventDriver extends SortedNGramEventDriver {
 	private NaiveWordEventDriver wordEventDriver = new NaiveWordEventDriver();
 	
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		return sortEventSet(wordEventDriver.createEventSet(text));
 	}
 

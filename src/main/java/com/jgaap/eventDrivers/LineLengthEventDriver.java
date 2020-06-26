@@ -28,7 +28,7 @@ public class LineLengthEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		// Get lines from text.
 		EventSet linesEventSet = new NewLineEventDriver().createEventSet(text);
 		

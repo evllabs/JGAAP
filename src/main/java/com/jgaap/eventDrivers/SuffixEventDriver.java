@@ -57,7 +57,7 @@ public class SuffixEventDriver extends EventDriver {
 	private NaiveWordEventDriver wordEventDriver = new NaiveWordEventDriver();
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(String text) throws EventGenerationException {
 		int length = getParameter("length", 3);
 		int minimumlength = getParameter("mimimnmlength", 5);
 

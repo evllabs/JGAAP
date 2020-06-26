@@ -66,7 +66,7 @@ public class MNLetterWordEventDriver extends NaiveWordEventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 
 		// lots of error checking
 		int N = getParameter("N", 3);

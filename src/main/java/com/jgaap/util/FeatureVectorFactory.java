@@ -200,7 +200,7 @@ public class FeatureVectorFactory {
 		EventMap eventMap = new EventMap(document);
 		int i = 0;
 		for(Event event : vocab) {
-			result[i] = eventMap.normalizedFrequency(event);
+			result[i] = eventMap.getNormalizedFrequency(event);
 			i++;
 		}
 		return result;

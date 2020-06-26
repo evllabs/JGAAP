@@ -44,7 +44,7 @@ public class NaiveWordEventDriver extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		EventSet es = new EventSet();
 		String current = new String(text);
 		// \s is shorthand for whitespace, remember the \\ to get the \

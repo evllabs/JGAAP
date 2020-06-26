@@ -40,7 +40,7 @@ public class BhattacharyyaDistance extends DistanceFunction {
 		double distance = 0.0;
 		
 		for(Event event : events)
-			distance += Math.sqrt(unknownHistogram.relativeFrequency(event) * knownHistogram.relativeFrequency(event));
+			distance += Math.sqrt(unknownHistogram.getRelativeFrequency(event) * knownHistogram.getRelativeFrequency(event));
 		
 		distance = -Math.log(distance);
 		return distance;

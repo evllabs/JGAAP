@@ -56,10 +56,9 @@ public class StripPunctuation extends Canonicizer {
      * @return Array of processed characters.
      */
     @Override
-    public char[] process(char[] procText) {
-    	String procString = new String(procText);
-    	procString = procString.replaceAll("\\s\\p{Punct}+\\s", " ");
-    	procString = procString.replaceAll("\\p{Punct}", "");
-    	return procString.toCharArray();
+    public String process(String procText) {
+        procText = procText.replaceAll("\\s\\p{Punct}+\\s", " ");
+        procText = procText.replaceAll("\\p{Punct}", "");
+    	return procText;
     }
 }

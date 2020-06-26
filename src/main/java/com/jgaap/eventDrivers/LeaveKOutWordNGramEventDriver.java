@@ -23,7 +23,7 @@ public class LeaveKOutWordNGramEventDriver extends LeaveKOutNGramEventDriver {
 	private NaiveWordEventDriver wordDriver = new NaiveWordEventDriver();
 	
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		return transformEventSet(wordDriver.createEventSet(text));
 	}
 

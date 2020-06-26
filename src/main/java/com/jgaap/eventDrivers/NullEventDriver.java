@@ -48,7 +48,7 @@ public class NullEventDriver extends EventDriver {
     }
 
     @Override
-    public EventSet createEventSet(char[] text) {
+    public EventSet createEventSet(String text) {
         EventSet es = new EventSet();
 
         // again, use logging facilities when they exist

@@ -61,7 +61,7 @@ public class WordSyllablesEventDriver extends NumericEventDriver {
 	public String vowellist = "aeiouyAEIOUY";
 
 	@Override
-	public NumericEventSet createEventSet(char[] text) throws EventGenerationException {
+	public NumericEventSet createEventSet(String text) throws EventGenerationException {
 		EventSet es = wordtokenizer.createEventSet(text);
 		NumericEventSet newEs = new NumericEventSet();
 

@@ -23,7 +23,7 @@ public class SortedCharacterNGramEventDriver extends SortedNGramEventDriver {
 	private CharacterEventDriver driver = new CharacterEventDriver();
 
 	@Override
-	public EventSet createEventSet(char[] text) {
+	public EventSet createEventSet(String text) {
 		return sortEventSet(driver.createEventSet(text));
 	}
 

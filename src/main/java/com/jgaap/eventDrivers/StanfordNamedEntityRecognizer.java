@@ -33,7 +33,7 @@ public class StanfordNamedEntityRecognizer extends EventDriver {
 	}
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(String text) throws EventGenerationException {
 		EventSet eventSet = new EventSet();
 		if (classifier == null)
 			synchronized (this) {

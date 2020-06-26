@@ -94,7 +94,7 @@ public class DefinitionsEventDriver extends EventDriver {
 	private static StripPunctuation stripPunctuation = new StripPunctuation();
 
 	@Override
-	public EventSet createEventSet(char[] text) throws EventGenerationException {
+	public EventSet createEventSet(String text) throws EventGenerationException {
 
 		EventSet eventSet = new EventSet();
 		PorterStemmerWithIrregularEventDriver port = new PorterStemmerWithIrregularEventDriver();
@@ -159,7 +159,7 @@ public class DefinitionsEventDriver extends EventDriver {
 						definition = word.getSynset().getGloss();
 						break;
 					case (2):
-						tmpevent = port.createEventSet(words.get(i).toCharArray());
+						tmpevent = port.createEventSet(words.get(i));
 						idxWord = dict.getIndexWord(tmpevent.eventAt(0).toString(), POS.VERB);
 						if (idxWord == null)
 							break;
@@ -196,7 +196,7 @@ public class DefinitionsEventDriver extends EventDriver {
 
 		}
 
-		String[] eventArray = new String(stripPunctuation.process(outDef.toString().toCharArray())).split("\\s+");
+		String[] eventArray = stripPunctuation.process(outDef.toString()).split("\\s+");
 
 		for (int i = 0; i < eventArray.length; i++) {
 			if (!stopWords.contains(eventArray[i]))

@@ -51,7 +51,7 @@ public class NullHistAnalysis extends AnalysisDriver {
 			EventMap eventMap = new EventMap(known);
 			System.out.println("--- Known Event Set #" + count + " ---");
             for(Event event : eventMap.uniqueEvents()){
-            	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+eventMap.relativeFrequency(event)+"',");
+            	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+eventMap.getRelativeFrequency(event)+"',");
             }
 		}
 	}
@@ -61,7 +61,7 @@ public class NullHistAnalysis extends AnalysisDriver {
         EventMap eventMap = new EventMap(unknown);
         System.out.println("--- Unknown Event Set ---");
         for(Event event : eventMap.uniqueEvents()){
-        	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+eventMap.relativeFrequency(event)+"',");
+        	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+eventMap.getRelativeFrequency(event)+"',");
         }
 
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();

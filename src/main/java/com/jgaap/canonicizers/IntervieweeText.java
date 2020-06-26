@@ -47,9 +47,8 @@ public class IntervieweeText extends Canonicizer {
     }
 
     @Override
-    public char[] process(char[] procText) {
-        String text = new String(procText);
-        StringBuilder newText = new StringBuilder(procText.length);
+    public String process(String text) {
+        StringBuilder newText = new StringBuilder(text.length());
 
         int start = 0;
         int end = 0;
@@ -59,7 +58,7 @@ public class IntervieweeText extends Canonicizer {
             end = text.indexOf("</B>", start);
 
             if(start == -1) {
-                return newText.toString().toCharArray();
+                return newText.toString();
             }
             newText.append(" " + text.substring(start+3, end) + " ");
         }

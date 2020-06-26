@@ -17,6 +17,7 @@
  */
 package com.jgaap.canonicizers;
 
+import com.google.common.collect.Lists;
 import com.jgaap.generics.Canonicizer;
 
 /**
@@ -56,10 +57,10 @@ public class PunctuationSeparator extends Canonicizer {
      *         single space.
      */
 	@Override
-	public char[] process(char[] procText) {
-		StringBuilder stringBuilder = new StringBuilder(procText.length);
+	public String process(String procText) {
+		StringBuilder stringBuilder = new StringBuilder(procText.length());
 		int state = 0;
-		for (Character character : procText) {
+		for (Character character : Lists.charactersOf(procText)) {
 			if (state == 0) {
 				state = getState(character);
 			} else if (state == 1) {
@@ -75,7 +76,7 @@ public class PunctuationSeparator extends Canonicizer {
 			}
 			stringBuilder.append(character);
 		}
-		return stringBuilder.toString().toCharArray();
+		return stringBuilder.toString();
 	}
 
 	private int getState(Character character) {
