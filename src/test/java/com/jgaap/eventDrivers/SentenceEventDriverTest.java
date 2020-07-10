@@ -39,7 +39,7 @@ public class SentenceEventDriverTest {
 		String text = ("Hello, Dr. Jones!  I'm not.feeling.too well today.  What's the matter Mr. Adams?  My stomach hurts, A.K.A, cramps.");
 
 		EventDriver eventDriver = new SentenceEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		List<Event> tmp = new ArrayList<Event>();
 

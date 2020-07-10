@@ -52,7 +52,7 @@ public class NaiveWordEventDriverTest {
 		);
 
 		EventDriver eventDriver = new NaiveWordEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

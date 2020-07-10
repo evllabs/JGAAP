@@ -56,7 +56,7 @@ public class HDLegomenaEventDriverTest {
 	    eventDriver.setParameter("M", 1);
 	    eventDriver.setParameter("N", 2);
 	    
-	    EventSet sampleSet = eventDriver.createEventSet(text.toCharArray());    
+	    EventSet sampleSet = eventDriver.createEventSet(text);
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
 	    tmp.add(new Event("be", eventDriver));

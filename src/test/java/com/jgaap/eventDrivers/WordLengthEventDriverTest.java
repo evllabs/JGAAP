@@ -51,7 +51,7 @@ public class WordLengthEventDriverTest {
 				   "if nature gain who can complain\n"+
 				   "tho dr johnson fulminate");
 		EventDriver eventDriver = new WordLengthEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("3", eventDriver));
@@ -92,7 +92,7 @@ public class WordLengthEventDriverTest {
 		/* n.b. no new declarations */
 		text = (
 			"`the' quick brown \"fox\" isn't very? dumb!");
-		sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		sampleEventSet = eventDriver.createEventSet(text);
 		expectedEventSet = new EventSet();
 		tmp = new Vector<Event>();
 		tmp.add(new Event("5", eventDriver));
@@ -107,7 +107,7 @@ public class WordLengthEventDriverTest {
 
 		/* test case 3 -- no words */
 		text = ("\t         \t\n");
-		sampleEventSet = new WordLengthEventDriver().createEventSet(text.toCharArray());
+		sampleEventSet = new WordLengthEventDriver().createEventSet(text);
 		expectedEventSet = new EventSet();
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 		

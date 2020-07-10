@@ -61,7 +61,7 @@ public class RareWordsEventDriverTest {
 	    EventDriver ed  = new RareWordsEventDriver();
 	    ed.setParameter("M","4");
 	    ed.setParameter("N","5");
-	    EventSet sampleSet = ed.createEventSet(text.toCharArray());    
+	    EventSet sampleSet = ed.createEventSet(text);
 
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();

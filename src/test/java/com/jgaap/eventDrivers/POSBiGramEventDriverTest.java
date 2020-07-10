@@ -53,7 +53,7 @@ public class POSBiGramEventDriverTest {
 		    EventDriver eventDriver = new POSNGramEventDriver();
 		    eventDriver.setParameter("N", 2);
 		    
-		    EventSet sampleSet = eventDriver.createEventSet(text.toCharArray());
+		    EventSet sampleSet = eventDriver.createEventSet(text);
 		    //System.out.println(sampleSet.size());
 		    //System.out.println(sampleSet.toString());
 		    

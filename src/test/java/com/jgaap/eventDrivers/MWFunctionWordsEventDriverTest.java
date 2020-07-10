@@ -54,7 +54,7 @@ public class MWFunctionWordsEventDriverTest {
 "distractor fail eliminate megafail lose gark hoser shimatta"
 		);
 		EventDriver eventDriver = new MWFunctionWordsEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("a", eventDriver));

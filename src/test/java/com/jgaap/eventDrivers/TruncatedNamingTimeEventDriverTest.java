@@ -50,7 +50,7 @@ public class TruncatedNamingTimeEventDriverTest {
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
 		EventDriver eventDriver = new TruncatedNamingTimeEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

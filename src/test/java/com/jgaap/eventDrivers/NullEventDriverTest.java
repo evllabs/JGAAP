@@ -50,7 +50,7 @@ public class NullEventDriverTest{
 				   "if nature gain who can complain\n"+
 				   "tho dr johnson fulminate");
 		NullEventDriver eventDriver = new NullEventDriver();
-	     EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+	     EventSet sampleEventSet = eventDriver.createEventSet(text);
 	     EventSet expectedEventSet = new EventSet();
 	     Vector<Event> tmp = new Vector<Event>();
 	     tmp.add(new Event("sir I send a rhyme excelling\n"+

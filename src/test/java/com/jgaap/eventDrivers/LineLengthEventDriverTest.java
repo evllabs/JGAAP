@@ -34,7 +34,7 @@ public class LineLengthEventDriverTest {
 			"	But Nan and the man\n" + 
 			"	Stole the money and ran,\n" + 
 			"And as for the asset, Manhasset.";
-		EventSet actualSet = eventDriver.createEventSet(sampleInput.toCharArray());
+		EventSet actualSet = eventDriver.createEventSet(sampleInput);
 		
 		EventSet expectedSet = new EventSet();
 		int[] expectedVals = {7, 8, 5, 5, 6, 7, 8, 6, 5, 6, 7, 9, 5, 5, 6};

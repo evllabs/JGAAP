@@ -50,7 +50,7 @@ public class DefinitionsEventDriverTest {
 	    		+"The truck missed the cat and the lazy dog was not so lazy and caught the cat");
 	    
 		EventDriver eventDriver = new DefinitionsEventDriver();
-	    EventSet sampleSet = eventDriver.createEventSet(text.toCharArray());
+	    EventSet sampleSet = eventDriver.createEventSet(text);
 	    EventSet expectedSet = new EventSet();
 	    Vector<Event> tmp = new Vector<Event>();
 	    

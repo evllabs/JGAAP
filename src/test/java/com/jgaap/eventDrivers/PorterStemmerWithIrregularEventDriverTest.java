@@ -68,7 +68,7 @@ public class PorterStemmerWithIrregularEventDriverTest {
 "accounted accounts accoutred accoutrement accoutrements accrue alumni caught");
 
 		EventDriver eventDriver = new PorterStemmerWithIrregularEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

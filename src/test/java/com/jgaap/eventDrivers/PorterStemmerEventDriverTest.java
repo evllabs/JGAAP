@@ -79,7 +79,7 @@ public class PorterStemmerEventDriverTest {
 
 
 		EventDriver eventDriver = new PorterStemmerEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

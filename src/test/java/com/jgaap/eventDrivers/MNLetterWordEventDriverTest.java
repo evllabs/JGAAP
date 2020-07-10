@@ -64,7 +64,7 @@ public class MNLetterWordEventDriverTest {
 		ed.setParameter("M","3");
 		ed.setParameter("N","4");
 
-		EventSet sampleEventSet = ed.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = ed.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

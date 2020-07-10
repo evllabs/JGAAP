@@ -40,7 +40,7 @@ public class KSkipNGramWordEventDriverTest {
 		EventDriver eventDriver = new KSkipNGramWordEventDriver();
 		eventDriver.setParameter("K", 3);
 		eventDriver.setParameter("N", 4);
-		EventSet actualSet = eventDriver.createEventSet(sampleInput.toCharArray());
+		EventSet actualSet = eventDriver.createEventSet(sampleInput);
 		
 		EventSet expectedSet = new EventSet();
 		expectedSet.addEvent(new Event("Lorem amet, Maecenas Fusce", eventDriver));

@@ -64,7 +64,7 @@ public class V24LetterWordEventDriverTest {
 		eventDriver.setParameter("M", 2);
 		eventDriver.setParameter("N", 4);
 
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

@@ -64,7 +64,7 @@ public class VowelMNLetterWordEventDriverTest {
 		ed.setParameter("M","1");
 		ed.setParameter("N","2");
 
-		EventSet sampleEventSet = ed.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = ed.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

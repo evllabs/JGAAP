@@ -76,7 +76,7 @@ public class SyllableTransitionEventDriverTest {
 		);
 
 		EventDriver eventDriver = new SyllableTransitionEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("[1, 1]", eventDriver));
@@ -115,7 +115,7 @@ public class SyllableTransitionEventDriverTest {
 		/* test case 2 -- trigrams */
 		EventDriver ed = new SyllableTransitionEventDriver();
 		ed.setParameter("N","3"); 
-		sampleEventSet = ed.createEventSet(text.toCharArray());
+		sampleEventSet = ed.createEventSet(text);
 
 		expectedEventSet = new EventSet();
 		tmp = new Vector<Event>();

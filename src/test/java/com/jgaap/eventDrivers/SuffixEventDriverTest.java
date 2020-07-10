@@ -49,7 +49,7 @@ public class SuffixEventDriverTest {
 		);
 
 		EventDriver eventDriver = new SuffixEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

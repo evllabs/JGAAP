@@ -50,7 +50,7 @@ public class WordBiGramEventDriverTest {
 "The lamb was sure to go.");
 		EventDriver eventDriver = new WordNGramEventDriver();
 		eventDriver.setParameter("N", 2);
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("[Mary, had]", eventDriver));

@@ -50,7 +50,7 @@ public class FreqEventDriverTest {
 "zoologist zoology zoom zooming zooms zucchini Zurich");
 
 		EventDriver eventDriver = new FreqEventDriver();
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new NumericEventSet();
 		Vector<Event> tmp = new Vector<Event>();
 

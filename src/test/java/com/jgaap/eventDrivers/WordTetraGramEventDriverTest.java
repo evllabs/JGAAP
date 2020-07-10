@@ -46,7 +46,7 @@ public class WordTetraGramEventDriverTest {
 		String text = ("Mary had a little lamb, little lamb. Its fleece was white as snow.");
 		EventDriver eventDriver = new WordNGramEventDriver();
 		eventDriver.setParameter("N", 4);
-		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet sampleEventSet = eventDriver.createEventSet(text);
 		EventSet expectedEventSet = new EventSet();
 		Vector<Event> tmp = new Vector<Event>();
 		tmp.add(new Event("[Mary, had, a, little]", eventDriver));
