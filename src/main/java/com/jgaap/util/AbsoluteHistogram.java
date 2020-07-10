@@ -5,7 +5,6 @@ import java.util.*;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multiset;
-import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Multiset.Entry;
 import com.jgaap.generics.EventDriver;
 import org.jetbrains.annotations.NotNull;
@@ -19,26 +18,10 @@ public class AbsoluteHistogram implements Histogram {
 
 	private final ImmutableMap<Event, Integer> histogram;
 	private final ImmutableMap<EventDriver, Integer> totals;
-	
-	public AbsoluteHistogram(Document document) {
-		Builder<Event, Integer> histogramBuilder = ImmutableMap.builder();
-		Builder<EventDriver, Integer> totalsBuilder = ImmutableMap.builder();
-		for(Map.Entry<EventDriver, EventSet> eventSetEntry : document.getEventSets().entrySet()){
-			EventDriver eventDriver = eventSetEntry.getKey();
-			EventSet eventSet = eventSetEntry.getValue();
-			totalsBuilder.put(eventDriver, eventSet.size());
-			Multiset<Event> multiset = HashMultiset.create(eventSet);
-			for(Entry<Event> entry : multiset.entrySet()){
-				histogramBuilder.put(entry.getElement(),entry.getCount());
-			}
-		}
-		histogram = histogramBuilder.build();
-		totals = totalsBuilder.build();
-	}
-	
-	private AbsoluteHistogram(Map<Event,Integer> histogram, Map<EventDriver,Integer> totals) {
-		this.histogram = ImmutableMap.copyOf(histogram);
-		this.totals = ImmutableMap.copyOf(totals);
+
+	private AbsoluteHistogram(ImmutableMap<Event,Integer> histogram, ImmutableMap<EventDriver,Integer> totals) {
+		this.histogram = histogram;
+		this.totals = totals;
 	}
 	
 	@Override
@@ -91,12 +74,49 @@ public class AbsoluteHistogram implements Histogram {
 				}
 			}
 		}
-		return new AbsoluteHistogram(tmpHistogram, tmpTotals);
+		return new AbsoluteHistogram(ImmutableMap.copyOf(tmpHistogram), ImmutableMap.copyOf(tmpTotals));
 	}
 
 	@NotNull
 	@Override
 	public Iterator<Event> iterator() {
 		return this.uniqueEvents().iterator();
+	}
+
+	public static Builder builder(){
+		return new Builder();
+	}
+
+	public static class Builder {
+		ImmutableMap.Builder<Event, Integer> histogramBuilder;
+		ImmutableMap.Builder<EventDriver, Integer> totalsBuilder;
+
+		private Builder() {
+			this.histogramBuilder = ImmutableMap.builder();
+			this.totalsBuilder = ImmutableMap.builder();
+		}
+
+		public AbsoluteHistogram build(){
+			return new AbsoluteHistogram(this.histogramBuilder.build(), this.totalsBuilder.build());
+		}
+
+		public Builder addDocument(Document document){
+			for(Map.Entry<EventDriver, EventSet> eventSetEntry : document.getEventSets().entrySet()) {
+				EventDriver eventDriver = eventSetEntry.getKey();
+				EventSet eventSet = eventSetEntry.getValue();
+				this.addEventSet(eventDriver, eventSet);
+			}
+			return this;
+		}
+
+		public Builder addEventSet(EventDriver eventDriver, EventSet eventSet){
+			totalsBuilder.put(eventDriver, eventSet.size());
+			Multiset<Event> multiset = HashMultiset.create(eventSet);
+			for(Entry<Event> entry : multiset.entrySet()){
+				histogramBuilder.put(entry.getElement(),entry.getCount());
+			}
+			return this;
+		}
+
 	}
 }

@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.jgaap.util.Document;
+import com.jgaap.util.DocumentException;
 import com.jgaap.util.EventSet;
 
 /**
@@ -50,18 +52,18 @@ public abstract class EventDriver extends Parameterizable implements Comparable<
      */
     abstract public EventSet createEventSet(String text) throws EventGenerationException;
 
-    public List<EventSet> apply(List<String> texts) throws EventGenerationException, CanonicizationException, EventCullingException {
+    public List<EventSet> apply(List<Document> texts) throws EventGenerationException, CanonicizationException, EventCullingException, LanguageParsingException, DocumentException {
     	return this.apply(texts, false);
 	}
 
-	public List<EventSet> trainApply(List<String> texts) throws EventGenerationException, CanonicizationException, EventCullingException {
+	public List<EventSet> trainApply(List<Document> texts) throws EventGenerationException, CanonicizationException, EventCullingException, LanguageParsingException, DocumentException {
     	return this.apply(texts, true);
 	}
 
-    private List<EventSet> apply(List<String> texts, boolean train) throws CanonicizationException, EventGenerationException, EventCullingException {
+    private List<EventSet> apply(List<Document> texts, boolean train) throws CanonicizationException, EventGenerationException, EventCullingException, LanguageParsingException, DocumentException {
     	List<EventSet> eventSets = new ArrayList<>(texts.size());
-    	for (String text : texts) {
-    		String textBuffer = text;
+    	for (Document text : texts) {
+    		String textBuffer = text.getText();
     		for (Canonicizer canonicizer: this.getCanonicizers()){
     			textBuffer = canonicizer.process(textBuffer);
 			}

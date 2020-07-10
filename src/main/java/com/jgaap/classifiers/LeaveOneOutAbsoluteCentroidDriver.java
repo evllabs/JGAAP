@@ -46,18 +46,18 @@ public class LeaveOneOutAbsoluteCentroidDriver extends ValidationDriver {
 		ImmutableMultimap.Builder<String, Document> knownDocumentsBuilder = ImmutableMultimap.builder();
 		Multimap<String, AbsoluteHistogram> knownHistograms = HashMultimap.create();
 		for(Document known : knowns){
-			AbsoluteHistogram AbsoluteHistogram = new AbsoluteHistogram(known);
-			knownAbsoluteHistogramsBuilder.put(known, AbsoluteHistogram);
-			knownHistograms.put(known.getAuthor(), AbsoluteHistogram);
+			AbsoluteHistogram absoluteHistogram = AbsoluteHistogram.builder().addDocument(known).build();
+			knownAbsoluteHistogramsBuilder.put(known, absoluteHistogram);
+			knownHistograms.put(known.getAuthor(), absoluteHistogram);
 			knownDocumentsBuilder.put(known.getAuthor(), known);
 		}
 		knownAbsoluteHistograms = knownAbsoluteHistogramsBuilder.build();
 		knownDocuments = knownDocumentsBuilder.build();
-		ImmutableMap.Builder<String, AbsoluteHistogram> knownCentoidsBuilder = ImmutableMap.builder();
+		ImmutableMap.Builder<String, AbsoluteHistogram> knownCentroidsBuilder = ImmutableMap.builder();
 		for(Map.Entry<String, Collection<AbsoluteHistogram>> entry : knownHistograms.asMap().entrySet()){
-			knownCentoidsBuilder.put(entry.getKey(), AbsoluteHistogram.centroid(entry.getValue()));
+			knownCentroidsBuilder.put(entry.getKey(), AbsoluteHistogram.centroid(entry.getValue()));
 		}
-		knownCentroids = knownCentoidsBuilder.build();
+		knownCentroids = knownCentroidsBuilder.build();
 	}
 
 	@Override

@@ -7,76 +7,32 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class Experiment extends Parameterizable implements Displayable, Comparable<Experiment>{
-    private List<EventDriver> eventDrivers;
-    private AnalysisDriver analysisDriver;
+    private Model model;
 
-    public Experiment() {
-        this.eventDrivers = new ArrayList<>();
+    public void setModel(Model model){
+        this.model = model;
     }
 
-    public List<EventDriver> getEventDrivers() {
-        return eventDrivers;
+    public Model getModel() {
+        return this.model;
     }
 
-    public boolean addEventDrivers(List<EventDriver> eventDrivers) {
-        return this.eventDrivers.addAll(eventDrivers);
-    }
-
-    public boolean addEventDriver(EventDriver eventDriver) {
-        return this.eventDrivers.add(eventDriver);
-    }
-
-    public ConfusionMatrix run(List<Document> knownDocuments) throws EventGenerationException, CanonicizationException, EventCullingException, AnalyzeException, ExperimentException, LanguageParsingException, DocumentException {
-        applyEventDrivers(knownDocuments);
+    public ConfusionMatrix run(List<Document> knownDocuments) throws EventGenerationException, CanonicizationException, EventCullingException, AnalyzeException, ExperimentException, LanguageParsingException, DocumentException, ModelException {
+        ConfusionMatrix confusionMatrix = new ConfusionMatrix();
         for (Iterator<TrainTestSplit> plan = this.getTestingPlan(knownDocuments); plan.hasNext(); ){
             TrainTestSplit trainTestSplit = plan.next();
-            this.getAnalysisDriver().train(trainTestSplit.getTrainDocuments());
+            this.model.train(trainTestSplit.getTrainDocuments());
             for (Document document : trainTestSplit.getTestDocuments()) {
-                List<Pair<String, Double>> result = this.getAnalysisDriver().analyze(document);
-                document.addResult(this.getAnalysisDriver(), result);
+                String result = this.model.apply(document);
+                confusionMatrix.add(document.getAuthor(), result);
             }
-        }
-        return evaluate(knownDocuments);
-    }
-
-    protected abstract Iterator<TrainTestSplit> getTestingPlan(List<Document> documents) throws ExperimentException;
-
-    private void applyEventDrivers(List<Document> documents) throws EventGenerationException, CanonicizationException, EventCullingException, LanguageParsingException, DocumentException {
-
-        for (EventDriver eventDriver: this.getEventDrivers()){
-            List<String> list = new ArrayList<>();
-            for (Document d : documents) {
-                String text = d.getText();
-                list.add(text);
-            }
-            List<EventSet> eventSets = eventDriver.trainApply(list);
-            for (int i = 0; i < eventSets.size(); i++) {
-                Document document = documents.get(i);
-                EventSet eventSet = eventSets.get(i);
-                document.addEventSet(eventDriver, eventSet);
-            }
-        }
-    }
-
-    private ConfusionMatrix evaluate(List<Document> documents){
-        ConfusionMatrix confusionMatrix = new ConfusionMatrix();
-        for (Document document : documents) {
-            List<Pair<String, Double>> results = document.getRawResult(this.analysisDriver);
-            confusionMatrix.add(document.getAuthor(), results.get(0).getFirst());
         }
         return confusionMatrix;
     }
 
-    public void setAnalysisDriver(AnalysisDriver analysisDriver) {
-        this.analysisDriver = analysisDriver;
-    }
-
-    public AnalysisDriver getAnalysisDriver() {
-        return this.analysisDriver;
-    }
+    protected abstract Iterator<TrainTestSplit> getTestingPlan(List<Document> documents) throws ExperimentException;
 
     public int compareTo(Experiment experiment){
         return this.displayName().compareTo(experiment.displayName());
@@ -103,10 +59,6 @@ public abstract class Experiment extends Parameterizable implements Displayable,
     }
 
     public String toString() {
-        String tmp = "";
-        for(EventDriver e : this.getEventDrivers()){
-            tmp = tmp + "\n" + e.toString();
-        }
-        return displayName()+" : "+getParameters() + tmp +  getAnalysisDriver().toString();
+        return displayName()+" : "+getParameters() + getModel().toString();
     }
 }

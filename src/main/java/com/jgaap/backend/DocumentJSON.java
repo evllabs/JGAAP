@@ -10,10 +10,18 @@ public class DocumentJSON {
     String title;
     String language;
     String text;
+    String path;
 
     public Document instanceDocument() throws Exception {
-        Document document = new Document();
-        document.setText(this.text);
+        Document document;
+        if (this.path != null && !this.path.isEmpty() ){
+            document = new Document(this.path, "");
+        } else if (this.text != null && !this.text.isEmpty()){
+            document = new Document();
+            document.setText(this.text);
+        } else {
+            throw new Exception("No Text Provided!");
+        }
         if (this.author != null && !this.author.isEmpty()) {
             document.setAuthor(this.author);
         }

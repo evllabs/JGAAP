@@ -41,7 +41,7 @@ public class AbsoluteCentroidDriver extends NeighborAnalysisDriver {
 	@Override
 	public String tooltipText() {
 		return "Computes one centroid per Author.\n"
-				+ "Centroids are the frequency of events over all docuents provided.\n";
+				+ "Centroids are the frequency of events over all documents provided.\n";
 	}
 
 	@Override
@@ -53,8 +53,7 @@ public class AbsoluteCentroidDriver extends NeighborAnalysisDriver {
 	public void train(List<Document> knowns) {
 		Multimap<String, AbsoluteHistogram> knownHistograms = HashMultimap.create();
 		for (Document known : knowns) {
-			AbsoluteHistogram AbsoluteHistogram = new AbsoluteHistogram(known);
-			knownHistograms.put(known.getAuthor(), AbsoluteHistogram);
+			knownHistograms.put(known.getAuthor(), AbsoluteHistogram.builder().addDocument(known).build());
 		}
 		ImmutableMap.Builder<String, Histogram> mapBuilder = ImmutableMap.builder();
 		for (Entry<String, Collection<AbsoluteHistogram>> entry : knownHistograms.asMap().entrySet()) {
@@ -65,12 +64,11 @@ public class AbsoluteCentroidDriver extends NeighborAnalysisDriver {
 
 	@Override
 	public List<Pair<String, Double>> analyze(Document unknown) throws AnalyzeException {
-		Histogram unknownHistogram = new AbsoluteHistogram(unknown);
+		AbsoluteHistogram unknownHistogram = AbsoluteHistogram.builder().addDocument(unknown).build();
 		List<Pair<String, Double>> result = new ArrayList<Pair<String, Double>>(knownCentroids.size());
 		for (Entry<String, Histogram> knownEntry : knownCentroids.entrySet()) {
 			try {
 				double current = distance.distance(unknownHistogram, knownEntry.getValue());
-				logger.debug(unknown.getTitle()+" ("+unknown.getFilePath()+")"+" -> "+knownEntry.getKey()+":"+current);
 				result.add(new Pair<String, Double>(knownEntry.getKey(), current, 2));
 			} catch (DistanceCalculationException e) {
 				logger.fatal("Distance " + distance.displayName() + " failed", e);

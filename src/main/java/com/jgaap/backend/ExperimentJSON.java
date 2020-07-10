@@ -12,24 +12,13 @@ import java.util.Map;
 @Value public class ExperimentJSON {
     String name;
     Map<String, String> parameters;
-    AnalysisDriverJSON analysisDriver;
-    List<EventDriverJSON> eventDrivers;
-
-
-    public List<EventDriver> instanceEventDrivers() throws Exception {
-        List<EventDriver> eventDrivers = new ArrayList<>(this.getEventDrivers().size());
-        for (EventDriverJSON eventDriverJSON : this.getEventDrivers()){
-            eventDrivers.add(eventDriverJSON.instanceEventDriver());
-        }
-        return eventDrivers;
-    }
+    ModelJSON model;
 
     public Experiment instanceExperiment() throws Exception {
         Experiment experiment = Experiments.getExperiment(this.getName());
         if (this.parameters != null)
             experiment.setParameters(this.parameters);
-        experiment.addEventDrivers(this.instanceEventDrivers());
-        experiment.setAnalysisDriver(this.analysisDriver.instanceAnalysisDriver());
+        experiment.setModel(this.getModel().instanceModel());
         return experiment;
     }
 

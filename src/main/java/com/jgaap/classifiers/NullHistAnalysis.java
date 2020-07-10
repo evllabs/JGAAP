@@ -21,12 +21,10 @@ package com.jgaap.classifiers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.jgaap.generics.AnalysisDriver;
-import com.jgaap.util.Document;
-import com.jgaap.util.Event;
-import com.jgaap.util.EventMap;
-import com.jgaap.util.Pair;
+import com.jgaap.util.*;
 
 /**
  * NullAnalysis : no analysis, but prints histogram of event sets received
@@ -46,22 +44,25 @@ public class NullHistAnalysis extends AnalysisDriver {
 
 	public void train(List<Document> knowns){
 		int count = 0;
-		for(Document known : knowns){
+		for(AbsoluteHistogram histogram : knowns.stream().map(document -> AbsoluteHistogram.builder().addDocument(document).build()).collect(Collectors.toList())){
 			count++;
-			EventMap eventMap = new EventMap(known);
 			System.out.println("--- Known Event Set #" + count + " ---");
-            for(Event event : eventMap.uniqueEvents()){
-            	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+eventMap.getRelativeFrequency(event)+"',");
+            for(Event event : histogram.uniqueEvents()){
+            	System.out.println(
+            			"'"+event.getEvent().replaceAll("'", "\\'")+"','"+
+						histogram.getRelativeFrequency(event)+"',");
             }
 		}
 	}
 	
     @Override
     public List<Pair<String, Double>> analyze(Document unknown) {
-        EventMap eventMap = new EventMap(unknown);
         System.out.println("--- Unknown Event Set ---");
-        for(Event event : eventMap.uniqueEvents()){
-        	System.out.println("'"+event.getEvent().replaceAll("'", "\\'")+"','"+eventMap.getRelativeFrequency(event)+"',");
+        AbsoluteHistogram histogram = AbsoluteHistogram.builder().addDocument(unknown).build();
+        for(Event event : histogram.uniqueEvents()){
+        	System.out.println(
+        			"'"+event.getEvent().replaceAll("'", "\\'")+"','"+
+					histogram.getRelativeFrequency(event)+"',");
         }
 
         List<Pair<String,Double>> results = new ArrayList<Pair<String,Double>>();

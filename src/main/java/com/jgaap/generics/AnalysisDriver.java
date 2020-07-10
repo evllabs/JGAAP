@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.jgaap.util.AbsoluteHistogram;
 import com.jgaap.util.Document;
 import com.jgaap.util.EventSet;
 import com.jgaap.util.Pair;
@@ -50,8 +51,9 @@ public abstract class AnalysisDriver extends Parameterizable implements
 	 * @param events Samples of known authors writing
 	 */
 	
-//	abstract public void train(List<String> labels, List<Map<EventDriver, EventSet>> events) throws AnalyzeException;
-	abstract public void train(List<Document> knownDocuments) throws AnalyzeException;
+	abstract public void train(List<Document> knowns) throws AnalyzeException;
+
+//	abstract public void train(List<Document> knownDocuments) throws AnalyzeException;
 	/**
 	 * Compare the current document to the trained models
 	 * 
