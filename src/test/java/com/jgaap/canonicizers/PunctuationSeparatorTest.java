@@ -28,10 +28,10 @@ public class PunctuationSeparatorTest {
 
 	@Test
 	public void processTest(){
-		char[] sample = "This, is ,a test.of what\", happens[']with punctuation.".toCharArray();
+		String sample = "This, is ,a test.of what\", happens[']with punctuation.";
 		PunctuationSeparator canon = new PunctuationSeparator();
-		char[] result = canon.process(sample);
-		char[] ex = {'T', 'h', 'i', 's', ' ', ',', ' ', 'i', 's', ' ', ',', ' ', 'a', ' ', 't', 'e', 's', 't', ' ', '.', ' ', 'o', 'f', ' ', 'w', 'h', 'a', 't', ' ', '"', ' ', ',', ' ', 'h', 'a', 'p', 'p', 'e', 'n', 's', ' ', '[', ' ', '\'', ' ', ']', ' ', 'w', 'i', 't', 'h', ' ', 'p', 'u', 'n', 'c', 't', 'u', 'a', 't', 'i', 'o', 'n', ' ', '.'};
-		assertTrue(Arrays.equals(result, ex));
+		String result = canon.process(sample);
+		String ex = new String (new char[]{'T', 'h', 'i', 's', ' ', ',', ' ', 'i', 's', ' ', ',', ' ', 'a', ' ', 't', 'e', 's', 't', ' ', '.', ' ', 'o', 'f', ' ', 'w', 'h', 'a', 't', ' ', '"', ' ', ',', ' ', 'h', 'a', 'p', 'p', 'e', 'n', 's', ' ', '[', ' ', '\'', ' ', ']', ' ', 'w', 'i', 't', 'h', ' ', 'p', 'u', 'n', 'c', 't', 'u', 'a', 't', 'i', 'o', 'n', ' ', '.'});
+		assertTrue(result.equalsIgnoreCase(ex));
 	}
 }

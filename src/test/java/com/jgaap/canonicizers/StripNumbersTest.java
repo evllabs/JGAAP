@@ -34,18 +34,18 @@ public class StripNumbersTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.StripNumbers#process(char[])}.
+	 * {@link com.jgaap.canonicizers.StripNumbers#process(String)}.
 	 */
 	@Test
 	public void testProcess() {
-		char[] sample = { 'P', 'i', ' ', 'i', 's', ' ', '3', '.', '1', '4',
-				'1', '5', ';', '2', '^', '6', ' ', 'i', 's', ' ', '6', '4' };
+		String sample = new String( new char[] { 'P', 'i', ' ', 'i', 's', ' ', '3', '.', '1', '4',
+				'1', '5', ';', '2', '^', '6', ' ', 'i', 's', ' ', '6', '4' });
 
-		char[] expected = { 'P', 'i', ' ', 'i', 's', ' ', '0', ';', '0', '^',
-				'0', ' ', 'i', 's', ' ', '0' };
+		String expected = new String( new char[] { 'P', 'i', ' ', 'i', 's', ' ', '0', ';', '0', '^',
+				'0', ' ', 'i', 's', ' ', '0' });
 
-		char[] test = new StripNumbers().process(sample);
-		assertTrue(Arrays.equals(expected, test));
+		String test = new StripNumbers().process(sample);
+		assertTrue(expected.equalsIgnoreCase(test));
 	}
 
 }

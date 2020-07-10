@@ -34,19 +34,19 @@ public class StripNonPuncTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.StripNonPunc#process(char[])}.
+	 * {@link com.jgaap.canonicizers.StripNonPunc#process(String)}.
 	 */
 	@Test
 	public void testProcess() {
-		char[] sample = { 'H', 'e', 'l', 'l', 'o', ',', ' ', 'W', ';', ':',
+		String sample = new String( new char[]{ 'H', 'e', 'l', 'l', 'o', ',', ' ', 'W', ';', ':',
 				'$', 'o', 'r', 'l', 'd', '!', ',', '.', '?', '!', '\"', '\'',
-				'`', ';', ':', '-', '(', ')', '&', '$' };
+				'`', ';', ':', '-', '(', ')', '&', '$' });
 
-		char[] expected = { ',', ' ', ';', ':', '$', '!', ',', '.', '?', '!',
-				'\"', '\'', '`', ';', ':', '-', '(', ')', '&', '$' };
+		String expected = new String ( new char[]{ ',', ' ', ';', ':', '$', '!', ',', '.', '?', '!',
+				'\"', '\'', '`', ';', ':', '-', '(', ')', '&', '$' });
 
-		char[] test = new StripNonPunc().process(sample);
-		assertTrue(Arrays.equals(test, expected));
+		String test = new StripNonPunc().process(sample);
+		assertTrue(expected.equalsIgnoreCase(test));
 	}
 
 }

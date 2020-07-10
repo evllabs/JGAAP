@@ -19,7 +19,7 @@ package com.jgaap.canonicizers;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test for the Smash I canonicizer.
@@ -34,45 +34,44 @@ public class SmashITest {
 		
 		// Test 1 - I on ends
 		String in = "I don't care if IPad is supposed to be spelled with a lowercase I";
-		char[] correct = "i don't care if IPad is supposed to be spelled with a lowercase i".toCharArray();
-		char[] actual = smashI.process(in.toCharArray());
-		assertArrayEquals(correct, actual);
+		String correct = "i don't care if IPad is supposed to be spelled with a lowercase i";
+		String actual = smashI.process(in);
+		assertTrue(correct.equalsIgnoreCase(actual));
 		
 		// Test 2 - I in middle surrounded by spaces
 		in = "Sometimes I cannot think of creative things to write for unit tests.";
-		correct = "Sometimes i cannot think of creative things to write for unit tests.".toCharArray();
-		actual = smashI.process(in.toCharArray());
-		assertArrayEquals(correct, actual);
+		correct = "Sometimes i cannot think of creative things to write for unit tests.";
+		actual = smashI.process(in);
+		assertTrue(correct.equalsIgnoreCase(actual));
 		
 		// Test 3 - I in middle surrounded by tabs
 		in = "Sometimes		I	cannot think of creative things to write for unit tests.";
-		correct = in.toCharArray();
-		correct[11] = 'i';
-		actual = smashI.process(in.toCharArray());
-		assertArrayEquals(correct, actual);
+		correct = "Sometimes		i	cannot think of creative things to write for unit tests.";
+		actual = smashI.process(in);
+		assertTrue(correct.equalsIgnoreCase(actual));
 		
 		// Test 4 - Bunch of I's next to each other with varying case
 		in = "iIiIiiIIiiiiiiIIiiIiIiIIiiIIiiIiiIiiIIiiiIiiiIiI";
-		correct = in.toCharArray();
-		actual = smashI.process(in.toCharArray());
-		assertArrayEquals(correct, actual);
+		correct = in;
+		actual = smashI.process(in);
+		assertTrue(correct.equalsIgnoreCase(actual));
 
 		// Test 5 - Non-whitespaced I
 		in = "\"I am here\", she said.";
-		correct = "\"i am here\", she said.".toCharArray();
-		actual = smashI.process(in.toCharArray());
-		assertArrayEquals(correct, actual);
+		correct = "\"i am here\", she said.";
+		actual = smashI.process(in);
+		assertTrue(correct.equalsIgnoreCase(actual));
 
 		// Test 6 - Non-whitespaced I
 		in = "I'm here.";
-		correct = "i'm here.".toCharArray();
-		actual = smashI.process(in.toCharArray());
-		assertArrayEquals(correct, actual);
+		correct = "i'm here.";
+		actual = smashI.process(in);
+		assertTrue(correct.equalsIgnoreCase(actual));
 
 		// Test 7 - Non-whitespaced I
 		in = "It is I.";
-		correct = "It is i.".toCharArray();
-		actual = smashI.process(in.toCharArray());
-		assertArrayEquals(correct, actual);
+		correct = "It is i.";
+		actual = smashI.process(in);
+		assertTrue(correct.equalsIgnoreCase(actual));
 	}
 }

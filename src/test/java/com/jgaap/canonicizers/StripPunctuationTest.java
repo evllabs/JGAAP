@@ -34,32 +34,32 @@ public class StripPunctuationTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.StripPunctuation#process(char[])}
+	 * {@link com.jgaap.canonicizers.StripPunctuation#process(String)}
 	 * .
 	 */
 	@Test
 	public void testProcess() {
-		char[] sample = { 'H', 'e', 'l', 'l', 'o', ',', ' ', 'W', ';', ':',
-				'$', 'o', 'r', 'l', 'd', '!', '.', '?', '(', ')' };
+		String sample = new String( new char[] { 'H', 'e', 'l', 'l', 'o', ',', ' ', 'W', ';', ':',
+				'$', 'o', 'r', 'l', 'd', '!', '.', '?', '(', ')' });
 
-		char[] expected = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l',
-				'd' };
+		String expected = new String( new char[] { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l',
+				'd' });
 
-		char[] test = new StripPunctuation().process(sample);
-		assertTrue(Arrays.equals(expected, test));
+		String test = new StripPunctuation().process(sample);
+		assertTrue(expected.equalsIgnoreCase(test));
 	}
 	
 	@Test
 	public void testWhitespace() {
 		
-		char[] sample2 = { 'H', 'e', 'l', 'l', 'o', ' ', ',', ' ', 'W', ';', ':',
-				'$', 'o', 'r', 'l', 'd', '!', '.', '?', '(', ')' };
+		String sample2 = new String( new char[]{ 'H', 'e', 'l', 'l', 'o', ' ', ',', ' ', 'W', ';', ':',
+				'$', 'o', 'r', 'l', 'd', '!', '.', '?', '(', ')' });
 		
-		char[] expected = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l',
-		'd' };
+		String expected = new String( new char[]{ 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l',
+		'd' });
 		
-		char [] test = new StripPunctuation().process(sample2);
-		assertTrue(Arrays.equals(expected, test));		
+		String test = new StripPunctuation().process(sample2);
+		assertTrue(expected.equalsIgnoreCase(test));
 	}
 
 }

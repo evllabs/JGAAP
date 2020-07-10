@@ -31,7 +31,7 @@ import org.junit.Test;
 public class AddErrorsTest {
 
 	/**
-	 * Test method for {@link com.jgaap.canonicizers.AddErrors#process(char[])}.
+	 * Test method for {@link com.jgaap.canonicizers.AddErrors#process(String)}.
 	 */
 	@Test
 	public void testProcess() {
@@ -52,12 +52,12 @@ public class AddErrorsTest {
 			AddErrors thing = new AddErrors();
 			thing.setParameter("percenterror", 25);
 			int notChanged = 0;
-			char[] test2 = thing.process(test1.toString().toCharArray());
-			for (int j=0; j<test2.length; j++)
+			String test2 = thing.process(test1.toString());
+			for (int j=0; j<test2.length(); j++)
 			{
 				//System.out.println((int)test2.elementAt(j));
 				
-				if (test2[j]=='b')
+				if (test2.charAt(j)=='b')
 				{
 					notChanged = notChanged + 1;
 				}
@@ -106,14 +106,14 @@ public class AddErrorsTest {
 				AddErrors thing = new AddErrors();
 				thing.setParameter("percenterror", 100);
 				
-				char[] test2 = thing.process(test1.toString().toCharArray());
-				for (int j=0; j<test2.length; j++)
+				String test2 = thing.process(test1.toString());
+				for (int j=0; j<test2.length(); j++)
 				{
 					//System.out.println((int)test2.elementAt(j));
 					
-					if (test2[j]!='b')
+					if (test2.charAt(j)!='b')
 					{
-						LA[i][(int)test2[j]-65]=LA[i][(int)test2[j]-65]+1;
+						LA[i][(int)test2.charAt(j)-65]=LA[i][(int)test2.charAt(j)-65]+1;
 					}
 					
 				}

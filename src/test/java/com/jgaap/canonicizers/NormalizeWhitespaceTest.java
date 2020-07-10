@@ -34,16 +34,14 @@ public class NormalizeWhitespaceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.NormalizeWhitespace#process(char[])}
+	 * {@link com.jgaap.canonicizers.NormalizeWhitespace#process(String)}
 	 * .
 	 */
 	@Test
 	public void testProcess() {
-		char[] sample = { 'H', 'e', 'l', 'l', 'o', ' ', ' ', '\t', '\n', 'W',
-				'o', 'r', 'l', 'd', '!', '\n' };
-		char[] expected = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l',
-				'd', '!', ' ' };
-		char[] test = new NormalizeWhitespace().process(sample);
-		assertTrue(Arrays.equals(expected, test));
+		String sample = "Hello  \t\nWorld!\n";
+		String expected = "Hello World! ";
+		String test = new NormalizeWhitespace().process(sample);
+		assertTrue(expected.equalsIgnoreCase(test));
 	}
 }

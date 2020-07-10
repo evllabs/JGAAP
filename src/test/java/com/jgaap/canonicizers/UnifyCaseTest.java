@@ -34,17 +34,17 @@ public class UnifyCaseTest {
 
 	/**
 	 * Test method for
-	 * {@link com.jgaap.canonicizers.UnifyCase#process(char[])}.
+	 * {@link com.jgaap.canonicizers.UnifyCase#process(String)}.
 	 */
 	@Test
 	public void testProcess() {
-		char[] sample = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l',
-				'd', '!' };
+		String sample = new String( new char[]{ 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l',
+				'd', '!' });
 
-		char[] expected = { 'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l',
-				'd', '!' };
-		char[] test = new UnifyCase().process(sample);
-		assertTrue(Arrays.equals(test, expected));
+		String expected = new String( new char[]{ 'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l',
+				'd', '!' });
+		String test = new UnifyCase().process(sample);
+		assertTrue(test.equalsIgnoreCase(expected));
 	}
 
 }
