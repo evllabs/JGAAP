@@ -1,7 +1,7 @@
 {
   "name": "K Fold Cross Validation",
   "parameters": {
-    "k": 2
+    "k": 3
   },
   "models": [
     {
@@ -44,11 +44,11 @@
       }
     ],
       "analysisDriver": {
-      "name": "Centroid Driver",
-      "distanceFunction": {
-        "name": "Cosine Distance"
+        "name": "Centroid Driver",
+        "distanceFunction": {
+          "name": "Cosine Distance"
+        }
       }
-    }
     }
   ]
 }

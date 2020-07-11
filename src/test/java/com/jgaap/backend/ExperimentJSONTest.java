@@ -1,6 +1,7 @@
 package com.jgaap.backend;
 
 import com.jgaap.JGAAPConstants;
+import com.jgaap.experiments.KFoldCrossValidation;
 import com.jgaap.generics.Experiment;
 import com.jgaap.util.ConfusionMatrix;
 import com.jgaap.util.Document;
@@ -27,16 +28,14 @@ public class ExperimentJSONTest {
                         JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"experiment.json"
                     ).toURI())));
         log.info("Populating Experiment.");
-        System.out.println(json);
         Experiment e = ExperimentJSON.readExperiment(json);
         log.info("Experiment Loaded");
-        assertTrue(e.displayName().equalsIgnoreCase("K Fold Cross Validation"));
-        log.info(e.toString());
+        assertTrue(e.displayName().equalsIgnoreCase("k Fold Cross Validation"));
         log.info("Loading Documents.");
         List<Document> documents = Utils.getDocumentsFromCSV(
             CSVIO.readCSV(
                 getClass().getResourceAsStream(
-                    JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"aaac/problemA/loadA.csv")));
+                    JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"aaac/problemF/loadF.csv")));
         List<Document> knownDocuments = new ArrayList<Document>();
         List<Document> unknownDocuments = new ArrayList<Document>();
         Set<String> authors = new HashSet<String>();
@@ -52,7 +51,8 @@ public class ExperimentJSONTest {
         log.info("Documents Loaded.");
         log.info("Running Experiment.");
         Map<Model, ConfusionMatrix> results = e.run(knownDocuments);
-        ConfusionMatrix result = results.get(e.getModels().get(0));
+        Model model = e.getModels().get(0);
+        ConfusionMatrix result = results.get(model);
         log.info("Experiment Finished.");
         double f1 = result.getAverageF1Score();
         double precision = result.getAveragePrecision();
@@ -60,8 +60,21 @@ public class ExperimentJSONTest {
         log.info("F1 score "+f1);
         log.info("Precision "+precision);
         log.info("Recall "+recall);
-        assertEquals(f1, 0.22391625538335796, 0.05);
-        assertEquals(precision, 0.23021978021978023, 0.05);
-        assertEquals(recall, 0.23021978021978023, 0.05);
+        for (String label : result.getLabels()) {
+            log.info(label+" F1 score "+result.getF1Score(label));
+            log.info(label+" Precision "+result.getPrecision(label));
+            log.info(label+" Recall "+result.getRecall(label));
+        }
+        assertEquals(0.8419494578569506, f1, 0.05);
+        assertEquals(0.8507456140350879, precision, 0.05);
+        assertEquals(0.8333333333333334, recall, 0.05);
+        for (Document unknown : unknownDocuments) {
+            String author = model.apply(unknown);
+            String expected = unknown.getTitle().split("\\s+")[1];
+            log.info("Actual: "+expected+"\t Predicted: "+author);
+            // This problem should be 100% except for the None case which we don't cover in any method at this time.
+            assertTrue(expected.equalsIgnoreCase(author) || expected.equalsIgnoreCase("NONE"));
+        }
+
     }
 }
