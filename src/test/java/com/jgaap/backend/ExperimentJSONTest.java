@@ -1,7 +1,6 @@
 package com.jgaap.backend;
 
 import com.jgaap.JGAAPConstants;
-import com.jgaap.experiments.KFoldCrossValidation;
 import com.jgaap.generics.Experiment;
 import com.jgaap.util.ConfusionMatrix;
 import com.jgaap.util.Document;
@@ -50,9 +49,8 @@ public class ExperimentJSONTest {
         }
         log.info("Documents Loaded.");
         log.info("Running Experiment.");
-        Map<Model, ConfusionMatrix> results = e.run(knownDocuments);
-        Model model = e.getModels().get(0);
-        ConfusionMatrix result = results.get(model);
+        ConfusionMatrix result = e.train(knownDocuments);
+        Model model = e.getModel();
         log.info("Experiment Finished.");
         double f1 = result.getAverageF1Score();
         double precision = result.getAveragePrecision();

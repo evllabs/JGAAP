@@ -3,52 +3,50 @@
   "parameters": {
     "k": 3
   },
-  "models": [
+  "model": {
+    "eventDrivers":[
     {
-      "eventDrivers":[
-      {
-        "name": "Word Ngrams",
-        "parameters": {
-          "N": 2
-        },
-        "canonicizers": [
-          {
-            "name": "Normalize Whitespace"
-          },
-          {
-            "name": "Unify Case"
-          }
-        ],
-        "eventCullers":[
-          {
-            "name": "Most Common Events",
-            "parameters": {
-              "N": "5000"
-            }
-          }
-        ]
+      "name": "Word Ngrams",
+      "parameters": {
+        "N": 2
       },
-      {
-        "name": "Character Ngrams",
-        "parameters": {
-          "N": 6
+      "canonicizers": [
+        {
+          "name": "Normalize Whitespace"
         },
-        "canonicizers": [
-          {
-            "name": "Normalize Whitespace"
-          },
-          {
-            "name": "Unify Case"
-          }
-        ]
-      }
-    ],
-      "analysisDriver": {
-        "name": "Centroid Driver",
-        "distanceFunction": {
-          "name": "Cosine Distance"
+        {
+          "name": "Unify Case"
         }
+      ],
+      "eventCullers":[
+        {
+          "name": "Most Common Events",
+          "parameters": {
+            "N": "5000"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Character Ngrams",
+      "parameters": {
+        "N": 6
+      },
+      "canonicizers": [
+        {
+          "name": "Normalize Whitespace"
+        },
+        {
+          "name": "Unify Case"
+        }
+      ]
+    }
+  ],
+    "analysisDriver": {
+      "name": "Centroid Driver",
+      "distanceFunction": {
+        "name": "Cosine Distance"
       }
     }
-  ]
+  }
 }
