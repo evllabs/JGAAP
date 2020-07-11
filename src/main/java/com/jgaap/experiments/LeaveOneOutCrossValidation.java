@@ -26,23 +26,29 @@ public class LeaveOneOutCrossValidation extends Experiment {
 
     @Override
     protected Iterator<TrainTestSplit> getTestingPlan(List<Document> documents) {
-        List<TrainTestSplit> plan = new ArrayList<>(documents.size());
-        for (int i = 0; i < documents.size(); i++) {
-            List<Document> test = Collections.singletonList(documents.get(i));
-            List<Document> train;
-            if (i == 0){
-                train = documents.subList(1, documents.size());
-            } else if (i == documents.size() - 1){
-                train = documents.subList(0, i);
-            } else {
-                train = documents.subList(0, i);
-                train.addAll(documents.subList(i+1, documents.size()));
+        Iterator<TrainTestSplit> it = new Iterator<TrainTestSplit>() {
+            int i = 0;
+
+            @Override
+            public boolean hasNext() {
+                return i < documents.size();
             }
-            TrainTestSplit trainTestSplit = new TrainTestSplit();
-            trainTestSplit.addTrainDocuments(train);
-            trainTestSplit.addTestDocuments(test);
-            plan.add(trainTestSplit);
-        }
-        return plan.iterator();
+
+            @Override
+            public TrainTestSplit next() {
+                List<Document> test = Collections.singletonList(documents.get(i));
+                List<Document> train = new ArrayList<>();
+                for (int j=0; j < documents.size(); j++){
+                    if (i!=j)
+                        train.add(documents.get(j));
+                }
+                TrainTestSplit trainTestSplit = new TrainTestSplit();
+                trainTestSplit.addTrainDocuments(train);
+                trainTestSplit.addTestDocuments(test);
+                i++;
+                return trainTestSplit;
+            }
+        };
+        return it;
     }
 }

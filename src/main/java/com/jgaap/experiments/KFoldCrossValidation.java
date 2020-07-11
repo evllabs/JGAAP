@@ -44,38 +44,49 @@ public class KFoldCrossValidation  extends Experiment {
     @Override
     protected Iterator<TrainTestSplit> getTestingPlan(List<Document> documents) throws ExperimentException {
         int k = this.getParameter("k", 5);
-        List<TrainTestSplit> plan = new ArrayList<>(documents.size());
-        for (int i = 0; i < k; i++) {
-            plan.add(new TrainTestSplit());
-        }
         Multimap<String, Document> authorToDocuments = ArrayListMultimap.create();
         for (Document document : documents) {
             authorToDocuments.put(document.getAuthor(), document);
         }
-        for (Map.Entry<String, Collection<Document>> authorDocumentsEntry : authorToDocuments.asMap().entrySet()){
-            List<Document> authorsDocuments = new ArrayList<>(authorDocumentsEntry.getValue());
-            String author = authorDocumentsEntry.getKey();
-            if (authorsDocuments.size() < k)
-                throw new ExperimentException("Author "+author+" does not have enough documents to test with K="+k);
-            int count = authorsDocuments.size()/k;
-            for (int i = 0; i < k; i++) {
-                int start = i * count;
-                int end = start + count;
-                if (i == k-1){
-                    end = authorsDocuments.size();
-                }
-                List<Document> tmp = authorsDocuments.subList(start, end);
-                for(int j = 0; j < plan.size(); j++) {
-                    TrainTestSplit currentSplit = plan.get(j);
-                    if (j==i){
-                        currentSplit.addTrainDocuments(tmp);
-                    } else {
-                        currentSplit.addTestDocuments(tmp);
-                    }
-                }
-            }
+        // check that all authors have enough documents for k folds.
+        for (Map.Entry<String, Collection<Document>> authorDocumentsEntry : authorToDocuments.asMap().entrySet()) {
+            if (authorDocumentsEntry.getValue().size() < k)
+                throw new ExperimentException(
+                        "Author " + authorDocumentsEntry.getKey() +
+                        " does not have enough documents to test with K=" + k);
         }
-        return plan.iterator();
+        return new Iterator<TrainTestSplit>() {
+            int i = 0;
+            @Override
+            public boolean hasNext() {
+                return i < k;
+            }
+
+            @Override
+            public TrainTestSplit next() {
+                TrainTestSplit trainTestSplit = new TrainTestSplit();
+                for (Map.Entry<String, Collection<Document>> authorDocumentsEntry : authorToDocuments.asMap().entrySet()){
+                    List<Document> authorsDocuments = new ArrayList<>(authorDocumentsEntry.getValue());
+                    int count = authorsDocuments.size()/k;
+                    int start = i * count;
+                    int end = start + count;
+                    if (i == k-1){
+                        end = authorsDocuments.size();
+                    }
+                    List<Document> test = authorsDocuments.subList(start, end);
+                    List<Document> train = new ArrayList<>(authorsDocuments.size()-k);
+                    for (int j = 0; j < authorsDocuments.size(); j++) {
+                        if (j<start || j>=end) {
+                            train.add(authorsDocuments.get(j));
+                        }
+                    }
+                    trainTestSplit.addTestDocuments(test);
+                    trainTestSplit.addTrainDocuments(train);
+                }
+                i++;
+                return trainTestSplit;
+            }
+        };
     }
 
 
