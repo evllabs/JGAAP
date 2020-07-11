@@ -44,7 +44,8 @@ public class NullHistAnalysis extends AnalysisDriver {
 
 	public void train(List<Document> knowns){
 		int count = 0;
-		for(AbsoluteHistogram histogram : knowns.stream().map(document -> AbsoluteHistogram.builder().addDocument(document).build()).collect(Collectors.toList())){
+		for(Document known : knowns){
+			AbsoluteHistogram histogram = AbsoluteHistogram.builder().addDocument(known).build();
 			count++;
 			System.out.println("--- Known Event Set #" + count + " ---");
             for(Event event : histogram.uniqueEvents()){

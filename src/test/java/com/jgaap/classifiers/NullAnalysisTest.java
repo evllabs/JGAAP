@@ -22,6 +22,8 @@ package com.jgaap.classifiers;
 
 import static org.junit.Assert.*;
 
+import com.jgaap.eventDrivers.NaiveWordEventDriver;
+import com.jgaap.generics.EventDriver;
 import org.junit.Test;
 
 import com.jgaap.util.Document;
@@ -47,29 +49,30 @@ public class NullAnalysisTest {
 	public void testAnalyze() {
 		EventSet known1 = new EventSet();
 		EventSet unknown = new EventSet();
-		
+		EventDriver ed = new NaiveWordEventDriver();
+
 		Vector<Event> test1 = new Vector<Event>();
-		test1.add(new Event("The", null));
-		test1.add(new Event("quick", null));
-		test1.add(new Event("brown", null));
-		test1.add(new Event("fox", null));
-		test1.add(new Event("jumps", null));
-		test1.add(new Event("over", null));
-		test1.add(new Event("the", null));
-		test1.add(new Event("lazy", null));
-		test1.add(new Event("dog", null));
-		test1.add(new Event(".", null));
+		test1.add(new Event("The", ed));
+		test1.add(new Event("quick", ed));
+		test1.add(new Event("brown", ed));
+		test1.add(new Event("fox", ed));
+		test1.add(new Event("jumps", ed));
+		test1.add(new Event("over", ed));
+		test1.add(new Event("the", ed));
+		test1.add(new Event("lazy", ed));
+		test1.add(new Event("dog", ed));
+		test1.add(new Event(".", ed));
 		known1.addEvents(test1);
 		unknown.addEvents(test1);
-		
+
 		List<Document> knowns = new ArrayList<Document>();
 		Document knownDocument1 = new Document();
 		//knownDocument1.setAuthor(known1.getAuthor());
-		knownDocument1.addEventSet(null, known1);
+		knownDocument1.addEventSet(ed, known1);
 		knowns.add(knownDocument1);
 		
 		Document unknownDocument = new Document();
-		unknownDocument.addEventSet(null, unknown);
+		unknownDocument.addEventSet(ed, unknown);
 		NullAnalysis nullAnalysis = new NullAnalysis();
 		nullAnalysis.train(knowns);
 		List<Pair<String,Double>> t = nullAnalysis.analyze(unknownDocument);

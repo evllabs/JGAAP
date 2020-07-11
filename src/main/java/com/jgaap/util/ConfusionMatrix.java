@@ -3,6 +3,7 @@ package com.jgaap.util;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,6 +20,10 @@ public class ConfusionMatrix {
 
     public void add(String actual, String predicted, int count) {
         matrix.put(actual, predicted, this.getCount(actual,predicted) + count);
+    }
+
+    public Set<String> getLabels() {
+        return this.matrix.rowKeySet();
     }
 
     public int getCount(String actual, String predicted) {

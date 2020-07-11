@@ -63,7 +63,7 @@ public abstract class Experiment extends Parameterizable implements Displayable,
         }
     }
 
-//    public String toString() {
-//        return displayName()+" : "+getParameters() + getModel().toString();
-//    }
+    public String toString() {
+        return displayName()+" : "+getParameters();
+    }
 }

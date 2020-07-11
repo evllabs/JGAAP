@@ -3,6 +3,7 @@ package com.jgaap.util;
 import com.jgaap.generics.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Model {
@@ -40,10 +41,10 @@ public class Model {
         return this;
     }
 
-    public String apply(Document text) throws ModelException, AnalyzeException, EventGenerationException, CanonicizationException, EventCullingException {
+    public String apply(Document text) throws ModelException, AnalyzeException, EventGenerationException, CanonicizationException, EventCullingException, LanguageParsingException, DocumentException {
         checkTrained();
-//        AbsoluteHistogram histogram = applyEventDrivers(Collections.singletonList(text)).get(0);
-        return  getAnalysisDriver().analyze(text).get(0).getFirst();
+        Document document = applyEventDrivers(Collections.singletonList(text)).get(0);
+        return  getAnalysisDriver().analyze(document).get(0).getFirst();
     }
 
     public List<String> apply(List<Document> texts) throws ModelException, AnalyzeException, EventGenerationException, CanonicizationException, EventCullingException, LanguageParsingException, DocumentException {
