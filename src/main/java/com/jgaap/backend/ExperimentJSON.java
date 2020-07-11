@@ -2,23 +2,23 @@ package com.jgaap.backend;
 
 import com.google.gson.Gson;
 import com.jgaap.generics.Experiment;
-import com.jgaap.generics.EventDriver;
 import lombok.Value;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Value public class ExperimentJSON {
     String name;
     Map<String, String> parameters;
-    ModelJSON model;
+    List<ModelJSON> models;
 
     public Experiment instanceExperiment() throws Exception {
         Experiment experiment = Experiments.getExperiment(this.getName());
         if (this.parameters != null)
             experiment.setParameters(this.parameters);
-        experiment.setModel(this.getModel().instanceModel());
+        for (ModelJSON model : this.getModels()){
+            experiment.addModel(model.instanceModel());
+        }
         return experiment;
     }
 

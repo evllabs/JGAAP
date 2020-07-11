@@ -4,15 +4,13 @@ import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.Experiment;
 import com.jgaap.util.ConfusionMatrix;
 import com.jgaap.util.Document;
+import com.jgaap.util.Model;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -29,6 +27,7 @@ public class ExperimentJSONTest {
                         JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"experiment.json"
                     ).toURI())));
         log.info("Populating Experiment.");
+        System.out.println(json);
         Experiment e = ExperimentJSON.readExperiment(json);
         log.info("Experiment Loaded");
         assertTrue(e.displayName().equalsIgnoreCase("K Fold Cross Validation"));
@@ -52,7 +51,8 @@ public class ExperimentJSONTest {
         }
         log.info("Documents Loaded.");
         log.info("Running Experiment.");
-        ConfusionMatrix result = e.run(knownDocuments);
+        Map<Model, ConfusionMatrix> results = e.run(knownDocuments);
+        ConfusionMatrix result = results.get(e.getModels().get(0));
         log.info("Experiment Finished.");
         double f1 = result.getAverageF1Score();
         double precision = result.getAveragePrecision();

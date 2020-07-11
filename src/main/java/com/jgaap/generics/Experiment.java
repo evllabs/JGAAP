@@ -3,33 +3,38 @@ package com.jgaap.generics;
 import com.jgaap.util.*;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public abstract class Experiment extends Parameterizable implements Displayable, Comparable<Experiment>{
-    private Model model;
+    private List<Model> models;
 
-    public void setModel(Model model){
-        this.model = model;
-    }
-
-    public Model getModel() {
-        return this.model;
-    }
-
-    public ConfusionMatrix run(List<Document> knownDocuments) throws EventGenerationException, CanonicizationException, EventCullingException, AnalyzeException, ExperimentException, LanguageParsingException, DocumentException, ModelException {
-        ConfusionMatrix confusionMatrix = new ConfusionMatrix();
-        for (Iterator<TrainTestSplit> plan = this.getTestingPlan(knownDocuments); plan.hasNext(); ){
-            TrainTestSplit trainTestSplit = plan.next();
-            this.model.train(trainTestSplit.getTrainDocuments());
-            for (Document document : trainTestSplit.getTestDocuments()) {
-                String result = this.model.apply(document);
-                confusionMatrix.add(document.getAuthor(), result);
-            }
+    public void addModel(Model model){
+        if (models == null){
+            this.models = new ArrayList<>();
         }
-        return confusionMatrix;
+        this.models.add(model);
+    }
+
+    public List<Model> getModels() {
+        return this.models;
+    }
+
+
+    public Map<Model, ConfusionMatrix> run(List<Document> knownDocuments) throws EventGenerationException, CanonicizationException, EventCullingException, AnalyzeException, ExperimentException, LanguageParsingException, DocumentException, ModelException {
+        Map<Model, ConfusionMatrix> results = new HashMap<>();
+        for (Model model : this.getModels()) {
+            ConfusionMatrix confusionMatrix = new ConfusionMatrix();
+            for (Iterator<TrainTestSplit> plan = this.getTestingPlan(knownDocuments); plan.hasNext(); ) {
+                TrainTestSplit trainTestSplit = plan.next();
+                model.train(trainTestSplit.getTrainDocuments());
+                for (Document document : trainTestSplit.getTestDocuments()) {
+                    String result = model.apply(document);
+                    confusionMatrix.add(document.getAuthor(), result);
+                }
+            }
+            results.put(model, confusionMatrix);
+        }
+        return results;
     }
 
     protected abstract Iterator<TrainTestSplit> getTestingPlan(List<Document> documents) throws ExperimentException;
@@ -58,7 +63,7 @@ public abstract class Experiment extends Parameterizable implements Displayable,
         }
     }
 
-    public String toString() {
-        return displayName()+" : "+getParameters() + getModel().toString();
-    }
+//    public String toString() {
+//        return displayName()+" : "+getParameters() + getModel().toString();
+//    }
 }

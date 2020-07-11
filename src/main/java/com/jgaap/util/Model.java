@@ -36,6 +36,7 @@ public class Model {
     public Model train(List<Document> knowns) throws EventGenerationException, CanonicizationException, EventCullingException, AnalyzeException, LanguageParsingException, DocumentException {
         List<Document> processed_documents = trainEventDrivers(knowns);
         getAnalysisDriver().train(processed_documents);
+        this.trained = true;
         return this;
     }
 

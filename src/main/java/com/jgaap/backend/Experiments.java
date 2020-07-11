@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * 
- * Instances new Event Drivers based on display name.
+ * Instances new Experiment based on display name.
  * If parameters are also passed in the form DisplayName|name:value|name:value they are added to the Event Driver before it is returned
  *
  * @author Michael Ryan
