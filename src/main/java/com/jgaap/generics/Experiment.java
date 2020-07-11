@@ -32,6 +32,7 @@ public abstract class Experiment extends Parameterizable implements Displayable,
                     confusionMatrix.add(document.getAuthor(), result);
                 }
             }
+            model.train(knownDocuments);
             results.put(model, confusionMatrix);
         }
         return results;
