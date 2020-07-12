@@ -51,7 +51,7 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
     private static final String DEFAULT_TIE = "lastPicked";
 
 	public String displayName() {
-		return "K-Nearest Neighbor Driver" + getDistanceName();
+		return "K-Nearest Neighbor Driver";
 	}
 
 	public String tooltipText() {

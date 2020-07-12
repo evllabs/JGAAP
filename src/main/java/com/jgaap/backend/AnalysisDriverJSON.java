@@ -12,6 +12,17 @@ public class AnalysisDriverJSON {
     Map<String, String> parameters;
     DistanceFunctionJSON distanceFunction;
 
+    static public AnalysisDriverJSON fromInstance(AnalysisDriver analysisDriver) {
+        if (analysisDriver instanceof NeighborAnalysisDriver) {
+            return new AnalysisDriverJSON(
+                    analysisDriver.displayName(), analysisDriver.getParametersMap(),
+                    DistanceFunctionJSON.fromInstance(((NeighborAnalysisDriver) analysisDriver).getDistanceFunction()));
+        } else {
+            return new AnalysisDriverJSON(
+                    analysisDriver.displayName(), analysisDriver.getParametersMap(), null);
+        }
+    }
+
     public AnalysisDriver instanceAnalysisDriver() throws Exception {
         AnalysisDriver analysisDriver = AnalysisDrivers.getAnalysisDriver(this.name);
         if (this.parameters != null)

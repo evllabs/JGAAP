@@ -9,6 +9,10 @@ import java.util.Map;
     String name;
     Map<String, String> parameters;
 
+    public static DistanceFunctionJSON fromInstance(DistanceFunction distanceFunction) {
+        return new DistanceFunctionJSON(distanceFunction.displayName(), distanceFunction.getParametersMap());
+    }
+
     public DistanceFunction instanceDistanceFunction() throws Exception {
         DistanceFunction distanceFunction = DistanceFunctions.getDistanceFunction(this.name);
         if (this.parameters != null)

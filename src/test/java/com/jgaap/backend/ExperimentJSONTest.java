@@ -1,5 +1,6 @@
 package com.jgaap.backend;
 
+import com.google.gson.Gson;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.Experiment;
 import com.jgaap.util.ConfusionMatrix;
@@ -18,23 +19,45 @@ import static org.junit.Assert.*;
 public class ExperimentJSONTest {
 
     @Test
+    public void fromInstance() throws Exception {
+        log.info("Loading json.");
+        String json = new String(
+                Files.readAllBytes(
+                        Paths.get(
+                                getClass().getResource(
+                                        JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"experiment.json"
+                                ).toURI())));
+        System.out.println(json);
+        log.info("Populating Experiment.");
+        ExperimentJSON experimentJSON = ExperimentJSON.fromJSON(json);
+        log.info("Instancing Experiment.");
+        Experiment experiment = experimentJSON.instanceExperiment();
+        log.info("Reverting to JSON.");
+        ExperimentJSON experimentJSONRepackage = ExperimentJSON.fromInstance(experiment);
+        Gson gson = new Gson();
+        String json2 = gson.toJson(experimentJSONRepackage);
+        System.out.println(json2);
+        assertTrue(json.equalsIgnoreCase(json2));
+    }
+
+    @Test
     public void readExperiment() throws Exception {
         log.info("Loading json.");
         String json = new String(
-            Files.readAllBytes(
-                Paths.get(
-                    getClass().getResource(
-                        JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"experiment.json"
-                    ).toURI())));
+                Files.readAllBytes(
+                        Paths.get(
+                                getClass().getResource(
+                                        JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"experiment.json"
+                                ).toURI())));
         log.info("Populating Experiment.");
-        Experiment e = ExperimentJSON.readExperiment(json);
+        Experiment e = ExperimentJSON.fromJSON(json).instanceExperiment();
         log.info("Experiment Loaded");
         assertTrue(e.displayName().equalsIgnoreCase("k Fold Cross Validation"));
         log.info("Loading Documents.");
         List<Document> documents = Utils.getDocumentsFromCSV(
-            CSVIO.readCSV(
-                getClass().getResourceAsStream(
-                    JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"aaac/problemF/loadF.csv")));
+                CSVIO.readCSV(
+                        getClass().getResourceAsStream(
+                                JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"aaac/problemF/loadF.csv")));
         List<Document> knownDocuments = new ArrayList<Document>();
         List<Document> unknownDocuments = new ArrayList<Document>();
         for (Document document : documents) {

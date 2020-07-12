@@ -45,7 +45,7 @@ public class NearestNeighborDriver extends NeighborAnalysisDriver {
 	private ImmutableList<Pair<Document, EventMap>> knowns;
 	
 	public String displayName() {
-		return "Nearest Neighbor Driver" + getDistanceName();
+		return "Nearest Neighbor Driver";
 	}
 
 	public String tooltipText() {

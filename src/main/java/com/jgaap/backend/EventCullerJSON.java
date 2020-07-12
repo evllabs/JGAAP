@@ -9,6 +9,10 @@ import java.util.Map;
     String name;
     Map<String, String> parameters;
 
+    public static EventCullerJSON fromInstance(EventCuller eventCuller) {
+        return new EventCullerJSON(eventCuller.displayName(), eventCuller.getParametersMap());
+    }
+
     public EventCuller instanceEventCuller() throws Exception {
         EventCuller eventCuller = EventCullers.getEventCuller(this.name);
         if (this.parameters != null)

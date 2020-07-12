@@ -12,6 +12,15 @@ public class ModelJSON {
     AnalysisDriverJSON analysisDriver;
     List<EventDriverJSON> eventDrivers;
 
+    static public ModelJSON fromInstance(Model model) {
+        AnalysisDriverJSON analysisDriver = AnalysisDriverJSON.fromInstance(model.getAnalysisDriver());
+        List<EventDriverJSON> eventDrivers = new ArrayList<>();
+        for (EventDriver eventDriver : model.getEventDrivers()) {
+            eventDrivers.add(EventDriverJSON.fromInstance(eventDriver));
+        }
+        return new ModelJSON(analysisDriver, eventDrivers);
+    }
+
     public Model instanceModel() throws Exception {
         Model model = new Model();
         model.addEventDrivers(this.instanceEventDrivers());

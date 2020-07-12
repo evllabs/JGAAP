@@ -169,6 +169,9 @@ public class Parameterizable {
     	return builder.toString();
     }
 
+    public Map<String, String> getParametersMap() {
+        return this.Parameters;
+    }
     /**
      * Set label=String.valueOf(value) (persistantly)
      * 

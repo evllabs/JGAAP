@@ -20,9 +20,23 @@ import java.util.Map;
         return experiment;
     }
 
-    static public Experiment readExperiment(String json) throws Exception {
+    public static ExperimentJSON fromInstance(Experiment experiment) {
+        ModelJSON model = ModelJSON.fromInstance(experiment.getModel());
+        return new ExperimentJSON(experiment.displayName(), experiment.getParametersMap(), model);
+    }
+
+    static public ExperimentJSON fromJSON(String json) {
         Gson gson = new Gson();
-        ExperimentJSON experimentJSON = gson.fromJson(json, ExperimentJSON.class);
-        return experimentJSON.instanceExperiment();
+        return gson.fromJson(json, ExperimentJSON.class);
+    }
+
+    public String toJSON() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    @Override
+    public String toString() {
+        return this.toJSON();
     }
 }

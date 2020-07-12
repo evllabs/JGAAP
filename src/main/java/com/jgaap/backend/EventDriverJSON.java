@@ -14,16 +14,29 @@ public class EventDriverJSON {
     List<EventCullerJSON> eventCullers;
     Map<String, String> parameters;
 
+    public static EventDriverJSON fromInstance(EventDriver eventDriver) {
+        List<CanonicizerJSON> canonicizers = new ArrayList<>();
+        for (Canonicizer canonicizer : eventDriver.getCanonicizers()) {
+            canonicizers.add(CanonicizerJSON.fromInstance(canonicizer));
+        }
+        List<EventCullerJSON> eventCullers = new ArrayList<>();
+        for (EventCuller eventCuller : eventDriver.getEventCullers()) {
+            eventCullers.add(EventCullerJSON.fromInstance(eventCuller));
+        }
+        return new EventDriverJSON(
+                eventDriver.displayName(), canonicizers, eventCullers, eventDriver.getParametersMap());
+    }
+
     public EventDriver instanceEventDriver() throws Exception {
         EventDriver eventDriver = EventDrivers.getEventDriver(this.name);
         if (this.parameters != null)
             eventDriver.setParameters(this.parameters);
-        eventDriver.addCanonicizers(this.instanceEventDrivers());
+        eventDriver.addCanonicizers(this.instanceCanonicizers());
         eventDriver.addCullers(this.instanceEventCullers());
         return eventDriver;
     }
 
-    private List<Canonicizer> instanceEventDrivers() throws Exception {
+    private List<Canonicizer> instanceCanonicizers() throws Exception {
         if (this.canonicizers == null) {
             return Collections.emptyList();
         }

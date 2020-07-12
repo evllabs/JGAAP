@@ -35,7 +35,7 @@ public class AbsoluteCentroidDriver extends NeighborAnalysisDriver {
 
 	@Override
 	public String displayName() {
-		return "Absolute Centroid Driver" + getDistanceName();
+		return "Absolute Centroid Driver";
 	}
 
 	@Override

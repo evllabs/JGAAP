@@ -9,6 +9,10 @@ import java.util.Map;
     String name;
     Map<String, String> parameters;
 
+    public static CanonicizerJSON fromInstance(Canonicizer canonicizer) {
+        return new CanonicizerJSON(canonicizer.displayName(), canonicizer.getParametersMap());
+    }
+
     public Canonicizer instanceCanonicizer() throws Exception {
         Canonicizer canonicizer = Canonicizers.getCanonicizer(this.name);
         if (this.parameters != null)

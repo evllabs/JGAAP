@@ -1,5 +1,7 @@
 package com.jgaap.backend;
 
+import com.google.gson.Gson;
+import com.jgaap.generics.Experiment;
 import com.jgaap.generics.Language;
 import com.jgaap.util.Document;
 import lombok.Value;
@@ -33,5 +35,11 @@ public class DocumentJSON {
             document.setLanguage(language);
         }
         return document;
+    }
+
+    static public Document fromJSON(String json) throws Exception {
+        Gson gson = new Gson();
+        DocumentJSON documentJSON = gson.fromJson(json, DocumentJSON.class);
+        return documentJSON.instanceDocument();
     }
 }
