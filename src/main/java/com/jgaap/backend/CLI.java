@@ -17,20 +17,15 @@
  */
 package com.jgaap.backend;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
-import org.apache.commons.cli.Options;
+import com.google.gson.Gson;
+import com.jgaap.generics.Experiment;
+import com.jgaap.util.ConfusionMatrix;
+import org.apache.commons.cli.*;
 
 import com.jgaap.JGAAP;
 import com.jgaap.JGAAPConstants;
@@ -55,58 +50,67 @@ import com.jgaap.util.Document;
 public class CLI {
 
 	static Options options = new Options();
-	static Option help = OptionBuilder
-						.withArgName("command")
-						.hasOptionalArg()
-						.withDescription("print this message.")
-						.withLongOpt("help").create('h');
-	static Option version = OptionBuilder
-						.withDescription("print version information")
-						.withLongOpt("version").create('v');
-	static Option canonicizers = OptionBuilder
-						.withArgName("canonicizer")
+	static Option help = Option.builder("h")
+						.argName("command")
+						.optionalArg(true)
+						.desc("print this message.")
+						.longOpt("help").build();
+	static Option version = Option.builder("v")
+						.desc("print version information")
+						.longOpt("version").build();
+	static Option canonicizers = Option.builder("c")
+						.argName("canonicizer")
 						.hasArgs()
-						.withDescription("A list of the canonicizers to use")
-						.withLongOpt("canonicizers").create('c');
-	static Option eventDriver = OptionBuilder
-						.withArgName("event-driver")
+						.desc("A list of the canonicizers to use")
+						.longOpt("canonicizers").build();
+	static Option eventDriver = Option.builder("es")
+						.argName("event-driver")
 						.hasArg()
-						.withDescription("The method of dividing the document into quantifyable features")
-						.withLongOpt("eventset").create("es");
-	static Option eventCullers = OptionBuilder
-						.withArgName("event-culler")
+						.desc("The method of dividing the document into quantifyable features")
+						.longOpt("eventset").build();
+	static Option eventCullers = Option.builder("ec")
+						.argName("event-culler")
 						.hasArgs()
-						.withDescription("A list of the EventCullers to use")
-						.withLongOpt("eventcullers").create("ec");
-	static Option analysis = OptionBuilder
-						.withArgName("analysis")
+						.desc("A list of the EventCullers to use")
+						.longOpt("eventcullers").build();
+	static Option analysis = Option.builder("a")
+						.argName("analysis")
 						.hasArg()
-						.withDescription("Method of Statistical analysis of the document")
-						.withLongOpt("analysis").create('a');
-	static Option distanceFunction = OptionBuilder
-						.withArgName("distancefunction")
+						.desc("Method of Statistical analysis of the document")
+						.longOpt("analysis").build();
+	static Option distanceFunction = Option.builder("d")
+						.argName("distancefunction")
 						.hasArg()
-						.withDescription("A method of wuantifying distance between documents, required for some analysis methods")
-						.withLongOpt("distance").create('d');
-	static Option language = OptionBuilder.withArgName("language")
+						.desc("A method of quantifying distance between documents, required for some analysis methods")
+						.longOpt("distance").build();
+	static Option language = Option.builder("lang")
+						.argName("language")
 						.hasArg()
-						.withDescription("The language the working documents are in, also set the charset files will be read in")
-						.withLongOpt("language").create("lang");
-	static Option load = OptionBuilder
-						.withArgName("file")
+						.desc("The language the working documents are in, also set the charset files will be read in")
+						.longOpt("language").build();
+	static Option load = Option.builder("l")
+						.argName("file")
 						.hasArg()
-						.withDescription("A csv file of the documents to operate on. The file use the columns Author,FilePath,Title")
-						.withLongOpt("load").create('l');
-	static Option save = OptionBuilder
-						.withArgName("file")
+						.desc("A csv file of the documents to operate on. The file use the columns Author,FilePath,Title")
+						.longOpt("load").build();
+	static Option save = Option.builder("s")
+						.argName("file")
 						.hasArg()
-						.withDescription("Write JGAAP's output to a specified file")
-						.withLongOpt("save").create('s');
-	static Option experimentEngine = OptionBuilder
-						.withArgName("file")
+						.desc("Write JGAAP's output to a specified file")
+						.longOpt("save").build();
+	static Option experimentEngine = Option
+						.builder("ee")
+						.argName("file")
 						.hasArg()
-						.withDescription("Batch processing, pass in a csv file of experiments")
-						.withLongOpt("experimentengine").create("ee");
+						.desc("Batch processing, pass in a csv file of experiments")
+						.longOpt("experimentengine").build();
+	static Option experiments = Option
+						.builder("e")
+						.longOpt("experiments")
+						.hasArg()
+						.argName("file")
+						.desc("Batch processing, pass in a jsonl file of experiments")
+						.build();
 
 	static {
 		options.addOption(help);
@@ -120,6 +124,7 @@ public class CLI {
 		options.addOption(load);
 		options.addOption(save);
 		options.addOption(experimentEngine);
+		options.addOption(experiments);
 	}
 
 	/**
@@ -131,7 +136,7 @@ public class CLI {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		CommandLineParser parser = new GnuParser();
+		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = parser.parse(options, args);
 		if (cmd.hasOption('h')) {
 			String command = cmd.getOptionValue('h');
@@ -174,6 +179,40 @@ public class CLI {
 			String lang = cmd.getOptionValue("lang");
 			ExperimentEngine.runExperiment(eeFile, lang);
 			System.exit(0);
+		} else if (cmd.hasOption("e")) {
+			String experimentsPath = cmd.getOptionValue("e");
+			String documentsFilePath = cmd.getOptionValue('l');
+			if (documentsFilePath == null) {
+				throw new Exception("No Documents CSV specified");
+			}
+			List<Document> documents;
+			if (documentsFilePath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)){
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(documentsFilePath)));
+			} else {
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(documentsFilePath));
+			}
+			List<Document> knownDocuments = new ArrayList<>();
+			List<Document> unknownDocuments = new ArrayList<>();
+			for (Document document : documents) {
+				if (document.isAuthorKnown()) {
+					knownDocuments.add(document);
+				} else {
+					unknownDocuments.add(document);
+				}
+			}
+			Scanner scanner = new Scanner(new File(experimentsPath));
+			Gson gson = new Gson();
+			while (scanner.hasNextLine()) {
+				String experimentJSON = scanner.nextLine();
+				Experiment experiment = ExperimentJSON.readExperiment(experimentJSON);
+				ConfusionMatrix confusionMatrix = experiment.train(knownDocuments);
+				String confusionMatrixJSON = gson.toJson(confusionMatrix);
+				System.out.println(confusionMatrixJSON);
+				if (!unknownDocuments.isEmpty()) {
+					List<String> predictions = experiment.getModel().apply(unknownDocuments);
+				}
+			}
+
 		} else {
 			JGAAP.commandline = true;
 			API api = API.getPrivateInstance();
