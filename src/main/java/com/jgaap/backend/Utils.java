@@ -17,15 +17,11 @@
  */
 package com.jgaap.backend;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
+import com.google.gson.Gson;
+import com.jgaap.JGAAPConstants;
 import com.jgaap.util.Document;
 import com.jgaap.util.Event;
 import com.jgaap.util.EventHistogram;
@@ -88,6 +84,32 @@ public class Utils {
 		for(List<String> documentRow : documentCSV){
 			Document document = new Document(documentRow.get(1),documentRow.get(0),(documentRow.size()>2?documentRow.get(2):null));
 			documents.add(document);
+		}
+		return documents;
+	}
+
+	public static List<Document> getDocumentsFromJSONL(String path) throws Exception {
+		List<Document> documents = new ArrayList<>();
+		Scanner scanner = new Scanner(new File(path));
+		while (scanner.hasNextLine()) {
+			String json = scanner.nextLine();
+			documents.add(DocumentJSON.fromJSON(json));
+		}
+		return documents;
+	}
+
+	public static List<Document> getDocuments(String path) throws Exception {
+		List<Document> documents;
+		if (path.endsWith(".csv")) {
+			if (path.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)) {
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(path)));
+			} else {
+				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(path));
+			}
+		} else if (path.endsWith(".jsonl")) {
+			documents = Utils.getDocumentsFromJSONL(path);
+		} else {
+			throw new Exception("Documents file type not supported");
 		}
 		return documents;
 	}

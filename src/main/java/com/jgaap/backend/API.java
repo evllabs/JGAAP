@@ -32,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
-import com.jgaap.classifiers.LeaveOneOutNoDistanceDriver;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.AnalyzeException;
 import com.jgaap.generics.CanonicizationException;
@@ -46,7 +45,6 @@ import com.jgaap.generics.Language;
 import com.jgaap.generics.LanguageParsingException;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import com.jgaap.generics.NonDistanceDependentAnalysisDriver;
-import com.jgaap.generics.ValidationDriver;
 import com.jgaap.generics.WEKAAnalysisDriver;
 import com.jgaap.languages.English;
 import com.jgaap.util.Document;
@@ -719,12 +717,7 @@ public class API {
 			analysisDriver.train(knownDocuments);
 			logger.info("Finished Training "+analysisDriver.displayName());
 			List<Future<Document>> futureDocuments = new ArrayList<Future<Document>>();
-			if (analysisDriver instanceof ValidationDriver ||
-					analysisDriver instanceof LeaveOneOutNoDistanceDriver) {
-				for (Document knownDocument : knownDocuments) {
-					futureDocuments.add(executor.submit(new AnalysisWorker(knownDocument, analysisDriver)));
-				}
-			} else if (analysisDriver instanceof WEKAAnalysisDriver){
+			if (analysisDriver instanceof WEKAAnalysisDriver){
 				for (Document unknownDocument : unknownDocuments){
 					logger.info("Begining Analyzing: " + unknownDocument.toString());
 					unknownDocument.addResult(analysisDriver, analysisDriver.analyze(unknownDocument));

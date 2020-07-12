@@ -43,7 +43,6 @@ import org.apache.log4j.Logger;
 import com.jgaap.JGAAPConstants;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.EventDriver;
-import com.jgaap.generics.ValidationDriver;
 import com.jgaap.util.Document;
 
 /**
@@ -244,12 +243,7 @@ public class ExperimentEngine {
 					experiment.addDistanceFunction(distance, analysisDriver);
 				}
 				experiment.execute();
-				List<Document> resultDocuments;
-				if (analysisDriver instanceof ValidationDriver) {
-					resultDocuments = experiment.getDocuments();
-				} else {
-					resultDocuments = experiment.getUnknownDocuments();
-				}
+				List<Document> resultDocuments = experiment.getUnknownDocuments();
 				Path filePath = FileSystems.getDefault().getPath(fileName);
 				Writer writer = Files.newBufferedWriter(filePath, Charset.defaultCharset(), StandardOpenOption.CREATE);
 				for (Document resultDocument : resultDocuments) {

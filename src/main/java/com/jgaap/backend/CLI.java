@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.google.gson.Gson;
 import com.jgaap.generics.Experiment;
 import com.jgaap.util.ConfusionMatrix;
 import org.apache.commons.cli.*;
@@ -173,7 +172,7 @@ public class CLI {
 				}
 			}
 		} else if (cmd.hasOption('v')) {
-			System.out.println("Java Graphical Authorship Attribution Program version 5.2.0");
+			System.out.println("Java Graphical Authorship Attribution Program version "+JGAAPConstants.VERSION);
 		} else if (cmd.hasOption("ee")) {
 			String eeFile = cmd.getOptionValue("ee");
 			String lang = cmd.getOptionValue("lang");
@@ -185,12 +184,7 @@ public class CLI {
 			if (documentsFilePath == null) {
 				throw new Exception("No Documents CSV specified");
 			}
-			List<Document> documents;
-			if (documentsFilePath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)){
-				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(documentsFilePath)));
-			} else {
-				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(documentsFilePath));
-			}
+			List<Document> documents = Utils.getDocuments(documentsFilePath);
 			List<Document> knownDocuments = new ArrayList<>();
 			List<Document> unknownDocuments = new ArrayList<>();
 			for (Document document : documents) {
@@ -200,16 +194,35 @@ public class CLI {
 					unknownDocuments.add(document);
 				}
 			}
+			System.out.println(String.format(
+					"Training on %d known documents to identify %d unknowns documents.", knownDocuments.size(), unknownDocuments.size()));
 			Scanner scanner = new Scanner(new File(experimentsPath));
-			Gson gson = new Gson();
 			while (scanner.hasNextLine()) {
 				String experimentJSON = scanner.nextLine();
-				Experiment experiment = ExperimentJSON.readExperiment(experimentJSON);
+				Experiment experiment = ExperimentJSON.fromJSON(experimentJSON).instanceExperiment();
 				ConfusionMatrix confusionMatrix = experiment.train(knownDocuments);
-				String confusionMatrixJSON = gson.toJson(confusionMatrix);
-				System.out.println(confusionMatrixJSON);
+				System.out.println(experimentJSON);
+				System.out.println("PERFORMANCE");
+				String resultFormat = "%s \tF1 Score %f \tPrecision %f \tRecall %f \tSupport %d";
+				System.out.println(
+					String.format(
+							resultFormat, "Summary", confusionMatrix.getAverageF1Score(),
+							confusionMatrix.getAveragePrecision(), confusionMatrix.getAverageRecall(),
+							knownDocuments.size()));
+				for (String label : confusionMatrix.getLabels()) {
+					System.out.println(
+						String.format(
+								resultFormat, label, confusionMatrix.getF1Score(label),
+								confusionMatrix.getPrecision(label), confusionMatrix.getRecall(label),
+								confusionMatrix.getActualTotal(label)));
+				}
 				if (!unknownDocuments.isEmpty()) {
-					List<String> predictions = experiment.getModel().apply(unknownDocuments);
+					System.out.println("RESULTS");
+					String predictionFormat = "Title: %s \tPrediction: %s";
+					for (Document unknown : unknownDocuments){
+						String prediction = experiment.getModel().apply(unknown);
+						System.out.println(String.format(predictionFormat, unknown.getTitle(), prediction));
+					}
 				}
 			}
 
@@ -220,12 +233,7 @@ public class CLI {
 			if (documentsFilePath == null) {
 				throw new Exception("No Documents CSV specified");
 			}
-			List<Document> documents;
-			if (documentsFilePath.startsWith(JGAAPConstants.JGAAP_RESOURCE_PACKAGE)){
-				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(com.jgaap.JGAAP.class.getResourceAsStream(documentsFilePath)));
-			} else {
-				documents = Utils.getDocumentsFromCSV(CSVIO.readCSV(documentsFilePath));
-			}
+			List<Document> documents = Utils.getDocuments(documentsFilePath);
 			for (Document document : documents) {
 				api.addDocument(document);
 			}
