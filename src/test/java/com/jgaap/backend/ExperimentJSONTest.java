@@ -37,12 +37,9 @@ public class ExperimentJSONTest {
                     JGAAPConstants.JGAAP_RESOURCE_PACKAGE+"aaac/problemF/loadF.csv")));
         List<Document> knownDocuments = new ArrayList<Document>();
         List<Document> unknownDocuments = new ArrayList<Document>();
-        Set<String> authors = new HashSet<String>();
         for (Document document : documents) {
             if (document.isAuthorKnown()) {
                 knownDocuments.add(document);
-                document.load();
-                authors.add(document.getAuthor());
             } else {
                 unknownDocuments.add(document);
             }

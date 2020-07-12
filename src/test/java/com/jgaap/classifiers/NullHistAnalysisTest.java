@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import com.jgaap.eventDrivers.NaiveWordEventDriver;
+import com.jgaap.generics.EventDriver;
 import org.junit.Test;
 
 import com.jgaap.util.Document;
@@ -46,30 +48,30 @@ public class NullHistAnalysisTest {
 	public void testAnalyze() {
 		EventSet known1 = new EventSet();
 		EventSet unknown = new EventSet();
-		
+		EventDriver wordEventDriver = new NaiveWordEventDriver();
 		Vector<Event> test1 = new Vector<Event>();
-		test1.add(new Event("The", null));
-		test1.add(new Event("quick", null));
-		test1.add(new Event("brown", null));
-		test1.add(new Event("fox", null));
-		test1.add(new Event("jumps", null));
-		test1.add(new Event("over", null));
-		test1.add(new Event("the", null));
-		test1.add(new Event("lazy", null));
-		test1.add(new Event("dog", null));
-		test1.add(new Event(".", null));
+		test1.add(new Event("The", wordEventDriver));
+		test1.add(new Event("quick", wordEventDriver));
+		test1.add(new Event("brown", wordEventDriver));
+		test1.add(new Event("fox", wordEventDriver));
+		test1.add(new Event("jumps", wordEventDriver));
+		test1.add(new Event("over", wordEventDriver));
+		test1.add(new Event("the", wordEventDriver));
+		test1.add(new Event("lazy", wordEventDriver));
+		test1.add(new Event("dog", wordEventDriver));
+		test1.add(new Event(".", wordEventDriver));
 		known1.addEvents(test1);
 		unknown.addEvents(test1);
 		
 		List<Document> knowns = new ArrayList<Document>();
 		Document knownDocument1 = new Document();
-		//knownDocument1.setAuthor(known1.getAuthor());
-		knownDocument1.addEventSet(null, known1);
+		knownDocument1.setAuthor("Test Author");
+		knownDocument1.addEventSet(wordEventDriver, known1);
 		knowns.add(knownDocument1);
 
 		
 		Document unknownDocument = new Document();
-		unknownDocument.addEventSet(null, unknown);
+		unknownDocument.addEventSet(wordEventDriver, unknown);
 		NullHistAnalysis nullHistAnalysis = new NullHistAnalysis();
 		nullHistAnalysis.train(knowns);
 		List<Pair<String, Double>> t = nullHistAnalysis.analyze(unknownDocument);
