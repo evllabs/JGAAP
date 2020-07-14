@@ -10,7 +10,7 @@ import lombok.Value;
 public class DocumentJSON {
     String author;
     String title;
-    String language;
+    LanguageJSON language;
     String text;
     String path;
 
@@ -30,8 +30,8 @@ public class DocumentJSON {
         if (this.title != null && !this.title.isEmpty()) {
             document.setTitle(this.title);
         }
-        if (this.language != null && !this.language.isEmpty()) {
-            Language language = Languages.getLanguage(this.language);
+        if (this.language != null) {
+            Language language = this.language.instance();
             document.setLanguage(language);
         }
         return document;
