@@ -269,18 +269,21 @@ public class CLI {
 			}
 			api.execute();
 			List<Document> unknowns = api.getUnknownDocuments();
-			OutputStreamWriter outputStreamWriter;
 			String saveFile = cmd.getOptionValue('s');
-			if (saveFile == null) {
-				outputStreamWriter = new OutputStreamWriter(System.out);
-			} else {
-				outputStreamWriter = new OutputStreamWriter(new FileOutputStream(saveFile));
-			}
-			Writer writer = new BufferedWriter(outputStreamWriter);
+			Writer writer = getOutputWriter(saveFile);
 			for (Document unknown : unknowns) {
 				writer.append(unknown.getFormattedResult(analysisDriver));
 			}
 			writer.append('\n');
 		}
+	}
+	private static Writer getOutputWriter(String saveFile) throws FileNotFoundException {
+		OutputStreamWriter outputStreamWriter;
+		if (saveFile == null) {
+			outputStreamWriter = new OutputStreamWriter(System.out);
+		} else {
+			outputStreamWriter = new OutputStreamWriter(new FileOutputStream(saveFile));
+		}
+		return new BufferedWriter(outputStreamWriter);
 	}
 }

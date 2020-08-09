@@ -9,6 +9,27 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>unpack-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <excludeScope>system</excludeScope>
+              <excludes>META-INF/*.SF</excludes>
+              <excludes>META-INF/*.DSA</excludes>
+              <excludes>META-INF/*.RSA</excludes>
+              <excludeGroupIds>junit,org.mockito,org.hamcrest</excludeGroupIds>
+              <outputDirectory>${project.build.directory}/classes</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.6.1</version>
         <configuration>
@@ -22,6 +43,7 @@
         <configuration>
           <archive>
             <manifest>
+              <addClasspath>true</addClasspath>
               <mainClass>com.jgaap.JGAAP</mainClass>
             </manifest>
           </archive>
