@@ -33,7 +33,7 @@ package com.jgaap.generics;
  * @author Michael Ryan
  * @since 4.x
  */
-public abstract class Language extends Parameterizable implements Comparable<Language>, Displayable {
+public abstract class Language implements Comparable<Language>, Displayable {
 	
 	private String name = "Generic";
 	private String language = "generic";

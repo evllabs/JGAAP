@@ -8,16 +8,13 @@ import java.util.Map;
 @Value
 public class LanguageJSON {
     String name;
-    Map<String, String> parameters;
 
     public static LanguageJSON fromInstance(Language language) {
-        return new LanguageJSON(language.displayName(), language.getParametersMap());
+        return new LanguageJSON(language.displayName());
     }
 
     public Language instance() throws Exception {
         Language language = Languages.getLanguage(this.name);
-        if (this.parameters != null)
-            language.setParameters(this.parameters);
         return language;
     }
 }

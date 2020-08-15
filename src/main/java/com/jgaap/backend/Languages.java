@@ -71,7 +71,7 @@ public class Languages {
 		Language language;
 		action = action.toLowerCase().trim();
 		if(languages.containsKey(action)){
-			language = languages.get(action).getClass().newInstance();
+			language = languages.get(action);
 		}else {
 			throw new Exception("Language "+action+" was not found!");
 		}
