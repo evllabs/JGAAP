@@ -98,5 +98,5 @@ public class JGAAPConstants {
 	 * Version Information
 	 */
 	public static final String VERSION = "8.0.0";
-	public static final String YEAR = "2020";
+	public static final String YEAR = "2021";
 }
