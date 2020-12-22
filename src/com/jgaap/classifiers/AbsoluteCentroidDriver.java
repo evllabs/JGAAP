@@ -40,8 +40,8 @@ public class AbsoluteCentroidDriver extends NeighborAnalysisDriver {
 
 	@Override
 	public String tooltipText() {
-		return "Computes one centroid per Author.\n"
-				+ "Centroids are the frequency of events over all docuents provided.\n";
+		return "Computes one centroid per author.\n"
+				+ "Centroids are the frequency of events over all documents provided.\n";
 	}
 
 	@Override
