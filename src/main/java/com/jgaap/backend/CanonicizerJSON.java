@@ -8,9 +8,10 @@ import java.util.Map;
 @Value public class CanonicizerJSON {
     String name;
     Map<String, String> parameters;
+    String descripition;
 
     public static CanonicizerJSON fromInstance(Canonicizer canonicizer) {
-        return new CanonicizerJSON(canonicizer.displayName(), canonicizer.getParametersMap());
+        return new CanonicizerJSON(canonicizer.displayName(), canonicizer.getParametersMap(), canonicizer.tooltipText());
     }
 
     public Canonicizer instanceCanonicizer() throws Exception {

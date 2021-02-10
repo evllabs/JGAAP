@@ -13,6 +13,7 @@ public class EventDriverJSON {
     List<CanonicizerJSON> canonicizers;
     List<EventCullerJSON> eventCullers;
     Map<String, String> parameters;
+    String descripition;
 
     public static EventDriverJSON fromInstance(EventDriver eventDriver) {
         List<CanonicizerJSON> canonicizers = new ArrayList<>();
@@ -24,7 +25,8 @@ public class EventDriverJSON {
             eventCullers.add(EventCullerJSON.fromInstance(eventCuller));
         }
         return new EventDriverJSON(
-                eventDriver.displayName(), canonicizers, eventCullers, eventDriver.getParametersMap());
+                eventDriver.displayName(), canonicizers, eventCullers, eventDriver.getParametersMap(),
+                eventDriver.tooltipText());
     }
 
     public EventDriver instanceEventDriver() throws Exception {

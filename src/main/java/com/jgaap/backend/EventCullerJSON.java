@@ -8,9 +8,11 @@ import java.util.Map;
 @Value public class EventCullerJSON {
     String name;
     Map<String, String> parameters;
+    String descripition;
 
     public static EventCullerJSON fromInstance(EventCuller eventCuller) {
-        return new EventCullerJSON(eventCuller.displayName(), eventCuller.getParametersMap());
+        return new EventCullerJSON(
+                eventCuller.displayName(), eventCuller.getParametersMap(), eventCuller.tooltipText());
     }
 
     public EventCuller instanceEventCuller() throws Exception {

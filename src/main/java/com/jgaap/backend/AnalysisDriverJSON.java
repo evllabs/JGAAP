@@ -1,6 +1,7 @@
 package com.jgaap.backend;
 
 import com.jgaap.generics.AnalysisDriver;
+import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.NeighborAnalysisDriver;
 import lombok.Value;
 
@@ -14,9 +15,10 @@ public class AnalysisDriverJSON {
 
     static public AnalysisDriverJSON fromInstance(AnalysisDriver analysisDriver) {
         if (analysisDriver instanceof NeighborAnalysisDriver) {
+            DistanceFunction distanceFunction = ((NeighborAnalysisDriver) analysisDriver).getDistanceFunction();
             return new AnalysisDriverJSON(
                     analysisDriver.displayName(), analysisDriver.getParametersMap(),
-                    DistanceFunctionJSON.fromInstance(((NeighborAnalysisDriver) analysisDriver).getDistanceFunction()));
+                    distanceFunction == null ? null : DistanceFunctionJSON.fromInstance(distanceFunction));
         } else {
             return new AnalysisDriverJSON(
                     analysisDriver.displayName(), analysisDriver.getParametersMap(), null);

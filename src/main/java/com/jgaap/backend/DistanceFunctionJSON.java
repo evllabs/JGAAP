@@ -5,12 +5,15 @@ import lombok.Value;
 
 import java.util.Map;
 
-@Value public class DistanceFunctionJSON {
+@Value
+public class DistanceFunctionJSON {
     String name;
     Map<String, String> parameters;
+    String descripition;
 
     public static DistanceFunctionJSON fromInstance(DistanceFunction distanceFunction) {
-        return new DistanceFunctionJSON(distanceFunction.displayName(), distanceFunction.getParametersMap());
+        return new DistanceFunctionJSON(
+                distanceFunction.displayName(), distanceFunction.getParametersMap(), distanceFunction.tooltipText());
     }
 
     public DistanceFunction instanceDistanceFunction() throws Exception {
