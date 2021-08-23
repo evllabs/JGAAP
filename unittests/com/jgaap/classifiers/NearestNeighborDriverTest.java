@@ -111,7 +111,6 @@ public class NearestNeighborDriverTest {
 		Document unknownDocument = new Document();
 		unknownDocument.addEventSet(null, unknown);
 
-		System.out.println("There once was a lass from Nantucket");
 		nearest.train(knowns);
 		List<Pair<String, Double>> t = nearest.analyze(unknownDocument);
 		String r = t.get(0).getFirst();
