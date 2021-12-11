@@ -72,7 +72,7 @@ public class CanberraDistanceTest {
 		es2 = new EventSet();
 		es2.addEvents(test2);
 		double result = new CanberraDistance().distance(new EventMap(es1), new EventMap(es2));
-		new Double(result).compareTo(20.0);
+		Double.valueOf(result).compareTo(20.0);
 		System.out.println(result);
 		assertTrue(DistanceTestHelper.inRange(result, 20.0, 0.0000000001));
 	}
