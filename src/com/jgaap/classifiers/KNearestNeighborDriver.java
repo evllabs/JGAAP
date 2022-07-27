@@ -50,6 +50,10 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
     private static final int DEFAULT_K = 5;
     private static final String DEFAULT_TIE = "lastPicked";
 
+    public KNearestNeighborDriver() {
+		addParams("k", "K", "5", new String[] {"1","2","3","4","5","6","7","8","9","10"}, false);
+    }
+
 	public String displayName() {
 		return "K-Nearest Neighbor Driver" + getDistanceName();
 	}
