@@ -30,7 +30,7 @@ package com.jgaap.ui;
 
 /**
  *
- * @author Patrick Brennan
+ * @author Patrick Brennan, Michael Fang
  */
 
 //Package Imports
@@ -47,9 +47,12 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.BadLocationException;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -69,6 +72,7 @@ import com.jgaap.backend.Languages;
 import com.jgaap.backend.Utils;
 import com.jgaap.generics.AnalysisDriver;
 import com.jgaap.generics.Canonicizer;
+import com.jgaap.generics.Displayable;
 import com.jgaap.generics.DistanceFunction;
 import com.jgaap.generics.EventCuller;
 import com.jgaap.generics.EventDriver;
@@ -190,6 +194,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		CanonicizersPanel_RemoveCanonicizerButton = new javax.swing.JButton();
 		CanonicizersPanel_NotesButton = new javax.swing.JButton();
 		jScrollPane11 = new javax.swing.JScrollPane();
+		CanonicizersPanel_SearchField = new javax.swing.JTextField();
 		CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox = new javax.swing.JTextArea();
 		CanonicizersPanel_AddCanonicizerButton = new javax.swing.JButton();
 		CanonicizersPanel_DocTypeComboBox = new javax.swing.JComboBox();
@@ -213,6 +218,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		EventSetsPanel_SelectedEventSetListBox = new javax.swing.JList();
 		EventSetsPanel_ParametersPanel = new javax.swing.JPanel();
 		jScrollPane6 = new javax.swing.JScrollPane();
+		EventSetsPanel_SearchField = new javax.swing.JTextField();
 		EventSetsPanel_EventSetDescriptionTextBox = new javax.swing.JTextArea();
 		EventSetsPanel_AddEventSetButton = new javax.swing.JButton();
 		EventSetsPanel_RemoveEventSetButton = new javax.swing.JButton();
@@ -233,6 +239,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		jScrollPane15 = new javax.swing.JScrollPane();
 		EventCullingPanel_EventCullingListBox = new javax.swing.JList();
 		jScrollPane16 = new javax.swing.JScrollPane();
+		EventCullingPanel_SearchField = new javax.swing.JTextField();
 		EventCullingPanel_EventCullingDescriptionTextbox = new javax.swing.JTextArea();
 		jLabel18 = new javax.swing.JLabel();
 		JGAAP_AnalysisMethodPanel = new javax.swing.JPanel();
@@ -256,6 +263,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		AnalysisMethodPanel_DistanceFunctionsListBox = new javax.swing.JList();
 		lblDistanceFunctions = new javax.swing.JLabel();
 		jScrollPane23 = new javax.swing.JScrollPane();
+		AnalysisMethodPanel_AMDFSearchField = new javax.swing.JTextField();
 		AnalysisMethodPanel_DistanceFunctionDescriptionTextBox = new javax.swing.JTextArea();
 		jLabel36 = new javax.swing.JLabel();
 		AnalysisMethodPanel_DFParametersPanel = new javax.swing.JPanel();
@@ -406,7 +414,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 														.addComponent(
 																jScrollPane2,
 																javax.swing.GroupLayout.Alignment.LEADING,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
+																200, // originally javax.swing.GroupLayout.DEFAULT_SIZE,
 																824,
 																Short.MAX_VALUE)
 														.addGroup(
@@ -432,7 +440,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 														.addComponent(
 																jScrollPane1,
 																javax.swing.GroupLayout.Alignment.LEADING,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
+																200, // originally javax.swing.GroupLayout.DEFAULT_SIZE
 																824,
 																Short.MAX_VALUE)
 														.addGroup(
@@ -456,7 +464,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																												DocumentsPanel_RemoveDocumentsButton))
 																						.addComponent(
 																								jLabel2))
-																		.addGap(512,
+																		.addGap(100,
 																				512,
 																				512))
 														.addGroup(
@@ -507,9 +515,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addComponent(
 												jScrollPane1,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
+												50,
+												// pref: originally 91
 												91,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
+												Short.MAX_VALUE)
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addGroup(
@@ -527,8 +536,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addComponent(
 												jScrollPane2,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												191, Short.MAX_VALUE)
+												50,
+												91, Short.MAX_VALUE)
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addGroup(
@@ -633,6 +642,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		jLabel32.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
 		jLabel32.setText("Canonicizer Description");
 
+		CanonicizersPanel_SearchField.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent evt){} // responds to style change. not applicable here.
+			public void removeUpdate(DocumentEvent evt){
+				searchModuleList("Canonicizer");
+			}
+			public void insertUpdate(DocumentEvent evt){
+				searchModuleList("Canonicizer");
+			}
+		});
+
 		javax.swing.GroupLayout JGAAP_CanonicizerPanelLayout = new javax.swing.GroupLayout(
 				JGAAP_CanonicizerPanel);
 		JGAAP_CanonicizerPanel.setLayout(JGAAP_CanonicizerPanelLayout);
@@ -666,9 +685,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																																jLabel30)
 																														.addComponent(
 																																jScrollPane12,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																155,
-																																Short.MAX_VALUE))
+																																listboxMinWidth, // originally 200
+																																listboxPrefWidth,
+																																listboxMaxWidth)
+																														.addComponent(
+																																CanonicizersPanel_SearchField,
+																																listboxMinWidth,
+																																listboxPrefWidth,
+																																listboxMaxWidth))
 																										.addPreferredGap(
 																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																										.addGroup(
@@ -676,20 +700,21 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																														.createParallelGroup(
 																																javax.swing.GroupLayout.Alignment.LEADING,
 																																false)
-																														.addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
+																														//.addGroup(JGAAP_CanonicizerPanelLayout.createSequentialGroup()
 																																
 																														
-																																.addComponent(
-																																CanonicizersPanel_DocTypeComboBox,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																Short.MAX_VALUE)	
-																																
-																																.addComponent(
-																																CanonicizersPanel_AddCanonicizerButton,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																Short.MAX_VALUE))
+																															.addComponent(
+																															CanonicizersPanel_DocTypeComboBox,
+																															javax.swing.GroupLayout.DEFAULT_SIZE,
+																															javax.swing.GroupLayout.DEFAULT_SIZE,
+																															Short.MAX_VALUE)
+																															
+																															.addComponent(
+																															CanonicizersPanel_AddCanonicizerButton,
+																															javax.swing.GroupLayout.DEFAULT_SIZE,
+																															javax.swing.GroupLayout.DEFAULT_SIZE,
+																															Short.MAX_VALUE)
+																														//)
 																																
 																														.addComponent(
 																																CanonicizersPanel_RemoveCanonicizerButton,
@@ -712,7 +737,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																						.addComponent(
 																								jScrollPane13,
 																								javax.swing.GroupLayout.Alignment.TRAILING,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								200,
 																								600,
 																								Short.MAX_VALUE))
 																		.addPreferredGap(
@@ -727,8 +752,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																										.createSequentialGroup()
 																										.addPreferredGap(
 																												javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-																												255,
-																												Short.MAX_VALUE)
+																												10,
+																												10)
 																										.addComponent(
 																												CanonicizersPanel_NotesButton))))
 														.addGroup(
@@ -798,11 +823,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																						.addGroup(
 																								JGAAP_CanonicizerPanelLayout
 																										.createSequentialGroup()
-																										.addGroup(JGAAP_CanonicizerPanelLayout.createBaselineGroup(true, false)
+																										// .addGroup(
+																										// 	JGAAP_CanonicizerPanelLayout.createBaselineGroup(true, false)
 																												.addComponent(
-																												CanonicizersPanel_DocTypeComboBox)	
+																												CanonicizersPanel_DocTypeComboBox,
+																												27,27,27)	
 																												.addComponent(
-																												CanonicizersPanel_AddCanonicizerButton))
+																												CanonicizersPanel_AddCanonicizerButton)
+																											//)
 //																										.addComponent(
 //																												CanonicizersPanel_AddCanonicizerButton)
 //																										
@@ -823,19 +851,30 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																										.addGroup(
 																												JGAAP_CanonicizerPanelLayout
 																														.createParallelGroup(
-																																javax.swing.GroupLayout.Alignment.TRAILING)
+																																//javax.swing.GroupLayout.Alignment.TRAILING
+																																)
 																														.addComponent(
 																																jScrollPane13,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
+																																listboxMinHeight,
 																																217,
 																																Short.MAX_VALUE)
-																														.addComponent(
+																														.addGroup(
+																															JGAAP_CanonicizerPanelLayout
+																																.createSequentialGroup()
+																																.addComponent(
 																																jScrollPane12,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
+																																listboxMinHeight,
 																																217,
-																																Short.MAX_VALUE))
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+																																Short.MAX_VALUE)
+																														.addGap(searchFieldGap)
+																														.addComponent(
+																																CanonicizersPanel_SearchField,
+																																searchFieldMaxHeight,
+																																searchFieldMaxHeight,
+																																searchFieldMaxHeight)))
+																						))
+																		.addPreferredGap(
+																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addGap(6,
 																				6,
 																				6)
@@ -868,8 +907,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 														.addComponent(
 																jScrollPane11,
 																javax.swing.GroupLayout.PREFERRED_SIZE,
-																101,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
+																descriptionBoxPrefHeight,
+																descriptionBoxMaxHeight))
 										.addContainerGap()));
 
 		JGAAP_TabbedPane.addTab("Canonicizers", JGAAP_CanonicizerPanel);
@@ -985,6 +1024,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 					}
 				});
 
+		EventSetsPanel_SearchField.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent evt){} // responds to style change. not applicable here.
+			public void removeUpdate(DocumentEvent evt){
+				searchModuleList("EventDriver");
+			}
+			public void insertUpdate(DocumentEvent evt){
+				searchModuleList("EventDriver");
+			}
+		});
+
 		javax.swing.GroupLayout JGAAP_EventSetsPanelLayout = new javax.swing.GroupLayout(
 				JGAAP_EventSetsPanel);
 		JGAAP_EventSetsPanel.setLayout(JGAAP_EventSetsPanelLayout);
@@ -1019,9 +1068,14 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								javax.swing.GroupLayout.Alignment.LEADING)
 																						.addComponent(
 																								jScrollPane9,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								178,
-																								javax.swing.GroupLayout.PREFERRED_SIZE)
+																								listboxMinWidth, // originally 178
+																								listboxPrefWidth,
+																								listboxMaxWidth)
+																						.addComponent(
+																								EventSetsPanel_SearchField,
+																								0,
+																								listboxPrefWidth,
+																								listboxMaxWidth)
 																						.addComponent(
 																								jLabel6))
 																		.addPreferredGap(
@@ -1051,9 +1105,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								Short.MAX_VALUE)
 																						.addComponent(
 																								EventSetsPanel_RemoveAllEventSetsButton,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								64,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
+																								buttonMinWidth,
+																								buttonMinWidth, // 64
+																								buttonMinWidth))
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addGroup(
@@ -1064,9 +1118,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								jLabel9)
 																						.addComponent(
 																								jScrollPane10,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								216,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
+																								listboxMinWidth, // originally 216
+																								listboxPrefWidth,
+																								listboxMaxWidth))
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addGroup(
@@ -1131,14 +1185,23 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																Short.MAX_VALUE)
 														.addComponent(
 																jScrollPane10,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
+																listboxMinHeight, // originally same as default size
 																304,
 																Short.MAX_VALUE)
-														.addComponent(
-																jScrollPane9,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																304,
-																Short.MAX_VALUE)
+														.addGroup(
+																JGAAP_EventSetsPanelLayout
+																		.createSequentialGroup()
+																		.addComponent(
+																			jScrollPane9,
+																			listboxMinHeight,
+																			304,
+																			Short.MAX_VALUE)
+																		.addGap(searchFieldGap)
+																		.addComponent(
+																				EventSetsPanel_SearchField,
+																				searchFieldMaxHeight,
+																				searchFieldMaxHeight,
+																				searchFieldMaxHeight))
 														.addGroup(
 																JGAAP_EventSetsPanelLayout
 																		.createSequentialGroup()
@@ -1164,8 +1227,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 										.addComponent(
 												jScrollPane6,
 												javax.swing.GroupLayout.PREFERRED_SIZE,
-												101,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
+												descriptionBoxPrefHeight,
+												descriptionBoxMaxHeight)
 										.addContainerGap()));
 
 		JGAAP_TabbedPane.addTab("Event Drivers", JGAAP_EventSetsPanel);
@@ -1284,6 +1347,17 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		jLabel18.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
 		jLabel18.setText("Event Culling Description");
 
+		EventCullingPanel_SearchField.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent evt){} // responds to style change. not applicable here.
+			public void removeUpdate(DocumentEvent evt){
+				searchModuleList("EventCulling");
+			}
+			public void insertUpdate(DocumentEvent evt){
+				searchModuleList("EventCulling");
+			}
+		});
+		
+
 		javax.swing.GroupLayout JGAAP_EventCullingPanelLayout = new javax.swing.GroupLayout(
 				JGAAP_EventCullingPanel);
 		JGAAP_EventCullingPanel.setLayout(JGAAP_EventCullingPanelLayout);
@@ -1318,11 +1392,17 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								javax.swing.GroupLayout.Alignment.LEADING)
 																						.addComponent(
 																								jScrollPane15,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								178,
-																								javax.swing.GroupLayout.PREFERRED_SIZE)
+																								listboxMinWidth, // originall 178
+																								listboxPrefWidth,
+																								listboxMaxWidth)
+																						.addComponent(
+																									EventCullingPanel_SearchField,
+																									0,
+																									listboxPrefWidth,
+																									listboxMaxWidth)
 																						.addComponent(
 																								jLabel15))
+																		
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addGroup(
@@ -1350,9 +1430,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								Short.MAX_VALUE)
 																						.addComponent(
 																								EventCullingPanel_RemoveAllEventCullingButton,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								64,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
+																								buttonMinWidth,
+																								buttonMinWidth, // originally 64
+																								buttonMinWidth))
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addGroup(
@@ -1363,9 +1443,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								jLabel17)
 																						.addComponent(
 																								jScrollPane14,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								217,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
+																								listboxMinWidth, // originall 217
+																								listboxPrefWidth,
+																								listboxMaxWidth))
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addGroup(
@@ -1421,19 +1501,28 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																javax.swing.GroupLayout.Alignment.LEADING)
 														.addComponent(
 																jScrollPane14,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
+																listboxMinHeight, // originally same as default
 																304,
 																Short.MAX_VALUE)
 														.addComponent(
 																EventCullingPanel_ParametersPanel,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jScrollPane15,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
+																listboxMinHeight, // originally same as default
 																304,
 																Short.MAX_VALUE)
+														.addGroup(JGAAP_EventCullingPanelLayout
+																.createSequentialGroup()
+																.addComponent(
+																	jScrollPane15,
+																	listboxMinHeight, // originally same as default
+																	304,
+																	Short.MAX_VALUE)
+																.addGap(searchFieldGap)
+																.addComponent(
+																		EventCullingPanel_SearchField,
+																		searchFieldMaxHeight,
+																		searchFieldMaxHeight,
+																		searchFieldMaxHeight)
+														)
 														.addGroup(
 																JGAAP_EventCullingPanelLayout
 																		.createSequentialGroup()
@@ -1461,9 +1550,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addComponent(
 												jScrollPane16,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												101,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
+												descriptionBoxMinHeight,
+												descriptionBoxPrefHeight,
+												descriptionBoxMaxHeight)
 										.addContainerGap()));
 
 		JGAAP_TabbedPane.addTab("Event Culling", JGAAP_EventCullingPanel);
@@ -1659,6 +1748,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		jLabel37.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24));
 		jLabel37.setText("DF Parameters");
 
+		AnalysisMethodPanel_AMDFSearchField.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent evt){} // responds to style change. not applicable here.
+			public void removeUpdate(DocumentEvent evt){
+				searchModuleList("AnalysisMethod");
+			}
+			public void insertUpdate(DocumentEvent evt){
+				searchModuleList("AnalysisMethod");
+			}
+		});
+
 		javax.swing.GroupLayout JGAAP_AnalysisMethodPanelLayout = new javax.swing.GroupLayout(
 				JGAAP_AnalysisMethodPanel);
 		JGAAP_AnalysisMethodPanel.setLayout(JGAAP_AnalysisMethodPanelLayout);
@@ -1684,9 +1783,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								javax.swing.GroupLayout.Alignment.LEADING)
 																						.addComponent(
 																								lblDistanceFunctions,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								257,
-																								Short.MAX_VALUE)
+																								listboxMinWidth,
+																								listboxPrefWidth,
+																								listboxMaxWidth)
 																						.addGroup(
 																								javax.swing.GroupLayout.Alignment.TRAILING,
 																								JGAAP_AnalysisMethodPanelLayout
@@ -1698,21 +1797,26 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																														.addComponent(
 																																jScrollPane22,
 																																javax.swing.GroupLayout.Alignment.LEADING,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																187,
-																																Short.MAX_VALUE)
+																																listboxMinWidth,
+																																listboxPrefWidth,
+																																listboxMaxWidth)
 																														.addComponent(
 																																jScrollPane18,
 																																javax.swing.GroupLayout.Alignment.LEADING,
-																																0,
-																																0,
-																																Short.MAX_VALUE)
+																																listboxMinWidth,
+																																listboxPrefWidth,
+																																listboxMaxWidth)
 																														.addComponent(
 																																jLabel20,
 																																javax.swing.GroupLayout.Alignment.LEADING,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																javax.swing.GroupLayout.DEFAULT_SIZE,
-																																Short.MAX_VALUE))
+																																listboxMinWidth,
+																																listboxPrefWidth,
+																																listboxMaxWidth)
+																														.addComponent(
+																																AnalysisMethodPanel_AMDFSearchField,
+																																listboxMinWidth,
+																																listboxPrefWidth,
+																																listboxMaxWidth))
 																										.addPreferredGap(
 																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																										.addGroup(
@@ -1740,9 +1844,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																																Short.MAX_VALUE)
 																														.addComponent(
 																																AnalysisMethodPanel_RemoveAllAnalysisMethodsButton,
-																																javax.swing.GroupLayout.PREFERRED_SIZE,
-																																64,
-																																javax.swing.GroupLayout.PREFERRED_SIZE))))
+																																buttonMinWidth,
+																																buttonMinWidth, // originally 64
+																																buttonMinWidth))))
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addGroup(
@@ -1753,9 +1857,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								jLabel22)
 																						.addComponent(
 																								jScrollPane17,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								196,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
+																								listboxMinWidth, // originally 196
+																								listboxPrefWidth,
+																								listboxMaxWidth))
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addGroup(
@@ -1795,9 +1899,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								javax.swing.GroupLayout.Alignment.LEADING)
 																						.addComponent(
 																								jScrollPane19,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								405,
-																								javax.swing.GroupLayout.PREFERRED_SIZE)
+																								100,
+																								descriptionBoxPrefHeight,
+																								Short.MAX_VALUE)
 																						.addComponent(
 																								jLabel36))
 																		.addPreferredGap(
@@ -1810,8 +1914,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								jLabel28)
 																						.addComponent(
 																								jScrollPane23,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								413,
+																								100,
+																								descriptionBoxPrefHeight,
 																								Short.MAX_VALUE))))
 										.addContainerGap()));
 		JGAAP_AnalysisMethodPanelLayout
@@ -1887,9 +1991,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																												AnalysisMethodPanel_RemoveAllAnalysisMethodsButton))
 																						.addComponent(
 																								jScrollPane18,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								129,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
+																								100,
+																								130,
+																								Short.MAX_VALUE // originally set to same as pref
+																								))
+																		.addGap(searchFieldGap)
+																		.addComponent(
+																				AnalysisMethodPanel_AMDFSearchField,
+																				searchFieldMaxHeight,
+																				searchFieldMaxHeight,
+																				searchFieldMaxHeight)
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addComponent(
@@ -1898,8 +2009,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addComponent(
 																				jScrollPane22,
-																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				132,
+																				100,
+																				130,
 																				Short.MAX_VALUE)))
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1918,13 +2029,13 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 														.addComponent(
 																jScrollPane19,
 																javax.swing.GroupLayout.PREFERRED_SIZE,
-																101,
-																javax.swing.GroupLayout.PREFERRED_SIZE)
+																descriptionBoxPrefHeight,
+																descriptionBoxMaxHeight)
 														.addComponent(
 																jScrollPane23,
 																javax.swing.GroupLayout.PREFERRED_SIZE,
-																101,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
+																descriptionBoxPrefHeight,
+																descriptionBoxMaxHeight))
 										.addContainerGap()));
 
 		JGAAP_TabbedPane.addTab("Analysis Methods", JGAAP_AnalysisMethodPanel);
@@ -2059,7 +2170,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								jScrollPane25,
 																								javax.swing.GroupLayout.PREFERRED_SIZE,
 																								273,
-																								javax.swing.GroupLayout.PREFERRED_SIZE)
+																								Short.MAX_VALUE)
 																						.addComponent(
 																								ReviewPanel_SelectedEventSetLabel))
 																		.addPreferredGap(
@@ -2074,7 +2185,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 																								jScrollPane26,
 																								javax.swing.GroupLayout.PREFERRED_SIZE,
 																								268,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
+																								Short.MAX_VALUE))
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addGroup(
@@ -2103,9 +2214,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addComponent(
 												jScrollPane24,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
+												50,
 												118,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
+												Short.MAX_VALUE)
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addGroup(
@@ -2392,9 +2503,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 						layout.createSequentialGroup()
 								.addContainerGap()
 								.addComponent(JGAAP_TabbedPane,
-										javax.swing.GroupLayout.PREFERRED_SIZE,
-										529,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
+										0,
+										javax.swing.GroupLayout.PREFERRED_SIZE, // original min and max size
+										//529, original pref size
+										Short.MAX_VALUE)
 								.addPreferredGap(
 										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addGroup(
@@ -2404,7 +2516,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 												.addComponent(Review_Button))
 								.addContainerGap(
 										javax.swing.GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
+										// Short.MAX_VALUE <- original max size
+										10
+										)));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -2445,6 +2559,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 								+ e.toString(), "JGAAP Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
+		CanonicizersPanel_SearchField.setText("");
+		EventSetsPanel_SearchField.setText("");
+		EventCullingPanel_SearchField.setText("");
+		AnalysisMethodPanel_AMDFSearchField.setText("");
 	}// GEN-LAST:event_ReviewPanel_ProcessButtonActionPerformed
 
 	private void BatchLoadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_BatchLoadMenuItemActionPerformed
@@ -2509,11 +2627,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void AnalysisMethodPanel_AnalysisMethodsListBoxMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_AnalysisMethodPanel_AnalysisMethodsListBoxMouseClicked
-		AnalysisMethodPanel_AnalysisMethodDescriptionTextBox
-				.setText(AnalysisDriverMasterList.get(
-						AnalysisMethodPanel_AnalysisMethodsListBox
-								.getSelectedIndex()).longDescription());
-
+		try {
+			AnalysisMethodPanel_AnalysisMethodDescriptionTextBox.setText(
+				AnalysisDrivers.getAnalysisDriver(
+					AnalysisMethodPanel_AnalysisMethodsListBox.getSelectedValue().toString()
+				).longDescription()
+			);
+		} catch (Exception e) {
+			logger.error("Failed to get selected analysis method");
+			e.printStackTrace();
+		}
 		if (evt.getClickCount() == 2) {
 			AddAnalysisMethodSelection();
 		}
@@ -2529,9 +2652,10 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private void AnalysisMethodPanel_AddAllAnalysisMethodsButtonActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AnalysisMethodPanel_AddAllAnalysisMethodsButtonActionPerformed
 		try {
-			for (int i = 0; i < AnalysisDriverMasterList.size(); i++) {
-				JGAAP_API.addAnalysisDriver(AnalysisDriverMasterList.get(i)
-						.displayName());
+			// instead of drawing from master list, draw from what's shown in the available listbox,
+			// this way the "all" button would add only those that matched user search terms
+			for (int i = 0; i < AnalysisMethodListBox_Model.size(); i++) {
+				JGAAP_API.addAnalysisDriver(AnalysisMethodListBox_Model.elementAt(i).toString());
 			}
 			UpdateSelectedAnalysisMethodListBox();
 		} catch (Exception e) {
@@ -2666,11 +2790,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void EventCullingPanel_EventCullingListBoxMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_EventCullingPanel_EventCullingListBoxMouseClicked
-		EventCullingPanel_EventCullingDescriptionTextbox
-				.setText(EventCullersMasterList.get(
-						EventCullingPanel_EventCullingListBox
-								.getSelectedIndex()).longDescription());
-
+		try {
+			EventCullingPanel_EventCullingDescriptionTextbox.setText(
+				EventCullers.getEventCuller(
+					EventCullingPanel_EventCullingListBox.getSelectedValue().toString()
+				).longDescription()
+			);
+		} catch (Exception e) {
+			logger.error("Failed to get selected event culler");
+			e.printStackTrace();
+		}
 		if (evt.getClickCount() == 2) {
 			AddEventCullerSelection();
 		}
@@ -2685,9 +2814,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private void EventCullingPanel_AddAllEventCullingButtonActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EventCullingPanel_AddAllEventCullingButtonActionPerformed
 		try {
-			for (int i = 0; i < EventCullersMasterList.size(); i++) {
-				JGAAP_API.addEventCuller(EventCullersMasterList.get(i)
-						.displayName());
+			for (int i = 0; i < EventCullingListBox_Model.size(); i++) {
+				JGAAP_API.addEventCuller(EventCullingListBox_Model.elementAt(i).toString());
 			}
 			UpdateSelectedEventCullingListBox();
 		} catch (Exception e) {
@@ -2768,9 +2896,8 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private void EventSetsPanel_AddAllEventSetsButtonActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EventSetsPanel_AddAllEventSetsButtonActionPerformed
 		try {
-			for (int i = 0; i < EventDriverMasterList.size(); i++) {
-				JGAAP_API.addEventDriver(EventDriverMasterList.get(i)
-						.displayName());
+			for (int i = 0; i < EventSetsListBox_Model.size(); i++) {
+				JGAAP_API.addEventDriver(EventSetsListBox_Model.elementAt(i).toString());
 			}
 			UpdateSelectedEventSetListBox();
 		} catch (Exception e) {
@@ -2860,9 +2987,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void EventSetsPanel_EventSetListBoxMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_EventSetsPanel_EventSetListBoxMouseClicked
-		EventSetsPanel_EventSetDescriptionTextBox.setText(EventDriverMasterList
-				.get(EventSetsPanel_EventSetListBox.getSelectedIndex())
-				.longDescription());
+		try {
+			EventSetsPanel_EventSetDescriptionTextBox.setText(
+				EventDrivers.getEventDriver(
+					EventSetsPanel_EventSetListBox.getSelectedValue().toString()
+				).longDescription()
+			);
+		} catch (Exception e) {
+			logger.error("Failed to get selected event driver");
+			e.printStackTrace();
+		}
 		if (evt.getClickCount() == 2) {
 			AddEventSetSelection();
 		}
@@ -2893,10 +3027,9 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void AddCanonicizerSelection() {
 		try {
-
-			Canonicizer temp = CanonicizerMasterList
-					.get(CanonicizersPanel_CanonicizerListBox
-							.getSelectedIndex()).getClass().newInstance();
+			Canonicizer temp = JGAAP_API.addCanonicizer(
+				CanonicizersPanel_CanonicizerListBox.getSelectedValue().toString()
+			);
 			SelectedCanonicizerList.add(new Pair<Canonicizer, Object>(temp,
 					docTypesList.get(CanonicizersPanel_DocTypeComboBox.getSelectedIndex())));
 			UpdateSelectedCanonicizerListBox();
@@ -2946,10 +3079,17 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void CanonicizersPanel_CanonicizerListBoxMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_CanonicizersPanel_CanonicizerListBoxMouseClicked
-		CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox
-				.setText(CanonicizerMasterList
-						.get(CanonicizersPanel_CanonicizerListBox
-								.getSelectedIndex()).longDescription());
+		try {
+			CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox.setText(
+				Canonicizers.getCanonicizer(
+					CanonicizersPanel_CanonicizerListBox.getSelectedValue().toString()
+				).longDescription()
+			);
+		} catch (Exception e){
+			logger.error("Failed to get selected canonicizer");
+			e.printStackTrace();
+		}
+
 		if (evt.getClickCount() == 2) {
 			AddCanonicizerSelection();
 		}
@@ -3121,10 +3261,16 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	private void AnalysisMethodPanel_DistanceFunctionsListBoxMouseClicked(
 			java.awt.event.MouseEvent evt) {// GEN-FIRST:event_AnalysisMethodPanel_DistanceFunctionsListBoxMouseClicked
-		AnalysisMethodPanel_DistanceFunctionDescriptionTextBox
-				.setText(DistanceFunctionsMasterList.get(
-						AnalysisMethodPanel_DistanceFunctionsListBox
-								.getSelectedIndex()).longDescription());
+		try {
+			AnalysisMethodPanel_DistanceFunctionDescriptionTextBox.setText(
+				DistanceFunctions.getDistanceFunction(
+					AnalysisMethodPanel_DistanceFunctionsListBox.getSelectedValue().toString()
+				).longDescription()
+			);
+		} catch (Exception e) {
+			logger.error("Failed to get selected distance function");
+			e.getStackTrace();
+		}
 
 		if (evt.getClickCount() == 2) {
 			AddAnalysisMethodSelection();
@@ -3387,26 +3533,42 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 		EventDriverMasterList = new ArrayList<EventDriver>();
 		LanguagesMasterList = new ArrayList<Language>();
 
-		for (AnalysisDriver analysisDriver : AnalysisDrivers.getAnalysisDrivers()) {
+		for (int i = 0; i < AnalysisDrivers.getAnalysisDrivers().size(); i++){
+		//for (AnalysisDriver analysisDriver : AnalysisDrivers.getAnalysisDrivers()) {
+			AnalysisDriver analysisDriver = AnalysisDrivers.getAnalysisDrivers().get(i);
 			if (analysisDriver.showInGUI())
 				AnalysisDriverMasterList.add(analysisDriver);
 		}
-		for (Canonicizer canonicizer : Canonicizers.getCanonicizers()) {
+		
+		for (int i = 0; i < Canonicizers.getCanonicizers().size(); i++){
+		//for (Canonicizer canonicizer : Canonicizers.getCanonicizers()) {
+			Canonicizer canonicizer = Canonicizers.getCanonicizers().get(i);
 			if (canonicizer.showInGUI())
 				CanonicizerMasterList.add(canonicizer);
 		}
-		for (DistanceFunction distanceFunction : DistanceFunctions.getDistanceFunctions()) {
+
+		for (int i = 0; i < DistanceFunctions.getDistanceFunctions().size(); i++){
+		//for (DistanceFunction distanceFunction : DistanceFunctions.getDistanceFunctions()) {
+			DistanceFunction distanceFunction = DistanceFunctions.getDistanceFunctions().get(i);
 			if (distanceFunction.showInGUI())
 				DistanceFunctionsMasterList.add(distanceFunction);
 		}
-		for (EventCuller eventCuller : EventCullers.getEventCullers()) {
+
+		for (int i = 0; i < EventCullers.getEventCullers().size(); i++){
+		//for (EventCuller eventCuller : EventCullers.getEventCullers()) {
+			EventCuller eventCuller = EventCullers.getEventCullers().get(i);
 			if (eventCuller.showInGUI())
 				EventCullersMasterList.add(eventCuller);
 		}
-		for (EventDriver eventDriver : EventDrivers.getEventDrivers()) {
+
+		for (int i = 0; i < EventDrivers.getEventDrivers().size(); i++){
+		//for (EventDriver eventDriver : EventDrivers.getEventDrivers()) {
+			EventDriver eventDriver = EventDrivers.getEventDrivers().get(i);
 			if (eventDriver.showInGUI())
 				EventDriverMasterList.add(eventDriver);
 		}
+
+
 		for (Language language : Languages.getLanguages()) {
 			if (language.showInGUI())
 				LanguagesMasterList.add(language);
@@ -3509,6 +3671,171 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 
 	}
 
+	private void searchModuleList(String moduleType) {
+		// selectively display what's in the module listboxes depending on what's in the search field.
+		// widgets ctrl-F: SearchField
+
+		// abstract away the exact widgets on each panel.
+		javax.swing.JTextField searchField;
+		javax.swing.DefaultListModel listboxModel;
+		javax.swing.JList listbox;
+		javax.swing.JTextArea descriptionBox;
+		//javax.swing.JButton theAllButton;
+		List masterList;
+
+		switch (moduleType) {
+			// resolve abstract widgets
+			case "Canonicizer":
+				searchField = CanonicizersPanel_SearchField;
+				listboxModel = CanonicizerListBox_Model;
+				listbox = CanonicizersPanel_CanonicizerListBox;
+				masterList = CanonicizerMasterList;
+				descriptionBox = CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox;
+				//theAllButton = null;
+				break;
+			case "EventDriver":
+				searchField = EventSetsPanel_SearchField;
+				listboxModel = EventSetsListBox_Model;
+				listbox = EventSetsPanel_EventSetListBox;
+				masterList = EventDriverMasterList;
+				descriptionBox = EventSetsPanel_EventSetDescriptionTextBox;
+				//theAllButton = EventSetsPanel_AddAllEventSetsButton;
+				break;
+			case "EventCulling":
+				searchField = EventCullingPanel_SearchField;
+				listboxModel = EventCullingListBox_Model;
+				listbox = EventCullingPanel_EventCullingListBox;
+				masterList = EventCullersMasterList;
+				descriptionBox = EventCullingPanel_EventCullingDescriptionTextbox;
+				//theAllButton = EventCullingPanel_AddAllEventCullingButton;
+				break;
+			case "AnalysisMethod":
+				searchField = AnalysisMethodPanel_AMDFSearchField;
+				listboxModel = AnalysisMethodListBox_Model;
+				listbox = AnalysisMethodPanel_AnalysisMethodsListBox;
+				masterList = AnalysisDriverMasterList;
+				descriptionBox = AnalysisMethodPanel_AnalysisMethodDescriptionTextBox;
+				//theAllButton = AnalysisMethodPanel_AddAllAnalysisMethodsButton;
+				break;
+			case "DistanceFunction":
+				searchField = AnalysisMethodPanel_AMDFSearchField;
+				listboxModel = DistanceFunctionsListBox_Model;
+				listbox = AnalysisMethodPanel_DistanceFunctionsListBox;
+				masterList = DistanceFunctionsMasterList;
+				descriptionBox = AnalysisMethodPanel_DistanceFunctionDescriptionTextBox;
+				//theAllButton = AnalysisMethodPanel_AddAllAnalysisMethodsButton;
+				break;
+			default:
+				return;
+		}
+		if (masterList.isEmpty()) return;
+
+		String searchTerms = "";
+		try { // retrieve search term from search field
+			searchTerms = searchField.getDocument().getText(0, searchField.getDocument().getLength()).toLowerCase().replace('-', ' ');
+		} catch (BadLocationException e){
+			logger.error("Invalid character location encountered in search term retrieval");
+			e.printStackTrace();
+			return;
+		}
+
+		listboxModel.removeAllElements();
+		if (searchTerms.length() == 0 ||
+				(searchTerms.length() == 1 && searchTerms.charAt(0) == '"') ||
+				(searchTerms.length() == 2 && searchTerms.equals("\"\""))
+			) {
+			// null search terms -> no need to match lol
+			for (int i = 0; i < masterList.size(); i++) {
+				listboxModel.addElement(((Displayable) masterList.get(i)).displayName());
+			}
+			//theAllButton.setText("All");
+			searchField.setBackground(new Color(255, 255, 255));
+			return;
+		} else {
+			boolean matchedAny = false;
+			// make list of all alternative search terms to match module names to.
+			ArrayList<String> allSearchTerms = new ArrayList<String>();
+			allSearchTerms.add(searchTerms);
+			for (String searchTermKey : JGAAPConstants.JGAAP_SEARCH_TABLE.keySet()){
+				if (searchTermKey.contains(searchTerms)){
+					for (String altTerm : JGAAPConstants.JGAAP_SEARCH_TABLE.get(searchTermKey))
+						allSearchTerms.add(altTerm);
+				}
+			}
+			// now match the names, including the text in the search bar.
+			for (int i = 0; i < masterList.size(); i++) {
+				// for every module, check the following:
+				// 1. if their own names (lowercase, hypen -> space) match search terms
+				// 2. if their own names match alternative search terms
+				// 3. if their initials match search terms.
+				Boolean match = false;
+				String moduleName = ((Displayable) masterList.get(i)).displayName();
+				String searchMatch = moduleName.toLowerCase().replace('-', ' ');
+
+				if (searchTerms.charAt(0) == '"' &&
+						searchTerms.charAt(searchTerms.length()-1) == '"' &&
+						searchTerms.length() > 2) {
+					match = searchMatch.contains(searchTerms.substring(1, searchTerms.length()-1).toString());
+
+				} else {
+					if (allSearchTerms.get(0).charAt(0) == '"')
+						// ignore if first char is double quote. This is so the intermediate results
+						// are more "stable" when the user is trying to perform an exact search
+						// but haven't typed the double quote at the end yet.
+						allSearchTerms.set(0, allSearchTerms.get(0).substring(1));
+					for (String searchTerm : allSearchTerms){
+						match = match || (searchMatch.contains(searchTerm));
+					}
+					String initials = "";
+					for (String word : searchMatch.split(" +")) initials += word.charAt(0);
+
+					match = match || ((initials.contains(searchTerms)) && searchTerms.length() > 1);
+				}
+
+				if (match) {
+					listboxModel.addElement(moduleName);
+					matchedAny = matchedAny || match;
+				}
+				if (matchedAny){
+					searchField.setBackground(new Color(245, 255, 245));
+				} else {
+					searchField.setBackground(new Color(255, 220, 220));
+				}
+			}
+		}
+		listbox.setSelectedIndex(0);
+		descriptionBox.setText("");
+		// update description box with every search so user is not confused if the desc stays
+		// but the selected module changes
+		String description = "";
+		if (listboxModel.size() == 0) return;
+		String moduleName = listboxModel.getElementAt(0).toString();
+		try {
+			switch (moduleType) {
+				case "Canonicizer":
+					description = Canonicizers.getCanonicizer(moduleName).longDescription();
+					break;
+				case "EventDriver":
+					description = EventDrivers.getEventDriver(moduleName).longDescription();
+					break;
+				case "EventCulling":
+					description = EventCullers.getEventCuller(moduleName).longDescription();
+					break;
+				case "AnalysisMethod":
+					description = AnalysisDrivers.getAnalysisDriver(moduleName).longDescription();
+					break;
+				case "DistanceFunction":
+					description = DistanceFunctions.getDistanceFunction(moduleName).longDescription();
+					break;
+			}
+		} catch (Exception e) {
+			logger.error("Failed to get selected analysis method");
+			e.printStackTrace();
+		}
+		descriptionBox.setText(description);
+		//theAllButton.setText("Matched");
+	}
+
 	private void SetUnknownDocumentColumns() {
 		UnknownAuthorDocumentsTable_Model.addColumn("Title");
 		UnknownAuthorDocumentsTable_Model.addColumn("Filepath");
@@ -3583,6 +3910,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JTextArea AnalysisMethodPanel_AnalysisMethodDescriptionTextBox;
 	private javax.swing.JList AnalysisMethodPanel_AnalysisMethodsListBox;
 	private javax.swing.JPanel AnalysisMethodPanel_DFParametersPanel;
+	private javax.swing.JTextField AnalysisMethodPanel_AMDFSearchField;
 	private javax.swing.JTextArea AnalysisMethodPanel_DistanceFunctionDescriptionTextBox;
 	private javax.swing.JList AnalysisMethodPanel_DistanceFunctionsListBox;
 	private javax.swing.JButton AnalysisMethodPanel_NotesButton;
@@ -3593,6 +3921,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JMenuItem BatchSaveMenuItem;
 	private javax.swing.JButton CanonicizersPanel_AddCanonicizerButton;
 	private javax.swing.JList CanonicizersPanel_CanonicizerListBox;
+	private javax.swing.JTextField CanonicizersPanel_SearchField;
 	private javax.swing.JTextArea CanonicizersPanel_DocumentsCanonicizerDescriptionTextBox;
 	private javax.swing.JButton CanonicizersPanel_NotesButton;
 	private javax.swing.JButton CanonicizersPanel_RemoveAllCanonicizersButton;
@@ -3610,6 +3939,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JTable DocumentsPanel_UnknownAuthorsTable;
 	private javax.swing.JButton EventCullingPanel_AddAllEventCullingButton;
 	private javax.swing.JButton EventCullingPanel_AddEventCullingButton;
+	private javax.swing.JTextField EventCullingPanel_SearchField;
 	private javax.swing.JTextArea EventCullingPanel_EventCullingDescriptionTextbox;
 	private javax.swing.JList EventCullingPanel_EventCullingListBox;
 	private javax.swing.JButton EventCullingPanel_NotesButton;
@@ -3619,6 +3949,7 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JList EventCullingPanel_SelectedEventCullingListBox;
 	private javax.swing.JButton EventSetsPanel_AddAllEventSetsButton;
 	private javax.swing.JButton EventSetsPanel_AddEventSetButton;
+	private javax.swing.JTextField EventSetsPanel_SearchField;
 	private javax.swing.JTextArea EventSetsPanel_EventSetDescriptionTextBox;
 	private javax.swing.JList EventSetsPanel_EventSetListBox;
 	private javax.swing.JButton EventSetsPanel_NotesButton;
@@ -3707,4 +4038,15 @@ public class JGAAP_UI_MainForm extends javax.swing.JFrame {
 	private javax.swing.JScrollPane jScrollPane9;
 	// End of variables declaration//GEN-END:variables
 
+	// reused UI element sizes
+	private int descriptionBoxMinHeight = 25;
+	private int descriptionBoxMaxHeight = 200;
+	private int descriptionBoxPrefHeight = 100;
+	private int listboxMinWidth = 200;
+	private int listboxPrefWidth = 300;
+	private int listboxMaxWidth = 750;
+	private int listboxMinHeight = 70;
+	private int searchFieldMaxHeight = 23;
+	private int searchFieldGap = 5;
+	private int buttonMinWidth = 90;
 }

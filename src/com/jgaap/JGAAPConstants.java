@@ -21,6 +21,7 @@ package com.jgaap;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * Defines a whole slew of public static constants that can be used system-wide.
@@ -80,7 +81,7 @@ public class JGAAPConstants {
 	}
 
 	public static final String JGAAP_RESOURCE_PACKAGE = "/com/jgaap/resources/";
-	
+
 	/**
 	 * Java Prefix for different types of object collections
 	 */
@@ -93,10 +94,37 @@ public class JGAAPConstants {
 	public static final String JGAAP_GENERICSPREFIX = "com.jgaap.generics.";
 	public static final String JGAAP_BACKENDPREFIX = "com.jgaap.backend.";
 	public static final String JGAAP_LANGUAGEPREFIX = "com.jgaap.languages.";
-
 	/**
 	 * Version Information
 	 */
-	public static final String VERSION = "8.0.2";
-	public static final String YEAR = "2021";
+	public static final String VERSION = "8.0.3";
+	public static final String YEAR = "2022";
+
+	// search table
+	public static HashMap<String, String[]> JGAAP_SEARCH_TABLE
+		= new HashMap<String, String[]>();
+	static {
+		// if the search term contains the key, add its hash value to the search terms too.
+		// a key's values are added if the key **contains** the text in the search box.
+		// module is matched if its name contains any of the search terms.
+		JGAAP_SEARCH_TABLE.put("neural networks", new String[] {"perceptron", "nn"});
+		JGAAP_SEARCH_TABLE.put("neuro networks", new String[] {"perceptron", "nn"});
+		JGAAP_SEARCH_TABLE.put("mlp", new String[] {"multilayer perceptron"});
+		JGAAP_SEARCH_TABLE.put("ngrams", new String[] {"n gram", "n word gram", "n character gram", "ngram"});
+		JGAAP_SEARCH_TABLE.put("n grams", new String[] {"n word gram", "n character gram", "ngram", "n gram"});
+		JGAAP_SEARCH_TABLE.put("parts of speech", new String[] {"pos", "part of speech"});
+		JGAAP_SEARCH_TABLE.put("part of speech", new String[] {"pos", "parts of speech"});
+		JGAAP_SEARCH_TABLE.put("x", new String[] {"cross"});
+		JGAAP_SEARCH_TABLE.put("xentropy", new String[] {"cross entropy"});
+		JGAAP_SEARCH_TABLE.put("histogram distance", new String[] {"euclidean"});
+		JGAAP_SEARCH_TABLE.put("euclidean", new String[] {"histogram distance"});
+		JGAAP_SEARCH_TABLE.put("cosine similarity", new String[] {"cosine distance"});
+		JGAAP_SEARCH_TABLE.put("cosine distance", new String[] {"cosine similarity"});
+		JGAAP_SEARCH_TABLE.put("information radius", new String[] {"jensen shannon"});
+		JGAAP_SEARCH_TABLE.put("linear discriminant analysis", new String[] {"lda"});
+		JGAAP_SEARCH_TABLE.put("sequential minimal optimization", new String[] {"smo"});
+		JGAAP_SEARCH_TABLE.put("juola wyner", new String[] {"jw", "thin cross entropy"});
+		JGAAP_SEARCH_TABLE.put("iqr", new String[] {"interquartile range"});
+		JGAAP_SEARCH_TABLE.put("burrow's delta", new String[] {"burrows delta"});
+	}
 }
