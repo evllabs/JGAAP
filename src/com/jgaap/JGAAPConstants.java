@@ -98,7 +98,7 @@ public class JGAAPConstants {
 	 * Version Information
 	 */
 	public static final String VERSION = "8.0.3";
-	public static final String YEAR = "2022";
+	public static final String YEAR = "2023";
 
 	// search table
 	public static HashMap<String, String[]> JGAAP_SEARCH_TABLE
