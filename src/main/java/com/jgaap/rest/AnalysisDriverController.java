@@ -16,7 +16,7 @@ import java.util.List;
 public class AnalysisDriverController {
 
     @GetMapping("/analysis_drivers")
-    public List<AnalysisDriverJSON> canonicizers(){
+    public List<AnalysisDriverJSON> analysisDrivers(){
         List<AnalysisDriverJSON> result = new ArrayList<>();
         for (AnalysisDriver analysisDiver : AnalysisDrivers.getAnalysisDrivers()){
             result.add(AnalysisDriverJSON.fromInstance(analysisDiver));
@@ -26,7 +26,7 @@ public class AnalysisDriverController {
 
 
     @GetMapping("/analysis_drivers/{analysisDriver}")
-    public AnalysisDriverJSON canonicizer(@PathVariable String analysisDriver){
+    public AnalysisDriverJSON analysisDriver(@PathVariable String analysisDriver){
         try {
             return AnalysisDriverJSON.fromInstance(AnalysisDrivers.getAnalysisDriver(analysisDriver));
         } catch (Exception e) {

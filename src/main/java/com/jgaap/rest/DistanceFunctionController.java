@@ -16,7 +16,7 @@ import java.util.List;
 public class DistanceFunctionController {
 
     @GetMapping("/distance_functions")
-    public List<DistanceFunctionJSON> canonicizers(){
+    public List<DistanceFunctionJSON> distanceFunctions(){
         List<DistanceFunctionJSON> result = new ArrayList<>();
         for (DistanceFunction distanceDiver : DistanceFunctions.getDistanceFunctions()){
             result.add(DistanceFunctionJSON.fromInstance(distanceDiver));
@@ -26,7 +26,7 @@ public class DistanceFunctionController {
 
 
     @GetMapping("/distance_functions/{distanceFunction}")
-    public DistanceFunctionJSON canonicizer(@PathVariable String distanceFunction){
+    public DistanceFunctionJSON distanceFunction(@PathVariable String distanceFunction){
         try {
             return DistanceFunctionJSON.fromInstance(DistanceFunctions.getDistanceFunction(distanceFunction));
         } catch (Exception e) {

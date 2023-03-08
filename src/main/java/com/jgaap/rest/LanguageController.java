@@ -16,7 +16,7 @@ import java.util.List;
 public class LanguageController {
 
     @GetMapping("/languages")
-    public List<LanguageJSON> canonicizers(){
+    public List<LanguageJSON> languages(){
         List<LanguageJSON> result = new ArrayList<>();
         for (Language distanceDiver : Languages.getLanguages()){
             result.add(LanguageJSON.fromInstance(distanceDiver));
@@ -26,7 +26,7 @@ public class LanguageController {
 
 
     @GetMapping("/languages/{language}")
-    public LanguageJSON canonicizer(@PathVariable String language){
+    public LanguageJSON language(@PathVariable String language){
         try {
             return LanguageJSON.fromInstance(Languages.getLanguage(language));
         } catch (Exception e) {

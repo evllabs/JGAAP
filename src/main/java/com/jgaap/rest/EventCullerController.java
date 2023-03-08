@@ -17,7 +17,7 @@ import java.util.List;
 public class EventCullerController {
 
     @GetMapping("/event_cullers")
-    public List<EventCullerJSON> canonicizers(){
+    public List<EventCullerJSON> eventCullers(){
         List<EventCullerJSON> result = new ArrayList<>();
         for (EventCuller eventCuller : EventCullers.getEventCullers()){
             result.add(EventCullerJSON.fromInstance(eventCuller));
@@ -27,7 +27,7 @@ public class EventCullerController {
 
 
     @GetMapping("/event_cullters/{eventCuller}")
-    public EventCullerJSON canonicizer(@PathVariable String eventCuller){
+    public EventCullerJSON eventCuller(@PathVariable String eventCuller){
         try {
             return EventCullerJSON.fromInstance(EventCullers.getEventCuller(eventCuller));
         } catch (Exception e) {

@@ -16,7 +16,7 @@ import java.util.List;
 public class EventDriverController {
 
     @GetMapping("/event_drivers")
-    public List<EventDriverJSON> canonicizers(){
+    public List<EventDriverJSON> eventDrivers(){
         List<EventDriverJSON> result = new ArrayList<>();
         for (EventDriver eventDiver : EventDrivers.getEventDrivers()){
             result.add(EventDriverJSON.fromInstance(eventDiver));
@@ -26,7 +26,7 @@ public class EventDriverController {
 
 
     @GetMapping("/event_drivers/{eventDriver}")
-    public EventDriverJSON canonicizer(@PathVariable String eventDriver){
+    public EventDriverJSON eventDriver(@PathVariable String eventDriver){
         try {
             return EventDriverJSON.fromInstance(EventDrivers.getEventDriver(eventDriver));
         } catch (Exception e) {
