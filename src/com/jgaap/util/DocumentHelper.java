@@ -58,7 +58,7 @@ class DocumentHelper {
 			text = readText(is, charset);
 			is.close();
 		}
-		text = CRLFtoLF(text);
+		text = replaceCRLF(text);
 		return text;
 	}
 
@@ -74,7 +74,7 @@ class DocumentHelper {
 		}
 	}
 
-	static private String CRLFtoLF(String text) {
+	static private String replaceCRLF(String text) {
 		// change CRLF sequences (\r\n, typical in Windows text files) to LF (\n, Linux & Mac)
 		text = text.replaceAll("\r(?=\n)", "");
 		return text;
