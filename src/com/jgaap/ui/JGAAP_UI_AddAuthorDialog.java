@@ -162,14 +162,14 @@ public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
                                 .addComponent(AddDocumentsButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(RemoveDocumentsButton))
-                            .addComponent(AuthorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(AuthorTextField, 20, 223, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, 10, 581, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(260, 260, 260)
+                        .addGap(100, 100, 100)
                         .addComponent(OKButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(CancelButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +180,7 @@ public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(AuthorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, 30, 91, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RemoveDocumentsButton)
@@ -189,7 +189,7 @@ public class JGAAP_UI_AddAuthorDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CancelButton)
                     .addComponent(OKButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, 10))
         );
 
         pack();
