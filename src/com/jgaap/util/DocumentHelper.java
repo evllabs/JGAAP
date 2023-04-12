@@ -33,6 +33,7 @@ import org.apache.tika.Tika;
  * A helper class for Document that handles all the different ways documents can be loaded
  * 
  * @author Michael Ryan
+ * @contributor Michael Fang
  * @since 5.0.0
  */
 
@@ -57,6 +58,7 @@ class DocumentHelper {
 			text = readText(is, charset);
 			is.close();
 		}
+		text = CRLFtoLF(text);
 		return text;
 	}
 
@@ -70,6 +72,12 @@ class DocumentHelper {
 		} else {
 			return Document.Type.GENERIC;
 		}
+	}
+
+	static private String CRLFtoLF(String text) {
+		// change CRLF sequences (\r\n, typical in Windows text files) to LF (\n, Linux & Mac)
+		text = text.replaceAll("\r(?=\n)", "");
+		return text;
 	}
 	
 	static private InputStream getInputStream(String filepath) throws Exception{
