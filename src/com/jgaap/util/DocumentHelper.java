@@ -75,8 +75,8 @@ class DocumentHelper {
 	}
 
 	static private String replaceCRLF(String text) {
-		// change CRLF sequences (\r\n, typical in Windows text files) to LF (\n, Linux & Mac)
-		text = text.replaceAll("\r(?=\n)", "");
+		// change CRLF sequences (\r, \n, and \r\n) to LF (\n)
+		text = text.replaceAll("(\r\n)|\r|\n", "\n");
 		return text;
 	}
 	
