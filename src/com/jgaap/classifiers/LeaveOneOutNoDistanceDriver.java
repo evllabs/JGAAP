@@ -64,7 +64,7 @@ public class LeaveOneOutNoDistanceDriver extends NonDistanceDependentAnalysisDri
     	List<Document> knownsTemp = new ArrayList<>();
     	for(Document known : knownDocuments)
     		if(known != fakeUnknown)
-    			knownsTemp.add(fakeUnknown);
+    			knownsTemp.add(known);
     	
     	// Pass the temporary known list and the fake unknown to the analysis driver that this
     	// driver depends on, and return the result.
