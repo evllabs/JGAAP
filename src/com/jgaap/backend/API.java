@@ -87,8 +87,7 @@ public class API {
 	private Language language;
 	private List<EventDriver> eventDrivers;
 	private List<EventCuller> eventCullers;
-	private List<AnalysisDriver> analysisDrivers;
-	
+	private List<AnalysisDriver> analysisDrivers;	
 	private ExecutorService executor;
 
 	private static final API INSTANCE = new API();
@@ -715,34 +714,82 @@ public class API {
 			}
 		}
 		for (AnalysisDriver analysisDriver : analysisDrivers) {
-			logger.info("Training " + analysisDriver.displayName());
-			analysisDriver.train(knownDocuments);
-			logger.info("Finished Training "+analysisDriver.displayName());
 			List<Future<Document>> futureDocuments = new ArrayList<Future<Document>>();
-			if (analysisDriver instanceof ValidationDriver ||
-					analysisDriver instanceof LeaveOneOutNoDistanceDriver) {
+			if(analysisDriver instanceof ValidationDriver) { //For some reason, if we unify ValidationDriver and LeaveOneOutNoDistanceDriver into the same if statement, it doesn't work.
 				for (Document knownDocument : knownDocuments) {
-					futureDocuments.add(executor.submit(new AnalysisWorker(knownDocument, analysisDriver)));
+					List<Document> knownDocuments2 = new ArrayList<Document>();
+					for(Document knownDocument2 : knownDocuments){
+//This is messy and time-consuming, but setting knownDocuments2 = knownDocuments and then removing knownDocument from knownDocuments2 doesn't work, not sure why.
+						if(!knownDocument2.equals(knownDocument))
+							knownDocuments2.add(knownDocument2);
+					}
+					logger.info("Training " + analysisDriver.displayName());
+					analysisDriver.train(knownDocuments2);
+					logger.info("Finished Training "+analysisDriver.displayName());
+					futureDocuments.add(executor.submit(new AnalysisWorker(knownDocument, analysisDriver)));	
+				//await analysis to finish
+					while(futureDocuments.size() != 0){
+						Iterator<Future<Document>> iterator = futureDocuments.iterator();
+						while(iterator.hasNext()) {
+							Future<Document> futureDocument = iterator.next();
+							if(futureDocument.isDone()) {
+								iterator.remove();
+							}
+						}
+				
+					}
 				}
+			} else if(analysisDriver instanceof LeaveOneOutNoDistanceDriver) {
+				for (Document knownDocument : knownDocuments) {
+					List<Document> knownDocuments2 = new ArrayList<Document>();
+					for(Document knownDocument2 : knownDocuments){
+//This is messy and time-consuming, but setting knownDocuments2 = knownDocuments and then removing knownDocument from knownDocuments2 doesn't work, not sure why.
+						if(!knownDocument2.equals(knownDocument))
+							knownDocuments2.add(knownDocument2);
+					} 
+					logger.info("Training " + analysisDriver.displayName());
+					analysisDriver.train(knownDocuments2);
+					logger.info("Finished Training "+analysisDriver.displayName());
+					futureDocuments.add(executor.submit(new AnalysisWorker(knownDocument, analysisDriver)));
+					//await analysis to finish
+					while(futureDocuments.size() != 0){
+						Iterator<Future<Document>> iterator = futureDocuments.iterator();
+						while(iterator.hasNext()) {
+							Future<Document> futureDocument = iterator.next();
+							if(futureDocument.isDone()) {
+								iterator.remove();
+							}
+						}
+					
+					}
+				}
+				
 			} else if (analysisDriver instanceof WEKAAnalysisDriver){
+				logger.info("Training " + analysisDriver.displayName());
+				analysisDriver.train(knownDocuments);
+				logger.info("Finished Training "+analysisDriver.displayName());
 				for (Document unknownDocument : unknownDocuments){
 					logger.info("Begining Analyzing: " + unknownDocument.toString());
 					unknownDocument.addResult(analysisDriver, analysisDriver.analyze(unknownDocument));
 					logger.info("Finished Analyzing: "+unknownDocument.toString());
 				}
 			} else {
+				logger.info("Training " + analysisDriver.displayName());
+				analysisDriver.train(knownDocuments);
+				logger.info("Finished Training "+analysisDriver.displayName());
 				for (Document unknownDocument : unknownDocuments) {
 					futureDocuments.add(executor.submit(new AnalysisWorker(unknownDocument, analysisDriver)));
 				}
-			}
-			//await analysis to finish
-			while(futureDocuments.size() != 0){
-				Iterator<Future<Document>> iterator = futureDocuments.iterator();
-				while(iterator.hasNext()) {
-					Future<Document> futureDocument = iterator.next();
-					if(futureDocument.isDone()) {
-						iterator.remove();
+				//await analysis to finish
+				while(futureDocuments.size() != 0){
+					Iterator<Future<Document>> iterator = futureDocuments.iterator();
+					while(iterator.hasNext()) {
+						Future<Document> futureDocument = iterator.next();
+						if(futureDocument.isDone()) {
+							iterator.remove();
+						}
 					}
+				
 				}
 			}
 			logger.info("Finished Analysis with "+analysisDriver.displayName());
