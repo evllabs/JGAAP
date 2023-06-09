@@ -20,7 +20,8 @@
 	</path>
 
 	<target name="clean">
-		<delete dir="../bin" />
+		<delete dir="unittest_logs" />
+		<delete dir="../bin/com" />
 		<delete dir="../JGGAP.jar" />
 	</target>
 
