@@ -62,12 +62,14 @@ public class LeaveOneOutNoDistanceDriver extends NonDistanceDependentAnalysisDri
     	// document. We call this document a fake unknown because it is actually known,
     	// but we want to pretend that it isn't.
     	List<Document> knownsTemp = new ArrayList<>();
-    	for(Document known : knownDocuments)
-    		if(known != fakeUnknown)
+    	for(Document known : knownDocuments) {
+    		if(!known.equals(fakeUnknown))
     			knownsTemp.add(known);
-    	
+    	}
+    	// Set the analysisDriver's parameters.
     	// Pass the temporary known list and the fake unknown to the analysis driver that this
     	// driver depends on, and return the result.
+    	analysisDriver.setParamGUI(getParamGUI());
     	analysisDriver.train(knownsTemp);
     	return analysisDriver.analyze(fakeUnknown);
     }
