@@ -22,7 +22,7 @@
 	<target name="clean">
 		<delete dir="unittest_logs" />
 		<delete dir="../bin/com" />
-		<delete dir="../JGGAP.jar" />
+		<delete file="../JGGAP.jar" />
 	</target>
 
 	<target name="init">
