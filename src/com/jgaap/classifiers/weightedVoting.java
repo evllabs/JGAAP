@@ -30,7 +30,7 @@ public class weightedVoting extends AnalysisDriver {
 	private static Set<Pair<AnalysisDriver, Double>> weights = new HashSet<Pair<AnalysisDriver, Double>>();
 	private static Set<String> authors = new HashSet<String>();
 	private static Logger logger = Logger.getLogger(weightedVoting.class);
-
+	private static List<Document> knowns = new ArrayList<Document>();
 	
 	public weightedVoting() {
 		addParams("Classifiers", "Classifiers to be put to a vote.","Comma-separated list. Add | before parameters.", new String[] {""}, true); //TODO: Get all classifiers and add them to the array, then call each of them
@@ -61,6 +61,7 @@ public class weightedVoting extends AnalysisDriver {
 	public void train(List<Document> knownDocuments) throws AnalyzeException {
 		for(Document doc : knownDocuments)
 			authors.add(doc.getAuthor());
+		knowns = knownDocuments;
 		Set<AnalysisDriver> clsfr = new HashSet<AnalysisDriver>(); 
 		for(String s : getParameter("Classifiers").split(",")) {
 			try {
@@ -85,16 +86,13 @@ public class weightedVoting extends AnalysisDriver {
 		classifiers = clsfr;
 		 weights = WeightingMethod.weight(classifiers, knownDocuments, getParameter("WeightingMethod"), getParameter("AuthorsForCrossval"));
 		 Set<Pair<AnalysisDriver, Double>> weighted = new HashSet<Pair<AnalysisDriver,Double>>();
+		 if(!getParameter("Cutoff").equals("0")) {
 		 for(Pair<AnalysisDriver, Double> weight : weights)
 				if(weight.getSecond()>=(Double.parseDouble(getParameter("Cutoff"))/100))
 					weighted.add(weight);
 		 weightedClassifiers = weighted;
-		 for(Pair<AnalysisDriver, Double> weightedClassifier : weightedClassifiers) {
-				logger.info("Training " + weightedClassifier.getFirst().displayName() + " for analysis");
-				weightedClassifier.getFirst().train(knownDocuments);
-				logger.info("Finished training " + weightedClassifier.getFirst().displayName() + " for analysis");
+		 }
 	}
-}
 	/**
 	 * Analyzes the unknown document and tallies the weighted votes.
 	 * @param Document unknownDocument. Pass in the document to be analyzed. 
@@ -126,6 +124,11 @@ public class weightedVoting extends AnalysisDriver {
 
 	@Override
 	public List<Pair<String, Double>> analyze(Document unknownDocument) throws AnalyzeException {
+		for(Pair<AnalysisDriver, Double> weightedClassifier : weightedClassifiers) {
+			logger.info("Training " + weightedClassifier.getFirst().displayName() + " for analysis");
+			weightedClassifier.getFirst().train(knowns);
+			logger.info("Finished training " + weightedClassifier.getFirst().displayName() + " for analysis");
+			}
 		Map<String, Double> authorVoteSumMap = vote(unknownDocument);
 		Comparator<Pair<String, Double>> compareByScore = (Pair<String, Double> r1, Pair<String, Double> r2) -> r2.getSecond().compareTo(r1.getSecond());
 		List<Pair<String,Double>> authorVoteSum = new ArrayList<Pair<String,Double>>();
