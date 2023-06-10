@@ -22,6 +22,7 @@
 	<target name="clean">
 		<delete dir="unittest_logs" />
 		<delete dir="../bin/com" />
+		<delete file="../JGGAP.jar" />
 	</target>
 
 	<target name="init">
@@ -96,6 +97,17 @@
 			<jvmarg value="-XX:+UseG1GC"/>
 			<classpath refid="run-classpath" />
 		</java>
+	</target>
+	
+	<target name="jar" depends="build">
+		<jar destfile="../JGGAP.jar" basedir="../bin" excludes="unittest_logs/**">
+			<zipgroupfileset dir="../lib/external" includes="*.jar" excludes="junit.jar" />
+			
+			<manifest>
+				<attribute name="Main-Class" value="com.jgaap.JGAAP"/>
+				<attribute name="Class-Path" value="."/>
+			</manifest>
+		</jar>
 	</target>
 
 	<!-- ant cli -Dcli="arguments to CLI go here" -->
