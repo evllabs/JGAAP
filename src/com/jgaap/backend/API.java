@@ -740,10 +740,18 @@ public class API {
 					}
 				}
 			} else if(analysisDriver instanceof LeaveOneOutNoDistanceDriver) {
+				if(analysisDriver.displayName().contains("Weighted Voting")) {
+					analysisDriver.train(knownDocuments);
+					for(Document knownDocument : knownDocuments) { //Weighted voting is NOT training on test here
+						//when the user trains weighted voting, all it does is assign the weights to the classifiers by implementing LOOCV
+						// Upon calling analyze, it will train its classifiers for analysis
+						analysisDriver.analyze(knownDocument);
+					}
+				}
+				else {
 				for (Document knownDocument : knownDocuments) {
 					List<Document> knownDocuments2 = new ArrayList<Document>();
 					for(Document knownDocument2 : knownDocuments){
-//This is messy and time-consuming, but setting knownDocuments2 = knownDocuments and then removing knownDocument from knownDocuments2 doesn't work, not sure why.
 						if(!knownDocument2.equals(knownDocument))
 							knownDocuments2.add(knownDocument2);
 					} 
@@ -758,9 +766,10 @@ public class API {
 							Future<Document> futureDocument = iterator.next();
 							if(futureDocument.isDone()) {
 								iterator.remove();
+								}
 							}
-						}
 					
+						}
 					}
 				}
 				
