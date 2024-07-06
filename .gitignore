@@ -1,7 +1,5 @@
-bin/*
 .DS_Store
-/bin/
-src/unittest_logs
-.vscode
-.project
-JGGAP.jar
+/build
+/bin
+/jgaap/build
+/.gradle

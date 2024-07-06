@@ -1,0 +1,105 @@
+name: Package JGAAP
+
+on:
+  push:
+    branches: [ "gradle" ]
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  build-windows-installer:
+    name: Build Installer on Windows
+    runs-on: windows-latest
+    steps:
+
+# SETUP BUILD ENVIRONMENT
+    - id: checkout-code
+      name: Checkout code
+      uses: actions/checkout@v4
+    - id: setup-jdk
+      name: Setup JDK
+      uses: actions/setup-java@v4
+      with:
+        java-package: jdk+fx
+        architecture: x64
+        distribution: 'zulu'
+        java-version: '21'
+
+# BUILD FOR DISTRIBUTION
+    - id: build
+      name: Build distribution
+      run: ./gradlew jpackage
+
+# SAVE INSTALLER
+    - id: upload-installer
+      name: Upload installer
+      uses: actions/upload-artifact@v4
+      with:
+        path: ./jgaap/build/jpackage/JGAAP-9.0.0.msi
+        name: windows-installer
+        retention-days: 1
+        
+  build-macos-intel-installer:
+    name: Build Installer on macOS intel
+    runs-on: macos-13
+    steps:
+
+# SETUP BUILD ENVIRONMENT
+    - id: checkout-code
+      name: Checkout code
+      uses: actions/checkout@v4
+    - id: setup-jdk
+      name: Setup JDK
+      uses: actions/setup-java@v4
+      with:
+        java-package: jdk+fx
+        architecture: x64
+        distribution: 'zulu'
+        java-version: '21'
+
+# BUILD FOR DISTRIBUTION
+    - id: build
+      name: Build distribution
+      run: ./gradlew jpackage
+
+# SAVE INSTALLER
+    - id: upload-installer
+      name: Upload installer
+      uses: actions/upload-artifact@v4
+      with:
+        path: ./jgaap/build/jpackage/JGAAP-x86_64-9.0.0.dmg
+        name: macOS-dmg-Intel
+        retention-days: 1
+        
+  build-macos-AS-installer:
+    name: Build Installer on macOS ARM
+    runs-on: macos-latest
+    steps:
+
+# SETUP BUILD ENVIRONMENT
+    - id: checkout-code
+      name: Checkout code
+      uses: actions/checkout@v4
+    - id: setup-jdk
+      name: Setup JDK
+      uses: actions/setup-java@v4
+      with:
+        java-package: jdk+fx
+        architecture: aarch64
+        distribution: 'zulu'
+        java-version: '21'
+
+# BUILD FOR DISTRIBUTION
+    - id: build
+      name: Build distribution
+      run: ./gradlew jpackage
+
+# SAVE INSTALLER
+    - id: upload-installer
+      name: Upload installer
+      uses: actions/upload-artifact@v4
+      with:
+        path: ./jgaap/build/jpackage/JGAAP-aarch64-9.0.0.dmg
+        name: macOS-dmg-AS
+        retention-days: 1

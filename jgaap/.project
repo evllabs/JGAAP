@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>jgaap</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>java.bs.JavaProblemChecker</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.microsoft.gradle.bs.importer.builder.BuildServerBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>com.microsoft.gradle.bs.importer.GradleBuildServerProjectNature</nature>
+	</natures>
+	<filteredResources>
+		<filter>
+			<id>1719866669648</id>
+			<name></name>
+			<type>30</type>
+			<matcher>
+				<id>org.eclipse.core.resources.regexFilterMatcher</id>
+				<arguments>node_modules|\.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
+	<variableList>
+		<variable>
+			<name>bspSchemaVersion</name>
+			<value>0.1.0</value>
+		</variable>
+	</variableList>
+</projectDescription>

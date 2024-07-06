@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="build/resources/test" path="src/test/resources">
+		<attributes>
+			<attribute name="test" value="true"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="gradle.buildServer" value="true"/>
+			<attribute name="resource" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="build/classes/java/test" path="src/test/java">
+		<attributes>
+			<attribute name="test" value="true"/>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="build/resources/main" path="src/main/resources">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="gradle.buildServer" value="true"/>
+			<attribute name="resource" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="build/classes/java/main" path="src/main/java">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="build/classes/java/test" path="build/generated/sources/annotationProcessor/java/test">
+		<attributes>
+			<attribute name="test" value="true"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="build/classes/java/main" path="build/generated/sources/annotationProcessor/java/main">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/JavaSE-21">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/log4j-api-2.23.1.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/tika-app-1.5.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-controls/21.0.3/a1480c6d722ef83a70e3a6718497315bfb74914b/javafx-controls-21.0.3-mac-aarch64.jar" sourcepath="/Users/edward/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-controls/21.0.3/6607d8679ab3724686c117f6f2e25fc42056d4ef/javafx-controls-21.0.3-sources.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/stanford-ner-2012-07-09.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/jscience-4.3.1.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/stanford-postagger-2012-07-09.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/guava-17.0.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/javassist-3.17.1.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/log4j-core-2.23.1.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/junit.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/log4j-iostreams-2.23.1.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/WordSegment.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/edu.mit.jwi_2.2.3.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/21.0.3/cc4dc214ce1d3fcdb36efc2bbbde6a636d1b8c62/javafx-graphics-21.0.3-mac-aarch64.jar" sourcepath="/Users/edward/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/21.0.3/da47edb57f542ab27d2daad997adea992f816dc3/javafx-graphics-21.0.3-sources.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/commons-cli-1.2.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/weka.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-base/21.0.3/d3aeec5764138999199a18a36745ea3dc85f7274/javafx-base-21.0.3-mac-aarch64.jar" sourcepath="/Users/edward/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-base/21.0.3/2a2811c40f7682766c0a69a9a20d895297d3e78f/javafx-base-21.0.3-sources.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/edward/JGAAP_JavaFX/jgaap/src/main/resources/lib/reflections-0.9.8.jar">
+		<attributes>
+			<attribute name="gradle.buildServer" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
