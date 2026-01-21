@@ -49,9 +49,12 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
 	
     private static final int DEFAULT_K = 5;
     private static final String DEFAULT_TIE = "lastPicked";
-
+    
     public KNearestNeighborDriver() {
-		addParams("k", "K", "5", new String[] {"1","2","3","4","5","6","7","8","9","10"}, false);
+		addParams("k", "K: Number of Neighbors", "5", new String[] { "1", "2",
+				"3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
+				"14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
+				"24", "25" }, false);
     }
 
 	public String displayName() {
@@ -107,7 +110,7 @@ public class KNearestNeighborDriver extends NeighborAnalysisDriver {
         }
 
         List<Pair<String, Double>> results = ballot.getResults();
-        Comparator<Pair<String, Double>> compareByScore = (Pair<String, Double> r1, Pair<String, Double> r2) -> r2.getSecond().compareTo(r1.getSecond());
+        Comparator<Pair<String, Double>> compareByScore = (Pair<String, Double> r1, Pair<String, Double> r2) -> r1.getSecond().compareTo(r2.getSecond());
         Collections.sort(results, compareByScore);
 
 		return results;
