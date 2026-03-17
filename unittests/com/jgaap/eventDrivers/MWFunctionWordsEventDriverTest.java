@@ -132,4 +132,19 @@ public class MWFunctionWordsEventDriverTest {
 		assertTrue(expectedEventSet.equals(sampleEventSet));
 	}
 
+	@Test
+	public void testCreateEventSetCaseInsensitiveMatching() throws EventGenerationException {
+		String text = "THE the The tHe Distractor";
+		EventDriver eventDriver = new MWFunctionWordsEventDriver();
+		EventSet sampleEventSet = eventDriver.createEventSet(text.toCharArray());
+		EventSet expectedEventSet = new EventSet();
+		Vector<Event> tmp = new Vector<Event>();
+		tmp.add(new Event("THE", eventDriver));
+		tmp.add(new Event("the", eventDriver));
+		tmp.add(new Event("The", eventDriver));
+		tmp.add(new Event("tHe", eventDriver));
+		expectedEventSet.addEvents(tmp);
+		assertTrue(expectedEventSet.equals(sampleEventSet));
+	}
+
 }
