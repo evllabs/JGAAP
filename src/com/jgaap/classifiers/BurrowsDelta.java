@@ -52,10 +52,11 @@ public class BurrowsDelta extends AnalysisDriver {
 			eventsBuilder.addAll(eventMap.uniqueEvents());
 			knownHistogramsBuilder.put(known.getAuthor(), eventMap);
 		}
-		events = eventsBuilder.build();
+		ImmutableSet<Event> allEvents = eventsBuilder.build();
 		knownHistograms = knownHistogramsBuilder.build();
-		
+
 		ImmutableMap.Builder<Event, Double> eventStddevBuilder = ImmutableMap.builder();
+		ImmutableSet.Builder<Event> scoringEventsBuilder = ImmutableSet.builder();
 
 		if (useCentroid) {
 			ImmutableMap.Builder<String, EventMap> knownCentroidsBuilder = ImmutableMap.builder();
@@ -63,24 +64,33 @@ public class BurrowsDelta extends AnalysisDriver {
 				knownCentroidsBuilder.put(entry.getKey(), EventMap.centroid(entry.getValue()));
 			}
 			knownCentroids = knownCentroidsBuilder.build();
-			for (Event event : events) {
+			for (Event event : allEvents) {
 				List<Double> sample = new ArrayList<Double>();
 				for (EventMap histogram : knownCentroids.values()) {
 					sample.add(histogram.relativeFrequency(event));
 				}
-				eventStddevBuilder.put(event, Utils.stddev(sample));
+				double stddev = Utils.stddev(sample);
+				if (stddev > 0.0 && !Double.isInfinite(stddev)) {
+					eventStddevBuilder.put(event, stddev);
+					scoringEventsBuilder.add(event);
+				}
 			}
 		} else {
-			for (Event event : events) {
+			for (Event event : allEvents) {
 				List<Double> sample = new ArrayList<Double>();
 				for (Collection<EventMap> histograms : knownHistograms.asMap().values()) {
 					for (EventMap histogram : histograms) {
 						sample.add(histogram.relativeFrequency(event));
 					}
 				}
-				eventStddevBuilder.put(event, Utils.stddev(sample));
+				double stddev = Utils.stddev(sample);
+				if (stddev > 0.0 && !Double.isInfinite(stddev)) {
+					eventStddevBuilder.put(event, stddev);
+					scoringEventsBuilder.add(event);
+				}
 			}
 		}
+		events = scoringEventsBuilder.build();
 		eventStddev = eventStddevBuilder.build();
 	}
 
