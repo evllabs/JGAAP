@@ -22,6 +22,7 @@ package com.jgaap.eventDrivers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
 import com.google.common.collect.ImmutableSet;
 import com.jgaap.JGAAPConstants;
@@ -64,7 +65,7 @@ public class MWFunctionWordsEventDriver extends NaiveWordEventDriver {
     	String current;
     	try {
 			while((current = reader.readLine())!=null) {
-				builder.add(current.trim());
+				builder.add(current.trim().toLowerCase(Locale.ROOT));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -79,7 +80,7 @@ public class MWFunctionWordsEventDriver extends NaiveWordEventDriver {
         EventSet words = super.createEventSet(text);
         EventSet eventSet = new EventSet();
         for(Event event : words){
-        	String current = event.toString();
+        	String current = event.toString().toLowerCase(Locale.ROOT);
         	if(functionWords.contains(current)){
         		eventSet.addEvent(event);
         	}
