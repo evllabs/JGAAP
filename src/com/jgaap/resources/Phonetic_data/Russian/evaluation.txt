@@ -1,0 +1,11 @@
+    Words: 18605  Hyps: 18605 Refs: 18605
+    (T)otal tokens in reference: 164598
+    (M)atches: 160892  (S)ubstitutions: 3691  (I)nsertions: 15  (D)eletions: 15
+    % Correct (M/T)           -- %97.75
+    % Token ER ((S+I+D)/T)    -- %2.26
+    % Accuracy 1.0-ER         -- %97.74
+
+    (S)equences: 18605  (C)orrect sequences: 16786  (E)rror sequences: 1819
+    % Sequence ER (E/S)       -- %9.78
+    % Sequence Acc (1.0-E/S)  -- %90.22
+
