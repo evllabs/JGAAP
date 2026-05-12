@@ -19,6 +19,9 @@
  **/
 package com.jgaap.distances;
 
+import java.util.Set;
+
+import com.google.common.collect.Sets;
 import com.jgaap.generics.DivergenceFunction;
 import com.jgaap.util.Event;
 import com.jgaap.util.Histogram;
@@ -58,10 +61,15 @@ public class KullbackLeiblerDivergence extends DivergenceFunction {
     @Override
     public double divergence(Histogram unknownHistogram, Histogram knownHistogram) {
         double distance = 0;
+        double epsilon = 1e-10;
 
-        for(Event event : unknownHistogram.uniqueEvents()) {
-            if(knownHistogram.contains(event)){
-             distance += unknownHistogram.relativeFrequency(event) * Math.log(unknownHistogram.relativeFrequency(event)/knownHistogram.relativeFrequency(event)); 
+        Set<Event> events = Sets.union(unknownHistogram.uniqueEvents(), knownHistogram.uniqueEvents());
+        for (Event event : events) {
+            double p = unknownHistogram.relativeFrequency(event);
+            if (p > 0) {
+                double q = knownHistogram.relativeFrequency(event);
+                double smoothedQ = (q > 0) ? q : epsilon;
+                distance += p * Math.log(p / smoothedQ);
             }
         }
         return Math.abs(distance);
