@@ -10,10 +10,10 @@ import com.jgaap.util.Histogram;
 
 /**
  * Chord Distance
- * d = sqrt( 2 - 2 * (sum(xi * yi)/sqrt( sum(xi)^2 * sum(yi)^2 )) )
- * 
+ * d = sqrt( 2 - 2 * (sum(xi*yi) / sqrt(sum(xi^2) * sum(yi^2))) )
+ *
  * @author Adam Sargent
- * @version 1.0
+ * @version 1.1
  */
 
 public class ChordDistance extends DistanceFunction {
@@ -42,10 +42,11 @@ public class ChordDistance extends DistanceFunction {
 		
 		for(Event event : events){
 			sumNumer += unknownHistogram.relativeFrequency(event) * knownHistogram.relativeFrequency(event);
-			sumUnknown += unknownHistogram.relativeFrequency(event);
-			sumKnown += knownHistogram.relativeFrequency(event);
+			sumUnknown += Math.pow(unknownHistogram.relativeFrequency(event), 2);
+			sumKnown += Math.pow(knownHistogram.relativeFrequency(event), 2);
 		}
-		distance = Math.sqrt(2 - 2 * (sumNumer / Math.sqrt(sumUnknown * sumUnknown * sumKnown * sumKnown)));
+		double cosine = sumNumer / Math.sqrt(sumUnknown * sumKnown);
+		distance = Math.sqrt(2 - 2 * Math.min(1.0, cosine));
 		
 		return distance;
 	}

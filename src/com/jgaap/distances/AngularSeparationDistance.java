@@ -10,10 +10,10 @@ import com.jgaap.util.Histogram;
 
 /**
  * Angular Separation Distance
- * d = 1 - ( sum( xi * yi ) / sqrt( sum(xi)^2 * sum( yi )^2 ) )
- * 
+ * d = arccos( sum(xi*yi) / sqrt(sum(xi^2) * sum(yi^2)) ) / pi
+ *
  * @author Adam Sargent
- * @version 1.0
+ * @version 1.1
  */
 
 public class AngularSeparationDistance extends DistanceFunction {
@@ -43,10 +43,11 @@ public class AngularSeparationDistance extends DistanceFunction {
 		
 		for(Event event : events){
 			sumNumer += unknownHistogram.relativeFrequency(event) * knownHistogram.relativeFrequency(event);
-			sumUnknown += unknownHistogram.relativeFrequency(event);
-			sumKnown += knownHistogram.relativeFrequency(event);
+			sumUnknown += Math.pow(unknownHistogram.relativeFrequency(event), 2);
+			sumKnown += Math.pow(knownHistogram.relativeFrequency(event), 2);
 		}
-		distance = 1 - (sumNumer / Math.sqrt(sumUnknown * sumUnknown * sumKnown * sumKnown));
+		double cosine = sumNumer / Math.sqrt(sumUnknown * sumKnown);
+		distance = Math.acos(Math.min(1.0, cosine)) / Math.PI;
 		return distance;
 	}
 

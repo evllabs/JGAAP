@@ -32,9 +32,9 @@ public class AngularSeparationDistanceTest {
 		set1.addEvents(test1);
 		set2.addEvents(test1);
 		double result = new AngularSeparationDistance().distance(new EventMap(set1), new EventMap(set2));
-		assertTrue(DistanceTestHelper.inRange(result, 0.90, 0.0000000001));
-		
-		
+		assertTrue(DistanceTestHelper.inRange(result, 0.0, 0.0000000001));
+
+
 		set2 = new EventSet();
 		Vector<Event> test2 = new Vector<Event>();
 		test2.add(new Event("1", null));
@@ -49,7 +49,7 @@ public class AngularSeparationDistanceTest {
 		test2.add(new Event("10", null));
 		set2.addEvents(test2);
 		result = new AngularSeparationDistance().distance(new EventMap(set1), new EventMap(set2));
-		assertTrue(DistanceTestHelper.inRange(result, 1.0, 0.0000000001));
+		assertTrue(DistanceTestHelper.inRange(result, 0.5, 0.0000000001));
 	}
 
 }
