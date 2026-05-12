@@ -32,7 +32,7 @@ public class ChordDistanceTest {
 		set1.addEvents(test1);
 		set2.addEvents(test1);
 		double result = new ChordDistance().distance(new EventMap(set1), new EventMap(set2));
-		assertTrue(DistanceTestHelper.inRange(result, Math.sqrt(1.8), 0.0000000001));
+		assertTrue(DistanceTestHelper.inRange(result, 0.0, 0.0000000001));
 		
 		
 		set2 = new EventSet();
